@@ -33,7 +33,7 @@ namespace Core.Solver
 
             for( int i = 0; i < 9; i++ )
             {
-                var value = (i + 1).ToString();
+                var value = (i + 1);
                 if( grid.IsLegalValue(x, y, value) )
                 {
                     grid.SetValue(x, y, value);
@@ -44,7 +44,7 @@ namespace Core.Solver
                 }
             }
 
-            grid.SetValue(x, y, null);
+            grid.SetValue(x, y, 0);
             return false;
         }
 
@@ -54,7 +54,7 @@ namespace Core.Solver
             {
                 for( int y = 0; y < 9; y++ )
                 {
-                    if (grid.GetValue(x, y) == null)
+                    if (grid.GetValue(x, y) == 0)
                     {
                         return (x, y);
                     }

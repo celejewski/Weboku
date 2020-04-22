@@ -10,18 +10,18 @@ namespace Core.Tests
         public void Setters()
         {
             var grid = new Grid();
-            grid.SetValue(0, 0, "1");
+            grid.SetValue(0, 0, 1);
 
             var value = grid.GetValue(0, 0);
 
-            Assert.Equal("1", value);
+            Assert.Equal(1, value);
         }
 
         [Fact]
         public void IsLegalValue_IsTrue_ForUniqueValue()
         {
             var grid = new Grid();
-            var actual = grid.IsLegalValue(0, 0, "1");
+            var actual = grid.IsLegalValue(0, 0, 1);
             Assert.True(actual);
         }
 
@@ -29,8 +29,8 @@ namespace Core.Tests
         public void IsLegalValue_IsTrue_ForSameValueInDifferentHouse()
         {
             var grid = new Grid();
-            grid.SetValue(0, 0, "1");
-            var actual = grid.IsLegalValue(3, 3, "1");
+            grid.SetValue(0, 0, 1);
+            var actual = grid.IsLegalValue(3, 3, 1);
             Assert.True(actual);
         }
 
@@ -38,8 +38,8 @@ namespace Core.Tests
         public void IsLegalValue_IsTrue_ForDifferentValueInSameHouse()
         {
             var grid = new Grid();
-            grid.SetValue(0, 0, "1");
-            var actual = grid.IsLegalValue(1, 0, "2");
+            grid.SetValue(0, 0, 1);
+            var actual = grid.IsLegalValue(1, 0, 2);
             Assert.True(actual);
         }
 
@@ -47,8 +47,8 @@ namespace Core.Tests
         public void IsLegalValue_IsFalse_WhenSameValueInRow()
         {
             var grid = new Grid();
-            grid.SetValue(0, 0, "1");
-            var actual = grid.IsLegalValue(1, 0, "1");
+            grid.SetValue(0, 0, 1);
+            var actual = grid.IsLegalValue(1, 0, 1);
             Assert.False(actual);
         }
 
@@ -56,8 +56,8 @@ namespace Core.Tests
         public void IsLegalValue_IsFalse_WhenSameValueInCol()
         {
             var grid = new Grid();
-            grid.SetValue(0, 0, "1");
-            var actual = grid.IsLegalValue(0, 1, "1");
+            grid.SetValue(0, 0, 1);
+            var actual = grid.IsLegalValue(0, 1, 1);
             Assert.False(actual);
         }
 
@@ -65,8 +65,8 @@ namespace Core.Tests
         public void IsLegalValue_IsFalse_WhenSameValueInBlock()
         {
             var grid = new Grid();
-            grid.SetValue(0, 0, "1");
-            var actual = grid.IsLegalValue(2, 2, "1");
+            grid.SetValue(0, 0, 1);
+            var actual = grid.IsLegalValue(2, 2, 1);
             Assert.False(actual);
         }
 
@@ -74,8 +74,8 @@ namespace Core.Tests
         public void IsLegalValue_IsTrue_ForSameValueForSameCell()
         {
             var grid = new Grid();
-            grid.SetValue(0, 0, "1");
-            var actual = grid.IsLegalValue(0, 0, "1");
+            grid.SetValue(0, 0, 1);
+            var actual = grid.IsLegalValue(0, 0, 1);
             Assert.True(actual);
         }
 
@@ -87,9 +87,9 @@ namespace Core.Tests
             var actual_70 = grid.GetValue(7, 0);
             var actual_01 = grid.GetValue(0, 1);
 
-            Assert.Equal(null, actual_00);
-            Assert.Equal("1", actual_70);
-            Assert.Equal("4", actual_01);
+            Assert.Equal(0, actual_00);
+            Assert.Equal(1, actual_70);
+            Assert.Equal(4, actual_01);
         }
 
         [Fact]

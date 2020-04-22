@@ -5,7 +5,7 @@ namespace Core.Data
 {
     public class Grid : ICloneable
     {
-        private string[,] _grid = new string[9, 9];
+        private readonly int[,]  _grid = new int[9, 9];
 
         public Grid() { }
         public Grid(string input)
@@ -14,29 +14,25 @@ namespace Core.Data
             {
                 for( int y = 0; y < 9; y++ )
                 {
-                    var cell = input[y * 9 + x].ToString();
-                    if (cell == "0" || cell == ",")
-                    {
-                        cell = null;
-                    }
+                    var cell = int.Parse(input[y * 9 + x].ToString());
                     _grid[x, y] = cell;
                 }
             }
         }
 
-        public void SetValue(int x, int y, string value)
+        public void SetValue(int x, int y, int value)
         {
             _grid[x, y] = value;
         }
 
-        public string GetValue(int x, int y)
+        public int GetValue(int x, int y)
         {
             return _grid[x, y];
         }
 
-        public bool IsLegalValue(int x, int y, string value)
+        public bool IsLegalValue(int x, int y, int value)
         {
-            if (value == null)
+            if (value == 0)
             {
                 return true;
             }
@@ -46,7 +42,7 @@ namespace Core.Data
                 && IsLegalForBlock(x, y, value);
         }
 
-        private bool IsLegalValueForCol(int x, int y, string value)
+        private bool IsLegalValueForCol(int x, int y, int value)
         {
             for( int row = 0; row < 9; row++ )
             {
@@ -64,7 +60,7 @@ namespace Core.Data
             return true;
         }
 
-        private bool IsLegalValueForRow(int x, int y, string value)
+        private bool IsLegalValueForRow(int x, int y, int value)
         {
             for( int col = 0; col < 9; col++ )
             {
@@ -82,7 +78,7 @@ namespace Core.Data
             return true;
         }
 
-        private bool IsLegalForBlock(int x, int y, string value)
+        private bool IsLegalForBlock(int x, int y, int value)
         {
             var blockX = (x / 3) * 3;
             var blockY = (y / 3) * 3;
@@ -115,7 +111,7 @@ namespace Core.Data
             {
                 for( int x = 0; x < 9; x++ )
                 {
-                    sb.Append(_grid[x, y] ?? "0");
+                    sb.Append(_grid[x, y]);
                 }
             }
 
