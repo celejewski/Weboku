@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29728.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "ClassLibrary1\Core.csproj", "{7C81A373-0FEF-46AB-B098-908398182D20}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Tests", "Core.Tests\Core.Tests.csproj", "{9FACBDFB-CF92-4507-9412-6A46234AAD1A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleUI", "ConsoleUI\ConsoleUI.csproj", "{15D77BF3-F822-43C5-B0A0-F7E5C8DE5423}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7C81A373-0FEF-46AB-B098-908398182D20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C81A373-0FEF-46AB-B098-908398182D20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C81A373-0FEF-46AB-B098-908398182D20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C81A373-0FEF-46AB-B098-908398182D20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FACBDFB-CF92-4507-9412-6A46234AAD1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FACBDFB-CF92-4507-9412-6A46234AAD1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FACBDFB-CF92-4507-9412-6A46234AAD1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FACBDFB-CF92-4507-9412-6A46234AAD1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15D77BF3-F822-43C5-B0A0-F7E5C8DE5423}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15D77BF3-F822-43C5-B0A0-F7E5C8DE5423}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15D77BF3-F822-43C5-B0A0-F7E5C8DE5423}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15D77BF3-F822-43C5-B0A0-F7E5C8DE5423}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1C63854B-BEBA-4EF0-8C22-21ECD53E743C}
+	EndGlobalSection
+EndGlobal
