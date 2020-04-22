@@ -30,7 +30,7 @@ namespace Core.Generator
         {
 
             var grid = new Grid();
-            int tries = 100;
+            int tries = 70;
 
             for( int i = 0; i < tries; i++ )
             {

@@ -15,7 +15,7 @@ namespace Core.Solver
             }
             else
             {
-                throw new ArgumentException("Not solution found");
+                return null;
             }
 
         }
