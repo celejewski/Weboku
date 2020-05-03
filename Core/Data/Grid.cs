@@ -36,6 +36,10 @@ namespace Core.Data
                 {
                     var cell = int.Parse(input[y * 9 + x].ToString());
                     SetValue(x, y, cell);
+                    if (cell != 0)
+                    {
+                        _cells[x, y].IsGiven = true;
+                    }
                 }
             }
         }
