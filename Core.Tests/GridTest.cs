@@ -100,5 +100,31 @@ namespace Core.Tests
             var actual = grid.ToString();
             Assert.Equal(input, actual);
         }
+
+        [Fact]
+        public void WhenGridIsEmpty_CellHas10Candidates()
+        {
+            var grid = new Grid();
+            var actual = grid.Cells[0, 0].Candidates.Count;
+            Assert.Equal(9, actual);
+        }
+
+        [Fact]
+        public void WhenGridIsFilled_CandidatesAreRemoved()
+        {
+            var grid = new Grid();
+            grid.SetValue(0, 0, 1);
+            var actual = grid.Cells[0, 1].Candidates.Count;
+            Assert.Equal(8, actual);
+        }
+
+        [Fact]
+        public void WhenGridIsFilled_UnseenCellsAreUnaffected()
+        {
+            var grid = new Grid();
+            grid.SetValue(0, 0, 1);
+            var actual = grid.Cells[4, 4].Candidates.Count;
+            Assert.Equal(9, actual);
+        }
     }
 }

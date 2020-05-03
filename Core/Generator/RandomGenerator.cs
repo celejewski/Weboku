@@ -32,36 +32,43 @@ namespace Core.Generator
             var grid = new Grid();
             int tries = 70;
 
-            for( int i = 0; i < tries; i++ )
-            {
-                var (x, y, value) = (
-                    _random.Next(0, 9),
-                    _random.Next(0, 9),
-                    _random.Next(1, 10)
-                    );
-
-                if( grid.IsLegalValue(x, y, value) )
-                {
-                    grid.SetValue(x, y, value);
-                }
-            }
 
             var simpleSolver = new SimpleSolver();
             var simpleReverseSolver = new SimpleReverseSolver();
 
-            try
+            for( int i = 0; i < 40; i++ )
             {
-                if( simpleSolver.Solve(grid) == simpleReverseSolver.Solve(grid))
+                TryAddGiven(grid);
+            }
+
+            for( int i = 0; i < tries; i++ )
+            {
+                var a = simpleSolver.Solve(grid);
+                var b = simpleReverseSolver.Solve(grid);
+                if( a == b && a != null )
                 {
                     return grid;
                 }
-            }
-            catch
-            {
-
+                TryAddGiven(grid);
             }
 
             return null;
+        }
+
+        public Grid TryAddGiven(Grid grid)
+        {
+            var (x, y, value) = (
+                _random.Next(0, 9),
+                _random.Next(0, 9),
+                _random.Next(1, 10)
+                );
+
+            if( grid.IsLegalValue(x, y, value) )
+            {
+                grid.SetValue(x, y, value);
+            }
+
+            return grid;
         }
     }
 }

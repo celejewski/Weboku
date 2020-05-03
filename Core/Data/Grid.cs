@@ -1,21 +1,36 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Core.Data
 {
     public class Grid : ICloneable
     {
-        private readonly int[,]  _grid = new int[9, 9];
+        private readonly Cell[,] _cells;
+        public ICell[,] Cells { get => _cells; }
 
-        public Grid() { }
-        public Grid(string input)
+        private readonly int[,] _grid = new int[9, 9];
+
+        public Grid() 
+        {
+            _cells = new Cell[9, 9];
+            for( int x = 0; x < 9; x++ )
+            {
+                for( int y = 0; y < 9; y++ )
+                {
+                    _cells[x, y] = new Cell();
+                }
+            }
+        }
+        public Grid(string input) : this()
         {
             for( int x = 0; x < 9; x++ )
             {
                 for( int y = 0; y < 9; y++ )
                 {
                     var cell = int.Parse(input[y * 9 + x].ToString());
-                    _grid[x, y] = cell;
+                    SetValue(x, y, cell);
                 }
             }
         }
@@ -23,62 +38,53 @@ namespace Core.Data
         public void SetValue(int x, int y, int value)
         {
             _grid[x, y] = value;
+            _cells[x, y].Input.Value = value;
+            bool isLegal = IsLegalValue(x, y, value);
+            _cells[x, y].Input.IsLegal = isLegal;
+
+            if( value != 0 && isLegal )
+            {
+                foreach( var cell in GetCellsWhichCanSee(x, y) )
+                {
+                    var cellInput = cell.Candidates.FirstOrDefault(ci => ci.Value == value);
+                    if( cellInput != null )
+                    {
+                        cell.Candidates.Remove(cellInput);
+                    }
+                }
+            }
         }
 
         public int GetValue(int x, int y)
         {
-            return _grid[x, y];
+            return _cells[x, y].Input.Value;
         }
 
-        public bool IsLegalValue(int x, int y, int value)
+        private IEnumerable<Cell> GetCellsWhichCanSee(int x, int y)
         {
-            if (value == 0)
-            {
-                return true;
-            }
+            var indexes = GetIndexesFromCol(x)
+                .Concat(GetIndexesFromRow(y))
+                .Concat(GetIndexesFromBlock(x, y));
 
-            return IsLegalValueForCol(x, y, value)
-                && IsLegalValueForRow(x, y, value)
-                && IsLegalForBlock(x, y, value);
+            return indexes.Select(index => _cells[index.x, index.y]);
         }
-
-        private bool IsLegalValueForCol(int x, int y, int value)
-        {
-            for( int row = 0; row < 9; row++ )
-            {
-                if (row == y)
-                {
-                    continue;
-                }
-
-                if( _grid[x, row] == value )
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
-        private bool IsLegalValueForRow(int x, int y, int value)
+        public IEnumerable<(int x, int y)> GetIndexesFromRow(int y)
         {
             for( int col = 0; col < 9; col++ )
             {
-                if (col == x)
-                {
-                    continue;
-                }
-
-                if( _grid[col, y] == value )
-                {
-                    return false;
-                }
+                yield return (col, y);
             }
-
-            return true;
         }
 
-        private bool IsLegalForBlock(int x, int y, int value)
+        public IEnumerable<(int x, int y)> GetIndexesFromCol(int x)
+        {
+            for( int row = 0; row < 9; row++ )
+            {
+                yield return (x, row);
+            }
+        }
+
+        public IEnumerable<(int x, int y)> GetIndexesFromBlock(int x, int y)
         {
             var blockX = (x / 3) * 3;
             var blockY = (y / 3) * 3;
@@ -88,19 +94,43 @@ namespace Core.Data
                 {
                     var targetX = blockX + offsetX;
                     var targetY = blockY + offsetY;
-                    if (targetX == x && targetY == y)
-                    {
-                        continue;
-                    }
-
-                    if( _grid[targetX, targetY] == value )
-                    {
-                        return false;
-                    }
+                    yield return (targetX, targetY);
                 }
             }
+        }
 
-            return true;
+        public bool IsLegalValue(int x, int y, int value)
+        {
+            if( value == 0 )
+            {
+                return true;
+            }
+
+            return IsLegalValueForCol(x, y, value)
+                && IsLegalValueForRow(x, y, value)
+                && IsLegalForBlock(x, y, value);
+        }
+
+        private bool IsLegalValueFor(int x, int y, int value, IEnumerable<(int x, int y)> indexesToCheck)
+        {
+            return value == 0 || indexesToCheck
+                .Where(index => !(index.x == x && index.y == y))
+                .All(index => _grid[index.x, index.y] != value);
+        }
+
+        private bool IsLegalValueForCol(int x, int y, int value)
+        {
+            return IsLegalValueFor(x, y, value, GetIndexesFromCol(x));
+        }
+
+        private bool IsLegalValueForRow(int x, int y, int value)
+        {
+            return IsLegalValueFor(x, y, value, GetIndexesFromRow(y));
+        }
+
+        private bool IsLegalForBlock(int x, int y, int value)
+        {
+            return IsLegalValueFor(x, y, value, GetIndexesFromBlock(x, y));
         }
 
         public override string ToString()

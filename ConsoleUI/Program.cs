@@ -21,7 +21,7 @@ namespace ConsoleUI
             };
 
             var stopwatch = Stopwatch.StartNew();
-            for( int i = 0; i < 100; i++ )
+            for( int i = 0; i < 1; i++ )
             {
                 foreach( var sudoku in sudokus )
                 {
@@ -32,7 +32,12 @@ namespace ConsoleUI
             stopwatch.Stop();
             Console.WriteLine("Elapsed time " + stopwatch.ElapsedMilliseconds.ToString());
 
-            
+            var generator = new RandomGenerator();
+
+            stopwatch = Stopwatch.StartNew();
+            var generated = generator.Generate();
+            stopwatch.Stop();
+            Console.WriteLine("Generator done in " + stopwatch.ElapsedMilliseconds.ToString());
         }
     }
 }
