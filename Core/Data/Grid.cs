@@ -64,6 +64,25 @@ namespace Core.Data
             }
         }
 
+        public void ToggleCandidate(int x, int y, int value)
+        {
+            var cell = _cells[x, y];
+
+            var existingCandidate = cell.Candidates.FirstOrDefault(candidate => candidate.Value == value);
+            if ( existingCandidate == null)
+            {
+                cell.Candidates.Add(new CellInput
+                {
+                    Value = value,
+                    IsLegal = IsLegalValue(x, y, value)
+                });
+            } 
+            else
+            {
+                cell.Candidates.Remove(existingCandidate);
+            }
+        }
+
         public int GetValue(int x, int y)
         {
             return _cells[x, y].Input.Value;

@@ -2,7 +2,8 @@
 {
     <div class="cell input @BackgroundClass @InputIsHighlightedClass @GivenClass"
          style="@Border"
-         @onclick="OnClick">
+         @onclick="OnClickCallback"
+         @oncontextmenu:preventDefault="true">
         <div class="value @InputIsIllegalClass">
             @Cell.Input.Value
         </div>
@@ -12,15 +13,21 @@ else
 {
     <div class="cell candidates @BackgroundClass @CandidateIsHighlightedClass"
          style="@Border"
-         @onclick="OnClick">
+         @onclick="OnClickCallback"
+         @oncontextmenu="OnRightClickCallback"
+         @oncontextmenu:preventDefault="true">
         @for( int value = 1; value < 10; value++ )
         {
             <div class="candidate">
-                @if( Cell.Candidates.Any(candidate => candidate.Value == value) )
-                {
-                    <div class="value">
-                        @value
-                    </div>
+                @{
+                    var candidate = Cell.Candidates.FirstOrDefault(candidate => candidate.Value == value);
+                    if(candidate != null)
+                    {
+                        var isIllegalClass = candidate.IsLegal ? "" : "illegalInput";
+                        <div class="value @isIllegalClass">
+                            @value
+                        </div>
+                        }
                 }
             </div>
         }
@@ -33,12 +40,11 @@ else
     [Parameter]
     public EventCallback<int> SelectedValueChanged { get; set; }
 
-    private void OnClick()
-    {
-        OnClickCallback();
-    }
     [Parameter]
     public Action OnClickCallback { get; set; }
+
+    [Parameter]
+    public Action OnRightClickCallback { get; set; }
 
     [Parameter]
     public ICell Cell { get; set; }

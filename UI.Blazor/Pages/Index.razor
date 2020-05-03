@@ -15,10 +15,10 @@
             @for( int x = 0; x < 9; x++ )
             {
                 var cell = Cells[x, y];
-                Action action = () => OnCellClick(cell);
                 <CellComponent @bind-Cell="cell"
                                @bind-SelectedValue="SelectedValue"
-                               OnClickCallback="action">
+                               OnClickCallback=" () => OnLeftCellClick(cell)"
+                               OnRightClickCallback="() => OnCellRightClick(cell)">
                 </CellComponent>
             }
         </div>
@@ -37,7 +37,7 @@
             .Replace('.', '0'));
     }
 
-    public void OnCellClick(ICell cell)
+    public void OnLeftCellClick(ICell cell)
     {
         if (cell.IsGiven)
         {
@@ -54,5 +54,15 @@
             _grid.SetValue(cell.Col, cell.Row, 0);
             StateHasChanged();
         }
+    }
+
+    public void OnCellRightClick(ICell cell)
+    {
+        if (cell.Input.Value != 0 || SelectedValue == 0)
+        {
+            return;
+        }
+
+        _grid.ToggleCandidate(cell.Col, cell.Row, SelectedValue);
     }
 }
