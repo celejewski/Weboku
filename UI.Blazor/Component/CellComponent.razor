@@ -1,0 +1,91 @@
+﻿@if( Cell.HasValue )
+{
+    <div class="cell input @BackgroundClass @InputIsHighlightedClass @GivenClass"
+         style="@Border"
+         @onclick="OnClick">
+        @Cell.Value
+    </div>
+}
+else
+{
+    <div class="cell candidates @BackgroundClass @CandidateIsHighlightedClass"
+         style="@Border"
+         @onclick="OnClick">
+        @for( int value = 1; value < 10; value++ )
+        {
+            <div class="candidate">
+                @if( Cell.Candidates.Any(candidate => candidate.Value == value) )
+                {
+                    @value
+                }
+            </div>
+        }
+    </div>
+}
+@code {
+    [Parameter]
+    public int SelectedValue { get; set; }
+
+    [Parameter]
+    public EventCallback<int> SelectedValueChanged { get; set; }
+
+    private string InputIsHighlightedClass
+    {
+        get
+        {
+            return Cell.HasValue && SelectedValue == Cell.Value ? "highlight" : String.Empty;
+        }
+    }
+
+    private string CandidateIsHighlightedClass
+    {
+        get
+        {
+            return Cell.Candidates.Any(candidate => candidate.Value == SelectedValue) ? "candidates-highlight" : String.Empty;
+        }
+    }
+
+    private void OnClick()
+    {
+        if( Cell.Value == 0 )
+        {
+            Cell.Value = SelectedValue;
+        }
+        else if( !Cell.IsGiven && Cell.Value == SelectedValue )
+        {
+            Cell.Value = 0;
+        }
+    }
+
+    [Parameter]
+    public Cell Cell { get; set; }
+
+    [Parameter]
+    public EventCallback<Cell> CellChanged { get; set; }
+
+    [Parameter]
+    public bool IsGray { get; set; }
+
+    private string BackgroundClass
+    {
+        get => IsGray ? "grayBackground" : "whiteBackground";
+    }
+
+    private string GivenClass { get => Cell.IsGiven ? "given " : ""; }
+    private string Border
+    {
+        get
+        {
+            IEnumerable<(string, bool)> borders = new[]
+            {
+                ("top", Cell.HasTopBorder),
+                ("right", Cell.HasRightBorder),
+                ("bottom", Cell.HasBottomBorder),
+                ("left", Cell.HasLeftBorder),
+            };
+
+            var borderToString = borders.Select(item => $"border-{item.Item1}-width: {(item.Item2 ? "medium" : "thin")};");
+            return String.Join(" ", borderToString);
+        }
+    }
+}

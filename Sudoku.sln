@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleUI", "ConsoleUI\Cons
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", "{118F288B-6680-4EB8-B776-CDB960CCE654}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UI.Blazor", "UI.Blazor\UI.Blazor.csproj", "{96322E98-A858-472C-BC12-2AD673AF0B98}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{118F288B-6680-4EB8-B776-CDB960CCE654}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{118F288B-6680-4EB8-B776-CDB960CCE654}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{118F288B-6680-4EB8-B776-CDB960CCE654}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96322E98-A858-472C-BC12-2AD673AF0B98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96322E98-A858-472C-BC12-2AD673AF0B98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96322E98-A858-472C-BC12-2AD673AF0B98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96322E98-A858-472C-BC12-2AD673AF0B98}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

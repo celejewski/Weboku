@@ -1,0 +1,69 @@
+﻿@page "/"
+
+<div style="display: flex;">
+    @for( int i = 0; i < 10; i++ )
+    {
+        <NumpadComponent Value="@i" @bind-SelectedValue="SelectedValue"></NumpadComponent>
+    }
+</div>
+<h1>Selected value: @SelectedValue</h1>
+
+<div>
+    @for( int row = 0; row < 9; row++ )
+    {
+        <div style="display: flex">
+            @for( int col = 0; col < 9; col++ )
+            {
+                <CellComponent @bind-Cell="Cells[row*9+col]"
+                               @bind-SelectedValue="SelectedValue"
+                               IsGray=@IsGray(row, col)>
+                </CellComponent>
+            }
+        </div>
+    }
+</div>
+
+@code {
+    public int SelectedValue { get; set; }
+
+    public IList<Cell> Cells { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Cells = new List<Cell>();
+
+        string sudoku = "..28..3..8.......5.9.53...8.489.........4.........397.1...97.4.7.......3..5..81..".Replace('.', '0');
+        for( int i = 0; i < 9 * 9; i++ )
+        {
+            var value = int.Parse(sudoku[i].ToString());
+            var isGiven = value != 0;
+            var candidates = new List<Candidate>();
+            if( !isGiven )
+            {
+                for( int candidateValue = 1; candidateValue < 10; candidateValue++ )
+                {
+                    candidates.Add(new Candidate { Value = candidateValue, IsValid = true });
+                }
+            }
+            var row = i / 9;
+            var col = i % 9;
+            var cell = new Cell
+            {
+                Value = value,
+                IsGiven = isGiven,
+                Candidates = candidates,
+                HasBottomBorder = row == 2 || row == 5,
+                HasTopBorder = row == 3 || row == 6,
+                HasRightBorder = col == 2 || col == 5,
+                HasLeftBorder = col == 3 || col == 6,
+            };
+            Cells.Add(cell);
+        }
+    }
+
+    private bool IsGray(int row, int col)
+    {
+        int blockIndex = (row / 3) * 3 + (col / 3);
+        return blockIndex % 2 == 1;
+    }
+}

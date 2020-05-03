@@ -1,0 +1,86 @@
+﻿.cell {
+    background-color: #eeeeee;
+    width: 80px;
+    height: 80px;
+    border: 1px solid black;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.highlight {
+    background-color: #FFFF00;
+}
+
+.input {
+    display: flex;
+    font-weight: normal;
+    font-size: xxx-large;
+    align-items: center;
+    justify-content: center;
+}
+
+.row {
+    display: flex;
+}
+
+.candidates {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+}
+
+.candidates-highlight {
+    background-color: #E2E200;
+}
+
+.candidate {
+    display: flex;
+    font-size: larger;
+}
+
+.left {
+    justify-self: start;
+}
+
+.center {
+    justify-self: center;
+}
+
+.right {
+    justify-self: right;
+}
+
+.top {
+    align-self: flex-start;
+}
+
+.middle {
+    align-self: stretch;
+}
+
+.bottom {
+    align-self: flex-end;
+}
+
+a {
+    text-decoration: none;
+}
+
+.given {
+    font-weight: bold;
+}
+
+.incorrect-big {
+    border-color: red;
+    border-width: 3px;
+    border-radius: 50%;
+    border-style: solid;
+}
+
+.incorrect {
+    border-bottom: 1px solid red;
+}
+
+.incorrect-candidate {
+    color: red;
+}
