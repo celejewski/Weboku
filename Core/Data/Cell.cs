@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Core.Data
 {
-    class Cell : ICell
+    public class Cell : ICell
     {
         public Cell()
         {

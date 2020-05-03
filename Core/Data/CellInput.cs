@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Core.Data
 {
-    class CellInput : ICellInput
+    public class CellInput : ICellInput
     {
         public int Value { get; set; }
 

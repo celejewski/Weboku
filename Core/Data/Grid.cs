@@ -19,7 +19,12 @@ namespace Core.Data
             {
                 for( int y = 0; y < 9; y++ )
                 {
-                    _cells[x, y] = new Cell();
+                    _cells[x, y] = new Cell
+                    {
+                        Col = x,
+                        Row = y,
+                        Block = (y / 3) * 3 + (x / 3),
+                };
                 }
             }
         }
