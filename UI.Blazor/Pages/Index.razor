@@ -14,8 +14,11 @@
         <div style="display: flex">
             @for( int x = 0; x < 9; x++ )
             {
-                <CellComponent @bind-Cell="Cells[x, y]"
-                               @bind-SelectedValue="SelectedValue">
+                var cell = Cells[x, y];
+                Action action = () => OnCellClick(cell);
+                <CellComponent @bind-Cell="cell"
+                               @bind-SelectedValue="SelectedValue"
+                               OnClickCallback="action">
                 </CellComponent>
             }
         </div>
@@ -32,5 +35,24 @@
     {
         _grid = new Grid("..28..3..8.......5.9.53...8.489.........4.........397.1...97.4.7.......3..5..81.."
             .Replace('.', '0'));
+    }
+
+    public void OnCellClick(ICell cell)
+    {
+        if (cell.IsGiven)
+        {
+            return;
+        }
+
+        if (SelectedValue == 0 || cell.Input.Value == 0)
+        {
+            _grid.SetValue(cell.Col, cell.Row, SelectedValue);
+            StateHasChanged();
+        }
+        else if (cell.Input.Value == SelectedValue)
+        {
+            _grid.SetValue(cell.Col, cell.Row, 0);
+            StateHasChanged();
+        }
     }
 }

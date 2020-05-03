@@ -3,7 +3,9 @@
     <div class="cell input @BackgroundClass @InputIsHighlightedClass @GivenClass"
          style="@Border"
          @onclick="OnClick">
-        @Cell.Input.Value
+        <div class="value @InputIsIllegalClass">
+            @Cell.Input.Value
+        </div>
     </div>
 }
 else
@@ -16,7 +18,9 @@ else
             <div class="candidate">
                 @if( Cell.Candidates.Any(candidate => candidate.Value == value) )
                 {
-                    @value
+                    <div class="value">
+                        @value
+                    </div>
                 }
             </div>
         }
@@ -29,34 +33,12 @@ else
     [Parameter]
     public EventCallback<int> SelectedValueChanged { get; set; }
 
-    private string InputIsHighlightedClass
-    {
-        get
-        {
-            return Cell.Input.Value != 0
-                && SelectedValue == Cell.Input.Value ? "highlight" : String.Empty;
-        }
-    }
-
-    private string CandidateIsHighlightedClass
-    {
-        get
-        {
-            return Cell.Candidates.Any(candidate => candidate.Value == SelectedValue) ? "candidates-highlight" : String.Empty;
-        }
-    }
-
     private void OnClick()
     {
-        //if( Cell.Input.Value == 0 )
-        //{
-        //    Cell.Input.Value = SelectedValue;
-        //}
-        //else if( !Cell.IsGiven && Cell.Value == SelectedValue )
-        //{
-        //    Cell.Value = 0;
-        //}
+        OnClickCallback();
     }
+    [Parameter]
+    public Action OnClickCallback { get; set; }
 
     [Parameter]
     public ICell Cell { get; set; }
@@ -67,13 +49,13 @@ else
 
 
     private string GivenClass { get => Cell.IsGiven ? "given " : ""; }
-    
+
     public bool IsGray { get => Cell.Block % 2 == 1; }
     private bool HasBottomBorder { get => Cell.Row == 2 || Cell.Row == 5; }
     private bool HasTopBorder { get => Cell.Row == 3 || Cell.Row == 6; }
     private bool HasRightBorder { get => Cell.Col == 2 || Cell.Col == 5; }
     private bool HasLeftBorder { get => Cell.Col == 3 || Cell.Col == 6;  }
-    
+
     private string BackgroundClass
     {
         get => IsGray ? "grayBackground" : "whiteBackground";
@@ -93,6 +75,24 @@ else
 
             var borderToString = borders.Select(item => $"border-{item.Item1}-width: {(item.Item2 ? "medium" : "thin")};");
             return String.Join(" ", borderToString);
+        }
+    }
+
+    private string InputIsIllegalClass { get => Cell.Input.IsLegal ? "" : "illegalInput";  }
+    private string InputIsHighlightedClass
+    {
+        get
+        {
+            return Cell.Input.Value != 0
+                && SelectedValue == Cell.Input.Value ? "highlight" : String.Empty;
+        }
+    }
+
+    private string CandidateIsHighlightedClass
+    {
+        get
+        {
+            return Cell.Candidates.Any(candidate => candidate.Value == SelectedValue) ? "candidates-highlight" : String.Empty;
         }
     }
 }
