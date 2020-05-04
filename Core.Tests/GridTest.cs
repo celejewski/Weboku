@@ -143,5 +143,24 @@ namespace Core.Tests
             Assert.False(contains1);
             Assert.True(contains2);
         }
+
+        [Fact]
+        public void Refact()
+        {
+            var grid = new Grid("000000010400000000020000000000050407008000300001090000300400200050100000000806000");
+            grid.FillAllCandidates();
+            var clone = (Grid) grid.Clone();
+            for( int i = 0; i < 100; i++ )
+            {
+                for( int x = 0; x < 9; x++ )
+                {
+                    for( int y = 0; y < 9; y++ )
+                    {
+                        grid.SetValue(x, y, i % 9 + 1);
+                    }
+                }
+                grid = (Grid) clone.Clone();
+            }
+        }
     }
 }

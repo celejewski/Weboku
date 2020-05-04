@@ -9,7 +9,7 @@ namespace Core.Data
     {
         private readonly Cell[,] _cells;
         public ICell[,] Cells { get => _cells; }
-        private IEnumerable<Cell>[,] _cellsWhichCanSee = new IEnumerable<Cell>[9, 9];
+        private readonly IList<Cell>[,] _cellsWhichCanSee = new IList<Cell>[9, 9];
 
         public Grid() 
         {
@@ -75,8 +75,10 @@ namespace Core.Data
 
             if( value != 0 && isLegal )
             {
-                foreach( var c in GetCellsWhichCanSee(x, y) )
+                var cells = GetCellsWhichCanSee(x, y);
+                for (int i = 0; i < cells.Count; i++)
                 {
+                    var c = cells[i];
                     var cellInput = c.Candidates.FirstOrDefault(ci => ci.Value == value);
                     if( cellInput != null )
                     {
@@ -110,16 +112,19 @@ namespace Core.Data
             return _cells[x, y].Input.Value;
         }
 
-        private IEnumerable<Cell> CalculateCellsWhichCanSee(int x, int y)
+        private IList<Cell> CalculateCellsWhichCanSee(int x, int y)
         {
             var indexes = GetIndexesFromCol(x)
                 .Concat(GetIndexesFromRow(y))
                 .Concat(GetIndexesFromBlock(x, y));
 
-            return indexes.Select(index => _cells[index.x, index.y]).ToArray();
+            return indexes
+                .Where(index => !(index.x == x && index.y == y) )
+                .Select(index => _cells[index.x, index.y])
+                .ToArray();
         }
 
-        private IEnumerable<Cell> GetCellsWhichCanSee(int x, int y)
+        private IList<Cell> GetCellsWhichCanSee(int x, int y)
         {
             if (_cellsWhichCanSee[x, y] == null)
             {
@@ -166,31 +171,25 @@ namespace Core.Data
                 return true;
             }
 
-            return IsLegalValueForCol(x, y, value)
-                && IsLegalValueForRow(x, y, value)
-                && IsLegalForBlock(x, y, value);
+            return IsLegalValueFor(x, y, value, CalculateCellsWhichCanSee(x, y));
         }
 
-        private bool IsLegalValueFor(int x, int y, int value, IEnumerable<(int x, int y)> indexesToCheck)
+        private bool IsLegalValueFor(int x, int y, int value, IList<Cell> cellsToCheck)
         {
-            return value == 0 || indexesToCheck
-                .Where(index => !(index.x == x && index.y == y))
-                .All(index => _cells[index.x, index.y].Input.Value != value);
-        }
+            if( value == 0 )
+            {
+                return true;
+            } 
+            
+            for (int i = 0; i < cellsToCheck.Count; i++ )
+            {
+                if ( cellsToCheck[i].Input.Value == value)
+                {
+                    return false;
+                }
+            }
 
-        private bool IsLegalValueForCol(int x, int y, int value)
-        {
-            return IsLegalValueFor(x, y, value, GetIndexesFromCol(x));
-        }
-
-        private bool IsLegalValueForRow(int x, int y, int value)
-        {
-            return IsLegalValueFor(x, y, value, GetIndexesFromRow(y));
-        }
-
-        private bool IsLegalForBlock(int x, int y, int value)
-        {
-            return IsLegalValueFor(x, y, value, GetIndexesFromBlock(x, y));
+            return true;
         }
 
         public override string ToString()
