@@ -40,6 +40,8 @@
     {
         _grid = new Grid("..28..3..8.......5.9.53...8.489.........4.........397.1...97.4.7.......3..5..81.."
             .Replace('.', '0'));
+
+        _grid.FillAllCandidates();
     }
 
     public void OnLeftCellClick(ICell cell)

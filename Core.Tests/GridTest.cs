@@ -106,6 +106,7 @@ namespace Core.Tests
         public void WhenGridIsEmpty_CellHas10Candidates()
         {
             var grid = new Grid();
+            grid.FillAllCandidates();
             var actual = grid.Cells[0, 0].Candidates.Count;
             Assert.Equal(9, actual);
         }
@@ -114,6 +115,7 @@ namespace Core.Tests
         public void WhenGridIsFilled_CandidatesAreRemoved()
         {
             var grid = new Grid();
+            grid.FillAllCandidates();
             grid.SetValue(0, 0, 1);
             var actual = grid.Cells[0, 1].Candidates.Count;
             Assert.Equal(8, actual);
@@ -123,6 +125,7 @@ namespace Core.Tests
         public void WhenGridIsFilled_UnseenCellsAreUnaffected()
         {
             var grid = new Grid();
+            grid.FillAllCandidates();
             grid.SetValue(0, 0, 1);
             var actual = grid.Cells[4, 4].Candidates.Count;
             Assert.Equal(9, actual);
@@ -132,6 +135,7 @@ namespace Core.Tests
         public void ClonedGridHasSameCandidates()
         {
             var grid = new Grid();
+            grid.FillAllCandidates();
             grid.ToggleCandidate(0, 0, 1);
             var cloned = (Grid) grid.Clone();
             var contains1 = cloned.Cells[0, 0].Candidates.Any(c => c.Value == 1);

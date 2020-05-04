@@ -17,10 +17,6 @@ namespace Core.Data
             };
 
             Candidates = new List<CellInput>();
-            for( int i = 1; i < 10; i++ )
-            {
-                Candidates.Add(new CellInput { Value = i, IsLegal = true });
-            }
         }
         public int Row { get; set; }
 

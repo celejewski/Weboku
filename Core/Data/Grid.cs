@@ -9,6 +9,7 @@ namespace Core.Data
     {
         private readonly Cell[,] _cells;
         public ICell[,] Cells { get => _cells; }
+        private IEnumerable<Cell>[,] _cellsWhichCanSee = new IEnumerable<Cell>[9, 9];
 
         public Grid() 
         {
@@ -22,10 +23,33 @@ namespace Core.Data
                         Col = x,
                         Row = y,
                         Block = (y / 3) * 3 + (x / 3),
-                };
+                    };
                 }
             }
         }
+
+        public void FillAllCandidates()
+        {
+            for( int x = 0; x < 9; x++ )
+            {
+                for( int y = 0; y < 9; y++ )
+                {
+                    for( int i = 1; i < 10; i++ )
+                    {
+                        _cells[x, y].Candidates.Add(new CellInput { Value = i, IsLegal = true });
+                    }
+                }
+            }
+
+            for( int x = 0; x < 9; x++ )
+            {
+                for( int y = 0; y < 9; y++ )
+                {
+                    SetValue(x, y, _cells[x, y].Input.Value);
+                }
+            }
+        }
+
         public Grid(string input) : this()
         {
             for( int x = 0; x < 9; x++ )
@@ -86,13 +110,23 @@ namespace Core.Data
             return _cells[x, y].Input.Value;
         }
 
-        private IEnumerable<Cell> GetCellsWhichCanSee(int x, int y)
+        private IEnumerable<Cell> CalculateCellsWhichCanSee(int x, int y)
         {
             var indexes = GetIndexesFromCol(x)
                 .Concat(GetIndexesFromRow(y))
                 .Concat(GetIndexesFromBlock(x, y));
 
-            return indexes.Select(index => _cells[index.x, index.y]);
+            return indexes.Select(index => _cells[index.x, index.y]).ToArray();
+        }
+
+        private IEnumerable<Cell> GetCellsWhichCanSee(int x, int y)
+        {
+            if (_cellsWhichCanSee[x, y] == null)
+            {
+                _cellsWhichCanSee[x, y] = CalculateCellsWhichCanSee(x, y);
+            }
+
+            return _cellsWhichCanSee[x, y];
         }
         public IEnumerable<(int x, int y)> GetIndexesFromRow(int y)
         {
@@ -176,9 +210,9 @@ namespace Core.Data
 
         public object Clone()
         {
-            var cloned = (Grid) new Grid(this.ToString());
-            Grid.AssignFrom(this, cloned);
-            return cloned;
+            var clone = new Grid();
+            Grid.AssignFrom(this, clone);
+            return clone;
         }
 
         private static void AssignFrom(Grid source, Grid destination)
