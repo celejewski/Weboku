@@ -10,8 +10,6 @@ namespace Core.Data
         private readonly Cell[,] _cells;
         public ICell[,] Cells { get => _cells; }
 
-        private readonly int[,] _grid = new int[9, 9];
-
         public Grid() 
         {
             _cells = new Cell[9, 9];
@@ -34,9 +32,9 @@ namespace Core.Data
             {
                 for( int y = 0; y < 9; y++ )
                 {
-                    var cell = int.Parse(input[y * 9 + x].ToString());
-                    SetValue(x, y, cell);
-                    if (cell != 0)
+                    var value = int.Parse(input[y * 9 + x].ToString());
+                    SetValue(x, y, value);
+                    if (value != 0)
                     {
                         _cells[x, y].IsGiven = true;
                     }
@@ -46,19 +44,19 @@ namespace Core.Data
 
         public void SetValue(int x, int y, int value)
         {
-            _grid[x, y] = value;
-            _cells[x, y].Input.Value = value;
+            var cell = _cells[x, y];
+            cell.Input.Value = value;
             bool isLegal = IsLegalValue(x, y, value);
-            _cells[x, y].Input.IsLegal = isLegal;
+            cell.Input.IsLegal = isLegal;
 
             if( value != 0 && isLegal )
             {
-                foreach( var cell in GetCellsWhichCanSee(x, y) )
+                foreach( var c in GetCellsWhichCanSee(x, y) )
                 {
-                    var cellInput = cell.Candidates.FirstOrDefault(ci => ci.Value == value);
+                    var cellInput = c.Candidates.FirstOrDefault(ci => ci.Value == value);
                     if( cellInput != null )
                     {
-                        cell.Candidates.Remove(cellInput);
+                        c.Candidates.Remove(cellInput);
                     }
                 }
             }
@@ -143,7 +141,7 @@ namespace Core.Data
         {
             return value == 0 || indexesToCheck
                 .Where(index => !(index.x == x && index.y == y))
-                .All(index => _grid[index.x, index.y] != value);
+                .All(index => _cells[index.x, index.y].Input.Value != value);
         }
 
         private bool IsLegalValueForCol(int x, int y, int value)
@@ -169,13 +167,16 @@ namespace Core.Data
             {
                 for( int x = 0; x < 9; x++ )
                 {
-                    sb.Append(_grid[x, y]);
+                    sb.Append(_cells[x, y].Input.Value);
                 }
             }
 
             return sb.ToString();
         }
 
-        public object Clone() => new Grid(this.ToString());
+        public object Clone()
+        {
+            return new Grid(this.ToString());
+        }
     }
 }
