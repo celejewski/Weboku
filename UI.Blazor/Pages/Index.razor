@@ -51,11 +51,13 @@
 
         if (SelectedValue == 0 || cell.Input.Value == 0)
         {
+            _grid.RecordState();
             _grid.SetValue(cell.Col, cell.Row, SelectedValue);
             StateHasChanged();
         }
         else if (cell.Input.Value == SelectedValue)
         {
+            _grid.RecordState();
             _grid.SetValue(cell.Col, cell.Row, 0);
             StateHasChanged();
         }
@@ -68,6 +70,7 @@
             return;
         }
 
+        _grid.RecordState();
         _grid.ToggleCandidate(cell.Col, cell.Row, SelectedValue);
     }
 
@@ -76,6 +79,16 @@
         if (int.TryParse(args.Key, out var digit))
         {
             SelectedValue = digit;
+        }
+
+        if (args.Key == "z")
+        {
+            _grid.Undo();
+        }
+
+        if (args.Key == "y")
+        {
+            _grid.Redo();
         }
     }
 
