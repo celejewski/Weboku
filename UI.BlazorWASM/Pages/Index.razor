@@ -1,0 +1,96 @@
+﻿@page "/"
+
+<div id="main"
+     onblur="this.focus()"
+     tabindex="0"
+     @onkeypress="OnKeyDown">
+    <h1>@KeyPressed</h1>
+    <div style="display: flex;">
+        @for( int i = 0; i < 10; i++ )
+        {
+            <NumpadComponent Value="@i" @bind-SelectedValue="SelectedValue"></NumpadComponent>
+        }
+    </div>
+    <h1>Selected value: @SelectedValue</h1>
+
+    <div>
+        @for( int y = 0; y < 9; y++ )
+        {
+            <div style="display: flex">
+                @for( int x = 0; x < 9; x++ )
+                {
+                    var cell = Cells[x, y];
+                    <CellComponent @bind-Cell="cell"
+                                   @bind-SelectedValue="SelectedValue"
+                                   OnClickCallback=" () => OnLeftCellClick(cell)"
+                                   OnRightClickCallback="() => OnCellRightClick(cell)">
+                    </CellComponent>
+                }
+            </div>
+        }
+    </div>
+</div>
+@code {
+    private Grid _grid;
+    public int SelectedValue { get; set; }
+
+    public ICell[,] Cells { get => _grid.Cells; }
+
+    protected override void OnInitialized()
+    {
+        _grid = new Grid("..28..3..8.......5.9.53...8.489.........4.........397.1...97.4.7.......3..5..81.."
+            .Replace('.', '0'));
+    }
+
+    public void OnLeftCellClick(ICell cell)
+    {
+        if( cell.IsGiven )
+        {
+            return;
+        }
+
+        if( SelectedValue == 0 || cell.Input.Value == 0 )
+        {
+            _grid.RecordState();
+            _grid.SetValue(cell.Col, cell.Row, SelectedValue);
+            StateHasChanged();
+        }
+        else if( cell.Input.Value == SelectedValue )
+        {
+            _grid.RecordState();
+            _grid.SetValue(cell.Col, cell.Row, 0);
+            StateHasChanged();
+        }
+    }
+
+    public void OnCellRightClick(ICell cell)
+    {
+        if( cell.Input.Value != 0 || SelectedValue == 0 )
+        {
+            return;
+        }
+
+        _grid.RecordState();
+        _grid.ToggleCandidate(cell.Col, cell.Row, SelectedValue);
+    }
+
+    public void OnKeyDown(KeyboardEventArgs args)
+    {
+        if( int.TryParse(args.Key, out var digit) )
+        {
+            SelectedValue = digit;
+        }
+
+        if( args.Key == "z" )
+        {
+            _grid.Undo();
+        }
+
+        if( args.Key == "y" )
+        {
+            _grid.Redo();
+        }
+    }
+
+    public string KeyPressed { get; set; }
+}

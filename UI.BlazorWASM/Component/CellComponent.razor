@@ -1,0 +1,104 @@
+﻿@if( Cell.Input.Value != 0 )
+{
+    <div class="cell input @BackgroundClass @InputIsHighlightedClass @GivenClass"
+         style="@Border"
+         @onclick="OnClickCallback"
+         @oncontextmenu:preventDefault="true">
+        <div class="value @InputIsIllegalClass">
+            @Cell.Input.Value
+        </div>
+    </div>
+}
+else
+{
+    <div class="cell candidates @BackgroundClass @CandidateIsHighlightedClass"
+         style="@Border"
+         @onclick="OnClickCallback"
+         @oncontextmenu="OnRightClickCallback"
+         @oncontextmenu:preventDefault="true">
+        @for( int value = 1; value < 10; value++ )
+        {
+            <div class="candidate">
+                @{
+                    var candidate = Cell.Candidates.FirstOrDefault(candidate => candidate.Value == value);
+                    if(candidate != null)
+                    {
+                        var isIllegalClass = candidate.IsLegal ? "" : "illegalInput";
+                        <div class="value @isIllegalClass">
+                            @value
+                        </div>
+                        }
+                }
+            </div>
+        }
+    </div>
+}
+@code {
+    [Parameter]
+    public int SelectedValue { get; set; }
+
+    [Parameter]
+    public EventCallback<int> SelectedValueChanged { get; set; }
+
+    [Parameter]
+    public Action OnClickCallback { get; set; }
+
+    [Parameter]
+    public Action OnRightClickCallback { get; set; }
+
+    [Parameter]
+    public ICell Cell { get; set; }
+
+    [Parameter]
+    public EventCallback<ICell> CellChanged { get; set; }
+
+
+
+    private string GivenClass { get => Cell.IsGiven ? "given " : ""; }
+
+    public bool IsGray { get => Cell.Block % 2 == 1; }
+    private bool HasBottomBorder { get => Cell.Row == 2 || Cell.Row == 5; }
+    private bool HasTopBorder { get => Cell.Row == 3 || Cell.Row == 6; }
+    private bool HasRightBorder { get => Cell.Col == 2 || Cell.Col == 5; }
+    private bool HasLeftBorder { get => Cell.Col == 3 || Cell.Col == 6;  }
+
+    private string BackgroundClass
+    {
+        get => IsGray ? "grayBackground" : "whiteBackground";
+    }
+
+    private string Border
+    {
+        get
+        {
+            IEnumerable<(string, bool)> borders = new[]
+            {
+                ("top", HasTopBorder),
+                ("right", HasRightBorder),
+                ("bottom", HasBottomBorder),
+                ("left", HasLeftBorder),
+            };
+
+            var borderToString = borders.Select(item => $"border-{item.Item1}-width: {(item.Item2 ? "medium" : "thin")};");
+            return String.Join(" ", borderToString);
+        }
+    }
+
+    private string InputIsIllegalClass { get => Cell.Input.IsLegal ? "" : "illegalInput";  }
+    private string InputIsHighlightedClass
+    {
+        get
+        {
+            return Cell.Input.Value != 0
+                && SelectedValue == Cell.Input.Value ? "highlight" : String.Empty;
+        }
+    }
+
+    private string CandidateIsHighlightedClass
+    {
+        get
+        {
+            return Cell.Candidates.Any(candidate => candidate.Value == SelectedValue) ? "candidates-highlight" : String.Empty;
+        }
+    }
+}
