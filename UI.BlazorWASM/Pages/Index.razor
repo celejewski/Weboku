@@ -4,14 +4,12 @@
      onblur="this.focus()"
      tabindex="0"
      @onkeypress="OnKeyDown">
-    <h1>@KeyPressed</h1>
     <div style="display: flex;">
         @for( int i = 0; i < 10; i++ )
         {
             <NumpadComponent Value="@i" @bind-SelectedValue="SelectedValue"></NumpadComponent>
         }
     </div>
-    <h1>Selected value: @SelectedValue</h1>
 
     <div>
         @for( int y = 0; y < 9; y++ )
