@@ -16,7 +16,7 @@ namespace Core.Data
                 Value = 0,
             };
 
-            Candidates = new List<CellInput>();
+            Candidates = new List<ICellInput>();
         }
         public int Row { get; set; }
 
@@ -29,7 +29,6 @@ namespace Core.Data
 
         ICellInput ICell.Input { get => Input; }
 
-        public IList<CellInput> Candidates { get; }
-        IList<ICellInput> ICell.Candidates { get => Candidates.OfType<ICellInput>().ToList(); }
+        public IList<ICellInput> Candidates { get; }
     }
 }

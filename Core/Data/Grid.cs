@@ -229,7 +229,7 @@ namespace Core.Data
                     to.Candidates.Clear();
                     foreach( var candidate in from.Candidates )
                     {
-                        to.Candidates.Add((CellInput) candidate.Clone());
+                        to.Candidates.Add((CellInput) ((CellInput)candidate).Clone());
                     }
                 }
             }
