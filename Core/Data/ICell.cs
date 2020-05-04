@@ -9,7 +9,7 @@ namespace Core.Data
         int Block { get; }
         bool IsGiven { get; }
         ICellInput Input { get; }
-        IList<ICellInput> Candidates { get; }
+        IDictionary<int, ICellInput> Candidates { get; }
 
     }
 }

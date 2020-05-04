@@ -20,14 +20,13 @@ else
         {
             <div class="candidate">
                 @{
-                    var candidate = Cell.Candidates.FirstOrDefault(candidate => candidate.Value == value);
-                    if(candidate != null)
+                    if( Cell.Candidates.ContainsKey(value) )
                     {
-                        var isIllegalClass = candidate.IsLegal ? "" : "illegalInput";
+                        var isIllegalClass = Cell.Candidates[value].IsLegal ? "" : "illegalInput";
                         <div class="value @isIllegalClass">
                             @value
                         </div>
-                        }
+                    }
                 }
             </div>
         }
@@ -98,7 +97,7 @@ else
     {
         get
         {
-            return Cell.Candidates.Any(candidate => candidate.Value == SelectedValue) ? "candidates-highlight" : String.Empty;
+            return Cell.Candidates.ContainsKey(SelectedValue) ? "candidates-highlight" : String.Empty;
         }
     }
 }

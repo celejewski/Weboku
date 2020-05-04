@@ -16,7 +16,7 @@ namespace Core.Data
                 Value = 0,
             };
 
-            Candidates = new List<ICellInput>();
+            Candidates = new Dictionary<int, ICellInput>();
         }
         public int Row { get; set; }
 
@@ -29,6 +29,6 @@ namespace Core.Data
 
         ICellInput ICell.Input { get => Input; }
 
-        public IList<ICellInput> Candidates { get; }
+        public IDictionary<int, ICellInput> Candidates { get; }
     }
 }

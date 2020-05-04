@@ -138,8 +138,8 @@ namespace Core.Tests
             grid.FillAllCandidates();
             grid.ToggleCandidate(0, 0, 1);
             var cloned = (Grid) grid.Clone();
-            var contains1 = cloned.Cells[0, 0].Candidates.Any(c => c.Value == 1);
-            var contains2 = cloned.Cells[0, 0].Candidates.Any(c => c.Value == 2);
+            var contains1 = cloned.Cells[0, 0].Candidates.ContainsKey(1);
+            var contains2 = cloned.Cells[0, 0].Candidates.ContainsKey(2);
             Assert.False(contains1);
             Assert.True(contains2);
         }

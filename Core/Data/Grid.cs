@@ -36,7 +36,7 @@ namespace Core.Data
                 {
                     for( int i = 1; i < 10; i++ )
                     {
-                        _cells[x, y].Candidates.Add(new CellInput { Value = i, IsLegal = true });
+                        _cells[x, y].Candidates.Add(i, new CellInput { Value = i, IsLegal = true });
                     }
                 }
             }
@@ -79,10 +79,9 @@ namespace Core.Data
                 for (int i = 0; i < cells.Count; i++)
                 {
                     var c = cells[i];
-                    var cellInput = c.Candidates.FirstOrDefault(ci => ci.Value == value);
-                    if( cellInput != null )
+                    if( c.Candidates.ContainsKey(value))
                     {
-                        c.Candidates.Remove(cellInput);
+                        c.Candidates.Remove(value);
                     }
                 }
             }
@@ -92,10 +91,9 @@ namespace Core.Data
         {
             var cell = _cells[x, y];
 
-            var existingCandidate = cell.Candidates.FirstOrDefault(candidate => candidate.Value == value);
-            if ( existingCandidate == null)
+            if ( !cell.Candidates.ContainsKey(value))
             {
-                cell.Candidates.Add(new CellInput
+                cell.Candidates.Add(value, new CellInput
                 {
                     Value = value,
                     IsLegal = IsLegalValue(x, y, value)
@@ -103,7 +101,7 @@ namespace Core.Data
             } 
             else
             {
-                cell.Candidates.Remove(existingCandidate);
+                cell.Candidates.Remove(value);
             }
         }
 
@@ -176,11 +174,6 @@ namespace Core.Data
 
         private bool IsLegalValueFor(int x, int y, int value, IList<Cell> cellsToCheck)
         {
-            if( value == 0 )
-            {
-                return true;
-            } 
-            
             for (int i = 0; i < cellsToCheck.Count; i++ )
             {
                 if ( cellsToCheck[i].Input.Value == value)
@@ -229,7 +222,7 @@ namespace Core.Data
                     to.Candidates.Clear();
                     foreach( var candidate in from.Candidates )
                     {
-                        to.Candidates.Add((CellInput) ((CellInput)candidate).Clone());
+                        to.Candidates.Add(candidate.Key, (CellInput) ((CellInput)candidate.Value).Clone());
                     }
                 }
             }
