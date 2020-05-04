@@ -177,23 +177,34 @@ namespace Core.Data
         public object Clone()
         {
             var cloned = (Grid) new Grid(this.ToString());
+            Grid.AssignFrom(this, cloned);
+            return cloned;
+        }
+
+        private static void AssignFrom(Grid source, Grid destination)
+        {
             for( int x = 0; x < 9; x++ )
             {
                 for( int y = 0; y < 9; y++ )
                 {
-                    var from = this._cells[x, y];
-                    var to = cloned._cells[x, y];
+                    var from = source._cells[x, y];
+                    var to = destination._cells[x, y];
 
+                    to.Input.Value = from.Input.Value;
                     to.Input.IsLegal = from.Input.IsLegal;
 
                     to.Candidates.Clear();
                     foreach( var candidate in from.Candidates )
                     {
-                        to.Candidates.Add((CellInput)candidate.Clone());
+                        to.Candidates.Add((CellInput) candidate.Clone());
                     }
                 }
             }
-            return cloned;
+        }
+
+        private void AssignFrom(Grid source)
+        {
+            Grid.AssignFrom(source, this);
         }
     }
 }
