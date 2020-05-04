@@ -176,7 +176,24 @@ namespace Core.Data
 
         public object Clone()
         {
-            return new Grid(this.ToString());
+            var cloned = (Grid) new Grid(this.ToString());
+            for( int x = 0; x < 9; x++ )
+            {
+                for( int y = 0; y < 9; y++ )
+                {
+                    var from = this._cells[x, y];
+                    var to = cloned._cells[x, y];
+
+                    to.Input.IsLegal = from.Input.IsLegal;
+
+                    to.Candidates.Clear();
+                    foreach( var candidate in from.Candidates )
+                    {
+                        to.Candidates.Add((CellInput)candidate.Clone());
+                    }
+                }
+            }
+            return cloned;
         }
     }
 }

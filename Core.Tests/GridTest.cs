@@ -1,5 +1,6 @@
 using Core.Data;
 using System;
+using System.Linq;
 using Xunit;
 
 namespace Core.Tests
@@ -125,6 +126,18 @@ namespace Core.Tests
             grid.SetValue(0, 0, 1);
             var actual = grid.Cells[4, 4].Candidates.Count;
             Assert.Equal(9, actual);
+        }
+
+        [Fact]
+        public void ClonedGridHasSameCandidates()
+        {
+            var grid = new Grid();
+            grid.ToggleCandidate(0, 0, 1);
+            var cloned = (Grid) grid.Clone();
+            var contains1 = cloned.Cells[0, 0].Candidates.Any(c => c.Value == 1);
+            var contains2 = cloned.Cells[0, 0].Candidates.Any(c => c.Value == 2);
+            Assert.False(contains1);
+            Assert.True(contains2);
         }
     }
 }
