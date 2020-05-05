@@ -1,33 +1,48 @@
 ﻿@page "/"
 
 <div id="main"
-     onblur="this.focus()"
-     tabindex="0"
-     @onkeypress="OnKeyDown">
-    <div style="display: flex;">
-        @for( int i = 0; i < 10; i++ )
-        {
-            <NumpadComponent Value="@i" @bind-SelectedValue="SelectedValue"></NumpadComponent>
-        }
+        class="main"
+        onblur="this.focus()"
+        tabindex="0"
+        @onkeypress="OnKeyDown">
+    <div class="menu">
+        Menu
     </div>
-
-    <div>
+    <div class="grid">
         @for( int y = 0; y < 9; y++ )
         {
-            <div style="display: flex">
                 @for( int x = 0; x < 9; x++ )
                 {
                     var cell = Cells[x, y];
                     <CellComponent @bind-Cell="cell"
-                                   @bind-SelectedValue="SelectedValue"
-                                   OnClickCallback=" () => OnLeftCellClick(cell)"
-                                   OnRightClickCallback="() => OnCellRightClick(cell)">
+                                    @bind-SelectedValue="SelectedValue"
+                                    OnClickCallback=" () => OnLeftCellClick(cell)"
+                                    OnRightClickCallback="() => OnCellRightClick(cell)">
                     </CellComponent>
                 }
-            </div>
         }
     </div>
+
+
+    <div class="numpad">
+        <button @onclick="OnClickUndo">⎌</button>
+        <NumpadComponent Value="1" @bind-SelectedValue="SelectedValue" />
+        <NumpadComponent Value="2" @bind-SelectedValue="SelectedValue" />
+        <NumpadComponent Value="3" @bind-SelectedValue="SelectedValue" />
+
+        <button @onclick="OnClickRedo">⇨</button>
+        <NumpadComponent Value="4" @bind-SelectedValue="SelectedValue" />
+        <NumpadComponent Value="5" @bind-SelectedValue="SelectedValue" />
+        <NumpadComponent Value="6" @bind-SelectedValue="SelectedValue" />
+
+        <NumpadComponent Value="0" @bind-SelectedValue="SelectedValue" />
+        <NumpadComponent Value="7" @bind-SelectedValue="SelectedValue" />
+        <NumpadComponent Value="8" @bind-SelectedValue="SelectedValue" />
+        <NumpadComponent Value="9" @bind-SelectedValue="SelectedValue" />
+    </div>
+
 </div>
+
 @code {
     private Grid _grid;
     public int SelectedValue { get; set; }
@@ -38,6 +53,8 @@
     {
         _grid = new Grid("..28..3..8.......5.9.53...8.489.........4.........397.1...97.4.7.......3..5..81.."
             .Replace('.', '0'));
+
+        _grid = new Grid();
 
         _grid.FillAllCandidates();
     }
@@ -90,6 +107,16 @@
         {
             _grid.Redo();
         }
+    }
+
+    private void OnClickUndo()
+    {
+        _grid.Undo();
+    }
+
+    private void OnClickRedo()
+    {
+        _grid.Redo();
     }
 
     public string KeyPressed { get; set; }
