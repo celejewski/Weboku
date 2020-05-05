@@ -84,7 +84,7 @@ else
                 ("left", HasLeftBorder),
             };
 
-            var borderToString = borders.Select(item => $"border-{item.Item1}-width: {(item.Item2 ? "medium" : "thin")};");
+            var borderToString = borders.Select(item => $"border-{item.Item1}-width: {(item.Item2 ? "0.10rem" : "0.05rem")};");
             return String.Join(" ", borderToString);
         }
     }

@@ -8,21 +8,22 @@
     <div class="menu">
         Menu
     </div>
-    <div class="grid">
-        @for( int y = 0; y < 9; y++ )
-        {
+    <div class="grid-wrapper">
+        <div class="grid">
+            @for( int y = 0; y < 9; y++ )
+            {
                 @for( int x = 0; x < 9; x++ )
                 {
                     var cell = Cells[x, y];
                     <CellComponent @bind-Cell="cell"
-                                    @bind-SelectedValue="SelectedValue"
-                                    OnClickCallback=" () => OnLeftCellClick(cell)"
-                                    OnRightClickCallback="() => OnCellRightClick(cell)">
+                                   @bind-SelectedValue="SelectedValue"
+                                   OnClickCallback=" () => OnLeftCellClick(cell)"
+                                   OnRightClickCallback="() => OnCellRightClick(cell)">
                     </CellComponent>
                 }
-        }
+            }
+        </div>
     </div>
-
 
     <div class="numpad">
         <button @onclick="OnClickUndo">⎌</button>
@@ -40,7 +41,6 @@
         <NumpadComponent Value="8" @bind-SelectedValue="SelectedValue" />
         <NumpadComponent Value="9" @bind-SelectedValue="SelectedValue" />
     </div>
-
 </div>
 
 @code {
@@ -53,8 +53,6 @@
     {
         _grid = new Grid("..28..3..8.......5.9.53...8.489.........4.........397.1...97.4.7.......3..5..81.."
             .Replace('.', '0'));
-
-        _grid = new Grid();
 
         _grid.FillAllCandidates();
     }
