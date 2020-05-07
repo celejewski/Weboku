@@ -35,7 +35,6 @@ namespace ConsoleUI
             var generator = new RandomGenerator();
 
             stopwatch = Stopwatch.StartNew();
-            var generated = generator.Generate();
             stopwatch.Stop();
             Console.WriteLine("Generator done in " + stopwatch.ElapsedMilliseconds.ToString());
         }

@@ -4,6 +4,6 @@ namespace Core.Generator
 {
     interface ISudokuGenerator
     {
-        Grid Generate();
+        Sudoku Generate(string difficulty);
     }
 }

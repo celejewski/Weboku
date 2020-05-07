@@ -9,7 +9,7 @@ namespace Core.Generator
     public class RandomGenerator : ISudokuGenerator
     {
         private static readonly Random _random = new Random();
-        public Grid Generate()
+        public Sudoku Generate(string difficulty)
         {
             Grid grid = null;
             int tries = 0;
@@ -24,7 +24,9 @@ namespace Core.Generator
                 grid = TryGenerate();
             } while( grid == null );
 
-            return grid;
+            return new Sudoku {
+                Given = grid.ToString()
+            };
         }
         public Grid TryGenerate()
         {
