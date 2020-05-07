@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UI.BlazorWASM", "UI.BlazorWASM\UI.BlazorWASM.csproj", "{5A9591DA-CBEB-46F2-BE98-5858658B0BAC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API.Generator", "API.Generator\API.Generator.csproj", "{9075DF12-1A49-4D46-B870-4D03F29360FD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{5A9591DA-CBEB-46F2-BE98-5858658B0BAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A9591DA-CBEB-46F2-BE98-5858658B0BAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5A9591DA-CBEB-46F2-BE98-5858658B0BAC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9075DF12-1A49-4D46-B870-4D03F29360FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9075DF12-1A49-4D46-B870-4D03F29360FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9075DF12-1A49-4D46-B870-4D03F29360FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9075DF12-1A49-4D46-B870-4D03F29360FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
