@@ -13,22 +13,10 @@
                    FillAllCandidates="FillAllCandidates"
                    Copy="Copy"/>
 
-    <div class="grid-wrapper">
-        <div class="grid">
-            @for( int y = 0; y < 9; y++ )
-            {
-                @for( int x = 0; x < 9; x++ )
-                {
-                    var cell = Cells[x, y];
-                    <CellComponent @bind-Cell="cell"
-                                   @bind-SelectedValue="SelectedValue"
-                                   OnClickCallback=" () => OnLeftCellClick(cell)"
-                                   OnRightClickCallback="() => OnCellRightClick(cell)">
-                    </CellComponent>
-                }
-            }
-        </div>
-    </div>
+    <GridComponent SelectedValue="SelectedValue"
+                   OnCellLeftClick="OnCellLeftClick"
+                   OnCellRightClick="OnCellRightClick"
+                   Cells="Cells"/>
     
     <NumpadComponent @bind-SelectedValue="SelectedValue"
                      OnClickUndo="OnClickUndo"
@@ -64,7 +52,7 @@
         _grid.FillAllCandidates();
     }
 
-    public void OnLeftCellClick(ICell cell)
+    public void OnCellLeftClick(ICell cell)
     {
         if( cell.IsGiven )
         {
