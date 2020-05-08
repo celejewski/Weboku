@@ -231,7 +231,7 @@ namespace Core.Data
             }
         }
 
-        private void AssignFrom(Grid source)
+        public void AssignFrom(Grid source)
         {
             Grid.AssignFrom(source, this);
         }
