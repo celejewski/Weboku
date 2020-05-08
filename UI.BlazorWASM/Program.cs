@@ -16,8 +16,10 @@ namespace UI.BlazorWASM
             builder.RootComponents.Add<App>("app");
 
             builder.Services.AddSingleton(new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-
-            await builder.Build().RunAsync();
+            builder.Services.AddCors();
+            var app = builder.Build();
+           
+            await app.RunAsync();
         }
     }
 }

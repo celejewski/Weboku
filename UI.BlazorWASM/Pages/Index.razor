@@ -1,10 +1,11 @@
 ﻿@page "/"
+@inject HttpClient Http
 
 <div id="main"
-        class="main"
-        onblur="this.focus()"
-        tabindex="0"
-        @onkeypress="OnKeyDown">
+     class="main"
+     onblur="this.focus()"
+     tabindex="0"
+     @onkeypress="OnKeyDown">
     <div class="menu">
         Menu
     </div>
@@ -51,10 +52,23 @@
 
     protected override void OnInitialized()
     {
-        _grid = new Grid("..28..3..8.......5.9.53...8.489.........4.........397.1...97.4.7.......3..5..81.."
-            .Replace('.', '0'));
+        _grid = new Grid();
+    }
 
-        _grid.FillAllCandidates();
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var sudoku = await Http.GetFromJsonAsync<Sudoku>(@"http://andzej-002-site2.ftempurl.com/sudokugenerator");
+            _grid = new Grid(sudoku.Given);
+            _grid.FillAllCandidates();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.ToString());
+            _grid = new Grid();
+            _grid.FillAllCandidates();
+        }
     }
 
     public void OnLeftCellClick(ICell cell)
