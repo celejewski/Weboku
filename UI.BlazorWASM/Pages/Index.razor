@@ -9,6 +9,15 @@
      @onkeypress="OnKeyDown">
     <div class="menu">
         <a @onclick="FillAllCandidates">Fill all candidates</a>
+
+        <div style="float: right;">
+            <span>New game:</span>
+            <a @onclick="@(() => StartNewGame("Easy"))">Easy</a>
+            <a @onclick="@(() => StartNewGame("Medium"))">Medium</a>
+            <a @onclick="@(() => StartNewGame("Hard"))">Hard</a>
+            <a @onclick="@(() => StartNewGame("Unfair"))">Unfair</a>
+            <a @onclick="@(() => StartNewGame("Extreme"))">Extreme</a>
+        </div>
     </div>
     <div class="grid-wrapper">
         <div class="grid">
