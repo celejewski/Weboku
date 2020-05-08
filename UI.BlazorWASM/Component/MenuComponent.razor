@@ -1,0 +1,25 @@
+﻿
+<div class="menu">
+    <a @onclick="FillAllCandidates">Fill all candidates</a>
+    <a @onclick="Copy">Copy</a>
+
+    <div style="float: right;">
+        <span>New game:</span>
+        <a @onclick="@(() => StartNewGame("Easy"))">Easy</a>
+        <a @onclick="@(() => StartNewGame("Medium"))">Medium</a>
+        <a @onclick="@(() => StartNewGame("Hard"))">Hard</a>
+        <a @onclick="@(() => StartNewGame("Unfair"))">Unfair</a>
+        <a @onclick="@(() => StartNewGame("Extreme"))">Extreme</a>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public Func<string, Task> StartNewGame { get; set; }
+
+    [Parameter]
+    public Func<Task> Copy { get; set; }
+
+    [Parameter]
+    public Action FillAllCandidates { get; set; }
+}
