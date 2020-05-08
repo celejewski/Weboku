@@ -1,0 +1,26 @@
+﻿<button @onclick="OnSelectedValueChanged"
+        class="@HighlightedClass">
+    @Value
+</button>
+
+@code {
+    [Parameter]
+    public int Value { get; set; }
+
+    [Parameter]
+    public int SelectedValue { get; set; }
+
+    [Parameter]
+    public EventCallback<int> SelectedValueChanged { get; set; }
+
+    private async Task OnSelectedValueChanged(MouseEventArgs args)
+    {
+        await SelectedValueChanged.InvokeAsync(Value);
+        await Parent.SelectedValueChanged.InvokeAsync(Value);
+    }
+
+    public string HighlightedClass { get => Value == SelectedValue ? "HighlightedNumpad" : ""; }
+
+    [Parameter]
+    public NumpadComponent Parent { get; set; }
+}

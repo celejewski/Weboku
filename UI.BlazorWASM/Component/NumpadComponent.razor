@@ -1,25 +1,30 @@
-﻿<button
-     @onclick="OnSelectedValueChanged"
-        class="@HighlightedClass">
-    @Value
-</button>
+﻿<div class="numpad">
+    <button @onclick="OnClickUndo">⎌</button>
+    <NumpadDigitComponent Value="1" @bind-SelectedValue="SelectedValue" Parent="@this" />
+    <NumpadDigitComponent Value="2" @bind-SelectedValue="SelectedValue" Parent="@this" />
+    <NumpadDigitComponent Value="3" @bind-SelectedValue="SelectedValue" Parent="@this" />
+
+    <button @onclick="OnClickRedo">⇨</button>
+    <NumpadDigitComponent Value="4" @bind-SelectedValue="SelectedValue" Parent="@this" />
+    <NumpadDigitComponent Value="5" @bind-SelectedValue="SelectedValue" Parent="@this" />
+    <NumpadDigitComponent Value="6" @bind-SelectedValue="SelectedValue" Parent="@this" />
+
+    <NumpadDigitComponent Value="0" @bind-SelectedValue="SelectedValue" Parent="@this" />
+    <NumpadDigitComponent Value="7" @bind-SelectedValue="SelectedValue" Parent="@this" />
+    <NumpadDigitComponent Value="8" @bind-SelectedValue="SelectedValue" Parent="@this" />
+    <NumpadDigitComponent Value="9" @bind-SelectedValue="SelectedValue" Parent="@this" />
+</div>
 
 @code {
-    [Parameter]
-    public int Value { get; set; }
-
     [Parameter]
     public int SelectedValue { get; set; }
 
     [Parameter]
     public EventCallback<int> SelectedValueChanged { get; set; }
 
-    private Task OnSelectedValueChanged(MouseEventArgs args)
-    {
-        return SelectedValueChanged.InvokeAsync(Value);
-    }
+    [Parameter]
+    public EventCallback OnClickRedo { get; set; }
 
-    public string HighlightedClass { get => Value == SelectedValue ? "HighlightedNumpad" : ""; }
-
-
+    [Parameter]
+    public EventCallback OnClickUndo { get; set; }
 }
