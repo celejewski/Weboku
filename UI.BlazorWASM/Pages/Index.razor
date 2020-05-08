@@ -74,7 +74,7 @@
 
     private async Task StartNewGame(string difficulty)
     {
-        _grid = await GridGenerator.New();
+        _grid = await GridGenerator.New(difficulty);
         SelectedValue = 1;
     }
 
