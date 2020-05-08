@@ -1,6 +1,7 @@
 ﻿@page "/"
 @inject HttpClient Http
 @inject IGridGenerator GridGenerator
+@inject IJSRuntime JSRuntime
 
 <div id="main"
      class="main"
@@ -9,6 +10,7 @@
      @onkeypress="OnKeyDown">
     <div class="menu">
         <a @onclick="FillAllCandidates">Fill all candidates</a>
+        <a @onclick="Copy">Copy</a>
 
         <div style="float: right;">
             <span>New game:</span>
@@ -143,4 +145,9 @@
     }
 
     public string KeyPressed { get; set; }
+
+    private async Task Copy()
+    {
+        await JSRuntime.InvokeVoidAsync("navigator.clipboard.writeText", _grid.ToString());
+    }
 }
