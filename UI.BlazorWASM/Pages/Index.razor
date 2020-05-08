@@ -7,7 +7,7 @@
      tabindex="0"
      @onkeypress="OnKeyDown">
     <div class="menu">
-        Menu
+        <a @onclick="FillAllCandidates">Fill all candidates</a>
     </div>
     <div class="grid-wrapper">
         <div class="grid">
@@ -61,14 +61,17 @@
         {
             var sudoku = await Http.GetFromJsonAsync<Sudoku>(@"http://andzej-002-site2.ftempurl.com/sudokugenerator");
             _grid = new Grid(sudoku.Given);
-            _grid.FillAllCandidates();
         }
         catch (Exception ex)
         {
             Console.WriteLine(ex.ToString());
             _grid = new Grid();
-            _grid.FillAllCandidates();
         }
+    }
+
+    private void FillAllCandidates()
+    {
+        _grid.FillAllCandidates();
     }
 
     public void OnLeftCellClick(ICell cell)

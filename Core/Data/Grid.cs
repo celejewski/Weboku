@@ -36,7 +36,10 @@ namespace Core.Data
                 {
                     for( int i = 1; i < 10; i++ )
                     {
-                        _cells[x, y].Candidates.Add(i, new CellInput { Value = i, IsLegal = true });
+                        if( !_cells[x, y].Candidates.ContainsKey(i) )
+                        {
+                            _cells[x, y].Candidates.Add(i, new CellInput { Value = i, IsLegal = true });
+                        }
                     }
                 }
             }
