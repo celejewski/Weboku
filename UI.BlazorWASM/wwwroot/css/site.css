@@ -3,6 +3,7 @@
 body {
     margin: 0px;
     background-color: #555555;
+    user-select: none;
 }
 
 html {
