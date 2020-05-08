@@ -1,15 +1,25 @@
 ﻿
 <div class="menu">
-    <a @onclick="FillAllCandidates">Fill all candidates</a>
-    <a @onclick="Copy">Copy</a>
+    <a @onclick="FillAllCandidates">Find candidates</a>
+    <div class="dropdown">
+        <button class="dropbtn">Copy</button>
+        
+        <div class="dropdown-content">
+            <a @onclick="CopyAll">All</a>
+            <a @onclick="CopyInput">Inputs without candidates</a>
+            <a @onclick="CopyGivens">Only Givens</a>
+        </div>
+    </div>
 
-    <div style="float: right;">
-        <span>New game:</span>
-        <a @onclick="@(() => StartNewGame("Easy"))">Easy</a>
-        <a @onclick="@(() => StartNewGame("Medium"))">Medium</a>
-        <a @onclick="@(() => StartNewGame("Hard"))">Hard</a>
-        <a @onclick="@(() => StartNewGame("Unfair"))">Unfair</a>
-        <a @onclick="@(() => StartNewGame("Extreme"))">Extreme</a>
+    <div class="dropdown">
+        <button class="dropbtn">New game</button>
+        <div class="dropdown-content">
+            <a @onclick="@(() => StartNewGame("Easy"))">Easy</a>
+            <a @onclick="@(() => StartNewGame("Medium"))">Medium</a>
+            <a @onclick="@(() => StartNewGame("Hard"))">Hard</a>
+            <a @onclick="@(() => StartNewGame("Unfair"))">Unfair</a>
+            <a @onclick="@(() => StartNewGame("Extreme"))">Extreme</a>
+        </div>
     </div>
 </div>
 
@@ -18,7 +28,13 @@
     public Func<string, Task> StartNewGame { get; set; }
 
     [Parameter]
-    public Func<Task> Copy { get; set; }
+    public Func<Task> CopyAll { get; set; }
+
+    [Parameter]
+    public Func<Task> CopyInput { get; set; }
+
+    [Parameter]
+    public Func<Task> CopyGivens { get; set; }
 
     [Parameter]
     public Action FillAllCandidates { get; set; }

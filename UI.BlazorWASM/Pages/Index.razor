@@ -11,7 +11,9 @@
     
     <MenuComponent StartNewGame="StartNewGame"
                    FillAllCandidates="FillAllCandidates"
-                   Copy="Copy"/>
+                   CopyAll="CopyAll"
+                   CopyGivens="CopyGivens"
+                   CopyInput="CopyInput"/>
 
     <GridComponent SelectedValue="SelectedValue"
                    OnCellLeftClick="OnCellLeftClick"
@@ -116,8 +118,25 @@
 
     public string KeyPressed { get; set; }
 
-    private async Task Copy()
+
+    private async Task CopyAll() => await Copy("xD");
+    private async Task CopyInput() => await Copy(_grid.ToString());
+    private async Task CopyGivens()
     {
-        await JSRuntime.InvokeVoidAsync("navigator.clipboard.writeText", _grid.ToString());
+        var sb = new System.Text.StringBuilder();
+        for( int y = 0; y < 9; y++ )
+        {
+            for( int x = 0; x < 9; x++ )
+            {
+                sb.Append(Cells[x, y].IsGiven ? Cells[x, y].Input.Value.ToString() : "0");
+            }
+        }
+        var givens = sb.ToString();
+        await Copy(givens);
+    }
+
+    private async Task Copy(string text)
+    {
+        await JSRuntime.InvokeVoidAsync("navigator.clipboard.writeText", text);
     }
 }
