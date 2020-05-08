@@ -172,3 +172,7 @@ a {
     align-items: center;
     justify-content: center;
 }
+
+.HighlightedNumpad {
+    color: #E2E200 !important;
+}

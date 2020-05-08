@@ -1,5 +1,6 @@
 ﻿<button
-     @onclick="OnSelectedValueChanged">
+     @onclick="OnSelectedValueChanged"
+        class="@HighlightedClass">
     @Value
 </button>
 
@@ -17,5 +18,8 @@
     {
         return SelectedValueChanged.InvokeAsync(Value);
     }
+
+    public string HighlightedClass { get => Value == SelectedValue ? "HighlightedNumpad" : ""; }
+
 
 }
