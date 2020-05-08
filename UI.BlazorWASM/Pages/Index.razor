@@ -1,5 +1,6 @@
 ﻿@page "/"
 @inject HttpClient Http
+@inject IGridGenerator GridGenerator
 
 <div id="main"
      class="main"
@@ -57,16 +58,13 @@
 
     protected override async Task OnInitializedAsync()
     {
-        try
-        {
-            var sudoku = await Http.GetFromJsonAsync<Sudoku>(@"http://andzej-002-site2.ftempurl.com/sudokugenerator");
-            _grid = new Grid(sudoku.Given);
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex.ToString());
-            _grid = new Grid();
-        }
+        await StartNewGame("Medium");
+    }
+
+    private async Task StartNewGame(string difficulty)
+    {
+        _grid = await GridGenerator.New();
+        SelectedValue = 1;
     }
 
     private void FillAllCandidates()
