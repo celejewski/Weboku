@@ -219,6 +219,7 @@ namespace Core.Data
                     var from = source._cells[x, y];
                     var to = destination._cells[x, y];
 
+                    to.IsGiven = from.IsGiven;
                     to.Input.Value = from.Input.Value;
                     to.Input.IsLegal = from.Input.IsLegal;
 
