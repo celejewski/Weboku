@@ -36,9 +36,10 @@ namespace Core.Data
                 {
                     for( int i = 1; i < 10; i++ )
                     {
-                        if( !_cells[x, y].Candidates.ContainsKey(i) )
+                        var cell = _cells[x, y];
+                        if( !cell.Candidates.ContainsKey(i) )
                         {
-                            _cells[x, y].Candidates.Add(i, new CellInput { Value = i, IsLegal = true });
+                            cell.Candidates.Add(i, new CellInput { Value = i, IsLegal = true });
                         }
                     }
                 }
@@ -48,7 +49,7 @@ namespace Core.Data
             {
                 for( int y = 0; y < 9; y++ )
                 {
-                    SetValue(x, y, _cells[x, y].Input.Value);
+                    RemoveCandidateSeenBy(x, y);
                 }
             }
         }
@@ -63,18 +64,23 @@ namespace Core.Data
         {
             var cell = _cells[x, y];
             cell.Input.Value = value;
-            bool isLegal = IsLegalValue(x, y, value);
-            cell.Input.IsLegal = isLegal;
+            cell.Input.IsLegal = IsLegalValue(x, y, value);
+            RemoveCandidateSeenBy(x, y);
+        }
 
-            if( value != 0 && isLegal )
+        private void RemoveCandidateSeenBy(int x, int y)
+        {
+            var cell = _cells[x, y];
+            var value = cell.Input.Value;
+            if( value != 0 && cell.Input.IsLegal )
             {
-                var cells = GetCellsWhichCanSee(x, y);
-                for( int i = 0; i < cells.Count; i++ )
+                var seenCells = GetCellsWhichCanSee(x, y);
+                for( int i = 0; i < seenCells.Count; i++ )
                 {
-                    var c = cells[i];
-                    if( c.Candidates.ContainsKey(value) )
+                    var seenCell = seenCells[i];
+                    if( seenCell.Candidates.ContainsKey(value) )
                     {
-                        c.Candidates.Remove(value);
+                        seenCell.Candidates.Remove(value);
                     }
                 }
             }
@@ -83,7 +89,6 @@ namespace Core.Data
         public void ToggleCandidate(int x, int y, int value)
         {
             var cell = _cells[x, y];
-
             if( !cell.Candidates.ContainsKey(value) )
             {
                 cell.Candidates.Add(value, new CellInput
@@ -121,7 +126,6 @@ namespace Core.Data
             {
                 _cellsWhichCanSee[x, y] = CalculateCellsWhichCanSee(x, y);
             }
-
             return _cellsWhichCanSee[x, y];
         }
         public IEnumerable<(int x, int y)> GetIndexesFromRow(int y)
@@ -161,11 +165,10 @@ namespace Core.Data
             {
                 return true;
             }
-
-            return IsLegalValueFor(x, y, value, CalculateCellsWhichCanSee(x, y));
+            return IsLegalValueFor(value, CalculateCellsWhichCanSee(x, y));
         }
 
-        private bool IsLegalValueFor(int x, int y, int value, IList<Cell> cellsToCheck)
+        private bool IsLegalValueFor(int value, IList<Cell> cellsToCheck)
         {
             for( int i = 0; i < cellsToCheck.Count; i++ )
             {
@@ -174,25 +177,24 @@ namespace Core.Data
                     return false;
                 }
             }
-
             return true;
         }
 
         public object Clone()
         {
             var clone = new Grid();
-            Grid.AssignFrom(this, clone);
+            clone.AssignFrom(this);
             return clone;
         }
 
-        private static void AssignFrom(IGrid source, Grid destination)
+        public void AssignFrom(IGrid source)
         {
             for( int x = 0; x < 9; x++ )
             {
                 for( int y = 0; y < 9; y++ )
                 {
                     var from = source.Cells[x, y];
-                    var to = destination._cells[x, y];
+                    var to = this._cells[x, y];
 
                     to.IsGiven = from.IsGiven;
                     to.Input.Value = from.Input.Value;
@@ -205,11 +207,6 @@ namespace Core.Data
                     }
                 }
             }
-        }
-
-        public void AssignFrom(IGrid source)
-        {
-            Grid.AssignFrom(source, this);
         }
     }
 }
