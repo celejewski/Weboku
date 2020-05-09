@@ -1,33 +1,34 @@
 ﻿@page "/"
 @inject HttpClient Http
-@inject IGridGenerator GridGenerator
-@inject IGridHistoryManager GridHistoryManager
 @inject IJSRuntime JSRuntime
+@inject IEmptyGridGenerator EmptyGridGenerator
+@inject INewGivenGenerator GridGenerator
+@inject IGridHistoryManager GridHistoryManager
+@inject HodokuGridConverter HodokuGridConverter
 
 <div id="main"
      class="main"
      onblur="this.focus()"
      tabindex="0"
      @onkeypress="OnKeyDown">
-    
+
     <MenuComponent StartNewGame="StartNewGame"
                    FillAllCandidates="FillAllCandidates"
                    CopyAll="CopyAll"
                    CopyGivens="CopyGivens"
-                   CopyInput="CopyInput"/>
+                   CopyInput="CopyInput" />
 
     <GridComponent SelectedValue="SelectedValue"
                    OnCellLeftClick="OnCellLeftClick"
                    OnCellRightClick="OnCellRightClick"
-                   Cells="Cells"/>
-    
+                   Cells="Cells" />
+
     <NumpadComponent @bind-SelectedValue="SelectedValue"
                      OnClickUndo="GridHistoryManager.Undo"
                      OnClickRedo="GridHistoryManager.Redo" />
 </div>
 
 @code {
-    private HodokuGridConverter _hodokuGridConverter = new HodokuGridConverter();
     private IGrid _grid;
     public int SelectedValue { get; set; }
 
@@ -35,7 +36,7 @@
 
     protected override void OnInitialized()
     {
-        _grid = new Grid();
+        _grid = EmptyGridGenerator.Empty();
         GridHistoryManager.AttachTo(_grid);
     }
 
@@ -47,7 +48,7 @@
     private async Task StartNewGame(string difficulty)
     {
         GridHistoryManager.Save();
-        var newGrid = await GridGenerator.New(difficulty);
+        var newGrid = await GridGenerator.NewGiven(difficulty);
         _grid.AssignFrom(newGrid);
         SelectedValue = 1;
         StateHasChanged();
@@ -112,9 +113,9 @@
     public string KeyPressed { get; set; }
 
 
-    private async Task CopyAll() => await Copy(_hodokuGridConverter.ToText(_grid, GridConverterFormat.InputsAndCandidates));
-    private async Task CopyInput() => await Copy(_hodokuGridConverter.ToText(_grid, GridConverterFormat.Inputs));
-    private async Task CopyGivens() => await Copy(_hodokuGridConverter.ToText(_grid, GridConverterFormat.GivensOnly));
+    private async Task CopyAll() => await Copy(HodokuGridConverter.ToText(_grid, GridConverterFormat.InputsAndCandidates));
+    private async Task CopyInput() => await Copy(HodokuGridConverter.ToText(_grid, GridConverterFormat.Inputs));
+    private async Task CopyGivens() => await Copy(HodokuGridConverter.ToText(_grid, GridConverterFormat.GivensOnly));
 
     private async Task Copy(string text)
     {

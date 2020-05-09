@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using UI.BlazorWASM.Services;
 using Core.Managers;
+using Core.Generators;
+using Core.Converters;
 
 namespace UI.BlazorWASM
 {
@@ -18,7 +20,9 @@ namespace UI.BlazorWASM
             builder.RootComponents.Add<App>("app");
 
             builder.Services.AddSingleton(new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-            builder.Services.AddSingleton<IGridGenerator, RESTGridGenerator>();
+            builder.Services.AddSingleton<IEmptyGridGenerator, BaseGridGenerator>();
+            builder.Services.AddSingleton<HodokuGridConverter, HodokuGridConverter>();
+            builder.Services.AddSingleton<INewGivenGenerator, RESTGridGenerator>();
             builder.Services.AddTransient<IGridHistoryManager, GridHistoryManager>();
             builder.Services.AddCors();
             var app = builder.Build();

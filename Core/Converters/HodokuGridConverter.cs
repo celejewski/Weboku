@@ -1,13 +1,21 @@
 ﻿using Core.Data;
+using Core.Generators;
 using System.Text;
 
 namespace Core.Converters
 {
     public class HodokuGridConverter : IGridConverter
     {
+        private readonly IEmptyGridGenerator _generator;
+
+        public HodokuGridConverter(IEmptyGridGenerator generator)
+        {
+            _generator = generator;
+        }
+
         public IGrid FromText(string input)
         {
-            var grid = new Grid();
+            var grid = _generator.Empty();
             for( int x = 0; x < 9; x++ )
             {
                 for( int y = 0; y < 9; y++ )
