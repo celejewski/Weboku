@@ -4,8 +4,8 @@ namespace Core.Data
 {
     public interface ICell
     {
-        int Row { get; }
-        int Col { get; }
+        int X { get; }
+        int Y { get; }
         int Block { get; }
         bool IsGiven { get; }
         ICellInput Input { get; }

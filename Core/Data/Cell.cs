@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Linq;
-
+﻿using System.Collections.Generic;
 
 namespace Core.Data
 {
@@ -18,9 +14,9 @@ namespace Core.Data
 
             Candidates = new Dictionary<int, ICellInput>();
         }
-        public int Row { get; set; }
 
-        public int Col { get; set; }
+        public int X { get; set; }
+        public int Y { get; set; }
 
         public int Block { get; set; }
 

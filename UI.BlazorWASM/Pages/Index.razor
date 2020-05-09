@@ -50,13 +50,13 @@
         if( SelectedValue == 0 || cell.Input.Value == 0 )
         {
             GridHistoryManager.Save();
-            _grid.SetValue(cell.Col, cell.Row, SelectedValue);
+            _grid.SetValue(cell.X, cell.Y, SelectedValue);
             StateHasChanged();
         }
         else if( cell.Input.Value == SelectedValue )
         {
             GridHistoryManager.Save();
-            _grid.SetValue(cell.Col, cell.Row, 0);
+            _grid.SetValue(cell.X, cell.Y, 0);
             StateHasChanged();
         }
     }
@@ -69,7 +69,7 @@
         }
 
         GridHistoryManager.Save();
-        _grid.ToggleCandidate(cell.Col, cell.Row, SelectedValue);
+        _grid.ToggleCandidate(cell.X, cell.Y, SelectedValue);
     }
 
     public void OnKeyDown(KeyboardEventArgs args)

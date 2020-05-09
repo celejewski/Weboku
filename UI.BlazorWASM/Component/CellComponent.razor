@@ -62,10 +62,10 @@ else
     private string GivenClass { get => Cell.IsGiven ? "given " : ""; }
 
     public bool IsGray { get => Cell.Block % 2 == 1; }
-    private bool HasBottomBorder { get => Cell.Row == 2 || Cell.Row == 5; }
-    private bool HasTopBorder { get => Cell.Row == 3 || Cell.Row == 6; }
-    private bool HasRightBorder { get => Cell.Col == 2 || Cell.Col == 5; }
-    private bool HasLeftBorder { get => Cell.Col == 3 || Cell.Col == 6;  }
+    private bool HasBottomBorder { get => Cell.Y == 2 || Cell.Y == 5; }
+    private bool HasTopBorder { get => Cell.Y == 3 || Cell.Y == 6; }
+    private bool HasRightBorder { get => Cell.X == 2 || Cell.X == 5; }
+    private bool HasLeftBorder { get => Cell.X == 3 || Cell.X == 6;  }
 
     private string BackgroundClass
     {

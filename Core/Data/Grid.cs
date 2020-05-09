@@ -20,8 +20,8 @@ namespace Core.Data
                 {
                     _cells[x, y] = new Cell
                     {
-                        Col = x,
-                        Row = y,
+                        X = x,
+                        Y = y,
                         Block = (y / 3) * 3 + (x / 3),
                     };
                 }
