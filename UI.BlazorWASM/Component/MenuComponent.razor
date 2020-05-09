@@ -1,13 +1,14 @@
-﻿
+﻿@inject IJSRuntime JSRuntime
+@inject HodokuGridConverter HodokuGridConverter
+
 <div class="menu">
     <a @onclick="FillAllCandidates">Find candidates</a>
     <div class="dropdown">
         <button class="dropbtn">Copy</button>
-        
+
         <div class="dropdown-content">
-            <a @onclick="CopyAll">All</a>
-            <a @onclick="CopyInput">Inputs without candidates</a>
-            <a @onclick="CopyGivens">Only Givens</a>
+            <a @onclick="CopyGivens">Givens</a>
+            <a @onclick="CopyInput">User inputs</a>
         </div>
     </div>
 
@@ -25,17 +26,19 @@
 
 @code {
     [Parameter]
+    public IGrid Grid { get; set; }
+
+    [Parameter]
     public Func<string, Task> StartNewGame { get; set; }
 
     [Parameter]
-    public Func<Task> CopyAll { get; set; }
-
-    [Parameter]
-    public Func<Task> CopyInput { get; set; }
-
-    [Parameter]
-    public Func<Task> CopyGivens { get; set; }
-
-    [Parameter]
     public Action FillAllCandidates { get; set; }
+
+    private async Task CopyInput() => await Copy(HodokuGridConverter.ToText(Grid, IncludedFields.Inputs));
+    private async Task CopyGivens() => await Copy(HodokuGridConverter.ToText(Grid, IncludedFields.Givens));
+
+    private async Task Copy(string text)
+    {
+        await JSRuntime.InvokeVoidAsync("navigator.clipboard.writeText", text);
+    }
 }

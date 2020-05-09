@@ -1,9 +1,7 @@
 ﻿@page "/"
 @inject HttpClient Http
-@inject IJSRuntime JSRuntime
 @inject IGridGenerator GridGenerator
 @inject IGridHistoryManager GridHistoryManager
-@inject HodokuGridConverter HodokuGridConverter
 
 <div id="main"
      class="main"
@@ -11,11 +9,9 @@
      tabindex="0"
      @onkeypress="OnKeyDown">
 
-    <MenuComponent StartNewGame="StartNewGame"
-                   FillAllCandidates="FillAllCandidates"
-                   CopyAll="CopyAll"
-                   CopyGivens="CopyGivens"
-                   CopyInput="CopyInput" />
+    <MenuComponent Grid="_grid"
+                   StartNewGame="StartNewGame"
+                   FillAllCandidates="FillAllCandidates" />
 
     <GridComponent SelectedValue="SelectedValue"
                    OnCellLeftClick="OnCellLeftClick"
@@ -42,21 +38,6 @@
     protected override async Task OnInitializedAsync()
     {
         await StartNewGame("Medium");
-    }
-
-    private async Task StartNewGame(string difficulty)
-    {
-        GridHistoryManager.Save();
-        var newGrid = await GridGenerator.WithGiven(difficulty);
-        _grid.AssignFrom(newGrid);
-        SelectedValue = 1;
-        StateHasChanged();
-    }
-
-    private void FillAllCandidates()
-    {
-        GridHistoryManager.Save();
-        _grid.FillAllCandidates();
     }
 
     public void OnCellLeftClick(ICell cell)
@@ -109,15 +90,18 @@
         }
     }
 
-    public string KeyPressed { get; set; }
-
-
-    private async Task CopyAll() => await Copy(HodokuGridConverter.ToText(_grid, IncludedFields.InputsAndCandidates));
-    private async Task CopyInput() => await Copy(HodokuGridConverter.ToText(_grid, IncludedFields.Inputs));
-    private async Task CopyGivens() => await Copy(HodokuGridConverter.ToText(_grid, IncludedFields.Givens));
-
-    private async Task Copy(string text)
+    private void FillAllCandidates()
     {
-        await JSRuntime.InvokeVoidAsync("navigator.clipboard.writeText", text);
+        GridHistoryManager.Save();
+        _grid.FillAllCandidates();
+    }
+
+    private async Task StartNewGame(string difficulty)
+    {
+        GridHistoryManager.Save();
+        var newGrid = await GridGenerator.WithGiven(difficulty);
+        _grid.AssignFrom(newGrid);
+        SelectedValue = 1;
+        StateHasChanged();
     }
 }
