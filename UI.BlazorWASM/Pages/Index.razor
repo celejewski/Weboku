@@ -1,6 +1,7 @@
 ﻿@page "/"
 @inject HttpClient Http
 @inject IGridGenerator GridGenerator
+@inject IGridHistoryManager GridHistoryManager
 @inject IJSRuntime JSRuntime
 
 <div id="main"
@@ -21,8 +22,8 @@
                    Cells="Cells"/>
     
     <NumpadComponent @bind-SelectedValue="SelectedValue"
-                     OnClickUndo="OnClickUndo"
-                     OnClickRedo="OnClickRedo" />
+                     OnClickUndo="GridHistoryManager.Undo"
+                     OnClickRedo="GridHistoryManager.Redo" />
 </div>
 
 @code {
@@ -34,6 +35,7 @@
     protected override void OnInitialized()
     {
         _grid = new Grid();
+        GridHistoryManager.AttachTo(_grid);
     }
 
     protected override async Task OnInitializedAsync()
@@ -43,7 +45,7 @@
 
     private async Task StartNewGame(string difficulty)
     {
-        _grid.RecordState();
+        GridHistoryManager.Save();
         var newGrid = await GridGenerator.New(difficulty);
         _grid.AssignFrom(newGrid);
         SelectedValue = 1;
@@ -52,7 +54,7 @@
 
     private void FillAllCandidates()
     {
-        _grid.RecordState();
+        GridHistoryManager.Save();
         _grid.FillAllCandidates();
     }
 
@@ -65,13 +67,13 @@
 
         if( SelectedValue == 0 || cell.Input.Value == 0 )
         {
-            _grid.RecordState();
+            GridHistoryManager.Save();
             _grid.SetValue(cell.Col, cell.Row, SelectedValue);
             StateHasChanged();
         }
         else if( cell.Input.Value == SelectedValue )
         {
-            _grid.RecordState();
+            GridHistoryManager.Save();
             _grid.SetValue(cell.Col, cell.Row, 0);
             StateHasChanged();
         }
@@ -84,7 +86,7 @@
             return;
         }
 
-        _grid.RecordState();
+        GridHistoryManager.Save();
         _grid.ToggleCandidate(cell.Col, cell.Row, SelectedValue);
     }
 
@@ -97,23 +99,13 @@
 
         if( args.Key == "z" )
         {
-            _grid.Undo();
+            GridHistoryManager.Undo();
         }
 
         if( args.Key == "y" )
         {
-            _grid.Redo();
+            GridHistoryManager.Redo();
         }
-    }
-
-    private void OnClickUndo()
-    {
-        _grid.Undo();
-    }
-
-    private void OnClickRedo()
-    {
-        _grid.Redo();
     }
 
     public string KeyPressed { get; set; }

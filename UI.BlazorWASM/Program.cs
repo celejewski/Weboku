@@ -6,6 +6,7 @@ using System.Text;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using UI.BlazorWASM.Services;
+using Core.Managers;
 
 namespace UI.BlazorWASM
 {
@@ -18,6 +19,7 @@ namespace UI.BlazorWASM
 
             builder.Services.AddSingleton(new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
             builder.Services.AddSingleton<IGridGenerator, RESTGridGenerator>();
+            builder.Services.AddTransient<IGridHistoryManager, GridHistoryManager>();
             builder.Services.AddCors();
             var app = builder.Build();
            

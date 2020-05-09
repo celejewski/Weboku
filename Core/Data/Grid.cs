@@ -236,42 +236,5 @@ namespace Core.Data
         {
             Grid.AssignFrom(source, this);
         }
-
-
-        private readonly Stack<Grid> _previousStates = new Stack<Grid>();
-        private readonly Stack<Grid> _nextStates = new Stack<Grid>();
-
-        public void RecordState()
-        {
-            _previousStates.Push((Grid) this.Clone());
-            _nextStates.Clear();
-        }
-
-        public void Undo()
-        {
-            if (CanUndo)
-            {
-                var current = (Grid)this.Clone();
-                _nextStates.Push(current);
-
-                var previous = _previousStates.Pop();
-                this.AssignFrom(previous);
-            }
-        }
-
-        public void Redo()
-        {
-            if ( CanRedo )
-            {
-                var current = (Grid) this.Clone();
-                _previousStates.Push(current);
-
-                var next = _nextStates.Pop();
-                this.AssignFrom(next);
-            }
-        }
-
-        public bool CanUndo { get => _previousStates.Count > 0; }
-        public bool CanRedo { get => _nextStates.Count > 0; }
     }
 }
