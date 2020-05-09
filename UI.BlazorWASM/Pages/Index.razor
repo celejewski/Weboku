@@ -27,6 +27,7 @@
 </div>
 
 @code {
+    private HodokuGridConverter _hodokuGridConverter = new HodokuGridConverter();
     private Grid _grid;
     public int SelectedValue { get; set; }
 
@@ -111,21 +112,9 @@
     public string KeyPressed { get; set; }
 
 
-    private async Task CopyAll() => await Copy("xD");
-    private async Task CopyInput() => await Copy(_grid.ToString());
-    private async Task CopyGivens()
-    {
-        var sb = new System.Text.StringBuilder();
-        for( int y = 0; y < 9; y++ )
-        {
-            for( int x = 0; x < 9; x++ )
-            {
-                sb.Append(Cells[x, y].IsGiven ? Cells[x, y].Input.Value.ToString() : "0");
-            }
-        }
-        var givens = sb.ToString();
-        await Copy(givens);
-    }
+    private async Task CopyAll() => await Copy(_hodokuGridConverter.ToText(_grid, GridConverterFormat.InputsAndCandidates));
+    private async Task CopyInput() => await Copy(_hodokuGridConverter.ToText(_grid, GridConverterFormat.Inputs));
+    private async Task CopyGivens() => await Copy(_hodokuGridConverter.ToText(_grid, GridConverterFormat.GivensOnly));
 
     private async Task Copy(string text)
     {

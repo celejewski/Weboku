@@ -53,20 +53,10 @@ namespace Core.Data
             }
         }
 
-        public Grid(string input) : this()
+        public void SetGiven(int x, int y, int value)
         {
-            for( int x = 0; x < 9; x++ )
-            {
-                for( int y = 0; y < 9; y++ )
-                {
-                    var value = int.Parse(input[y * 9 + x].ToString());
-                    SetValue(x, y, value);
-                    if (value != 0)
-                    {
-                        _cells[x, y].IsGiven = true;
-                    }
-                }
-            }
+            SetValue(x, y, value);
+            _cells[x, y].IsGiven = true;
         }
 
         public void SetValue(int x, int y, int value)
@@ -186,21 +176,6 @@ namespace Core.Data
             }
 
             return true;
-        }
-
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-
-            for( int y = 0; y < 9; y++ )
-            {
-                for( int x = 0; x < 9; x++ )
-                {
-                    sb.Append(_cells[x, y].Input.Value);
-                }
-            }
-
-            return sb.ToString();
         }
 
         public object Clone()

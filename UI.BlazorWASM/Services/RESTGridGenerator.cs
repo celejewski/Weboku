@@ -1,4 +1,5 @@
-﻿using Core.Data;
+﻿using Core.Converters;
+using Core.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +23,9 @@ namespace UI.BlazorWASM.Services
             try
             {
                 var sudoku = await _http.GetFromJsonAsync<Sudoku>($"http://andzej-002-site2.ftempurl.com/sudokugenerator/{difficulty}");
-                return new Grid(sudoku.Given);
+                var converter = new HodokuGridConverter();
+                return converter.FromText(sudoku.Given);
+
             }
             catch
             {
