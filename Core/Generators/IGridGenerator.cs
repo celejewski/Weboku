@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Core.Generators
 {
-    public interface INewGivenGenerator
+    public interface IGridGenerator : IEmptyGridGenerator
     {
         Task<IGrid> NewGiven(string difficulty);
     }

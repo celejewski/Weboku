@@ -1,8 +1,7 @@
 ﻿@page "/"
 @inject HttpClient Http
 @inject IJSRuntime JSRuntime
-@inject IEmptyGridGenerator EmptyGridGenerator
-@inject INewGivenGenerator GridGenerator
+@inject IGridGenerator GridGenerator
 @inject IGridHistoryManager GridHistoryManager
 @inject HodokuGridConverter HodokuGridConverter
 
@@ -36,7 +35,7 @@
 
     protected override void OnInitialized()
     {
-        _grid = EmptyGridGenerator.Empty();
+        _grid = GridGenerator.Empty();
         GridHistoryManager.AttachTo(_grid);
     }
 

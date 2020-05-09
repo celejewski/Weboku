@@ -7,20 +7,19 @@ using System.Threading.Tasks;
 
 namespace UI.BlazorWASM.Services
 {
-    public class RESTGridGenerator : INewGivenGenerator
+    public class RESTGridGenerator : BaseGridGenerator
     {
         private readonly HttpClient _http;
         private readonly HodokuGridConverter _converter;
-        private readonly IEmptyGridGenerator _emptyGridGenerator;
 
         public RESTGridGenerator(HttpClient http, HodokuGridConverter converter, IEmptyGridGenerator emptyGridGenerator)
+            :base(emptyGridGenerator)
         {
             _http = http;
             _converter = converter;
-            _emptyGridGenerator = emptyGridGenerator;
         }
 
-        public async Task<IGrid> NewGiven(string difficulty)
+        public override async Task<IGrid> NewGiven(string difficulty)
         {
             try
             {

@@ -20,9 +20,9 @@ namespace UI.BlazorWASM
             builder.RootComponents.Add<App>("app");
 
             builder.Services.AddSingleton(new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-            builder.Services.AddSingleton<IEmptyGridGenerator, BaseGridGenerator>();
+            builder.Services.AddSingleton<IEmptyGridGenerator, EmptyGridGenerator>();
             builder.Services.AddSingleton<HodokuGridConverter, HodokuGridConverter>();
-            builder.Services.AddSingleton<INewGivenGenerator, RESTGridGenerator>();
+            builder.Services.AddSingleton<IGridGenerator, RESTGridGenerator>();
             builder.Services.AddTransient<IGridHistoryManager, GridHistoryManager>();
             builder.Services.AddCors();
             var app = builder.Build();
