@@ -34,7 +34,7 @@ namespace Core.Converters
             return grid;
         }
 
-        public string ToText(IGrid grid, GridConverterFormat format)
+        public string ToText(IGrid grid, IncludedFields format)
         {
             var sb = new StringBuilder();
             for( int y = 0; y < 9; y++ )
@@ -42,7 +42,7 @@ namespace Core.Converters
                 for( int x = 0; x < 9; x++ )
                 {
                     var cell = grid.Cells[x, y];
-                    if (!cell.IsGiven && format == GridConverterFormat.GivensOnly)
+                    if (!cell.IsGiven && format == IncludedFields.Givens)
                     {
                         sb.Append("0");
                     }

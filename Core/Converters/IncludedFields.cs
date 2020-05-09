@@ -1,8 +1,8 @@
 ﻿namespace Core.Converters
 {
-    public enum GridConverterFormat
+    public enum IncludedFields
     {
-        GivensOnly,
+        Givens,
         Inputs,
         InputsAndCandidates
     }

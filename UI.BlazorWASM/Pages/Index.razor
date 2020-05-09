@@ -112,9 +112,9 @@
     public string KeyPressed { get; set; }
 
 
-    private async Task CopyAll() => await Copy(HodokuGridConverter.ToText(_grid, GridConverterFormat.InputsAndCandidates));
-    private async Task CopyInput() => await Copy(HodokuGridConverter.ToText(_grid, GridConverterFormat.Inputs));
-    private async Task CopyGivens() => await Copy(HodokuGridConverter.ToText(_grid, GridConverterFormat.GivensOnly));
+    private async Task CopyAll() => await Copy(HodokuGridConverter.ToText(_grid, IncludedFields.InputsAndCandidates));
+    private async Task CopyInput() => await Copy(HodokuGridConverter.ToText(_grid, IncludedFields.Inputs));
+    private async Task CopyGivens() => await Copy(HodokuGridConverter.ToText(_grid, IncludedFields.Givens));
 
     private async Task Copy(string text)
     {
