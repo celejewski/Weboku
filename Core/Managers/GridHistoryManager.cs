@@ -5,22 +5,22 @@ namespace Core.Managers
 {
     public class GridHistoryManager : IGridHistoryManager
     {
-        private Grid _attached;
+        private IGrid _attached;
 
-        private readonly Stack<Grid> _previousStates = new Stack<Grid>();
-        private readonly Stack<Grid> _nextStates = new Stack<Grid>();
+        private readonly Stack<IGrid> _previousStates = new Stack<IGrid>();
+        private readonly Stack<IGrid> _nextStates = new Stack<IGrid>();
         public bool IsAttached { get => _attached != null; }
         public bool CanUndo { get => _previousStates.Count > 0; }
         public bool CanRedo { get => _nextStates.Count > 0; }
 
-        public void AttachTo(Grid grid)
+        public void AttachTo(IGrid grid)
         {
             _attached = grid;
         }
 
         public void Save()
         {
-            _previousStates.Push((Grid) _attached.Clone());
+            _previousStates.Push((IGrid) _attached.Clone());
             _nextStates.Clear();
         }
 
@@ -28,7 +28,7 @@ namespace Core.Managers
         {
             if( CanUndo )
             {
-                var current = (Grid) _attached.Clone();
+                var current = (IGrid) _attached.Clone();
                 _nextStates.Push(current);
 
                 var previous = _previousStates.Pop();
@@ -40,7 +40,7 @@ namespace Core.Managers
         {
             if( CanRedo )
             {
-                var current = (Grid) _attached.Clone();
+                var current = (IGrid) _attached.Clone();
                 _previousStates.Push(current);
 
                 var next = _nextStates.Pop();

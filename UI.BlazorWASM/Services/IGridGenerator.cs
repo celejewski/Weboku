@@ -5,6 +5,6 @@ namespace UI.BlazorWASM.Services
 {
     public interface IGridGenerator
     {
-        Task<Grid> New(string difficulty = "Medium");
+        Task<IGrid> New(string difficulty = "Medium");
     }
 }

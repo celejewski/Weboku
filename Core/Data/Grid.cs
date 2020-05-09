@@ -5,13 +5,13 @@ using System.Text;
 
 namespace Core.Data
 {
-    public class Grid : ICloneable
+    public class Grid : ICloneable, IGrid
     {
         private readonly Cell[,] _cells;
         public ICell[,] Cells { get => _cells; }
         private readonly IList<Cell>[,] _cellsWhichCanSee = new IList<Cell>[9, 9];
 
-        public Grid() 
+        public Grid()
         {
             _cells = new Cell[9, 9];
             for( int x = 0; x < 9; x++ )
@@ -69,10 +69,10 @@ namespace Core.Data
             if( value != 0 && isLegal )
             {
                 var cells = GetCellsWhichCanSee(x, y);
-                for (int i = 0; i < cells.Count; i++)
+                for( int i = 0; i < cells.Count; i++ )
                 {
                     var c = cells[i];
-                    if( c.Candidates.ContainsKey(value))
+                    if( c.Candidates.ContainsKey(value) )
                     {
                         c.Candidates.Remove(value);
                     }
@@ -84,14 +84,14 @@ namespace Core.Data
         {
             var cell = _cells[x, y];
 
-            if ( !cell.Candidates.ContainsKey(value))
+            if( !cell.Candidates.ContainsKey(value) )
             {
                 cell.Candidates.Add(value, new CellInput
                 {
                     Value = value,
                     IsLegal = IsLegalValue(x, y, value)
                 });
-            } 
+            }
             else
             {
                 cell.Candidates.Remove(value);
@@ -110,14 +110,14 @@ namespace Core.Data
                 .Concat(GetIndexesFromBlock(x, y));
 
             return indexes
-                .Where(index => !(index.x == x && index.y == y) )
+                .Where(index => !(index.x == x && index.y == y))
                 .Select(index => _cells[index.x, index.y])
                 .ToArray();
         }
 
         private IList<Cell> GetCellsWhichCanSee(int x, int y)
         {
-            if (_cellsWhichCanSee[x, y] == null)
+            if( _cellsWhichCanSee[x, y] == null )
             {
                 _cellsWhichCanSee[x, y] = CalculateCellsWhichCanSee(x, y);
             }
@@ -167,9 +167,9 @@ namespace Core.Data
 
         private bool IsLegalValueFor(int x, int y, int value, IList<Cell> cellsToCheck)
         {
-            for (int i = 0; i < cellsToCheck.Count; i++ )
+            for( int i = 0; i < cellsToCheck.Count; i++ )
             {
-                if ( cellsToCheck[i].Input.Value == value)
+                if( cellsToCheck[i].Input.Value == value )
                 {
                     return false;
                 }
@@ -185,13 +185,13 @@ namespace Core.Data
             return clone;
         }
 
-        private static void AssignFrom(Grid source, Grid destination)
+        private static void AssignFrom(IGrid source, Grid destination)
         {
             for( int x = 0; x < 9; x++ )
             {
                 for( int y = 0; y < 9; y++ )
                 {
-                    var from = source._cells[x, y];
+                    var from = source.Cells[x, y];
                     var to = destination._cells[x, y];
 
                     to.IsGiven = from.IsGiven;
@@ -201,13 +201,13 @@ namespace Core.Data
                     to.Candidates.Clear();
                     foreach( var candidate in from.Candidates )
                     {
-                        to.Candidates.Add(candidate.Key, (CellInput) ((CellInput)candidate.Value).Clone());
+                        to.Candidates.Add(candidate.Key, (CellInput) ((CellInput) candidate.Value).Clone());
                     }
                 }
             }
         }
 
-        public void AssignFrom(Grid source)
+        public void AssignFrom(IGrid source)
         {
             Grid.AssignFrom(source, this);
         }

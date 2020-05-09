@@ -4,7 +4,7 @@ namespace Core.Managers
 {
     public interface IGridHistoryManager
     {
-        void AttachTo(Grid grid);
+        void AttachTo(IGrid grid);
         void Save();
         void Undo();
         void Redo();

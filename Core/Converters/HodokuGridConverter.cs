@@ -5,7 +5,7 @@ namespace Core.Converters
 {
     public class HodokuGridConverter : IGridConverter
     {
-        public Grid FromText(string input)
+        public IGrid FromText(string input)
         {
             var grid = new Grid();
             for( int x = 0; x < 9; x++ )
@@ -26,7 +26,7 @@ namespace Core.Converters
             return grid;
         }
 
-        public string ToText(Grid grid, GridConverterFormat format)
+        public string ToText(IGrid grid, GridConverterFormat format)
         {
             var sb = new StringBuilder();
             for( int y = 0; y < 9; y++ )

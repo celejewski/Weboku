@@ -18,7 +18,7 @@ namespace UI.BlazorWASM.Services
             _http = http;
         }
 
-        public async Task<Grid> New(string difficulty)
+        public async Task<IGrid> New(string difficulty)
         {
             try
             {

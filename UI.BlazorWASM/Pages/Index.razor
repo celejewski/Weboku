@@ -28,7 +28,7 @@
 
 @code {
     private HodokuGridConverter _hodokuGridConverter = new HodokuGridConverter();
-    private Grid _grid;
+    private IGrid _grid;
     public int SelectedValue { get; set; }
 
     public ICell[,] Cells { get => _grid.Cells; }
