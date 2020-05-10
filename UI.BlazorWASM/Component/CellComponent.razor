@@ -2,8 +2,7 @@
 {
     <div class="cell input @BackgroundClass @InputIsHighlightedClass @GivenClass"
          style="@Border"
-         @onclick="OnClickCallback"
-         @oncontextmenu:preventDefault="true">
+         @onclick="OnClickCallback">
         <div class="value @InputIsIllegalClass">
             @Cell.Input.Value
         </div>
@@ -14,8 +13,7 @@ else
     <div class="cell candidates @BackgroundClass @CandidateIsHighlightedClass"
          style="@Border"
          @onclick="OnClickCallback"
-         @oncontextmenu="OnRightClickCallback"
-         @oncontextmenu:preventDefault="true">
+         @oncontextmenu="OnRightClickCallback">
         @for( int value = 1; value < 10; value++ )
         {
             <div class="candidate">
@@ -51,34 +49,16 @@ else
     [Parameter]
     public ICell Cell { get; set; }
 
+
     private string GivenClass { get => Cell.IsGiven ? "given " : ""; }
-
-    public bool IsGray { get => Cell.Block % 2 == 1; }
-    private bool HasBottomBorder { get => Cell.Y == 2 || Cell.Y == 5; }
-    private bool HasTopBorder { get => Cell.Y == 3 || Cell.Y == 6; }
-    private bool HasRightBorder { get => Cell.X == 2 || Cell.X == 5; }
-    private bool HasLeftBorder { get => Cell.X == 3 || Cell.X == 6; }
-
-    private string BackgroundClass
-    {
-        get => IsGray ? "grayBackground" : "whiteBackground";
-    }
-
 
     protected override void OnInitialized()
     {
-        var borders = new[]
-            {
-                ("top", HasTopBorder),
-                ("right", HasRightBorder),
-                ("bottom", HasBottomBorder),
-                ("left", HasLeftBorder),
-            };
-
-        var bordersStyles = borders.Select(item => $"border-{item.Item1}-width: {(item.Item2 ? "0.10rem" : "0.05rem")};");
-        Border = String.Join(" ", bordersStyles);
+        InitBorder();
+        BackgroundClass = Cell.Block % 2 == 1 ? "grayBackground" : "whiteBackground";
     }
 
+    private string BackgroundClass { get; set; }
     private string Border { get; set; }
 
     private string InputIsIllegalClass { get => Cell.Input.IsLegal ? "" : "illegalInput"; }
@@ -98,4 +78,19 @@ else
             return Cell.Candidates.ContainsKey(SelectedValue) ? "candidates-highlight" : String.Empty;
         }
     }
+
+    private void InitBorder()
+    {
+        var borders = new[]
+            {
+                ("top", Cell.Y == 3 || Cell.Y == 6),
+                ("right", Cell.X == 2 || Cell.X == 5),
+                ("bottom",  Cell.Y == 2 || Cell.Y == 5),
+                ("left", Cell.X == 3 || Cell.X == 6),
+            };
+
+        var bordersStyles = borders.Select(item => $"border-{item.Item1}-width: {(item.Item2 ? "0.10rem" : "0.05rem")};");
+        Border = String.Join(" ", bordersStyles);
+    }
+
 }
