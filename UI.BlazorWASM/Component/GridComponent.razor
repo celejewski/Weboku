@@ -5,11 +5,10 @@
             @for( int x = 0; x < 9; x++ )
             {
                 var cell = Cells[x, y];
-                <CellComponent @bind-Cell="cell"
-                               @bind-SelectedValue="SelectedValue"
-                               OnClickCallback=" () => OnCellLeftClick(cell)"
-                               OnRightClickCallback="() => OnCellRightClick(cell)">
-                </CellComponent>
+                <CellComponent Cell="cell"
+                               SelectedValue="SelectedValue"
+                               OnClickCallback="() => OnCellLeftClick(cell)"
+                               OnRightClickCallback="() => OnCellRightClick(cell)" />
             }
         }
     </div>

@@ -43,9 +43,6 @@ else
     public int SelectedValue { get; set; }
 
     [Parameter]
-    public EventCallback<int> SelectedValueChanged { get; set; }
-
-    [Parameter]
     public Action OnClickCallback { get; set; }
 
     [Parameter]
@@ -54,29 +51,23 @@ else
     [Parameter]
     public ICell Cell { get; set; }
 
-    [Parameter]
-    public EventCallback<ICell> CellChanged { get; set; }
-
-
-
     private string GivenClass { get => Cell.IsGiven ? "given " : ""; }
 
     public bool IsGray { get => Cell.Block % 2 == 1; }
     private bool HasBottomBorder { get => Cell.Y == 2 || Cell.Y == 5; }
     private bool HasTopBorder { get => Cell.Y == 3 || Cell.Y == 6; }
     private bool HasRightBorder { get => Cell.X == 2 || Cell.X == 5; }
-    private bool HasLeftBorder { get => Cell.X == 3 || Cell.X == 6;  }
+    private bool HasLeftBorder { get => Cell.X == 3 || Cell.X == 6; }
 
     private string BackgroundClass
     {
         get => IsGray ? "grayBackground" : "whiteBackground";
     }
 
-    private string Border
+
+    protected override void OnInitialized()
     {
-        get
-        {
-            IEnumerable<(string, bool)> borders = new[]
+        var borders = new[]
             {
                 ("top", HasTopBorder),
                 ("right", HasRightBorder),
@@ -84,12 +75,13 @@ else
                 ("left", HasLeftBorder),
             };
 
-            var borderToString = borders.Select(item => $"border-{item.Item1}-width: {(item.Item2 ? "0.10rem" : "0.05rem")};");
-            return String.Join(" ", borderToString);
-        }
+        var bordersStyles = borders.Select(item => $"border-{item.Item1}-width: {(item.Item2 ? "0.10rem" : "0.05rem")};");
+        Border = String.Join(" ", bordersStyles);
     }
 
-    private string InputIsIllegalClass { get => Cell.Input.IsLegal ? "" : "illegalInput";  }
+    private string Border { get; set; }
+
+    private string InputIsIllegalClass { get => Cell.Input.IsLegal ? "" : "illegalInput"; }
     private string InputIsHighlightedClass
     {
         get
