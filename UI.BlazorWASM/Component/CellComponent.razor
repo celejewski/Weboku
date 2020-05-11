@@ -1,6 +1,6 @@
 ﻿@if( Cell.Input.Value != 0 )
 {
-    <div class="cell input @BackgroundClass @InputIsHighlightedClass @GivenClass"
+    <div class="cell input @BackgroundClass @GivenClass @Filter()"
          style="@Border"
          @onclick="OnClickCallback">
         <div class="value @InputIsIllegalClass">
@@ -10,7 +10,7 @@
 }
 else
 {
-    <div class="cell candidates @BackgroundClass @CandidateIsHighlightedClass"
+    <div class="cell candidates @BackgroundClass @Filter()"
          style="@Border"
          @onclick="OnClickCallback"
          @oncontextmenu="OnRightClickCallback">
@@ -38,9 +38,6 @@ else
 }
 @code {
     [Parameter]
-    public int SelectedValue { get; set; }
-
-    [Parameter]
     public Action OnClickCallback { get; set; }
 
     [Parameter]
@@ -62,22 +59,10 @@ else
     private string Border { get; set; }
 
     private string InputIsIllegalClass { get => Cell.Input.IsLegal ? "" : "illegalInput"; }
-    private string InputIsHighlightedClass
-    {
-        get
-        {
-            return Cell.Input.Value != 0
-                && SelectedValue == Cell.Input.Value ? "highlight" : String.Empty;
-        }
-    }
 
-    private string CandidateIsHighlightedClass
-    {
-        get
-        {
-            return Cell.Candidates.ContainsKey(SelectedValue) ? "candidates-highlight" : String.Empty;
-        }
-    }
+    [Parameter]
+    public Func<string> Filter { get; set; }
+
 
     private void InitBorder()
     {
