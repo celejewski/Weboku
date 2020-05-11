@@ -74,6 +74,10 @@ namespace Core.Data
             var value = cell.Input.Value;
             if( value != 0 && cell.Input.IsLegal )
             {
+                if( value != 0 )
+                {
+                    cell.Candidates.Clear();
+                }
                 var seenCells = GetCellsWhichCanSee(x, y);
                 for( int i = 0; i < seenCells.Count; i++ )
                 {
