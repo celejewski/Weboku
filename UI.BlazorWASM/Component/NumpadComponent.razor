@@ -1,18 +1,19 @@
 ﻿<div class="numpad">
     <button @onclick="OnClickUndo">⎌</button>
-    <NumpadDigitComponent Value="1" @bind-SelectedValue="SelectedValue" Parent="@this" />
-    <NumpadDigitComponent Value="2" @bind-SelectedValue="SelectedValue" Parent="@this" />
-    <NumpadDigitComponent Value="3" @bind-SelectedValue="SelectedValue" Parent="@this" />
+    <NumpadDigitComponent Value="1" @bind-SelectedValue="SelectedValue" Parent="@this" OnClickSelectedValue="OnClickSelectedValue" />
+    <NumpadDigitComponent Value="2" @bind-SelectedValue="SelectedValue" Parent="@this" OnClickSelectedValue="OnClickSelectedValue" />
+    <NumpadDigitComponent Value="3" @bind-SelectedValue="SelectedValue" Parent="@this" OnClickSelectedValue="OnClickSelectedValue" />
 
     <button @onclick="OnClickRedo">⇨</button>
-    <NumpadDigitComponent Value="4" @bind-SelectedValue="SelectedValue" Parent="@this" />
-    <NumpadDigitComponent Value="5" @bind-SelectedValue="SelectedValue" Parent="@this" />
-    <NumpadDigitComponent Value="6" @bind-SelectedValue="SelectedValue" Parent="@this" />
+    <NumpadDigitComponent Value="4" @bind-SelectedValue="SelectedValue" Parent="@this" OnClickSelectedValue="OnClickSelectedValue" />
+    <NumpadDigitComponent Value="5" @bind-SelectedValue="SelectedValue" Parent="@this" OnClickSelectedValue="OnClickSelectedValue" />
+    <NumpadDigitComponent Value="6" @bind-SelectedValue="SelectedValue" Parent="@this" OnClickSelectedValue="OnClickSelectedValue" />
 
-    <NumpadDigitComponent Value="0" @bind-SelectedValue="SelectedValue" Parent="@this" />
-    <NumpadDigitComponent Value="7" @bind-SelectedValue="SelectedValue" Parent="@this" />
-    <NumpadDigitComponent Value="8" @bind-SelectedValue="SelectedValue" Parent="@this" />
+    <NumpadDigitComponent Value="0" @bind-SelectedValue="SelectedValue" Parent="@this" OnClickSelectedValue="OnClickSelectedValue" />
+    <NumpadDigitComponent Value="7" @bind-SelectedValue="SelectedValue" Parent="@this" OnClickSelectedValue="OnClickSelectedValue" />
+    <NumpadDigitComponent Value="8" @bind-SelectedValue="SelectedValue" Parent="@this" OnClickSelectedValue="OnClickSelectedValue" />
     <NumpadDigitComponent Value="9" @bind-SelectedValue="SelectedValue" Parent="@this" />
+    <button @onclick="OnClickPairFilter">Pairs</button>
 </div>
 
 @code {
@@ -27,4 +28,10 @@
 
     [Parameter]
     public EventCallback OnClickUndo { get; set; }
+
+    [Parameter]
+    public EventCallback OnClickPairFilter { get; set; }
+
+    [Parameter]
+    public EventCallback OnClickSelectedValue { get; set; }
 }

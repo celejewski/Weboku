@@ -17,10 +17,14 @@
     {
         await SelectedValueChanged.InvokeAsync(Value);
         await Parent.SelectedValueChanged.InvokeAsync(Value);
+        await OnClickSelectedValue.InvokeAsync(null);
     }
 
     public string HighlightedClass { get => Value == SelectedValue ? "HighlightedNumpad" : ""; }
 
     [Parameter]
     public NumpadComponent Parent { get; set; }
+
+    [Parameter]
+    public EventCallback OnClickSelectedValue { get; set; }
 }

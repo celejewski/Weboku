@@ -17,11 +17,14 @@
     <GridComponent SelectedValue="SelectedValue"
                    OnCellLeftClick="OnCellLeftClick"
                    OnCellRightClick="OnCellRightClick"
-                   Cells="Cells" />
+                   Cells="Cells"
+                   Filter="Filter" />
 
     <NumpadComponent @bind-SelectedValue="SelectedValue"
                      OnClickUndo="GridHistoryManager.Undo"
-                     OnClickRedo="GridHistoryManager.Redo" />
+                     OnClickRedo="GridHistoryManager.Redo" 
+                     OnClickPairFilter="OnClickPairFilter"
+                     OnClickSelectedValue="OnClickSelectedValue" />
 </div>
 
 @code {
@@ -34,6 +37,7 @@
     {
         _grid = GridGenerator.Empty();
         GridHistoryManager.AttachTo(_grid);
+        Filter = IsHighlightedFilter;
     }
 
     protected override async Task OnInitializedAsync()
@@ -104,5 +108,45 @@
         _grid.AssignFrom(newGrid);
         SelectedValue = 1;
         StateHasChanged();
+    }
+
+
+
+    public Func<ICell, string> Filter { get; set; }
+    private void OnClickPairFilter()
+    {
+        Filter = IsPairFilter;
+    }
+
+    private string IsPairFilter(ICell cell)
+    {
+        if (cell.Input.Value == 0
+            && cell.Candidates.Count == 2)
+        {
+            return "candidates-highlight";
+        }
+
+        return String.Empty;
+    }
+
+    private string IsHighlightedFilter(ICell cell)
+    {
+        if( cell.Input.Value != 0
+            && SelectedValue == cell.Input.Value )
+        {
+            return "highlight";
+        }
+
+        if( cell.Candidates.ContainsKey(SelectedValue) )
+        {
+            return "candidates-highlight";
+        }
+
+        return String.Empty;
+    }
+
+    private void OnClickSelectedValue()
+    {
+        Filter = IsHighlightedFilter;
     }
 }

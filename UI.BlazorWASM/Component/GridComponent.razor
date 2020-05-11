@@ -8,7 +8,7 @@
                 <CellComponent Cell="cell"
                                OnClickCallback="() => OnCellLeftClick(cell)"
                                OnRightClickCallback="() => OnCellRightClick(cell)" 
-                               Filter="() => IsHighlightedFilter(cell)"/>
+                               Filter="() => Filter(cell)"/>
             }
         }
     </div>
@@ -27,19 +27,6 @@
     [Parameter]
     public Action<ICell> OnCellRightClick { get; set; }
 
-    private string IsHighlightedFilter(ICell cell)
-    {
-        if( cell.Input.Value != 0
-            && SelectedValue == cell.Input.Value )
-        {
-            return "highlight";
-        }
-
-        if( cell.Candidates.ContainsKey(SelectedValue) )
-        {
-            return "candidates-highlight";
-        }
-
-        return String.Empty;
-    }
+    [Parameter]
+    public Func<ICell, string> Filter { get; set; }
 }
