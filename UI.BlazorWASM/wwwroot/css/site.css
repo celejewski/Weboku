@@ -101,7 +101,7 @@ html {
 }
 
 .background-layer {
-    z-index: 1;
+    z-index: 0;
 }
 
 .background-layer div {
@@ -117,7 +117,22 @@ html {
 }
 
 .filter-layer {
+    z-index: 1;
+}
+
+.color-layer {
     z-index: 2;
+}
+
+.color-layer div {
+    margin: 10%;
+}
+.color-1 {
+    background-color: #88BB92;
+}
+
+.color-2 {
+    background-color: #CD533B;
 }
 
 .numpad {

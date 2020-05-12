@@ -20,6 +20,8 @@
 
         <GridComponent Cells="Cells" />
 
+        <ColorLayerComponent ColorClasses="ColorClasses"/>
+
         <FilterLayerComponent Cells="Cells"
                               Filter="Filter" />
 
@@ -51,8 +53,22 @@
         await StartNewGame("Medium");
     }
 
-    public void OnCellLeftClick(int x, int y)
+    public void OnCellLeftClick(MouseEventArgs e, int x, int y)
     {
+        if (e.CtrlKey)
+        {
+            if ( string.IsNullOrEmpty(ColorClasses[x, y]) )
+            {
+                ColorClasses[x, y] = "color-1";
+            }
+            else
+            {
+                ColorClasses[x, y] = string.Empty;
+            }
+            StateHasChanged();
+            return;
+        }
+
         var cell = Cells[x, y];
         if( cell.IsGiven )
         {
@@ -73,8 +89,22 @@
         }
     }
 
-    public void OnCellRightClick(int x, int y)
+    public void OnCellRightClick(MouseEventArgs e, int x, int y)
     {
+        if( e.CtrlKey )
+        {
+            if( string.IsNullOrEmpty(ColorClasses[x, y]) )
+            {
+                ColorClasses[x, y] = "color-2";
+            }
+            else
+            {
+                ColorClasses[x, y] = string.Empty;
+            }
+            StateHasChanged();
+            return;
+        }
+
         var cell = Cells[x, y];
         if( cell.Input.Value != 0 || SelectedValue == 0 )
         {
@@ -158,4 +188,6 @@
     {
         Filter = IsHighlightedFilter;
     }
+
+    private string[,] ColorClasses { get; set; } = new string[9, 9];
 }

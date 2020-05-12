@@ -6,8 +6,8 @@
             var targetX = x;
             var targetY = y;
             <div class="clickable"
-                 @onclick="() => OnCellLeftClick(targetX, targetY)"
-                 @oncontextmenu="() => OnCellRightClick(targetX, targetY)">
+                 @onclick="(e) => OnCellLeftClick(e, targetX, targetY)"
+                 @oncontextmenu="(e) => OnCellRightClick(e, targetX, targetY)">
             </div>
         }
     }
@@ -15,8 +15,8 @@
 
 @code {
     [Parameter]
-    public Action<int, int> OnCellLeftClick { get; set; }
+    public Action<MouseEventArgs, int, int> OnCellLeftClick { get; set; }
 
     [Parameter]
-    public Action<int, int> OnCellRightClick { get; set; }
+    public Action<MouseEventArgs, int, int> OnCellRightClick { get; set; }
 }
