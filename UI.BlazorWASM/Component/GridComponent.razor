@@ -1,17 +1,15 @@
-﻿<div class="grid-wrapper">
-    <div class="grid">
-        @for( int y = 0; y < 9; y++ )
+﻿<div class="layer grid">
+    @for( int y = 0; y < 9; y++ )
+    {
+        @for( int x = 0; x < 9; x++ )
         {
-            @for( int x = 0; x < 9; x++ )
-            {
-                var cell = Cells[x, y];
-                <CellComponent Cell="cell"
-                               OnClickCallback="() => OnCellLeftClick(cell)"
-                               OnRightClickCallback="() => OnCellRightClick(cell)" 
-                               Filter="() => Filter(cell)"/>
-            }
+            var cell = Cells[x, y];
+            <CellComponent Cell="cell"
+                            OnClickCallback="() => OnCellLeftClick(cell)"
+                            OnRightClickCallback="() => OnCellRightClick(cell)" 
+                            Filter="() => Filter(cell)"/>
         }
-    </div>
+    }
 </div>
 
 @code {

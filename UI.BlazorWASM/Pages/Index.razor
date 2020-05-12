@@ -3,150 +3,152 @@
 @inject IGridGenerator GridGenerator
 @inject IGridHistoryManager GridHistoryManager
 
-<div id="main"
-     class="main"
-     onblur="this.focus()"
-     tabindex="0"
-     @onkeypress="OnKeyDown"
-     @oncontextmenu:preventDefault="true">
+    <div id="main"
+         class="main"
+         onblur="this.focus()"
+         tabindex="0"
+         @onkeypress="OnKeyDown"
+         @oncontextmenu:preventDefault="true">
 
-    <MenuComponent Grid="_grid"
-                   StartNewGame="StartNewGame"
-                   FillAllCandidates="FillAllCandidates" />
+        <MenuComponent Grid="_grid"
+                       StartNewGame="StartNewGame"
+                       FillAllCandidates="FillAllCandidates" />
 
-    <GridComponent SelectedValue="SelectedValue"
-                   OnCellLeftClick="OnCellLeftClick"
-                   OnCellRightClick="OnCellRightClick"
-                   Cells="Cells"
-                   Filter="Filter" />
+        <div class="layer-wrapper">
+            <GridComponent SelectedValue="SelectedValue"
+                           OnCellLeftClick="OnCellLeftClick"
+                           OnCellRightClick="OnCellRightClick"
+                           Cells="Cells"
+                           Filter="Filter" />
+        </div>
 
-    <NumpadComponent @bind-SelectedValue="SelectedValue"
-                     OnClickUndo="GridHistoryManager.Undo"
-                     OnClickRedo="GridHistoryManager.Redo" 
-                     OnClickPairFilter="OnClickPairFilter"
-                     OnClickSelectedValue="OnClickSelectedValue" />
-</div>
+        <NumpadComponent @bind-SelectedValue="SelectedValue"
+                            OnClickUndo="GridHistoryManager.Undo"
+                            OnClickRedo="GridHistoryManager.Redo"
+                            OnClickPairFilter="OnClickPairFilter"
+                            OnClickSelectedValue="OnClickSelectedValue" />
+        </div>
 
-@code {
-    private IGrid _grid;
-    public int SelectedValue { get; set; }
+        @code {
+            private IGrid _grid;
+            public int SelectedValue { get; set; }
 
-    public ICell[,] Cells { get => _grid.Cells; }
+            public ICell[,] Cells { get => _grid.Cells; }
 
-    protected override void OnInitialized()
-    {
-        _grid = GridGenerator.Empty();
-        GridHistoryManager.AttachTo(_grid);
-        Filter = IsHighlightedFilter;
-    }
+            protected override void OnInitialized()
+            {
+                _grid = GridGenerator.Empty();
+                GridHistoryManager.AttachTo(_grid);
+                Filter = IsHighlightedFilter;
+            }
 
-    protected override async Task OnInitializedAsync()
-    {
-        await StartNewGame("Medium");
-    }
+            protected override async Task OnInitializedAsync()
+            {
+                await StartNewGame("Medium");
+            }
 
-    public void OnCellLeftClick(ICell cell)
-    {
-        if( cell.IsGiven )
-        {
-            return;
+            public void OnCellLeftClick(ICell cell)
+            {
+                if( cell.IsGiven )
+                {
+                    return;
+                }
+
+                if( SelectedValue == 0 || cell.Input.Value == 0 )
+                {
+                    GridHistoryManager.Save();
+                    _grid.SetValue(cell.X, cell.Y, SelectedValue);
+                    StateHasChanged();
+                }
+                else if( cell.Input.Value == SelectedValue )
+                {
+                    GridHistoryManager.Save();
+                    _grid.SetValue(cell.X, cell.Y, 0);
+                    StateHasChanged();
+                }
+            }
+
+            public void OnCellRightClick(ICell cell)
+            {
+                if( cell.Input.Value != 0 || SelectedValue == 0 )
+                {
+                    return;
+                }
+
+                GridHistoryManager.Save();
+                _grid.ToggleCandidate(cell.X, cell.Y, SelectedValue);
+            }
+
+            public void OnKeyDown(KeyboardEventArgs args)
+            {
+                if( int.TryParse(args.Key, out var digit) )
+                {
+                    SelectedValue = digit;
+                }
+
+                if( args.Key == "z" )
+                {
+                    GridHistoryManager.Undo();
+                }
+
+                if( args.Key == "y" )
+                {
+                    GridHistoryManager.Redo();
+                }
+            }
+
+            private void FillAllCandidates()
+            {
+                GridHistoryManager.Save();
+                _grid.FillAllCandidates();
+            }
+
+            private async Task StartNewGame(string difficulty)
+            {
+                GridHistoryManager.Save();
+                var newGrid = await GridGenerator.WithGiven(difficulty);
+                _grid.AssignFrom(newGrid);
+                SelectedValue = 1;
+                StateHasChanged();
+            }
+
+
+
+            public Func<ICell, string> Filter { get; set; }
+            private void OnClickPairFilter()
+            {
+                Filter = IsPairFilter;
+            }
+
+            private string IsPairFilter(ICell cell)
+            {
+                if( cell.Input.Value == 0
+                    && cell.Candidates.Count == 2 )
+                {
+                    return "candidates-highlight";
+                }
+
+                return String.Empty;
+            }
+
+            private string IsHighlightedFilter(ICell cell)
+            {
+                if( cell.Input.Value != 0
+                    && SelectedValue == cell.Input.Value )
+                {
+                    return "highlight";
+                }
+
+                if( cell.Candidates.ContainsKey(SelectedValue) )
+                {
+                    return "candidates-highlight";
+                }
+
+                return String.Empty;
+            }
+
+            private void OnClickSelectedValue()
+            {
+                Filter = IsHighlightedFilter;
+            }
         }
-
-        if( SelectedValue == 0 || cell.Input.Value == 0 )
-        {
-            GridHistoryManager.Save();
-            _grid.SetValue(cell.X, cell.Y, SelectedValue);
-            StateHasChanged();
-        }
-        else if( cell.Input.Value == SelectedValue )
-        {
-            GridHistoryManager.Save();
-            _grid.SetValue(cell.X, cell.Y, 0);
-            StateHasChanged();
-        }
-    }
-
-    public void OnCellRightClick(ICell cell)
-    {
-        if( cell.Input.Value != 0 || SelectedValue == 0 )
-        {
-            return;
-        }
-
-        GridHistoryManager.Save();
-        _grid.ToggleCandidate(cell.X, cell.Y, SelectedValue);
-    }
-
-    public void OnKeyDown(KeyboardEventArgs args)
-    {
-        if( int.TryParse(args.Key, out var digit) )
-        {
-            SelectedValue = digit;
-        }
-
-        if( args.Key == "z" )
-        {
-            GridHistoryManager.Undo();
-        }
-
-        if( args.Key == "y" )
-        {
-            GridHistoryManager.Redo();
-        }
-    }
-
-    private void FillAllCandidates()
-    {
-        GridHistoryManager.Save();
-        _grid.FillAllCandidates();
-    }
-
-    private async Task StartNewGame(string difficulty)
-    {
-        GridHistoryManager.Save();
-        var newGrid = await GridGenerator.WithGiven(difficulty);
-        _grid.AssignFrom(newGrid);
-        SelectedValue = 1;
-        StateHasChanged();
-    }
-
-
-
-    public Func<ICell, string> Filter { get; set; }
-    private void OnClickPairFilter()
-    {
-        Filter = IsPairFilter;
-    }
-
-    private string IsPairFilter(ICell cell)
-    {
-        if (cell.Input.Value == 0
-            && cell.Candidates.Count == 2)
-        {
-            return "candidates-highlight";
-        }
-
-        return String.Empty;
-    }
-
-    private string IsHighlightedFilter(ICell cell)
-    {
-        if( cell.Input.Value != 0
-            && SelectedValue == cell.Input.Value )
-        {
-            return "highlight";
-        }
-
-        if( cell.Candidates.ContainsKey(SelectedValue) )
-        {
-            return "candidates-highlight";
-        }
-
-        return String.Empty;
-    }
-
-    private void OnClickSelectedValue()
-    {
-        Filter = IsHighlightedFilter;
-    }
-}
