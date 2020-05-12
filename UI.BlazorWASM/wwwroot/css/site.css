@@ -86,8 +86,11 @@ html {
     padding: 1% 1% 1% 1%;
 }
 
+.display-value-layer {
+    z-index: 3;
+}
+
 .grid-9x9 {
-    z-index: 2;
     display: grid;
     grid-template: repeat(9, 1fr) / repeat(9, 1fr);
 }
@@ -110,7 +113,11 @@ html {
 }
 
 .clickable-layer {
-    z-index: 3;
+    z-index: 4;
+}
+
+.filter-layer {
+    z-index: 2;
 }
 
 .numpad {

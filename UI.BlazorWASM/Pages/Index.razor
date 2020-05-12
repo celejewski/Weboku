@@ -18,9 +18,10 @@
         <ClickableLayerComponent OnCellLeftClick="OnCellLeftClick"
                                  OnCellRightClick="OnCellRightClick" />
 
-        <GridComponent SelectedValue="SelectedValue"
-                       Cells="Cells"
-                       Filter="Filter" />
+        <GridComponent Cells="Cells" />
+
+        <FilterLayerComponent Cells="Cells"
+                              Filter="Filter" />
 
         <BackgroundLayerComponent />
     </div>

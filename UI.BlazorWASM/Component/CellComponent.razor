@@ -1,6 +1,6 @@
 ﻿@if( Cell.Input.Value != 0 )
 {
-    <div class="cell input @GivenClass @Filter()"
+    <div class="cell input @GivenClass"
          style="@Border">
         <div class="value @InputIsIllegalClass">
             @Cell.Input.Value
@@ -9,7 +9,7 @@
 }
 else
 {
-    <div class="cell candidates @Filter()"
+    <div class="cell candidates"
          style="@Border">
         @for( int value = 1; value < 10; value++ )
         {

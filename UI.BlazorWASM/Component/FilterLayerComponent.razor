@@ -1,10 +1,10 @@
-﻿<div class="layer grid-9x9 display-value-layer">
+﻿<div class="layer grid-9x9 filter-layer">
     @for( int y = 0; y < 9; y++ )
     {
         @for( int x = 0; x < 9; x++ )
         {
             var cell = Cells[x, y];
-            <CellComponent Cell="cell" />
+            <div class="@Filter(cell)"></div>
         }
     }
 </div>
@@ -12,4 +12,7 @@
 @code {
     [Parameter]
     public ICell[,] Cells { get; set; }
+
+    [Parameter]
+    public Func<ICell, string> Filter { get; set; }
 }
