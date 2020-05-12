@@ -1,0 +1,22 @@
+﻿<div class="layer grid-9x9 clickable-layer">
+    @for( int y = 0; y < 9; y++ )
+    {
+        for( int x = 0; x < 9; x++ )
+        {
+            var targetX = x;
+            var targetY = y;
+            <div class="clickable"
+                 @onclick="() => OnCellLeftClick(targetX, targetY)"
+                 @oncontextmenu="() => OnCellRightClick(targetX, targetY)">
+            </div>
+        }
+    }
+</div>
+
+@code {
+    [Parameter]
+    public Action<int, int> OnCellLeftClick { get; set; }
+
+    [Parameter]
+    public Action<int, int> OnCellRightClick { get; set; }
+}

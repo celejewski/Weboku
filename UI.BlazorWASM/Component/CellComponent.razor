@@ -1,8 +1,7 @@
 ﻿@if( Cell.Input.Value != 0 )
 {
     <div class="cell input @GivenClass @Filter()"
-         style="@Border"
-         @onclick="OnClickCallback">
+         style="@Border">
         <div class="value @InputIsIllegalClass">
             @Cell.Input.Value
         </div>
@@ -11,9 +10,7 @@
 else
 {
     <div class="cell candidates @Filter()"
-         style="@Border"
-         @onclick="OnClickCallback"
-         @oncontextmenu="OnRightClickCallback">
+         style="@Border">
         @for( int value = 1; value < 10; value++ )
         {
             <div class="candidate">
@@ -37,12 +34,6 @@ else
     </div>
 }
 @code {
-    [Parameter]
-    public Action OnClickCallback { get; set; }
-
-    [Parameter]
-    public Action OnRightClickCallback { get; set; }
-
     [Parameter]
     public ICell Cell { get; set; }
 
