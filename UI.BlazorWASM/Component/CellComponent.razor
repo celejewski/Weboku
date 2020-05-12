@@ -1,6 +1,6 @@
 ﻿@if( Cell.Input.Value != 0 )
 {
-    <div class="cell input @BackgroundClass @GivenClass @Filter()"
+    <div class="cell input @GivenClass @Filter()"
          style="@Border"
          @onclick="OnClickCallback">
         <div class="value @InputIsIllegalClass">
@@ -10,7 +10,7 @@
 }
 else
 {
-    <div class="cell candidates @BackgroundClass @Filter()"
+    <div class="cell candidates @Filter()"
          style="@Border"
          @onclick="OnClickCallback"
          @oncontextmenu="OnRightClickCallback">
@@ -52,10 +52,8 @@ else
     protected override void OnInitialized()
     {
         InitBorder();
-        BackgroundClass = Cell.Block % 2 == 1 ? "grayBackground" : "whiteBackground";
     }
 
-    private string BackgroundClass { get; set; }
     private string Border { get; set; }
 
     private string InputIsIllegalClass { get => Cell.Input.IsLegal ? "" : "illegalInput"; }

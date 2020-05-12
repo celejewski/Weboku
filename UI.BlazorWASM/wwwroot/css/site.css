@@ -3,6 +3,7 @@
 * {
     box-sizing: border-box;
 }
+
 body {
     margin: 0px;
     background-color: #555555;
@@ -12,16 +13,6 @@ body {
 
 html {
     font-size: 10px;
-}
-
-.main {
-    max-width: min(80vh, 1200px);
-    width: 100vw;
-    height: 100vh;
-    display: grid;
-    grid-template-rows: auto auto auto 1fr;
-    padding: 0;
-    margin: 0 auto;
 }
 
 @media screen and (min-width: 380px) and (min-height: 380px) {
@@ -60,6 +51,24 @@ html {
     }
 }
 
+.main {
+    max-width: 1200px;
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    grid-template-rows: auto auto auto 1fr;
+    padding: 0;
+    margin: 0 auto;
+}
+
+.menu {
+    color: white;
+    margin: 0 1%;
+    padding: 0.25rem;
+    background-color: #3A77EA;
+    align-self: start;
+}
+
 .layer-wrapper {
     position: relative;
     width: 100%;
@@ -77,11 +86,28 @@ html {
     padding: 1% 1% 1% 1%;
 }
 
-.grid {
+.grid-9x9 {
+    z-index: 2;
     display: grid;
     grid-template: repeat(9, 1fr) / repeat(9, 1fr);
 }
 
+.grid-3x3 {
+    display: grid;
+    grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+}
+
+.background-layer {
+    z-index: 1;
+}
+
+.background-layer div {
+    background-color: rgba(255, 255, 255, 0.6);
+}
+
+.background-layer div:nth-child(2n+1){
+    background-color: rgba(255, 255, 255, 1);
+}
 
 .numpad {
     margin: 0% 10% 0% 10%;
@@ -107,14 +133,6 @@ html {
     line-height: 1;
     border: 0.2rem solid black;
     padding: 1px;
-}
-
-.whiteBackground {
-    background-color: white;
-}
-
-.grayBackground {
-    background-color: #DDDDDD;
 }
 
 .highlight {
@@ -170,15 +188,6 @@ a {
 
 .HighlightedNumpad {
     color: #E2E200 !important;
-}
-
-
-.menu {
-    color: white;
-    margin: 0%;
-    padding: 0% 2%;
-    background-color: #3A77EA;
-    align-self: start;
 }
 
 /* Style The Dropdown Button */
