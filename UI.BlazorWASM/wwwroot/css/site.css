@@ -86,10 +86,6 @@ html {
     padding: 1% 1% 1% 1%;
 }
 
-.display-value-layer {
-    z-index: 3;
-}
-
 .grid-9x9 {
     display: grid;
     grid-template: repeat(9, 1fr) / repeat(9, 1fr);
@@ -101,7 +97,6 @@ html {
 }
 
 .background-layer {
-    z-index: 0;
 }
 
 .background-layer div {
@@ -112,16 +107,17 @@ html {
     background-color: rgba(255, 255, 255, 1);
 }
 
+
+.display-value-layer {
+}
+
 .clickable-layer {
-    z-index: 4;
 }
 
 .filter-layer {
-    z-index: 1;
 }
 
 .color-layer {
-    z-index: 2;
 }
 
 .color-layer div {

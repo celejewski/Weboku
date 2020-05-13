@@ -15,17 +15,18 @@
                    FillAllCandidates="FillAllCandidates" />
 
     <div class="layer-wrapper">
-        <ClickableLayerComponent OnCellLeftClick="OnCellLeftClick"
-                                 OnCellRightClick="OnCellRightClick" />
-
-        <GridComponent Cells="Cells" />
-
-        <ColorLayerComponent ColorClasses="ColorClasses"/>
+        <BackgroundLayerComponent />
 
         <FilterLayerComponent Cells="Cells"
                               Filter="Filter" />
 
-        <BackgroundLayerComponent />
+        <ColorLayerComponent ColorClasses="ColorClasses" />
+
+        <GridComponent Cells="Cells" />
+
+        <ClickableLayerComponent OnCellLeftClick="OnCellLeftClick"
+                                 OnCellRightClick="OnCellRightClick" />
+
     </div>
 
     <NumpadComponent @bind-SelectedValue="SelectedValue"
@@ -131,6 +132,22 @@
         if( args.Key == "y" )
         {
             GridHistoryManager.Redo();
+        }
+
+        if (args.Key == "r")
+        {
+            ClearColors();
+        }
+    }
+
+    private void ClearColors()
+    {
+        for( int y = 0; y < 9; y++ )
+        {
+            for( int x = 0; x < 9; x++ )
+            {
+                ColorClasses[x, y] = string.Empty;
+            }
         }
     }
 
