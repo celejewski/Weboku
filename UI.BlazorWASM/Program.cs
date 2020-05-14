@@ -23,7 +23,7 @@ namespace UI.BlazorWASM
             builder.Services.AddSingleton<IEmptyGridGenerator, EmptyGridGenerator>();
             builder.Services.AddSingleton<HodokuGridConverter, HodokuGridConverter>();
             builder.Services.AddSingleton<IGridGenerator, RESTGridGenerator>();
-            builder.Services.AddTransient<IGridHistoryManager, GridHistoryManager>();
+            builder.Services.AddSingleton<IGridHistoryManager, GridHistoryManager>();
             builder.Services.AddCors();
             var app = builder.Build();
            

@@ -24,8 +24,7 @@
 
         <GridComponent Cells="Cells" />
 
-        <ClickableLayerComponent OnCellLeftClick="OnCellLeftClick"
-                                 OnCellRightClick="OnCellRightClick" />
+        <ClickableLayerComponent ClickableAction="ClickableAction" />
 
     </div>
 
@@ -33,7 +32,10 @@
                      OnClickUndo="GridHistoryManager.Undo"
                      OnClickRedo="GridHistoryManager.Redo"
                      OnClickPairFilter="OnClickPairFilter"
-                     OnClickSelectedValue="OnClickSelectedValue" />
+                     OnClickSelectedValue="OnClickSelectedValue"
+                     @bind-ClickableAction="ClickableAction"
+                     StandardAction="StandardAction" 
+                     @bind-Filter="Filter"/>
 </div>
 
 @code {
@@ -46,75 +48,17 @@
     {
         _grid = GridGenerator.Empty();
         GridHistoryManager.AttachTo(_grid);
-        Filter = IsHighlightedFilter;
+        Filter = new SelectedValueFilter(1);
+        StandardAction = new StandardAction(ColorClasses, Cells, GridHistoryManager, _grid, StateHasChanged);
+        ClickableAction = StandardAction;
     }
+
+    public IClickableAction ClickableAction { get; set; }
+    public StandardAction StandardAction { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         await StartNewGame("Medium");
-    }
-
-    public void OnCellLeftClick(MouseEventArgs e, int x, int y)
-    {
-        if (e.CtrlKey)
-        {
-            if ( string.IsNullOrEmpty(ColorClasses[x, y]) )
-            {
-                ColorClasses[x, y] = "color-1";
-            }
-            else
-            {
-                ColorClasses[x, y] = string.Empty;
-            }
-            StateHasChanged();
-            return;
-        }
-
-        var cell = Cells[x, y];
-        if( cell.IsGiven )
-        {
-            return;
-        }
-
-        if( SelectedValue == 0 || cell.Input.Value == 0 )
-        {
-            GridHistoryManager.Save();
-            _grid.SetValue(cell.X, cell.Y, SelectedValue);
-            StateHasChanged();
-        }
-        else if( cell.Input.Value == SelectedValue )
-        {
-            GridHistoryManager.Save();
-            _grid.SetValue(cell.X, cell.Y, 0);
-            StateHasChanged();
-        }
-    }
-
-    public void OnCellRightClick(MouseEventArgs e, int x, int y)
-    {
-        if( e.CtrlKey )
-        {
-            if( string.IsNullOrEmpty(ColorClasses[x, y]) )
-            {
-                ColorClasses[x, y] = "color-2";
-            }
-            else
-            {
-                ColorClasses[x, y] = string.Empty;
-            }
-            StateHasChanged();
-            return;
-        }
-
-        var cell = Cells[x, y];
-        if( cell.Input.Value != 0 || SelectedValue == 0 )
-        {
-            return;
-        }
-
-        GridHistoryManager.Save();
-        _grid.ToggleCandidate(cell.X, cell.Y, SelectedValue);
-        StateHasChanged();
     }
 
     public void OnKeyDown(KeyboardEventArgs args)
@@ -168,42 +112,15 @@
 
 
 
-    public Func<ICell, string> Filter { get; set; }
+    public IFilter Filter { get; set; }
     private void OnClickPairFilter()
     {
-        Filter = IsPairFilter;
-    }
-
-    private string IsPairFilter(ICell cell)
-    {
-        if( cell.Input.Value == 0
-            && cell.Candidates.Count == 2 )
-        {
-            return "candidates-highlight";
-        }
-
-        return String.Empty;
-    }
-
-    private string IsHighlightedFilter(ICell cell)
-    {
-        if( cell.Input.Value != 0
-            && SelectedValue == cell.Input.Value )
-        {
-            return "highlight";
-        }
-
-        if( cell.Candidates.ContainsKey(SelectedValue) )
-        {
-            return "candidates-highlight";
-        }
-
-        return String.Empty;
+        Filter = new PairFilter();
     }
 
     private void OnClickSelectedValue()
     {
-        Filter = IsHighlightedFilter;
+        Filter = new SelectedValueFilter(SelectedValue);
     }
 
     private string[,] ColorClasses { get; set; } = new string[9, 9];

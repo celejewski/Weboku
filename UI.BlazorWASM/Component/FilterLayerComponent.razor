@@ -4,7 +4,7 @@
         @for( int x = 0; x < 9; x++ )
         {
             var cell = Cells[x, y];
-            <div class="@Filter(cell)"></div>
+            <div class="@Filter.IsFiltered(cell)"></div>
         }
     }
 </div>
@@ -14,5 +14,5 @@
     public ICell[,] Cells { get; set; }
 
     [Parameter]
-    public Func<ICell, string> Filter { get; set; }
+    public IFilter Filter { get; set; }
 }

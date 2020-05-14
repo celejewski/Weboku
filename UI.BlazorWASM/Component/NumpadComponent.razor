@@ -1,19 +1,10 @@
 ﻿<div class="numpad">
-    <button @onclick="OnClickUndo">⎌</button>
-    <NumpadDigitComponent Value="1" @bind-SelectedValue="SelectedValue" Parent="@this" OnClickSelectedValue="OnClickSelectedValue" />
-    <NumpadDigitComponent Value="2" @bind-SelectedValue="SelectedValue" Parent="@this" OnClickSelectedValue="OnClickSelectedValue" />
-    <NumpadDigitComponent Value="3" @bind-SelectedValue="SelectedValue" Parent="@this" OnClickSelectedValue="OnClickSelectedValue" />
-
-    <button @onclick="OnClickRedo">⇨</button>
-    <NumpadDigitComponent Value="4" @bind-SelectedValue="SelectedValue" Parent="@this" OnClickSelectedValue="OnClickSelectedValue" />
-    <NumpadDigitComponent Value="5" @bind-SelectedValue="SelectedValue" Parent="@this" OnClickSelectedValue="OnClickSelectedValue" />
-    <NumpadDigitComponent Value="6" @bind-SelectedValue="SelectedValue" Parent="@this" OnClickSelectedValue="OnClickSelectedValue" />
-
-    <NumpadDigitComponent Value="0" @bind-SelectedValue="SelectedValue" Parent="@this" OnClickSelectedValue="OnClickSelectedValue" />
-    <NumpadDigitComponent Value="7" @bind-SelectedValue="SelectedValue" Parent="@this" OnClickSelectedValue="OnClickSelectedValue" />
-    <NumpadDigitComponent Value="8" @bind-SelectedValue="SelectedValue" Parent="@this" OnClickSelectedValue="OnClickSelectedValue" />
-    <NumpadDigitComponent Value="9" @bind-SelectedValue="SelectedValue" Parent="@this" />
-    <button @onclick="OnClickPairFilter">Pairs</button>
+    @foreach( var guwno in _guwna )
+    {
+        <div onclick="@guwno.OnClick">
+            @guwno.Label
+        </div>
+    }
 </div>
 
 @code {
@@ -34,4 +25,61 @@
 
     [Parameter]
     public EventCallback OnClickSelectedValue { get; set; }
+
+    [Parameter]
+    public IClickableAction ClickableAction { get; set; }
+
+    [Parameter]
+    public EventCallback<IClickableAction> ClickableActionChanged { get; set; }
+
+    [Parameter]
+    public StandardAction StandardAction { get; set; }
+
+    [Parameter]
+    public IFilter Filter { get; set; }
+
+    [Parameter]
+    public EventCallback<IFilter> FilterChanged { get; set; }
+
+    private Guwno[] _guwna { get; set; }
+    protected override void OnInitialized()
+    {
+        Func<int, Guwno> standardActionFactory = value => new Guwno
+        {
+            Label = value.ToString(),
+            OnClick = async () =>
+            {
+                await ClickableActionChanged.InvokeAsync(StandardAction);
+                StandardAction.SelectedValue = value;
+                await FilterChanged.InvokeAsync(new SelectedValueFilter(value));
+            }
+        };
+
+        _guwna = new Guwno[] {
+            new Guwno{Label = "Undo", OnClick = async () => await OnClickUndo.InvokeAsync("") },
+            standardActionFactory(1),
+            standardActionFactory(2),
+            standardActionFactory(3),
+            new Guwno{Label = "Redo", OnClick = async () => await OnClickRedo.InvokeAsync("") },
+            standardActionFactory(4),
+            standardActionFactory(5),
+            standardActionFactory(6),
+            standardActionFactory(0),
+            standardActionFactory(7),
+            standardActionFactory(8),
+            standardActionFactory(9),
+            new Guwno{Label = "Pairs", OnClick = async () =>
+                {
+                    await FilterChanged.InvokeAsync(new PairFilter());
+                }
+            },
+        };
+    }
+
+    class Guwno
+    {
+        public string Label { get; set; }
+        public Action OnClick { get; set; }
+    }
 }
+

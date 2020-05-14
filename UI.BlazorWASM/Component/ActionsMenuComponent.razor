@@ -1,0 +1,16 @@
+﻿<h3>ActionsMenuComponent</h3>
+
+@code {
+    public class ActionsMenuOption
+    {
+        public string Label { get; set; }
+        public Action OnLeftClick { get; set; }
+        public Action OnRightClick { get; set; }
+    }
+
+    public IEnumerable<ActionsMenuOption> Options { get; set; }
+
+    protected override void OnInitialized()
+    {
+    }
+}

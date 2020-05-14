@@ -157,9 +157,14 @@ html {
     padding: 1px;
 }
 
-.highlight {
+.filter-primary {
     background-color: #FFFF00;
 }
+
+.filter-secondary {
+    background-color: #E2E200;
+}
+
 
 .input {
     font-size: 2.8rem;
@@ -176,11 +181,6 @@ html {
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
 }
-
-.candidates-highlight {
-    background-color: #E2E200;
-}
-
 .candidate {
     display: flex;
 }
