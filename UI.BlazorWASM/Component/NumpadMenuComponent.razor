@@ -1,0 +1,30 @@
+﻿<div class="numpad">
+    @foreach( var item in NumpadMenuItems )
+    {
+        var bound = item;
+        <div @onclick="@((e) => OnClick(bound))"
+             class="@(bound == selected ? "HighlightedNumpad" : "")">
+            @item.Label
+        </div>
+    }
+</div>
+
+@code {
+
+    [Parameter]
+    public IEnumerable<INumpadMenuItem> NumpadMenuItems { get; set; }
+
+    [Parameter]
+    public Action OnNumpadMenuClicked { get; set; }
+
+    private INumpadMenuItem selected = null;
+    private void OnClick(INumpadMenuItem clicked)
+    {
+        if( clicked.IsSelectable )
+        {
+            selected = clicked;
+        }
+        clicked.Execute();
+        OnNumpadMenuClicked();
+    }
+}

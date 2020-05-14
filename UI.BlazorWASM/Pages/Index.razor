@@ -28,14 +28,17 @@
 
     </div>
 
-    <NumpadComponent @bind-SelectedValue="SelectedValue"
+    @*<NumpadComponent @bind-SelectedValue="SelectedValue"
                      OnClickUndo="GridHistoryManager.Undo"
                      OnClickRedo="GridHistoryManager.Redo"
                      OnClickPairFilter="OnClickPairFilter"
                      OnClickSelectedValue="OnClickSelectedValue"
                      @bind-ClickableAction="ClickableAction"
                      StandardAction="StandardAction" 
-                     @bind-Filter="Filter"/>
+                     @bind-Filter="Filter"/>*@
+
+    <NumpadMenuComponent NumpadMenuItems="_menuItems" 
+                         OnNumpadMenuClicked="() => StateHasChanged()"/>
 </div>
 
 @code {
@@ -51,6 +54,7 @@
         Filter = new SelectedValueFilter(1);
         StandardAction = new StandardAction(ColorClasses, Cells, GridHistoryManager, _grid, StateHasChanged);
         ClickableAction = StandardAction;
+        InitMenuItems();
     }
 
     public IClickableAction ClickableAction { get; set; }
@@ -124,4 +128,51 @@
     }
 
     private string[,] ColorClasses { get; set; } = new string[9, 9];
+
+
+    private NumpadMenuItem[] _menuItems { get; set; }
+    public void InitMenuItems()
+    {
+        Func<int, NumpadMenuItem> selectedValue = (digit) => new NumpadMenuItem()
+                .SetLabel(digit.ToString())
+                .WithChangeAction((action) => this.ClickableAction = action, StandardAction)
+                .WithChangeFilter((filter) => this.Filter = filter, new SelectedValueFilter(digit))
+                .WithExecute(() => StandardAction.SelectedValue = digit);
+
+        var redo = new NumpadMenuItem()
+            .SetLabel("Redo")
+            .WithExecute(() => GridHistoryManager.Redo())
+            .WithCanExecute(() => GridHistoryManager.CanRedo)
+            .SetIsSelectable(false);
+
+        var undo = new NumpadMenuItem()
+            .SetLabel("Undo")
+            .WithExecute(() => GridHistoryManager.Undo())
+            .WithCanExecute(() => GridHistoryManager.CanUndo)
+            .SetIsSelectable(false);
+
+        var pairs = new NumpadMenuItem()
+            .SetLabel("Pairs")
+            .WithChangeFilter((filter) => this.Filter = filter, new PairFilter());
+
+        _menuItems = new NumpadMenuItem[]
+        {
+            undo,
+            selectedValue(1),
+            selectedValue(2),
+            selectedValue(3),
+
+            redo,
+            selectedValue(4),
+            selectedValue(5),
+            selectedValue(6),
+
+            selectedValue(0).SetLabel("x"),
+            selectedValue(7),
+            selectedValue(8),
+            selectedValue(9),
+
+            pairs
+        };
+    }
 }
