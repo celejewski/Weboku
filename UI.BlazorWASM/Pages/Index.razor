@@ -26,14 +26,14 @@
         </Grid9x9Component>
 
         <Grid9x9Component>
-            <div class="color-cell @ColorClasses[context.x, context.y]"></div>
+            <div class="cell-color @ColorClasses[context.x, context.y]"></div>
         </Grid9x9Component>
 
         <Grid9x9x9Component>
             @{ 
                 ICell cell = Cells[context.x, context.y];
                 int value = context.z + 1;
-                string illegalClass = (cell.Candidates.ContainsKey(value) && !cell.Candidates[value].IsLegal) ? "illegalInput" : "";
+                string illegalClass = (cell.Candidates.ContainsKey(value) && !cell.Candidates[value].IsLegal) ? "mark mark-danger" : "";
                 <div class="@illegalClass"></div>
             }
         </Grid9x9x9Component>
@@ -41,7 +41,7 @@
         <Grid9x9Component>
             @{ 
                 ICell cell = Cells[context.x, context.y];
-                string illegalClass = !cell.Input.IsLegal ? "illegalInput" : "";
+                string illegalClass = !cell.Input.IsLegal ? "mark mark-danger" : "";
                 <div class="@illegalClass"></div>
             }
         </Grid9x9Component>

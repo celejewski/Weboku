@@ -4,6 +4,13 @@
     box-sizing: border-box;
 }
 
+:root {
+    --color-danger: red;
+    --color-success: green;
+    --color-1: blue;
+    --color-2: yellow;
+}
+
 body {
     margin: 0px;
     background-color: #555555;
@@ -108,28 +115,46 @@ html {
 }
 
 
-.display-value-layer {
-}
-
-.clickable-layer {
-}
-
-.filter-layer {
-}
-
-.color-layer {
-}
-
-.color-cell {
+.cell-color {
     margin: 10%;
 }
 
-.color-1 {
-    background-color: #88BB92;
+.cell-color-1 {
+    background-color: var(--color-1);
 }
 
-.color-2 {
-    background-color: #CD533B;
+.cell-color-2 {
+    background-color: var(--color-2);
+}
+
+.cell-color-danger {
+    background-color: var(--color-danger);
+}
+
+.cell-color-success {
+    background-color: var(--color-success);
+}
+
+
+.mark {
+    border-width: 3px;
+    border-radius: 50%;
+    border-style: solid;
+    margin: 10%;
+}
+
+.mark-danger {
+    border-color: var(--color-danger);
+}
+
+.mark-success {
+    border-color: var(--color-success);
+}
+.mark-1 {
+    border-color: var(--color-1);
+}
+.mark-2 {
+    border-color: var(--color-2);
 }
 
 .numpad {
@@ -166,7 +191,6 @@ html {
     background-color: #E2E200;
 }
 
-
 .input {
     font-size: 2.8rem;
     display: flex;
@@ -192,13 +216,6 @@ a {
 
 .given {
     font-weight: bold;
-}
-
-.illegalInput {
-    border-color: red;
-    border-width: 3px;
-    border-radius: 50%;
-    border-style: solid;
 }
 
 .value {

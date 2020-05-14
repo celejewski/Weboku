@@ -29,9 +29,9 @@ namespace UI.BlazorWASM.ClickableActions
         {
             if( e.CtrlKey )
             {
-                if( string.IsNullOrEmpty(_colorClasses[x, y]) )
+                if( _colorClasses[x, y] != "cell-color-1" )
                 {
-                    _colorClasses[x, y] = "color-1";
+                    _colorClasses[x, y] = "cell-color-1";
                 }
                 else
                 {
@@ -65,9 +65,9 @@ namespace UI.BlazorWASM.ClickableActions
 
             if( e.CtrlKey )
             {
-                if( string.IsNullOrEmpty(_colorClasses[x, y]) )
+                if( _colorClasses[x, y] != "cell-color-2" )
                 {
-                    _colorClasses[x, y] = "color-2";
+                    _colorClasses[x, y] = "cell-color-2";
                 }
                 else
                 {
