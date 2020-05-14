@@ -1,38 +1,10 @@
-﻿@if( Cell.Input.Value != 0 )
-{
-    <div class="cell input @GivenClass"
-         style="@Border">
-        <div class="value @InputIsIllegalClass">
-            @Cell.Input.Value
-        </div>
+﻿<div class="cell input @GivenClass"
+     style="@Border">
+    <div class="value">
+        @(Cell.Input.Value != 0 ? Cell.Input.Value.ToString() : "")
     </div>
-}
-else
-{
-    <div class="cell candidates"
-         style="@Border">
-        @for( int value = 1; value < 10; value++ )
-        {
-            <div class="candidate">
-                @{
-                    if( Cell.Candidates.ContainsKey(value) )
-                    {
-                        var isIllegalClass = Cell.Candidates[value].IsLegal ? "" : "illegalInput";
-                        <div class="value @isIllegalClass">
-                            @value
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="value">
+</div>
 
-                        </div>
-                    }
-                }
-            </div>
-        }
-    </div>
-}
 @code {
     [Parameter]
     public ICell Cell { get; set; }
@@ -45,9 +17,6 @@ else
     }
 
     private string Border { get; set; }
-
-    private string InputIsIllegalClass { get => Cell.Input.IsLegal ? "" : "illegalInput"; }
-
 
     private void InitBorder()
     {

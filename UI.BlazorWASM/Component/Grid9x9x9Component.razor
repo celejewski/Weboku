@@ -1,0 +1,19 @@
+﻿<div class="layer grid-9x9">
+    @for( int y = 0; y < 9; y++ )
+    {
+        @for( int x = 0; x < 9; x++ )
+        {
+            <div class="candidates">
+                @for( int z = 0; z < 9; z++ )
+                {
+                    @ChildContent((x, y, z))
+                }
+            </div>
+        }
+    }
+</div>
+
+@code {
+    [Parameter]
+    public RenderFragment<(int x, int y, int z)> ChildContent { get; set; }
+}
