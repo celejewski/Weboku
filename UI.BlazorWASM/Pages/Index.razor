@@ -7,7 +7,6 @@
      class="main"
      onblur="this.focus()"
      tabindex="0"
-     @onkeypress="OnKeyDown"
      @oncontextmenu:preventDefault="true">
 
     <MenuComponent Grid="_grid"
@@ -28,15 +27,6 @@
 
     </div>
 
-    @*<NumpadComponent @bind-SelectedValue="SelectedValue"
-                     OnClickUndo="GridHistoryManager.Undo"
-                     OnClickRedo="GridHistoryManager.Redo"
-                     OnClickPairFilter="OnClickPairFilter"
-                     OnClickSelectedValue="OnClickSelectedValue"
-                     @bind-ClickableAction="ClickableAction"
-                     StandardAction="StandardAction" 
-                     @bind-Filter="Filter"/>*@
-
     <NumpadMenuComponent NumpadMenuItems="_menuItems" 
                          OnNumpadMenuClicked="() => StateHasChanged()"/>
 </div>
@@ -44,8 +34,13 @@
 @code {
     private IGrid _grid;
     public int SelectedValue { get; set; }
-
     public ICell[,] Cells { get => _grid.Cells; }
+    public IFilter Filter { get; set; }
+    private string[,] ColorClasses { get; set; } = new string[9, 9];
+    public IClickableAction ClickableAction { get; set; }
+    public StandardAction StandardAction { get; set; }
+    private NumpadMenuItem[] _menuItems { get; set; }
+
 
     protected override void OnInitialized()
     {
@@ -56,36 +51,9 @@
         ClickableAction = StandardAction;
         InitMenuItems();
     }
-
-    public IClickableAction ClickableAction { get; set; }
-    public StandardAction StandardAction { get; set; }
-
     protected override async Task OnInitializedAsync()
     {
         await StartNewGame("Medium");
-    }
-
-    public void OnKeyDown(KeyboardEventArgs args)
-    {
-        if( int.TryParse(args.Key, out var digit) )
-        {
-            SelectedValue = digit;
-        }
-
-        if( args.Key == "z" )
-        {
-            GridHistoryManager.Undo();
-        }
-
-        if( args.Key == "y" )
-        {
-            GridHistoryManager.Redo();
-        }
-
-        if (args.Key == "r")
-        {
-            ClearColors();
-        }
     }
 
     private void ClearColors()
@@ -110,27 +78,9 @@
         GridHistoryManager.Save();
         var newGrid = await GridGenerator.WithGiven(difficulty);
         _grid.AssignFrom(newGrid);
-        SelectedValue = 1;
         StateHasChanged();
     }
 
-
-
-    public IFilter Filter { get; set; }
-    private void OnClickPairFilter()
-    {
-        Filter = new PairFilter();
-    }
-
-    private void OnClickSelectedValue()
-    {
-        Filter = new SelectedValueFilter(SelectedValue);
-    }
-
-    private string[,] ColorClasses { get; set; } = new string[9, 9];
-
-
-    private NumpadMenuItem[] _menuItems { get; set; }
     public void InitMenuItems()
     {
         Func<int, NumpadMenuItem> selectedValue = (digit) => new NumpadMenuItem()
