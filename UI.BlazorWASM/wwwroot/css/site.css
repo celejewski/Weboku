@@ -120,9 +120,10 @@ html {
 .color-layer {
 }
 
-.color-layer div {
+.color-cell {
     margin: 10%;
 }
+
 .color-1 {
     background-color: #88BB92;
 }

@@ -14,16 +14,31 @@
                    FillAllCandidates="FillAllCandidates" />
 
     <div class="layer-wrapper">
-        <BackgroundLayerComponent />
+        <div class="layer grid-3x3 background-layer">
+            @for( int i = 0; i < 9; i++ )
+            {
+                <div></div>
+            }
+        </div>
 
-        <FilterLayerComponent Cells="Cells"
-                              Filter="Filter" />
+        <Grid9x9Component>
+            <div class="@Filter.IsFiltered(Cells[context.x, context.y])"></div>
+        </Grid9x9Component>
 
-        <ColorLayerComponent ColorClasses="ColorClasses" />
+        <Grid9x9Component>
+            <div class="color-cell @ColorClasses[context.x, context.y]"></div>
+        </Grid9x9Component>
 
-        <GridComponent Cells="Cells" />
+        <Grid9x9Component>
+            <CellComponent Cell="Cells[context.x, context.y]" />
+        </Grid9x9Component>
 
-        <ClickableLayerComponent ClickableAction="ClickableAction" />
+        <Grid9x9Component>
+            <div class="clickable"
+                 @onclick="(e) => ClickableAction.LeftClickAction(e, context.x, context.y)"
+                 @oncontextmenu="(e) => ClickableAction.RightClickAction(e, context.x, context.y)">
+            </div>
+        </Grid9x9Component>
 
     </div>
 

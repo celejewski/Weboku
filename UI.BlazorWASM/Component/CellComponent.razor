@@ -37,7 +37,6 @@ else
     [Parameter]
     public ICell Cell { get; set; }
 
-
     private string GivenClass { get => Cell.IsGiven ? "given " : ""; }
 
     protected override void OnInitialized()
@@ -48,9 +47,6 @@ else
     private string Border { get; set; }
 
     private string InputIsIllegalClass { get => Cell.Input.IsLegal ? "" : "illegalInput"; }
-
-    [Parameter]
-    public Func<string> Filter { get; set; }
 
 
     private void InitBorder()
