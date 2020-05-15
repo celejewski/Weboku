@@ -4,6 +4,8 @@
 @inject ICellColorProvider CellColorProvider
 @inject ISudokuProvider SudokuProvider
 @inject IGridHistoryManager GridHistoryManager
+@inject IFilterProvider FilterProvider
+@inject NumpadMenuItemBuilderProvider NumpadMenuItemBuilderProvider
 
 <div id="main"
      class="main"
@@ -23,7 +25,7 @@
         </div>
 
         <Grid9x9Component>
-            <div class="@Filter.IsFiltered(SudokuProvider.Cells[context.x, context.y])"></div>
+            <div class="@FilterProvider.Filter.IsFiltered(SudokuProvider.Cells[context.x, context.y])"></div>
         </Grid9x9Component>
 
         <Grid9x9Component>
@@ -75,7 +77,6 @@
 
 @code {
     public IClickableAction ClickableAction { get; set; }
-    public IFilter Filter { get; set; } = new SelectedValueFilter(1);
     public INumpadMenuItem[] MenuItems { get; set; }
 
     protected override void OnInitialized()
@@ -105,28 +106,32 @@
 
     public void InitMenuItems()
     {
-        Func<int, NumpadMenuItem> selectedValue = (digit) => new NumpadMenuItem()
+        Func<int, INumpadMenuItem> selectedValue = (digit) => NumpadMenuItemBuilderProvider.New()
                 .SetLabel(digit.ToString())
                 .WithChangeAction((action) => this.ClickableAction = action, new StandardAction(GridHistoryManager, CellColorProvider, SudokuProvider, digit ))
-                .WithChangeFilter((filter) => Filter = filter, new SelectedValueFilter(digit));
+                .WithChangeFilter(new SelectedValueFilter(digit))
+                .Build();
 
-        var redo = new NumpadMenuItem()
+        var redo = NumpadMenuItemBuilderProvider.New()
             .SetLabel("Redo")
             .WithExecute(() => GridHistoryManager.Redo())
             .WithCanExecute(() => GridHistoryManager.CanRedo)
-            .SetIsSelectable(false);
+            .SetIsSelectable(false)
+            .Build();
 
-        var undo = new NumpadMenuItem()
+        var undo = NumpadMenuItemBuilderProvider.New()
             .SetLabel("Undo")
             .WithExecute(() => GridHistoryManager.Undo())
             .WithCanExecute(() => GridHistoryManager.CanUndo)
-            .SetIsSelectable(false);
+            .SetIsSelectable(false)
+            .Build();
 
-        var pairs = new NumpadMenuItem()
+        var pairs = NumpadMenuItemBuilderProvider.New()
             .SetLabel("Pairs")
-            .WithChangeFilter((filter) => Filter = filter, new PairFilter());
+            .WithChangeFilter(new PairFilter())
+            .Build();
 
-        MenuItems = new NumpadMenuItem[]
+        MenuItems = new INumpadMenuItem[]
         {
             undo,
             selectedValue(1),
@@ -138,7 +143,7 @@
             selectedValue(5),
             selectedValue(6),
 
-            selectedValue(0).SetLabel("x"),
+            selectedValue(0),
             selectedValue(7),
             selectedValue(8),
             selectedValue(9),
