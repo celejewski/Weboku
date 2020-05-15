@@ -12,20 +12,19 @@ namespace UI.BlazorWASM.ViewModels
     public class NumpadMenuItemBuilder 
     {
         private IFilter _filter;
-        private EventCallback<IFilter> _filterChangedEvent;
         private Action _executeAction;
         private Func<bool> _canExecutePredicate;
         private Func<bool> _isDimmedPredicate;
         private IClickableAction _clickableAction;
-        private EventCallback<IClickableAction> _clickableActionChangedEvent;
-        private Action<IClickableAction> _clickableActionChangedAction;
         private bool _isSelectable;
         private string _label;
         private readonly IFilterProvider _filterProvider;
+        private readonly IClickableActionProvider _clickableActionProvider;
 
-        public NumpadMenuItemBuilder(IFilterProvider filterProvider)
+        public NumpadMenuItemBuilder(IFilterProvider filterProvider, IClickableActionProvider clickableActionProvider)
         {
             _filterProvider = filterProvider;
+            _clickableActionProvider = clickableActionProvider;
         }
 
         public NumpadMenuItemBuilder SetIsSelectable(bool isSelectable)
@@ -50,30 +49,19 @@ namespace UI.BlazorWASM.ViewModels
             _executeAction = executeAction;
             return this;
         }
-        public NumpadMenuItemBuilder WithChangeFilter(EventCallback<IFilter> filterChanged, IFilter filter)
-        {
-            _filter = filter;
-            _filterChangedEvent = filterChanged;
-            return this;
-        }
+
         public NumpadMenuItemBuilder WithChangeFilter(IFilter filter)
         {
             _filter = filter;
             return this;
         }
 
-        public NumpadMenuItemBuilder WithChangeAction(EventCallback<IClickableAction> clickableActionChanged, IClickableAction action)
+        public NumpadMenuItemBuilder WithChangeAction(IClickableAction action)
         {
             _clickableAction = action;
-            _clickableActionChangedEvent = clickableActionChanged;
             return this;
         }
-        public NumpadMenuItemBuilder WithChangeAction(Action<IClickableAction> clickableActionChanged, IClickableAction action)
-        {
-            _clickableAction = action;
-            _clickableActionChangedAction = clickableActionChanged;
-            return this;
-        }
+
         public NumpadMenuItemBuilder WithIsDimmed(Func<bool> isDimmedPredicate)
         {
             _isDimmedPredicate = isDimmedPredicate;
@@ -82,7 +70,7 @@ namespace UI.BlazorWASM.ViewModels
 
         public INumpadMenuItem Build()
         {
-            return new NumpadMenuItem(_label, _executeAction, _canExecutePredicate, _isDimmedPredicate, _clickableAction, _clickableActionChangedAction, _isSelectable, _filter, _filterProvider);
+            return new NumpadMenuItem(_label, _executeAction, _canExecutePredicate, _isDimmedPredicate, _clickableAction, _isSelectable, _filter, _filterProvider, _clickableActionProvider);
         }
     }
 }

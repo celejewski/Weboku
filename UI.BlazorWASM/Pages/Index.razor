@@ -6,6 +6,7 @@
 @inject IGridHistoryManager GridHistoryManager
 @inject IFilterProvider FilterProvider
 @inject NumpadMenuItemBuilderProvider NumpadMenuItemBuilderProvider
+@inject IClickableActionProvider ClickableActionProvider
 
 <div id="main"
      class="main"
@@ -64,8 +65,8 @@
         </Grid9x9x9Component>
         <Grid9x9Component>
             <div class="clickable"
-                 @onclick="(e) => ClickableAction.LeftClickAction(e, context.x, context.y)"
-                 @oncontextmenu="(e) => ClickableAction.RightClickAction(e, context.x, context.y)">
+                 @onclick="(e) => ClickableActionProvider.ClickableAction.LeftClickAction(e, context.x, context.y)"
+                 @oncontextmenu="(e) => ClickableActionProvider.ClickableAction.RightClickAction(e, context.x, context.y)">
             </div>
         </Grid9x9Component>
 
@@ -76,15 +77,14 @@
 </div>
 
 @code {
-    public IClickableAction ClickableAction { get; set; }
     public INumpadMenuItem[] MenuItems { get; set; }
 
     protected override void OnInitialized()
     {
-        ClickableAction = new StandardAction(GridHistoryManager, CellColorProvider, SudokuProvider, 1 );
         InitMenuItems();
         CellColorProvider.OnChanged += StateHasChanged;
         SudokuProvider.OnChanged += StateHasChanged;
+        ClickableActionProvider.OnChanged += StateHasChanged;
     }
     protected override async Task OnInitializedAsync()
     {
@@ -108,7 +108,7 @@
     {
         Func<int, INumpadMenuItem> selectedValue = (digit) => NumpadMenuItemBuilderProvider.New()
                 .SetLabel(digit.ToString())
-                .WithChangeAction((action) => this.ClickableAction = action, new StandardAction(GridHistoryManager, CellColorProvider, SudokuProvider, digit ))
+                .WithChangeAction(new StandardAction(GridHistoryManager, CellColorProvider, SudokuProvider, digit ))
                 .WithChangeFilter(new SelectedValueFilter(digit))
                 .Build();
 

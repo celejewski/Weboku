@@ -15,9 +15,9 @@ namespace UI.BlazorWASM.ViewModels
         private readonly Func<bool> _canExecutePredicate;
         private readonly Func<bool> _isDimmedPredicate;
         private readonly IClickableAction _clickableAction;
-        private readonly Action<IClickableAction> _clickableActionChangedAction;
         private readonly bool _isSelectable;
         private readonly IFilterProvider _filterProvider;
+        private readonly IClickableActionProvider _clickableActionProvider;
 
         public bool IsDimmed => _isDimmedPredicate?.Invoke() ?? false;
         public bool IsSelectable { get; private set; } = true;
@@ -27,7 +27,7 @@ namespace UI.BlazorWASM.ViewModels
         public async Task Execute()
         {
             _executeAction?.Invoke();
-            _clickableActionChangedAction?.Invoke(_clickableAction);
+            _clickableActionProvider.SetClickableAction(_clickableAction);
 
             if (_filter != null)
             {
@@ -35,17 +35,17 @@ namespace UI.BlazorWASM.ViewModels
             }
         }
 
-        public NumpadMenuItem(string label, Action executeAction, Func<bool> canExecutePredicate, Func<bool> isDimmedPredicate, IClickableAction clickableAction, Action<IClickableAction> clickableActionChangedAction, bool isSelectable, IFilter filter, IFilterProvider filterProvider)
+        public NumpadMenuItem(string label, Action executeAction, Func<bool> canExecutePredicate, Func<bool> isDimmedPredicate, IClickableAction clickableAction, bool isSelectable, IFilter filter, IFilterProvider filterProvider, IClickableActionProvider clickableActionProvider)
         {
             Label = label;
             _executeAction = executeAction;
             _canExecutePredicate = canExecutePredicate;
             _isDimmedPredicate = isDimmedPredicate;
             _clickableAction = clickableAction;
-            _clickableActionChangedAction = clickableActionChangedAction;
             _isSelectable = isSelectable;
             _filter = filter;
             _filterProvider = filterProvider;
+            _clickableActionProvider = clickableActionProvider;
         }
     }
 }
