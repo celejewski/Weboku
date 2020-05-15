@@ -7,6 +7,7 @@
 @inject IFilterProvider FilterProvider
 @inject NumpadMenuItemBuilderProvider NumpadMenuItemBuilderProvider
 @inject IClickableActionProvider ClickableActionProvider
+@inject NumpadMenuBuilder NumpadMenuBuilder
 
 <div id="main"
      class="main"
@@ -106,49 +107,71 @@
 
     public void InitMenuItems()
     {
-        Func<int, INumpadMenuItem> selectedValue = (digit) => NumpadMenuItemBuilderProvider.New()
-                .SetLabel(digit.ToString())
-                .WithChangeAction(new StandardAction(GridHistoryManager, CellColorProvider, SudokuProvider, digit ))
-                .WithChangeFilter(new SelectedValueFilter(digit))
-                .Build();
-
-        var redo = NumpadMenuItemBuilderProvider.New()
-            .SetLabel("Redo")
-            .WithExecute(() => GridHistoryManager.Redo())
-            .WithCanExecute(() => GridHistoryManager.CanRedo)
-            .SetIsSelectable(false)
-            .Build();
-
-        var undo = NumpadMenuItemBuilderProvider.New()
-            .SetLabel("Undo")
-            .WithExecute(() => GridHistoryManager.Undo())
-            .WithCanExecute(() => GridHistoryManager.CanUndo)
-            .SetIsSelectable(false)
-            .Build();
-
-        var pairs = NumpadMenuItemBuilderProvider.New()
-            .SetLabel("Pairs")
-            .WithChangeFilter(new PairFilter())
-            .Build();
-
         MenuItems = new INumpadMenuItem[]
         {
-            undo,
-            selectedValue(1),
-            selectedValue(2),
-            selectedValue(3),
+            NumpadMenuBuilder.Undo(),
+            NumpadMenuBuilder.SelectValue(1),
+            NumpadMenuBuilder.SelectValue(2),
+            NumpadMenuBuilder.SelectValue(3),
 
-            redo,
-            selectedValue(4),
-            selectedValue(5),
-            selectedValue(6),
+            NumpadMenuBuilder.Redo(),
+            NumpadMenuBuilder.SelectValue(4),
+            NumpadMenuBuilder.SelectValue(5),
+            NumpadMenuBuilder.SelectValue(6),
 
-            selectedValue(0),
-            selectedValue(7),
-            selectedValue(8),
-            selectedValue(9),
+            NumpadMenuBuilder.SelectValue(0),
+            NumpadMenuBuilder.SelectValue(7),
+            NumpadMenuBuilder.SelectValue(8),
+            NumpadMenuBuilder.SelectValue(9),
 
-            pairs
-         };
+            NumpadMenuBuilder.Pairs(),
+            };
     }
+    //public void InitMenuItems()
+    //{
+    //    Func<int, INumpadMenuItem> selectedValue = (digit) => NumpadMenuItemBuilderProvider.New()
+    //            .SetLabel(digit.ToString())
+    //            .WithChangeAction(new StandardAction(GridHistoryManager, CellColorProvider, SudokuProvider, digit ))
+    //            .WithChangeFilter(new SelectedValueFilter(digit))
+    //            .Build();
+
+    //    var redo = NumpadMenuItemBuilderProvider.New()
+    //        .SetLabel("Redo")
+    //        .WithExecute(() => GridHistoryManager.Redo())
+    //        .WithCanExecute(() => GridHistoryManager.CanRedo)
+    //        .SetIsSelectable(false)
+    //        .Build();
+
+    //    var undo = NumpadMenuItemBuilderProvider.New()
+    //        .SetLabel("Undo")
+    //        .WithExecute(() => GridHistoryManager.Undo())
+    //        .WithCanExecute(() => GridHistoryManager.CanUndo)
+    //        .SetIsSelectable(false)
+    //        .Build();
+
+    //    var pairs = NumpadMenuItemBuilderProvider.New()
+    //        .SetLabel("Pairs")
+    //        .WithChangeFilter(new PairFilter())
+    //        .Build();
+
+    //    MenuItems = new INumpadMenuItem[]
+    //    {
+    //        undo,
+    //        selectedValue(1),
+    //        selectedValue(2),
+    //        selectedValue(3),
+
+    //        redo,
+    //        selectedValue(4),
+    //        selectedValue(5),
+    //        selectedValue(6),
+
+    //        selectedValue(0),
+    //        selectedValue(7),
+    //        selectedValue(8),
+    //        selectedValue(9),
+
+    //        pairs
+    //     };
+    //}
 }

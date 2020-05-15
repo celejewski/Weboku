@@ -24,7 +24,7 @@ namespace UI.BlazorWASM.ViewModels
         public string Label { get; private set; }
         public bool CanExecute => _canExecutePredicate?.Invoke() ?? true;
 
-        public async Task Execute()
+        public async void Execute()
         {
             _executeAction?.Invoke();
             _clickableActionProvider.SetClickableAction(_clickableAction);

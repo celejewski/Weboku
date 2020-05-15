@@ -4,7 +4,7 @@ namespace UI.BlazorWASM.ViewModels
 {
     public interface ICommand
     {
-        Task Execute();
+        void Execute();
         bool CanExecute { get; }
     }
 }

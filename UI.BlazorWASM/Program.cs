@@ -8,6 +8,7 @@ using Core.Generators;
 using Core.Converters;
 using UI.BlazorWASM.Providers;
 using UI.BlazorWASM.Managers;
+using UI.BlazorWASM.ViewModels;
 
 namespace UI.BlazorWASM
 {
@@ -28,6 +29,7 @@ namespace UI.BlazorWASM
             builder.Services.AddSingleton<IFilterProvider, FilterProvider>();
             builder.Services.AddSingleton<NumpadMenuItemBuilderProvider, NumpadMenuItemBuilderProvider>();
             builder.Services.AddSingleton<IClickableActionProvider, ClickableActionProvider>();
+            builder.Services.AddSingleton<NumpadMenuBuilder, NumpadMenuBuilder>();
             builder.Services.AddCors();
             var app = builder.Build();
            
