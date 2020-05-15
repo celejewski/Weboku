@@ -1,5 +1,7 @@
-﻿<div class="numpad">
-    @foreach( var item in NumpadMenuItems )
+﻿@inject NumpadMenuBuilder NumpadMenuBuilder
+
+<div class="numpad">
+    @foreach( var item in _menuItems )
     {
         var bound = item;
         <div @onclick="@((e) => OnClick(bound))"
@@ -11,13 +13,9 @@
 
 @code {
 
-    [Parameter]
-    public IEnumerable<INumpadMenuItem> NumpadMenuItems { get; set; }
+    private IList<INumpadMenuItem> _menuItems;
 
-    [Parameter]
-    public Action OnNumpadMenuClicked { get; set; }
-
-    private INumpadMenuItem selected = null;
+    private INumpadMenuItem selected;
     private void OnClick(INumpadMenuItem clicked)
     {
         if( clicked.IsSelectable )
@@ -25,6 +23,30 @@
             selected = clicked;
         }
         clicked.Execute();
-        OnNumpadMenuClicked();
+    }
+
+    protected override void OnInitialized()
+    {
+        _menuItems = new INumpadMenuItem[]
+        {
+            NumpadMenuBuilder.Undo(),
+            NumpadMenuBuilder.SelectValue(1),
+            NumpadMenuBuilder.SelectValue(2),
+            NumpadMenuBuilder.SelectValue(3),
+
+            NumpadMenuBuilder.Redo(),
+            NumpadMenuBuilder.SelectValue(4),
+            NumpadMenuBuilder.SelectValue(5),
+            NumpadMenuBuilder.SelectValue(6),
+
+            NumpadMenuBuilder.SelectValue(0),
+            NumpadMenuBuilder.SelectValue(7),
+            NumpadMenuBuilder.SelectValue(8),
+            NumpadMenuBuilder.SelectValue(9),
+
+            NumpadMenuBuilder.Pairs()
+        };
+
+        selected = _menuItems[1];
     }
 }

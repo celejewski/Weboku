@@ -27,7 +27,6 @@ namespace UI.BlazorWASM
             builder.Services.AddSingleton<ISudokuProvider, SudokuProvider>();
             builder.Services.AddSingleton<IGridHistoryManager, GridHistoryManager>();
             builder.Services.AddSingleton<IFilterProvider, FilterProvider>();
-            builder.Services.AddSingleton<NumpadMenuItemBuilderProvider, NumpadMenuItemBuilderProvider>();
             builder.Services.AddSingleton<IClickableActionProvider, ClickableActionProvider>();
             builder.Services.AddSingleton<NumpadMenuBuilder, NumpadMenuBuilder>();
             builder.Services.AddCors();
