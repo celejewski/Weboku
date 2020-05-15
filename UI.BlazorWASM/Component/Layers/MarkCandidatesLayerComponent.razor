@@ -1,0 +1,17 @@
+﻿@inject ISudokuProvider SudokuProvider
+
+<Grid9x9x9Component>
+    @{
+        ICell cell = SudokuProvider.Cells[context.x, context.y];
+        int value = context.z + 1;
+        string illegalClass = (cell.Candidates.ContainsKey(value) && !cell.Candidates[value].IsLegal) ? "mark mark-danger" : "";
+        <div class="@illegalClass"></div>
+    }
+</Grid9x9x9Component>
+
+@code { 
+    protected override void OnInitialized()
+    {
+        SudokuProvider.OnChanged += StateHasChanged;
+    }
+}

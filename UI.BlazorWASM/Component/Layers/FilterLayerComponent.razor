@@ -1,0 +1,14 @@
+﻿@inject IFilterProvider FilterProvider
+@inject ISudokuProvider SudokuProvider
+
+<Grid9x9Component>
+    <div class="@FilterProvider.Filter.IsFiltered(SudokuProvider.Cells[context.x, context.y])"></div>
+</Grid9x9Component>
+
+@code {
+    protected override void OnInitialized()
+    {
+        FilterProvider.OnChanged += StateHasChanged;
+        SudokuProvider.OnChanged += StateHasChanged;
+    }
+}
