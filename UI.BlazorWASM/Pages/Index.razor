@@ -1,7 +1,6 @@
 ﻿@page "/"
 @inject HttpClient Http
 @inject IGridGenerator GridGenerator
-@inject AppData AppData
 @inject ICellColorProvider CellColorProvider
 @inject ISudokuProvider SudokuProvider
 @inject IGridHistoryManager GridHistoryManager
@@ -13,7 +12,7 @@
      @oncontextmenu:preventDefault="true">
 
     <MenuComponent StartNewGame="StartNewGame"
-        FillAllCandidates="FillAllCandidates" />
+                   FillAllCandidates="FillAllCandidates" />
 
     <div class="layer-wrapper">
         <div class="layer grid-3x3 background-layer">
@@ -24,7 +23,7 @@
         </div>
 
         <Grid9x9Component>
-            <div class="@AppData.Filter.IsFiltered(SudokuProvider.Cells[context.x, context.y])"></div>
+            <div class="@Filter.IsFiltered(SudokuProvider.Cells[context.x, context.y])"></div>
         </Grid9x9Component>
 
         <Grid9x9Component>
@@ -77,6 +76,7 @@
 @code {
     public StandardAction StandardAction { get; set; }
     public IClickableAction ClickableAction { get; set; }
+    public IFilter Filter { get; set; } = new SelectedValueFilter(1);
     public INumpadMenuItem[] MenuItems { get; set; }
 
     protected override void OnInitialized()
@@ -110,7 +110,7 @@
         Func<int, NumpadMenuItem> selectedValue = (digit) => new NumpadMenuItem()
                 .SetLabel(digit.ToString())
                 .WithChangeAction((action) => this.ClickableAction = action, StandardAction)
-                .WithChangeFilter((filter) => AppData.Filter = filter, new SelectedValueFilter(digit))
+                .WithChangeFilter((filter) => Filter = filter, new SelectedValueFilter(digit))
                 .WithExecute(() => StandardAction.SelectedValue = digit);
 
         var redo = new NumpadMenuItem()
@@ -127,7 +127,7 @@
 
         var pairs = new NumpadMenuItem()
             .SetLabel("Pairs")
-            .WithChangeFilter((filter) => AppData.Filter = filter, new PairFilter());
+            .WithChangeFilter((filter) => Filter = filter, new PairFilter());
 
         MenuItems = new NumpadMenuItem[]
         {
@@ -147,7 +147,7 @@
             selectedValue(9),
 
             pairs
-            };
+         };
     }
 }
 }
