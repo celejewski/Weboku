@@ -1,43 +1,31 @@
 ﻿using Core.Data;
-using Core.Managers;
 using Microsoft.AspNetCore.Components.Web;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using UI.BlazorWASM.Enums;
+using UI.BlazorWASM.Managers;
+using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.ClickableActions
 {
     public class StandardAction : IClickableAction
     {
-        private readonly string[,] _colorClasses;
         private readonly ICell[,] _cells;
         private readonly IGridHistoryManager _gridHistoryManager;
-        private readonly IGrid _grid;
-        private readonly Action _stateHasChanged;
+        private readonly ICellColorProvider _cellColorProvider;
+        private readonly ISudokuProvider _sudokuProvider;
 
-        public StandardAction(string[,] colorClasses, ICell[,] cells, IGridHistoryManager gridHistoryManager, IGrid grid, Action stateHasChanged)
+        public StandardAction(IGridHistoryManager gridHistoryManager, ICellColorProvider cellColorProvider, ISudokuProvider sudokuProvider)
         {
-            _colorClasses = colorClasses;
-            _cells = cells;
+            _cells = sudokuProvider.Cells;
             _gridHistoryManager = gridHistoryManager;
-            _grid = grid;
-            _stateHasChanged = stateHasChanged;
+            _cellColorProvider = cellColorProvider;
+            _sudokuProvider = sudokuProvider;
         }
         public int SelectedValue { get; set; } = 1;
         public void LeftClickAction(MouseEventArgs e, int x, int y)
         {
             if( e.CtrlKey )
             {
-                if( _colorClasses[x, y] != "cell-color-1" )
-                {
-                    _colorClasses[x, y] = "cell-color-1";
-                }
-                else
-                {
-                    _colorClasses[x, y] = string.Empty;
-                }
-                _stateHasChanged();
+                _cellColorProvider.ToggleColor(x, y, CellColor.First);
                 return;
             }
 
@@ -50,30 +38,19 @@ namespace UI.BlazorWASM.ClickableActions
             if( SelectedValue == 0 || cell.Input.Value == 0 )
             {
                 _gridHistoryManager.Save();
-                _grid.SetValue(cell.X, cell.Y, SelectedValue);
-                _stateHasChanged();
+                _sudokuProvider.SetValue(cell.X, cell.Y, SelectedValue);
             }
             else if( cell.Input.Value == SelectedValue )
             {
                 _gridHistoryManager.Save();
-                _grid.SetValue(cell.X, cell.Y, 0);
-                _stateHasChanged();
+                _sudokuProvider.SetValue(cell.X, cell.Y, 0);
             }
         }
         public void RightClickAction(MouseEventArgs e, int x, int y)
         {
-
             if( e.CtrlKey )
             {
-                if( _colorClasses[x, y] != "cell-color-2" )
-                {
-                    _colorClasses[x, y] = "cell-color-2";
-                }
-                else
-                {
-                    _colorClasses[x, y] = string.Empty;
-                }
-                _stateHasChanged();
+                _cellColorProvider.ToggleColor(x, y, CellColor.Second);
                 return;
             }
 
@@ -84,8 +61,7 @@ namespace UI.BlazorWASM.ClickableActions
             }
 
             _gridHistoryManager.Save();
-            _grid.ToggleCandidate(cell.X, cell.Y, SelectedValue);
-            _stateHasChanged();
+            _sudokuProvider.ToggleCandidate(cell.X, cell.Y, SelectedValue);
         }
     }
 }

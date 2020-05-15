@@ -1,6 +1,9 @@
 ﻿@page "/"
 @inject HttpClient Http
 @inject IGridGenerator GridGenerator
+@inject AppData AppData
+@inject ICellColorProvider CellColorProvider
+@inject ISudokuProvider SudokuProvider
 @inject IGridHistoryManager GridHistoryManager
 
 <div id="main"
@@ -9,9 +12,8 @@
      tabindex="0"
      @oncontextmenu:preventDefault="true">
 
-    <MenuComponent Grid="_grid"
-                   StartNewGame="StartNewGame"
-                   FillAllCandidates="FillAllCandidates" />
+    <MenuComponent StartNewGame="StartNewGame"
+        FillAllCandidates="FillAllCandidates" />
 
     <div class="layer-wrapper">
         <div class="layer grid-3x3 background-layer">
@@ -22,16 +24,16 @@
         </div>
 
         <Grid9x9Component>
-            <div class="@Filter.IsFiltered(Cells[context.x, context.y])"></div>
+            <div class="@AppData.Filter.IsFiltered(SudokuProvider.Cells[context.x, context.y])"></div>
         </Grid9x9Component>
 
         <Grid9x9Component>
-            <div class="cell-color @ColorClasses[context.x, context.y]"></div>
+            <div class="cell-color @CellColorProvider.GetCssClass(context.x, context.y)"></div>
         </Grid9x9Component>
 
         <Grid9x9x9Component>
-            @{ 
-                ICell cell = Cells[context.x, context.y];
+            @{
+                ICell cell = SudokuProvider.Cells[context.x, context.y];
                 int value = context.z + 1;
                 string illegalClass = (cell.Candidates.ContainsKey(value) && !cell.Candidates[value].IsLegal) ? "mark mark-danger" : "";
                 <div class="@illegalClass"></div>
@@ -39,20 +41,20 @@
         </Grid9x9x9Component>
 
         <Grid9x9Component>
-            @{ 
-                ICell cell = Cells[context.x, context.y];
+            @{
+                ICell cell = SudokuProvider.Cells[context.x, context.y];
                 string illegalClass = !cell.Input.IsLegal ? "mark mark-danger" : "";
                 <div class="@illegalClass"></div>
             }
         </Grid9x9Component>
 
         <Grid9x9Component>
-            <CellComponent Cell="Cells[context.x, context.y]" />
+            <CellComponent Cell="SudokuProvider.Cells[context.x, context.y]" />
         </Grid9x9Component>
 
         <Grid9x9x9Component>
             @{
-                ICell cell = Cells[context.x, context.y];
+                ICell cell = SudokuProvider.Cells[context.x, context.y];
                 int value = context.z + 1;
                 <div class="value">
                     @(cell.Candidates.ContainsKey(value) ? value.ToString() : "")
@@ -68,58 +70,39 @@
 
     </div>
 
-    <NumpadMenuComponent NumpadMenuItems="_menuItems" 
-                         OnNumpadMenuClicked="() => StateHasChanged()"/>
+    <NumpadMenuComponent NumpadMenuItems="MenuItems"
+                         OnNumpadMenuClicked="() => StateHasChanged()" />
 </div>
 
 @code {
-    private IGrid _grid;
-    public int SelectedValue { get; set; }
-    public ICell[,] Cells { get => _grid.Cells; }
-    public IFilter Filter { get; set; }
-    private string[,] ColorClasses { get; set; } = new string[9, 9];
-    public IClickableAction ClickableAction { get; set; }
     public StandardAction StandardAction { get; set; }
-    private NumpadMenuItem[] _menuItems { get; set; }
-
+    public IClickableAction ClickableAction { get; set; }
+    public INumpadMenuItem[] MenuItems { get; set; }
 
     protected override void OnInitialized()
     {
-        _grid = GridGenerator.Empty();
-        GridHistoryManager.AttachTo(_grid);
-        Filter = new SelectedValueFilter(1);
-        StandardAction = new StandardAction(ColorClasses, Cells, GridHistoryManager, _grid, StateHasChanged);
+        StandardAction = new StandardAction(GridHistoryManager, CellColorProvider, SudokuProvider);
         ClickableAction = StandardAction;
         InitMenuItems();
+        CellColorProvider.OnChanged += StateHasChanged;
+        SudokuProvider.OnChanged += StateHasChanged;
     }
     protected override async Task OnInitializedAsync()
     {
         await StartNewGame("Medium");
     }
 
-    private void ClearColors()
-    {
-        for( int y = 0; y < 9; y++ )
-        {
-            for( int x = 0; x < 9; x++ )
-            {
-                ColorClasses[x, y] = string.Empty;
-            }
-        }
-    }
-
     private void FillAllCandidates()
     {
         GridHistoryManager.Save();
-        _grid.FillAllCandidates();
+        SudokuProvider.FillAllCandidates();
     }
 
     private async Task StartNewGame(string difficulty)
     {
         GridHistoryManager.Save();
         var newGrid = await GridGenerator.WithGiven(difficulty);
-        _grid.AssignFrom(newGrid);
-        StateHasChanged();
+        SudokuProvider.AssignFrom(newGrid);
     }
 
     public void InitMenuItems()
@@ -127,7 +110,7 @@
         Func<int, NumpadMenuItem> selectedValue = (digit) => new NumpadMenuItem()
                 .SetLabel(digit.ToString())
                 .WithChangeAction((action) => this.ClickableAction = action, StandardAction)
-                .WithChangeFilter((filter) => this.Filter = filter, new SelectedValueFilter(digit))
+                .WithChangeFilter((filter) => AppData.Filter = filter, new SelectedValueFilter(digit))
                 .WithExecute(() => StandardAction.SelectedValue = digit);
 
         var redo = new NumpadMenuItem()
@@ -144,9 +127,9 @@
 
         var pairs = new NumpadMenuItem()
             .SetLabel("Pairs")
-            .WithChangeFilter((filter) => this.Filter = filter, new PairFilter());
+            .WithChangeFilter((filter) => AppData.Filter = filter, new PairFilter());
 
-        _menuItems = new NumpadMenuItem[]
+        MenuItems = new NumpadMenuItem[]
         {
             undo,
             selectedValue(1),
@@ -164,6 +147,7 @@
             selectedValue(9),
 
             pairs
-        };
+            };
     }
+}
 }

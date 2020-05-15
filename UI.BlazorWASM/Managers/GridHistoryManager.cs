@@ -1,26 +1,26 @@
 ﻿using Core.Data;
 using System.Collections.Generic;
+using UI.BlazorWASM.Providers;
 
-namespace Core.Managers
+namespace UI.BlazorWASM.Managers
 {
     public class GridHistoryManager : IGridHistoryManager
     {
-        private IGrid _attached;
+        public GridHistoryManager(ISudokuProvider sudokuProvider)
+        {
+            _sudokuProvider = sudokuProvider;
+        }
 
         private readonly Stack<IGrid> _previousStates = new Stack<IGrid>();
         private readonly Stack<IGrid> _nextStates = new Stack<IGrid>();
-        public bool IsAttached { get => _attached != null; }
+        private readonly ISudokuProvider _sudokuProvider;
+
         public bool CanUndo { get => _previousStates.Count > 0; }
         public bool CanRedo { get => _nextStates.Count > 0; }
 
-        public void AttachTo(IGrid grid)
-        {
-            _attached = grid;
-        }
-
         public void Save()
         {
-            _previousStates.Push((IGrid) _attached.Clone());
+            _previousStates.Push(_sudokuProvider.GetGridClone());
             _nextStates.Clear();
         }
 
@@ -28,11 +28,11 @@ namespace Core.Managers
         {
             if( CanUndo )
             {
-                var current = (IGrid) _attached.Clone();
+                var current = _sudokuProvider.GetGridClone();
                 _nextStates.Push(current);
 
                 var previous = _previousStates.Pop();
-                _attached.AssignFrom(previous);
+                _sudokuProvider.AssignFrom(previous);
             }
         }
 
@@ -40,11 +40,11 @@ namespace Core.Managers
         {
             if( CanRedo )
             {
-                var current = (IGrid) _attached.Clone();
+                var current = _sudokuProvider.GetGridClone();
                 _previousStates.Push(current);
 
                 var next = _nextStates.Pop();
-                _attached.AssignFrom(next);
+                _sudokuProvider.AssignFrom(next);
             }
         }
 

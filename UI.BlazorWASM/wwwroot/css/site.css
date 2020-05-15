@@ -119,11 +119,11 @@ html {
     margin: 10%;
 }
 
-.cell-color-1 {
+.cell-color-first {
     background-color: var(--color-1);
 }
 
-.cell-color-2 {
+.cell-color-second {
     background-color: var(--color-2);
 }
 

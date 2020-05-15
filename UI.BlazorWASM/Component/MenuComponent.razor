@@ -1,5 +1,6 @@
 ﻿@inject IJSRuntime JSRuntime
 @inject HodokuGridConverter HodokuGridConverter
+@inject ISudokuProvider SudokuProvider
 
 <div class="menu">
     <a @onclick="FillAllCandidates">Find candidates</a>
@@ -26,19 +27,16 @@
 
 @code {
     [Parameter]
-    public IGrid Grid { get; set; }
-
-    [Parameter]
     public Func<string, Task> StartNewGame { get; set; }
 
-    [Parameter]
-    public Action FillAllCandidates { get; set; }
-
-    private async Task CopyInput() => await Copy(HodokuGridConverter.ToText(Grid, IncludedFields.Inputs));
-    private async Task CopyGivens() => await Copy(HodokuGridConverter.ToText(Grid, IncludedFields.Givens));
+    private async Task CopyInput() => await Copy(HodokuGridConverter.ToText(SudokuProvider.GetGridClone(), IncludedFields.Inputs));
+    private async Task CopyGivens() => await Copy(HodokuGridConverter.ToText(SudokuProvider.GetGridClone(), IncludedFields.Givens));
 
     private async Task Copy(string text)
     {
         await JSRuntime.InvokeVoidAsync("navigator.clipboard.writeText", text);
     }
+
+    [Parameter]
+    public Action FillAllCandidates { get; set; }
 }

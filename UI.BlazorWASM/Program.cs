@@ -1,14 +1,13 @@
 using System;
 using System.Net.Http;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Text;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using UI.BlazorWASM.Services;
-using Core.Managers;
 using Core.Generators;
 using Core.Converters;
+using UI.BlazorWASM.Providers;
+using UI.BlazorWASM.Managers;
 
 namespace UI.BlazorWASM
 {
@@ -23,6 +22,9 @@ namespace UI.BlazorWASM
             builder.Services.AddSingleton<IEmptyGridGenerator, EmptyGridGenerator>();
             builder.Services.AddSingleton<HodokuGridConverter, HodokuGridConverter>();
             builder.Services.AddSingleton<IGridGenerator, RESTGridGenerator>();
+            builder.Services.AddSingleton<AppData>();
+            builder.Services.AddSingleton<ICellColorProvider, CellColorProvider>();
+            builder.Services.AddSingleton<ISudokuProvider, SudokuProvider>();
             builder.Services.AddSingleton<IGridHistoryManager, GridHistoryManager>();
             builder.Services.AddCors();
             var app = builder.Build();
