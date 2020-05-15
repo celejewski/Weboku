@@ -74,15 +74,13 @@
 </div>
 
 @code {
-    public StandardAction StandardAction { get; set; }
     public IClickableAction ClickableAction { get; set; }
     public IFilter Filter { get; set; } = new SelectedValueFilter(1);
     public INumpadMenuItem[] MenuItems { get; set; }
 
     protected override void OnInitialized()
     {
-        StandardAction = new StandardAction(GridHistoryManager, CellColorProvider, SudokuProvider);
-        ClickableAction = StandardAction;
+        ClickableAction = new StandardAction(GridHistoryManager, CellColorProvider, SudokuProvider, 1 );
         InitMenuItems();
         CellColorProvider.OnChanged += StateHasChanged;
         SudokuProvider.OnChanged += StateHasChanged;
@@ -109,9 +107,8 @@
     {
         Func<int, NumpadMenuItem> selectedValue = (digit) => new NumpadMenuItem()
                 .SetLabel(digit.ToString())
-                .WithChangeAction((action) => this.ClickableAction = action, StandardAction)
-                .WithChangeFilter((filter) => Filter = filter, new SelectedValueFilter(digit))
-                .WithExecute(() => StandardAction.SelectedValue = digit);
+                .WithChangeAction((action) => this.ClickableAction = action, new StandardAction(GridHistoryManager, CellColorProvider, SudokuProvider, digit ))
+                .WithChangeFilter((filter) => Filter = filter, new SelectedValueFilter(digit));
 
         var redo = new NumpadMenuItem()
             .SetLabel("Redo")
@@ -149,5 +146,4 @@
             pairs
          };
     }
-}
 }
