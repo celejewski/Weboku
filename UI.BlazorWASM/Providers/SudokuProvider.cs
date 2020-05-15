@@ -1,11 +1,17 @@
 ﻿using Core.Data;
+using Core.Generators;
 using System;
 
 namespace UI.BlazorWASM.Providers
 {
     public class SudokuProvider : ISudokuProvider
     {
-        private readonly Grid _grid = new Grid();
+        public SudokuProvider(IEmptyGridGenerator generator)
+        {
+            _grid = generator.Empty();
+        }
+
+        private readonly IGrid _grid;
 
         public ICell[,] Cells => _grid.Cells;
 
