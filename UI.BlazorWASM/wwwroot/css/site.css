@@ -124,6 +124,10 @@ html {
     background-color: rgba(255, 255, 255, 1);
 }
 
+.border-layer div {
+    border: 0.1rem solid black;
+}
+
 
 .cell-color {
     margin: 10%;
@@ -208,7 +212,7 @@ html {
 
 .cell {
     line-height: 1;
-    border: 0.01rem solid black;
+    border: 0.01rem solid #888;
     padding: 1px;
 }
 
