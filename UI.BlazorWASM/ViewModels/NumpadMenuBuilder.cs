@@ -38,7 +38,7 @@ namespace UI.BlazorWASM.ViewModels
 
         public PairsNumpadMenuItem Pairs()
         {
-            return new PairsNumpadMenuItem(_filterProvider);
+            return new PairsNumpadMenuItem(_filterProvider, _sudokuProvider);
         }
 
         public ClearColorsNumpadMenuItem ClearColors()

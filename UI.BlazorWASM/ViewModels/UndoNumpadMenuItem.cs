@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using UI.BlazorWASM.Managers;
+﻿using UI.BlazorWASM.Managers;
 
 namespace UI.BlazorWASM.ViewModels
 {
@@ -14,7 +10,7 @@ namespace UI.BlazorWASM.ViewModels
         {
             _gridHistoryManager = gridHistoryManager;
         }
-        public bool IsDimmed => _gridHistoryManager.CanUndo;
+        public bool IsDimmed => !_gridHistoryManager.CanUndo;
 
         public bool IsSelectable => false;
 

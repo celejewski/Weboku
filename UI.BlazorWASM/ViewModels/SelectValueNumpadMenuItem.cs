@@ -1,4 +1,5 @@
-﻿using UI.BlazorWASM.ClickableActions;
+﻿using System.Runtime.InteropServices.ComTypes;
+using UI.BlazorWASM.ClickableActions;
 using UI.BlazorWASM.Filters;
 using UI.BlazorWASM.Managers;
 using UI.BlazorWASM.Providers;
@@ -24,8 +25,26 @@ namespace UI.BlazorWASM.ViewModels
             _sudokuProvider = sudokuProvider;
         }
 
-        public bool IsDimmed => false;
-#warning toimprove
+        public bool IsDimmed
+        { 
+            get
+            {
+                int count = 0;
+                for( int y = 0; y < 9; y++ )
+                {
+                    for( int x = 0; x < 9; x++ )
+                    {
+                        var cell = _sudokuProvider.Cells[x, y];
+                        if (cell.Input.Value == _value
+                            && cell.Input.IsLegal)
+                        {
+                            count += 1;
+                        }
+                    }
+                }
+                return count == 9;
+            }
+        }
 
         public bool IsSelectable => true;
 

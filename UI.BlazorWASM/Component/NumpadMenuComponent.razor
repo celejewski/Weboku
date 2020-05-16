@@ -1,11 +1,15 @@
 ﻿@inject NumpadMenuBuilder NumpadMenuBuilder
+@inject ISudokuProvider SudokuProvider
 
     <div class="numpad">
         @foreach( var item in _menuLabels )
         {
             var bound = item;
             <div @onclick="@((e) => OnClick(bound))"
-                 class="@(bound == selected ? "HighlightedNumpad" : "")">
+                 class="
+                 @(bound == selected ? "HighlightedNumpad" : "") 
+                 @(@bound.IsDimmed ? "numpad-dimmed-label" : "")
+                 ">
                 @item.Label
             </div>
         }
@@ -37,8 +41,10 @@
 
     protected override void OnInitialized()
     {
+        SudokuProvider.OnChanged += StateHasChanged;
+
         _menuLabels = new INumpadMenuLabel[]
-        {
+{
             NumpadMenuBuilder.Undo(),
             NumpadMenuBuilder.SelectValue(1),
             NumpadMenuBuilder.SelectValue(2),
@@ -58,7 +64,7 @@
             NumpadMenuBuilder.PlaceHolder(),
             NumpadMenuBuilder.PlaceHolder(),
             NumpadMenuBuilder.ClearColors()
-        };
+};
 
         _selectColorMenuItems = new ISelectColorMenuItem[]
         {
@@ -71,4 +77,5 @@
 
         selected = _menuLabels[1];
     }
+
 }
