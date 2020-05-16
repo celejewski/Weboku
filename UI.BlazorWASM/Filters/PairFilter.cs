@@ -8,7 +8,7 @@ namespace UI.BlazorWASM.Filters
         {
             if (cell.Candidates.Count == 2)
             {
-                return FilterStyleClass.Primary;
+                return FilterStyleClass.Secondary;
             }
             else
             {
