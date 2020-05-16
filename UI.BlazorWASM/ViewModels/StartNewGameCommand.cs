@@ -26,8 +26,8 @@ namespace UI.BlazorWASM.ViewModels
 
         public async Task Execute()
         {
-            _gridHistoryManager.Save();
             var newGrid = await _generator.WithGiven(_difficulty);
+            _gridHistoryManager.Save();
             _sudokuProvider.AssignFrom(newGrid);
         }
     }
