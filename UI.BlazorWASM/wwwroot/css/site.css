@@ -54,7 +54,7 @@ html {
 
 @media screen and (min-width: 1150px) and (min-height: 1150px) {
     html {
-        font-size: 28px;
+        font-size: 24px;
     }
 }
 
@@ -77,11 +77,13 @@ html {
 }
 
 .layer-wrapper {
-    position: relative;
-    width: 100%;
+    --max-size: min(60vh, 100vw, 1200px);
+    margin: 0 auto;
     padding: 0;
-    padding-bottom: 100%;
-    margin: 0;
+
+    position: relative;
+    width: var(--max-size);
+    padding-bottom: var(--max-size);
 }
 
 .layer {
