@@ -12,8 +12,17 @@ namespace UI.BlazorWASM.ViewModels
         private readonly ICellColorProvider _cellColorProvider;
         private readonly ISudokuProvider _sudokuProvider;
         private readonly NumpadMenuProvider _numpadMenuProvider;
+        private readonly IHotkeyProvider _hotkeyProvider;
 
-        public NumpadMenuBuilder(IFilterProvider filterProvider, IClickableActionProvider clickableActionProvider, IGridHistoryManager gridHistoryManager, ICellColorProvider cellColorProvider, ISudokuProvider sudokuProvider, NumpadMenuProvider numpadMenuProvider)
+        public NumpadMenuBuilder(
+            IFilterProvider filterProvider, 
+            IClickableActionProvider clickableActionProvider, 
+            IGridHistoryManager gridHistoryManager, 
+            ICellColorProvider cellColorProvider, 
+            ISudokuProvider sudokuProvider, 
+            NumpadMenuProvider numpadMenuProvider,
+            HotkeyProvider hotkeyProvider
+            )
         {
             _filterProvider = filterProvider;
             _clickableActionProvider = clickableActionProvider;
@@ -21,21 +30,28 @@ namespace UI.BlazorWASM.ViewModels
             _cellColorProvider = cellColorProvider;
             _sudokuProvider = sudokuProvider;
             _numpadMenuProvider = numpadMenuProvider;
+            _hotkeyProvider = hotkeyProvider;
         }
 
         public SelectValueNumpadMenuItem SelectValue(int value)
         {
-            return new SelectValueNumpadMenuItem(value, _filterProvider, _clickableActionProvider, _gridHistoryManager, _cellColorProvider, _sudokuProvider, _numpadMenuProvider);
+            var command = new SelectValueNumpadMenuItem(value, _filterProvider, _clickableActionProvider, _gridHistoryManager, _cellColorProvider, _sudokuProvider, _numpadMenuProvider);
+            _hotkeyProvider.Register(new Hotkey { Command = command, Key = value.ToString() });
+            return command;
         }
 
         public RedoNumpadMenuItem Redo()
         {
-            return new RedoNumpadMenuItem(_gridHistoryManager);
+            var command = new RedoNumpadMenuItem(_gridHistoryManager);
+            _hotkeyProvider.Register(new Hotkey { Command = command, Key = "y" });
+            return command;
         }
 
         public UndoNumpadMenuItem Undo()
         {
-            return new UndoNumpadMenuItem(_gridHistoryManager);
+            var command = new UndoNumpadMenuItem(_gridHistoryManager);
+            _hotkeyProvider.Register(new Hotkey { Command = command, Key = "z" });
+            return command;
         }
 
         public PairsNumpadMenuItem Pairs()

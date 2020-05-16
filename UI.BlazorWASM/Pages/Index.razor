@@ -6,10 +6,13 @@
 @inject IGridHistoryManager GridHistoryManager
 @inject IFilterProvider FilterProvider
 @inject IClickableActionProvider ClickableActionProvider
+@inject HotkeyProvider HotkeyProvider
+@inject IJSRuntime JSRuntime
 
 <div id="main"
      class="main"
      onblur="this.focus()"
+     @onkeypress="OnKeyPress"
      tabindex="0"
      @oncontextmenu:preventDefault="true">
 
@@ -41,6 +44,17 @@
 </div>
 
 @code {
+    private void OnKeyPress(KeyboardEventArgs e)
+    {
+        foreach( var item in HotkeyProvider.Hotkeys )
+        {
+            if (item.Key == e.Key && item.Command.CanExecute )
+            {
+                item.Command.Execute();
+            }
+        }
+    }
+
     protected override async Task OnInitializedAsync()
     {
         await StartNewGame("Medium");
@@ -58,4 +72,13 @@
         var newGrid = await GridGenerator.WithGiven(difficulty);
         SudokuProvider.AssignFrom(newGrid);
     }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync("focusMain");
+        }
+    }
+
 }
