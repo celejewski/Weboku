@@ -9,5 +9,7 @@ namespace UI.BlazorWASM.Providers
         string GetCssClass(int x, int y);
         void SetColor(int x, int y, CellColor color);
         void ToggleColor(int x, int y, CellColor color);
+
+        void ClearAll();
     }
 }

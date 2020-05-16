@@ -43,5 +43,10 @@ namespace UI.BlazorWASM.ViewModels
         {
             return new PairsNumpadMenuItem(_filterProvider);
         }
+
+        public ClearColorsNumpadMenuItem ClearColors()
+        {
+            return new ClearColorsNumpadMenuItem(_cellColorProvider);
+        }
     }
 }

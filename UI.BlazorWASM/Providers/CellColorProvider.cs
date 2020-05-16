@@ -46,6 +46,7 @@ namespace UI.BlazorWASM.Providers
                     _cellColors[x, y] = CellColor.None;
                 }
             }
+            OnChanged?.Invoke();
         }
 
     }
