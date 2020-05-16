@@ -6,7 +6,7 @@ using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.ViewModels
 {
-    public class SelectValueNumpadMenuItem : INumpadMenuLabel
+    public class SelectValueNumpadMenuItem : BaseNumpadMenuItem, INumpadMenuLabel
     {
         private readonly int _value;
         private readonly IFilterProvider _filterProvider;
@@ -15,7 +15,7 @@ namespace UI.BlazorWASM.ViewModels
         private readonly ICellColorProvider _cellColorProvider;
         private readonly ISudokuProvider _sudokuProvider;
 
-        public SelectValueNumpadMenuItem(int value, IFilterProvider filterProvider, IClickableActionProvider clickableActionProvider, IGridHistoryManager gridHistoryManager, ICellColorProvider cellColorProvider, ISudokuProvider sudokuProvider )
+        public SelectValueNumpadMenuItem(int value, IFilterProvider filterProvider, IClickableActionProvider clickableActionProvider, IGridHistoryManager gridHistoryManager, ICellColorProvider cellColorProvider, ISudokuProvider sudokuProvider, NumpadMenuProvider numpadMenuProvider ) : base(numpadMenuProvider)
         {
             _value = value;
             _filterProvider = filterProvider;
@@ -25,7 +25,7 @@ namespace UI.BlazorWASM.ViewModels
             _sudokuProvider = sudokuProvider;
         }
 
-        public bool IsDimmed
+        public override bool IsDimmed
         { 
             get
             {
@@ -46,15 +46,15 @@ namespace UI.BlazorWASM.ViewModels
             }
         }
 
-        public bool IsSelectable => true;
+        public override bool IsSelectable => true;
 
         public string Label => _value.ToString();
 
-        public bool CanExecute => true;
+        public override bool CanExecute => true;
 
-
-        public void Execute()
+        public override void Execute()
         {
+            base.Execute();
             _filterProvider.SetFilter(new SelectedValueFilter(_value));
             _clickableActionProvider.SetClickableAction(new StandardAction(_gridHistoryManager, _cellColorProvider, _sudokuProvider, _value));
         }

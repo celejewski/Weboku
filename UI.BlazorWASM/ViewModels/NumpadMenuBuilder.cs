@@ -11,19 +11,21 @@ namespace UI.BlazorWASM.ViewModels
         private readonly IGridHistoryManager _gridHistoryManager;
         private readonly ICellColorProvider _cellColorProvider;
         private readonly ISudokuProvider _sudokuProvider;
+        private readonly NumpadMenuProvider _numpadMenuProvider;
 
-        public NumpadMenuBuilder(IFilterProvider filterProvider, IClickableActionProvider clickableActionProvider, IGridHistoryManager gridHistoryManager, ICellColorProvider cellColorProvider, ISudokuProvider sudokuProvider)
+        public NumpadMenuBuilder(IFilterProvider filterProvider, IClickableActionProvider clickableActionProvider, IGridHistoryManager gridHistoryManager, ICellColorProvider cellColorProvider, ISudokuProvider sudokuProvider, NumpadMenuProvider numpadMenuProvider)
         {
             _filterProvider = filterProvider;
             _clickableActionProvider = clickableActionProvider;
             _gridHistoryManager = gridHistoryManager;
             _cellColorProvider = cellColorProvider;
             _sudokuProvider = sudokuProvider;
+            _numpadMenuProvider = numpadMenuProvider;
         }
 
         public SelectValueNumpadMenuItem SelectValue(int value)
         {
-            return new SelectValueNumpadMenuItem(value, _filterProvider, _clickableActionProvider, _gridHistoryManager, _cellColorProvider, _sudokuProvider);
+            return new SelectValueNumpadMenuItem(value, _filterProvider, _clickableActionProvider, _gridHistoryManager, _cellColorProvider, _sudokuProvider, _numpadMenuProvider);
         }
 
         public RedoNumpadMenuItem Redo()
@@ -38,7 +40,7 @@ namespace UI.BlazorWASM.ViewModels
 
         public PairsNumpadMenuItem Pairs()
         {
-            return new PairsNumpadMenuItem(_filterProvider, _sudokuProvider);
+            return new PairsNumpadMenuItem(_filterProvider, _sudokuProvider, _numpadMenuProvider);
         }
 
         public ClearColorsNumpadMenuItem ClearColors()

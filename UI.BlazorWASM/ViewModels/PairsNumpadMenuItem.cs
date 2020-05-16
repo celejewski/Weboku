@@ -3,18 +3,18 @@ using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.ViewModels
 {
-    public class PairsNumpadMenuItem : INumpadMenuLabel
+    public class PairsNumpadMenuItem : BaseNumpadMenuItem, INumpadMenuLabel
     {
         private readonly IFilterProvider _filterProvider;
         private readonly ISudokuProvider _sudokuProvider;
 
-        public PairsNumpadMenuItem(IFilterProvider filterProvider, ISudokuProvider sudokuProvider)
+        public PairsNumpadMenuItem(IFilterProvider filterProvider, ISudokuProvider sudokuProvider, NumpadMenuProvider numpadMenuProvider) : base(numpadMenuProvider)
         {
             _filterProvider = filterProvider;
             _sudokuProvider = sudokuProvider;
         }
 
-        public bool IsDimmed
+        public override bool IsDimmed
         {
             get
             {
@@ -32,14 +32,15 @@ namespace UI.BlazorWASM.ViewModels
             }
         }
 
-        public bool IsSelectable => true;
+        public override bool IsSelectable => true;
 
         public string Label => "Pairs";
 
-        public bool CanExecute => true;
+        public override bool CanExecute => true;
 
-        public void Execute()
+        public override void Execute()
         {
+            base.Execute();
             _filterProvider.SetFilter(new PairFilter());
         }
     }

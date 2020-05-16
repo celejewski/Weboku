@@ -32,10 +32,6 @@
 
     private void OnClick(INumpadMenuItem clicked)
     {
-        if( clicked.IsSelectable )
-        {
-            NumpadMenuProvider.SelectItem(clicked);
-        }
         clicked.Execute();
     }
 
