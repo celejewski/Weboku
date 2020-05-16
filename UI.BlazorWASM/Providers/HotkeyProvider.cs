@@ -1,8 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Components.Web;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Input;
 using UI.BlazorWASM.ViewModels;
 
 namespace UI.BlazorWASM.Providers
@@ -16,6 +14,19 @@ namespace UI.BlazorWASM.Providers
         {
             Hotkeys.Add(hotkey);
             OnChanged?.Invoke();
+        }
+
+
+        public void OnKeyDown(KeyboardEventArgs e)
+        {
+            foreach( var item in Hotkeys )
+            {
+                if( item.Key == e.Key
+                    && item.Ctrl == e.CtrlKey )
+                {
+                    item.Command.Execute();
+                }
+            }
         }
     }
 }

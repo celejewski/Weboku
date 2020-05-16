@@ -1,4 +1,6 @@
-﻿using UI.BlazorWASM.Enums;
+﻿using Core.Data;
+using System.Collections.Generic;
+using UI.BlazorWASM.Enums;
 using UI.BlazorWASM.Managers;
 using UI.BlazorWASM.Providers;
 
@@ -43,30 +45,47 @@ namespace UI.BlazorWASM.ViewModels
         public RedoNumpadMenuItem Redo()
         {
             var command = new RedoNumpadMenuItem(_gridHistoryManager);
-            _hotkeyProvider.Register(new Hotkey { Command = command, Key = "y" });
+            _hotkeyProvider.Register(new Hotkey { Command = command, Key = "y", Ctrl = true });
             return command;
         }
 
         public UndoNumpadMenuItem Undo()
         {
             var command = new UndoNumpadMenuItem(_gridHistoryManager);
-            _hotkeyProvider.Register(new Hotkey { Command = command, Key = "z" });
+            _hotkeyProvider.Register(new Hotkey { Command = command, Key = "z", Ctrl = true });
             return command;
         }
 
         public PairsNumpadMenuItem Pairs()
         {
-            return new PairsNumpadMenuItem(_filterProvider, _sudokuProvider, _numpadMenuProvider);
+            var command = new PairsNumpadMenuItem(_filterProvider, _sudokuProvider, _numpadMenuProvider);
+            _hotkeyProvider.Register(new Hotkey { Command = command, Key = "x" });
+            return command;
         }
 
         public ClearColorsNumpadMenuItem ClearColors()
         {
-            return new ClearColorsNumpadMenuItem(_cellColorProvider);
+            var command = new ClearColorsNumpadMenuItem(_cellColorProvider);
+            _hotkeyProvider.Register(new Hotkey { Command = command, Key = "h" });
+            return command;
         }
 
         public SelectColorMenuItem SelectColor(CellColor cellColor)
         {
-            return new SelectColorMenuItem(cellColor, _cellColorProvider, _clickableActionProvider);
+            var dict = new Dictionary<CellColor, string>
+            {
+                { CellColor.First, "a" },
+                { CellColor.Second, "s" },
+                { CellColor.Third, "d" },
+                { CellColor.Fourth, "f" }
+            };
+
+            var command = new SelectColorMenuItem(cellColor, _cellColorProvider, _clickableActionProvider);
+            if (dict.ContainsKey(cellColor) )
+            {
+                _hotkeyProvider.Register(new Hotkey { Command = command, Key = dict[cellColor] });
+            }
+            return command;
         }
 
         public PlaceHolderNumpadMenuItem PlaceHolder()

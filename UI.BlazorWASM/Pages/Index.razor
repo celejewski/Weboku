@@ -12,7 +12,7 @@
 <div id="main"
      class="main"
      onblur="this.focus()"
-     @onkeypress="OnKeyPress"
+     @onkeydown="HotkeyProvider.OnKeyDown"
      tabindex="0"
      @oncontextmenu:preventDefault="true">
 
@@ -44,20 +44,10 @@
 </div>
 
 @code {
-    private void OnKeyPress(KeyboardEventArgs e)
-    {
-        foreach( var item in HotkeyProvider.Hotkeys )
-        {
-            if (item.Key == e.Key && item.Command.CanExecute )
-            {
-                item.Command.Execute();
-            }
-        }
-    }
-
     protected override async Task OnInitializedAsync()
     {
         await StartNewGame("Medium");
+        GridHistoryManager.ClearUndo();
     }
 
     private void FillAllCandidates()
