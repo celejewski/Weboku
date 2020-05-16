@@ -8,6 +8,7 @@
 @inject IClickableActionProvider ClickableActionProvider
 @inject HotkeyProvider HotkeyProvider
 @inject IJSRuntime JSRuntime
+@inject CommandProvider CommandProvider
 
 <div id="main"
      class="main"
@@ -16,8 +17,7 @@
      tabindex="0"
      @oncontextmenu:preventDefault="true">
 
-    <MenuComponent StartNewGame="StartNewGame"
-                   FillAllCandidates="FillAllCandidates" />
+    <MenuComponent />
 
     <div class="layer-wrapper">
         <BackgroundLayerComponent />
@@ -46,21 +46,8 @@
 @code {
     protected override async Task OnInitializedAsync()
     {
-        await StartNewGame("Medium");
+        await CommandProvider.StartNewGame("Medium").Execute();
         GridHistoryManager.ClearUndo();
-    }
-
-    private void FillAllCandidates()
-    {
-        GridHistoryManager.Save();
-        SudokuProvider.FillAllCandidates();
-    }
-
-    private async Task StartNewGame(string difficulty)
-    {
-        GridHistoryManager.Save();
-        var newGrid = await GridGenerator.WithGiven(difficulty);
-        SudokuProvider.AssignFrom(newGrid);
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)

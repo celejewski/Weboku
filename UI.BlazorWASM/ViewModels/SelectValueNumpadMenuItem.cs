@@ -1,4 +1,6 @@
-﻿using System.Runtime.InteropServices.ComTypes;
+﻿using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices.ComTypes;
+using System.Threading.Tasks;
 using UI.BlazorWASM.ClickableActions;
 using UI.BlazorWASM.Filters;
 using UI.BlazorWASM.Managers;
@@ -52,7 +54,7 @@ namespace UI.BlazorWASM.ViewModels
 
         public override bool CanExecute => true;
 
-        public override void Execute()
+        public override async Task Execute()
         {
             base.Execute();
             _filterProvider.SetFilter(new SelectedValueFilter(_value));

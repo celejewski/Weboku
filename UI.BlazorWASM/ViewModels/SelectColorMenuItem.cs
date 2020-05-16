@@ -1,4 +1,5 @@
-﻿using UI.BlazorWASM.ClickableActions;
+﻿using System.Threading.Tasks;
+using UI.BlazorWASM.ClickableActions;
 using UI.BlazorWASM.Converters;
 using UI.BlazorWASM.Enums;
 using UI.BlazorWASM.Providers;
@@ -26,7 +27,7 @@ namespace UI.BlazorWASM.ViewModels
 
         public bool CanExecute => true;
 
-        public void Execute()
+        public async Task Execute()
         {
             _clickableActionProvider.SetClickableAction(new ColorAction(_cellColor, _cellColorProvider));
         }

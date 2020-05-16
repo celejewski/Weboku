@@ -1,4 +1,5 @@
-﻿using UI.BlazorWASM.Filters;
+﻿using System.Threading.Tasks;
+using UI.BlazorWASM.Filters;
 using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.ViewModels
@@ -38,7 +39,7 @@ namespace UI.BlazorWASM.ViewModels
 
         public override bool CanExecute => true;
 
-        public override void Execute()
+        public override async Task Execute()
         {
             base.Execute();
             _filterProvider.SetFilter(new PairFilter());

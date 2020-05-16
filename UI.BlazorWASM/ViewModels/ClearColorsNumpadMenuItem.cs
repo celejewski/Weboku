@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using UI.BlazorWASM.Providers;
 
@@ -22,7 +23,7 @@ namespace UI.BlazorWASM.ViewModels
 
         public bool CanExecute => true;
 
-        public void Execute()
+        public async Task Execute()
         {
             _cellColorProvider.ClearAll();
         }

@@ -1,9 +1,10 @@
 ﻿@inject IJSRuntime JSRuntime
 @inject HodokuGridConverter HodokuGridConverter
 @inject ISudokuProvider SudokuProvider
+@inject CommandProvider CommandProvider 
 
 <div class="menu">
-    <a @onclick="FillAllCandidates">Find candidates</a>
+    <a @onclick="@(CommandProvider.FindAllCandidates().Execute)">Find candidates</a>
     <div class="dropdown">
         <button class="dropbtn">Copy</button>
 
@@ -16,11 +17,11 @@
     <div class="dropdown">
         <button class="dropbtn">New game</button>
         <div class="dropdown-content">
-            <a @onclick="@(() => StartNewGame("Easy"))">Easy</a>
-            <a @onclick="@(() => StartNewGame("Medium"))">Medium</a>
-            <a @onclick="@(() => StartNewGame("Hard"))">Hard</a>
-            <a @onclick="@(() => StartNewGame("Unfair"))">Unfair</a>
-            <a @onclick="@(() => StartNewGame("Extreme"))">Extreme</a>
+            <a @onclick="@(CommandProvider.StartNewGame("Easy").Execute)">Easy</a>
+            <a @onclick="@(CommandProvider.StartNewGame("Medium").Execute)">Medium</a>
+            <a @onclick="@(CommandProvider.StartNewGame("Medium").Execute)">Hard</a>
+            <a @onclick="@(CommandProvider.StartNewGame("Unfair").Execute)">Unfair</a>
+            <a @onclick="@(CommandProvider.StartNewGame("Extreme").Execute)">Extreme</a>
         </div>
     </div>
 </div>
@@ -36,7 +37,4 @@
     {
         await JSRuntime.InvokeVoidAsync("navigator.clipboard.writeText", text);
     }
-
-    [Parameter]
-    public Action FillAllCandidates { get; set; }
 }

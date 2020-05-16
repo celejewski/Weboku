@@ -31,6 +31,7 @@ namespace UI.BlazorWASM
             builder.Services.AddSingleton<NumpadMenuBuilder, NumpadMenuBuilder>();
             builder.Services.AddSingleton<NumpadMenuProvider, NumpadMenuProvider>();
             builder.Services.AddSingleton<HotkeyProvider, HotkeyProvider>();
+            builder.Services.AddSingleton<CommandProvider, CommandProvider>();
             builder.Services.AddCors();
             var app = builder.Build();
            

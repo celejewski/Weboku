@@ -1,4 +1,5 @@
-﻿using UI.BlazorWASM.Managers;
+﻿using System.Threading.Tasks;
+using UI.BlazorWASM.Managers;
 
 namespace UI.BlazorWASM.ViewModels
 {
@@ -18,6 +19,6 @@ namespace UI.BlazorWASM.ViewModels
 
         public bool CanExecute => _gridHistoryManager.CanUndo;
 
-        public void Execute() => _gridHistoryManager.Undo();
+        public async Task Execute() => _gridHistoryManager.Undo();
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using UI.BlazorWASM.Providers;
 
@@ -19,7 +20,7 @@ namespace UI.BlazorWASM.ViewModels
         public abstract bool IsSelectable { get; }
         public abstract bool CanExecute { get; }
 
-        public virtual void Execute()
+        public virtual async Task Execute()
         {
             if( IsSelectable )
             {
