@@ -29,6 +29,7 @@ namespace UI.BlazorWASM
             builder.Services.AddSingleton<IFilterProvider, FilterProvider>();
             builder.Services.AddSingleton<IClickableActionProvider, ClickableActionProvider>();
             builder.Services.AddSingleton<NumpadMenuBuilder, NumpadMenuBuilder>();
+            builder.Services.AddSingleton<NumpadMenuProvider, NumpadMenuProvider>();
             builder.Services.AddCors();
             var app = builder.Build();
            
