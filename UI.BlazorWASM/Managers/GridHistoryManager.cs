@@ -1,4 +1,5 @@
 ﻿using Core.Data;
+using System;
 using System.Collections.Generic;
 using UI.BlazorWASM.Providers;
 
@@ -15,6 +16,8 @@ namespace UI.BlazorWASM.Managers
         private readonly Stack<IGrid> _nextStates = new Stack<IGrid>();
         private readonly ISudokuProvider _sudokuProvider;
 
+        public event Action OnChanged;
+
         public bool CanUndo { get => _previousStates.Count > 0; }
         public bool CanRedo { get => _nextStates.Count > 0; }
 
@@ -22,6 +25,7 @@ namespace UI.BlazorWASM.Managers
         {
             _previousStates.Push(_sudokuProvider.GetGridClone());
             _nextStates.Clear();
+            OnChanged?.Invoke();
         }
 
         public void Undo()
@@ -33,6 +37,7 @@ namespace UI.BlazorWASM.Managers
 
                 var previous = _previousStates.Pop();
                 _sudokuProvider.AssignFrom(previous);
+                OnChanged?.Invoke();
             }
         }
 
@@ -45,17 +50,20 @@ namespace UI.BlazorWASM.Managers
 
                 var next = _nextStates.Pop();
                 _sudokuProvider.AssignFrom(next);
+                OnChanged?.Invoke();
             }
         }
 
         public void ClearUndo()
         {
             _previousStates.Clear();
+            OnChanged?.Invoke();
         }
 
         public void ClearRedo()
         {
             _nextStates.Clear();
+            OnChanged?.Invoke();
         }
     }
 }
