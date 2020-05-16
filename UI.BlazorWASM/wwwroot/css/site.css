@@ -19,7 +19,13 @@ body {
 }
 
 html {
-    font-size: 10px;
+    font-size: 8px;
+}
+
+@media screen and (min-width: 340px) and (min-height: 340px) {
+    html {
+        font-size: 9px;
+    }
 }
 
 @media screen and (min-width: 380px) and (min-height: 380px) {
@@ -181,7 +187,7 @@ html {
 
 .cell {
     line-height: 1;
-    border: 0.2rem solid black;
+    border: 0.01rem solid black;
     padding: 1px;
 }
 

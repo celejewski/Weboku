@@ -1,5 +1,4 @@
-﻿<div class="cell input @GivenClass"
-     style="@Border">
+﻿<div class="cell input @GivenClass">
     <div class="value">
         @(Cell.Input.Value != 0 ? Cell.Input.Value.ToString() : "")
     </div>
@@ -13,23 +12,6 @@
 
     protected override void OnInitialized()
     {
-        InitBorder();
-    }
-
-    private string Border { get; set; }
-
-    private void InitBorder()
-    {
-        var borders = new[]
-            {
-                ("top", Cell.Y == 3 || Cell.Y == 6),
-                ("right", Cell.X == 2 || Cell.X == 5),
-                ("bottom",  Cell.Y == 2 || Cell.Y == 5),
-                ("left", Cell.X == 3 || Cell.X == 6),
-            };
-
-        var bordersStyles = borders.Select(item => $"border-{item.Item1}-width: {(item.Item2 ? "0.10rem" : "0.05rem")};");
-        Border = String.Join(" ", bordersStyles);
     }
 
 }
