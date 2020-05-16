@@ -5,7 +5,7 @@ using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.ViewModels
 {
-    public class SelectValueNumpadMenuItem : INumpadMenuItem
+    public class SelectValueNumpadMenuItem : INumpadMenuLabel
     {
         private readonly int _value;
         private readonly IFilterProvider _filterProvider;

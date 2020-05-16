@@ -7,8 +7,10 @@
 :root {
     --color-danger: red;
     --color-success: green;
-    --color-1: blue;
-    --color-2: yellow;
+    --color-1: #FF4B3E;
+    --color-2: #14591D;
+    --color-3: #731963;
+    --color-4: #9792E3;
 }
 
 body {
@@ -127,12 +129,28 @@ html {
     margin: 10%;
 }
 
+.cell-color {
+    opacity: 0.7;
+}
+
+.cell-color-none {
+    background-color: transparent;
+}
+
 .cell-color-first {
     background-color: var(--color-1);
 }
 
 .cell-color-second {
     background-color: var(--color-2);
+}
+
+.cell-color-third {
+    background-color: var(--color-3);
+}
+
+.cell-color-fourth {
+    background-color: var(--color-4);
 }
 
 .cell-color-danger {
@@ -169,16 +187,15 @@ html {
     margin: 0% 10% 0% 10%;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(3, 1fr);
+    grid-template-rows: repeat(5, 1fr);
     align-items: center;
     text-align: center;
 }
 
-.numpad > div {
+.numpad  div {
     display: block;
     width: 100%;
     height: auto;
-    background-color: transparent;
     border: none;
     color: white;
     font-size: 2rem;

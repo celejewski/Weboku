@@ -1,4 +1,5 @@
 ﻿using System;
+using UI.BlazorWASM.Converters;
 using UI.BlazorWASM.Enums;
 
 namespace UI.BlazorWASM.Providers
@@ -13,17 +14,7 @@ namespace UI.BlazorWASM.Providers
         
         public string GetCssClass(int x, int y)
         {
-            return _cellColors[x, y] switch
-            {
-                CellColor.Legal => "cell-color-legal",
-                CellColor.Illegal => "cell-color-illegal",
-                CellColor.First => "cell-color-first",
-                CellColor.Second => "cell-color-second",
-                CellColor.Third => "cell-color-third",
-                CellColor.Fourth => "cell-color-fourth",
-                CellColor.None => "",
-                _ => throw new NotImplementedException(),
-            };
+            return CellColorConverter.ToCssClass(_cellColors[x, y]);
         }
         public void SetColor(int x, int y, CellColor color)
         {

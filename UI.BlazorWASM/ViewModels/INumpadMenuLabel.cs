@@ -1,6 +1,6 @@
 ﻿namespace UI.BlazorWASM.ViewModels
 {
-    public interface IMenuItem : ICommand
+    public interface INumpadMenuLabel : INumpadMenuItem
     {
         string Label { get; }
     }

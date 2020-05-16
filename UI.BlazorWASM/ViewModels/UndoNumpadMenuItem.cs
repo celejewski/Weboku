@@ -6,7 +6,7 @@ using UI.BlazorWASM.Managers;
 
 namespace UI.BlazorWASM.ViewModels
 {
-    public class UndoNumpadMenuItem : INumpadMenuItem
+    public class UndoNumpadMenuItem : INumpadMenuLabel
     {
         private readonly IGridHistoryManager _gridHistoryManager;
 

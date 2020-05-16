@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using UI.BlazorWASM.Enums;
 using UI.BlazorWASM.Managers;
 using UI.BlazorWASM.Providers;
 
@@ -47,6 +44,16 @@ namespace UI.BlazorWASM.ViewModels
         public ClearColorsNumpadMenuItem ClearColors()
         {
             return new ClearColorsNumpadMenuItem(_cellColorProvider);
+        }
+
+        public SelectColorMenuItem SelectColor(CellColor cellColor)
+        {
+            return new SelectColorMenuItem(cellColor, _cellColorProvider, _clickableActionProvider);
+        }
+
+        public PlaceHolderNumpadMenuItem PlaceHolder()
+        {
+            return new PlaceHolderNumpadMenuItem();
         }
     }
 }

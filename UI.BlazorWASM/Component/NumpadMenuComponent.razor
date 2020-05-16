@@ -1,19 +1,29 @@
 ﻿@inject NumpadMenuBuilder NumpadMenuBuilder
 
-<div class="numpad">
-    @foreach( var item in _menuItems )
-    {
-        var bound = item;
-        <div @onclick="@((e) => OnClick(bound))"
-             class="@(bound == selected ? "HighlightedNumpad" : "")">
-            @item.Label
-        </div>
-    }
-</div>
+    <div class="numpad">
+        @foreach( var item in _menuLabels )
+        {
+            var bound = item;
+            <div @onclick="@((e) => OnClick(bound))"
+                 class="@(bound == selected ? "HighlightedNumpad" : "")">
+                @item.Label
+            </div>
+        }
+        
+        @foreach( var item in _selectColorMenuItems )
+        {
+            var bound = item;
+            <div @onclick="@((e) => OnClick(bound))"
+                 class="cell-color @item.CssClass">
+                &nbsp;
+            </div>
+        }
+    </div>
 
 @code {
 
-    private IList<INumpadMenuItem> _menuItems;
+    private IList<INumpadMenuLabel> _menuLabels;
+    private IList<ISelectColorMenuItem> _selectColorMenuItems;
 
     private INumpadMenuItem selected;
     private void OnClick(INumpadMenuItem clicked)
@@ -27,7 +37,7 @@
 
     protected override void OnInitialized()
     {
-        _menuItems = new INumpadMenuItem[]
+        _menuLabels = new INumpadMenuLabel[]
         {
             NumpadMenuBuilder.Undo(),
             NumpadMenuBuilder.SelectValue(1),
@@ -45,9 +55,20 @@
             NumpadMenuBuilder.SelectValue(9),
 
             NumpadMenuBuilder.Pairs(),
+            NumpadMenuBuilder.PlaceHolder(),
+            NumpadMenuBuilder.PlaceHolder(),
             NumpadMenuBuilder.ClearColors()
-    };
+        };
 
-    selected = _menuItems[1];
+        _selectColorMenuItems = new ISelectColorMenuItem[]
+        {
+            NumpadMenuBuilder.SelectColor(Enums.CellColor.First),
+            NumpadMenuBuilder.SelectColor(Enums.CellColor.Second),
+            NumpadMenuBuilder.SelectColor(Enums.CellColor.Third),
+            NumpadMenuBuilder.SelectColor(Enums.CellColor.Fourth),
+        };
+
+
+        selected = _menuLabels[1];
     }
 }

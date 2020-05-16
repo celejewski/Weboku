@@ -6,7 +6,7 @@ using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.ViewModels
 {
-    public class ClearColorsNumpadMenuItem : INumpadMenuItem
+    public class ClearColorsNumpadMenuItem : INumpadMenuLabel
     {
         private readonly ICellColorProvider _cellColorProvider;
 

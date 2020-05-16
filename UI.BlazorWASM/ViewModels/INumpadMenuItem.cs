@@ -1,6 +1,6 @@
 ﻿namespace UI.BlazorWASM.ViewModels
 {
-    public interface INumpadMenuItem : IMenuItem
+    public interface INumpadMenuItem : ICommand
     {
         bool IsDimmed { get; }
         bool IsSelectable { get; }

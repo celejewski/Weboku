@@ -7,7 +7,7 @@ using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.ViewModels
 {
-    public class PairsNumpadMenuItem : INumpadMenuItem
+    public class PairsNumpadMenuItem : INumpadMenuLabel
     {
         private readonly IFilterProvider _filterProvider;
 
