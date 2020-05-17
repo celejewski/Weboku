@@ -5,6 +5,8 @@
 
 <div class="menu">
     <a @onclick="@(CommandProvider.FindAllCandidates().Execute)">Find candidates</a>
+    <a @onclick="@(CommandProvider.Restart().Execute)">Restart</a>
+
     <div class="dropdown">
         <button class="dropbtn">Copy</button>
 

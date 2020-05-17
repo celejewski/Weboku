@@ -29,5 +29,10 @@ namespace UI.BlazorWASM.Providers
         {
             return new FindAllCandidatesCommand(_sudokuProvider, _gridHistoryManager);
         }
+
+        public ICommand Restart()
+        {
+            return new RestartCommand(_sudokuProvider, _gridHistoryManager);
+        }
     }
 }

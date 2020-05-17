@@ -39,6 +39,33 @@ namespace UI.BlazorWASM.Providers
             _grid.FillAllCandidates();
             OnChanged?.Invoke();
         }
+        
+        public void ClearCandidates()
+        {
+            for( int y = 0; y < 9; y++ )
+            {
+                for( int x = 0; x < 9; x++ )
+                {
+                    _grid.Cells[x, y].Candidates.Clear();
+                }
+            }
+        }
+
         public IGrid GetGridClone() => (IGrid) _grid.Clone();
+
+        public void Restart()
+        {
+            for( int y = 0; y < 9; y++ )
+            {
+                for( int x = 0; x < 9; x++ )
+                {
+                    if (!_grid.Cells[x, y].IsGiven)
+                    {
+                        _grid.SetValue(x, y, 0);
+                    }
+                }
+            }
+            OnChanged?.Invoke();
+        }
     }
 }

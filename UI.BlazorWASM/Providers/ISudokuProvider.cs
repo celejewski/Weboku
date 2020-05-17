@@ -13,6 +13,9 @@ namespace UI.BlazorWASM.Providers
         void AssignFrom(IGrid source);
 
         void FillAllCandidates();
+        void ClearCandidates();
+
+        void Restart();
 
         IGrid GetGridClone();
     }
