@@ -14,6 +14,7 @@
      class="main"
      onblur="this.focus()"
      @onkeydown="HotkeyProvider.OnKeyDown"
+     @onkeydown:preventDefault="true"
      tabindex="0"
      @oncontextmenu:preventDefault="true">
 
