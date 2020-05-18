@@ -80,6 +80,10 @@ html {
     margin: 0 auto;
 }
 
+.main:focus {
+    outline: none;
+}
+
 .menu {
     color: white;
     margin: 0 1%;
@@ -87,6 +91,18 @@ html {
     background-color: #3A77EA;
     align-self: start;
 }
+
+.menu-right {
+    float: right;
+}
+
+.menu a {
+    padding: 0.25rem;
+}
+
+    .menu a:hover {
+        background-color: #6F9CEF;
+    }
 
 .layer-wrapper {
     --max-size: min(60vh, 100vw, 1200px);
@@ -280,7 +296,7 @@ a {
 .dropdown {
     position: relative;
     display: inline-block;
-    float: right;
+    float: left;
 }
 
 /* Dropdown Content (Hidden by Default) */
@@ -359,17 +375,14 @@ a {
 }
 
 .modal-content h1 {
-    line-height: 1;
     text-align: center;
-    vertical-align: text-bottom;
     margin: 1rem 0;
 }
 
-.modal-content h2 {
+.modal-content h3 {
     text-align: center;
-    margin: 5% 0 5% 0;
+    margin: 1rem 0 0.25rem 0;
 }
-
 .modal-content textarea {
     margin: 0 auto 0 auto;
     width: 60%;

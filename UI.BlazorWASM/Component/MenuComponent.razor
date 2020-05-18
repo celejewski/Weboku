@@ -3,40 +3,26 @@
 @inject ISudokuProvider SudokuProvider
 @inject CommandProvider CommandProvider 
 
-<div class="menu">
-    <a @onclick="@(CommandProvider.FindAllCandidates().Execute)">Find candidates</a>
-    <a @onclick="@(CommandProvider.Restart().Execute)">Restart</a>
+    <div class="menu">
+        <div class="dropdown">
+            <button class="dropbtn">New game</button>
+            <div class="dropdown-content">
+                <a @onclick="@(CommandProvider.StartNewGame("Easy").Execute)">Easy</a>
+                <a @onclick="@(CommandProvider.StartNewGame("Medium").Execute)">Medium</a>
+                <a @onclick="@(CommandProvider.StartNewGame("Hard").Execute)">Hard</a>
+                <a @onclick="@(CommandProvider.StartNewGame("Unfair").Execute)">Unfair</a>
+                <a @onclick="@(CommandProvider.StartNewGame("Extreme").Execute)">Extreme</a>
+            </div>
+        </div>
+        <a @onclick="@(CommandProvider.Restart().Execute)">Restart</a>
 
-    <div class="dropdown">
-        <button class="dropbtn">Copy</button>
-
-        <div class="dropdown-content">
-            <a @onclick="CopyGivens">Givens</a>
-            <a @onclick="CopyInput">User inputs</a>
+        <div class="menu-right">
+            <a @onclick="@(CommandProvider.FindAllCandidates().Execute)">Find candidates</a>
         </div>
     </div>
-
-    <div class="dropdown">
-        <button class="dropbtn">New game</button>
-        <div class="dropdown-content">
-            <a @onclick="@(CommandProvider.StartNewGame("Easy").Execute)">Easy</a>
-            <a @onclick="@(CommandProvider.StartNewGame("Medium").Execute)">Medium</a>
-            <a @onclick="@(CommandProvider.StartNewGame("Hard").Execute)">Hard</a>
-            <a @onclick="@(CommandProvider.StartNewGame("Unfair").Execute)">Unfair</a>
-            <a @onclick="@(CommandProvider.StartNewGame("Extreme").Execute)">Extreme</a>
-        </div>
-    </div>
-</div>
 
 @code {
     [Parameter]
     public Func<string, Task> StartNewGame { get; set; }
 
-    private async Task CopyInput() => await Copy(HodokuGridConverter.ToText(SudokuProvider.GetGridClone(), IncludedFields.Inputs));
-    private async Task CopyGivens() => await Copy(HodokuGridConverter.ToText(SudokuProvider.GetGridClone(), IncludedFields.Givens));
-
-    private async Task Copy(string text)
-    {
-        await JSRuntime.InvokeVoidAsync("navigator.clipboard.writeText", text);
-    }
 }
