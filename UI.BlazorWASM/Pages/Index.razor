@@ -9,6 +9,8 @@
 @inject HotkeyProvider HotkeyProvider
 @inject IJSRuntime JSRuntime
 @inject CommandProvider CommandProvider
+@inject IGameStateChecker GameStateChecker
+@inject IGameTimerProvider GameTimerProvider
 
 
 <ModalComponent @ref="_modal">
@@ -79,6 +81,7 @@
 
     protected override async Task OnInitializedAsync()
     {
+        GameStateChecker.OnSolved += OnGameEnd;
         await GridGenerator.WithGiven("medium");
     }
 
@@ -88,6 +91,11 @@
         {
             await JSRuntime.InvokeVoidAsync("focusMain");
         }
+    }
+
+    private void OnGameEnd()
+    {
+        GameTimerProvider.Stop();
     }
 
 }

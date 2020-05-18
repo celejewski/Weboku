@@ -33,6 +33,7 @@ namespace UI.BlazorWASM
             builder.Services.AddSingleton<HotkeyProvider, HotkeyProvider>();
             builder.Services.AddSingleton<CommandProvider, CommandProvider>();
             builder.Services.AddSingleton<IGameTimerProvider, GameTimerProvider>();
+            builder.Services.AddSingleton<IGameStateChecker, GameStateChecker>();
             builder.Services.AddCors();
             var app = builder.Build();
            
