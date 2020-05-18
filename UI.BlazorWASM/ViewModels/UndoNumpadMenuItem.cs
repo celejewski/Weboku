@@ -19,6 +19,10 @@ namespace UI.BlazorWASM.ViewModels
 
         public bool CanExecute => _gridHistoryManager.CanUndo;
 
-        public async Task Execute() => _gridHistoryManager.Undo();
+        public Task Execute()
+        {
+            _gridHistoryManager.Undo();
+            return Task.CompletedTask;
+        }
     }
 }

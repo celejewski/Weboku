@@ -19,6 +19,10 @@ namespace UI.BlazorWASM.ViewModels
 
         public bool CanExecute => _gridHistoryManager.CanRedo;
 
-        public async Task Execute() => _gridHistoryManager.Redo();
+        public Task Execute()
+        {
+            _gridHistoryManager.Redo();
+            return Task.CompletedTask;
+        }
     }
 }

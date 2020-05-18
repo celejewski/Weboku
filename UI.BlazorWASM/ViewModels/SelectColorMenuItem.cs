@@ -27,9 +27,10 @@ namespace UI.BlazorWASM.ViewModels
 
         public bool CanExecute => true;
 
-        public async Task Execute()
+        public Task Execute()
         {
             _clickableActionProvider.SetClickableAction(new ColorAction(_cellColor, _cellColorProvider));
+            return Task.CompletedTask;
         }
     }
 }

@@ -17,9 +17,6 @@ namespace UI.BlazorWASM.ViewModels
 
         public string CssClass => "";
 
-        public async Task Execute()
-        {
-
-        }
+        public Task Execute() => Task.CompletedTask;
     }
 }

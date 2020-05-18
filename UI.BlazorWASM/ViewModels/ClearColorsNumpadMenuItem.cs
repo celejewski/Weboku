@@ -23,9 +23,10 @@ namespace UI.BlazorWASM.ViewModels
 
         public bool CanExecute => true;
 
-        public async Task Execute()
+        public Task Execute()
         {
             _cellColorProvider.ClearAll();
+            return Task.CompletedTask;
         }
     }
 }

@@ -20,11 +20,11 @@ namespace UI.BlazorWASM.ViewModels
 
         public bool CanExecute => true;
 
-        public async Task Execute()
+        public Task Execute()
         {
             _gridHistoryManager.Save();
             _sudokuProvider.FillAllCandidates();
-            
+            return Task.CompletedTask;
         }
     }
 }

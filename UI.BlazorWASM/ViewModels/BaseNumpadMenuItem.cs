@@ -20,12 +20,13 @@ namespace UI.BlazorWASM.ViewModels
         public abstract bool IsSelectable { get; }
         public abstract bool CanExecute { get; }
 
-        public virtual async Task Execute()
+        public virtual Task Execute()
         {
             if( IsSelectable )
             {
                 _numpadMenuProvider.SelectItem(this);
             }
+            return Task.CompletedTask;
         }
     }
 }

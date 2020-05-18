@@ -41,7 +41,7 @@ namespace UI.BlazorWASM.ViewModels
 
         public override async Task Execute()
         {
-            base.Execute();
+            await base.Execute();
             _filterProvider.SetFilter(new PairFilter());
         }
     }
