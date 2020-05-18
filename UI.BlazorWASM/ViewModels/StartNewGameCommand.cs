@@ -1,4 +1,5 @@
-﻿using Core.Generators;
+﻿using Core.Converters;
+using Core.Generators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,25 +12,28 @@ namespace UI.BlazorWASM.ViewModels
     public class StartNewGameCommand : ICommand
     {
         private readonly string _difficulty;
-        private readonly IGridGenerator _generator;
+        private readonly ISudokuGenerator _sudokuGenerator;
         private readonly IGridHistoryManager _gridHistoryManager;
         private readonly ISudokuProvider _sudokuProvider;
         private readonly IGameTimerProvider _gameTimerProvider;
+        private readonly IGridConverter _gridConverter;
 
-        public StartNewGameCommand(string difficulty, IGridGenerator generator, IGridHistoryManager gridHistoryManager, ISudokuProvider sudokuProvider, IGameTimerProvider gameTimerProvider)
+        public StartNewGameCommand(string difficulty, ISudokuGenerator sudokuGenerator, IGridHistoryManager gridHistoryManager, ISudokuProvider sudokuProvider, IGameTimerProvider gameTimerProvider, IGridConverter gridConverter)
         {
             _difficulty = difficulty;
-            _generator = generator;
+            _sudokuGenerator = sudokuGenerator;
             _gridHistoryManager = gridHistoryManager;
             _sudokuProvider = sudokuProvider;
             _gameTimerProvider = gameTimerProvider;
+            _gridConverter = gridConverter;
         }
         
         public bool CanExecute => true;
 
         public async Task Execute()
         {
-            var newGrid = await _generator.WithGiven(_difficulty);
+            var sudoku = await _sudokuGenerator.Generate(_difficulty);
+            var newGrid = _gridConverter.FromText(sudoku.Given);
             _gridHistoryManager.Save();
             _sudokuProvider.AssignFrom(newGrid);
             _gameTimerProvider.Start();

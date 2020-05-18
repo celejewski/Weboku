@@ -34,6 +34,8 @@ namespace UI.BlazorWASM
             builder.Services.AddSingleton<CommandProvider, CommandProvider>();
             builder.Services.AddSingleton<IGameTimerProvider, GameTimerProvider>();
             builder.Services.AddSingleton<IGameStateChecker, GameStateChecker>();
+            builder.Services.AddSingleton<IGridConverter, HodokuGridConverter>();
+            builder.Services.AddSingleton<ISudokuGenerator, RESTSudokuGenerator>();
             builder.Services.AddCors();
             var app = builder.Build();
            
