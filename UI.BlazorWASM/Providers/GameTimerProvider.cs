@@ -27,6 +27,8 @@ namespace UI.BlazorWASM.Providers
         {
             _timer.Stop();
             _startTime = DateTime.Now;
+            _lastUpdate = DateTime.Now;
+            OnChanged?.Invoke();
             _timer.Start();
         }
 

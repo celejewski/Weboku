@@ -18,5 +18,7 @@ namespace UI.BlazorWASM.Providers
         void Restart();
 
         IGrid GetGridClone();
+
+        Sudoku Sudoku { get; set; }
     }
 }

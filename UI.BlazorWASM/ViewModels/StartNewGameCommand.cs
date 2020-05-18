@@ -33,6 +33,7 @@ namespace UI.BlazorWASM.ViewModels
         public async Task Execute()
         {
             var sudoku = await _sudokuGenerator.Generate(_difficulty);
+            _sudokuProvider.Sudoku = sudoku;
             var newGrid = _gridConverter.FromText(sudoku.Given);
             _gridHistoryManager.Save();
             _sudokuProvider.AssignFrom(newGrid);
