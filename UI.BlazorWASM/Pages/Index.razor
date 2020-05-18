@@ -38,6 +38,12 @@
         </div>*@
 </ModalComponent>
 
+<ModalComponent @ref="_endGameModal">
+    <h1>Congratulations</h1>
+    <h2>Your time @GameTimerProvider.Elapsed.ToString("mm\\:ss")</h2>
+    <button @onclick="PlayAgain">Jeszcze ras?</button>
+</ModalComponent>
+
 <div id="main"
      class="container main"
      onblur="this.focus()"
@@ -72,6 +78,7 @@
 
 @code {
     private ModalComponent _modal;
+    private ModalComponent _endGameModal;
 
     private async Task StartNewGame(string difficulty)
     {
@@ -91,11 +98,24 @@
         {
             await JSRuntime.InvokeVoidAsync("focusMain");
         }
+        else
+        {
+            _endGameModal?.Hide();
+        }
     }
 
     private void OnGameEnd()
     {
         GameTimerProvider.Stop();
+        _endGameModal.Show();
+        StateHasChanged();
+    }
+
+    private void PlayAgain()
+    {
+        _endGameModal.Hide();
+        _modal.Show();
+        StateHasChanged();
     }
 
 }
