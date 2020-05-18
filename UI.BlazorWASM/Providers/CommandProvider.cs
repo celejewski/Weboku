@@ -14,17 +14,19 @@ namespace UI.BlazorWASM.Providers
         private readonly IGridHistoryManager _gridHistoryManager;
         private readonly ISudokuProvider _sudokuProvider;
         private readonly IHotkeyProvider _hotkeyProvider;
+        private readonly IGameTimerProvider _gameTimerProvider;
 
-        public CommandProvider(IGridGenerator gridGenerator, IGridHistoryManager gridHistoryManager, ISudokuProvider sudokuProvider, HotkeyProvider hotkeyProvider)
+        public CommandProvider(IGridGenerator gridGenerator, IGridHistoryManager gridHistoryManager, ISudokuProvider sudokuProvider, HotkeyProvider hotkeyProvider, IGameTimerProvider gameTimerProvider)
         {
             _gridGenerator = gridGenerator;
             _gridHistoryManager = gridHistoryManager;
             _sudokuProvider = sudokuProvider;
             _hotkeyProvider = hotkeyProvider;
+            _gameTimerProvider = gameTimerProvider;
         }
         public ICommand StartNewGame(string difficulty)
         {
-            return new StartNewGameCommand(difficulty, _gridGenerator, _gridHistoryManager, _sudokuProvider);
+            return new StartNewGameCommand(difficulty, _gridGenerator, _gridHistoryManager, _sudokuProvider, _gameTimerProvider);
         }
 
         public ICommand FindAllCandidates()

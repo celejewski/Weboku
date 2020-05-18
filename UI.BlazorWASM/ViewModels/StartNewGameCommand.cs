@@ -14,12 +14,15 @@ namespace UI.BlazorWASM.ViewModels
         private readonly IGridGenerator _generator;
         private readonly IGridHistoryManager _gridHistoryManager;
         private readonly ISudokuProvider _sudokuProvider;
-        public StartNewGameCommand(string difficulty, IGridGenerator generator, IGridHistoryManager gridHistoryManager, ISudokuProvider sudokuProvider)
+        private readonly IGameTimerProvider _gameTimerProvider;
+
+        public StartNewGameCommand(string difficulty, IGridGenerator generator, IGridHistoryManager gridHistoryManager, ISudokuProvider sudokuProvider, IGameTimerProvider gameTimerProvider)
         {
             _difficulty = difficulty;
             _generator = generator;
             _gridHistoryManager = gridHistoryManager;
             _sudokuProvider = sudokuProvider;
+            _gameTimerProvider = gameTimerProvider;
         }
         
         public bool CanExecute => true;
@@ -29,6 +32,7 @@ namespace UI.BlazorWASM.ViewModels
             var newGrid = await _generator.WithGiven(_difficulty);
             _gridHistoryManager.Save();
             _sudokuProvider.AssignFrom(newGrid);
+            _gameTimerProvider.Start();
         }
     }
 }
