@@ -1,0 +1,27 @@
+﻿
+<div class="modal-overlay"
+     style="display: @_display"></div>
+
+<div class="modal-container"
+     style="display: @_display">
+    <div class="modal-content">
+        @ChildContent
+    </div>
+</div>
+
+@code {
+    private string _display = "block";
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    public void Show()
+    {
+        _display = "block";
+    }
+
+    public void Hide()
+    {
+        _display = "none";
+    }
+}

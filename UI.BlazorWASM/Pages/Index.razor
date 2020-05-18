@@ -10,14 +10,38 @@
 @inject IJSRuntime JSRuntime
 @inject CommandProvider CommandProvider
 
+
+<ModalComponent @ref="_modal">
+    <h1>Start new game</h1>
+    @foreach( var item in new[] { "Easy", "Medium", "Hard", "Unfair", "Extreme" } )
+    {
+        <button class="modal-content-button new-game"
+                @onclick="@(async () => await StartNewGame(item))">
+            @item
+            </button>
+        }
+
+    <h3>Control</h3>
+    <ul>
+        <li>Left/right click to toggle input/candidate</li>
+        <li>1234567890 - to change filter and input value</li>
+        <li>ctrl + left/right click to use first/second color</li>
+        <li>zxcv to select first/second/third/fourth color</li>
+        <li>ctrl + z/y to undo/redo</li>
+    </ul>
+    @*<h2>Paste givens</h2>
+        <textarea></textarea>
+        <div class="paste-options">
+            <button class="modal-content-button paste-button">HuDoKu</button>
+        </div>*@
+</ModalComponent>
+
 <div id="main"
-     class="main"
+     class="container main"
      onblur="this.focus()"
      @onkeydown="HotkeyProvider.OnKeyDown"
-     @onkeydown:preventDefault="true"
      tabindex="0"
      @oncontextmenu:preventDefault="true">
-
     <MenuComponent />
 
     <div class="layer-wrapper">
@@ -45,15 +69,22 @@
 </div>
 
 @code {
+    private ModalComponent _modal;
+
+    private async Task StartNewGame(string difficulty)
+    {
+        await CommandProvider.StartNewGame(difficulty).Execute();
+        _modal.Hide();
+    }
+
     protected override async Task OnInitializedAsync()
     {
-        await CommandProvider.StartNewGame("Medium").Execute();
-        GridHistoryManager.ClearUndo();
+        await GridGenerator.WithGiven("medium");
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (!firstRender)
+        if( !firstRender )
         {
             await JSRuntime.InvokeVoidAsync("focusMain");
         }
