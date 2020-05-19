@@ -10,6 +10,7 @@ using UI.BlazorWASM.Providers;
 using UI.BlazorWASM.Managers;
 using UI.BlazorWASM.ViewModels;
 using UI.BlazorWASM.Hints;
+using UI.BlazorWASM.ClickableActions;
 
 namespace UI.BlazorWASM
 {
@@ -39,6 +40,7 @@ namespace UI.BlazorWASM
             builder.Services.AddSingleton<ISudokuGenerator, RESTSudokuGenerator>();
             builder.Services.AddSingleton<ModalProvider, ModalProvider>();
             builder.Services.AddSingleton<HintProvider, HintProvider>();
+            builder.Services.AddSingleton<ClickableActionFactory, ClickableActionFactory>();
             builder.Services.AddCors();
             var app = builder.Build();
            

@@ -18,9 +18,9 @@ namespace UI.BlazorWASM.Providers
             OnChanged?.Invoke();
         }
 
-        public ClickableActionProvider(IGridHistoryManager gridHistoryManager, ICellColorProvider cellColorProvider, ISudokuProvider sudokuProvider)
+        public ClickableActionProvider(ClickableActionFactory clickableActionFactory)
         {
-            ClickableAction = new StandardAction(gridHistoryManager, cellColorProvider, sudokuProvider, 1);
+            ClickableAction = clickableActionFactory.StandardAction(1);
         }
     }
 }

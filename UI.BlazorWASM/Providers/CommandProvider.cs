@@ -1,5 +1,6 @@
 ﻿using Core.Converters;
 using Core.Generators;
+using UI.BlazorWASM.ClickableActions;
 using UI.BlazorWASM.Commands;
 using UI.BlazorWASM.Managers;
 
@@ -15,8 +16,9 @@ namespace UI.BlazorWASM.Providers
         private readonly IFilterProvider _filterProvider;
         private readonly ICellColorProvider _cellColorProvider;
         private readonly IClickableActionProvider _clickableActionProvider;
+        private readonly ClickableActionFactory _clickableActionFactory;
 
-        public CommandProvider(ISudokuGenerator sudokuGenerator, IGridHistoryManager gridHistoryManager, ISudokuProvider sudokuProvider, IGameTimerProvider gameTimerProvider, IGridConverter gridConverter, IFilterProvider filterProvider, ICellColorProvider cellColorProvider, IClickableActionProvider clickableActionProvider)
+        public CommandProvider(ISudokuGenerator sudokuGenerator, IGridHistoryManager gridHistoryManager, ISudokuProvider sudokuProvider, IGameTimerProvider gameTimerProvider, IGridConverter gridConverter, IFilterProvider filterProvider, ICellColorProvider cellColorProvider, IClickableActionProvider clickableActionProvider, ClickableActionFactory clickableActionFactory)
         {
             _sudokuGenerator = sudokuGenerator;
             _gridHistoryManager = gridHistoryManager;
@@ -26,6 +28,7 @@ namespace UI.BlazorWASM.Providers
             _filterProvider = filterProvider;
             _cellColorProvider = cellColorProvider;
             _clickableActionProvider = clickableActionProvider;
+            _clickableActionFactory = clickableActionFactory;
         }
         public ICommand StartNewGame(string difficulty)
         {
@@ -50,7 +53,7 @@ namespace UI.BlazorWASM.Providers
 
         public ICommand SelectValue(int value)
         {
-            return new SelectValueCommand(value, _gridHistoryManager, _cellColorProvider, _sudokuProvider, _filterProvider, _clickableActionProvider);
+            return new SelectValueCommand(value, _filterProvider, _clickableActionProvider, _clickableActionFactory);
         }
     }
 }
