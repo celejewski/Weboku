@@ -14,16 +14,14 @@ namespace UI.BlazorWASM.Providers
         private readonly ISudokuGenerator _sudokuGenerator;
         private readonly IGridHistoryManager _gridHistoryManager;
         private readonly ISudokuProvider _sudokuProvider;
-        private readonly IHotkeyProvider _hotkeyProvider;
         private readonly IGameTimerProvider _gameTimerProvider;
         private readonly IGridConverter _gridConverter;
 
-        public CommandProvider(ISudokuGenerator sudokuGenerator, IGridHistoryManager gridHistoryManager, ISudokuProvider sudokuProvider, HotkeyProvider hotkeyProvider, IGameTimerProvider gameTimerProvider, IGridConverter gridConverter)
+        public CommandProvider(ISudokuGenerator sudokuGenerator, IGridHistoryManager gridHistoryManager, ISudokuProvider sudokuProvider, IGameTimerProvider gameTimerProvider, IGridConverter gridConverter)
         {
             _sudokuGenerator = sudokuGenerator;
             _gridHistoryManager = gridHistoryManager;
             _sudokuProvider = sudokuProvider;
-            _hotkeyProvider = hotkeyProvider;
             _gameTimerProvider = gameTimerProvider;
             _gridConverter = gridConverter;
         }
@@ -35,7 +33,6 @@ namespace UI.BlazorWASM.Providers
         public ICommand FindAllCandidates()
         {
             var command = new FindAllCandidatesCommand(_sudokuProvider, _gridHistoryManager);
-            _hotkeyProvider.Register(new Hotkey { Command = command, Key = "f", Ctrl = true });
             return command;
         }
 
