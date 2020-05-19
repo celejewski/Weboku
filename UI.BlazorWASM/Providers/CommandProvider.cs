@@ -45,12 +45,12 @@ namespace UI.BlazorWASM.Providers
 
         public ICommand SelectPairsFilter()
         {
-            return new SelectPairsFilter(_filterProvider);
+            return new SelectPairsFilterCommand(_filterProvider);
         }
 
         public ICommand SelectValue(int value)
         {
-            return new SelectValue(value, _gridHistoryManager, _cellColorProvider, _sudokuProvider, _filterProvider, _clickableActionProvider);
+            return new SelectValueCommand(value, _gridHistoryManager, _cellColorProvider, _sudokuProvider, _filterProvider, _clickableActionProvider);
         }
     }
 }

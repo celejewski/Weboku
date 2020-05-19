@@ -4,11 +4,11 @@ using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.Commands
 {
-    public class SelectPairsFilter : ICommand
+    public class SelectPairsFilterCommand : ICommand
     {
         private readonly IFilterProvider _filterProvider;
 
-        public SelectPairsFilter(IFilterProvider filterProvider)
+        public SelectPairsFilterCommand(IFilterProvider filterProvider)
         {
             _filterProvider = filterProvider;
         }

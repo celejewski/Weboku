@@ -6,7 +6,7 @@ using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.Commands
 {
-    public class SelectValue : ICommand
+    public class SelectValueCommand : ICommand
     {
         private readonly int _value;
         private readonly IGridHistoryManager _gridHistoryManager;
@@ -15,7 +15,7 @@ namespace UI.BlazorWASM.Commands
         private readonly IFilterProvider _filterProvider;
         private readonly IClickableActionProvider _clickableActionProvider;
 
-        public SelectValue(int value, IGridHistoryManager gridHistoryManager, ICellColorProvider cellColorProvider, ISudokuProvider sudokuProvider, IFilterProvider filterProvider, IClickableActionProvider clickableActionProvider)
+        public SelectValueCommand(int value, IGridHistoryManager gridHistoryManager, ICellColorProvider cellColorProvider, ISudokuProvider sudokuProvider, IFilterProvider filterProvider, IClickableActionProvider clickableActionProvider)
         {
             _value = value;
             _gridHistoryManager = gridHistoryManager;
