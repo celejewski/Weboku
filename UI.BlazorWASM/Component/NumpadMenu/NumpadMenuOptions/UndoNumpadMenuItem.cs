@@ -1,26 +1,22 @@
 ﻿using System.Threading.Tasks;
 using UI.BlazorWASM.Managers;
+using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.Component.NumpadMenu
 {
-    public class UndoNumpadMenuItem : INumpadMenuLabel
+    public class UndoNumpadMenuItem : BaseMenuOption, INumpadMenuLabel
     {
         private readonly IGridHistoryManager _gridHistoryManager;
 
-        public UndoNumpadMenuItem(IGridHistoryManager gridHistoryManager)
+        public UndoNumpadMenuItem(IGridHistoryManager gridHistoryManager, NumpadMenuProvider numpadMenuProvider, CommandProvider commandProvider)
+            :base(numpadMenuProvider, commandProvider.Undo())
         {
             _gridHistoryManager = gridHistoryManager;
         }
-        public bool IsDimmed => !_gridHistoryManager.CanUndo;
+        public override bool IsDimmed => !_gridHistoryManager.CanUndo;
 
-        public bool IsSelectable => false;
+        public override bool IsSelectable => false;
 
         public string Label => "Undo";
-
-        public Task Execute()
-        {
-            _gridHistoryManager.Undo();
-            return Task.CompletedTask;
-        }
     }
 }

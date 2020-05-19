@@ -54,7 +54,7 @@ namespace UI.BlazorWASM.ViewModels
 
         public UndoNumpadMenuItem Undo()
         {
-            var command = new UndoNumpadMenuItem(_gridHistoryManager);
+            var command = new UndoNumpadMenuItem(_gridHistoryManager, _numpadMenuProvider, _commandProvider);
             return command;
         }
 

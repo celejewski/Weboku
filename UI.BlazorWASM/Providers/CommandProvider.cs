@@ -2,6 +2,7 @@
 using Core.Generators;
 using UI.BlazorWASM.ClickableActions;
 using UI.BlazorWASM.Commands;
+using UI.BlazorWASM.Component.NumpadMenu;
 using UI.BlazorWASM.Managers;
 
 namespace UI.BlazorWASM.Providers
@@ -64,6 +65,11 @@ namespace UI.BlazorWASM.Providers
         public ICommand Redo()
         {
             return new RedoCommand(_gridHistoryManager);
+        }
+
+        public ICommand Undo()
+        {
+            return new UndoCommand(_gridHistoryManager);
         }
     }
 }
