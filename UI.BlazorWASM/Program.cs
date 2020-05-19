@@ -9,6 +9,7 @@ using Core.Converters;
 using UI.BlazorWASM.Providers;
 using UI.BlazorWASM.Managers;
 using UI.BlazorWASM.ViewModels;
+using UI.BlazorWASM.Hints;
 
 namespace UI.BlazorWASM
 {
@@ -36,6 +37,8 @@ namespace UI.BlazorWASM
             builder.Services.AddSingleton<IGameStateChecker, GameStateChecker>();
             builder.Services.AddSingleton<IGridConverter, HodokuGridConverter>();
             builder.Services.AddSingleton<ISudokuGenerator, RESTSudokuGenerator>();
+            builder.Services.AddSingleton<ModalProvider, ModalProvider>();
+            builder.Services.AddSingleton<HintProvider, HintProvider>();
             builder.Services.AddCors();
             var app = builder.Build();
            

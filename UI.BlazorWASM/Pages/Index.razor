@@ -11,6 +11,7 @@
 @inject CommandProvider CommandProvider
 @inject IGameStateChecker GameStateChecker
 @inject IGameTimerProvider GameTimerProvider
+@inject ModalProvider ModalProvider
 
 
 <ModalComponent @ref="_modal">
@@ -37,6 +38,8 @@
             <button class="modal-content-button paste-button">HuDoKu</button>
         </div>*@
 </ModalComponent>
+
+<HintComponent @ref="_hints"></HintComponent>
 
 <ModalComponent @ref="_endGameModal">
     <h1>Congratulations</h1>
@@ -79,6 +82,7 @@
 @code {
     private ModalComponent _modal;
     private ModalComponent _endGameModal;
+    private HintComponent _hints;
 
     private async Task StartNewGame(string difficulty)
     {
@@ -100,7 +104,9 @@
         }
         else
         {
-            _endGameModal?.Hide();
+            _modal?.Show();
+            ModalProvider.Hints = _hints;
+
         }
     }
 
@@ -117,5 +123,4 @@
         _modal.Show();
         StateHasChanged();
     }
-
 }

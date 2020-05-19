@@ -3,6 +3,7 @@
 @inject ISudokuProvider SudokuProvider
 @inject CommandProvider CommandProvider
 @inject IGameTimerProvider GameTimerProvider
+@inject ModalProvider ModalProvider
 
 <div class="menu">
     <div class="dropdown">
@@ -16,6 +17,7 @@
         </div>
     </div>
     <a @onclick="@(CommandProvider.Restart().Execute)">Restart</a>
+    <a @onclick="@(() => ModalProvider.Hints?.Show())">Hint</a>
 
     <span>Timer: @GameTimerProvider.Elapsed.ToString("mm\\:ss")</span>
 

@@ -68,6 +68,6 @@ namespace UI.BlazorWASM.Providers
             OnChanged?.Invoke();
         }
 
-        public Sudoku Sudoku { get; set; }
+        public Sudoku Sudoku { get; set; } = new Sudoku();
     }
 }

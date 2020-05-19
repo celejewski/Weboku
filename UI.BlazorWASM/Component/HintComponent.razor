@@ -1,0 +1,29 @@
+﻿@inject ISudokuProvider SudokuProvider
+@inject HintProvider HintProvider
+
+<ModalComponent @ref="_modal">
+    <button @onclick="Hide">Close</button>
+    <ul>
+        @foreach( var step in SudokuProvider?.Sudoku?.Steps )
+        {
+            <li>@step</li>
+        }
+    </ul>
+</ModalComponent>
+
+@code {
+    private ModalComponent _modal;
+
+    public void Show()
+    {
+        HintProvider.ShowHint();
+        _modal?.Show();
+        StateHasChanged();
+    }
+
+    public void Hide()
+    {
+        _modal?.Hide();
+        StateHasChanged();
+    }
+}

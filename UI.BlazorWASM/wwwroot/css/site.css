@@ -181,7 +181,15 @@ html {
     background-color: var(--color-danger);
 }
 
+.cell-color-illegal {
+    background-color: var(--color-danger);
+}
+
 .cell-color-success {
+    background-color: var(--color-success);
+}
+
+.cell-color-legal {
     background-color: var(--color-success);
 }
 
