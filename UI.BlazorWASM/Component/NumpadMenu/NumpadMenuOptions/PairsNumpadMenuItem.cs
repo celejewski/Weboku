@@ -1,17 +1,14 @@
-﻿using System.Threading.Tasks;
-using UI.BlazorWASM.Filters;
-using UI.BlazorWASM.Providers;
+﻿using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.Component.NumpadMenu
 {
-    public class PairsNumpadMenuItem : BaseNumpadMenuItem, INumpadMenuLabel
+    public class PairsNumpadMenuItem : BaseMenuOption, INumpadMenuLabel
     {
-        private readonly IFilterProvider _filterProvider;
         private readonly ISudokuProvider _sudokuProvider;
 
-        public PairsNumpadMenuItem(IFilterProvider filterProvider, ISudokuProvider sudokuProvider, NumpadMenuProvider numpadMenuProvider) : base(numpadMenuProvider)
+        public PairsNumpadMenuItem(ISudokuProvider sudokuProvider, NumpadMenuProvider numpadMenuProvider, CommandProvider commandProvider) 
+            : base(numpadMenuProvider, commandProvider.SelectPairsFilter())
         {
-            _filterProvider = filterProvider;
             _sudokuProvider = sudokuProvider;
         }
 
@@ -36,11 +33,5 @@ namespace UI.BlazorWASM.Component.NumpadMenu
         public override bool IsSelectable => true;
 
         public string Label => "Pairs";
-
-        public override async Task Execute()
-        {
-            await base.Execute();
-            _filterProvider.SetFilter(new PairFilter());
-        }
     }
 }

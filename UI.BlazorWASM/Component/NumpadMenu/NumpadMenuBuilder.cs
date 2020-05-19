@@ -15,6 +15,7 @@ namespace UI.BlazorWASM.ViewModels
         private readonly ICellColorProvider _cellColorProvider;
         private readonly ISudokuProvider _sudokuProvider;
         private readonly NumpadMenuProvider _numpadMenuProvider;
+        private readonly CommandProvider _commandProvider;
 
         public NumpadMenuBuilder(
             IFilterProvider filterProvider, 
@@ -22,7 +23,8 @@ namespace UI.BlazorWASM.ViewModels
             IGridHistoryManager gridHistoryManager, 
             ICellColorProvider cellColorProvider, 
             ISudokuProvider sudokuProvider, 
-            NumpadMenuProvider numpadMenuProvider
+            NumpadMenuProvider numpadMenuProvider,
+            CommandProvider commandProvider
             )
         {
             _filterProvider = filterProvider;
@@ -31,6 +33,7 @@ namespace UI.BlazorWASM.ViewModels
             _cellColorProvider = cellColorProvider;
             _sudokuProvider = sudokuProvider;
             _numpadMenuProvider = numpadMenuProvider;
+            _commandProvider = commandProvider;
         }
 
         readonly Dictionary<int, SelectValueNumpadMenuItem> _dict = new Dictionary<int, SelectValueNumpadMenuItem>();
@@ -38,7 +41,7 @@ namespace UI.BlazorWASM.ViewModels
         {
             if( !_dict.ContainsKey(value) )
             {
-                _dict[value] = new SelectValueNumpadMenuItem(value, _filterProvider, _clickableActionProvider, _gridHistoryManager, _cellColorProvider, _sudokuProvider, _numpadMenuProvider);
+                _dict[value] = new SelectValueNumpadMenuItem(value, _sudokuProvider, _numpadMenuProvider, _commandProvider);
             }
             return _dict[value];
         }
@@ -57,7 +60,7 @@ namespace UI.BlazorWASM.ViewModels
 
         public PairsNumpadMenuItem Pairs()
         {
-            var command = new PairsNumpadMenuItem(_filterProvider, _sudokuProvider, _numpadMenuProvider);
+            var command = new PairsNumpadMenuItem(_sudokuProvider, _numpadMenuProvider, _commandProvider);
             return command;
         }
 
