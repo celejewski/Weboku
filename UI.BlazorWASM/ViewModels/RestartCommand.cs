@@ -14,9 +14,6 @@ namespace UI.BlazorWASM.ViewModels
             _sudokuProvider = sudokuProvider;
             _gridHistoryManager = gridHistoryManager;
         }
-
-        public bool CanExecute => true;
-
         public Task Execute()
         {
             _gridHistoryManager.Save();

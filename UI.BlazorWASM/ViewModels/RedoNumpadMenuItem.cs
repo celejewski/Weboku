@@ -17,8 +17,6 @@ namespace UI.BlazorWASM.ViewModels
 
         public string Label => "Redo";
 
-        public bool CanExecute => _gridHistoryManager.CanRedo;
-
         public Task Execute()
         {
             _gridHistoryManager.Redo();

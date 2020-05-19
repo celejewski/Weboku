@@ -1,8 +1,5 @@
 ﻿using Core.Converters;
 using Core.Generators;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using UI.BlazorWASM.Managers;
 using UI.BlazorWASM.Providers;
@@ -27,9 +24,6 @@ namespace UI.BlazorWASM.ViewModels
             _gameTimerProvider = gameTimerProvider;
             _gridConverter = gridConverter;
         }
-        
-        public bool CanExecute => true;
-
         public async Task Execute()
         {
             var sudoku = await _sudokuGenerator.Generate(_difficulty);

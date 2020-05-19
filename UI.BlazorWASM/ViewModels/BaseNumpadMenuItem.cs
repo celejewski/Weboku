@@ -18,7 +18,6 @@ namespace UI.BlazorWASM.ViewModels
 
         public abstract bool IsDimmed { get; }
         public abstract bool IsSelectable { get; }
-        public abstract bool CanExecute { get; }
 
         public virtual Task Execute()
         {

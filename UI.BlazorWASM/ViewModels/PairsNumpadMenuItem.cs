@@ -37,8 +37,6 @@ namespace UI.BlazorWASM.ViewModels
 
         public string Label => "Pairs";
 
-        public override bool CanExecute => true;
-
         public override async Task Execute()
         {
             await base.Execute();

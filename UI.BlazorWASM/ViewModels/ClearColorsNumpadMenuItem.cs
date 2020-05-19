@@ -21,8 +21,6 @@ namespace UI.BlazorWASM.ViewModels
 
         public string Label => "Clear colors";
 
-        public bool CanExecute => true;
-
         public Task Execute()
         {
             _cellColorProvider.ClearAll();

@@ -17,8 +17,6 @@ namespace UI.BlazorWASM.ViewModels
 
         public string Label => "Undo";
 
-        public bool CanExecute => _gridHistoryManager.CanUndo;
-
         public Task Execute()
         {
             _gridHistoryManager.Undo();

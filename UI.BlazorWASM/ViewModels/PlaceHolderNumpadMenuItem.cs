@@ -13,8 +13,6 @@ namespace UI.BlazorWASM.ViewModels
 
         public bool IsSelectable => false;
 
-        public bool CanExecute => false;
-
         public string CssClass => "";
 
         public Task Execute() => Task.CompletedTask;

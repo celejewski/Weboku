@@ -25,8 +25,6 @@ namespace UI.BlazorWASM.ViewModels
 
         public bool IsSelectable => true;
 
-        public bool CanExecute => true;
-
         public Task Execute()
         {
             _clickableActionProvider.SetClickableAction(new ColorAction(_cellColor, _cellColorProvider));
