@@ -7,13 +7,14 @@ namespace UI.BlazorWASM.Hints
 {
     public class IterateStepsHandler : HintHandler
     {
-        public override void Execute(string step, IEnumerator<string> enumerator)
+        public override Task Execute(string step, IEnumerator<string> enumerator)
         {
             Console.WriteLine(step + " IterateStepsHandler ");
             if (enumerator.MoveNext())
             {
-                _next?.Execute(enumerator.Current, enumerator);
+                return _next?.Execute(enumerator.Current, enumerator);
             }
+            return Task.CompletedTask;
         }
     }
 }

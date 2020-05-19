@@ -7,10 +7,10 @@ namespace UI.BlazorWASM.Hints
 {
     public class PrintTechniqueNameHandler : HintHandler
     {
-        public override void Execute(string step, IEnumerator<string> enumerator)
+        public override Task Execute(string step, IEnumerator<string> enumerator)
         {
             Console.WriteLine(step + " PrintTechniqueName ");
-            _next?.Execute(step, enumerator);
+            return _next?.Execute(step, enumerator);
         }
     }
 }

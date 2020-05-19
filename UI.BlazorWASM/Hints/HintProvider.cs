@@ -11,13 +11,15 @@ namespace UI.BlazorWASM.Hints
         private readonly ISudokuProvider _sudokuProvider;
         private readonly ICellColorProvider _cellColorProvider;
         private readonly IFilterProvider _filterProvider;
+        private readonly NumpadMenuBuilder _numpadMenuBuilder;
         private HintHandler _chain;
 
-        public HintProvider(ISudokuProvider sudokuProvider, ICellColorProvider cellColorProvider, IFilterProvider filterProvider)
+        public HintProvider(ISudokuProvider sudokuProvider, ICellColorProvider cellColorProvider, IFilterProvider filterProvider, NumpadMenuBuilder numpadMenuBuilder)
         {
             _sudokuProvider = sudokuProvider;
             _cellColorProvider = cellColorProvider;
             _filterProvider = filterProvider;
+            _numpadMenuBuilder = numpadMenuBuilder;
             SetChainOfCommand();
         }
 
@@ -28,12 +30,10 @@ namespace UI.BlazorWASM.Hints
 
             _chain = new FindIncorrectInputHandler(_sudokuProvider, _cellColorProvider);
 
-            
-
             _chain.SetNext(new AddMissingCandidates(_sudokuProvider))
                 .SetNext(firstSolvingTechnique)
                 .SetNext(new PrintTechniqueNameHandler())
-                .SetNext(new NakedSingle(_sudokuProvider, _cellColorProvider, _filterProvider))
+                .SetNext(new NakedSingle(_sudokuProvider, _cellColorProvider, _filterProvider, _numpadMenuBuilder))
                 .SetNext(new IterateStepsHandler())
                 .SetNext(firstSolvingTechnique);
             ;
@@ -41,6 +41,7 @@ namespace UI.BlazorWASM.Hints
 
         public void ShowHint()
         {
+            _cellColorProvider.ClearAll();
             var steps = _sudokuProvider.Sudoku.Steps;
             _chain.Execute(steps.First(), steps.GetEnumerator());
         }

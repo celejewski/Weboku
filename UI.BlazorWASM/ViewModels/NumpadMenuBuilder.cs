@@ -32,10 +32,14 @@ namespace UI.BlazorWASM.ViewModels
             _numpadMenuProvider = numpadMenuProvider;
         }
 
+        readonly Dictionary<int, SelectValueNumpadMenuItem> _dict = new Dictionary<int, SelectValueNumpadMenuItem>();
         public SelectValueNumpadMenuItem SelectValue(int value)
         {
-            var command = new SelectValueNumpadMenuItem(value, _filterProvider, _clickableActionProvider, _gridHistoryManager, _cellColorProvider, _sudokuProvider, _numpadMenuProvider);
-            return command;
+            if( !_dict.ContainsKey(value) )
+            {
+                _dict[value] = new SelectValueNumpadMenuItem(value, _filterProvider, _clickableActionProvider, _gridHistoryManager, _cellColorProvider, _sudokuProvider, _numpadMenuProvider);
+            }
+            return _dict[value];
         }
 
         public RedoNumpadMenuItem Redo()

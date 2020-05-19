@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.Hints
@@ -15,7 +16,7 @@ namespace UI.BlazorWASM.Hints
             _cellColorProvider = cellColorProvider;
         }
 
-        public override void Execute(string step, IEnumerator<string> enumerator)
+        public override Task Execute(string step, IEnumerator<string> enumerator)
         {
             Console.WriteLine(step + " FindIncorrectInput");
             bool allCorrect = true;
@@ -35,8 +36,9 @@ namespace UI.BlazorWASM.Hints
 
             if (allCorrect)
             {
-                _next?.Execute(step, enumerator);
+                return _next?.Execute(step, enumerator);
             }
+            return Task.CompletedTask;
         }
     }
 }

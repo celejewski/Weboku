@@ -15,7 +15,7 @@ namespace UI.BlazorWASM.Hints
             _sudokuProvider = sudokuProvider;
         }
 
-        public override void Execute(string step, IEnumerator<string> enumerator)
+        public override Task Execute(string step, IEnumerator<string> enumerator)
         {
             bool candidatesAreMissing = false;
             for( int y = 0; y < 9; y++ )
@@ -34,10 +34,11 @@ namespace UI.BlazorWASM.Hints
             if( candidatesAreMissing )
             {
                 Console.WriteLine("There are candidates missing");
+                return Task.CompletedTask;
             }
             else
             {
-                _next?.Execute(step, enumerator);
+                return _next?.Execute(step, enumerator);
             }
         }
     }
