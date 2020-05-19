@@ -55,5 +55,15 @@ namespace UI.BlazorWASM.Providers
         {
             return new SelectValueCommand(value, _filterProvider, _clickableActionProvider, _clickableActionFactory);
         }
+
+        public ICommand ClearColors()
+        {
+            return new ClearColorsCommand(_cellColorProvider);
+        }
+
+        public ICommand Redo()
+        {
+            return new RedoCommand(_gridHistoryManager);
+        }
     }
 }

@@ -7,24 +7,16 @@ using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.Component.NumpadMenu
 {
-    public class ClearColorsNumpadMenuItem : INumpadMenuLabel
+    public class ClearColorsNumpadMenuItem : BaseMenuOption, INumpadMenuLabel
     {
-        private readonly ICellColorProvider _cellColorProvider;
-
-        public ClearColorsNumpadMenuItem(ICellColorProvider cellColorProvider)
+        public ClearColorsNumpadMenuItem(NumpadMenuProvider numpadMenuProvider, CommandProvider commandProvider)
+            :base(numpadMenuProvider, commandProvider.ClearColors())
         {
-            _cellColorProvider = cellColorProvider;
         }
-        public bool IsDimmed => false;
+        public override bool IsDimmed => false;
 
-        public bool IsSelectable => false;
+        public override bool IsSelectable => false;
 
         public string Label => "Clear colors";
-
-        public Task Execute()
-        {
-            _cellColorProvider.ClearAll();
-            return Task.CompletedTask;
-        }
     }
 }
