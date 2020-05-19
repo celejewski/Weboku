@@ -4,7 +4,7 @@ using UI.BlazorWASM.Converters;
 using UI.BlazorWASM.Enums;
 using UI.BlazorWASM.Providers;
 
-namespace UI.BlazorWASM.ViewModels
+namespace UI.BlazorWASM.Component.NumpadMenu
 {
     public class SelectColorMenuItem : ISelectColorMenuItem
     {

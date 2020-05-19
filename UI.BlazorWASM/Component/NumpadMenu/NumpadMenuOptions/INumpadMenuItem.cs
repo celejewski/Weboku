@@ -1,4 +1,6 @@
-﻿namespace UI.BlazorWASM.ViewModels
+﻿using UI.BlazorWASM.Commands;
+
+namespace UI.BlazorWASM.Component.NumpadMenu
 {
     public interface INumpadMenuItem : ICommand
     {

@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace UI.BlazorWASM.ViewModels
+namespace UI.BlazorWASM.Commands
 {
     public interface ICommand
     {

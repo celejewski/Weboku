@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using UI.BlazorWASM.ViewModels;
+using UI.BlazorWASM.Component.NumpadMenu;
 
 namespace UI.BlazorWASM.Providers
 {

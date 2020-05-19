@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using UI.BlazorWASM.Managers;
 using UI.BlazorWASM.Providers;
 
-namespace UI.BlazorWASM.ViewModels
+namespace UI.BlazorWASM.Commands
 {
     public class StartNewGameCommand : ICommand
     {

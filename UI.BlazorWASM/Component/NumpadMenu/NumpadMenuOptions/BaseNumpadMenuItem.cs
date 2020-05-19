@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using UI.BlazorWASM.Providers;
 
-namespace UI.BlazorWASM.ViewModels
+namespace UI.BlazorWASM.Component.NumpadMenu
 {
     public abstract class BaseNumpadMenuItem : INumpadMenuItem
     {

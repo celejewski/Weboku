@@ -2,7 +2,7 @@
 using UI.BlazorWASM.Managers;
 using UI.BlazorWASM.Providers;
 
-namespace UI.BlazorWASM.ViewModels
+namespace UI.BlazorWASM.Commands
 {
     public class RestartCommand : ICommand
     {

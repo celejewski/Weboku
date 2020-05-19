@@ -6,7 +6,7 @@ using UI.BlazorWASM.Filters;
 using UI.BlazorWASM.Managers;
 using UI.BlazorWASM.Providers;
 
-namespace UI.BlazorWASM.ViewModels
+namespace UI.BlazorWASM.Component.NumpadMenu
 {
     public class SelectValueNumpadMenuItem : BaseNumpadMenuItem, INumpadMenuLabel
     {
