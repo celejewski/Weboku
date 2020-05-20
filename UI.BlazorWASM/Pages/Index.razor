@@ -42,9 +42,18 @@
 <HintComponent @ref="_hints"></HintComponent>
 
 <ModalComponent @ref="_endGameModal">
-    <h1>Congratulations</h1>
-    <h2>Your time @GameTimerProvider.Elapsed.ToString("mm\\:ss")</h2>
-    <button @onclick="PlayAgain">Jeszcze ras?</button>
+    <h1>Congratulations!</h1>
+    <div class="result-container">
+        <div class="result-row">
+            <span class="end-game-label">Your time:</span>
+            <span class="end-game-result"> @GameTimerProvider.Elapsed.ToString("mm\\:ss")</span>
+        </div>
+        <div class="result-row">
+            <span class="end-game-label">Difficulty:</span>
+            <span class="end-game-result"> @SudokuProvider.Sudoku.Difficulty</span>
+        </div>
+    </div>
+    <button class="modal-content-button new-game" @onclick="PlayAgain">PLAY AGAIN</button>
 </ModalComponent>
 
 <div id="main"
