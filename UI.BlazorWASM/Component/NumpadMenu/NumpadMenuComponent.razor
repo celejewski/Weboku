@@ -19,8 +19,8 @@
         {
             var bound = item;
             <div @onclick="@((e) => OnClick(bound))"
-                 class="cell-color @item.CssClass">
-                &nbsp;
+                 class="cell-color-choice">
+                <div class=" @item.CssClass"></div>
             </div>
         }
     </div>
