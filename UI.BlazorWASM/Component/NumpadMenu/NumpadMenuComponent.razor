@@ -7,20 +7,27 @@
         {
             var bound = item;
             <div @onclick="@((e) => OnClick(bound))"
-                 class="
+                 class="numpad-cell
                  @(bound == NumpadMenuProvider.SelectedItem ? "HighlightedNumpad" : "") 
                  @(@bound.IsDimmed ? "numpad-dimmed-label" : "")
                  ">
                 @item.Label
             </div>
         }
+
+        <div @onclick="@((e) => NumpadMenuBuilder.ClearColors().Execute())"
+             class="numpad-cell"
+             style="grid-column: span 2">
+            Clear colors
+        </div>
         
         @foreach( var item in _selectColorMenuItems )
         {
             var bound = item;
             <div @onclick="@((e) => OnClick(bound))"
-                 class="cell-color-choice">
-                <div class=" @item.CssClass"></div>
+                 class="numpad-cell">
+                <div class="cell-color-choice @item.CssClass">
+                </div>
             </div>
         }
     </div>
@@ -59,8 +66,6 @@
 
             NumpadMenuBuilder.Pairs(),
             NumpadMenuBuilder.PlaceHolder(),
-            NumpadMenuBuilder.PlaceHolder(),
-            NumpadMenuBuilder.ClearColors()
 };
 
         _selectColorMenuItems = new ISelectColorMenuItem[]
