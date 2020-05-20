@@ -72,7 +72,6 @@ html {
 .container {
     max-width: var(--max-width);
     width: 100vw;
-    height: 100vh;
 }
 
 .main {
