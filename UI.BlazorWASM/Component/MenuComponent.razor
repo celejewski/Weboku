@@ -5,27 +5,23 @@
 @inject IGameTimerProvider GameTimerProvider
 @inject ModalProvider ModalProvider
 
-<div class="menu">
-    <div class="dropdown">
-        <button class="dropbtn">New game</button>
-        <div class="dropdown-content">
-            <a @onclick="@(CommandProvider.StartNewGame("Easy").Execute)">Easy</a>
-            <a @onclick="@(CommandProvider.StartNewGame("Medium").Execute)">Medium</a>
-            <a @onclick="@(CommandProvider.StartNewGame("Hard").Execute)">Hard</a>
-            <a @onclick="@(CommandProvider.StartNewGame("Unfair").Execute)">Unfair</a>
-            <a @onclick="@(CommandProvider.StartNewGame("Extreme").Execute)">Extreme</a>
+    <div class="menu">
+        <div class="menu-dropdown">
+            <span class="menu-item">Menu</span>
+            <div class="menu-dropdown-content">
+                <a class="dropdown-item" @onclick="NewGame">New game </a>
+                <a class="dropdown-item" @onclick="RestartGame">Restart game</a>
+            </div>
+        </div>
+        <div class="menu-item menu-title-container">
+            <div class="menu-difficulty">@SudokuProvider.Sudoku.Difficulty</div>
+            <div class="menu-time">@GameTimerProvider.Elapsed.ToString("mm\\:ss")</div>
+        </div>
+
+        <div class="menu-item menu-right">
+            <a @onclick="@(CommandProvider.FindAllCandidates().Execute)">Find candidates</a>
         </div>
     </div>
-    <a @onclick="@(CommandProvider.Restart().Execute)">Restart</a>
-    @*<a @onclick="@(() => ModalProvider.Hints?.Show())">Hint</a>*@
-    <span>@SudokuProvider.Sudoku.Difficulty</span>
-
-    <span>Timer: @GameTimerProvider.Elapsed.ToString("mm\\:ss")</span>
-
-    <div class="menu-right">
-        <a @onclick="@(CommandProvider.FindAllCandidates().Execute)">Find candidates</a>
-    </div>
-</div>
 
 @code {
     [Parameter]
@@ -36,4 +32,13 @@
         GameTimerProvider.OnChanged += StateHasChanged;
     }
 
+    private void NewGame()
+    {
+        
+    }
+
+    private void RestartGame()
+    {
+        CommandProvider.Restart().Execute();
+    }
 }

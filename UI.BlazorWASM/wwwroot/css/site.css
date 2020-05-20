@@ -12,6 +12,8 @@
     --color-3: #731963;
     --color-4: #9792E3;
     --max-width: 1200px;
+    --max-size: min(60vh, 100vw, 1200px);
+    --menu-background-color: #3A77EA;
 }
 
 body {
@@ -86,9 +88,9 @@ html {
 
 .menu {
     color: white;
-    margin: 0 1%;
+    margin: 0 0%;
     padding: 0.25rem;
-    background-color: #3A77EA;
+    background-color: var(--menu-background-color);
     align-self: start;
 }
 
@@ -97,7 +99,7 @@ html {
 }
 
 .menu a {
-    padding: 0.25rem;
+    padding: 0.25rem 1rem;
 }
 
     .menu a:hover {
@@ -105,7 +107,6 @@ html {
     }
 
 .layer-wrapper {
-    --max-size: min(60vh, 100vw, 1200px);
     margin: 0 auto;
     padding: 0;
 
@@ -120,7 +121,7 @@ html {
     left: 0;
     width: 100%;
     height: 100%;
-    padding: 1% 1% 1% 1%;
+    padding: 0;
 }
 
 .grid-9x9 {
@@ -224,13 +225,13 @@ html {
     text-align: center;
 }
 
-.numpad  div {
+.numpad div {
     display: block;
     width: 100%;
     height: auto;
     border: none;
     color: white;
-    font-size: 2rem;
+    font-size: 1.8rem;
     font-weight: 600;
 }
 
@@ -299,47 +300,6 @@ a {
     border: none;
     cursor: pointer;
 }
-
-/* The container <div> - needed to position the dropdown content */
-.dropdown {
-    position: relative;
-    display: inline-block;
-    float: left;
-}
-
-/* Dropdown Content (Hidden by Default) */
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 300px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 100;
-}
-
-    /* Links inside the dropdown */
-    .dropdown-content a {
-        color: black;
-        padding: 12px 16px;
-        text-decoration: none;
-        display: block;
-    }
-
-        /* Change color of dropdown links on hover */
-        .dropdown-content a:hover {
-            background-color: #f1f1f1
-        }
-
-/* Show the dropdown menu on hover */
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-
-/* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown:hover .dropbtn {
-    background-color: #3e8e41;
-}
-
 .modal-overlay {
     position: absolute;
     width: 100%;
@@ -422,4 +382,55 @@ a {
 
 .result-row {
     border-bottom: 0.01rem solid #666;
+}
+
+.menu {
+    max-width: var(--max-size);
+    width: 100%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0;
+}
+
+.menu-item {
+    padding: 0.25rem 1rem;
+}
+
+.menu-title-container {
+    display: inline-block;
+    text-align: center;
+}
+
+.menu-difficulty {
+    font-weight: 800;
+    font-size: 1.1rem;
+}
+
+.menu-dropdown {
+    position: relative;
+    display: inline-block;
+    float: left;
+}
+
+.menu-dropdown-content {
+    margin: 0.2rem 0 0 0.3rem;
+    padding: 0.8rem 0 0 0;
+    display: none;
+    position: absolute;
+    min-width: 20vw;
+    z-index: 100;
+    background-color: var(--menu-background-color);
+    box-shadow: 0rem 0rem 1rem 0px rgba(0,0,0,0.3);
+    border-radius: 0.3rem;
+}
+
+.menu-dropdown:hover .menu-dropdown-content {
+    display: block;
+}
+
+.dropdown-item {
+    display: block;
+    margin: 0 3% 3% 3%
 }
