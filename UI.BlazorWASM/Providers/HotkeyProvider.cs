@@ -33,7 +33,7 @@ namespace UI.BlazorWASM.Providers
         public HotkeyProvider(CommandProvider commandProvider, NumpadMenuBuilder numpadMenuBuilder)
         {
             Register(new Hotkey { Command = commandProvider.FindAllCandidates(), Key = "f", Ctrl = true });
-            for( int value = 0; value < 10; value++ )
+            for( int value = 0; value < 9; value++ )
             {
                 Register(new Hotkey { Command = numpadMenuBuilder.SelectValue(value), Key = value.ToString() });
             }
@@ -41,6 +41,7 @@ namespace UI.BlazorWASM.Providers
             Register(new Hotkey { Command = numpadMenuBuilder.Undo(), Key = "z", Ctrl = true });
             Register(new Hotkey { Command = numpadMenuBuilder.Pairs(), Key = "x" });
             Register(new Hotkey { Command = numpadMenuBuilder.ClearColors(), Key = "r" });
+            Register(new Hotkey { Command = numpadMenuBuilder.SelectErase(), Key = "0" });
 
             
             var dict = new Dictionary<CellColor, string>

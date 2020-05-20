@@ -57,6 +57,11 @@ namespace UI.BlazorWASM.Providers
             return new SelectValueCommand(value, _filterProvider, _clickableActionProvider, _clickableActionFactory);
         }
 
+        public ICommand SelectErase()
+        {
+            return new SelectEraseCommand(_clickableActionProvider, _clickableActionFactory, _filterProvider);
+        }
+
         public ICommand ClearColors()
         {
             return new ClearColorsCommand(_cellColorProvider);

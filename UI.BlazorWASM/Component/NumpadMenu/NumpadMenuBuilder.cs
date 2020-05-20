@@ -58,10 +58,14 @@ namespace UI.BlazorWASM.ViewModels
             return command;
         }
 
+        PairsNumpadMenuItem _pairsNumpadMenuItem;
         public PairsNumpadMenuItem Pairs()
         {
-            var command = new PairsNumpadMenuItem(_sudokuProvider, _numpadMenuProvider, _commandProvider);
-            return command;
+            if( _pairsNumpadMenuItem == null )
+            {
+                _pairsNumpadMenuItem = new PairsNumpadMenuItem(_sudokuProvider, _numpadMenuProvider, _commandProvider);
+            }
+            return _pairsNumpadMenuItem;
         }
 
         public ClearColorsNumpadMenuItem ClearColors()
@@ -79,6 +83,17 @@ namespace UI.BlazorWASM.ViewModels
         public PlaceHolderNumpadMenuItem PlaceHolder()
         {
             return new PlaceHolderNumpadMenuItem();
+        }
+
+
+        EraseMenuItem _eraseMenuItem;
+        public EraseMenuItem SelectErase()
+        {
+            if( _eraseMenuItem == null )
+            {
+                _eraseMenuItem = new EraseMenuItem(_numpadMenuProvider, _commandProvider);
+            }
+            return _eraseMenuItem;
         }
     }
 }

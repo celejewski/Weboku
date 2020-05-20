@@ -40,7 +40,7 @@ namespace UI.BlazorWASM.Providers
             OnChanged?.Invoke();
         }
         
-        public void ClearCandidates()
+        public void ClearAllCandidates()
         {
             for( int y = 0; y < 9; y++ )
             {

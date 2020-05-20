@@ -22,7 +22,7 @@ namespace UI.BlazorWASM.Commands
         public Task Execute()
         {
             _sudokuProvider.Restart();
-            _sudokuProvider.ClearCandidates();
+            _sudokuProvider.ClearAllCandidates();
             _gridHistoryManager.ClearUndo();
             _gameTimerProvider.Start();            
             return Task.CompletedTask;
