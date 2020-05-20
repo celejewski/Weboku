@@ -429,6 +429,9 @@ a {
 .menu-dropdown:hover .menu-dropdown-content {
     display: block;
 }
+    .menu-dropdown:hover .menu-dropdown-content:active {
+        display: none;
+    }
 
 .dropdown-item {
     display: block;

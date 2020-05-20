@@ -14,7 +14,7 @@
 @inject ModalProvider ModalProvider
 
 
-<ModalComponent @ref="_modal">
+<ModalComponent @ref="_newGameModal">
     <h1>Start new game</h1>
     @foreach( var item in new[] { "Easy", "Medium", "Hard", "Unfair", "Extreme" } )
     {
@@ -89,14 +89,14 @@
 </div>
 
 @code {
-    private ModalComponent _modal;
+    private ModalComponent _newGameModal;
     private ModalComponent _endGameModal;
     private HintComponent _hints;
 
     private async Task StartNewGame(string difficulty)
     {
         await CommandProvider.StartNewGame(difficulty).Execute();
-        _modal.Hide();
+        _newGameModal.Hide();
     }
 
     protected override async Task OnInitializedAsync()
@@ -113,8 +113,9 @@
         }
         else
         {
-            _modal?.Show();
+            _newGameModal?.Show();
             ModalProvider.Hints = _hints;
+            ModalProvider.NewGame = _newGameModal;
 
         }
     }
@@ -129,7 +130,7 @@
     private void PlayAgain()
     {
         _endGameModal.Hide();
-        _modal.Show();
+        _newGameModal.Show();
         StateHasChanged();
     }
 }

@@ -9,8 +9,8 @@
         <div class="menu-dropdown">
             <span class="menu-item">Menu</span>
             <div class="menu-dropdown-content">
-                <a class="dropdown-item" @onclick="NewGame">New game </a>
-                <a class="dropdown-item" @onclick="RestartGame">Restart game</a>
+                <a class="dropdown-item" @onmousedown="NewGame">New game </a>
+                <a class="dropdown-item" @onmousedown="RestartGame">Restart game</a>
             </div>
         </div>
         <div class="menu-item menu-title-container">
@@ -34,7 +34,7 @@
 
     private void NewGame()
     {
-        
+        ModalProvider.NewGame.Show();
     }
 
     private void RestartGame()

@@ -29,8 +29,8 @@ namespace UI.BlazorWASM.Commands
             var sudoku = await _sudokuGenerator.Generate(_difficulty);
             _sudokuProvider.Sudoku = sudoku;
             var newGrid = _gridConverter.FromText(sudoku.Given);
-            _gridHistoryManager.Save();
             _sudokuProvider.AssignFrom(newGrid);
+            _gridHistoryManager.ClearUndo();
             _gameTimerProvider.Start();
         }
     }
