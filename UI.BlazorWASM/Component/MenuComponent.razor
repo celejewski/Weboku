@@ -17,7 +17,8 @@
         </div>
     </div>
     <a @onclick="@(CommandProvider.Restart().Execute)">Restart</a>
-    <a @onclick="@(() => ModalProvider.Hints?.Show())">Hint</a>
+    @*<a @onclick="@(() => ModalProvider.Hints?.Show())">Hint</a>*@
+    <span>@SudokuProvider.Sudoku.Difficulty</span>
 
     <span>Timer: @GameTimerProvider.Elapsed.ToString("mm\\:ss")</span>
 

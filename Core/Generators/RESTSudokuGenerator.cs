@@ -18,7 +18,9 @@ namespace Core.Generators
         {
             try
             {
-                return await _http.GetFromJsonAsync<Sudoku>($"http://andzej-002-site2.ftempurl.com/sudokugenerator/{difficulty}");
+                var sudoku = await _http.GetFromJsonAsync<Sudoku>($"http://andzej-002-site2.ftempurl.com/sudokugenerator/{difficulty}");
+                sudoku.Difficulty = difficulty;
+                return sudoku;
             }
             catch
             {
