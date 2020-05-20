@@ -8,17 +8,23 @@ namespace UI.BlazorWASM.Commands
     {
         private readonly ISudokuProvider _sudokuProvider;
         private readonly IGridHistoryManager _gridHistoryManager;
+        private readonly IGameTimerProvider _gameTimerProvider;
 
-        public RestartCommand(ISudokuProvider sudokuProvider, IGridHistoryManager gridHistoryManager)
+        public RestartCommand(
+            ISudokuProvider sudokuProvider, 
+            IGridHistoryManager gridHistoryManager,
+            IGameTimerProvider gameTimerProvider)
         {
             _sudokuProvider = sudokuProvider;
             _gridHistoryManager = gridHistoryManager;
+            _gameTimerProvider = gameTimerProvider;
         }
         public Task Execute()
         {
-            _gridHistoryManager.Save();
             _sudokuProvider.Restart();
             _sudokuProvider.ClearCandidates();
+            _gridHistoryManager.ClearUndo();
+            _gameTimerProvider.Start();            
             return Task.CompletedTask;
         }
     }

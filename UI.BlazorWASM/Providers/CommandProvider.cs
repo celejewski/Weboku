@@ -44,7 +44,7 @@ namespace UI.BlazorWASM.Providers
 
         public ICommand Restart()
         {
-            return new RestartCommand(_sudokuProvider, _gridHistoryManager);
+            return new RestartCommand(_sudokuProvider, _gridHistoryManager, _gameTimerProvider);
         }
 
         public ICommand SelectPairsFilter()
