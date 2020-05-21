@@ -25,6 +25,7 @@ body {
 
 html {
     font-size: 8px;
+    cursor:pointer;
 }
 
 @media screen and (min-width: 340px) and (min-height: 340px) {

@@ -33,7 +33,7 @@ namespace UI.BlazorWASM.Providers
         public HotkeyProvider(CommandProvider commandProvider, NumpadMenuBuilder numpadMenuBuilder)
         {
             Register(new Hotkey { Command = commandProvider.FindAllCandidates(), Key = "f", Ctrl = true });
-            for( int value = 0; value < 9; value++ )
+            for( int value = 1; value < 10; value++ )
             {
                 Register(new Hotkey { Command = numpadMenuBuilder.SelectValue(value), Key = value.ToString() });
             }
