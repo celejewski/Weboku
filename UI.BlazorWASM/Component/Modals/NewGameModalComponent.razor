@@ -1,17 +1,17 @@
 ﻿@inject CommandProvider CommandProvider
 
-<h1 class="title with-hr">New game</h1>
+<h1 class="modal__title with-hr">New game</h1>
 
-<div class="content">
+<div class="modal__content">
     @foreach( var difficulty in new[] { "Easy", "Medium", "Hard", "Extreme", "Unfair" } )
     {
         <a @onclick="@(CommandProvider.StartNewGame(difficulty).Execute)"
-            class="button button-primary">@difficulty</a>
+            class="modal__button modal__button--primary">@difficulty</a>
     }
 </div>
 
-<div class="footer with-hr">
-    <a class="button button-secondary"> How to play</a>
+<div class="modal__footer with-hr">
+    <a class="modal__button modal__button--secondary"> How to play</a>
 </div>
 
 @code {

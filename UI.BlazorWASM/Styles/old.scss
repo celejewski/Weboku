@@ -1,0 +1,339 @@
+.container {
+    max-width: var(--max-width);
+    width: 100vw;
+}
+
+.main {
+    display: grid;
+    grid-template-rows: auto auto 1fr;
+    padding: 0;
+    margin: 0 auto;
+}
+
+.main:focus {
+    outline: none;
+}
+
+.layer-wrapper {
+    margin: 0 auto;
+    padding: 0;
+
+    position: relative;
+    width: var(--max-size);
+    padding-bottom: var(--max-size);
+}
+
+.layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+}
+
+.grid-9x9 {
+    display: grid;
+    grid-template: repeat(9, 1fr) / repeat(9, 1fr);
+}
+
+.grid-3x3 {
+    display: grid;
+    grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+}
+
+.background-layer {
+}
+
+.background-layer div {
+    background-color: #BBB;
+}
+
+.background-layer div:nth-child(2n+1){
+    background-color: white;
+}
+
+.border-layer div {
+    border: 0.1rem solid black;
+}
+
+.cell-color-choice {
+    margin: 0 30%;
+    width: 100%;
+    height: 100%;
+}
+
+.cell-color {
+    margin: 10%;
+    opacity: 0.7;
+}
+
+.cell-color-none {
+    background-color: transparent;
+}
+
+.cell-color-first {
+    background-color: var(--color-1);
+}
+
+.cell-color-second {
+    background-color: var(--color-2);
+}
+
+.cell-color-third {
+    background-color: var(--color-3);
+}
+
+.cell-color-fourth {
+    background-color: var(--color-4);
+}
+
+.cell-color-danger {
+    background-color: var(--color-danger);
+}
+
+.cell-color-illegal {
+    background-color: var(--color-danger);
+}
+
+.cell-color-success {
+    background-color: var(--color-success);
+}
+
+.cell-color-legal {
+    background-color: var(--color-success);
+}
+
+.mark {
+    border-width: 3px;
+    border-radius: 50%;
+    border-style: solid;
+    margin: 10%;
+}
+
+.mark-danger {
+    border-color: var(--color-danger);
+}
+
+.mark-success {
+    border-color: var(--color-success);
+}
+.mark-1 {
+    border-color: var(--color-1);
+}
+.mark-2 {
+    border-color: var(--color-2);
+}
+
+.numpad {
+    margin: 1rem auto 0% auto;
+    display: grid;
+    max-height: var(--max-size);
+    max-width: var(--max-size);
+    width: 100%;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+}
+
+    .numpad .numpad-cell {
+        padding: 0.3rem;
+        display: flex;
+        align-items: center;
+        justify-items: center;
+        width: 100%;
+        height: 100%;
+        color: white;
+        font-size: 1.8rem;
+        font-weight: 600;
+        justify-content: center;
+        text-align: center;
+    }
+
+
+.numpad .numpad-dimmed-label {
+    color: #888;
+}
+
+.cell {
+    line-height: 1;
+    border: 0.01rem solid #888;
+    padding: 1px;
+}
+
+.filter-primary {
+    background-color: #FFFF00;
+}
+
+.filter-secondary {
+    background-color: #E2E200;
+}
+
+.input {
+    font-size: 2.8rem;
+    display: flex;
+    font-weight: normal;
+    align-items: center;
+    justify-content: center;
+}
+
+.candidates {
+    font-size: 1rem;
+    font-weight: 500;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+}
+.candidate {
+    display: flex;
+}
+
+a {
+    text-decoration: none;
+}
+
+.given {
+    font-weight: bold;
+}
+
+.value {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.HighlightedNumpad {
+    color: #E2E200 !important;
+}
+
+/* Style The Dropdown Button */
+.dropbtn {
+    background-color: transparent;
+    color: white;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+}
+.modal-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1;
+}
+
+/*.modal-container {
+    position: fixed;
+    left: 50%;
+    top: 35%;
+    width: 50%;
+    height: 50%;
+    transform: translate(-50%, -50%);
+    max-width: calc(0.6 * var(--max-width));
+    z-index: 2;
+}*/
+
+.modal-content {
+    display: flex;
+    flex-flow: column;
+    width: 100%;
+    height: 100%;
+    background-color: #eee;
+    border-radius: 1%;
+    margin: 1rem auto;
+    border: 1rem solid #aaa;
+}
+
+.modal-content-button {
+    padding: 0.25rem;
+    font-size: 1rem;
+    background: var(--color-success);
+    color: white;
+    border-radius: 0.25rem;
+}
+
+.new-game {
+    margin: 0.1rem 30%;
+}
+
+.modal-content h1 {
+    text-align: center;
+    margin: 1rem 0;
+}
+
+.modal-content h3 {
+    text-align: center;
+    margin: 1rem 0 0.25rem 0;
+}
+.modal-content textarea {
+    margin: 0 auto 0 auto;
+    width: 60%;
+    height: 4rem;
+}
+
+.paste-options {
+    display:flex; 
+    justify-content: center;
+}
+
+.paste-button {
+    margin: 3% 5%;
+}
+
+.end-game-label {
+    margin: 1rem 5% 0% 10%;
+    text-align: right;
+    display: inline-block;
+    font-size: 1.25rem;
+}
+
+.end-game-result {
+}
+
+.result-container {
+    margin: 0.5rem 20% 2rem 20%;
+}
+
+.result-row {
+    border-bottom: 0.01rem solid #666;
+}
+
+
+.spinner {
+    position: absolute;
+    border: 0.8rem solid silver;
+    border-top: 0.8rem solid #337AB7;
+    border-radius: 50%;
+    width: var(--spinner-size);
+    height: var(--spinner-size);
+    animation: spin 700ms linear infinite;
+}
+
+.container-loading {
+    --spinner-size: calc(min(100vw, var(--max-width)) * 0.3);
+    position: relative;
+    width: var(--spinner-size);
+    height: var(--spinner-size);
+    top: calc(50vh - 0.5 * var(--spinner-size) );
+    left: calc(50vw - 0.5 * var(--spinner-size) );
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+}
+
+.container-loading span {
+    color: white;
+    font-size: 2rem;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg)
+    }
+
+    100% {
+        transform: rotate(360deg)
+    }
+}

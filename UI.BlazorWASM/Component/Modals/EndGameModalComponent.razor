@@ -2,25 +2,25 @@
 @inject CommandProvider CommandProvider
 @inject ISudokuProvider SudokuProvider
 
-<div class="title-container">
-    <h1 class="title with-hr">solved</h1>
-    <span class="subtitle">Congratulations you did it!</span>
+<div class="text-center">
+    <h1 class="modal__title with-hr">solved</h1>
+    <span class="modal__subtitle">Congratulations you did it!</span>
 </div>
 
-<div class="content">
-    <div class="result-row">
-        <span class="result-label">Your time</span>
-        <span class="result-value">@GameTimerProvider.Elapsed.ToString("mm\\:ss")</span>
+<div class="modal__content">
+    <div class="modal__result-row">
+        <span class="modal__result-label">Your time</span>
+        <span class="modal__result-value">@GameTimerProvider.Elapsed.ToString("mm\\:ss")</span>
     </div>
-    <div class="result-row">
-        <span class="result-label">Difficulty</span>
-        <span class="result-value">@SudokuProvider.Sudoku.Difficulty</span>
+    <div class="modal__result-row">
+        <span class="modal__result-label">Difficulty</span>
+        <span class="modal__result-value">@SudokuProvider.Sudoku.Difficulty</span>
     </div>
 </div>
 
-<div class="footer with-hr">
+<div class="modal__footer with-hr">
     <a @onclick="@(CommandProvider.ShowNewGameModal().Execute)"
-       class="button button-secondary">Play again</a>
+       class="modal__button modal__button--secondary">Play again</a>
 </div>
 
 @code {

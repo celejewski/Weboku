@@ -5,23 +5,26 @@
 @inject IGameTimerProvider GameTimerProvider
 @inject ModalProvider ModalProvider
 
-    <div class="menu">
-        <div class="menu-dropdown">
-            <span class="menu-item">Menu</span>
-            <div class="menu-dropdown-content">
-                <a class="dropdown-item" @onmousedown="NewGame">New game </a>
-                <a class="dropdown-item" @onmousedown="RestartGame">Restart game</a>
+<div class="menu">
+    <div class="menu_item">
+        <div class="dropdown">
+            <span class="dropdown__label">Menu</span>
+            <div class="dropdown__content">
+                <a class="dropdown__item" @onmousedown="NewGame">New game </a>
+                <a class="dropdown__item" @onmousedown="RestartGame">Restart game</a>
             </div>
         </div>
-        <div class="menu-item menu-title-container">
-            <div class="menu-difficulty">@SudokuProvider.Sudoku.Difficulty</div>
-            <div class="menu-time">@GameTimerProvider.Elapsed.ToString("mm\\:ss")</div>
-        </div>
-
-        <div class="menu-item menu-right">
-            <a @onclick="@(CommandProvider.FindAllCandidates().Execute)">Find candidates</a>
+    </div>
+    <div class="menu__item">
+        <div class="game-info">
+            <div class="game-info__difficulty">@SudokuProvider.Sudoku.Difficulty</div>
+            <div class="game-info__time-elapsed">@GameTimerProvider.Elapsed.ToString("mm\\:ss")</div>
         </div>
     </div>
+    <div class="menu__item">
+        <a @onclick="@(CommandProvider.FindAllCandidates().Execute)">Find candidates</a>
+    </div>
+</div>
 
 @code {
     [Parameter]

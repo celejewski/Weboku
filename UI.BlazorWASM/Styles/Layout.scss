@@ -1,0 +1,16 @@
+﻿.main {
+    display: flex;
+    flex-direction: column;
+
+    &__menu {
+        background-color: red;
+    }
+
+    &__grid {
+        background-color: black;
+    }
+
+    &__numpad {
+        background-color: yellow;
+    }
+}

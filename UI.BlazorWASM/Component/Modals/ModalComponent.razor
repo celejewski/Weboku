@@ -1,9 +1,9 @@
 ﻿@using UI.BlazorWASM.Component.Modals
 
 <div class="modal-container"
-     style="@_style;">
-    <div class="card-container">
-        <div class="card">
+     style="@_style">
+    <div class="modal-overlay">
+        <div class="modal">
             @if( _option == ModalState.NewGame )
             {
                 <NewGameModalComponent />

@@ -1,0 +1,104 @@
+﻿.menu {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+
+    &__item {
+    }
+}
+
+.dropdown {
+    position: relative;
+
+    &__label {
+        background: green;
+    }
+
+    &__content {
+        position: absolute;
+        display: none;
+    }
+
+    &__item {
+        display: block;
+    }
+
+    &:hover &__content {
+        display: block;
+    }
+}
+
+.menu {
+    color: white;
+    margin: 0 0%;
+    padding: 0.25rem;
+    background-color: var(--menu-background-color);
+    align-self: start;
+}
+
+.menu-right {
+    justify-self: end;
+}
+
+.menu a {
+    padding: 0.25rem 1rem;
+}
+
+.menu a:hover {
+    background-color: #6F9CEF;
+}
+
+
+
+.menu {
+    max-width: var(--max-size);
+    width: 100%;
+    margin: auto;
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.menu-item {
+    padding: 0.25rem 1rem;
+}
+
+.menu-title-container {
+    display: inline-block;
+    text-align: center;
+}
+
+.menu-difficulty {
+    font-weight: 800;
+    font-size: 1.1rem;
+}
+
+.menu-dropdown {
+    position: relative;
+    display: inline-block;
+    float: left;
+}
+
+.menu-dropdown-content {
+    margin: 0.2rem 0 0 0.3rem;
+    padding: 0.8rem 0 0 0;
+    display: none;
+    position: absolute;
+    min-width: 20vw;
+    z-index: 100;
+    background-color: var(--menu-background-color);
+    box-shadow: 0rem 0rem 1rem 0px rgba(0,0,0,0.3);
+    border-radius: 0.3rem;
+}
+
+.menu-dropdown:hover .menu-dropdown-content {
+    display: block;
+}
+
+.menu-dropdown:hover .menu-dropdown-content:active {
+    display: none;
+}
+
+.dropdown-item {
+    display: block;
+    margin: 0 3% 3% 3%
+}

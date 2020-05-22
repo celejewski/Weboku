@@ -1,0 +1,10 @@
+﻿[
+  {
+    "outputFile": "wwwroot/css/site.css",
+    "inputFile": "Styles/site.scss"
+  },
+  {
+    "outputFile": "Styles/old.css",
+    "inputFile": "Styles/_Typography.scss"
+  }
+]

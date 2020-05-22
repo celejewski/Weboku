@@ -41,7 +41,7 @@ namespace UI.BlazorWASM.Commands
             var newGrid = _gridConverter.FromText(sudoku.Given);
             _sudokuProvider.AssignFrom(newGrid);
             _gridHistoryManager.ClearUndo();
-            _modalProvider.Modal.SetState(ModalState.None);
+            _modalProvider.Modal.SetState(ModalState.EndGame);
             _gameTimerProvider.Start();
         }
     }

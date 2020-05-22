@@ -1,0 +1,39 @@
+﻿.text-center {
+    text-align: center;
+}
+
+@import '_Variables.scss';
+@import '_Typography.scss';
+@import '_MediaQueries';
+@import 'Layout.scss';
+@import 'Menu.scss';
+@import 'Modal.scss';
+
+.with-hr {
+    position: relative;
+    padding: $modal-rem * 0.2 0;
+}
+
+.with-hr + .with-hr {
+    margin-top: 0.1em;
+}
+
+.with-hr::after,
+.with-hr::before {
+    content: '';
+    position: absolute;
+    opacity: 0.4;
+    left: 0;
+    height: 2px;
+    width: 100%;
+    border: 1px inset $color-light;
+    background-color: transparent;
+}
+
+.with-hr::before {
+    top: -0.05em;
+}
+
+.with-hr::after {
+    bottom: 0.05em;
+}

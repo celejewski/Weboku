@@ -1,11 +1,5 @@
 ﻿@page "/"
-@inject HttpClient Http
 @inject IGridGenerator GridGenerator
-@inject ICellColorProvider CellColorProvider
-@inject ISudokuProvider SudokuProvider
-@inject IGridHistoryManager GridHistoryManager
-@inject IFilterProvider FilterProvider
-@inject IClickableActionProvider ClickableActionProvider
 @inject HotkeyProvider HotkeyProvider
 @inject IJSRuntime JSRuntime
 @inject CommandProvider CommandProvider
@@ -18,14 +12,17 @@
 <ModalComponent @ref="_modal"/>
 
 <div id="main"
-     class="container main"
+     class="main"
      onblur="this.focus()"
      @onkeydown="HotkeyProvider.OnKeyDown"
      tabindex="0"
      @oncontextmenu:preventDefault="true">
-    <MenuComponent />
 
-    <div class="layer-wrapper">
+    <div class="main__menu">
+        <MenuComponent />
+    </div>
+
+    <div class="main__grid">
         <BackgroundLayerComponent />
 
         <FilterLayerComponent />
@@ -46,7 +43,9 @@
 
     </div>
 
-    <NumpadMenuComponent />
+    <div class="main__numpad">
+        <NumpadMenuComponent />
+    </div>
 </div>
 
 @code {
