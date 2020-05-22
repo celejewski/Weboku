@@ -1,0 +1,29 @@
+﻿@using UI.BlazorWASM.Component.Modals
+
+<div class="modal-container"
+     style="@_style;">
+    <div class="card-container">
+        <div class="card">
+            @if( _option == ModalState.NewGame )
+            {
+                <NewGameModalComponent />
+            }
+            else if (_option == ModalState.EndGame)
+            {
+                <EndGameModalComponent />
+            }
+        </div>
+    </div>
+</div>
+
+@code {
+    private ModalState _option = ModalState.None;
+
+    private string _style { get => _option == ModalState.None ? "display: none;" : ""; }
+
+    public void SetState(ModalState state)
+    {
+        _option = state;
+        StateHasChanged();
+    }
+}

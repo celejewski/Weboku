@@ -1,0 +1,28 @@
+﻿@inject IGameTimerProvider GameTimerProvider
+@inject CommandProvider CommandProvider
+@inject ISudokuProvider SudokuProvider
+
+<div class="title-container">
+    <h1 class="title with-hr">solved</h1>
+    <span class="subtitle">Congratulations you did it!</span>
+</div>
+
+<div class="content">
+    <div class="result-row">
+        <span class="result-label">Your time</span>
+        <span class="result-value">@GameTimerProvider.Elapsed.ToString("mm\\:ss")</span>
+    </div>
+    <div class="result-row">
+        <span class="result-label">Difficulty</span>
+        <span class="result-value">@SudokuProvider.Sudoku.Difficulty</span>
+    </div>
+</div>
+
+<div class="footer with-hr">
+    <a @onclick="@(CommandProvider.ShowNewGameModal().Execute)"
+       class="button button-secondary">Play again</a>
+</div>
+
+@code {
+
+}

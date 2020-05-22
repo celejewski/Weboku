@@ -1,0 +1,19 @@
+﻿@inject CommandProvider CommandProvider
+
+<h1 class="title with-hr">New game</h1>
+
+<div class="content">
+    @foreach( var difficulty in new[] { "Easy", "Medium", "Hard", "Extreme", "Unfair" } )
+    {
+        <a @onclick="@(CommandProvider.StartNewGame(difficulty).Execute)"
+            class="button button-primary">@difficulty</a>
+    }
+</div>
+
+<div class="footer with-hr">
+    <a class="button button-secondary"> How to play</a>
+</div>
+
+@code {
+
+}

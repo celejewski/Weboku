@@ -314,7 +314,7 @@ a {
     z-index: 1;
 }
 
-.modal-container {
+/*.modal-container {
     position: fixed;
     left: 50%;
     top: 35%;
@@ -323,7 +323,7 @@ a {
     transform: translate(-50%, -50%);
     max-width: calc(0.6 * var(--max-width));
     z-index: 2;
-}
+}*/
 
 .modal-content {
     display: flex;

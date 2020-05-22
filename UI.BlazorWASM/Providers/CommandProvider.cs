@@ -18,8 +18,19 @@ namespace UI.BlazorWASM.Providers
         private readonly ICellColorProvider _cellColorProvider;
         private readonly IClickableActionProvider _clickableActionProvider;
         private readonly ClickableActionFactory _clickableActionFactory;
+        private readonly ModalProvider _modalProvider;
 
-        public CommandProvider(ISudokuGenerator sudokuGenerator, IGridHistoryManager gridHistoryManager, ISudokuProvider sudokuProvider, IGameTimerProvider gameTimerProvider, IGridConverter gridConverter, IFilterProvider filterProvider, ICellColorProvider cellColorProvider, IClickableActionProvider clickableActionProvider, ClickableActionFactory clickableActionFactory)
+        public CommandProvider(
+            ISudokuGenerator sudokuGenerator, 
+            IGridHistoryManager gridHistoryManager, 
+            ISudokuProvider sudokuProvider, 
+            IGameTimerProvider gameTimerProvider, 
+            IGridConverter gridConverter, 
+            IFilterProvider filterProvider, 
+            ICellColorProvider cellColorProvider, 
+            IClickableActionProvider clickableActionProvider, 
+            ClickableActionFactory clickableActionFactory, 
+            ModalProvider modalProvider)
         {
             _sudokuGenerator = sudokuGenerator;
             _gridHistoryManager = gridHistoryManager;
@@ -30,10 +41,11 @@ namespace UI.BlazorWASM.Providers
             _cellColorProvider = cellColorProvider;
             _clickableActionProvider = clickableActionProvider;
             _clickableActionFactory = clickableActionFactory;
+            _modalProvider = modalProvider;
         }
         public ICommand StartNewGame(string difficulty)
         {
-            return new StartNewGameCommand(difficulty, _sudokuGenerator, _gridHistoryManager, _sudokuProvider, _gameTimerProvider, _gridConverter);
+            return new StartNewGameCommand(difficulty, _sudokuGenerator, _gridHistoryManager, _sudokuProvider, _gameTimerProvider, _gridConverter, _modalProvider);
         }
 
         public ICommand FindAllCandidates()
@@ -75,6 +87,11 @@ namespace UI.BlazorWASM.Providers
         public ICommand Undo()
         {
             return new UndoCommand(_gridHistoryManager);
+        }
+
+        public ICommand ShowNewGameModal()
+        {
+            return new ShowNewGameModalCommand(_modalProvider);
         }
     }
 }

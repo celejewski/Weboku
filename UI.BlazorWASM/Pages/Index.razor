@@ -12,49 +12,10 @@
 @inject IGameStateChecker GameStateChecker
 @inject IGameTimerProvider GameTimerProvider
 @inject ModalProvider ModalProvider
+@using UI.BlazorWASM.Component.Modals; 
 
 
-<ModalComponent @ref="_newGameModal">
-    <h1>Start new game</h1>
-    @foreach( var item in new[] { "Easy", "Medium", "Hard", "Unfair", "Extreme" } )
-    {
-        <button class="modal-content-button new-game"
-                @onclick="@(async () => await StartNewGame(item))">
-            @item
-            </button>
-        }
-
-    <h3>Controls</h3>
-    <ul>
-        <li>Left/right click to toggle input/candidate</li>
-        <li>1234567890 - to change filter and input value</li>
-        <li>ctrl + left/right click to use first/second color</li>
-        <li>zxcv to select first/second/third/fourth color</li>
-        <li>ctrl + z/y to undo/redo</li>
-    </ul>
-    @*<h2>Paste givens</h2>
-        <textarea></textarea>
-        <div class="paste-options">
-            <button class="modal-content-button paste-button">HuDoKu</button>
-        </div>*@
-</ModalComponent>
-
-<HintComponent @ref="_hints"></HintComponent>
-
-<ModalComponent @ref="_endGameModal">
-    <h1>Congratulations!</h1>
-    <div class="result-container">
-        <div class="result-row">
-            <span class="end-game-label">Your time:</span>
-            <span class="end-game-result"> @GameTimerProvider.Elapsed.ToString("mm\\:ss")</span>
-        </div>
-        <div class="result-row">
-            <span class="end-game-label">Difficulty:</span>
-            <span class="end-game-result"> @SudokuProvider.Sudoku.Difficulty</span>
-        </div>
-    </div>
-    <button class="modal-content-button new-game" @onclick="PlayAgain">PLAY AGAIN</button>
-</ModalComponent>
+<ModalComponent @ref="_modal"/>
 
 <div id="main"
      class="container main"
@@ -89,14 +50,11 @@
 </div>
 
 @code {
-    private ModalComponent _newGameModal;
-    private ModalComponent _endGameModal;
-    private HintComponent _hints;
+    private ModalComponent _modal;
 
     private async Task StartNewGame(string difficulty)
     {
         await CommandProvider.StartNewGame(difficulty).Execute();
-        _newGameModal.Hide();
     }
 
     protected override async Task OnInitializedAsync()
@@ -113,24 +71,21 @@
         }
         else
         {
-            _newGameModal?.Show();
-            ModalProvider.Hints = _hints;
-            ModalProvider.NewGame = _newGameModal;
-
+            ModalProvider.Modal = _modal;
+            _modal.SetState(ModalState.NewGame);
         }
     }
 
     private void OnGameEnd()
     {
         GameTimerProvider.Stop();
-        _endGameModal.Show();
+        _modal.SetState(ModalState.EndGame);
         StateHasChanged();
     }
 
     private void PlayAgain()
     {
-        _endGameModal.Hide();
-        _newGameModal.Show();
+        _modal.SetState(ModalState.NewGame);
         StateHasChanged();
     }
 }
