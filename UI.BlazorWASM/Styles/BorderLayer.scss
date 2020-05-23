@@ -1,0 +1,8 @@
+﻿.border-layer {
+    outline: 0.2rem solid black;
+    
+
+    &__cell {
+        border: 1px solid black;
+    }
+}

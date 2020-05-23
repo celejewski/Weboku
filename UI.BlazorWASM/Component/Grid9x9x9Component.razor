@@ -1,17 +1,13 @@
-﻿<div class="layer grid-9x9">
-    @for( int y = 0; y < 9; y++ )
-    {
-        @for( int x = 0; x < 9; x++ )
+﻿<Grid9x9Component>
+    <div class="candidates-grid">
+        @for( int z = 0; z < 9; z++ )
         {
-            <div class="candidates">
-                @for( int z = 0; z < 9; z++ )
-                {
-                    @ChildContent((x, y, z))
-                }
+            <div class="candidates-grid__cell">
+                @ChildContent((context.x, context.y, z))
             </div>
         }
-    }
-</div>
+    </div>
+</Grid9x9Component>
 
 @code {
     [Parameter]

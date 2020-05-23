@@ -1,0 +1,9 @@
+﻿.background-layer {
+    &__cell {
+        background-color: #DDDDDd;
+
+        &:nth-child(2n+1) {
+            background-color: #FFF;
+        }
+    }
+}

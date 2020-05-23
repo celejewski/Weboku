@@ -1,0 +1,49 @@
+﻿
+
+.grid-3x3 {
+    display: grid;
+    grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+}
+
+.grid-9x9 {
+    display: grid;
+    grid-template: repeat(9, 1fr) / repeat(9, 1fr);
+
+    &__cell {
+        line-height: 1;
+        border: 0.01rem solid #888;
+        padding: 1px;
+    }
+}
+
+.input {
+    font-size: 2.8rem;
+    display: flex;
+    font-weight: normal;
+    align-items: center;
+    justify-content: center;
+}
+
+.candidates-grid {
+    font-size: 1rem;
+    font-weight: 500;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+
+    &__cell {
+        display: flex;
+    }
+}
+
+.given {
+    font-weight: bold;
+}
+
+.value {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

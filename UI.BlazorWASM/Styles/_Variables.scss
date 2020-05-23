@@ -4,8 +4,6 @@ $color-1: #FF4B3E;
 $color-2: #14591D;
 $color-3: #731963;
 $color-4: #9792E3;
-$max-width: 1200px;
-$max-size: 1200px;
 $menu-background-color: #3A77EA;
 $color-body-bg: #555555;
 
@@ -17,3 +15,21 @@ $font-black: 900;
 $font-bold: 700;
 $font-normal: 400;
 $modal-rem: 16px;
+
+$color-background: white;
+$color-front-primary: #7A7A7A;
+$color-back-primary: #FBFBFB;
+
+@mixin color-primary {
+    color: $color-front-primary;
+    background-color: $color-back-primary;
+}
+
+$max-width: 700px;
+$max-size: 700px;
+
+:root {
+    --max-size: $max-size;
+    --max-width: $max-width;
+}
+

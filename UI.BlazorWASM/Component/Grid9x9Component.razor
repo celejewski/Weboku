@@ -3,7 +3,9 @@
     {
         for( int x = 0; x < 9; x++ )
         {
-            @ChildContent((x, y))
+            <div class="grid-9x9__cell">
+                @ChildContent((x, y))
+            </div>
         }
     }
 </div>

@@ -1,6 +1,17 @@
-﻿.menu {
+﻿@import '_Variables.scss';
+
+.menu {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+
+    @include color-primary;
+    margin: 0 0%;
+    padding: 0.25rem;
+    align-self: start;
+    max-width: var(--max-size);
+    width: 100%;
+    margin: auto;
+    align-items: center;
 
     &__item {
     }
@@ -26,15 +37,6 @@
         display: block;
     }
 }
-
-.menu {
-    color: white;
-    margin: 0 0%;
-    padding: 0.25rem;
-    background-color: var(--menu-background-color);
-    align-self: start;
-}
-
 .menu-right {
     justify-self: end;
 }
@@ -45,17 +47,6 @@
 
 .menu a:hover {
     background-color: #6F9CEF;
-}
-
-
-
-.menu {
-    max-width: var(--max-size);
-    width: 100%;
-    margin: auto;
-    display: grid;
-    align-items: center;
-    grid-template-columns: 1fr 1fr 1fr;
 }
 
 .menu-item {

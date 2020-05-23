@@ -1,0 +1,37 @@
+﻿.spinner {
+    position: absolute;
+    border: 0.8rem solid silver;
+    border-top: 0.8rem solid #337AB7;
+    border-radius: 50%;
+    width: var(--spinner-size);
+    height: var(--spinner-size);
+    animation: spin 700ms linear infinite;
+}
+
+.container-loading {
+    --spinner-size: calc(min(100vw, var(--max-width)) * 0.3);
+
+    position: relative;
+    width: var(--spinner-size);
+    height: var(--spinner-size);
+    top: calc(50vh - 0.5 * var(--spinner-size) );
+    left: calc(50vw - 0.5 * var(--spinner-size) );
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-loading span {
+    color: white;
+    font-size: 2rem;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg)
+    }
+
+    100% {
+        transform: rotate(360deg)
+    }
+}

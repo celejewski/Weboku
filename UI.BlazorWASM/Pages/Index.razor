@@ -11,40 +11,43 @@
 
 <ModalComponent @ref="_modal"/>
 
-<div id="main"
-     class="main"
-     onblur="this.focus()"
-     @onkeydown="HotkeyProvider.OnKeyDown"
-     tabindex="0"
-     @oncontextmenu:preventDefault="true">
+<div id="wrapper" 
+     class="wrapper">
+    <div id="main"
+         class="main"
+         onblur="this.focus()"
+         @onkeydown="HotkeyProvider.OnKeyDown"
+         tabindex="0"
+         @oncontextmenu:preventDefault="true">
 
-    <div class="main__menu">
-        <MenuComponent />
-    </div>
+        <div class="main__menu">
+            <MenuComponent />
+        </div>
 
-    <div class="main__grid">
-        <BackgroundLayerComponent />
+        <div class="main__grid">
+            <BackgroundLayerComponent />
 
-        <FilterLayerComponent />
+            @*<FilterLayerComponent />
 
-        <CellColorLayerComponent />
+                <CellColorLayerComponent />
 
-        <MarkCandidatesLayerComponent />
+                <MarkCandidatesLayerComponent />
 
-        <MarkInputLayerComponent />
+                <MarkInputLayerComponent />*@
 
-        <InputLayerComponent />
+            @*<InputLayerComponent />*@
 
-        <CandidatesLayerComponent />
+            <CandidatesLayerComponent />
 
-        <BorderLayerComponent />
+            <BorderLayerComponent />
 
-        <ClickableLayerComponent />
+            @*<ClickableLayerComponent />*@
 
-    </div>
+        </div>
 
-    <div class="main__numpad">
-        <NumpadMenuComponent />
+        <div class="main__numpad">
+            <NumpadMenuComponent />
+        </div>
     </div>
 </div>
 
@@ -67,11 +70,12 @@
         if( !firstRender )
         {
             await JSRuntime.InvokeVoidAsync("focusMain");
+            await JSRuntime.InvokeVoidAsync("resize");
         }
         else
         {
             ModalProvider.Modal = _modal;
-            _modal.SetState(ModalState.NewGame);
+            _modal.SetState(ModalState.None);
         }
     }
 
