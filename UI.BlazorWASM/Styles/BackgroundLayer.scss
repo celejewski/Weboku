@@ -1,9 +1,11 @@
-﻿.background-layer {
+﻿@import '_Variables.scss';
+
+.background-layer {
     &__cell {
-        background-color: #DDDDDd;
+        background-color: $color-back-primary;
 
         &:nth-child(2n+1) {
-            background-color: #FFF;
+            background-color: $color-back-secondary;
         }
     }
 }
