@@ -2,6 +2,11 @@
 
 .input {
     font-weight: $font-bold;
+    font-size: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
 
     &--is-given {
         color: #555;

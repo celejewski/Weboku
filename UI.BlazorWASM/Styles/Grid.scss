@@ -20,8 +20,8 @@
     bottom: $margin;
     left: $margin;
 
-    width: calc( 100% - $margin );
-    height: calc( 100% - $margin );
+    width: calc( 100% - 12% );
+    height: calc( 100% - 12%);
 
     border-radius: $grid-border-radius;
 }
@@ -39,23 +39,16 @@
         width: 100%;
         height: 100%;
 
-        &-even {
+        &--even {
             color: $color-front-primary;
         }
 
-        &-odd {
+        &--odd {
             color: $color-front-secondary;
         }
     }
 }
 
-.input {
-    font-size: 2.8rem;
-    display: flex;
-    font-weight: normal;
-    align-items: center;
-    justify-content: center;
-}
 
 .candidates-grid {
     height: 100%;

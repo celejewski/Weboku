@@ -348,8 +348,8 @@ h1, h2, h3 {
   right: 6%;
   bottom: 6%;
   left: 6%;
-  width: calc( 100% - $margin);
-  height: calc( 100% - $margin);
+  width: calc( 100% - 12%);
+  height: calc( 100% - 12%);
   border-radius: 10px;
 }
 
@@ -368,20 +368,12 @@ h1, h2, h3 {
   height: 100%;
 }
 
-.grid-9x9__cell-even {
+.grid-9x9__cell--even {
   color: #7A7A7A;
 }
 
-.grid-9x9__cell-odd {
+.grid-9x9__cell--odd {
   color: #898989;
-}
-
-.input {
-  font-size: 2.8rem;
-  display: flex;
-  font-weight: normal;
-  align-items: center;
-  justify-content: center;
 }
 
 .candidates-grid {
@@ -641,6 +633,10 @@ h1, h2, h3 {
 
 .input {
   font-weight: 700;
+  font-size: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .input--is-given {
