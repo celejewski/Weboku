@@ -16,13 +16,23 @@ $font-bold: 700;
 $font-normal: 400;
 $modal-rem: 16px;
 
-$color-background: white;
+$color-background: #DEDEDE;
+
 $color-front-primary: #7A7A7A;
 $color-back-primary: #FBFBFB;
+$color-front-secondary: #898989;
+$color-back-secondary: #DEDEDE;
+
+$color-shadow: #616161;
 
 @mixin color-primary {
     color: $color-front-primary;
     background-color: $color-back-primary;
+}
+
+@mixin color-secondary {
+    color: $color-front-secondary;
+    background-color: $color-back-secondary;
 }
 
 $max-width: 700px;

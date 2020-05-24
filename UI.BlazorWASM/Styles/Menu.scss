@@ -4,7 +4,6 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
 
-    @include color-primary;
     margin: 0 0%;
     padding: 0.5rem;
     max-width: var(--max-size);

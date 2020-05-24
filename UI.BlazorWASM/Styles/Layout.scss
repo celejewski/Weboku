@@ -8,6 +8,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
+    @include color-secondary;
 }
 
 .main {
@@ -19,9 +21,10 @@
     display: grid;
     grid-template-rows: repeat(16, 1fr);
     grid-template-columns: 1fr;
-    padding: 0px;
-    margin: 0px;
-    border: 3px solid black;
+    /*border: 2px solid black;*/
+    border-radius: 10px;
+
+    box-shadow: 0 0 30px 0 $color-shadow;
 
     &__menu {
         grid-row: span 1;
