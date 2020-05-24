@@ -35,6 +35,14 @@ $color-shadow: #616161;
     background-color: $color-back-secondary;
 }
 
+@mixin set-margin($margin) {
+    top: $margin;
+    right: $margin;
+    bottom: $margin;
+    left: $margin;
+}
+
+
 $max-width: 700px;
 $max-size: 700px;
 
