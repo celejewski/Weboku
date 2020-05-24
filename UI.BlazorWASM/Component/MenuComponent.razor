@@ -29,7 +29,7 @@
             <span class="dropdown__item dropdown__label">Help</span>
             <div class="dropdown__content">
                 <a class="dropdown__item dropdown__item-placeholder">&nbsp;</a>
-                <a @onclick="@(CommandProvider.FindAllCandidates().Execute)"
+                <a @onmousedown="@Find"
                    class="dropdown__item menu__link">Find candidates</a>
             </div>
         </div>
@@ -53,5 +53,10 @@
     private void RestartGame()
     {
         CommandProvider.Restart().Execute();
+    }
+
+    private void Find()
+    {
+        CommandProvider.FindAllCandidates().Execute();
     }
 }
