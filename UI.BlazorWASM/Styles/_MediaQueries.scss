@@ -1,33 +1,21 @@
-﻿html {
-    font-size: 8px;
-}
-
-@media screen and (min-width: 340px) and (min-height: 340px) {
-    html {
-        font-size: 9px;
+﻿@mixin mq($width, $font-size) {
+    @media screen and (min-width: $width) and (min-height: $width * 16 / 9) {
+        html {
+            font-size: $font-size;
+        }
     }
 }
 
-@media screen and (min-width: 380px) and (min-height: 380px) {
-    html {
-        font-size: 11px;
-    }
+html {
+    font-size: 7px;
 }
 
-@media screen and (min-width: 500px) and (min-height: 500px) {
-    html {
-        font-size: 13px;
-    }
-}
-
-@media screen and (min-width: 700px) and (min-height: 700px) {
-    html {
-        font-size: 15px;
-    }
-}
-
-@media screen and (min-width: 850px) and (min-height: 850px) {
-    html {
-        font-size: 18px;
-    }
-}
+$offset: +15px;
+@include mq(308px + $offset, 8px);
+@include mq(368px + $offset, 9px);
+@include mq(400px + $offset, 10px);
+@include mq(430px + $offset, 11px);
+@include mq(490px + $offset, 14px);
+@include mq(560px + $offset, 15px);
+@include mq(600px + $offset, 16px);
+@include mq(700px + $offset, 17px);
