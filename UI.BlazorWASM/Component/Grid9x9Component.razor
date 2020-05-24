@@ -3,7 +3,10 @@
     {
         for( int x = 0; x < 9; x++ )
         {
-            <div class="grid-9x9__cell">
+            int block = (y / 3) * 3 + (x / 3);
+            string blockParity = block % 2 == 1 ? "even" : "odd";
+            <div class="grid-9x9__cell 
+                        grid-9x9__cell-@blockParity">
                 @ChildContent((x, y))
             </div>
         }

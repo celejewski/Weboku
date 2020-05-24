@@ -366,8 +366,18 @@ h1, h2, h3 {
 
 .grid-9x9__cell {
   line-height: 1;
-  /*border: 1px solid #888;*/
+  border: 1px solid transparent;
   padding: 1px;
+  width: 100%;
+  height: 100%;
+}
+
+.grid-9x9__cell-even {
+  color: #7A7A7A;
+}
+
+.grid-9x9__cell-odd {
+  color: #898989;
 }
 
 .input {
@@ -589,6 +599,11 @@ h1, h2, h3 {
 
 .border-layer__cell:nth-child(81) {
   border-radius: 0 0 10px 0;
+}
+
+.clickable {
+  width: 100%;
+  height: 100%;
 }
 
 .with-hr {
