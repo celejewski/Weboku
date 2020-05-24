@@ -606,6 +606,28 @@ h1, h2, h3 {
   height: 100%;
 }
 
+:root {
+  --max-size: 700px;
+  --max-width: 700px;
+}
+
+.filter__cell {
+  width: 100%;
+  height: 100%;
+}
+
+.filter__cell--none {
+  background-color: transparent;
+}
+
+.filter__cell--primary {
+  background-color: #FFFF00;
+}
+
+.filter__cell--secondary {
+  background-color: #E2E200;
+}
+
 .with-hr {
   position: relative;
   padding: 3.2px 0;

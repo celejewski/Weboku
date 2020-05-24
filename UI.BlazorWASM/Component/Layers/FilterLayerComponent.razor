@@ -2,7 +2,8 @@
 @inject ISudokuProvider SudokuProvider
 
 <Grid9x9Component>
-    <div class="@FilterProvider.Filter.IsFiltered(SudokuProvider.Cells[context.x, context.y])"></div>
+    <div class="filter__cell
+         filter__cell--@FilterProvider.Filter.IsFiltered(SudokuProvider.Cells[context.x, context.y])"></div>
 </Grid9x9Component>
 
 @code {
