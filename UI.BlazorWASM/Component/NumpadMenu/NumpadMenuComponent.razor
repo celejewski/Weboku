@@ -3,13 +3,13 @@
 @inject NumpadMenuProvider NumpadMenuProvider 
 
     <div class="numpad">
-        <div class="numpad__empty-row"></div>
+        <div class="numpad__button numpad__empty-row"></div>
 
         @foreach( var item in _menuLabels )
         {
             var bound = item;
             <div @onclick="@((e) => OnClick(bound))"
-                 class="numpad__label
+                 class="numpad__button numpad__label
                  @(bound == NumpadMenuProvider.SelectedItem ? "numpad__label--highlighted" : "") 
                  @(@bound.IsDimmed ? "numpad__label--dimmed" : "")
                  ">
@@ -18,7 +18,7 @@
         }
 
         <div @onclick="@((e) => NumpadMenuBuilder.ClearColors().Execute())"
-             class="numpad__label numpad__clear-colors">
+             class="numpad__button numpad__label numpad__clear-colors">
             Clear colors
         </div>
         
@@ -26,7 +26,7 @@
         {
             var bound = item;
             <div @onclick="@((e) => OnClick(bound))"
-                 class="numpad__color">
+                 class="numpad__button numpad__color">
                 <div class="@item.CssClass">
                 </div>
             </div>

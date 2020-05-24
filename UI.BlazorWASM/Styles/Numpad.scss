@@ -1,12 +1,28 @@
-﻿.numpad {
+﻿@import '_Variables.scss';
+
+.numpad {
     display: grid;
-    width: 100%;
+    margin: 0% 6%;
+    width: 88%;
     height: 100%;
+    border-radius: 5px;
+    /*border: 1px solid black;*/
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(6, 1fr);
 
+    &__button {
+        border: 1px solid $color-front-secondary;
+        border-radius: 5px;
+        margin: 5px;
+
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.15);
+
+        @include color-primary;
+    }
+
     &__empty-row {
         grid-column: span 4;
+        visibility: hidden;
     }
 
     &__label {
@@ -23,5 +39,8 @@
 
     &__clear-colors {
         grid-column: span 2;
+    }
+
+    &__color {
     }
 }
