@@ -25,6 +25,8 @@ $color-back-secondary: #DEDEDE;
 
 $color-shadow: #616161;
 
+$grid-border-radius: 10px;
+
 @mixin color-primary {
     color: $color-front-primary;
     background-color: $color-back-primary;

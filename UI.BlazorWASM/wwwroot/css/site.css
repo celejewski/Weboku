@@ -422,9 +422,16 @@ h1, h2, h3 {
   border: 1px solid #898989;
   border-radius: 5px;
   margin: 5px;
+  font-weight: 900;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15);
   color: #7A7A7A;
   background-color: #FBFBFB;
+  transition: box-shadow 200ms, transform 200ms;
+}
+
+.numpad__button:hover {
+  box-shadow: 0 7px 20px 0 rgba(0, 0, 0, 0.15);
+  transform: scale(1.07);
 }
 
 .numpad__empty-row {
@@ -437,11 +444,46 @@ h1, h2, h3 {
   align-items: center;
   justify-content: center;
   font-size: 1.8rem;
-  color: black;
 }
 
 .numpad__label--dimmed {
-  color: #888;
+  color: #898989;
+  background-color: #DEDEDE;
+}
+
+.numpad__label--dimmed:hover {
+  pointer-events: none;
+}
+
+.numpad__label--highlighted {
+  position: relative;
+  color: black;
+  z-index: 3;
+}
+
+.numpad__label--highlighted::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  background: #DEDEDE;
+  transform: translate(-50%);
+  z-index: -1;
+  border-radius: 50%;
+  animation-name: show-circle;
+  animation-duration: 200ms;
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+@keyframes show-circle {
+  from {
+    width: 0;
+    height: 0;
+  }
+  to {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
 }
 
 .numpad__clear-colors {
@@ -484,20 +526,69 @@ h1, h2, h3 {
   }
 }
 
+:root {
+  --max-size: 700px;
+  --max-width: 700px;
+}
+
 .background-layer__cell {
-  background-color: #DDDDDd;
+  background-color: #FBFBFB;
 }
 
 .background-layer__cell:nth-child(2n+1) {
-  background-color: #FFF;
+  background-color: #DEDEDE;
+}
+
+:root {
+  --max-size: 700px;
+  --max-width: 700px;
 }
 
 .border-layer {
-  /*outline: 0.2rem solid black;*/
+  border-radius: 10px;
+  border: 1px solid #DEDEDE;
+}
+
+.border-layer__block {
+  border-color: black;
+  border-style: solid;
+  border-width: 0px;
+}
+
+.border-layer__block:nth-child(3n+1) {
+  border-right-width: 2px;
+}
+
+.border-layer__block:nth-child(3n+3) {
+  border-left-width: 2px;
+}
+
+.border-layer__block:nth-child(-n + 3) {
+  border-bottom-width: 2px;
+}
+
+.border-layer__block:nth-child(n + 7) {
+  border-top-width: 2px;
 }
 
 .border-layer__cell {
-  border: 1px solid black;
+  border: 0.1px solid #898989;
+}
+
+.border-layer__cell:nth-child(1) {
+  border-radius: 10px 0 0 0;
+}
+
+.border-layer__cell:nth-child(9) {
+  border-radius: 0 10px 0 0;
+}
+
+.border-layer__cell:nth-child(73) {
+  border-radius: 0 0 0 10px;
+}
+
+.border-layer__cell:nth-child(81) {
+  border-radius: 0 0 10px 0;
 }
 
 .with-hr {

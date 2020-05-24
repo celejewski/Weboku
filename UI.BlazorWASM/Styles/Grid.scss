@@ -25,7 +25,7 @@
     width: calc( 100% - $margin );
     height: calc( 100% - $margin );
 
-    border-radius: 10px;
+    border-radius: $grid-border-radius;
 }
 
 .grid-3x3 {

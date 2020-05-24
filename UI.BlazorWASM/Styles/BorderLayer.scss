@@ -1,8 +1,50 @@
-﻿.border-layer {
-    /*outline: 0.2rem solid black;*/
-    
+﻿@import '_Variables.scss';
+
+.border-layer {
+    border-radius: $grid-border-radius;
+    border: 1px solid $color-back-secondary;
+
+    &__block {
+        border-color: black;
+        border-style: solid;
+        border-width: 0px;
+        $border-width: 2px;
+
+        // left column
+        &:nth-child(3n+1) {
+            border-right-width: $border-width;
+        }
+        // right
+        &:nth-child(3n+3) {
+            border-left-width: $border-width;
+        }
+
+        &:nth-child(-n + 3) {
+            border-bottom-width: $border-width;
+        }
+        // bottom
+        &:nth-child(n + 7) {
+            border-top-width: $border-width;
+        }
+    }
 
     &__cell {
-        border: 1px solid black;
+        border: 0.1px solid $color-front-secondary;
+
+        &:nth-child(1) {
+            border-radius: $grid-border-radius 0 0 0;
+        }
+
+        &:nth-child(9) {
+            border-radius: 0 $grid-border-radius 0 0;
+        }
+
+        &:nth-child(73) {
+            border-radius: 0 0 0 $grid-border-radius;
+        }
+
+        &:nth-child(81) {
+            border-radius: 0 0 $grid-border-radius 0;
+        }
     }
 }
