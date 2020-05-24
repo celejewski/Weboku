@@ -67,45 +67,36 @@ html {
 }
 
 .wrapper {
-  display: flex;
   width: 100%;
   height: 100%;
+  display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .main {
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
+  top: 0;
+  left: 0;
   display: grid;
-  grid-template-rows: auto auto 1fr;
-  padding: 0;
-  margin: 0 auto;
+  grid-template-rows: repeat(15, 1fr);
+  grid-template-columns: 1fr;
+  padding: 0px;
+  margin: 0px;
   border: 3px solid black;
 }
 
-.layer {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  padding: 0;
+.main__menu {
+  grid-row: span 1;
 }
 
 .main__grid {
-  position: relative;
-  margin: 0 auto;
-  padding: 0;
-  width: 100%;
+  grid-row: span 9;
 }
 
-.main__grid:after {
-  content: '';
-  display: block;
-  padding-bottom: 100%;
+.main__numpad {
+  grid-row: span 5;
 }
 
 :root {
@@ -119,90 +110,89 @@ html {
   color: #7A7A7A;
   background-color: #FBFBFB;
   margin: 0 0%;
-  padding: 0.25rem;
-  align-self: start;
+  padding: 0.5rem;
   max-width: var(--max-size);
   width: 100%;
-  margin: auto;
-  align-items: center;
+  height: 100%;
+  align-items: end;
+}
+
+.menu__item {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  height: 100%;
+}
+
+.menu__link:hover {
+  background-color: #6F9CEF;
+}
+
+.menu div:first-of-type {
+  justify-content: flex-start;
+}
+
+.menu div {
+  justify-content: center;
+}
+
+.menu div:last-of-type {
+  justify-content: flex-end;
 }
 
 .dropdown {
+  width: 66%;
   position: relative;
+  background-color: red;
 }
 
 .dropdown__label {
+  position: relative;
   background: green;
+  z-index: 2;
 }
 
 .dropdown__content {
+  width: 100%;
   position: absolute;
+  display: none;
+  z-index: 1;
+  background-color: red;
+}
+
+.dropdown:hover .dropdown__content {
+  top: 0;
+  display: block;
+  flex-direction: column;
+}
+
+.dropdown:hover .dropdown__content:active {
   display: none;
 }
 
 .dropdown__item {
   display: block;
+  border-bottom: 1px solid white;
+  padding: 0.3em;
 }
 
-.dropdown:hover .dropdown__content {
-  display: block;
+.dropdown__item-placeholder {
+  background-color: transparent;
+  height: 100%;
 }
 
-.menu-right {
-  justify-self: end;
-}
-
-.menu a {
-  padding: 0.25rem 1rem;
-}
-
-.menu a:hover {
-  background-color: #6F9CEF;
-}
-
-.menu-item {
-  padding: 0.25rem 1rem;
-}
-
-.menu-title-container {
+/*<div class="game-info" >
+<div class="game-info__difficulty" > @SudokuProvider.Sudoku.Difficulty</div >
+<div class="game-info__time-elapsed" > @GameTimerProvider.Elapsed.ToString("mm\\:ss")</div >*/
+.game-info {
   display: inline-block;
   text-align: center;
 }
 
-.menu-difficulty {
+.game-info__difficulty {
   font-weight: 800;
   font-size: 1.1rem;
-}
-
-.menu-dropdown {
-  position: relative;
-  display: inline-block;
-  float: left;
-}
-
-.menu-dropdown-content {
-  margin: 0.2rem 0 0 0.3rem;
-  padding: 0.8rem 0 0 0;
-  display: none;
-  position: absolute;
-  min-width: 20vw;
-  z-index: 100;
-  background-color: var(--menu-background-color);
-  box-shadow: 0rem 0rem 1rem 0px rgba(0, 0, 0, 0.3);
-  border-radius: 0.3rem;
-}
-
-.menu-dropdown:hover .menu-dropdown-content {
-  display: block;
-}
-
-.menu-dropdown:hover .menu-dropdown-content:active {
-  display: none;
-}
-
-.dropdown-item {
-  display: block;
-  margin: 0 3% 3% 3%;
 }
 
 :root {
@@ -333,6 +323,28 @@ h1, h2, h3 {
   margin-left: auto;
 }
 
+.main__grid {
+  position: relative;
+  margin: 0 0;
+  padding: 0;
+  width: 100%;
+}
+
+.main__grid:after {
+  content: '';
+  display: block;
+  padding-bottom: 100%;
+}
+
+.layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+}
+
 .grid-3x3 {
   display: grid;
   grid-template: repeat(3, 1fr)/repeat(3, 1fr);
@@ -454,7 +466,7 @@ h1, h2, h3 {
 }
 
 .border-layer {
-  outline: 0.2rem solid black;
+  /*outline: 0.2rem solid black;*/
 }
 
 .border-layer__cell {

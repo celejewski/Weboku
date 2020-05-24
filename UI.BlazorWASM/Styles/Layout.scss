@@ -1,53 +1,37 @@
 ﻿@import '_Variables.scss';
 
 .wrapper {
-    display: flex;
+    // overwriten by JS to fill screen
     width: 100%;
     height: 100%;
+
+    display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .main {
-    top: 0;
-    left: 0;
+    // overwriten by JS to fill screen
     width: 100%;
     height: 100%;
-
+    top: 0;
+    left: 0;
     display: grid;
-    grid-template-rows: auto auto 1fr;
-    padding: 0;
-    margin: 0 auto;
+    grid-template-rows: repeat(15, 1fr);
+    grid-template-columns: 1fr;
+    padding: 0px;
+    margin: 0px;
     border: 3px solid black;
 
     &__menu {
+        grid-row: span 1;
     }
 
     &__grid {
+        grid-row: span 9;
     }
 
     &__numpad {
-    }
-}
-
-.layer {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    padding: 0;
-}
-
-.main__grid {
-    position: relative;
-    margin: 0 auto;
-    padding: 0;
-    width: 100%;
-
-    &:after {
-        content: '';
-        display: block;
-        padding-bottom: 100%;
+        grid-row: span 5;
     }
 }
