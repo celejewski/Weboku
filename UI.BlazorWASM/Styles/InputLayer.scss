@@ -1,0 +1,10 @@
+﻿@import 'Variables.scss';
+
+.input {
+    font-weight: $font-bold;
+
+    &--is-given {
+        color: #555;
+        font-weight: $font-black;
+    }
+}

@@ -343,7 +343,6 @@ h1, h2, h3 {
 }
 
 .layer {
-  box-shadow: inset 0 0 12px 0 #616161;
   position: absolute;
   top: 6%;
   right: 6%;
@@ -626,6 +625,29 @@ h1, h2, h3 {
 
 .filter__cell--secondary {
   background-color: #E2E200;
+}
+
+:root {
+  --max-size: 700px;
+  --max-width: 700px;
+}
+
+.shadow-layer {
+  box-shadow: inset 0 0 12px 0 #616161;
+}
+
+:root {
+  --max-size: 700px;
+  --max-width: 700px;
+}
+
+.input {
+  font-weight: 700;
+}
+
+.input--is-given {
+  color: #555;
+  font-weight: 900;
 }
 
 .with-hr {

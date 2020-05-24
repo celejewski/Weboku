@@ -1,5 +1,5 @@
 ﻿
-    <div class="value input @GivenClass">
+    <div class="value input input--@GivenClass">
         @(Cell.Input.Value != 0 ? Cell.Input.Value.ToString() : "")
     </div>
 
@@ -7,7 +7,7 @@
     [Parameter]
     public ICell Cell { get; set; }
 
-    private string GivenClass { get => Cell.IsGiven ? "given " : ""; }
+    private string GivenClass { get => Cell.IsGiven ? "is-given " : ""; }
 
     protected override void OnInitialized()
     {
