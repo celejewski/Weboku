@@ -1,9 +1,16 @@
 ﻿@inject NumpadMenuBuilder NumpadMenuBuilder
 @inject ISudokuProvider SudokuProvider
 @inject NumpadMenuProvider NumpadMenuProvider 
+@inject IGameTimerProvider GameTimerProvider
 
     <div class="numpad">
-        <div class="numpad__button numpad__empty-row numpad__hidden"></div>
+        <div class="numpad__game-info">
+            <div class="game-info">
+                <div class="game-info__time-elapsed">@GameTimerProvider.Elapsed.ToString("mm\\:ss")</div>
+                <div class="game-info__difficulty">@SudokuProvider.Sudoku.Difficulty</div>
+            </div>
+
+        </div>
 
         @foreach( var item in _menuLabels )
         {
@@ -49,6 +56,7 @@
     {
         SudokuProvider.OnChanged += StateHasChanged;
         NumpadMenuProvider.OnChanged += StateHasChanged;
+        GameTimerProvider.OnChanged += StateHasChanged;
 
         _menuLabels = new INumpadMenuLabel[]
 {

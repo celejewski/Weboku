@@ -44,17 +44,3 @@
 /*<div class="game-info" >
 <div class="game-info__difficulty" > @SudokuProvider.Sudoku.Difficulty</div >
 <div class="game-info__time-elapsed" > @GameTimerProvider.Elapsed.ToString("mm\\:ss")</div >*/
-
-.game-info {
-    display: inline-block;
-    text-align: center;
-
-    &__difficulty {
-        font-weight: 800;
-        font-size: 1.1rem;
-    }
-
-    &__time-elapsed {
-
-    }
-}

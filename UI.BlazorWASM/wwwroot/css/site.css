@@ -162,16 +162,6 @@ html {
 /*<div class="game-info" >
 <div class="game-info__difficulty" > @SudokuProvider.Sudoku.Difficulty</div >
 <div class="game-info__time-elapsed" > @GameTimerProvider.Elapsed.ToString("mm\\:ss")</div >*/
-.game-info {
-  display: inline-block;
-  text-align: center;
-}
-
-.game-info__difficulty {
-  font-weight: 800;
-  font-size: 1.1rem;
-}
-
 :root {
   --max-size: 700px;
   --max-width: 700px;
@@ -398,6 +388,13 @@ h1, h2, h3 {
   grid-template-rows: repeat(6, 1fr);
 }
 
+.numpad__game-info {
+  grid-column: span 4;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+}
+
 .numpad__button {
   border: 1px solid #898989;
   border-radius: 5px;
@@ -501,7 +498,7 @@ h1, h2, h3 {
 }
 
 .container-loading span {
-  color: white;
+  color: black;
   font-size: 2rem;
 }
 
@@ -698,7 +695,7 @@ h1, h2, h3 {
   height: 100%;
   position: fixed;
   z-index: 0;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 .dropdown__placeholder {
@@ -787,6 +784,28 @@ h1, h2, h3 {
 
 .cell-color-legal {
   background-color: green;
+}
+
+:root {
+  --max-size: 700px;
+  --max-width: 700px;
+}
+
+.game-info {
+  color: #898989;
+  background-color: #DEDEDE;
+  display: inline-block;
+  text-align: center;
+  line-height: 1;
+}
+
+.game-info__difficulty {
+  font-weight: 700;
+  font-size: 1.7rem;
+}
+
+.game-info__time-elapsed {
+  font-size: 1.5rem;
 }
 
 .with-hr {

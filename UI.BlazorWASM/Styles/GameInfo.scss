@@ -1,0 +1,17 @@
+﻿@import '_Variables.scss';
+
+.game-info {
+    @include color-secondary;
+    display: inline-block;
+    text-align: center;
+    line-height: 1;
+
+    &__difficulty {
+        font-weight: $font-bold;
+        font-size: 1.7rem;
+    }
+
+    &__time-elapsed {
+        font-size: 1.5rem;
+    }
+}

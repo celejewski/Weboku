@@ -20,10 +20,6 @@
         </DropdownMenuComponent>
     </div>
     <div class="menu__item">
-        <div class="game-info">
-            <div class="game-info__difficulty">@SudokuProvider.Sudoku.Difficulty</div>
-            <div class="game-info__time-elapsed">@GameTimerProvider.Elapsed.ToString("mm\\:ss")</div>
-        </div>
     </div>
     <div class="menu__item">
         <DropdownMenuComponent>
@@ -43,11 +39,6 @@
 @code {
     [Parameter]
     public Func<string, Task> StartNewGame { get; set; }
-
-    protected override void OnInitialized()
-    {
-        GameTimerProvider.OnChanged += StateHasChanged;
-    }
 
     private void NewGame()
     {
