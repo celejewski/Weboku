@@ -414,9 +414,17 @@ h1, h2, h3 {
   transform: scale(1.07);
 }
 
+.numpad__color {
+  width: 100%;
+  height: 100%;
+}
+
+.numpad__hidden {
+  visibility: hidden;
+}
+
 .numpad__empty-row {
   grid-column: span 4;
-  visibility: hidden;
 }
 
 .numpad__label {
@@ -720,11 +728,65 @@ h1, h2, h3 {
 }
 
 .mark-1 {
-  border-color: #FF4B3E;
+  border-color: #FF7970;
 }
 
 .mark-2 {
-  border-color: #14591D;
+  border-color: #6DBC76;
+}
+
+:root {
+  --max-size: 700px;
+  --max-width: 700px;
+}
+
+.cell-color-choice {
+  margin: 0 30%;
+  width: 100%;
+  height: 100%;
+}
+
+.cell-color {
+  width: 80%;
+  height: 80%;
+  margin: 10%;
+  opacity: 0.9;
+}
+
+.cell-color-none {
+  background-color: transparent;
+}
+
+.cell-color-first {
+  background-color: #FF7970;
+}
+
+.cell-color-second {
+  background-color: #6DBC76;
+}
+
+.cell-color-third {
+  background-color: #9B7261;
+}
+
+.cell-color-fourth {
+  background-color: #9792E3;
+}
+
+.cell-color-danger {
+  background-color: red;
+}
+
+.cell-color-illegal {
+  background-color: red;
+}
+
+.cell-color-success {
+  background-color: green;
+}
+
+.cell-color-legal {
+  background-color: green;
 }
 
 .with-hr {

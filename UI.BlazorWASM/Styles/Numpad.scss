@@ -26,9 +26,17 @@
         }
     }
 
+    &__color {
+        width: 100%;
+        height: 100%;
+    }
+
+    &__hidden {
+        visibility: hidden;
+    }
+
     &__empty-row {
         grid-column: span 4;
-        visibility: hidden;
     }
 
     &__label {
