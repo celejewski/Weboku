@@ -187,7 +187,7 @@ h1, h2, h3 {
 }
 
 .modal-container * {
-  font-size: 16px;
+  font-size: 1.3rem;
 }
 
 .modal-container {
@@ -202,7 +202,7 @@ h1, h2, h3 {
 
 .modal-overlay {
   position: relative;
-  width: 384px;
+  width: 31.2rem;
   margin: auto;
   padding: 2px;
   background-color: white;
@@ -212,16 +212,16 @@ h1, h2, h3 {
 .modal {
   background-color: #F1F1F1;
   border: 1px solid #616161;
-  padding: 20px 30px;
-  margin: 10px;
+  padding: 1.82em 2.6rem;
+  margin: 0.858rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 600px;
+  height: 48.75rem;
 }
 
 .modal__title {
-  font-size: 36.8px;
+  font-size: 2.99rem;
   text-align: center;
   font-weight: 900;
   text-transform: uppercase;
@@ -230,12 +230,12 @@ h1, h2, h3 {
 }
 
 .modal__subtitle {
-  font-size: 17.12px;
+  font-size: 1.391rem;
   color: #7A7A7A;
 }
 
 .modal__content {
-  margin: 56px 0;
+  margin: 4.55rem 0;
 }
 
 .modal__footer {
@@ -244,15 +244,21 @@ h1, h2, h3 {
   position: relative;
 }
 
+.modal__text {
+  font-size: 1.3rem;
+  line-height: 1.6;
+  color: #7A7A7A;
+}
+
 .modal__button {
   width: 100%;
   margin: auto;
   text-align: center;
-  max-width: 180px;
+  max-width: 15.6rem;
   margin: 0em auto 1.1em auto;
   padding: 0.7em;
   text-transform: uppercase;
-  font-size: 16px;
+  font-size: 1.3rem;
   box-shadow: 0px 6px 6px 0px rgba(0, 0, 0, 0.25);
   letter-spacing: 0.05em;
   transition: transform 200ms;
@@ -275,7 +281,7 @@ h1, h2, h3 {
   background: #DEDEDE;
   border: 1px solid #B7B7B7;
   color: #898989;
-  font-size: 19.2px;
+  font-size: 1.56rem;
   font-weight: 700;
 }
 
@@ -283,13 +289,13 @@ h1, h2, h3 {
   width: 100%;
   display: flex;
   line-height: 1.6;
-  margin: 32px 0;
+  margin: 2.6rem 0;
   color: #7A7A7A;
   border-bottom: 2px solid #DEDEDE;
 }
 
 .modal__result-row span {
-  font-size: 24px;
+  font-size: 1.3rem;
 }
 
 .modal__result-label {

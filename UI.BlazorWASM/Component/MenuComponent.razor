@@ -32,7 +32,9 @@
             </Header>
             <Content>
                 <a @onmousedown="@Find"
-                   class="dropdown__item"> Find candidates</a>
+                   class="dropdown__item">Find candidates</a>
+                <a @onmousedown="@ShowHowToPlay"
+                   class="dropdown__item">How to play</a>
             </Content>
         </DropdownMenuComponent>
     </div>
@@ -60,5 +62,10 @@
     private void Find()
     {
         CommandProvider.FindAllCandidates().Execute();
+    }
+
+    private void ShowHowToPlay()
+    {
+        ModalProvider.Modal.SetState(Modals.ModalState.HowToPlay);
     }
 }

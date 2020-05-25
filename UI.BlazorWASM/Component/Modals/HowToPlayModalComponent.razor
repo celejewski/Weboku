@@ -1,0 +1,36 @@
+﻿@inject CommandProvider CommandProvider
+@inject  ModalProvider ModalProvider
+
+<div class="text-center">
+    <h1 class="modal__title with-hr">How to play</h1>
+    <span class="modal__subtitle"></span>
+</div>
+
+<div class="modal__content">
+    <p class="modal__text">
+        Press the left mouse button to insert the value into the grid. 
+        Press the right mouse button to make a note. 
+    </p>
+    <p class="modal__text">
+        Use the buttons or keyboard to change the value used.
+    </p>
+    <p class="modal__text">
+        Use the cell color-coding option to simplify advanced techniques.
+        You can also use the coloring options by holding ctrl and clicking.
+    </p>
+</div>
+
+<div class="modal__footer with-hr">
+    <a @onclick="OnClose"
+       class="modal__button modal__button--secondary">Close</a>
+</div>
+
+@code {
+    [Parameter]
+    public ModalState NextState { get; set; }
+
+    public void OnClose()
+    {
+        ModalProvider.Modal.SetState(NextState);
+    }
+}

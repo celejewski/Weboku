@@ -12,17 +12,23 @@
             {
                 <EndGameModalComponent />
             }
+            else if (_option == ModalState.HowToPlay)
+            {
+                <HowToPlayModalComponent NextState="_previous" />
+            }
         </div>
     </div>
 </div>
 
 @code {
+    private ModalState _previous = ModalState.None;
     private ModalState _option = ModalState.None;
 
     private string _style { get => _option == ModalState.None ? "display: none;" : ""; }
 
     public void SetState(ModalState state)
     {
+        _previous = _option;
         _option = state;
         StateHasChanged();
     }

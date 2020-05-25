@@ -5,5 +5,6 @@
         None,
         NewGame,
         EndGame,
+        HowToPlay,
     }
 }
