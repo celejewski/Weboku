@@ -1,0 +1,65 @@
+﻿@import '_Variables.scss';
+
+.dropdown {
+    @include color-primary;
+    position: relative;
+    width: 100%;
+    font-size: 1.5rem;
+    border-radius: 5px;
+
+    &--is-visible {
+        z-index: 100000;
+    }
+
+    & * {
+        display: block;
+    }
+
+    &__label {
+        text-align: center;
+    }
+
+    &__item {
+        width: 100%;
+        @include color-primary;
+        border: 1px solid $color-shadow;
+        border-radius: 5px;
+        display: block;
+        padding: 0.3em;
+        z-index: 1;
+
+        &:hover {
+            @include color-secondary;
+        }
+    }
+
+    &__content {
+        width: 100%;
+        position: absolute;
+        bottom: 0%;
+        flex-direction: column-reverse;
+        box-shadow: 0 0 8px 0 rgba(0,0,0,0.25);
+
+        &--is-visible {
+            display: flex;
+        }
+
+        &--is-hidden {
+            display: none;
+        }
+    }
+
+    &__overlay {
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        z-index: 0;
+        background-color: rgba(0,0,0,0.2);
+    }
+
+    &__placeholder {
+        background-color: transparent;
+    }
+}

@@ -7,16 +7,17 @@
 
 <div class="menu">
     <div class="menu__item">
-        <div class="dropdown">
-            <span class="dropdown__item dropdown__label">Menu</span>
-            <div class="dropdown__content">
-                <a class="dropdown__item dropdown__item-placeholder">&nbsp;</a>
+        <DropdownMenuComponent>
+            <Header> 
+                <span class="dropdown__item dropdown__label">Menu</span>
+            </Header>
+            <Content>
                 <a class="dropdown__item menu__link" @onmousedown="NewGame">New game </a>
                 <a class="dropdown__item menu__link" @onmousedown="RestartGame">Restart game</a>
                 <a class="dropdown__item menu__link" @onmousedown="RestartGame">Restart game</a>
                 <a class="dropdown__item menu__link" @onmousedown="RestartGame">Restart game</a>
-            </div>
-        </div>
+            </Content>
+        </DropdownMenuComponent>
     </div>
     <div class="menu__item">
         <div class="game-info">
@@ -25,14 +26,15 @@
         </div>
     </div>
     <div class="menu__item">
-        <div class="dropdown">
-            <span class="dropdown__item dropdown__label">Help</span>
-            <div class="dropdown__content">
-                <a class="dropdown__item dropdown__item-placeholder">&nbsp;</a>
+        <DropdownMenuComponent>
+            <Header>
+                <span class="dropdown__item dropdown__label">Help</span>
+            </Header>
+            <Content>
                 <a @onmousedown="@Find"
-                   class="dropdown__item menu__link">Find candidates</a>
-            </div>
-        </div>
+                   class="dropdown__item"> Find candidates</a>
+            </Content>
+        </DropdownMenuComponent>
     </div>
 </div>
 
