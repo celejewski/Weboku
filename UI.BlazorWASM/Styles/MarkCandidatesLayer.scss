@@ -1,0 +1,27 @@
+﻿@import '_Variables.scss';
+
+.mark {
+    width: 80%;
+    height: 80%;
+
+    border-width: 3px;
+    border-radius: 50%;
+    border-style: solid;
+    margin: 10%;
+}
+
+.mark-danger {
+    border-color: $color-danger;
+}
+
+.mark-success {
+    border-color: $color-success;
+}
+
+.mark-1 {
+    border-color: $color-1;
+}
+
+.mark-2 {
+    border-color: $color-2;
+}

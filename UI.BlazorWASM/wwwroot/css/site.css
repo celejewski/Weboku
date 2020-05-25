@@ -691,6 +691,36 @@ h1, h2, h3 {
   background-color: transparent;
 }
 
+:root {
+  --max-size: 700px;
+  --max-width: 700px;
+}
+
+.mark {
+  width: 80%;
+  height: 80%;
+  border-width: 3px;
+  border-radius: 50%;
+  border-style: solid;
+  margin: 10%;
+}
+
+.mark-danger {
+  border-color: red;
+}
+
+.mark-success {
+  border-color: green;
+}
+
+.mark-1 {
+  border-color: #FF4B3E;
+}
+
+.mark-2 {
+  border-color: #14591D;
+}
+
 .with-hr {
   position: relative;
   padding: 3.2px 0;
