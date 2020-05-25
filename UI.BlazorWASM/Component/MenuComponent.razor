@@ -12,10 +12,8 @@
                 <span class="dropdown__item dropdown__label">Menu</span>
             </Header>
             <Content>
-                <a class="dropdown__item menu__link" @onmousedown="NewGame">New game </a>
-                <a class="dropdown__item menu__link" @onmousedown="RestartGame">Restart game</a>
-                <a class="dropdown__item menu__link" @onmousedown="RestartGame">Restart game</a>
-                <a class="dropdown__item menu__link" @onmousedown="RestartGame">Restart game</a>
+                <a class="dropdown__item dropdown__link" @onmousedown="NewGame">New game </a>
+                <a class="dropdown__item dropdown__link" @onmousedown="RestartGame">Restart game</a>
             </Content>
         </DropdownMenuComponent>
     </div>
@@ -28,9 +26,9 @@
             </Header>
             <Content>
                 <a @onmousedown="@Find"
-                   class="dropdown__item">Find candidates</a>
+                   class="dropdown__item dropdown__link">Find candidates</a>
                 <a @onmousedown="@ShowHowToPlay"
-                   class="dropdown__item">How to play</a>
+                   class="dropdown__item dropdown__link">How to play</a>
             </Content>
         </DropdownMenuComponent>
     </div>
