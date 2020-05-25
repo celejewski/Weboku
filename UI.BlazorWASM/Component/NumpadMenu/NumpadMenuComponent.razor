@@ -17,8 +17,8 @@
             var bound = item;
             <div @onclick="@((e) => OnClick(bound))"
                  class="numpad__button numpad__label
-                 @(bound == NumpadMenuProvider.SelectedItem ? "numpad__label--highlighted" : "") 
-                 @(@bound.IsDimmed ? "numpad__label--dimmed" : "")
+                 @(bound == NumpadMenuProvider.SelectedItem ? "numpad__label--highlighted" : string.Empty) 
+                 @(@bound.IsDimmed ? "numpad__label--dimmed" : string.Empty)
                  ">
                 @item.Label
             </div>

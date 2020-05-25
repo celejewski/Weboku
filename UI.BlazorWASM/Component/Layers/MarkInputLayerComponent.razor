@@ -3,7 +3,7 @@
 <Grid9x9Component>
     @{
         ICell cell = SudokuProvider.Cells[context.x, context.y];
-        string illegalClass = !cell.Input.IsLegal ? "mark mark-danger" : "";
+        string illegalClass = !cell.Input.IsLegal ? "mark mark-danger" : string.Empty;
         <div class="@illegalClass"></div>
     }
 </Grid9x9Component>

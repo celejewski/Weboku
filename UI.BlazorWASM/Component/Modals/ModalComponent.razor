@@ -24,7 +24,7 @@
     private ModalState _previous = ModalState.None;
     private ModalState _option = ModalState.None;
 
-    private string _style { get => _option == ModalState.None ? "display: none;" : ""; }
+    private string _style { get => _option == ModalState.None ? "display: none;" : string.Empty; }
 
     public void SetState(ModalState state)
     {

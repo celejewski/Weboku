@@ -7,13 +7,13 @@ namespace UI.BlazorWASM.Component.NumpadMenu
 {
     public class PlaceHolderNumpadMenuItem : INumpadMenuLabel, ISelectColorMenuItem
     {
-        public string Label => "";
+        public string Label => string.Empty;
 
         public bool IsDimmed => false;
 
         public bool IsSelectable => false;
 
-        public string CssClass => "";
+        public string CssClass => string.Empty;
 
         public Task Execute() => Task.CompletedTask;
     }

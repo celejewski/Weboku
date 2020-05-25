@@ -38,11 +38,13 @@
         }
     }
 
+    private readonly string _hasClass = "mark mark-danger";
+
     private string CordsToClass(int x, int y, int z)
     {
         ICell cell = SudokuProvider.Cells[x, y];
         int value = z + 1;
         return (cell.Candidates.ContainsKey(value)
-            && !cell.Candidates[value].IsLegal) ? "mark mark-danger" : "";
+            && !cell.Candidates[value].IsLegal) ? _hasClass: String.Empty;
     }
 }

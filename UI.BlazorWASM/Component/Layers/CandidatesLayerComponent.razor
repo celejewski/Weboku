@@ -5,7 +5,7 @@
         ICell cell = SudokuProvider.Cells[context.x, context.y];
         int value = context.z + 1;
         <div class="value">
-            @(cell.Candidates.ContainsKey(value) ? value.ToString() : "")
+            @(cell.Candidates.ContainsKey(value) ? value.ToString() : string.Empty)
         </div>
     }
 </Grid9x9x9Component>

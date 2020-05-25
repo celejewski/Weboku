@@ -19,7 +19,7 @@ namespace UI.BlazorWASM.Converters
                 CellColor.Second => "cell-color-second",
                 CellColor.Third => "cell-color-third",
                 CellColor.Fourth => "cell-color-fourth",
-                CellColor.None => "",
+                CellColor.None => string.Empty,
                 _ => throw new NotImplementedException(),
             };
         }
