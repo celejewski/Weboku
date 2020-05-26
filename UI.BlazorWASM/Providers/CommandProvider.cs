@@ -45,7 +45,7 @@ namespace UI.BlazorWASM.Providers
         }
         public ICommand StartNewGame(string difficulty)
         {
-            return new StartNewGameCommand(difficulty, _sudokuGenerator, _gridHistoryManager, _sudokuProvider, _gameTimerProvider, _gridConverter, _modalProvider);
+            return new StartNewGameCommand(difficulty, _sudokuGenerator, _gridHistoryManager, _sudokuProvider, _gameTimerProvider, _gridConverter, _modalProvider, _cellColorProvider);
         }
 
         public ICommand FindAllCandidates()
@@ -56,7 +56,7 @@ namespace UI.BlazorWASM.Providers
 
         public ICommand Restart()
         {
-            return new RestartCommand(_sudokuProvider, _gridHistoryManager, _gameTimerProvider);
+            return new RestartCommand(_sudokuProvider, _gridHistoryManager, _gameTimerProvider, _cellColorProvider);
         }
 
         public ICommand SelectPairsFilter()

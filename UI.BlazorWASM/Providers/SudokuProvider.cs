@@ -71,6 +71,7 @@ namespace UI.BlazorWASM.Providers
                     {
                         _grid.SetValue(x, y, 0);
                     }
+                    _grid.Cells[x, y].Candidates.Clear();
                 }
             }
             OnValueChanged?.Invoke();

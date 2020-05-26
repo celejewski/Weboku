@@ -16,6 +16,7 @@ namespace UI.BlazorWASM.Commands
         private readonly IGameTimerProvider _gameTimerProvider;
         private readonly IGridConverter _gridConverter;
         private readonly ModalProvider _modalProvider;
+        private readonly ICellColorProvider _cellColorProvider;
 
         public StartNewGameCommand(
             string difficulty, 
@@ -24,7 +25,8 @@ namespace UI.BlazorWASM.Commands
             ISudokuProvider sudokuProvider, 
             IGameTimerProvider gameTimerProvider, 
             IGridConverter gridConverter,
-            ModalProvider modalProvider)
+            ModalProvider modalProvider,
+            ICellColorProvider cellColorProvider)
         {
             _difficulty = difficulty;
             _sudokuGenerator = sudokuGenerator;
@@ -33,6 +35,7 @@ namespace UI.BlazorWASM.Commands
             _gameTimerProvider = gameTimerProvider;
             _gridConverter = gridConverter;
             _modalProvider = modalProvider;
+            _cellColorProvider = cellColorProvider;
         }
         public async Task Execute()
         {
@@ -40,6 +43,7 @@ namespace UI.BlazorWASM.Commands
             _sudokuProvider.Sudoku = sudoku;
             var newGrid = _gridConverter.FromText(sudoku.Given);
             _sudokuProvider.AssignFrom(newGrid);
+            _cellColorProvider.ClearAll();
             _gridHistoryManager.ClearUndo();
             _modalProvider.Modal.SetState(ModalState.None);
             _gameTimerProvider.Start();
