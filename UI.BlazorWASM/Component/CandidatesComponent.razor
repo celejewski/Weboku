@@ -1,0 +1,40 @@
+﻿@inject ISudokuProvider SudokuProvider
+
+<div class="value">
+    @if( _isVisible )
+    {
+        @_text
+    }
+</div>
+@code {
+    [Parameter]
+    public int X { get; set; }
+    [Parameter]
+    public int Y { get; set; }
+    [Parameter]
+    public int Z { get; set; }
+
+    private int _value;
+    private string _text;
+    private ICell _cell;
+    private bool _isVisible { get => _cell.Candidates.ContainsKey(_value); }
+    private bool _wasVisible;
+
+    protected override void OnInitialized()
+    {
+        _value = Z + 1;
+        _text = _value.ToString();
+        _cell = SudokuProvider.Cells[X, Y];
+        SudokuProvider.OnChanged += Update;
+    }
+
+    private void Update()
+    {
+        if (_wasVisible != _isVisible)
+        {
+            _wasVisible = _isVisible;
+            StateHasChanged();
+        }
+    }
+
+}

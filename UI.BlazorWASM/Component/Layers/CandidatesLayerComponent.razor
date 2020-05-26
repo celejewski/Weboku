@@ -1,19 +1,11 @@
 ﻿@inject ISudokuProvider SudokuProvider
 
 <Grid9x9x9Component>
-    @{
-        ICell cell = SudokuProvider.Cells[context.x, context.y];
-        int value = context.z + 1;
-        <div class="value">
-            @(cell.Candidates.ContainsKey(value) ? value.ToString() : string.Empty)
-        </div>
-    }
+    <CandidatesComponent X="context.x"
+                         Y="context.y"
+                         Z="context.z" />
 </Grid9x9x9Component>
 
 @code {
-    protected override void OnInitialized()
-    {
-        SudokuProvider.OnChanged += StateHasChanged;
-    }
 
 }
