@@ -15,29 +15,37 @@ namespace UI.BlazorWASM.Providers
 
         public ICell[,] Cells => _grid.Cells;
 
-        public event Action OnChanged;
+        public event Action OnCandidatesChanged;
+        public event Action OnValueChanged;
+        public event Action OnValueOrCandidatesChanged;
 
         public void SetValue(int x, int y, int value)
         {
             _grid.SetValue(x, y, value);
-            OnChanged?.Invoke();
+            OnValueChanged?.Invoke();
+            OnCandidatesChanged?.Invoke();
+            OnValueOrCandidatesChanged?.Invoke();
         }
         public void ToggleCandidate(int x, int y, int value)
         {
             _grid.ToggleCandidate(x, y, value);
-            OnChanged?.Invoke();
+            OnCandidatesChanged?.Invoke();
+            OnValueOrCandidatesChanged?.Invoke();
         }
 
         public void AssignFrom(IGrid source)
         {
             _grid.AssignFrom(source);
-            OnChanged?.Invoke();
+            OnValueChanged?.Invoke();
+            OnCandidatesChanged?.Invoke();
+            OnValueOrCandidatesChanged?.Invoke();
         }
 
         public void FillAllCandidates()
         {
             _grid.FillAllCandidates();
-            OnChanged?.Invoke();
+            OnCandidatesChanged?.Invoke();
+            OnValueOrCandidatesChanged?.Invoke();
         }
         
         public void ClearAllCandidates()
@@ -65,7 +73,9 @@ namespace UI.BlazorWASM.Providers
                     }
                 }
             }
-            OnChanged?.Invoke();
+            OnValueChanged?.Invoke();
+            OnCandidatesChanged?.Invoke();
+            OnValueOrCandidatesChanged?.Invoke();
         }
 
         public Sudoku Sudoku { get; set; } = new Sudoku();

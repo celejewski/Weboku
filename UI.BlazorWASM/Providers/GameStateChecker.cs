@@ -11,7 +11,7 @@ namespace UI.BlazorWASM.Providers
         public GameStateChecker(ISudokuProvider sudokuProvider)
         {
             _sudokuProvider = sudokuProvider;
-            _sudokuProvider.OnChanged += Check;
+            _sudokuProvider.OnValueOrCandidatesChanged += Check;
         }
 
         private void Check()

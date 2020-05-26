@@ -10,6 +10,6 @@
     protected override void OnInitialized()
     {
         FilterProvider.OnChanged += StateHasChanged;
-        SudokuProvider.OnChanged += StateHasChanged;
+        SudokuProvider.OnValueOrCandidatesChanged += StateHasChanged;
     }
 }

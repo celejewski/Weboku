@@ -54,7 +54,7 @@
 
     protected override void OnInitialized()
     {
-        SudokuProvider.OnChanged += StateHasChanged;
+        SudokuProvider.OnValueOrCandidatesChanged += StateHasChanged;
         NumpadMenuProvider.OnChanged += StateHasChanged;
         GameTimerProvider.OnChanged += StateHasChanged;
 

@@ -1,10 +1,11 @@
 ﻿using Core.Data;
+using System;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 
 namespace UI.BlazorWASM.Providers
 {
-    public interface ISudokuProvider : IProvider
+    public interface ISudokuProvider
     {
         ICell[,] Cells { get; }
 
@@ -19,6 +20,10 @@ namespace UI.BlazorWASM.Providers
 
         IGrid GetGridClone();
 
-        Sudoku Sudoku { get; set; } 
+        Sudoku Sudoku { get; set; }
+
+        event Action OnCandidatesChanged;
+        event Action OnValueChanged;
+        event Action OnValueOrCandidatesChanged;
     }
 }

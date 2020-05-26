@@ -11,7 +11,7 @@
 
     protected override void OnInitialized()
     {
-        SudokuProvider.OnChanged += Update;
+        SudokuProvider.OnCandidatesChanged += Update;
     }
 
     private void Update()

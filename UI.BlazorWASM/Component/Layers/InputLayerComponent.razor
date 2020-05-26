@@ -7,6 +7,6 @@
 @code {
     protected override void OnInitialized()
     {
-        SudokuProvider.OnChanged += StateHasChanged;
+        SudokuProvider.OnValueChanged += StateHasChanged;
     }
 }

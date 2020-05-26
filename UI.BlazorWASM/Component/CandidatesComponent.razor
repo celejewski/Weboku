@@ -25,7 +25,7 @@
         _value = Z + 1;
         _text = _value.ToString();
         _cell = SudokuProvider.Cells[X, Y];
-        SudokuProvider.OnChanged += Update;
+        SudokuProvider.OnCandidatesChanged += Update;
     }
 
     private void Update()
