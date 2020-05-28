@@ -1,12 +1,7 @@
-﻿@inject ISudokuProvider SudokuProvider
-
-<Grid9x9Component>
-    <CellComponent Cell="SudokuProvider.Cells[context.x, context.y]" />
+﻿<Grid9x9Component>
+    <CellComponent X="context.x"
+                   Y="context.y" />
 </Grid9x9Component>
 
 @code {
-    protected override void OnInitialized()
-    {
-        SudokuProvider.OnValueChanged += StateHasChanged;
-    }
 }
