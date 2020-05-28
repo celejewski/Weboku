@@ -1,15 +1,4 @@
-﻿@inject IFilterProvider FilterProvider
-@inject ISudokuProvider SudokuProvider
-
-<Grid9x9Component>
-    <div class="filter__cell
-         filter__cell--@FilterProvider.Filter.IsFiltered(SudokuProvider.Cells[context.x, context.y])"></div>
+﻿<Grid9x9Component>
+    <FilterComponent X="context.x"
+                     Y="context.y" />
 </Grid9x9Component>
-
-@code {
-    protected override void OnInitialized()
-    {
-        FilterProvider.OnChanged += StateHasChanged;
-        SudokuProvider.OnValueOrCandidatesChanged += StateHasChanged;
-    }
-}
