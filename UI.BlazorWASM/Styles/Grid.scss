@@ -36,6 +36,8 @@
     grid-template: repeat(9, 1fr) / repeat(9, 1fr);
 
     &__cell {
+        $border-radius: $grid-border-radius;
+
         width: 100%;
         height: 100%;
 
@@ -45,6 +47,26 @@
 
         &--odd {
             color: $color-front-secondary;
+        }
+
+        &--top-left-corner {
+            border-top-left-radius: $border-radius;
+            overflow: hidden;
+        }
+
+        &--top-right-corner {
+            border-top-right-radius: $border-radius;
+            overflow: hidden;
+        }
+
+        &--bottom-left-corner {
+            border-bottom-left-radius: $border-radius;
+            overflow: hidden;
+        }
+
+        &--bottom-right-corner {
+            border-bottom-right-radius: $border-radius;
+            overflow: hidden;
         }
     }
 }

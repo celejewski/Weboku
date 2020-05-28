@@ -5,8 +5,10 @@
         {
             int block = (y / 3) * 3 + (x / 3);
             string blockParity = block % 2 == 1 ? "even" : "odd";
+            string cornerStyle = GetCornerStyle(x, y);
             <div class="grid-9x9__cell 
-                        grid-9x9__cell--@blockParity">
+                        grid-9x9__cell--@blockParity
+                        @cornerStyle">
                 @ChildContent((x, y))
             </div>
         }
@@ -16,4 +18,35 @@
 @code {
     [Parameter]
     public RenderFragment<(int x, int y)> ChildContent { get; set; }
+
+    private string GetCornerStyle(int x, int y)
+    {
+        if (y == 0)
+        {
+            if (x == 0)
+            {
+                return "grid-9x9__cell--top-left-corner";
+            }
+
+            if ( x == 8)
+            {
+                return "grid-9x9__cell--top-right-corner";
+            }
+        }
+
+        if (y == 8)
+        {
+            if( x == 0 )
+            {
+                return "grid-9x9__cell--bottom-left-corner";
+            }
+
+            if( x == 8 )
+            {
+                return "grid-9x9__cell--bottom-right-corner";
+            }
+        }
+
+        return string.Empty;
+    }
 }

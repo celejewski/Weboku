@@ -19,6 +19,7 @@
             border-left-width: $border-width;
         }
 
+        // top
         &:nth-child(-n + 3) {
             border-bottom-width: $border-width;
         }

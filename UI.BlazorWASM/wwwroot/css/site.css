@@ -346,6 +346,26 @@ h1, h2, h3 {
   color: #898989;
 }
 
+.grid-9x9__cell--top-left-corner {
+  border-top-left-radius: 10px;
+  overflow: hidden;
+}
+
+.grid-9x9__cell--top-right-corner {
+  border-top-right-radius: 10px;
+  overflow: hidden;
+}
+
+.grid-9x9__cell--bottom-left-corner {
+  border-bottom-left-radius: 10px;
+  overflow: hidden;
+}
+
+.grid-9x9__cell--bottom-right-corner {
+  border-bottom-right-radius: 10px;
+  overflow: hidden;
+}
+
 .candidates-grid {
   height: 100%;
   font-size: 1rem;
