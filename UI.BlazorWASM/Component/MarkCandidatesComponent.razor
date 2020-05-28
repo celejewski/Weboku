@@ -1,0 +1,36 @@
+﻿@inject ISudokuProvider SudokuProvider
+
+<div class="@_currentClass"></div>
+
+@code {
+    [Parameter]
+    public int X { get; set; }
+
+    [Parameter]
+    public int Y { get; set; }
+
+    [Parameter]
+    public int Z { get; set; }
+
+    private string _previousClass;
+    private string _currentClass;
+
+    protected override void OnInitialized()
+    {
+        SudokuProvider.OnCandidatesChanged += Update;
+    }
+
+    private void Update()
+    {
+        _previousClass = _currentClass;
+        var value = Z + 1;
+        var cell = SudokuProvider.Cells[X, Y];
+        var isIllegal = cell.Candidates.ContainsKey(value) && !cell.Candidates[value].IsLegal;
+        _currentClass = isIllegal ? "mark__cell mark__cell--danger" : string.Empty;
+
+        if (_currentClass != _previousClass)
+        {
+            StateHasChanged();
+        }
+    }
+}

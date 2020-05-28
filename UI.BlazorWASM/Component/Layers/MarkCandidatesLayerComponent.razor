@@ -1,50 +1,5 @@
-﻿@inject ISudokuProvider SudokuProvider
-
-<Grid9x9x9Component>
-    @{
-        <div class="@_classes[context.x, context.y, context.z]"></div>
-    }
+﻿<Grid9x9x9Component>
+    <MarkCandidatesComponent X="context.x"
+                             Y="context.y"
+                             Z="context.z" />
 </Grid9x9x9Component>
-
-@code { 
-    private string[,,] _classes = new string[9, 9, 9];
-
-    protected override void OnInitialized()
-    {
-        SudokuProvider.OnCandidatesChanged += Update;
-    }
-
-    private void Update()
-    {
-        bool hasChanged = false;
-        for( int x = 0; x < 9; x++ )
-        {
-            for( int y = 0; y < 9; y++ )
-            {
-                for( int z = 0; z < 9; z++ )
-                {
-                    var value = CordsToClass(x, y, z);
-                    if (value != _classes[x,y,z])
-                    {
-                        hasChanged = true;
-                        _classes[x, y, z] = value;
-                    }
-                }
-            }
-        }
-        if( hasChanged )
-        {
-            StateHasChanged();
-        }
-    }
-
-    private readonly string _hasClass = "mark mark-danger";
-
-    private string CordsToClass(int x, int y, int z)
-    {
-        ICell cell = SudokuProvider.Cells[x, y];
-        int value = z + 1;
-        return (cell.Candidates.ContainsKey(value)
-            && !cell.Candidates[value].IsLegal) ? _hasClass: String.Empty;
-    }
-}

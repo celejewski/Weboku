@@ -756,7 +756,7 @@ h1, h2, h3 {
   --max-width: 700px;
 }
 
-.mark {
+.mark__cell {
   width: 80%;
   height: 80%;
   border-width: 3px;
@@ -765,20 +765,8 @@ h1, h2, h3 {
   margin: 10%;
 }
 
-.mark-danger {
+.mark__cell--danger {
   border-color: red;
-}
-
-.mark-success {
-  border-color: green;
-}
-
-.mark-1 {
-  border-color: #FF7970;
-}
-
-.mark-2 {
-  border-color: #6DBC76;
 }
 
 :root {
