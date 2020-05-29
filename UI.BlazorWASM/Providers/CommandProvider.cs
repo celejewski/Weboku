@@ -66,7 +66,7 @@ namespace UI.BlazorWASM.Providers
 
         public ICommand SelectValue(int value)
         {
-            return new SelectValueCommand(value, _filterProvider, _clickableActionProvider, _clickableActionFactory);
+            return new SelectValueCommand(value, _filterProvider, _clickableActionProvider);
         }
 
         public ICommand SelectCleaner()
