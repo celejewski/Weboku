@@ -1,0 +1,15 @@
+﻿@inject NumpadMenuProvider NumpadMenuProvider
+
+<div @onclick="NumpadMenuLabel.Execute"
+     class="numpad__button numpad__label
+                 @(NumpadMenuLabel == NumpadMenuProvider.SelectedItem ? "numpad__label--highlighted" : string.Empty)
+                 @(NumpadMenuLabel.IsDimmed ? "numpad__label--dimmed" : string.Empty)
+                 ">
+    @NumpadMenuLabel.Label
+</div>
+
+
+@code {
+    [Parameter]
+    public INumpadMenuLabel NumpadMenuLabel { get; set; }
+}

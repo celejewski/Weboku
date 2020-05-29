@@ -1,0 +1,10 @@
+﻿<div @onclick="SelectColorMenuItem.Execute"
+     class="numpad__button">
+    <div class="numpad__color @SelectColorMenuItem.CssClass">
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public ISelectColorMenuItem SelectColorMenuItem { get; set; }
+}

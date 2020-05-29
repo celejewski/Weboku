@@ -1,0 +1,15 @@
+﻿@inject ISudokuProvider SudokuProvider
+@inject NumpadMenuProvider NumpadMenuProvider
+
+<LabelButtonComponent NumpadMenuLabel="NumpadMenuLabel"></LabelButtonComponent>
+
+@code {
+    [Parameter]
+    public INumpadMenuLabel NumpadMenuLabel { get; set; }
+
+    protected override void OnInitialized()
+    {
+        SudokuProvider.OnValueChanged += StateHasChanged;
+        NumpadMenuProvider.OnChanged += StateHasChanged;
+    }
+}
