@@ -2,31 +2,12 @@
 
 <Grid9x9Component>
     <div class="clickable"
-         @onclick="@((e) => OnLeftClick(e, context.x, context.y))"
-         @oncontextmenu="@((e) => OnRightClick(e, context.x, context.y))">
+         @onclick="@((e) => ClickableActionProvider.OnLeftClick(e, context.x, context.y))"
+         @oncontextmenu="@((e) => ClickableActionProvider.OnRightClick(e, context.x, context.y))">
     </div>
 </Grid9x9Component>
 
 @code {        
-    private ClickableActionArgs CreateArgs(MouseEventArgs e, int x, int y)
-    {
-        return new ClickableActionArgs
-        {
-            MouseEventArgs = e,
-            X = x,
-            Y = y
-        };
-    }
-
-    private void OnLeftClick(MouseEventArgs e, int x, int y)
-    {
-        ClickableActionProvider.ClickableAction.LeftClickAction(CreateArgs(e, x, y));
-    }
-
-    private void OnRightClick(MouseEventArgs e, int x, int y)
-    {
-        ClickableActionProvider.ClickableAction.RightClickAction(CreateArgs(e, x, y));
-    }
     protected override void OnInitialized()
     {
         ClickableActionProvider.OnChanged += StateHasChanged;

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using UI.BlazorWASM.Enums;
+﻿using UI.BlazorWASM.Enums;
 using UI.BlazorWASM.Managers;
 using UI.BlazorWASM.Providers;
 
@@ -25,9 +21,9 @@ namespace UI.BlazorWASM.ClickableActions
         {
             return new ColorAction(cellColor, _cellColorProvider); 
         }
-        public IClickableAction StandardAction(int value)
+        public IClickableAction StandardAction()
         {
-            return new StandardAction(_gridHistoryManager, _cellColorProvider, _sudokuProvider, value);
+            return new StandardAction(_gridHistoryManager, _cellColorProvider, _sudokuProvider);
         }
 
         public IClickableAction EraseAction()
