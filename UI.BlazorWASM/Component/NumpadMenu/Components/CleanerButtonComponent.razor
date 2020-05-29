@@ -1,0 +1,13 @@
+﻿@inject NumpadMenuProvider NumpadMenuProvider
+
+<LabelButtonComponent NumpadMenuLabel="NumpadMenuLabel" /> 
+
+@code {
+    [Parameter]
+    public INumpadMenuLabel NumpadMenuLabel { get; set; }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        NumpadMenuProvider.OnChanged += StateHasChanged;
+    }
+}

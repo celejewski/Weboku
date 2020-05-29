@@ -32,7 +32,7 @@ namespace UI.BlazorWASM.ClickableActions
 
         public IClickableAction EraseAction()
         {
-            return new EraseAction(_sudokuProvider, _gridHistoryManager);
+            return new CleanerAction(_sudokuProvider, _gridHistoryManager);
         }
     }
 }
