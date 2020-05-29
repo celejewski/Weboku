@@ -21,12 +21,20 @@ namespace UI.BlazorWASM.Component.NumpadMenu
                 int count = 0;
                 for( int y = 0; y < 9; y++ )
                 {
+                    if( count != y )
+                    {
+                        return false;
+                    }
+
                     for( int x = 0; x < 9; x++ )
                     {
                         var cell = _sudokuProvider.Cells[x, y];
-                        if (cell.Input.Value == _value
-                            && cell.Input.IsLegal)
+                        if (cell.Input.Value == _value)
                         {
+                            if (!cell.Input.IsLegal)
+                            {
+                                return false;
+                            }
                             count += 1;
                         }
                     }
