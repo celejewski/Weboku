@@ -1,0 +1,40 @@
+﻿@import '_Variables.scss';
+
+.wrapper {
+    // overwriten by JS to fill screen
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @include color-secondary;
+}
+
+.main {
+    // overwriten by JS to fill screen
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: grid;
+    grid-template-rows: repeat(16, 1fr);
+    grid-template-columns: 1fr;
+    /*border: 2px solid black;*/
+    border-radius: 10px;
+
+    box-shadow: 0 0 30px 0 $color-shadow;
+
+    &__menu {
+        grid-row: span 1;
+    }
+
+    &__grid {
+        grid-row: span 9;
+    }
+
+    &__numpad {
+        grid-row: span 6;
+    }
+}

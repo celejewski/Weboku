@@ -1,44 +1,60 @@
 ﻿@inject IJSRuntime JSRuntime
 @inject HodokuGridConverter HodokuGridConverter
+@inject ISudokuProvider SudokuProvider
+@inject CommandProvider CommandProvider
+@inject IGameTimerProvider GameTimerProvider
+@inject ModalProvider ModalProvider
 
 <div class="menu">
-    <a @onclick="FillAllCandidates">Find candidates</a>
-    <div class="dropdown">
-        <button class="dropbtn">Copy</button>
-
-        <div class="dropdown-content">
-            <a @onclick="CopyGivens">Givens</a>
-            <a @onclick="CopyInput">User inputs</a>
-        </div>
+    <div class="menu__item">
+        <DropdownMenuComponent>
+            <Header> 
+                <span class="dropdown__item dropdown__label">Menu</span>
+            </Header>
+            <Content>
+                <a class="dropdown__item dropdown__link" @onmousedown="NewGame">New game </a>
+                <a class="dropdown__item dropdown__link" @onmousedown="RestartGame">Restart game</a>
+            </Content>
+        </DropdownMenuComponent>
     </div>
-
-    <div class="dropdown">
-        <button class="dropbtn">New game</button>
-        <div class="dropdown-content">
-            <a @onclick="@(() => StartNewGame("Easy"))">Easy</a>
-            <a @onclick="@(() => StartNewGame("Medium"))">Medium</a>
-            <a @onclick="@(() => StartNewGame("Hard"))">Hard</a>
-            <a @onclick="@(() => StartNewGame("Unfair"))">Unfair</a>
-            <a @onclick="@(() => StartNewGame("Extreme"))">Extreme</a>
-        </div>
+    <div class="menu__item">
+    </div>
+    <div class="menu__item">
+        <DropdownMenuComponent>
+            <Header>
+                <span class="dropdown__item dropdown__label">Help</span>
+            </Header>
+            <Content>
+                <a @onmousedown="@Find"
+                   class="dropdown__item dropdown__link">Find candidates</a>
+                <a @onmousedown="@ShowHowToPlay"
+                   class="dropdown__item dropdown__link">How to play</a>
+            </Content>
+        </DropdownMenuComponent>
     </div>
 </div>
 
 @code {
     [Parameter]
-    public IGrid Grid { get; set; }
-
-    [Parameter]
     public Func<string, Task> StartNewGame { get; set; }
 
-    [Parameter]
-    public Action FillAllCandidates { get; set; }
-
-    private async Task CopyInput() => await Copy(HodokuGridConverter.ToText(Grid, IncludedFields.Inputs));
-    private async Task CopyGivens() => await Copy(HodokuGridConverter.ToText(Grid, IncludedFields.Givens));
-
-    private async Task Copy(string text)
+    private void NewGame()
     {
-        await JSRuntime.InvokeVoidAsync("navigator.clipboard.writeText", text);
+        ModalProvider.Modal.SetState(Modals.ModalState.NewGame);
+    }
+
+    private void RestartGame()
+    {
+        CommandProvider.Restart().Execute();
+    }
+
+    private void Find()
+    {
+        CommandProvider.FindAllCandidates().Execute();
+    }
+
+    private void ShowHowToPlay()
+    {
+        ModalProvider.Modal.SetState(Modals.ModalState.HowToPlay);
     }
 }

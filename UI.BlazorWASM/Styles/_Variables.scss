@@ -1,0 +1,55 @@
+﻿$color-danger: red;
+$color-success: green;
+$color-1: #FF7970;
+$color-2: #6DBC76;
+$color-3: #9B7261;
+$color-4: #9792E3;
+$menu-background-color: #3A77EA;
+$color-body-bg: #555555;
+
+$color-dark: #616161;
+$color-normal: #7A7A7A;
+$color-light: #B7B7B7;
+$color-lighter: #DEDEDE;
+$font-black: 900;
+$font-bold: 700;
+$font-normal: 400;
+$modal-rem: 16px;
+
+$color-background: #DEDEDE;
+
+$color-front-primary: #7A7A7A;
+$color-back-primary: #FBFBFB;
+$color-front-secondary: #898989;
+$color-back-secondary: #DEDEDE;
+
+$color-shadow: #616161;
+
+$grid-border-radius: 10px;
+
+@mixin color-primary {
+    color: $color-front-primary;
+    background-color: $color-back-primary;
+}
+
+@mixin color-secondary {
+    color: $color-front-secondary;
+    background-color: $color-back-secondary;
+}
+
+@mixin set-margin($margin) {
+    top: $margin;
+    right: $margin;
+    bottom: $margin;
+    left: $margin;
+}
+
+
+$max-width: 700px;
+$max-size: 700px;
+
+:root {
+    --max-size: $max-size;
+    --max-width: $max-width;
+}
+

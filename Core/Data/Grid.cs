@@ -72,7 +72,7 @@ namespace Core.Data
         {
             var cell = _cells[x, y];
             var value = cell.Input.Value;
-            if( value != 0 && cell.Input.IsLegal )
+            if( value != 0 )
             {
                 if( value != 0 )
                 {

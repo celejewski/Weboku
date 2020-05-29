@@ -1,0 +1,46 @@
+﻿@import '_Variables.scss';
+
+.menu {
+    display: grid;
+    grid-template-columns: 3fr 1fr 3fr;
+
+    margin: 0% 6%;
+    width: calc(100% - 12%);
+    height: 100%;
+
+    padding: 0 0 0.5rem 0;
+    max-width: var(--max-size);
+    /*align-items: start;*/
+
+    &__item {
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        height: 100%;
+    }
+
+    &__link {
+
+        &:hover {
+            background-color: #6F9CEF;
+        }
+    }
+
+    & div:first-of-type {
+        justify-content: flex-start;
+    }
+
+    & div {
+        justify-content: center;
+    }
+
+    & div:last-of-type {
+        justify-content: flex-end;
+    }
+
+}
+
+/*<div class="game-info" >
+<div class="game-info__difficulty" > @SudokuProvider.Sudoku.Difficulty</div >
+<div class="game-info__time-elapsed" > @GameTimerProvider.Elapsed.ToString("mm\\:ss")</div >*/

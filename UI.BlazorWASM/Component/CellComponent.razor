@@ -1,70 +1,40 @@
-﻿@if( Cell.Input.Value != 0 )
-{
-    <div class="cell input @GivenClass"
-         style="@Border">
-        <div class="value @InputIsIllegalClass">
-            @Cell.Input.Value
-        </div>
-    </div>
-}
-else
-{
-    <div class="cell candidates"
-         style="@Border">
-        @for( int value = 1; value < 10; value++ )
-        {
-            <div class="candidate">
-                @{
-                    if( Cell.Candidates.ContainsKey(value) )
-                    {
-                        var isIllegalClass = Cell.Candidates[value].IsLegal ? "" : "illegalInput";
-                        <div class="value @isIllegalClass">
-                            @value
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="value">
+﻿@inject ISudokuProvider SudokuProvider
 
-                        </div>
-                    }
-                }
-            </div>
-        }
-    </div>
-}
+<div class="value input @_currentIsGiven">
+    @_currentValue
+</div>
+
 @code {
+    private string _previousValue;
+    private string _currentValue;
+    private string _previousIsGiven;
+    private string _currentIsGiven;
+
     [Parameter]
-    public ICell Cell { get; set; }
+    public int X { get; set; }
 
-
-    private string GivenClass { get => Cell.IsGiven ? "given " : ""; }
+    [Parameter]
+    public int Y { get; set; }
 
     protected override void OnInitialized()
     {
-        InitBorder();
+        SudokuProvider.OnValueChanged += Update;
     }
 
-    private string Border { get; set; }
-
-    private string InputIsIllegalClass { get => Cell.Input.IsLegal ? "" : "illegalInput"; }
-
-    [Parameter]
-    public Func<string> Filter { get; set; }
-
-
-    private void InitBorder()
+    private void Update()
     {
-        var borders = new[]
-            {
-                ("top", Cell.Y == 3 || Cell.Y == 6),
-                ("right", Cell.X == 2 || Cell.X == 5),
-                ("bottom",  Cell.Y == 2 || Cell.Y == 5),
-                ("left", Cell.X == 3 || Cell.X == 6),
-            };
+        var Cell = SudokuProvider.Cells[X, Y];
 
-        var bordersStyles = borders.Select(item => $"border-{item.Item1}-width: {(item.Item2 ? "0.10rem" : "0.05rem")};");
-        Border = String.Join(" ", bordersStyles);
+        _previousIsGiven = _currentIsGiven;
+        _currentIsGiven = Cell.IsGiven ? "input--is-given " : String.Empty;
+
+        _previousValue = _currentValue;
+        _currentValue = Cell.Input.Value != 0 ? Cell.Input.Value.ToString() : string.Empty;
+
+        if( _previousValue != _currentValue || _previousIsGiven != _currentIsGiven )
+        { 
+            StateHasChanged(); 
+        }
     }
 
 }

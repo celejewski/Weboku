@@ -1,0 +1,93 @@
+﻿@inject NumpadMenuBuilder NumpadMenuBuilder
+@inject ISudokuProvider SudokuProvider
+@inject NumpadMenuProvider NumpadMenuProvider 
+@inject IGameTimerProvider GameTimerProvider
+
+    <div class="numpad">
+        <div class="numpad__game-info">
+            <div class="game-info">
+                <div class="game-info__time-elapsed">@GameTimerProvider.Elapsed.ToString("mm\\:ss")</div>
+                <div class="game-info__difficulty">@SudokuProvider.Sudoku.Difficulty</div>
+            </div>
+
+        </div>
+
+        @foreach( var item in _menuLabels )
+        {
+            var bound = item;
+            <div @onclick="@((e) => OnClick(bound))"
+                 class="numpad__button numpad__label
+                 @(bound == NumpadMenuProvider.SelectedItem ? "numpad__label--highlighted" : string.Empty) 
+                 @(@bound.IsDimmed ? "numpad__label--dimmed" : string.Empty)
+                 ">
+                @item.Label
+            </div>
+        }
+
+        <div class="numpad__hidden"></div>
+
+        <div @onclick="@((e) => NumpadMenuBuilder.ClearColors().Execute())"
+             class="numpad__button numpad__label numpad__clear-colors">
+            Clear colors
+        </div>
+        
+        @foreach( var item in _selectColorMenuItems )
+        {
+            var bound = item;
+            <div @onclick="@((e) => OnClick(bound))"
+                 class="numpad__button">
+                <div class="numpad__color @item.CssClass">
+                </div>
+            </div>
+        }
+    </div>
+
+@code {
+
+    private IList<INumpadMenuLabel> _menuLabels;
+    private IList<ISelectColorMenuItem> _selectColorMenuItems;
+
+    private void OnClick(INumpadMenuItem clicked)
+    {
+        clicked.Execute();
+    }
+
+    protected override void OnInitialized()
+    {
+        SudokuProvider.OnValueOrCandidatesChanged += StateHasChanged;
+        NumpadMenuProvider.OnChanged += StateHasChanged;
+        GameTimerProvider.OnChanged += StateHasChanged;
+
+        _menuLabels = new INumpadMenuLabel[]
+{
+            NumpadMenuBuilder.Undo(),
+            NumpadMenuBuilder.SelectValue(1),
+            NumpadMenuBuilder.SelectValue(2),
+            NumpadMenuBuilder.SelectValue(3),
+
+            NumpadMenuBuilder.Redo(),
+            NumpadMenuBuilder.SelectValue(4),
+            NumpadMenuBuilder.SelectValue(5),
+            NumpadMenuBuilder.SelectValue(6),
+
+            NumpadMenuBuilder.SelectErase(),
+            NumpadMenuBuilder.SelectValue(7),
+            NumpadMenuBuilder.SelectValue(8),
+            NumpadMenuBuilder.SelectValue(9),
+
+            NumpadMenuBuilder.Pairs(),
+};
+
+        _selectColorMenuItems = new ISelectColorMenuItem[]
+        {
+            NumpadMenuBuilder.SelectColor(Enums.CellColor.First),
+            NumpadMenuBuilder.SelectColor(Enums.CellColor.Second),
+            NumpadMenuBuilder.SelectColor(Enums.CellColor.Third),
+            NumpadMenuBuilder.SelectColor(Enums.CellColor.Fourth),
+        };
+
+
+        NumpadMenuProvider.SelectItem(_menuLabels[1]);
+    }
+
+}

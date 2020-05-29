@@ -1,14 +1,16 @@
 using System;
 using System.Net.Http;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Text;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using UI.BlazorWASM.Services;
-using Core.Managers;
 using Core.Generators;
 using Core.Converters;
+using UI.BlazorWASM.Providers;
+using UI.BlazorWASM.Managers;
+using UI.BlazorWASM.ViewModels;
+using UI.BlazorWASM.Hints;
+using UI.BlazorWASM.ClickableActions;
 
 namespace UI.BlazorWASM
 {
@@ -23,7 +25,22 @@ namespace UI.BlazorWASM
             builder.Services.AddSingleton<IEmptyGridGenerator, EmptyGridGenerator>();
             builder.Services.AddSingleton<HodokuGridConverter, HodokuGridConverter>();
             builder.Services.AddSingleton<IGridGenerator, RESTGridGenerator>();
-            builder.Services.AddTransient<IGridHistoryManager, GridHistoryManager>();
+            builder.Services.AddSingleton<ICellColorProvider, CellColorProvider>();
+            builder.Services.AddSingleton<ISudokuProvider, SudokuProvider>();
+            builder.Services.AddSingleton<IGridHistoryManager, GridHistoryManager>();
+            builder.Services.AddSingleton<IFilterProvider, FilterProvider>();
+            builder.Services.AddSingleton<IClickableActionProvider, ClickableActionProvider>();
+            builder.Services.AddSingleton<NumpadMenuBuilder, NumpadMenuBuilder>();
+            builder.Services.AddSingleton<NumpadMenuProvider, NumpadMenuProvider>();
+            builder.Services.AddSingleton<HotkeyProvider, HotkeyProvider>();
+            builder.Services.AddSingleton<CommandProvider, CommandProvider>();
+            builder.Services.AddSingleton<IGameTimerProvider, GameTimerProvider>();
+            builder.Services.AddSingleton<IGameStateChecker, GameStateChecker>();
+            builder.Services.AddSingleton<IGridConverter, HodokuGridConverter>();
+            builder.Services.AddSingleton<ISudokuGenerator, RESTSudokuGenerator>();
+            builder.Services.AddSingleton<ModalProvider, ModalProvider>();
+            builder.Services.AddSingleton<HintProvider, HintProvider>();
+            builder.Services.AddSingleton<ClickableActionFactory, ClickableActionFactory>();
             builder.Services.AddCors();
             var app = builder.Build();
            

@@ -1,210 +1,94 @@
 ﻿@page "/"
-@inject HttpClient Http
 @inject IGridGenerator GridGenerator
-@inject IGridHistoryManager GridHistoryManager
+@inject HotkeyProvider HotkeyProvider
+@inject IJSRuntime JSRuntime
+@inject CommandProvider CommandProvider
+@inject IGameStateChecker GameStateChecker
+@inject IGameTimerProvider GameTimerProvider
+@inject ModalProvider ModalProvider
+@using UI.BlazorWASM.Component.Modals; 
 
-<div id="main"
-     class="main"
-     onblur="this.focus()"
-     tabindex="0"
-     @onkeypress="OnKeyDown"
-     @oncontextmenu:preventDefault="true">
 
-    <MenuComponent Grid="_grid"
-                   StartNewGame="StartNewGame"
-                   FillAllCandidates="FillAllCandidates" />
+<ModalComponent @ref="_modal"/>
 
-    <div class="layer-wrapper">
-        <BackgroundLayerComponent />
+<div id="wrapper" 
+     class="wrapper">
+    <div id="main"
+         class="main"
+         onblur="this.focus()"
+         @onkeydown="HotkeyProvider.OnKeyDown"
+         tabindex="0"
+         @oncontextmenu:preventDefault="true">
 
-        <FilterLayerComponent Cells="Cells"
-                              Filter="Filter" />
+        <div class="main__grid">
+            <BackgroundLayerComponent />
 
-        <ColorLayerComponent ColorClasses="ColorClasses" />
+            <FilterLayerComponent />
 
-        <GridComponent Cells="Cells" />
+            <CellColorLayerComponent />
 
-        <ClickableLayerComponent OnCellLeftClick="OnCellLeftClick"
-                                 OnCellRightClick="OnCellRightClick" />
+            <MarkCandidatesLayerComponent />
 
+            <MarkInputLayerComponent />
+
+            <InputLayerComponent />
+            
+            <BorderLayerComponent />
+            <CandidatesLayerComponent />
+
+            <ShadowLayerComponent />
+            <ClickableLayerComponent />
+
+        </div>
+
+        <div class="main__numpad">
+            <NumpadMenuComponent />
+        </div>
+
+        <div class="main__menu">
+            <MenuComponent />
+        </div>
     </div>
-
-    <NumpadComponent @bind-SelectedValue="SelectedValue"
-                     OnClickUndo="GridHistoryManager.Undo"
-                     OnClickRedo="GridHistoryManager.Redo"
-                     OnClickPairFilter="OnClickPairFilter"
-                     OnClickSelectedValue="OnClickSelectedValue" />
 </div>
 
 @code {
-    private IGrid _grid;
-    public int SelectedValue { get; set; }
+    private ModalComponent _modal;
 
-    public ICell[,] Cells { get => _grid.Cells; }
-
-    protected override void OnInitialized()
+    private async Task StartNewGame(string difficulty)
     {
-        _grid = GridGenerator.Empty();
-        GridHistoryManager.AttachTo(_grid);
-        Filter = IsHighlightedFilter;
+        await CommandProvider.StartNewGame(difficulty).Execute();
     }
 
     protected override async Task OnInitializedAsync()
     {
-        await StartNewGame("Medium");
+        GameStateChecker.OnSolved += OnGameEnd;
+        await GridGenerator.WithGiven("medium");
     }
 
-    public void OnCellLeftClick(MouseEventArgs e, int x, int y)
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (e.CtrlKey)
+        if( !firstRender )
         {
-            if ( string.IsNullOrEmpty(ColorClasses[x, y]) )
-            {
-                ColorClasses[x, y] = "color-1";
-            }
-            else
-            {
-                ColorClasses[x, y] = string.Empty;
-            }
-            StateHasChanged();
-            return;
+            await JSRuntime.InvokeVoidAsync("focusMain");
+            await JSRuntime.InvokeVoidAsync("resize");
         }
-
-        var cell = Cells[x, y];
-        if( cell.IsGiven )
+        else
         {
-            return;
-        }
-
-        if( SelectedValue == 0 || cell.Input.Value == 0 )
-        {
-            GridHistoryManager.Save();
-            _grid.SetValue(cell.X, cell.Y, SelectedValue);
-            StateHasChanged();
-        }
-        else if( cell.Input.Value == SelectedValue )
-        {
-            GridHistoryManager.Save();
-            _grid.SetValue(cell.X, cell.Y, 0);
-            StateHasChanged();
+            ModalProvider.Modal = _modal;
+            _modal.SetState(ModalState.NewGame);
         }
     }
 
-    public void OnCellRightClick(MouseEventArgs e, int x, int y)
+    private void OnGameEnd()
     {
-        if( e.CtrlKey )
-        {
-            if( string.IsNullOrEmpty(ColorClasses[x, y]) )
-            {
-                ColorClasses[x, y] = "color-2";
-            }
-            else
-            {
-                ColorClasses[x, y] = string.Empty;
-            }
-            StateHasChanged();
-            return;
-        }
-
-        var cell = Cells[x, y];
-        if( cell.Input.Value != 0 || SelectedValue == 0 )
-        {
-            return;
-        }
-
-        GridHistoryManager.Save();
-        _grid.ToggleCandidate(cell.X, cell.Y, SelectedValue);
+        GameTimerProvider.Stop();
+        _modal.SetState(ModalState.EndGame);
         StateHasChanged();
     }
 
-    public void OnKeyDown(KeyboardEventArgs args)
+    private void PlayAgain()
     {
-        if( int.TryParse(args.Key, out var digit) )
-        {
-            SelectedValue = digit;
-        }
-
-        if( args.Key == "z" )
-        {
-            GridHistoryManager.Undo();
-        }
-
-        if( args.Key == "y" )
-        {
-            GridHistoryManager.Redo();
-        }
-
-        if (args.Key == "r")
-        {
-            ClearColors();
-        }
-    }
-
-    private void ClearColors()
-    {
-        for( int y = 0; y < 9; y++ )
-        {
-            for( int x = 0; x < 9; x++ )
-            {
-                ColorClasses[x, y] = string.Empty;
-            }
-        }
-    }
-
-    private void FillAllCandidates()
-    {
-        GridHistoryManager.Save();
-        _grid.FillAllCandidates();
-    }
-
-    private async Task StartNewGame(string difficulty)
-    {
-        GridHistoryManager.Save();
-        var newGrid = await GridGenerator.WithGiven(difficulty);
-        _grid.AssignFrom(newGrid);
-        SelectedValue = 1;
+        _modal.SetState(ModalState.NewGame);
         StateHasChanged();
     }
-
-
-
-    public Func<ICell, string> Filter { get; set; }
-    private void OnClickPairFilter()
-    {
-        Filter = IsPairFilter;
-    }
-
-    private string IsPairFilter(ICell cell)
-    {
-        if( cell.Input.Value == 0
-            && cell.Candidates.Count == 2 )
-        {
-            return "candidates-highlight";
-        }
-
-        return String.Empty;
-    }
-
-    private string IsHighlightedFilter(ICell cell)
-    {
-        if( cell.Input.Value != 0
-            && SelectedValue == cell.Input.Value )
-        {
-            return "highlight";
-        }
-
-        if( cell.Candidates.ContainsKey(SelectedValue) )
-        {
-            return "candidates-highlight";
-        }
-
-        return String.Empty;
-    }
-
-    private void OnClickSelectedValue()
-    {
-        Filter = IsHighlightedFilter;
-    }
-
-    private string[,] ColorClasses { get; set; } = new string[9, 9];
 }

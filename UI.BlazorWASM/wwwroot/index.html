@@ -4,14 +4,19 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>UI.BlazorWASM</title>
+    <title>Sudoku App</title>
     <base href="/" />
     <!--<link href="css/app.css" rel="stylesheet" />-->
     <link href="css/site.css" rel="stylesheet" />
 </head>
 
 <body>
-    <app>Loading...</app>
+    <app>
+        <div class="container-loading">
+            <span>Loading...</span>
+            <div class="spinner"></div>
+        </div>
+    </app>
 
     <!--<div id="blazor-error-ui">
         An unhandled error has occurred.
@@ -19,6 +24,45 @@
         <a class="dismiss">🗙</a>
     </div>-->
     <script src="_framework/blazor.webassembly.js"></script>
+    <script>
+        function focusMain() {
+            document.getElementById("main").focus();
+        }
+
+        function setSizeForcingAspectRatio(id, width, height) {
+            const preferredAspectRatio = width / height
+            const currentAspectRatio = window.innerWidth / window.innerHeight
+
+            isWidthLimited = preferredAspectRatio > currentAspectRatio
+            if (isWidthLimited) {
+                const w = Math.min(window.innerWidth, width)
+                const h = w / preferredAspectRatio
+                setSize(id, w,h)
+            } else {
+                const h = Math.min(window.innerHeight, height)
+                const w = h * preferredAspectRatio
+                setSize(id, w, h)
+            }
+        }
+
+        function setSize(id, w, h) {
+            const target = document.getElementById(id)
+            if (!target) {
+                return
+            }
+            target.style.width = w.toString() + "px"
+            target.style.height = h.toString() + "px"
+        }
+
+        function resize() {
+            const maxWidth = 700
+            const maxHeight = 16/9 * maxWidth
+            setSizeForcingAspectRatio('main', maxWidth, maxHeight);
+            setSizeForcingAspectRatio('wrapper', window.innerWidth, window.innerHeight)
+        }
+
+        window.addEventListener('resize', resize)
+    </script>
 </body>
 
 </html>

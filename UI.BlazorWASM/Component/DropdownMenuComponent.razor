@@ -1,0 +1,41 @@
+﻿<div class="dropdown dropdown--@_displayClass"
+     @onmousedown="Toggle">
+    @Header
+    <div class="dropdown__content
+                dropdown__content--@_displayClass">
+        <div class="dropdown__overlay"
+             @onclick="Toggle"></div>
+
+        @Header
+        @Content
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public RenderFragment Header { get; set; }
+
+    [Parameter]
+    public RenderFragment Content { get; set; }
+
+    public void Toggle()
+    {
+        _isHidden = !_isHidden;
+        StateHasChanged();
+    }
+
+    private bool _isHidden = true;
+
+    [Parameter]
+    public bool IsHidden
+    {
+        get => _isHidden;
+        set
+        {
+            _isHidden = value;
+            StateHasChanged();
+        }
+    }
+
+    private string _displayClass { get => _isHidden ? "is-hidden" : "is-visible";  }
+}
