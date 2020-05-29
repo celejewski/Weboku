@@ -21,14 +21,14 @@ namespace UI.BlazorWASM.ClickableActions
             _gridHistoryManager = gridHistoryManager;
         }
 
-        public void LeftClickAction(MouseEventArgs e, int x, int y)
+        public void LeftClickAction(ClickableActionArgs args)
         {
-            Clear(x, y);
+            Clear(args.X, args.Y);
         }
 
-        public void RightClickAction(MouseEventArgs e, int x, int y)
+        public void RightClickAction(ClickableActionArgs args)
         {
-            Clear(x, y);
+            Clear(args.X, args.Y);
         }
     }
 }

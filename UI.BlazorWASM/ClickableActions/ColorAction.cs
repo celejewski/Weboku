@@ -1,9 +1,4 @@
-﻿using Microsoft.AspNetCore.Components.Web;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using UI.BlazorWASM.Enums;
+﻿using UI.BlazorWASM.Enums;
 using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.ClickableActions
@@ -19,14 +14,14 @@ namespace UI.BlazorWASM.ClickableActions
             _cellColorProvider = cellColorProvider;
         }
 
-        public void LeftClickAction(MouseEventArgs e, int x, int y)
+        public void LeftClickAction(ClickableActionArgs args)
         {
-            _cellColorProvider.ToggleColor(x, y, _cellColor);
+            _cellColorProvider.ToggleColor(args.X, args.Y, _cellColor);
         }
 
-        public void RightClickAction(MouseEventArgs e, int x, int y)
+        public void RightClickAction(ClickableActionArgs args)
         {
-            _cellColorProvider.ToggleColor(x, y, _cellColor);
+            _cellColorProvider.ToggleColor(args.X, args.Y, _cellColor);
         }
     }
 }

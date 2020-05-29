@@ -1,5 +1,4 @@
 ﻿using Core.Data;
-using Microsoft.AspNetCore.Components.Web;
 using UI.BlazorWASM.Enums;
 using UI.BlazorWASM.Managers;
 using UI.BlazorWASM.Providers;
@@ -22,15 +21,15 @@ namespace UI.BlazorWASM.ClickableActions
             _sudokuProvider = sudokuProvider;
             _selectedValue = selectedValue;
         }
-        public void LeftClickAction(MouseEventArgs e, int x, int y)
+        public void LeftClickAction(ClickableActionArgs args)
         {
-            if( e.CtrlKey )
+            if( args.MouseEventArgs.CtrlKey )
             {
-                _cellColorProvider.ToggleColor(x, y, CellColor.First);
+                _cellColorProvider.ToggleColor(args.X, args.Y, CellColor.First);
                 return;
             }
 
-            var cell = _cells[x, y];
+            var cell = _cells[args.X, args.Y];
             if( cell.IsGiven )
             {
                 return;
@@ -47,15 +46,15 @@ namespace UI.BlazorWASM.ClickableActions
                 _sudokuProvider.SetValue(cell.X, cell.Y, 0);
             }
         }
-        public void RightClickAction(MouseEventArgs e, int x, int y)
+        public void RightClickAction(ClickableActionArgs args)
         {
-            if( e.CtrlKey )
+            if( args.MouseEventArgs.CtrlKey )
             {
-                _cellColorProvider.ToggleColor(x, y, CellColor.Second);
+                _cellColorProvider.ToggleColor(args.X, args.Y, CellColor.Second);
                 return;
             }
 
-            var cell = _cells[x, y];
+            var cell = _cells[args.X, args.Y];
             if( cell.Input.Value != 0 || _selectedValue == 0 )
             {
                 return;
