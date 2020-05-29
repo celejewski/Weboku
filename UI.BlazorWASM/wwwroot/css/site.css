@@ -111,12 +111,19 @@ html {
   grid-row: span 1;
 }
 
+.main__game-info {
+  grid-row: span 1;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+}
+
 .main__grid {
   grid-row: span 9;
 }
 
 .main__numpad {
-  grid-row: span 6;
+  grid-row: span 5;
 }
 
 :root {
@@ -405,14 +412,7 @@ h1, h2, h3 {
   border-radius: 5px;
   /*border: 1px solid black;*/
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(6, 1fr);
-}
-
-.numpad__game-info {
-  grid-column: span 4;
-  display: flex;
-  justify-content: center;
-  align-items: start;
+  grid-template-rows: repeat(5, 1fr);
 }
 
 .numpad__button {

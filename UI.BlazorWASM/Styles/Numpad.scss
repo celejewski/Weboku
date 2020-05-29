@@ -8,14 +8,7 @@
     border-radius: 5px;
     /*border: 1px solid black;*/
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(6, 1fr);
-
-    &__game-info {
-        grid-column: span 4;
-        display: flex;
-        justify-content: center;
-        align-items: start;
-    }
+    grid-template-rows: repeat(5, 1fr);
 
     &__button {
         border: 1px solid $color-front-secondary;

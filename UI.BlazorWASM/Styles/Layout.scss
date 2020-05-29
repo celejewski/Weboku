@@ -23,11 +23,17 @@
     grid-template-columns: 1fr;
     /*border: 2px solid black;*/
     border-radius: 10px;
-
     box-shadow: 0 0 30px 0 $color-shadow;
 
     &__menu {
         grid-row: span 1;
+    }
+
+    &__game-info {
+        grid-row: span 1;
+        display: flex;
+        justify-content: center;
+        align-items: start;
     }
 
     &__grid {
@@ -35,6 +41,6 @@
     }
 
     &__numpad {
-        grid-row: span 6;
+        grid-row: span 5;
     }
 }
