@@ -1,4 +1,5 @@
 ﻿@inject NumpadMenuBuilder NumpadMenuBuilder
+@inject NumpadMenuProvider NumpadMenuProvider
 @using UI.BlazorWASM.Component.NumpadMenu.Components
 
 
@@ -6,7 +7,8 @@
     <GameInfoComponent />
 
     <GridHistoryButtonComponent NumpadMenuLabel="NumpadMenuBuilder.Undo()" />
-    <SelectValueButtonComponent NumpadMenuLabel="NumpadMenuBuilder.SelectValue(1)" />
+    <SelectValueButtonComponent @ref="_selectedButton"
+                                NumpadMenuLabel="NumpadMenuBuilder.SelectValue(1)" />
     <SelectValueButtonComponent NumpadMenuLabel="NumpadMenuBuilder.SelectValue(2)" />
     <SelectValueButtonComponent NumpadMenuLabel="NumpadMenuBuilder.SelectValue(3)" />
 
@@ -33,5 +35,13 @@
 </div>
 
 @code {
+    private SelectValueButtonComponent _selectedButton;
 
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if(firstRender)
+        {
+            NumpadMenuProvider.SelectItem(_selectedButton.NumpadMenuLabel);
+        }
+    }
 }
