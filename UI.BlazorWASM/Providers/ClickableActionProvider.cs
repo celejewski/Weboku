@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components.Web;
 using System;
 using UI.BlazorWASM.ClickableActions;
+using UI.BlazorWASM.Enums;
 
 namespace UI.BlazorWASM.Providers
 {
@@ -9,12 +10,35 @@ namespace UI.BlazorWASM.Providers
         public IClickableAction ClickableAction { get; private set; }
 
         private int _value;
+        private CellColor _color1;
+        private CellColor _color2;
+
         public int Value
         {
             get => _value;
             set
             {
                 _value = value;
+                OnChanged?.Invoke();
+            }
+        }
+
+        public CellColor Color1 
+        { 
+            get => _color1;
+            set
+            {
+                _color1 = value;
+                OnChanged?.Invoke();
+            }
+        }
+
+        public CellColor Color2
+        {
+            get => _color2;
+            set
+            {
+                _color2 = value;
                 OnChanged?.Invoke();
             }
         }
@@ -39,6 +63,8 @@ namespace UI.BlazorWASM.Providers
                 X = x,
                 Y = y,
                 Value = Value,
+                Color1 = Color1,
+                Color2 = Color2
             };
         }
 

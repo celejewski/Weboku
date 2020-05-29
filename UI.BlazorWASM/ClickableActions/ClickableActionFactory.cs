@@ -17,9 +17,9 @@ namespace UI.BlazorWASM.ClickableActions
             _sudokuProvider = sudokuProvider;
         }
         
-        public IClickableAction ColorAction(CellColor cellColor)
+        public IClickableAction ColorAction()
         {
-            return new ColorAction(cellColor, _cellColorProvider); 
+            return new ColorAction(_cellColorProvider); 
         }
         public IClickableAction StandardAction()
         {
