@@ -8,7 +8,6 @@
 @inject ModalProvider ModalProvider
 @using UI.BlazorWASM.Component.Modals; 
 
-
 <ModalComponent @ref="_modal"/>
 
 <div id="wrapper" 
@@ -22,29 +21,19 @@
 
         <div class="main__grid">
             <BackgroundLayerComponent />
-
             <FilterLayerComponent />
-
             <CellColorLayerComponent />
-
             <MarkCandidatesLayerComponent />
-
             <MarkInputLayerComponent />
-
             <InputLayerComponent />
-            
             <BorderLayerComponent />
             <CandidatesLayerComponent />
-
             <ShadowLayerComponent />
             <ClickableLayerComponent />
-
         </div>
-
         <div class="main__numpad">
             <NumpadMenuComponent />
         </div>
-
         <div class="main__menu">
             <MenuComponent />
         </div>
@@ -54,25 +43,17 @@
 @code {
     private ModalComponent _modal;
 
-    private async Task StartNewGame(string difficulty)
-    {
-        await CommandProvider.StartNewGame(difficulty).Execute();
-    }
-
     protected override async Task OnInitializedAsync()
     {
         GameStateChecker.OnSolved += OnGameEnd;
-        await GridGenerator.WithGiven("medium");
+        GridGenerator.WithGiven("medium");
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if( !firstRender )
-        {
-            await JSRuntime.InvokeVoidAsync("focusMain");
-            await JSRuntime.InvokeVoidAsync("resize");
-        }
-        else
+        await JSRuntime.InvokeVoidAsync("focusMain");
+        await JSRuntime.InvokeVoidAsync("resize");
+        if( firstRender )
         {
             ModalProvider.Modal = _modal;
             _modal.SetState(ModalState.NewGame);
@@ -83,12 +64,6 @@
     {
         GameTimerProvider.Stop();
         _modal.SetState(ModalState.EndGame);
-        StateHasChanged();
-    }
-
-    private void PlayAgain()
-    {
-        _modal.SetState(ModalState.NewGame);
         StateHasChanged();
     }
 }
