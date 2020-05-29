@@ -3,17 +3,18 @@ using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.Commands
 {
-    public class ShowNewGameModalCommand : ICommand
+    public class ShowHowToPlayModalCommand : ICommand
     {
         private readonly ModalProvider _modalProvider;
 
-        public ShowNewGameModalCommand(ModalProvider modalProvider)
+        public ShowHowToPlayModalCommand(ModalProvider modalProvider)
         {
             _modalProvider = modalProvider;
         }
+
         public Task Execute()
         {
-            _modalProvider.Modal.SetState(Component.Modals.ModalState.NewGame);
+            _modalProvider.Modal.SetState(Component.Modals.ModalState.HowToPlay);
             return Task.CompletedTask;
         }
     }

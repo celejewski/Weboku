@@ -6,13 +6,13 @@
 <div class="modal__content">
     @foreach( var difficulty in new[] { "Easy", "Medium", "Hard", "Extreme", "Unfair" } )
     {
-        <a @onclick="@(CommandProvider.StartNewGame(difficulty).Execute)"
+        <a @onclick="CommandProvider.StartNewGame(difficulty).Execute"
             class="modal__button modal__button--primary">@difficulty</a>
     }
 </div>
 
 <div class="modal__footer with-hr">
-    <a @onclick="@(() => ModalProvider.Modal.SetState(ModalState.HowToPlay))"
+    <a @onclick="CommandProvider.ShowHowToPlayModal().Execute"
        class="modal__button modal__button--secondary"> How to play</a>
 </div>
 

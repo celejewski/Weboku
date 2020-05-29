@@ -93,5 +93,10 @@ namespace UI.BlazorWASM.Providers
         {
             return new ShowNewGameModalCommand(_modalProvider);
         }
+
+        public ICommand ShowHowToPlayModal()
+        {
+            return new ShowHowToPlayModalCommand(_modalProvider);
+        }
     }
 }
