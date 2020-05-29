@@ -1,35 +1,33 @@
-﻿@using UI.BlazorWASM.Component.Modals
-
-<div class="modal-container"
+﻿<div class="modal-container"
      style="@_style">
     <div class="modal-overlay">
         <div class="modal">
-            @if( _option == ModalState.NewGame )
+            @if( _currentState == ModalState.NewGame )
             {
                 <NewGameModalComponent />
             }
-            else if (_option == ModalState.EndGame)
+            else if (_currentState == ModalState.EndGame)
             {
                 <EndGameModalComponent />
             }
-            else if (_option == ModalState.HowToPlay)
+            else if (_currentState == ModalState.HowToPlay)
             {
-                <HowToPlayModalComponent NextState="_previous" />
+                <HowToPlayModalComponent NextState="_previousState" />
             }
         </div>
     </div>
 </div>
 
 @code {
-    private ModalState _previous = ModalState.None;
-    private ModalState _option = ModalState.None;
+    private ModalState _previousState = ModalState.None;
+    private ModalState _currentState = ModalState.None;
 
-    private string _style { get => _option == ModalState.None ? "display: none;" : string.Empty; }
+    private string _style { get => _currentState == ModalState.None ? "display: none;" : string.Empty; }
 
     public void SetState(ModalState state)
     {
-        _previous = _option;
-        _option = state;
+        _previousState = _currentState;
+        _currentState = state;
         StateHasChanged();
     }
 }
