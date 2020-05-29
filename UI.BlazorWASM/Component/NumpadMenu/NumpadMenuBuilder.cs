@@ -1,6 +1,8 @@
 ﻿using Core.Data;
 using System.Collections.Generic;
+using UI.BlazorWASM.Commands;
 using UI.BlazorWASM.Component.NumpadMenu;
+using UI.BlazorWASM.Component.NumpadMenu.NumpadMenuOptions;
 using UI.BlazorWASM.Enums;
 using UI.BlazorWASM.Managers;
 using UI.BlazorWASM.Providers;
@@ -86,14 +88,29 @@ namespace UI.BlazorWASM.ViewModels
         }
 
 
-        EraseMenuItem _eraseMenuItem;
-        public EraseMenuItem SelectErase()
+        SelectCleanerActionMenuItem _eraseMenuItem;
+        public SelectCleanerActionMenuItem SelectCleanerAction()
         {
             if( _eraseMenuItem == null )
             {
-                _eraseMenuItem = new EraseMenuItem(_numpadMenuProvider, _commandProvider);
+                _eraseMenuItem = new SelectCleanerActionMenuItem(_numpadMenuProvider, _commandProvider);
             }
             return _eraseMenuItem;
+        }
+
+        public SelectStandardActionMenuItem SelectStandardAction()
+        {
+            return new SelectStandardActionMenuItem(_numpadMenuProvider, _commandProvider);
+        }
+
+        public SelectEraserActionMenuItem SelectEraserAction()
+        {
+            return new SelectEraserActionMenuItem(_numpadMenuProvider, _commandProvider);
+        }
+
+        public SelectColorActionMenuItem SelectColorAction()
+        {
+            return new SelectColorActionMenuItem(_numpadMenuProvider, _commandProvider);
         }
     }
 }

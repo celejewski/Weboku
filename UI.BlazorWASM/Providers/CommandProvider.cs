@@ -21,15 +21,15 @@ namespace UI.BlazorWASM.Providers
         private readonly ModalProvider _modalProvider;
 
         public CommandProvider(
-            ISudokuGenerator sudokuGenerator, 
-            IGridHistoryManager gridHistoryManager, 
-            ISudokuProvider sudokuProvider, 
-            IGameTimerProvider gameTimerProvider, 
-            IGridConverter gridConverter, 
-            IFilterProvider filterProvider, 
-            ICellColorProvider cellColorProvider, 
-            IClickableActionProvider clickableActionProvider, 
-            ClickableActionFactory clickableActionFactory, 
+            ISudokuGenerator sudokuGenerator,
+            IGridHistoryManager gridHistoryManager,
+            ISudokuProvider sudokuProvider,
+            IGameTimerProvider gameTimerProvider,
+            IGridConverter gridConverter,
+            IFilterProvider filterProvider,
+            ICellColorProvider cellColorProvider,
+            IClickableActionProvider clickableActionProvider,
+            ClickableActionFactory clickableActionFactory,
             ModalProvider modalProvider)
         {
             _sudokuGenerator = sudokuGenerator;
@@ -69,9 +69,9 @@ namespace UI.BlazorWASM.Providers
             return new SelectValueCommand(value, _filterProvider, _clickableActionProvider, _clickableActionFactory);
         }
 
-        public ICommand SelectErase()
+        public ICommand SelectCleaner()
         {
-            return new SelectEraseCommand(_clickableActionProvider, _clickableActionFactory, _filterProvider);
+            return new SelectCleanerAction(_clickableActionProvider, _clickableActionFactory, _filterProvider);
         }
 
         public ICommand ClearColors()
@@ -97,6 +97,21 @@ namespace UI.BlazorWASM.Providers
         public ICommand ShowHowToPlayModal()
         {
             return new ShowHowToPlayModalCommand(_modalProvider);
+        }
+
+        public ICommand SelectStandardAction()
+        {
+            return new SelectStandardActionCommand(_clickableActionProvider, _clickableActionFactory);
+        }
+
+        public ICommand SelectEraserAction()
+        {
+            return new SelectEraserActionCommand(_clickableActionProvider, _clickableActionFactory);
+        }
+
+        public ICommand SelectColorAction()
+        {
+            return new SelectColorActionCommand(_clickableActionProvider, _clickableActionFactory);
         }
     }
 }

@@ -1,20 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using UI.BlazorWASM.ClickableActions;
 using UI.BlazorWASM.Filters;
 using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.Commands
 {
-    public class SelectEraseCommand : ICommand
+    public class SelectCleanerAction : ICommand
     {
         private readonly IClickableActionProvider _clickableActionProvider;
         private readonly ClickableActionFactory _clickableActionFactory;
         private readonly IFilterProvider _filterProvider;
 
-        public SelectEraseCommand(
+        public SelectCleanerAction(
             IClickableActionProvider clickableActionProvider,
             ClickableActionFactory clickableActionFactory,
             IFilterProvider filterProvider)
@@ -25,7 +22,7 @@ namespace UI.BlazorWASM.Commands
         }
         public Task Execute()
         {
-            _clickableActionProvider.SetClickableAction(_clickableActionFactory.EraseAction());
+            _clickableActionProvider.SetClickableAction(_clickableActionFactory.CleanerAction());
             _filterProvider.SetFilter(new EraseFilter());
             return Task.CompletedTask;
         }

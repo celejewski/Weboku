@@ -26,9 +26,14 @@ namespace UI.BlazorWASM.ClickableActions
             return new StandardAction(_gridHistoryManager, _cellColorProvider, _sudokuProvider);
         }
 
-        public IClickableAction EraseAction()
+        public IClickableAction CleanerAction()
         {
             return new CleanerAction(_sudokuProvider, _gridHistoryManager);
+        }
+
+        public IClickableAction EraserAction()
+        {
+            return new EraserAction(_sudokuProvider, _gridHistoryManager);
         }
     }
 }

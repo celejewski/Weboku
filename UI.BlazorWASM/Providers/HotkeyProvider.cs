@@ -41,7 +41,7 @@ namespace UI.BlazorWASM.Providers
             Register(new Hotkey { Command = numpadMenuBuilder.Undo(), Key = "z", Ctrl = true });
             Register(new Hotkey { Command = numpadMenuBuilder.Pairs(), Key = "x" });
             Register(new Hotkey { Command = numpadMenuBuilder.ClearColors(), Key = "r" });
-            Register(new Hotkey { Command = numpadMenuBuilder.SelectErase(), Key = "0" });
+            Register(new Hotkey { Command = numpadMenuBuilder.SelectCleanerAction(), Key = "0" });
 
             
             var dict = new Dictionary<CellColor, string>

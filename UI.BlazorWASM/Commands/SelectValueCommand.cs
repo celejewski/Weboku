@@ -25,7 +25,6 @@ namespace UI.BlazorWASM.Commands
         {
             _filterProvider.SetFilter(new SelectedValueFilter(_value));
             _clickableActionProvider.Value = _value;
-            _clickableActionProvider.SetClickableAction(_clickableActionFactory.StandardAction());
             return Task.CompletedTask;
 
         }

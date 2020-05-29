@@ -3,34 +3,34 @@
 @using UI.BlazorWASM.Component.NumpadMenu.Components
 
 
-<div class="numpad">
-    <GridHistoryButtonComponent NumpadMenuLabel="NumpadMenuBuilder.Undo()" />
-    <SelectValueButtonComponent @ref="_selectedButton"
-                                NumpadMenuLabel="NumpadMenuBuilder.SelectValue(1)" />
-    <SelectValueButtonComponent NumpadMenuLabel="NumpadMenuBuilder.SelectValue(2)" />
-    <SelectValueButtonComponent NumpadMenuLabel="NumpadMenuBuilder.SelectValue(3)" />
+    <div class="numpad">
+        <GridHistoryButtonComponent NumpadMenuLabel="NumpadMenuBuilder.Undo()" />
+        <SelectValueButtonComponent @ref="_selectedButton"
+                                    NumpadMenuLabel="NumpadMenuBuilder.SelectValue(1)" />
+        <SelectValueButtonComponent NumpadMenuLabel="NumpadMenuBuilder.SelectValue(2)" />
+        <SelectValueButtonComponent NumpadMenuLabel="NumpadMenuBuilder.SelectValue(3)" />
+        <LabelButtonComponent NumpadMenuLabel="NumpadMenuBuilder.SelectStandardAction()" />
 
-    <GridHistoryButtonComponent NumpadMenuLabel="NumpadMenuBuilder.Redo()" />
-    <SelectValueButtonComponent NumpadMenuLabel="NumpadMenuBuilder.SelectValue(4)" />
-    <SelectValueButtonComponent NumpadMenuLabel="NumpadMenuBuilder.SelectValue(5)" />
-    <SelectValueButtonComponent NumpadMenuLabel="NumpadMenuBuilder.SelectValue(6)" />
+        <GridHistoryButtonComponent NumpadMenuLabel="NumpadMenuBuilder.Redo()" />
+        <SelectValueButtonComponent NumpadMenuLabel="NumpadMenuBuilder.SelectValue(4)" />
+        <SelectValueButtonComponent NumpadMenuLabel="NumpadMenuBuilder.SelectValue(5)" />
+        <SelectValueButtonComponent NumpadMenuLabel="NumpadMenuBuilder.SelectValue(6)" />
+        <LabelButtonComponent NumpadMenuLabel="NumpadMenuBuilder.SelectEraserAction()" />
 
-    <CleanerButtonComponent NumpadMenuLabel="NumpadMenuBuilder.SelectErase()" />
-    <SelectValueButtonComponent NumpadMenuLabel="NumpadMenuBuilder.SelectValue(7)" />
-    <SelectValueButtonComponent NumpadMenuLabel="NumpadMenuBuilder.SelectValue(8)" />
-    <SelectValueButtonComponent NumpadMenuLabel="NumpadMenuBuilder.SelectValue(9)" />
+        <PairsFilterButtonComponent NumpadMenuLabel="NumpadMenuBuilder.Pairs()" />
+        <SelectValueButtonComponent NumpadMenuLabel="NumpadMenuBuilder.SelectValue(7)" />
+        <SelectValueButtonComponent NumpadMenuLabel="NumpadMenuBuilder.SelectValue(8)" />
+        <SelectValueButtonComponent NumpadMenuLabel="NumpadMenuBuilder.SelectValue(9)" />
+        <CleanerButtonComponent NumpadMenuLabel="NumpadMenuBuilder.SelectCleanerAction()" />
 
-    <PairsFilterButtonComponent NumpadMenuLabel="NumpadMenuBuilder.Pairs()" />
+        <ColorButtonComponent SelectColorMenuItem="NumpadMenuBuilder.SelectColor(Enums.CellColor.First)" />
+        <ColorButtonComponent SelectColorMenuItem="NumpadMenuBuilder.SelectColor(Enums.CellColor.Second)" />
+        <ClearColorsButtonComponent />
+        <LabelButtonComponent NumpadMenuLabel="NumpadMenuBuilder.SelectColorAction()" />
 
-    <div class="numpad__hidden"></div>
-
-    <ClearColorsButtonComponent />
-
-    <ColorButtonComponent SelectColorMenuItem="NumpadMenuBuilder.SelectColor(Enums.CellColor.First)" />
-    <ColorButtonComponent SelectColorMenuItem="NumpadMenuBuilder.SelectColor(Enums.CellColor.Second)" />
-    <ColorButtonComponent SelectColorMenuItem="NumpadMenuBuilder.SelectColor(Enums.CellColor.Third)" />
-    <ColorButtonComponent SelectColorMenuItem="NumpadMenuBuilder.SelectColor(Enums.CellColor.Fourth)" />
-</div>
+        <ColorButtonComponent SelectColorMenuItem="NumpadMenuBuilder.SelectColor(Enums.CellColor.Third)" />
+        <ColorButtonComponent SelectColorMenuItem="NumpadMenuBuilder.SelectColor(Enums.CellColor.Fourth)" />
+    </div>
 
 @code {
     private SelectValueButtonComponent _selectedButton;
