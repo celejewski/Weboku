@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components.Web;
+﻿using Core.Data;
+using Microsoft.AspNetCore.Components.Web;
 using System;
 using UI.BlazorWASM.ClickableActions;
 using UI.BlazorWASM.Enums;
@@ -54,6 +55,8 @@ namespace UI.BlazorWASM.Providers
         {
             ClickableAction = clickableActionFactory.StandardAction();
             Value = 1;
+            Color1 = CellColor.First;
+            Color2 = CellColor.Second;
         }
         private ClickableActionArgs CreateArgs(MouseEventArgs e, int x, int y)
         {

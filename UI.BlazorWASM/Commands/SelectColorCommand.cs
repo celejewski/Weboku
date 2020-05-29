@@ -23,6 +23,7 @@ namespace UI.BlazorWASM.Commands
         public Task Execute()
         {
             _clickableActionProvider.Color1 = _cellColor;
+            _clickableActionProvider.Color2 = _cellColor;
             _clickableActionProvider.SetClickableAction(_clickableActionFactory.ColorAction());
             return Task.CompletedTask;
         }
