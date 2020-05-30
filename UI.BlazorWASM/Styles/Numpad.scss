@@ -37,21 +37,24 @@
         }
     }
 
-    &__color1 {
+    @mixin inner-color {
+        $padding: 8%;
+
         position: absolute;
-        top: 5%;
-        bottom: 5%;
-        right: 5%;
-        left: 5%;
+        border: 2px solid $color-back-primary;
+        top: $padding;
+        bottom: $padding;
+        right: $padding;
+        left: $padding;
+    }
+
+    &__color1 {
+        @include inner-color;
         clip-path: polygon( 0 0, 100% 0, 0 100% );
     }
 
     &__color2 {
-        position: absolute;
-        top: 5%;
-        bottom: 5%;
-        right: 5%;
-        left: 5%;
+        @include inner-color;
         clip-path: polygon( 100% 0, 100% 100%, 0 100% );
     }
 
