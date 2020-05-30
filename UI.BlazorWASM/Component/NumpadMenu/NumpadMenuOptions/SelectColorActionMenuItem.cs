@@ -10,7 +10,7 @@ namespace UI.BlazorWASM.Component.NumpadMenu.NumpadMenuOptions
     {
 
         public SelectColorActionMenuItem(NumpadMenuProvider numpadMenuProvider, CommandProvider commandProvider)
-            :base(numpadMenuProvider, commandProvider.SelectColorAction())
+            :base(commandProvider.SelectColorAction(), numpadMenuProvider.ActionContainer)
         {
 
         }
@@ -18,6 +18,6 @@ namespace UI.BlazorWASM.Component.NumpadMenu.NumpadMenuOptions
 
         public override bool IsDimmed => false;
 
-        public override bool IsSelectable => false;
+        public override bool IsSelectable => true;
     }
 }

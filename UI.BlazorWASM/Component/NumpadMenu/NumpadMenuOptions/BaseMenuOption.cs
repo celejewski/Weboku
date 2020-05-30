@@ -6,13 +6,13 @@ namespace UI.BlazorWASM.Component.NumpadMenu
 {
     public abstract class BaseMenuOption : INumpadMenuItem, ICommand
     {
-        private readonly NumpadMenuProvider _numpadMenuProvider;
         private readonly ICommand _command;
+        private readonly SelectableMenuItemContainer _selectableMenuItemContainer;
 
-        protected BaseMenuOption(NumpadMenuProvider numpadMenuProvider, ICommand command)
+        protected BaseMenuOption(ICommand command, SelectableMenuItemContainer selectableMenuItemContainer = null)
         {
-            _numpadMenuProvider = numpadMenuProvider;
             _command = command;
+            _selectableMenuItemContainer = selectableMenuItemContainer;
         }
 
         public abstract bool IsDimmed { get; }
@@ -20,9 +20,9 @@ namespace UI.BlazorWASM.Component.NumpadMenu
 
         public async Task Execute()
         {
-            if( IsSelectable )
+            if( IsSelectable && _selectableMenuItemContainer != null )
             {
-                _numpadMenuProvider.SelectItem(this);
+                _selectableMenuItemContainer.SelectItem(this);
             }
 
             await _command.Execute();

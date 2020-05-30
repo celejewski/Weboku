@@ -50,13 +50,13 @@ namespace UI.BlazorWASM.ViewModels
 
         public RedoNumpadMenuItem Redo()
         {
-            var command = new RedoNumpadMenuItem(_numpadMenuProvider, _commandProvider, _gridHistoryManager);
+            var command = new RedoNumpadMenuItem(_commandProvider, _gridHistoryManager);
             return command;
         }
 
         public UndoNumpadMenuItem Undo()
         {
-            var command = new UndoNumpadMenuItem(_gridHistoryManager, _numpadMenuProvider, _commandProvider);
+            var command = new UndoNumpadMenuItem(_gridHistoryManager, _commandProvider);
             return command;
         }
 
@@ -72,7 +72,7 @@ namespace UI.BlazorWASM.ViewModels
 
         public ClearColorsNumpadMenuItem ClearColors()
         {
-            var command = new ClearColorsNumpadMenuItem(_numpadMenuProvider, _commandProvider);
+            var command = new ClearColorsNumpadMenuItem(_commandProvider);
             return command;
         }
 

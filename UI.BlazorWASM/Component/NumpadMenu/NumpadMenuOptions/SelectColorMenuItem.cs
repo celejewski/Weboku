@@ -29,7 +29,6 @@ namespace UI.BlazorWASM.Component.NumpadMenu
         {
             _clickableActionProvider.Color1 = _cellColor;
             _clickableActionProvider.Color2 = _cellColor;
-            _clickableActionProvider.SetClickableAction(new ColorAction(_cellColorProvider));
             return Task.CompletedTask;
         }
     }

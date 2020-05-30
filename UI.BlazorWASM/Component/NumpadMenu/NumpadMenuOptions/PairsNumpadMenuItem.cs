@@ -7,7 +7,7 @@ namespace UI.BlazorWASM.Component.NumpadMenu
         private readonly ISudokuProvider _sudokuProvider;
 
         public PairsNumpadMenuItem(ISudokuProvider sudokuProvider, NumpadMenuProvider numpadMenuProvider, CommandProvider commandProvider) 
-            : base(numpadMenuProvider, commandProvider.SelectPairsFilter())
+            : base(commandProvider.SelectPairsFilter(), numpadMenuProvider.FilterContainer)
         {
             _sudokuProvider = sudokuProvider;
         }

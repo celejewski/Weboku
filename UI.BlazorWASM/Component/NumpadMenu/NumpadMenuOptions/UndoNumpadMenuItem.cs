@@ -8,8 +8,8 @@ namespace UI.BlazorWASM.Component.NumpadMenu
     {
         private readonly IGridHistoryManager _gridHistoryManager;
 
-        public UndoNumpadMenuItem(IGridHistoryManager gridHistoryManager, NumpadMenuProvider numpadMenuProvider, CommandProvider commandProvider)
-            :base(numpadMenuProvider, commandProvider.Undo())
+        public UndoNumpadMenuItem(IGridHistoryManager gridHistoryManager, CommandProvider commandProvider)
+            :base(commandProvider.Undo())
         {
             _gridHistoryManager = gridHistoryManager;
         }

@@ -4,9 +4,8 @@ namespace UI.BlazorWASM.Component.NumpadMenu
 {
     public class SelectCleanerActionMenuItem : BaseMenuOption, INumpadMenuLabel
     {
-        public SelectCleanerActionMenuItem(NumpadMenuProvider numpadMenuProvider,
-            CommandProvider commandProvider)
-            : base(numpadMenuProvider, commandProvider.SelectCleaner())
+        public SelectCleanerActionMenuItem(NumpadMenuProvider numpadMenuProvider, CommandProvider commandProvider)
+            : base(commandProvider.SelectCleaner(), numpadMenuProvider.ActionContainer)
         {
 
         }

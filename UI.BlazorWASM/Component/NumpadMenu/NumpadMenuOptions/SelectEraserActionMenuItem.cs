@@ -5,7 +5,7 @@ namespace UI.BlazorWASM.Component.NumpadMenu.NumpadMenuOptions
     public class SelectEraserActionMenuItem : BaseMenuOption, INumpadMenuLabel
     {
         public SelectEraserActionMenuItem(NumpadMenuProvider numpadMenuProvider, CommandProvider commandProvider)
-            :base(numpadMenuProvider, commandProvider.SelectEraserAction())
+            :base(commandProvider.SelectEraserAction(), numpadMenuProvider.ActionContainer)
         {
 
         }
@@ -13,6 +13,6 @@ namespace UI.BlazorWASM.Component.NumpadMenu.NumpadMenuOptions
 
         public override bool IsDimmed => false;
 
-        public override bool IsSelectable => false;
+        public override bool IsSelectable => true;
     }
 }

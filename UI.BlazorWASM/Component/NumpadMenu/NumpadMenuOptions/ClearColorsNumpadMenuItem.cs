@@ -9,8 +9,8 @@ namespace UI.BlazorWASM.Component.NumpadMenu
 {
     public class ClearColorsNumpadMenuItem : BaseMenuOption, INumpadMenuLabel
     {
-        public ClearColorsNumpadMenuItem(NumpadMenuProvider numpadMenuProvider, CommandProvider commandProvider)
-            :base(numpadMenuProvider, commandProvider.ClearColors())
+        public ClearColorsNumpadMenuItem(CommandProvider commandProvider)
+            :base(commandProvider.ClearColors())
         {
         }
         public override bool IsDimmed => false;

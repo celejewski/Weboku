@@ -2,7 +2,7 @@
 
 <div @onclick="NumpadMenuLabel.Execute"
      class="numpad__button numpad__label
-                 @(NumpadMenuLabel == NumpadMenuProvider.SelectedItem ? "numpad__label--highlighted" : string.Empty)
+                 @(NumpadMenuProvider.IsSelected(NumpadMenuLabel) ? "numpad__label--highlighted" : string.Empty)
                  @(NumpadMenuLabel.IsDimmed ? "numpad__label--dimmed" : string.Empty)
                  ">
     @NumpadMenuLabel.Label
@@ -12,4 +12,9 @@
 @code {
     [Parameter]
     public INumpadMenuLabel NumpadMenuLabel { get; set; }
+
+    protected override void OnInitialized()
+    {
+        NumpadMenuProvider.OnChanged += StateHasChanged;
+    }
 }

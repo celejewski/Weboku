@@ -8,7 +8,7 @@ namespace UI.BlazorWASM.Component.NumpadMenu
         private readonly ISudokuProvider _sudokuProvider;
 
         public SelectValueNumpadMenuItem(int value, ISudokuProvider sudokuProvider, NumpadMenuProvider numpadMenuProvider , CommandProvider commandProvider ) 
-            : base(numpadMenuProvider, commandProvider.SelectValue(value))
+            : base(commandProvider.SelectValue(value), numpadMenuProvider.FilterContainer)
         {
             _value = value;
             _sudokuProvider = sudokuProvider;

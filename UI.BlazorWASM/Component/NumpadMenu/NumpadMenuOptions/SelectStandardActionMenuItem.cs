@@ -5,7 +5,7 @@ namespace UI.BlazorWASM.Component.NumpadMenu.NumpadMenuOptions
     public class SelectStandardActionMenuItem : BaseMenuOption, INumpadMenuLabel
     {
         public SelectStandardActionMenuItem(NumpadMenuProvider numpadMenuProvider, CommandProvider commandProvider)
-            :base(numpadMenuProvider, commandProvider.SelectStandardAction())
+            :base(commandProvider.SelectStandardAction(), numpadMenuProvider.ActionContainer)
         {
 
         }
@@ -14,6 +14,6 @@ namespace UI.BlazorWASM.Component.NumpadMenu.NumpadMenuOptions
 
         public override bool IsDimmed => false;
 
-        public override bool IsSelectable => false;
+        public override bool IsSelectable => true;
     }
 }

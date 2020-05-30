@@ -5,11 +5,12 @@
 
     <div class="numpad">
         <GridHistoryButtonComponent NumpadMenuLabel="NumpadMenuBuilder.Undo()" />
-        <SelectValueButtonComponent @ref="_selectedButton"
+        <SelectValueButtonComponent @ref="_initialFilter"
                                     NumpadMenuLabel="NumpadMenuBuilder.SelectValue(1)" />
         <SelectValueButtonComponent NumpadMenuLabel="NumpadMenuBuilder.SelectValue(2)" />
         <SelectValueButtonComponent NumpadMenuLabel="NumpadMenuBuilder.SelectValue(3)" />
-        <LabelButtonComponent NumpadMenuLabel="NumpadMenuBuilder.SelectStandardAction()" />
+        <LabelButtonComponent @ref="_initialAction"
+                              NumpadMenuLabel="NumpadMenuBuilder.SelectStandardAction()" />
 
         <GridHistoryButtonComponent NumpadMenuLabel="NumpadMenuBuilder.Redo()" />
         <SelectValueButtonComponent NumpadMenuLabel="NumpadMenuBuilder.SelectValue(4)" />
@@ -33,13 +34,15 @@
     </div>
 
 @code {
-    private SelectValueButtonComponent _selectedButton;
+    private SelectValueButtonComponent _initialFilter;
+    private LabelButtonComponent _initialAction;
 
     protected override void OnAfterRender(bool firstRender)
     {
         if(firstRender)
         {
-            NumpadMenuProvider.SelectItem(_selectedButton.NumpadMenuLabel);
+            NumpadMenuProvider.FilterContainer.SelectItem(_initialFilter.NumpadMenuLabel);
+            NumpadMenuProvider.ActionContainer.SelectItem(_initialAction.NumpadMenuLabel);
         }
     }
 }
