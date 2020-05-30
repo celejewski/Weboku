@@ -10,20 +10,24 @@ namespace UI.BlazorWASM.Commands
         private readonly IClickableActionProvider _clickableActionProvider;
         private readonly ClickableActionFactory _clickableActionFactory;
         private readonly IFilterProvider _filterProvider;
+        private readonly NumpadMenuProvider _numpadMenuProvider;
 
         public SelectCleanerAction(
             IClickableActionProvider clickableActionProvider,
             ClickableActionFactory clickableActionFactory,
-            IFilterProvider filterProvider)
+            IFilterProvider filterProvider,
+            NumpadMenuProvider numpadMenuProvider)
         {
             _clickableActionProvider = clickableActionProvider;
             _clickableActionFactory = clickableActionFactory;
             _filterProvider = filterProvider;
+            _numpadMenuProvider = numpadMenuProvider;
         }
         public Task Execute()
         {
             _clickableActionProvider.SetClickableAction(_clickableActionFactory.CleanerAction());
             _filterProvider.SetFilter(new EraseFilter());
+            _numpadMenuProvider.FilterContainer.DeselectItem();
             return Task.CompletedTask;
         }
     }

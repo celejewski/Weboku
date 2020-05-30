@@ -412,7 +412,7 @@ h1, h2, h3 {
   border-radius: 5px;
   /*border: 1px solid black;*/
   grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(5, 1fr);
+  grid-template-rows: repeat(4, 1fr);
 }
 
 .numpad__button {
@@ -432,8 +432,32 @@ h1, h2, h3 {
 }
 
 .numpad__color {
+  position: relative;
   width: 100%;
   height: 100%;
+  border: 1px inset solid black;
+}
+
+.numpad__color--selected {
+  background-color: #e2b22b;
+}
+
+.numpad__color1 {
+  position: absolute;
+  top: 5%;
+  bottom: 5%;
+  right: 5%;
+  left: 5%;
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+
+.numpad__color2 {
+  position: absolute;
+  top: 5%;
+  bottom: 5%;
+  right: 5%;
+  left: 5%;
+  clip-path: polygon(100% 0, 100% 100%, 0 100%);
 }
 
 .numpad__hidden {
@@ -460,17 +484,17 @@ h1, h2, h3 {
   pointer-events: none;
 }
 
-.numpad__label--highlighted {
+.numpad__label--selected {
   position: relative;
   color: black;
   z-index: 3;
 }
 
-.numpad__label--highlighted::after {
+.numpad__label--selected::after {
   content: '';
   position: absolute;
   left: 50%;
-  background: #DEDEDE;
+  background: #e2b22b;
   transform: translate(-50%);
   z-index: -1;
   border-radius: 50%;
@@ -800,7 +824,7 @@ h1, h2, h3 {
 }
 
 .cell-color-third {
-  background-color: #9B7261;
+  background-color: #adcde0;
 }
 
 .cell-color-fourth {

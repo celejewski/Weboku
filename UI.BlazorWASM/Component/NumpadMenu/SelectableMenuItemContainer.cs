@@ -13,5 +13,10 @@ namespace UI.BlazorWASM.Component.NumpadMenu
             SelectedItem = selected;
             OnChanged?.Invoke();
         }
+
+        public void DeselectItem()
+        {
+            SelectedItem = null;
+        }
     }
 }

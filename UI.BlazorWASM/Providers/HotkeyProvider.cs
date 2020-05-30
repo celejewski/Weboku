@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components.Web;
+﻿using Core.Data;
+using Microsoft.AspNetCore.Components.Web;
 using System;
 using System.Collections.Generic;
 using UI.BlazorWASM.Enums;
@@ -44,17 +45,15 @@ namespace UI.BlazorWASM.Providers
             Register(new Hotkey { Command = numpadMenuBuilder.SelectCleanerAction(), Key = "0" });
 
             
-            var dict = new Dictionary<CellColor, string>
+            var dict = new Dictionary<(CellColor, CellColor), string>
             {
-                { CellColor.First, "a" },
-                { CellColor.Second, "s" },
-                { CellColor.Third, "d" },
-                { CellColor.Fourth, "f" }
+                { (CellColor.First, CellColor.Second), "a" },
+                { (CellColor.Third, CellColor.Fourth), "s" }
             };
 
             foreach( var item in dict )
             {
-                Register(new Hotkey { Command = numpadMenuBuilder.SelectColor(item.Key), Key = item.Value });
+                Register(new Hotkey { Command = numpadMenuBuilder.SelectColor(item.Key.Item1, item.Key.Item2), Key = item.Value });
             }
         }
     }

@@ -9,7 +9,7 @@ namespace UI.BlazorWASM.Component.NumpadMenu
         {
 
         }
-        public string Label => "X";
+        public string Label => "fas fa-eraser";
 
         public override bool IsDimmed => false;
 

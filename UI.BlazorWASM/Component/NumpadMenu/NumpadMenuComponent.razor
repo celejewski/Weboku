@@ -9,33 +9,32 @@
                                     NumpadMenuLabel="NumpadMenuBuilder.SelectValue(1)" />
         <SelectValueButtonComponent NumpadMenuLabel="NumpadMenuBuilder.SelectValue(2)" />
         <SelectValueButtonComponent NumpadMenuLabel="NumpadMenuBuilder.SelectValue(3)" />
-        <LabelButtonComponent @ref="_initialAction"
+        <IconButtonComponent @ref="_initialAction"
                               NumpadMenuLabel="NumpadMenuBuilder.SelectStandardAction()" />
 
         <GridHistoryButtonComponent NumpadMenuLabel="NumpadMenuBuilder.Redo()" />
         <SelectValueButtonComponent NumpadMenuLabel="NumpadMenuBuilder.SelectValue(4)" />
         <SelectValueButtonComponent NumpadMenuLabel="NumpadMenuBuilder.SelectValue(5)" />
         <SelectValueButtonComponent NumpadMenuLabel="NumpadMenuBuilder.SelectValue(6)" />
-        <LabelButtonComponent NumpadMenuLabel="NumpadMenuBuilder.SelectEraserAction()" />
+        <IconButtonComponent NumpadMenuLabel="NumpadMenuBuilder.SelectEraserAction()" />
 
         <PairsFilterButtonComponent NumpadMenuLabel="NumpadMenuBuilder.Pairs()" />
         <SelectValueButtonComponent NumpadMenuLabel="NumpadMenuBuilder.SelectValue(7)" />
         <SelectValueButtonComponent NumpadMenuLabel="NumpadMenuBuilder.SelectValue(8)" />
         <SelectValueButtonComponent NumpadMenuLabel="NumpadMenuBuilder.SelectValue(9)" />
-        <CleanerButtonComponent NumpadMenuLabel="NumpadMenuBuilder.SelectCleanerAction()" />
+        <IconButtonComponent NumpadMenuLabel="NumpadMenuBuilder.SelectCleanerAction()" />
 
-        <ColorButtonComponent SelectColorMenuItem="NumpadMenuBuilder.SelectColor(Enums.CellColor.First)" />
-        <ColorButtonComponent SelectColorMenuItem="NumpadMenuBuilder.SelectColor(Enums.CellColor.Second)" />
         <ClearColorsButtonComponent />
-        <LabelButtonComponent NumpadMenuLabel="NumpadMenuBuilder.SelectColorAction()" />
-
-        <ColorButtonComponent SelectColorMenuItem="NumpadMenuBuilder.SelectColor(Enums.CellColor.Third)" />
-        <ColorButtonComponent SelectColorMenuItem="NumpadMenuBuilder.SelectColor(Enums.CellColor.Fourth)" />
+        <ColorButtonComponent @ref="_initialColor"
+                              SelectColorMenuItem="NumpadMenuBuilder.SelectColor(Enums.CellColor.First, Enums.CellColor.Second)" />
+        <ColorButtonComponent SelectColorMenuItem="NumpadMenuBuilder.SelectColor(Enums.CellColor.Third, Enums.CellColor.Fourth)" />
+        <IconButtonComponent NumpadMenuLabel="NumpadMenuBuilder.SelectColorAction()" />
     </div>
 
 @code {
     private SelectValueButtonComponent _initialFilter;
-    private LabelButtonComponent _initialAction;
+    private IconButtonComponent _initialAction;
+    private ColorButtonComponent _initialColor;
 
     protected override void OnAfterRender(bool firstRender)
     {
@@ -43,6 +42,7 @@
         {
             NumpadMenuProvider.FilterContainer.SelectItem(_initialFilter.NumpadMenuLabel);
             NumpadMenuProvider.ActionContainer.SelectItem(_initialAction.NumpadMenuLabel);
+            NumpadMenuProvider.ColorContainer.SelectItem(_initialColor.SelectColorMenuItem);
         }
     }
 }

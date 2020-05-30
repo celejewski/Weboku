@@ -2,7 +2,7 @@
 
 <div @onclick="NumpadMenuLabel.Execute"
      class="numpad__button numpad__label
-                 @(NumpadMenuProvider.IsSelected(NumpadMenuLabel) ? "numpad__label--highlighted" : string.Empty)
+                 @(NumpadMenuProvider.IsSelected(NumpadMenuLabel) ? "numpad__label--selected" : string.Empty)
                  @(NumpadMenuLabel.IsDimmed ? "numpad__label--dimmed" : string.Empty)
                  ">
     @NumpadMenuLabel.Label

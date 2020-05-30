@@ -10,7 +10,7 @@ namespace UI.BlazorWASM.Component.NumpadMenu.NumpadMenuOptions
 
         }
 
-        public string Label => "Std";
+        public string Label => "fas fa-marker";
 
         public override bool IsDimmed => false;
 

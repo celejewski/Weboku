@@ -21,7 +21,7 @@ namespace UI.BlazorWASM.ClickableActions
         {
             if( args.MouseEventArgs.CtrlKey )
             {
-                _cellColorProvider.ToggleColor(args.X, args.Y, CellColor.First);
+                _cellColorProvider.ToggleColor(args.X, args.Y, args.Color1);
                 return;
             }
 
@@ -46,7 +46,7 @@ namespace UI.BlazorWASM.ClickableActions
         {
             if( args.MouseEventArgs.CtrlKey )
             {
-                _cellColorProvider.ToggleColor(args.X, args.Y, CellColor.Second);
+                _cellColorProvider.ToggleColor(args.X, args.Y, args.Color2);
                 return;
             }
 

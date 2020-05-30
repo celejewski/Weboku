@@ -1,10 +1,23 @@
-﻿<div @onclick="SelectColorMenuItem.Execute"
+﻿@inject NumpadMenuProvider NumpadMenuProvider
+@using BlazorWASM.Converters
+
+<div @onclick="SelectColorMenuItem.Execute"
      class="numpad__button">
-    <div class="numpad__color @SelectColorMenuItem.CssClass">
+    <div class="numpad__color
+                @(IsSelected ? "numpad__color--selected" : string.Empty)">
+        <div class="numpad__color1 @CellColorConverter.ToCssClass(SelectColorMenuItem.Color1)"></div>
+        <div class="numpad__color2 @CellColorConverter.ToCssClass(SelectColorMenuItem.Color2)"></div>
     </div>
 </div>
 
 @code {
     [Parameter]
     public ISelectColorMenuItem SelectColorMenuItem { get; set; }
+
+    private bool IsSelected { get => NumpadMenuProvider.ColorContainer.SelectedItem == SelectColorMenuItem; }
+
+    protected override void OnInitialized()
+    {
+        NumpadMenuProvider.ColorContainer.OnChanged += StateHasChanged;
+    }
 }

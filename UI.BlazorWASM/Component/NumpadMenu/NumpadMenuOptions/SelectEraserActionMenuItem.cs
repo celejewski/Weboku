@@ -9,7 +9,7 @@ namespace UI.BlazorWASM.Component.NumpadMenu.NumpadMenuOptions
         {
 
         }
-        public string Label => "Eraser";
+        public string Label => "fas fa-pencil-alt";
 
         public override bool IsDimmed => false;
 

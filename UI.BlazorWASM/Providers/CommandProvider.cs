@@ -19,6 +19,7 @@ namespace UI.BlazorWASM.Providers
         private readonly IClickableActionProvider _clickableActionProvider;
         private readonly ClickableActionFactory _clickableActionFactory;
         private readonly ModalProvider _modalProvider;
+        private readonly NumpadMenuProvider _numpadMenuProvider;
 
         public CommandProvider(
             ISudokuGenerator sudokuGenerator,
@@ -30,7 +31,8 @@ namespace UI.BlazorWASM.Providers
             ICellColorProvider cellColorProvider,
             IClickableActionProvider clickableActionProvider,
             ClickableActionFactory clickableActionFactory,
-            ModalProvider modalProvider)
+            ModalProvider modalProvider,
+            NumpadMenuProvider numpadMenuProvider)
         {
             _sudokuGenerator = sudokuGenerator;
             _gridHistoryManager = gridHistoryManager;
@@ -42,6 +44,7 @@ namespace UI.BlazorWASM.Providers
             _clickableActionProvider = clickableActionProvider;
             _clickableActionFactory = clickableActionFactory;
             _modalProvider = modalProvider;
+            _numpadMenuProvider = numpadMenuProvider;
         }
         public ICommand StartNewGame(string difficulty)
         {
@@ -71,7 +74,7 @@ namespace UI.BlazorWASM.Providers
 
         public ICommand SelectCleaner()
         {
-            return new SelectCleanerAction(_clickableActionProvider, _clickableActionFactory, _filterProvider);
+            return new SelectCleanerAction(_clickableActionProvider, _clickableActionFactory, _filterProvider, _numpadMenuProvider);
         }
 
         public ICommand ClearColors()
