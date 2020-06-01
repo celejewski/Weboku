@@ -44,10 +44,10 @@
 </div>
 
 @code {
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
         GameStateChecker.OnSolved += OnGameEnd;
-        GridGenerator.WithGiven("medium");
+        Task.Run(() => GridGenerator.WithGiven("medium"));
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
