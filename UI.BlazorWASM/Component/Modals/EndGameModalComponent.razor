@@ -19,8 +19,10 @@
 </div>
 
 <div class="modal__footer with-hr">
-    <a @onclick="@(CommandProvider.ShowNewGameModal().Execute)"
-       class="modal__button modal__button--secondary">Play again</a>
+    <ModalButtonComponent OnClick="CommandProvider.ShowNewGameModal()"
+                          IsSecondary="true">
+        Play again
+    </ModalButtonComponent>
 </div>
 
 @code {

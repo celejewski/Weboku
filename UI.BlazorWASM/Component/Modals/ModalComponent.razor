@@ -4,37 +4,27 @@
      style="@_style">
     <div class="modal-overlay">
         <div class="modal">
-            @if( _currentState == ModalState.NewGame )
+            @if( ModalProvider.CurrentState == ModalState.NewGame )
             {
                 <NewGameModalComponent />
             }
-            else if( _currentState == ModalState.EndGame )
+            else if( ModalProvider.CurrentState == ModalState.EndGame )
             {
                 <EndGameModalComponent />
             }
-            else if( _currentState == ModalState.HowToPlay )
+            else if( ModalProvider.CurrentState == ModalState.HowToPlay )
             {
-                <HowToPlayModalComponent NextState="_previousState" />
+                <HowToPlayModalComponent />
             }
         </div>
     </div>
 </div>
 
 @code {
-    private ModalState _previousState = ModalState.None;
-    private ModalState _currentState = ModalState.None;
-
-    private string _style { get => _currentState == ModalState.None ? "display: none;" : string.Empty; }
-
-    public void Update()
-    {
-        _previousState = _currentState;
-        _currentState = ModalProvider.Modal;
-        StateHasChanged();
-    }
+    private string _style { get => ModalProvider.CurrentState == ModalState.None ? "display: none;" : string.Empty; }
 
     protected override void OnInitialized()
     {
-        ModalProvider.OnChanged += Update;
+        ModalProvider.OnChanged += StateHasChanged;
     }
 }

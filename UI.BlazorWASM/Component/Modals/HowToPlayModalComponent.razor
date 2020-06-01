@@ -21,16 +21,10 @@
 </div>
 
 <div class="modal__footer with-hr">
-    <a @onclick="OnClose"
-       class="modal__button modal__button--secondary">Close</a>
+    <ModalButtonComponent OnClick="CommandProvider.CloseModal()">
+        Close
+    </ModalButtonComponent>
 </div>
 
 @code {
-    [Parameter]
-    public ModalState NextState { get; set; }
-
-    public void OnClose()
-    {
-        ModalProvider.SetModalState(NextState);
-    }
 }

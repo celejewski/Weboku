@@ -5,11 +5,13 @@ namespace UI.BlazorWASM.Providers
 {
     public class ModalProvider : IProvider
     {
-        public ModalState Modal { get; private set; }
+        public ModalState PreviousState { get; private set; }
+        public ModalState CurrentState { get; private set; }
 
         public void SetModalState(ModalState state)
         {
-            Modal = state;
+            PreviousState = CurrentState;
+            CurrentState = state;
             OnChanged?.Invoke();
         }
 
