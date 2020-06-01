@@ -7,8 +7,9 @@
                 <span class="dropdown__item dropdown__label">Menu</span>
             </Header>
             <Content>
-                <a class="dropdown__item dropdown__link" @onmousedown="CommandProvider.ShowNewGameModal().Execute">New game </a>
-                <a class="dropdown__item dropdown__link" @onmousedown="CommandProvider.Restart().Execute">Restart game</a>
+                <MenuLinkComponent OnMouseDown="CommandProvider.ShowNewGameModal()">New game</MenuLinkComponent>
+                <MenuLinkComponent OnMouseDown="CommandProvider.RestartGame()">Restart game</MenuLinkComponent>
+                <MenuLinkComponent OnMouseDown="CommandProvider.ClearCandidates()">Clear candidates</MenuLinkComponent>
             </Content>
         </DropdownMenuComponent>
     </div>
@@ -20,10 +21,8 @@
                 <span class="dropdown__item dropdown__label">Help</span>
             </Header>
             <Content>
-                <a @onmousedown="@CommandProvider.FindAllCandidates().Execute"
-                   class="dropdown__item dropdown__link">Find candidates</a>
-                <a @onmousedown="@CommandProvider.ShowHowToPlayModal().Execute"
-                   class="dropdown__item dropdown__link">How to play</a>
+                <MenuLinkComponent OnMouseDown="CommandProvider.FindAllCandidates()">Find candidates</MenuLinkComponent>
+                <MenuLinkComponent OnMouseDown="CommandProvider.ShowHowToPlayModal()">How to play</MenuLinkComponent>
             </Content>
         </DropdownMenuComponent>
     </div>

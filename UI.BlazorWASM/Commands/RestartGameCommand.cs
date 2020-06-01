@@ -4,14 +4,14 @@ using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.Commands
 {
-    public class RestartCommand : ICommand
+    public class RestartGameCommand : ICommand
     {
         private readonly ISudokuProvider _sudokuProvider;
         private readonly IGridHistoryManager _gridHistoryManager;
         private readonly IGameTimerProvider _gameTimerProvider;
         private readonly ICellColorProvider _cellColorProvider;
 
-        public RestartCommand(
+        public RestartGameCommand(
             ISudokuProvider sudokuProvider, 
             IGridHistoryManager gridHistoryManager,
             IGameTimerProvider gameTimerProvider,
@@ -24,9 +24,8 @@ namespace UI.BlazorWASM.Commands
         }
         public Task Execute()
         {
+            _gridHistoryManager.Save();
             _sudokuProvider.Restart();
-            _sudokuProvider.ClearAllCandidates();
-            _gridHistoryManager.ClearUndo();
             _gameTimerProvider.Start();
             _cellColorProvider.ClearAll();
             return Task.CompletedTask;

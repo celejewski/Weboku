@@ -57,9 +57,9 @@ namespace UI.BlazorWASM.Providers
             return command;
         }
 
-        public ICommand Restart()
+        public ICommand RestartGame()
         {
-            return new RestartCommand(_sudokuProvider, _gridHistoryManager, _gameTimerProvider, _cellColorProvider);
+            return new RestartGameCommand(_sudokuProvider, _gridHistoryManager, _gameTimerProvider, _cellColorProvider);
         }
 
         public ICommand SelectPairsFilter()
@@ -120,6 +120,11 @@ namespace UI.BlazorWASM.Providers
         public ICommand SelectColorAction()
         {
             return new SelectColorActionCommand(_clickableActionProvider, _clickableActionFactory);
+        }
+
+        public ICommand ClearCandidates()
+        {
+            return new ClearCandidatesCommand(_sudokuProvider, _gridHistoryManager);
         }
     }
 }

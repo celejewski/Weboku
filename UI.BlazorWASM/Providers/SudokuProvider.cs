@@ -57,6 +57,8 @@ namespace UI.BlazorWASM.Providers
                     _grid.Cells[x, y].Candidates.Clear();
                 }
             }
+            OnCandidatesChanged?.Invoke();
+            OnValueOrCandidatesChanged?.Invoke();
         }
 
         public IGrid GetGridClone() => (IGrid) _grid.Clone();

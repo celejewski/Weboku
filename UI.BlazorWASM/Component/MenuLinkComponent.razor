@@ -1,0 +1,12 @@
+﻿<a class="dropdown__item dropdown__link" 
+   @onmousedown="@OnMouseDown.Execute">
+    @ChildContent
+</a>
+
+@code {
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    [Parameter]
+    public ICommand OnMouseDown { get; set; }
+}
