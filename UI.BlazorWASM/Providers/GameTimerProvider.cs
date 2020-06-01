@@ -5,29 +5,32 @@ namespace UI.BlazorWASM.Providers
 {
     public class GameTimerProvider : IGameTimerProvider
     {
-        private DateTime _startTime;
         private readonly Timer _timer;
-        private DateTime _lastUpdate;
+        private readonly ModalProvider _modalProvider;
 
-        public GameTimerProvider()
+        public GameTimerProvider(ModalProvider modalProvider)
         {
             _timer = new Timer(1000);
             _timer.Elapsed += (o, e) =>
             {
-                _lastUpdate = DateTime.Now;
+                bool isPaused = _modalProvider.Modal != Component.Modals.ModalState.None;
+                if( !isPaused )
+                {
+                    Elapsed += TimeSpan.FromSeconds(1);
+                }
                 OnChanged?.Invoke();
             };
+            _modalProvider = modalProvider;
         }
 
-        public TimeSpan Elapsed => _lastUpdate - _startTime;
+        public TimeSpan Elapsed { get; private set; }
 
         public event Action OnChanged;
 
         public void Start()
         {
             _timer.Stop();
-            _startTime = DateTime.Now;
-            _lastUpdate = DateTime.Now;
+            Elapsed = TimeSpan.Zero;
             OnChanged?.Invoke();
             _timer.Start();
         }
