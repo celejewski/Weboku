@@ -7,17 +7,6 @@ namespace UI.BlazorWASM.Filters
         public string IsFiltered(ICell cell)
         {
             return FilterStyleClass.None;
-
-            if( cell.Input.Value != 0 && !cell.IsGiven )
-            {
-                return FilterStyleClass.Primary;
-            }
-            else if (cell.Candidates.Count > 0)
-            {
-                return FilterStyleClass.Secondary;
-            }
-
-            return FilterStyleClass.None;
         }
     }
 }
