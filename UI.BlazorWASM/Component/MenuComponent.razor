@@ -4,7 +4,7 @@
     <div class="menu__item">
         <DropdownMenuComponent>
             <Header> 
-                <span class="dropdown__item dropdown__label">Menu</span>
+                <MenuLabelComponent>Menu</MenuLabelComponent>
             </Header>
             <Content>
                 <MenuLinkComponent OnMouseDown="CommandProvider.ShowNewGameModal()">New game</MenuLinkComponent>
@@ -18,7 +18,7 @@
     <div class="menu__item">
         <DropdownMenuComponent>
             <Header>
-                <span class="dropdown__item dropdown__label">Help</span>
+                <MenuLabelComponent>Help</MenuLabelComponent>
             </Header>
             <Content>
                 <MenuLinkComponent OnMouseDown="CommandProvider.FindAllCandidates()">Find candidates</MenuLinkComponent>
