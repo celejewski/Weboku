@@ -45,7 +45,7 @@ namespace UI.BlazorWASM.Commands
             _sudokuProvider.AssignFrom(newGrid);
             _cellColorProvider.ClearAll();
             _gridHistoryManager.ClearUndo();
-            _modalProvider.Modal.SetState(ModalState.None);
+            _modalProvider.SetModalState(ModalState.None);
             _gameTimerProvider.Start();
         }
     }

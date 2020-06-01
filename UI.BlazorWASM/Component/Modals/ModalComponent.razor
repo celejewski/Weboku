@@ -1,4 +1,6 @@
-﻿<div class="modal-container"
+﻿@inject ModalProvider ModalProvider
+
+<div class="modal-container"
      style="@_style">
     <div class="modal-overlay">
         <div class="modal">
@@ -6,11 +8,11 @@
             {
                 <NewGameModalComponent />
             }
-            else if (_currentState == ModalState.EndGame)
+            else if( _currentState == ModalState.EndGame )
             {
                 <EndGameModalComponent />
             }
-            else if (_currentState == ModalState.HowToPlay)
+            else if( _currentState == ModalState.HowToPlay )
             {
                 <HowToPlayModalComponent NextState="_previousState" />
             }
@@ -24,10 +26,15 @@
 
     private string _style { get => _currentState == ModalState.None ? "display: none;" : string.Empty; }
 
-    public void SetState(ModalState state)
+    public void Update()
     {
         _previousState = _currentState;
-        _currentState = state;
+        _currentState = ModalProvider.Modal;
         StateHasChanged();
+    }
+
+    protected override void OnInitialized()
+    {
+        ModalProvider.OnChanged += Update;
     }
 }

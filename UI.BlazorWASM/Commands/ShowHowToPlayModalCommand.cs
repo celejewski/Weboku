@@ -14,7 +14,7 @@ namespace UI.BlazorWASM.Commands
 
         public Task Execute()
         {
-            _modalProvider.Modal.SetState(Component.Modals.ModalState.HowToPlay);
+            _modalProvider.SetModalState(Component.Modals.ModalState.HowToPlay);
             return Task.CompletedTask;
         }
     }

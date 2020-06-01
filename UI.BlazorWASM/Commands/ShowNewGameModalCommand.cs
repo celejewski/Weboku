@@ -13,7 +13,7 @@ namespace UI.BlazorWASM.Commands
         }
         public Task Execute()
         {
-            _modalProvider.Modal.SetState(Component.Modals.ModalState.NewGame);
+            _modalProvider.SetModalState(Component.Modals.ModalState.NewGame);
             return Task.CompletedTask;
         }
     }

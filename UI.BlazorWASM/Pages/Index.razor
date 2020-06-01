@@ -8,7 +8,7 @@
 @inject ModalProvider ModalProvider
 @using UI.BlazorWASM.Component.Modals; 
 
-<ModalComponent @ref="_modal"/>
+<ModalComponent />
 
 <div id="wrapper" 
      class="wrapper">
@@ -44,8 +44,6 @@
 </div>
 
 @code {
-    private ModalComponent _modal;
-
     protected override async Task OnInitializedAsync()
     {
         GameStateChecker.OnSolved += OnGameEnd;
@@ -58,14 +56,13 @@
         await JSRuntime.InvokeVoidAsync("resize");
         if( firstRender )
         {
-            ModalProvider.Modal = _modal;
-            _modal.SetState(ModalState.NewGame);
+            ModalProvider.SetModalState(ModalState.NewGame);
         }
     }
 
     private void OnGameEnd()
     {
         GameTimerProvider.Stop();
-        _modal.SetState(ModalState.EndGame);
+        ModalProvider.SetModalState(ModalState.EndGame);
     }
 }
