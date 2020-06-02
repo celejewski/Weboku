@@ -4,7 +4,7 @@ namespace Core.Converters
 {
     public interface IGridConverter
     {
-        string ToText(IGrid grid, IncludedFields format);
+        string ToText(IGrid grid);
         IGrid FromText(string text);
     }
 }
