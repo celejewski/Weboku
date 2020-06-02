@@ -2,26 +2,22 @@
 
 <div class="modal-container"
      style="@_style">
-    <div class="modal-overlay">
-        <div class="modal">
-            @if( ModalProvider.CurrentState == ModalState.NewGame )
-            {
-                <NewGameModalComponent />
-            }
-            else if( ModalProvider.CurrentState == ModalState.EndGame )
-            {
-                <EndGameModalComponent />
-            }
-            else if( ModalProvider.CurrentState == ModalState.HowToPlay )
-            {
-                <HowToPlayModalComponent />
-            }
-            else if (ModalProvider.CurrentState == ModalState.MainMenu)
-            {
-                <MainMenuModalComponent />
-            }
-        </div>
-    </div>
+        @if( ModalProvider.CurrentState == ModalState.NewGame )
+        {
+            <NewGameModalComponent />
+        }
+        else if( ModalProvider.CurrentState == ModalState.EndGame )
+        {
+            <EndGameModalComponent />
+        }
+        else if( ModalProvider.CurrentState == ModalState.HowToPlay )
+        {
+            <HowToPlayModalComponent />
+        }
+        else if (ModalProvider.CurrentState == ModalState.MainMenu)
+        {
+            <MainMenuModalComponent />
+        }
 </div>
 
 @code {
