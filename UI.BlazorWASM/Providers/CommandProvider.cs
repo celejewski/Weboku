@@ -102,6 +102,11 @@ namespace UI.BlazorWASM.Providers
             return new ShowHowToPlayModalCommand(_modalProvider);
         }
 
+        public ICommand ShowMainMenuModal()
+        {
+            return new ShowMainMenuModalCommand(_modalProvider);
+        }
+
         public ICommand CloseModal()
         {
             return new CloseModalCommand(_modalProvider);
