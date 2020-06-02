@@ -8,8 +8,6 @@
 @inject ModalProvider ModalProvider
 @using UI.BlazorWASM.Component.Modals; 
 
-<ModalComponent />
-
 <div id="wrapper" 
      class="wrapper">
     <div id="main"
@@ -18,6 +16,8 @@
          @onkeydown="HotkeyProvider.OnKeyDown"
          tabindex="0"
          @oncontextmenu:preventDefault="true">
+
+        <ModalComponent />
 
         <div class="main__grid">
             <BackgroundLayerComponent />
