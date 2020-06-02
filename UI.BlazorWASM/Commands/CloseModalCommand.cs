@@ -15,7 +15,7 @@ namespace UI.BlazorWASM.Commands
 
         public Task Execute()
         {
-            _modalProvider.SetModalState(_modalProvider.PreviousState);
+            _modalProvider.GoToPreviousState();
             return Task.CompletedTask;
         }
     }
