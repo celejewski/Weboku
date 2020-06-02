@@ -6,5 +6,6 @@
         NewGame,
         EndGame,
         HowToPlay,
+        MainMenu,
     }
 }

@@ -54,10 +54,6 @@
     {
         await JSRuntime.InvokeVoidAsync("focusMain");
         await JSRuntime.InvokeVoidAsync("resize");
-        if( firstRender )
-        {
-            ModalProvider.SetModalState(ModalState.NewGame);
-        }
     }
 
     private void OnGameEnd()

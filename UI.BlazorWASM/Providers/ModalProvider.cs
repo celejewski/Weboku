@@ -7,7 +7,7 @@ namespace UI.BlazorWASM.Providers
     public class ModalProvider : IProvider
     {
         private readonly Stack<ModalState> _previousStates = new Stack<ModalState>();
-        public ModalState CurrentState { get; private set; }
+        public ModalState CurrentState { get; private set; } = ModalState.MainMenu;
 
         public void SetModalState(ModalState state)
         {
@@ -18,8 +18,16 @@ namespace UI.BlazorWASM.Providers
 
         public void GoToPreviousState()
         {
-            CurrentState = _previousStates.Pop();
-            OnChanged?.Invoke();
+            if( HasPreviousState )
+            {
+                CurrentState = _previousStates.Pop();
+                OnChanged?.Invoke();
+            }
+        }
+
+        public bool HasPreviousState
+        {
+            get => _previousStates.Count > 0;
         }
 
         public event Action OnChanged;
