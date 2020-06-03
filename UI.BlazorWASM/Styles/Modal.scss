@@ -37,7 +37,7 @@ h1, h2, h3 {
 }
 
 .modal {
-    background-color: #F1F1F1;
+    background-color: $modal-background;
     border: 1px solid $color-dark;
     padding: 1.4em * $scale 2rem * $scale;
     margin: 0.66rem * $scale;

@@ -1,0 +1,77 @@
+﻿@inject HodokuGridConverter HodokuGridConverter
+@inject ISudokuProvider SudokuProvider
+@inject IJSRuntime JSRuntime
+@inject CommandProvider CommandProvider
+
+<div class="share">
+    <div class="share__numpad-area">
+        <div class="share__container">
+            <span class="share__label">What to share?</span>
+            <div class="share__row">
+                <div class="share__button @_onlyGivenClass"
+                     @onclick="SelectGivenOnly">Only givens</div>
+                <div class="share__button @_givensAndUserInputsClass"
+                     @onclick="SelectGivenAndUserInput">Givens & user inputs</div>
+            </div>
+            <textarea id="share__output"
+                      class="share__output">@_converted</textarea>
+            <div class="share__row">
+                <div class="share__button"
+                     @onclick=SelectOutput>Select</div>
+                <div class="share__button"
+                     @onclick="CommandProvider.CloseModal().Execute">Close</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private IGrid _grid;
+    private string _converted { get => _converter.ToText(_grid); }
+    private IGridConverter _converter;
+    private bool _onlyGivens;
+
+    private string _onlyGivenClass { get => _onlyGivens ? _selectedClass : string.Empty; }
+    private string _givensAndUserInputsClass { get => !_onlyGivens ? _selectedClass : string.Empty; }
+    private string _selectedClass { get => "share__button--selected"; }
+
+    protected async override Task OnInitializedAsync()
+    {
+        _grid = SudokuProvider.GetGridClone();
+        _converter = HodokuGridConverter;
+        await SelectGivenAndUserInput();
+    }
+
+    private async Task SelectGivenOnly()
+    {
+        _onlyGivens = true;
+        Convert(cell => cell.IsGiven ? cell.Input.Value : 0);
+        StateHasChanged();
+        await SelectOutput();
+    }
+
+    private async Task SelectGivenAndUserInput()
+    {
+        _onlyGivens = false;
+        Convert(cell => cell.Input.Value);
+        StateHasChanged();
+        await SelectOutput();
+    }
+
+    private async Task SelectOutput()
+    {
+        await JSRuntime.InvokeVoidAsync("select", "share__output");
+    }
+
+    private void Convert(Func<ICell, int> CellToValue)
+    {
+        for( int x = 0; x < 9; x++ )
+        {
+            for( int y = 0; y < 9; y++ )
+            {
+                var source = SudokuProvider.Cells[x, y];
+                _grid.SetValue(x, y, CellToValue(source));
+            }
+        }
+    }
+}

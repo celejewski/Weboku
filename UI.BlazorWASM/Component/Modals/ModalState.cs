@@ -7,5 +7,6 @@
         EndGame,
         HowToPlay,
         MainMenu,
+        Share,
     }
 }

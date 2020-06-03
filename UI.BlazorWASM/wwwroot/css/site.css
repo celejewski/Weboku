@@ -95,6 +95,7 @@ html {
 }
 
 .main {
+  position: relative;
   width: 100%;
   height: 100%;
   top: 0;
@@ -192,8 +193,10 @@ h1, h2, h3 {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
   z-index: 100;
 }
 
@@ -869,6 +872,88 @@ h1, h2, h3 {
 
 .game-info__time-elapsed {
   font-size: 1.5rem;
+}
+
+:root {
+  --max-size: 700px;
+  --max-width: 700px;
+}
+
+.share {
+  position: absolute;
+  width: 88%;
+  height: 100%;
+  display: grid;
+  grid-template-rows: repeat(16, 1fr);
+}
+
+.share__numpad-area {
+  background-color: #DEDEDE;
+  grid-row: 10 / span 7;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-rows: repeat(7, 1fr);
+}
+
+.share__container {
+  box-shadow: 0 0 0 100vw rgba(0, 0, 0, 0.15), 0 0px 24px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  color: #898989;
+  background-color: #DEDEDE;
+  padding: 5%;
+  width: 100%;
+  height: 100%;
+  grid-row: 2 / span 5;
+  background-color: #F1F1F1;
+  display: grid;
+  grid-template-rows: repeat(5, 1fr);
+  grid-gap: 4px;
+  border: 1px solid black;
+}
+
+.share__output {
+  grid-row: span 2;
+  margin: 0.5rem 2rem;
+}
+
+.share__row {
+  display: flex;
+  flex-direction: row;
+  justify-content: stretch;
+}
+
+.share__button {
+  color: #7A7A7A;
+  background-color: #FBFBFB;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  margin: 0% 0.25em;
+  padding: 0.25em;
+  border: 1px solid #AAA;
+}
+
+.share__button:hover {
+  background-color: white;
+  font-weight: 700;
+  font-size: 1.35rem;
+}
+
+.share__button--selected {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.share__label {
+  align-self: end;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: black;
 }
 
 .with-hr {

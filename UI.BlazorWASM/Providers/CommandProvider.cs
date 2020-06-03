@@ -131,5 +131,10 @@ namespace UI.BlazorWASM.Providers
         {
             return new ClearCandidatesCommand(_sudokuProvider, _gridHistoryManager);
         }
+
+        public ICommand ShowShareModal()
+        {
+            return new ShowShareModalCommand(_modalProvider);
+        }
     }
 }

@@ -18,6 +18,10 @@
         {
             <MainMenuModalComponent />
         }
+        else if (ModalProvider.CurrentState == ModalState.Share)
+        {
+            <ShareModalComponent />
+        }
 </div>
 
 @code {

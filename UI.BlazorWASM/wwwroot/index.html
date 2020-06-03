@@ -79,7 +79,10 @@
             DotNet.invokeMethod('UI.BlazorWASM', 'OnKeyDown', serializedKeyboardEvent)
         }
         document.onkeydown = onkeydown
-        
+
+        function select(id) {
+            document.getElementById(id).select()
+        }
 
     </script>
 </body>
