@@ -12,9 +12,6 @@
      class="wrapper">
     <div id="main"
          class="main"
-         onblur="this.focus()"
-         @onkeydown="HotkeyProvider.OnKeyDown"
-         tabindex="0"
          @oncontextmenu:preventDefault="true">
 
         <ModalComponent />
@@ -52,7 +49,6 @@
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        await JSRuntime.InvokeVoidAsync("focusMain");
         await JSRuntime.InvokeVoidAsync("resize");
     }
 

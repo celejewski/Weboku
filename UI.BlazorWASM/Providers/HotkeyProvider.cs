@@ -1,5 +1,6 @@
 ﻿using Core.Data;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
 using UI.BlazorWASM.Enums;
@@ -10,7 +11,7 @@ namespace UI.BlazorWASM.Providers
     public class HotkeyProvider : IHotkeyProvider
     {
         public event Action OnChanged;
-        public IList<Hotkey> Hotkeys { get; } = new List<Hotkey>();
+        public static IList<Hotkey> Hotkeys { get; } = new List<Hotkey>();
 
         public void Register(Hotkey hotkey)
         {
@@ -18,8 +19,8 @@ namespace UI.BlazorWASM.Providers
             OnChanged?.Invoke();
         }
 
-
-        public void OnKeyDown(KeyboardEventArgs e)
+        [JSInvokable]
+        public static void OnKeyDown(KeyboardEventArgs e)
         {
             foreach( var item in Hotkeys )
             {
