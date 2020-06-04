@@ -8,5 +8,6 @@
         HowToPlay,
         MainMenu,
         Share,
+        Paste,
     }
 }

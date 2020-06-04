@@ -1,6 +1,8 @@
 ﻿using Core.Data;
 using Core.Generators;
+using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Core.Converters
 {
@@ -15,6 +17,7 @@ namespace Core.Converters
 
         public IGrid FromText(string input)
         {
+            input = input.Replace('.', '0');
             var grid = _generator.Empty();
             for( int x = 0; x < 9; x++ )
             {
@@ -34,6 +37,13 @@ namespace Core.Converters
             return grid;
         }
 
+        public bool IsValidText(string text)
+        {
+            text = text.Replace('.', '0');
+            return text.Length == 81
+                && !Regex.IsMatch(text, @"[^\d]");
+        }
+
         public string ToText(IGrid grid)
         {
             var sb = new StringBuilder();
@@ -47,5 +57,7 @@ namespace Core.Converters
             }
             return sb.ToString();
         }
+
+        
     }
 }

@@ -1,7 +1,7 @@
 ﻿@inject ModalProvider ModalProvider
 
-<div class="modal-container"
-     style="@_style">
+    <div class="modal-container"
+         style="@_style">
         @if( ModalProvider.CurrentState == ModalState.NewGame )
         {
             <NewGameModalComponent />
@@ -14,15 +14,19 @@
         {
             <HowToPlayModalComponent />
         }
-        else if (ModalProvider.CurrentState == ModalState.MainMenu)
+        else if( ModalProvider.CurrentState == ModalState.MainMenu )
         {
             <MainMenuModalComponent />
         }
-        else if (ModalProvider.CurrentState == ModalState.Share)
+        else if( ModalProvider.CurrentState == ModalState.Share )
         {
             <ShareModalComponent />
         }
-</div>
+        else if( ModalProvider.CurrentState == ModalState.Paste )
+        {
+            <PasteModalComponent />
+        }
+    </div>
 
 @code {
     private string _style { get => ModalProvider.CurrentState == ModalState.None ? "display: none;" : string.Empty; }

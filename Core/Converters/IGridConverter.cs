@@ -6,5 +6,6 @@ namespace Core.Converters
     {
         string ToText(IGrid grid);
         IGrid FromText(string text);
+        bool IsValidText(string text);
     }
 }

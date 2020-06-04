@@ -42,6 +42,7 @@ namespace UI.BlazorWASM
             builder.Services.AddSingleton<HintProvider, HintProvider>();
             builder.Services.AddSingleton<ClickableActionFactory, ClickableActionFactory>();
             builder.Services.AddSingleton<ShareProvider, ShareProvider>();
+            builder.Services.AddSingleton<PasteProvider, PasteProvider>();
             builder.Services.AddCors();
             var app = builder.Build();
            

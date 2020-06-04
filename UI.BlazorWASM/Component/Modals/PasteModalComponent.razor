@@ -1,0 +1,24 @@
+﻿@inject IJSRuntime JSRuntime
+@inject CommandProvider CommandProvider
+@inject PasteProvider PasteProvider
+
+<div class="share">
+    <div class="share__numpad-area">
+        <div class="share__container">
+            <span class="share__label">Paste inputs</span>
+            <textarea id="share__output"
+                      class="share__output"
+                      @bind="@PasteProvider.Pasted"></textarea>
+            <div class="share__row">
+                <div class="share__button"
+                     @onclick="CommandProvider.StartNewGameFromPasted().Execute">Start game</div>
+                <div class="share__button"
+                     @onclick="CommandProvider.CloseModal().Execute">Close</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+
+}

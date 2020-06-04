@@ -20,6 +20,7 @@ namespace UI.BlazorWASM.Providers
         private readonly ClickableActionFactory _clickableActionFactory;
         private readonly ModalProvider _modalProvider;
         private readonly NumpadMenuProvider _numpadMenuProvider;
+        private readonly PasteProvider _pasteProvider;
 
         public CommandProvider(
             ISudokuGenerator sudokuGenerator,
@@ -32,7 +33,8 @@ namespace UI.BlazorWASM.Providers
             IClickableActionProvider clickableActionProvider,
             ClickableActionFactory clickableActionFactory,
             ModalProvider modalProvider,
-            NumpadMenuProvider numpadMenuProvider)
+            NumpadMenuProvider numpadMenuProvider,
+            PasteProvider pasteProvider)
         {
             _sudokuGenerator = sudokuGenerator;
             _gridHistoryManager = gridHistoryManager;
@@ -45,6 +47,7 @@ namespace UI.BlazorWASM.Providers
             _clickableActionFactory = clickableActionFactory;
             _modalProvider = modalProvider;
             _numpadMenuProvider = numpadMenuProvider;
+            _pasteProvider = pasteProvider;
         }
         public ICommand StartNewGame(string difficulty)
         {
@@ -135,6 +138,17 @@ namespace UI.BlazorWASM.Providers
         public ICommand ShowShareModal()
         {
             return new ShowShareModalCommand(_modalProvider);
+        }
+
+        public ICommand ShowPasteModal()
+        {
+            return new ShowPasteModalCommand(_modalProvider);
+        }
+
+        public ICommand StartNewGameFromPasted()
+        {
+            return new StartNewGameFromPastedCommand(
+                _sudokuProvider, _pasteProvider, _modalProvider, _cellColorProvider, _gridHistoryManager, _gameTimerProvider);
         }
     }
 }
