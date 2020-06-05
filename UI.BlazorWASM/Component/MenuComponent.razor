@@ -7,10 +7,10 @@
                 <MenuLabelComponent>Menu</MenuLabelComponent>
             </Header>
             <Content>
-                <MenuLinkComponent OnMouseDown="CommandProvider.ShowNewGameModal()">New game</MenuLinkComponent>
-                <MenuLinkComponent OnMouseDown="CommandProvider.RestartGame()">Restart game</MenuLinkComponent>
-                <MenuLinkComponent OnMouseDown="CommandProvider.ClearCandidates()">Clear candidates</MenuLinkComponent>
                 <MenuLinkComponent OnMouseDown="CommandProvider.ShowMainMenuModal()">Main menu</MenuLinkComponent>
+                <MenuLinkComponent OnMouseDown="CommandProvider.ShowShareModal()">Share</MenuLinkComponent>
+                <MenuLinkComponent OnMouseDown="CommandProvider.RestartGame()">Restart game</MenuLinkComponent>
+                <MenuLinkComponent OnMouseDown="CommandProvider.ShowHowToPlayModal()">How to play</MenuLinkComponent>
             </Content>
         </DropdownMenuComponent>
     </div>
@@ -19,11 +19,11 @@
     <div class="menu__item">
         <DropdownMenuComponent>
             <Header>
-                <MenuLabelComponent>Help</MenuLabelComponent>
+                <MenuLabelComponent>Candidates</MenuLabelComponent>
             </Header>
             <Content>
-                <MenuLinkComponent OnMouseDown="CommandProvider.FindAllCandidates()">Find candidates</MenuLinkComponent>
-                <MenuLinkComponent OnMouseDown="CommandProvider.ShowHowToPlayModal()">How to play</MenuLinkComponent>
+                <MenuLinkComponent OnMouseDown="CommandProvider.FindAllCandidates()">Find all</MenuLinkComponent>
+                <MenuLinkComponent OnMouseDown="CommandProvider.ClearCandidates()">Remove all</MenuLinkComponent>
             </Content>
         </DropdownMenuComponent>
     </div>
