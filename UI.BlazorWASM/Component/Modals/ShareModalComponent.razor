@@ -1,6 +1,7 @@
 ﻿@inject IJSRuntime JSRuntime
 @inject CommandProvider CommandProvider
 @inject ShareProvider ShareProvider  
+@inject NavigationManager NavigationManager
 
 <div class="share">
     <div class="share__numpad-area">
@@ -12,8 +13,21 @@
                 <div class="share__button @_givensAndUserInputsClass"
                      @onclick="ShareProvider.SelectGivenAndUserInput">Givens & user inputs</div>
             </div>
-            <textarea id="share__output"
-                      class="share__output">@ShareProvider.Converted</textarea>
+
+            <span class="share__label">What format to use?</span>
+            <div class="share__row">
+                <div class="share__button"
+                     @onclick="GetHodokuFormat">Hodoku</div>
+                <div class="share__button"
+                     @onclick="GetMyFormat">My format</div>
+                <div class="share__button"
+                     @onclick="GetLink">Get link</div>
+            </div>
+
+            <input type="text"
+                   value="@_output"
+                   id="share__output"
+                      class="share__output" />
             <div class="share__row">
                 <div class="share__button"
                      @onclick=SelectOutput>Select</div>
@@ -25,30 +39,60 @@
 </div>
 
 @code {
-    private string _onlyGivenClass 
-    { 
-        get => ShareProvider.SharedFields == Enums.SharedFields.Givens ? _selectedClass : string.Empty; 
+    private bool _showLink;
+    private string _output { get => _showLink ? _shareUri : ShareProvider.Converted; }
+
+    private string _shareUri
+    {
+        get => $"{NavigationManager.BaseUri}paste/{ShareProvider.Converted}";
     }
-    
-    private string _givensAndUserInputsClass 
-    { 
-        get => ShareProvider.SharedFields == Enums.SharedFields.GivensAndInputs ? _selectedClass : string.Empty; 
+
+    private string _onlyGivenClass
+    {
+        get => ShareProvider.SharedFields == Enums.SharedFields.Givens ? _selectedClass : string.Empty;
+    }
+
+    private string _givensAndUserInputsClass
+    {
+        get => ShareProvider.SharedFields == Enums.SharedFields.GivensAndInputs ? _selectedClass : string.Empty;
     }
     private string _selectedClass { get => "share__button--selected"; }
 
     protected override void OnInitialized()
     {
         ShareProvider.OnChanged += Update;
+        GetLink();
     }
 
     private void Update()
     {
         StateHasChanged();
-        SelectOutput();
+        Task.Run(()=> SelectOutput());
     }
 
     private async Task SelectOutput()
     {
         await JSRuntime.InvokeVoidAsync("select", "share__output");
+    }
+
+    private void GetLink()
+    {
+        _showLink = true;
+        ShareProvider.SelectBase64Converter();
+        StateHasChanged();
+    }
+
+    private void GetMyFormat()
+    {
+        _showLink = false;
+        ShareProvider.SelectBase64Converter();
+        StateHasChanged();
+    }
+
+    private void GetHodokuFormat()
+    {
+        _showLink = false;
+        ShareProvider.SelectHodokuConverter();
+        StateHasChanged();
     }
 }

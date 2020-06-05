@@ -28,9 +28,9 @@ namespace UI.BlazorWASM.Providers
             }
         }
 
-        public PasteProvider(HodokuGridConverter hodokuGridConverter)
+        public PasteProvider(ChainGridConverter chainGridConverter)
         {
-            _converter = hodokuGridConverter;
+            _converter = chainGridConverter;
             Pasted = new string('0', 81);   
         }
 

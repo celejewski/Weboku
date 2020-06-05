@@ -8,22 +8,23 @@ namespace UI.BlazorWASM.Providers
     public class ShareProvider : IProvider
     {
         private bool _dirty;
-        private readonly IGridConverter _converter;
+        private IGridConverter _converter;
+        private readonly Base64GridConverter _base64GridConverter;
         private Func<ICell, int> _cellToValue;
         public event Action OnChanged;
         private readonly ISudokuProvider _sudokuProvider;
-
+        private readonly HodokuGridConverter _hodokuGridConverter;
         private string _converted;
-        public string Converted 
-        { 
+        public string Converted
+        {
             get
             {
-                if (_dirty)
+                if( _dirty )
                 {
                     Update();
                 }
                 return _converted;
-            } 
+            }
             private set => _converted = value;
         }
 
@@ -31,9 +32,9 @@ namespace UI.BlazorWASM.Providers
         private readonly IGrid _grid;
         public IGrid Grid
         {
-            get 
+            get
             {
-                if (_dirty)
+                if( _dirty )
                 {
                     Update();
                 }
@@ -42,10 +43,16 @@ namespace UI.BlazorWASM.Providers
         }
         public SharedFields SharedFields { get; set; } = SharedFields.GivensAndInputs;
 
-        public ShareProvider(ISudokuProvider sudokuProvider, HodokuGridConverter hodokuGridConverter)
+        public ShareProvider(
+            ISudokuProvider sudokuProvider,
+            HodokuGridConverter hodokuGridConverter,
+            Base64GridConverter base64GridConverter
+            )
         {
             _sudokuProvider = sudokuProvider;
             _converter = hodokuGridConverter;
+            _hodokuGridConverter = hodokuGridConverter;
+            _base64GridConverter = base64GridConverter;
             _grid = sudokuProvider.GetGridClone();
             SelectGivenOnly();
             sudokuProvider.OnValueOrCandidatesChanged += () => _dirty = true;
@@ -77,6 +84,18 @@ namespace UI.BlazorWASM.Providers
         {
             SharedFields = SharedFields.GivensAndInputs;
             _cellToValue = cell => cell.Input.Value;
+            Update();
+        }
+
+        public void SelectHodokuConverter()
+        {
+            _converter = _hodokuGridConverter;
+            Update();
+        }
+
+        public void SelectBase64Converter()
+        {
+            _converter = _base64GridConverter;
             Update();
         }
     }
