@@ -1,37 +1,36 @@
 ﻿@inject IJSRuntime JSRuntime
 @inject CommandProvider CommandProvider
-@inject ShareProvider ShareProvider  
+@inject ShareProvider ShareProvider
 @inject NavigationManager NavigationManager
 
 <div class="share">
     <div class="share__numpad-area">
         <div class="share__container">
-            <span class="share__label">What to share?</span>
-            <div class="share__row">
-                <div class="share__button @_onlyGivenClass"
+            <h1 class="share__header with-hr">Share</h1>
+            <div class="share__radio">
+                <span class="share__label">What to include?</span>
+                <div class="share__option @FieldClass(Enums.SharedFields.Givens)"
                      @onclick="@(() => ShareProvider.SharedFields = Enums.SharedFields.Givens)">Only givens</div>
-                <div class="share__button @_givensAndUserInputsClass"
-                     @onclick="@(() => ShareProvider.SharedFields = Enums.SharedFields.GivensAndInputs)">Givens & user inputs</div>
+                <div class="share__option @FieldClass(Enums.SharedFields.GivensAndInputs)"
+                     @onclick="@(() => ShareProvider.SharedFields = Enums.SharedFields.GivensAndInputs)">User inputs</div>
             </div>
 
-            <span class="share__label">What format to use?</span>
-            <div class="share__row">
-                <div class="share__button"
+            <div class="share__radio">
+                <span class="share__label">What format to use?</span>
+                <div class="share__option @FormatClass(Enums.SharedConverter.Hodoku)"
                      @onclick="@(() => ShareProvider.SharedConverter = Enums.SharedConverter.Hodoku)">Hodoku</div>
-                <div class="share__button"
+                <div class="share__option @FormatClass(Enums.SharedConverter.MyFormat)"
                      @onclick="@(() => ShareProvider.SharedConverter = Enums.SharedConverter.MyFormat)">My format</div>
-                <div class="share__button"
-                     @onclick="@(() => ShareProvider.SharedConverter = Enums.SharedConverter.MyLink)">Get link</div>
+                <div class="share__option @FormatClass(Enums.SharedConverter.MyLink)"
+                     @onclick="@(() => ShareProvider.SharedConverter = Enums.SharedConverter.MyLink)">My link</div>
             </div>
 
             <input type="text"
                    value="@ShareProvider.Converted"
                    id="share__output"
-                      class="share__output" />
+                   class="share__output" />
             <div class="share__row">
-                <div class="share__button"
-                     @onclick=SelectOutput>Select</div>
-                <div class="share__button"
+                <div class="share__close"
                      @onclick="CommandProvider.CloseModal().Execute">Close</div>
             </div>
         </div>
@@ -58,11 +57,21 @@
     private void Update()
     {
         StateHasChanged();
-        Task.Run(()=> SelectOutput());
+        Task.Run(() => SelectOutput());
     }
 
     private async Task SelectOutput()
     {
         await JSRuntime.InvokeVoidAsync("select", "share__output");
+    }
+
+    private string FormatClass(Enums.SharedConverter sharedConverter)
+    {
+        return ShareProvider.SharedConverter == sharedConverter ? "share__option--selected" : string.Empty;
+    }
+
+    private string FieldClass(Enums.SharedFields sharedFields)
+    {
+        return ShareProvider.SharedFields == sharedFields ? "share__option--selected" : string.Empty;
     }
 }
