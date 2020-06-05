@@ -9,23 +9,23 @@
             <span class="share__label">What to share?</span>
             <div class="share__row">
                 <div class="share__button @_onlyGivenClass"
-                     @onclick="ShareProvider.SelectGivenOnly">Only givens</div>
+                     @onclick="@(() => ShareProvider.SharedFields = Enums.SharedFields.Givens)">Only givens</div>
                 <div class="share__button @_givensAndUserInputsClass"
-                     @onclick="ShareProvider.SelectGivenAndUserInput">Givens & user inputs</div>
+                     @onclick="@(() => ShareProvider.SharedFields = Enums.SharedFields.GivensAndInputs)">Givens & user inputs</div>
             </div>
 
             <span class="share__label">What format to use?</span>
             <div class="share__row">
                 <div class="share__button"
-                     @onclick="GetHodokuFormat">Hodoku</div>
+                     @onclick="@(() => ShareProvider.SharedConverter = Enums.SharedConverter.Hodoku)">Hodoku</div>
                 <div class="share__button"
-                     @onclick="GetMyFormat">My format</div>
+                     @onclick="@(() => ShareProvider.SharedConverter = Enums.SharedConverter.MyFormat)">My format</div>
                 <div class="share__button"
-                     @onclick="GetLink">Get link</div>
+                     @onclick="@(() => ShareProvider.SharedConverter = Enums.SharedConverter.MyLink)">Get link</div>
             </div>
 
             <input type="text"
-                   value="@_output"
+                   value="@ShareProvider.Converted"
                    id="share__output"
                       class="share__output" />
             <div class="share__row">
@@ -39,14 +39,6 @@
 </div>
 
 @code {
-    private bool _showLink;
-    private string _output { get => _showLink ? _shareUri : ShareProvider.Converted; }
-
-    private string _shareUri
-    {
-        get => $"{NavigationManager.BaseUri}paste/{ShareProvider.Converted}";
-    }
-
     private string _onlyGivenClass
     {
         get => ShareProvider.SharedFields == Enums.SharedFields.Givens ? _selectedClass : string.Empty;
@@ -61,7 +53,6 @@
     protected override void OnInitialized()
     {
         ShareProvider.OnChanged += Update;
-        GetLink();
     }
 
     private void Update()
@@ -73,26 +64,5 @@
     private async Task SelectOutput()
     {
         await JSRuntime.InvokeVoidAsync("select", "share__output");
-    }
-
-    private void GetLink()
-    {
-        _showLink = true;
-        ShareProvider.SelectBase64Converter();
-        StateHasChanged();
-    }
-
-    private void GetMyFormat()
-    {
-        _showLink = false;
-        ShareProvider.SelectBase64Converter();
-        StateHasChanged();
-    }
-
-    private void GetHodokuFormat()
-    {
-        _showLink = false;
-        ShareProvider.SelectHodokuConverter();
-        StateHasChanged();
     }
 }

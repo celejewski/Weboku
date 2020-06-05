@@ -1,5 +1,6 @@
 ﻿using Core.Converters;
 using Core.Data;
+using Microsoft.AspNetCore.Components;
 using System;
 using UI.BlazorWASM.Enums;
 
@@ -8,12 +9,26 @@ namespace UI.BlazorWASM.Providers
     public class ShareProvider : IProvider
     {
         private bool _dirty;
-        private IGridConverter _converter;
+
         private readonly Base64GridConverter _base64GridConverter;
-        private Func<ICell, int> _cellToValue;
+        private readonly NavigationManager _navigationManager;
         public event Action OnChanged;
         private readonly ISudokuProvider _sudokuProvider;
         private readonly HodokuGridConverter _hodokuGridConverter;
+
+        private Func<ICell, int> CellToValue
+        {
+            get
+            {
+                return _sharedFields switch
+                {
+                    SharedFields.Givens => cell => cell.IsGiven ? cell.Input.Value : 0,
+                    SharedFields.GivensAndInputs => cell => cell.Input.Value,
+                    _ => throw new NotImplementedException(),
+                };
+            }
+        }
+
         private string _converted;
         public string Converted
         {
@@ -26,6 +41,27 @@ namespace UI.BlazorWASM.Providers
                 return _converted;
             }
             private set => _converted = value;
+        }
+
+        private SharedConverter _sharedConverter = SharedConverter.MyLink;
+        public SharedConverter SharedConverter 
+        {
+            get => _sharedConverter;
+            set
+            {
+                _sharedConverter = value;
+                Update();
+            }
+        }
+        private SharedFields _sharedFields = SharedFields.GivensAndInputs;
+        public SharedFields SharedFields 
+        { 
+            get =>_sharedFields;
+            set
+            {
+                _sharedFields = value;
+                Update();
+            }
         }
 
 
@@ -41,20 +77,19 @@ namespace UI.BlazorWASM.Providers
                 return _grid;
             }
         }
-        public SharedFields SharedFields { get; set; } = SharedFields.GivensAndInputs;
 
         public ShareProvider(
             ISudokuProvider sudokuProvider,
             HodokuGridConverter hodokuGridConverter,
-            Base64GridConverter base64GridConverter
+            Base64GridConverter base64GridConverter,
+            NavigationManager navigationManager
             )
         {
             _sudokuProvider = sudokuProvider;
-            _converter = hodokuGridConverter;
             _hodokuGridConverter = hodokuGridConverter;
             _base64GridConverter = base64GridConverter;
+            _navigationManager = navigationManager;
             _grid = sudokuProvider.GetGridClone();
-            SelectGivenOnly();
             sudokuProvider.OnValueOrCandidatesChanged += () => _dirty = true;
         }
 
@@ -65,38 +100,28 @@ namespace UI.BlazorWASM.Providers
                 for( int y = 0; y < 9; y++ )
                 {
                     var source = _sudokuProvider.Cells[x, y];
-                    _grid.SetValue(x, y, _cellToValue(source));
+                    _grid.SetValue(x, y, CellToValue(source));
                 }
             }
-            Converted = _converter.ToText(_grid);
+
+            IGridConverter converter = SharedConverter switch
+            {
+                SharedConverter.Hodoku => _hodokuGridConverter,
+                SharedConverter.MyFormat => _base64GridConverter,
+                SharedConverter.MyLink => _base64GridConverter,
+                _ => throw new ArgumentException("incorrect SharedConverter")
+            };
+            var text = converter.ToText(_grid);
+            if( SharedConverter == SharedConverter.MyLink )
+            {
+                _converted = $"{_navigationManager.BaseUri}paste/{text}";
+            }
+            else
+            {
+                _converted = text;
+            }
             _dirty = false;
             OnChanged?.Invoke();
-        }
-
-        public void SelectGivenOnly()
-        {
-            SharedFields = SharedFields.Givens;
-            _cellToValue = cell => cell.IsGiven ? cell.Input.Value : 0;
-            Update();
-        }
-
-        public void SelectGivenAndUserInput()
-        {
-            SharedFields = SharedFields.GivensAndInputs;
-            _cellToValue = cell => cell.Input.Value;
-            Update();
-        }
-
-        public void SelectHodokuConverter()
-        {
-            _converter = _hodokuGridConverter;
-            Update();
-        }
-
-        public void SelectBase64Converter()
-        {
-            _converter = _base64GridConverter;
-            Update();
         }
     }
 }
