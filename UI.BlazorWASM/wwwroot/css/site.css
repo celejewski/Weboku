@@ -901,13 +901,13 @@ h1, h2, h3 {
   border-radius: 10px;
   color: #898989;
   background-color: #DEDEDE;
-  padding: 5%;
+  padding: 15% 5%;
   width: 100%;
   height: 100%;
   grid-row: 1 / span 7;
   background-color: #F1F1F1;
   display: grid;
-  grid-template-rows: repeat(7, 1fr);
+  grid-template-rows: repeat(6, 1fr);
   grid-gap: 4px;
   border: 1px solid black;
 }
@@ -920,7 +920,8 @@ h1, h2, h3 {
 .share__row {
   display: flex;
   flex-direction: row;
-  justify-content: stretch;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 .share__button {
@@ -932,15 +933,17 @@ h1, h2, h3 {
   border-radius: 5px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   width: 100%;
-  margin: 0% 0.25em;
-  padding: 0.25em;
+  max-width: 13em;
+  margin: 0.25em 0.25em;
+  font-size: 1rem;
+  padding: 0.35em 0.15em;
   border: 1px solid #AAA;
 }
 
 .share__button:hover {
   background-color: white;
   font-weight: 700;
-  font-size: 1.35rem;
+  border: 1px solid black;
 }
 
 .share__button--selected {
