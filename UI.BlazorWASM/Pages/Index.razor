@@ -8,9 +8,12 @@
 @inject IGameTimerProvider GameTimerProvider
 @inject ModalProvider ModalProvider
 @inject PasteProvider PasteProvider
-@using UI.BlazorWASM.Component.Modals; 
+@using UI.BlazorWASM.Component.Modals;
 
-<div id="wrapper" 
+
+<link href="css/site.css?@DateTime.Now" rel="stylesheet" />
+
+<div id="wrapper"
      class="wrapper">
     <div id="main"
          class="main"
@@ -53,7 +56,7 @@
         GameStateChecker.OnSolved += OnGameEnd;
         Task.Run(() => GridGenerator.WithGiven("medium"));
 
-        if (!string.IsNullOrEmpty(SharedSudoku))
+        if( !string.IsNullOrEmpty(SharedSudoku) )
         {
             PasteProvider.Pasted = SharedSudoku;
             ModalProvider.SetModalState(ModalState.Paste);
