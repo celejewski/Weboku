@@ -19,7 +19,6 @@ namespace UI.BlazorWASM.Providers
             {
                 _pasted = value;
                 IsValidText = _converter.IsValidText(_pasted);
-                Console.WriteLine("{0} {1}", _pasted, IsValidText);
                 if( IsValidText )
                 {
                     Grid = _converter.FromText(_pasted);
