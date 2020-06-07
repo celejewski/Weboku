@@ -144,6 +144,9 @@ html {
   display: grid;
   grid-template-columns: 3fr 1fr 3fr;
   padding: 0 0 0.5rem 0;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
 }
 
 .menu__item {
@@ -383,18 +386,6 @@ h1, h2, h3 {
 
 .candidates-grid__cell {
   display: flex;
-}
-
-.given {
-  font-weight: bold;
-}
-
-.value {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 :root {
@@ -665,6 +656,8 @@ h1, h2, h3 {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
+  height: 100%;
 }
 
 .input--is-given {
@@ -1011,6 +1004,14 @@ h1, h2, h3 {
 .share__input {
   grid-row: span 2;
   grid-column: span 2;
+}
+
+.candidates {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
 }
 
 .with-hr {
