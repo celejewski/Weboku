@@ -1,6 +1,8 @@
 ﻿@import '_Variables.scss';
 
-.share {
+@import '_Variables.scss';
+
+.paste {
     &__header {
         grid-column: span 2;
         font-size: 2.5rem;
@@ -31,7 +33,7 @@
 
         &--selected {
             font-weight: $font-bold;
-            position:relative;
+            position: relative;
 
             &::after {
                 content: '';
@@ -44,7 +46,7 @@
             }
 
             &::before {
-                position:absolute;
+                position: absolute;
                 left: 0.5em;
                 top: 50%;
                 transform: translateY(-50%);

@@ -1,14 +1,13 @@
-﻿@inject ModalProvider ModalProvider 
-@inject ShareProvider ShareProvider 
+﻿@inject ModalProvider ModalProvider
+@inject ShareProvider ShareProvider
 
 @if( ModalProvider.CurrentState == Modals.ModalState.Share )
 {
-    <BackgroundLayerComponent />
     <Grid9x9Component>
         <div class="input">
             @{
                 var value = ShareProvider.Grid.Cells[context.x, context.y].Input.Value;
-                if (value != 0)
+                if( value != 0 )
                 {
                     @value;
                 }
@@ -17,8 +16,8 @@
     </Grid9x9Component>
 }
 
-@code { 
-    
+@code {
+
     protected override void OnInitialized()
     {
         ModalProvider.OnChanged += StateHasChanged;

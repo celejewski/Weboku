@@ -2,26 +2,27 @@
 @inject CommandProvider CommandProvider
 @inject PasteProvider PasteProvider
 
-<div class="share">
-    <div class="share__numpad-area">
-        <div class="share__container">
-            <h1 class="share__header with-hr">Paste</h1>
-            <textarea class="share__input"
-                      @bind="@PasteProvider.Pasted"></textarea>
+<ModalWithGridTemplateComponent>
+    <Grid>
+        <PasteLayerComponent />
+    </Grid>
+    <Content>
+        <h1 class="paste__header with-hr">Paste</h1>
+        <textarea class="paste__input"
+                  @bind="@PasteProvider.Pasted"></textarea>
 
-            <div class="share__row">
-                <div class="share__close"
-                     @onclick="CommandProvider.StartNewGameFromPasted().Execute">Start game</div>
-            </div>
-
-
-            <div class="share__row">
-                <div class="share__close"
-                     @onclick="CommandProvider.CloseModal().Execute">Close</div>
-            </div>
+        <div class="paste__row">
+            <div class="paste__close"
+                 @onclick="CommandProvider.StartNewGameFromPasted().Execute">Start game</div>
         </div>
-    </div>
-</div>
+
+
+        <div class="paste__row">
+            <div class="paste__close"
+                 @onclick="CommandProvider.CloseModal().Execute">Close</div>
+        </div>
+    </Content>
+</ModalWithGridTemplateComponent>
 
 @code {
 

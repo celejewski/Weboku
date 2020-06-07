@@ -3,9 +3,11 @@
 @inject ShareProvider ShareProvider
 @inject NavigationManager NavigationManager
 
-<div class="share">
-    <div class="share__numpad-area">
-        <div class="share__container">
+    <ModalWithGridTemplateComponent>
+        <Grid>
+            <ShareLayerComponent />
+        </Grid>
+        <Content>
             <h1 class="share__header with-hr">Share</h1>
             <div class="share__radio">
                 <span class="share__label">What to include?</span>
@@ -33,9 +35,8 @@
                 <div class="share__close"
                      @onclick="CommandProvider.CloseModal().Execute">Close</div>
             </div>
-        </div>
-    </div>
-</div>
+        </Content>
+    </ModalWithGridTemplateComponent>
 
 @code {
     private string _onlyGivenClass
