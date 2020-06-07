@@ -1,8 +1,7 @@
 ﻿@import '_Variables.scss';
 
-.main__grid {    
+.main__grid {
     position: relative;
-    width: 100%;
 
     &:after {
         content: '';
@@ -12,17 +11,10 @@
 }
 
 .layer {
-    $margin: 6%;
+    width: 100%;
+    height: 100%;
+
     position: absolute;
-
-    top: $margin;
-    right: $margin;
-    bottom: $margin;
-    left: $margin;
-
-    width: calc( 100% - 12% );
-    height: calc( 100% - 12%);
-
     border-radius: $grid-border-radius;
 }
 

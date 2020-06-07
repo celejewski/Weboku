@@ -103,13 +103,15 @@ html {
   display: grid;
   grid-template-rows: repeat(16, 1fr);
   grid-template-columns: 1fr;
-  /*border: 2px solid black;*/
   border-radius: 10px;
   box-shadow: 0 0 30px 0 #616161;
 }
 
 .main__menu {
   grid-row: span 1;
+  margin: 0% 6%;
+  width: 88%;
+  height: 100%;
 }
 
 .main__game-info {
@@ -120,11 +122,17 @@ html {
 }
 
 .main__grid {
+  margin: 6%;
+  width: -76%;
+  height: -76%;
   grid-row: span 9;
 }
 
 .main__numpad {
   grid-row: span 5;
+  margin: 0 6%;
+  width: 88%;
+  height: 100%;
 }
 
 :root {
@@ -135,12 +143,7 @@ html {
 .menu {
   display: grid;
   grid-template-columns: 3fr 1fr 3fr;
-  margin: 0% 6%;
-  width: calc(100% - 12%);
-  height: 100%;
   padding: 0 0 0.5rem 0;
-  max-width: var(--max-size);
-  /*align-items: start;*/
 }
 
 .menu__item {
@@ -167,9 +170,6 @@ html {
   justify-content: flex-end;
 }
 
-/*<div class="game-info" >
-<div class="game-info__difficulty" > @SudokuProvider.Sudoku.Difficulty</div >
-<div class="game-info__time-elapsed" > @GameTimerProvider.Elapsed.ToString("mm\\:ss")</div >*/
 :root {
   --max-size: 700px;
   --max-width: 700px;
@@ -313,7 +313,6 @@ h1, h2, h3 {
 
 .main__grid {
   position: relative;
-  width: 100%;
 }
 
 .main__grid:after {
@@ -323,13 +322,9 @@ h1, h2, h3 {
 }
 
 .layer {
+  width: 100%;
+  height: 100%;
   position: absolute;
-  top: 6%;
-  right: 6%;
-  bottom: 6%;
-  left: 6%;
-  width: calc( 100% - 12%);
-  height: calc( 100% - 12%);
   border-radius: 10px;
 }
 
@@ -409,11 +404,9 @@ h1, h2, h3 {
 
 .numpad {
   display: grid;
-  margin: 0% 6%;
-  width: 88%;
+  width: 100%;
   height: 100%;
   border-radius: 5px;
-  /*border: 1px solid black;*/
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(4, 1fr);
 }
