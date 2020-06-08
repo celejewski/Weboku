@@ -7,7 +7,6 @@
     <title>Sudoku App</title>
     <base href="/" />
     <!--<link href="css/app.css" rel="stylesheet" />-->
-    <link href="css/site.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css" rel="stylesheet" />
 </head>
 
@@ -26,6 +25,16 @@
     </div>-->
     <script src="_framework/blazor.webassembly.js"></script>
     <script>
+        const cacheBusting = function () {
+            const uniqueNum = new Date().getTime();
+            const cssURL = 'css/site.css?ver=' + uniqueNum;
+            const cssElement = document.createElement('link')
+            cssElement.setAttribute('rel', 'stylesheet')
+            cssElement.setAttribute('type', 'text/css')
+            cssElement.setAttribute('href', cssURL);
+            document.getElementsByTagName("head")[0].appendChild(cssElement);
+        }()
+
         function focusMain() {
             document.getElementById("main").focus();
         }
