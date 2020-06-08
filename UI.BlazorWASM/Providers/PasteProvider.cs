@@ -1,6 +1,5 @@
 ﻿using Core.Converters;
 using Core.Data;
-using Core.Generators;
 using System;
 
 namespace UI.BlazorWASM.Providers
@@ -18,14 +17,15 @@ namespace UI.BlazorWASM.Providers
             set
             {
                 _pasted = value;
-                IsValidText = _converter.IsValidText(_pasted);
-                if( IsValidText )
+                if( IsValid )
                 {
                     Grid = _converter.FromText(_pasted);
                 }
                 OnChanged?.Invoke();
             }
         }
+
+        public bool IsValid => IsValidText = _converter.IsValidText(_pasted);
 
         public PasteProvider(ChainGridConverter chainGridConverter)
         {

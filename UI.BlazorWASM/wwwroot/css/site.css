@@ -1130,14 +1130,6 @@ h1, h2, h3 {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15);
 }
 
-.paste__output {
-  grid-column: span 2;
-  font-size: 1.25rem;
-  margin: auto;
-  width: 85%;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15);
-}
-
 .paste__row {
   grid-column: span 2;
   display: flex;
@@ -1174,6 +1166,10 @@ h1, h2, h3 {
 .paste__input {
   grid-row: span 2;
   grid-column: span 2;
+}
+
+.paste__input--is-invalid {
+  background-color: #FF7970;
 }
 
 .with-hr {

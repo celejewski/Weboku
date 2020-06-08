@@ -73,14 +73,6 @@
         box-shadow: 0 4px 8px 0 rgba(0,0,0,0.15);
     }
 
-    &__output {
-        grid-column: span 2;
-        font-size: 1.25rem;
-        margin: auto;
-        width: 85%;
-        box-shadow: 0 4px 8px 0 rgba(0, 0,0,0.15);
-    }
-
     &__row {
         grid-column: span 2;
         display: flex;
@@ -116,5 +108,9 @@
     &__input {
         grid-row: span 2;
         grid-column: span 2;
+
+        &--is-invalid {
+            background-color: $color-1;
+        }
     }
 }
