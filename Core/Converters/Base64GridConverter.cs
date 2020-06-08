@@ -20,7 +20,14 @@ namespace Core.Converters
         {
             var bytes = WebEncoders.Base64UrlDecode(text);
             var bigInt = new BigInteger(bytes);
-            return _innerConverter.FromText(bigInt.ToString().Substring(1));
+            var parsed = bigInt.ToString().Substring(1);
+
+            if (parsed.Length != 81)
+            {
+                throw new ArgumentException();
+            }
+
+            return _innerConverter.FromText(parsed);
         }
 
         public bool IsValidText(string text)
