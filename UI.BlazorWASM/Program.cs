@@ -43,6 +43,7 @@ namespace UI.BlazorWASM
             builder.Services.AddSingleton<PasteProvider, PasteProvider>();
             builder.Services.AddSingleton<Base64GridConverter, Base64GridConverter>();
             builder.Services.AddSingleton<ChainGridConverter, ChainGridConverter>();
+            builder.Services.AddSingleton<HintsProvider, HintsProvider>();
             builder.Services.AddCors();
             var app = builder.Build();
            
