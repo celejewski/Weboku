@@ -1,0 +1,45 @@
+﻿@inject HintsProvider HintsProvider
+@inject CommandProvider CommandProvider
+
+<ModalWithGridTemplateComponent>
+    <Content>
+        <div class="hints-modal__container">
+            <div class="hints-modal__title with-hr">Hints</div>
+            <div class="hints-modal__technique-container">
+                @if( HintsProvider.ShowHints )
+                {
+                    <div class="hints-modal__technique-name">@HintsProvider.TechniqueName</div>
+                    <p class="hints-modal__technique-desc">@HintsProvider.TechniqueDesc</p>
+                }
+            </div>
+            <div class="hints-modal__menu">
+                <div class="hints-modal__button"
+                     @onclick="@(() => HintsProvider.Display())">Reveal hint</div>
+                @if( HintsProvider.ShowHints )
+                {
+                    <div class="hints-modal__button"
+                         @onclick="@(() => HintsProvider.Execute())">Execute</div>
+                }
+                else
+                {
+                    <div></div>
+                }
+                <div class="hints-modal__button"
+                     @onclick="Close">Close</div>
+            </div>
+        </div>
+    </Content>
+</ModalWithGridTemplateComponent>
+
+@code {
+    private void Close()
+    {
+        HintsProvider.Hide();
+        CommandProvider.CloseModal().Execute();
+    }
+
+    protected override void OnInitialized()
+    {
+        HintsProvider.OnChanged += StateHasChanged;
+    }
+}

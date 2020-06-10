@@ -9,5 +9,6 @@
         MainMenu,
         Share,
         Paste,
+        Hints,
     }
 }

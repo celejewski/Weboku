@@ -1,13 +1,12 @@
 ﻿<div class="modal-with-grid">
     <div class="modal-with-grid__grid layer">
-        <BackgroundLayerComponent />
-        <BorderLayerComponent />
         @Grid
-        <ShadowLayerComponent />
     </div>
-    <div class="modal-with-grid__overlay"></div>
-    <div class="modal-with-grid__content">
-        @Content
+    <div class="modal-with-grid__content-wrapper">
+        <div class="modal-with-grid__overlay"></div>
+        <div class="modal-with-grid__content">
+            @Content
+        </div>
     </div>
 </div>
 

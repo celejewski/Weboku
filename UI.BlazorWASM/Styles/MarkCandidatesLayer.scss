@@ -3,9 +3,11 @@
 .mark__cell {
     width: 80%;
     height: 80%;
+    color: transparent;
     border-width: 3px;
     border-radius: 50%;
     border-style: solid;
+    border-color: currentColor;
     margin: 10%;
 
     &--danger {

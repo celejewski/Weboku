@@ -3,6 +3,8 @@
 
 @if( ModalProvider.CurrentState == Modals.ModalState.Paste )
 {
+    <BackgroundLayerComponent />
+    <BorderLayerComponent />
     <Grid9x9Component>
         <div class="input">
             @{
@@ -14,6 +16,7 @@
             }
         </div>
     </Grid9x9Component>
+    <ShadowLayerComponent />
 }
 
 @code {

@@ -46,10 +46,10 @@ namespace UI.BlazorWASM.Providers
             //Register(new Hotkey { Command = numpadMenuBuilder.SelectCleanerAction(), Key = "0" });
 
             
-            var dict = new Dictionary<(CellColor, CellColor), string>
+            var dict = new Dictionary<(Color, Color), string>
             {
-                { (CellColor.First, CellColor.Second), "a" },
-                { (CellColor.Third, CellColor.Fourth), "s" }
+                { (Color.First, Color.Second), "a" },
+                { (Color.Third, Color.Fourth), "s" }
             };
 
             foreach( var item in dict )

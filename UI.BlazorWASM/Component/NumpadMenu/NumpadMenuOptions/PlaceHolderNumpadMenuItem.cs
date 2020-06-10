@@ -14,9 +14,9 @@ namespace UI.BlazorWASM.Component.NumpadMenu
 
         public bool IsSelectable => false;
 
-        public CellColor Color1 => CellColor.None;
+        public Color Color1 => Color.None;
 
-        public CellColor Color2 => CellColor.None;
+        public Color Color2 => Color.None;
 
         public Task Execute() => Task.CompletedTask;
     }

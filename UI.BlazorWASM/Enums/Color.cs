@@ -1,6 +1,6 @@
 ﻿namespace UI.BlazorWASM.Enums
 {
-    public enum CellColor
+    public enum Color
     {
         None,
         Legal, 

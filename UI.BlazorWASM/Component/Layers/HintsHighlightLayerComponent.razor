@@ -24,8 +24,13 @@
 </div>
 
 
-@code {
-    private string HighlightedClass(bool isHighlighted)
+@code { 
+    protected override void OnInitialized()
+    {
+        HintsProvider.OnChanged += StateHasChanged;
+    }
+
+        private string HighlightedClass(bool isHighlighted)
     {
         return HintsProvider.ShowHints && isHighlighted ? "hints-highlight--with-background" : string.Empty; 
     }

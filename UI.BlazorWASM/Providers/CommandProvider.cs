@@ -21,6 +21,7 @@ namespace UI.BlazorWASM.Providers
         private readonly ModalProvider _modalProvider;
         private readonly NumpadMenuProvider _numpadMenuProvider;
         private readonly PasteProvider _pasteProvider;
+        private readonly HintsProvider _hintsProvider;
 
         public CommandProvider(
             ISudokuGenerator sudokuGenerator,
@@ -34,7 +35,8 @@ namespace UI.BlazorWASM.Providers
             ClickableActionFactory clickableActionFactory,
             ModalProvider modalProvider,
             NumpadMenuProvider numpadMenuProvider,
-            PasteProvider pasteProvider)
+            PasteProvider pasteProvider,
+            HintsProvider hintsProvider)
         {
             _sudokuGenerator = sudokuGenerator;
             _gridHistoryManager = gridHistoryManager;
@@ -48,6 +50,7 @@ namespace UI.BlazorWASM.Providers
             _modalProvider = modalProvider;
             _numpadMenuProvider = numpadMenuProvider;
             _pasteProvider = pasteProvider;
+            _hintsProvider = hintsProvider;
         }
         public ICommand StartNewGame(string difficulty)
         {
@@ -149,6 +152,11 @@ namespace UI.BlazorWASM.Providers
         {
             return new StartNewGameFromPastedCommand(
                 _sudokuProvider, _pasteProvider, _modalProvider, _cellColorProvider, _gridHistoryManager, _gameTimerProvider);
+        }
+
+        public ICommand ShowHintModal()
+        {
+            return new ShowHintModalCommand(_modalProvider);
         }
     }
 }

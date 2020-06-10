@@ -8,8 +8,8 @@ namespace UI.BlazorWASM.ClickableActions
         public int X { get; set; }
         public int Y { get; set; }
         public int Value { get; set; }
-        public CellColor Color1 { get; set; }
-        public CellColor Color2 { get; set; }
+        public Color Color1 { get; set; }
+        public Color Color2 { get; set; }
         public MouseEventArgs MouseEventArgs { get; set; }
     }
 }

@@ -8,18 +8,18 @@ namespace UI.BlazorWASM.Converters
 {
     public class CellColorConverter
     {
-        public static string ToCssClass(CellColor cellColor)
+        public static string ToCssClass(Color cellColor)
         {
 
             return cellColor switch
             {
-                CellColor.Legal => "cell-color-legal",
-                CellColor.Illegal => "cell-color-illegal",
-                CellColor.First => "cell-color-first",
-                CellColor.Second => "cell-color-second",
-                CellColor.Third => "cell-color-third",
-                CellColor.Fourth => "cell-color-fourth",
-                CellColor.None => string.Empty,
+                Color.Legal => "cell-color-legal",
+                Color.Illegal => "cell-color-illegal",
+                Color.First => "cell-color-first",
+                Color.Second => "cell-color-second",
+                Color.Third => "cell-color-third",
+                Color.Fourth => "cell-color-fourth",
+                Color.None => string.Empty,
                 _ => throw new NotImplementedException(),
             };
         }

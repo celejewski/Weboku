@@ -1,6 +1,7 @@
 ﻿@inject ISudokuProvider SudokuProvider
+@inject CandidatesMarkProvider CandidatesMarkProvider
 
-<div class="@_currentClass"></div>
+<div class="mark__cell @_currentClass"></div>
 
 @code {
     [Parameter]
@@ -18,6 +19,7 @@
     protected override void OnInitialized()
     {
         SudokuProvider.OnCandidatesChanged += Update;
+        CandidatesMarkProvider.OnChanged += Update;
     }
 
     private void Update()
@@ -26,7 +28,12 @@
         var value = Z + 1;
         var cell = SudokuProvider.Cells[X, Y];
         var isIllegal = cell.Candidates.ContainsKey(value) && !cell.Candidates[value].IsLegal;
-        _currentClass = isIllegal ? "mark__cell mark__cell--danger" : string.Empty;
+        _currentClass = isIllegal ? "mark__cell--danger" : string.Empty;
+
+        if (_currentClass == string.Empty)
+        {
+             _currentClass = UI.BlazorWASM.Converters.CellColorConverter.ToCssClass(CandidatesMarkProvider.GetColor(X, Y, value));
+        }
 
         if (_currentClass != _previousClass)
         {

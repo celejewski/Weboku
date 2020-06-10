@@ -11,8 +11,8 @@ namespace UI.BlazorWASM.Providers
         public IClickableAction ClickableAction { get; private set; }
 
         private int _value;
-        private CellColor _color1;
-        private CellColor _color2;
+        private Color _color1;
+        private Color _color2;
 
         public int Value
         {
@@ -24,7 +24,7 @@ namespace UI.BlazorWASM.Providers
             }
         }
 
-        public CellColor Color1 
+        public Color Color1 
         { 
             get => _color1;
             set
@@ -34,7 +34,7 @@ namespace UI.BlazorWASM.Providers
             }
         }
 
-        public CellColor Color2
+        public Color Color2
         {
             get => _color2;
             set
@@ -55,8 +55,8 @@ namespace UI.BlazorWASM.Providers
         {
             ClickableAction = clickableActionFactory.StandardAction();
             Value = 1;
-            Color1 = CellColor.First;
-            Color2 = CellColor.Second;
+            Color1 = Color.First;
+            Color2 = Color.Second;
         }
         private ClickableActionArgs CreateArgs(MouseEventArgs e, int x, int y)
         {

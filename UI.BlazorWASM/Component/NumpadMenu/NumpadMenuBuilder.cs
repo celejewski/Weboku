@@ -76,7 +76,7 @@ namespace UI.BlazorWASM.ViewModels
             return command;
         }
 
-        public SelectColorMenuItem SelectColor(CellColor color1, CellColor color2)
+        public SelectColorMenuItem SelectColor(Color color1, Color color2)
         {
             var command = new SelectColorMenuItem(color1, color2, _clickableActionProvider, _numpadMenuProvider);
             return command;

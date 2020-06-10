@@ -10,10 +10,10 @@ namespace UI.BlazorWASM.Commands
 {
     public class SelectColorCommand : ICommand
     {
-        private readonly CellColor _cellColor;
+        private readonly Color _cellColor;
         private readonly IClickableActionProvider _clickableActionProvider;
 
-        public SelectColorCommand(CellColor cellColor, IClickableActionProvider clickableActionProvider)
+        public SelectColorCommand(Color cellColor, IClickableActionProvider clickableActionProvider)
         {
             _cellColor = cellColor;
             _clickableActionProvider = clickableActionProvider;
