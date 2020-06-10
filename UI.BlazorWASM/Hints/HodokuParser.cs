@@ -9,13 +9,25 @@ namespace UI.BlazorWASM.Hints
     public class HodokuParser
     {
         private readonly ISudokuProvider _sudokuProvider;
+        private readonly ICellColorProvider _cellColorProvider;
 
-        public HodokuParser(ISudokuProvider sudokuProvider)
+        public HodokuParser(ISudokuProvider sudokuProvider, ICellColorProvider cellColorProvider)
         {
             _sudokuProvider = sudokuProvider;
+            _cellColorProvider = cellColorProvider;
         }
         public ISolvingTechnique GetNextTechnique(IEnumerable<string> steps)
         {
+            if( FindInvalidInputs() != null )
+            {
+                return FindInvalidInputs();
+            }
+
+            if( FindCandidates() != null)
+            {
+                return FindCandidates();
+            }
+
             Func<string, ISolvingTechnique>[] techniques =
             {
                 NakedSingle,
@@ -83,6 +95,18 @@ namespace UI.BlazorWASM.Hints
             var (x, y) = HintsHelper.GetCoords(cell);
             var value = HintsHelper.GetDigit(cell, 5);
             return new FullHouse(x, y, value);
+        }
+
+        public ISolvingTechnique FindCandidates()
+        {
+            var technique = new FindCandidates();
+            return technique.CanExecute(_sudokuProvider) ? technique : null;
+        }
+
+        public ISolvingTechnique FindInvalidInputs()
+        {
+            var technique = new FindInvalidInputs(_sudokuProvider, _cellColorProvider);
+            return technique.CanExecute(_sudokuProvider) ? technique : null;
         }
     }
 }

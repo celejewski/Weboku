@@ -31,6 +31,7 @@ namespace UI.BlazorWASM.Providers
         private readonly HodokuParser _hodokuParser;
         private readonly ISudokuProvider _sudokuProvider;
         private readonly IGridHistoryManager _gridHistoryManager;
+        private readonly ICellColorProvider _cellColorProvider;
 
         public event Action OnChanged;
 
@@ -39,13 +40,15 @@ namespace UI.BlazorWASM.Providers
             HodokuParser hodokuParser,
             ISudokuProvider sudokuProvider,
             HintsHelper hintsHelper,
-            IGridHistoryManager gridHistoryManager)
+            IGridHistoryManager gridHistoryManager,
+            ICellColorProvider cellColorProvider)
         {
             CandidatesMarkProvider = candidatesMarkProvider;
             _hodokuParser = hodokuParser;
             _sudokuProvider = sudokuProvider;
             HintsHelper = hintsHelper;
             _gridHistoryManager = gridHistoryManager;
+            _cellColorProvider = cellColorProvider;
         }
 
         public void Display()
@@ -76,6 +79,7 @@ namespace UI.BlazorWASM.Providers
 
         private void Clear()
         {
+            _cellColorProvider.ClearAll();
             CandidatesMarkProvider.ClearColors();
             ClearHighlight();
         }
