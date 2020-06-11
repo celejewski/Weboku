@@ -63,11 +63,7 @@ namespace UI.BlazorWASM.ViewModels
         PairsNumpadMenuItem _pairsNumpadMenuItem;
         public PairsNumpadMenuItem Pairs()
         {
-            if( _pairsNumpadMenuItem == null )
-            {
-                _pairsNumpadMenuItem = new PairsNumpadMenuItem(_sudokuProvider, _numpadMenuProvider, _commandProvider);
-            }
-            return _pairsNumpadMenuItem;
+            return _pairsNumpadMenuItem ??= new PairsNumpadMenuItem(_sudokuProvider, _numpadMenuProvider, _commandProvider);
         }
 
         public ClearColorsNumpadMenuItem ClearColors()
@@ -91,11 +87,7 @@ namespace UI.BlazorWASM.ViewModels
         SelectCleanerActionMenuItem _eraseMenuItem;
         public SelectCleanerActionMenuItem SelectCleanerAction()
         {
-            if( _eraseMenuItem == null )
-            {
-                _eraseMenuItem = new SelectCleanerActionMenuItem(_numpadMenuProvider, _commandProvider);
-            }
-            return _eraseMenuItem;
+            return _eraseMenuItem ??= new SelectCleanerActionMenuItem(_numpadMenuProvider, _commandProvider); 
         }
 
         public SelectStandardActionMenuItem SelectStandardAction()

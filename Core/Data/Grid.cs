@@ -126,11 +126,7 @@ namespace Core.Data
 
         private IList<Cell> GetCellsWhichCanSee(int x, int y)
         {
-            if( _cellsWhichCanSee[x, y] == null )
-            {
-                _cellsWhichCanSee[x, y] = CalculateCellsWhichCanSee(x, y);
-            }
-            return _cellsWhichCanSee[x, y];
+            return _cellsWhichCanSee[x, y] ??= CalculateCellsWhichCanSee(x, y);
         }
         public IEnumerable<(int x, int y)> GetIndexesFromRow(int y)
         {
