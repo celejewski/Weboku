@@ -1,10 +1,12 @@
 ﻿@inject ISudokuProvider SudokuProvider
 
-<div class="@_currentClass"></div>
+<div class="@(_currentIsLegal ? "mark__cell mark__cell--danger" : string.Empty)"></div>
 
 @code {
-    private string _previousClass;
-    private string _currentClass;
+    private bool _previousIsLegal;
+    private bool _currentIsLegal => !_cell.Input.IsLegal;
+
+    private ICell _cell => SudokuProvider.Cells[X, Y];
 
     [Parameter]
     public int X { get; set; }
@@ -14,19 +16,17 @@
 
     protected override void OnInitialized()
     {
-        SudokuProvider.OnValueChanged += Update;
+        SudokuProvider.OnValueChanged += StateHasChanged;
     }
 
-    private void Update()
+    protected override bool ShouldRender()
     {
-        ICell cell = SudokuProvider.Cells[X, Y];
+        return _previousIsLegal != _currentIsLegal;
+    }
 
-        _previousClass = _currentClass;
-        _currentClass = !cell.Input.IsLegal ? "mark__cell mark__cell--danger" : string.Empty;
-
-        if (!string.Equals(_previousClass, _currentClass, StringComparison.Ordinal) )
-        {
-            StateHasChanged();
-        }
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+        _previousIsLegal = _currentIsLegal;
     }
 }
