@@ -1,6 +1,7 @@
 ﻿@inject ISudokuProvider SudokuProvider
 @inject CandidatesMarkProvider CandidatesMarkProvider
 @using UI.BlazorWASM.Converters
+@using UI.BlazorWASM.Enums
 
 <div class="mark__cell @_currentClass"></div>
 
@@ -14,31 +15,35 @@
     [Parameter]
     public int Z { get; set; }
 
-    private string _previousClass;
-    private string _currentClass;
+    private int _value => Z + 1;
+    private ICell _cell => SudokuProvider.Cells[X, Y];
+
+    private string _currentClass => CellColorConverter.ToCssClass(_currentColor);
+
+    private Color _previousColor;
+    private Color _currentColor
+    {
+        get
+        {
+            var isIllegal = _cell.Candidates.ContainsKey(_value) && !_cell.Candidates[_value].IsLegal;
+            return isIllegal ? Color.Illegal : CandidatesMarkProvider.GetColor(X, Y, _value);
+        }
+    }
 
     protected override void OnInitialized()
     {
-        SudokuProvider.OnCandidatesChanged += Update;
-        CandidatesMarkProvider.OnChanged += Update;
+        SudokuProvider.OnCandidatesChanged += StateHasChanged;
+        CandidatesMarkProvider.OnChanged += StateHasChanged;
     }
 
-    private void Update()
+    protected override bool ShouldRender()
     {
-        _previousClass = _currentClass;
-        var value = Z + 1;
-        var cell = SudokuProvider.Cells[X, Y];
-        var isIllegal = cell.Candidates.ContainsKey(value) && !cell.Candidates[value].IsLegal;
-        _currentClass = isIllegal ? "mark__cell--danger" : string.Empty;
+        return _previousColor != _currentColor;
+    }
 
-        if (string.IsNullOrEmpty(_currentClass))
-        {
-            _currentClass = CellColorConverter.ToCssClass(CandidatesMarkProvider.GetColor(X, Y, value));
-        }
-
-        if (!string.Equals(_currentClass, _previousClass, StringComparison.Ordinal) )
-        {
-            StateHasChanged();
-        }
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+        _previousColor = _currentColor;
     }
 }
