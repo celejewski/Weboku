@@ -1,14 +1,15 @@
 ﻿@inject ISudokuProvider SudokuProvider
 
-<div class="input @_currentIsGiven">
-    @_currentValue
+<div class="input @(_currentIsGiven ? "input--is-given " : String.Empty)">
+    @(_currentValue != 0 ? _currentValue.ToString() : string.Empty)
 </div>
 
 @code {
-    private string _previousValue;
-    private string _currentValue;
-    private string _previousIsGiven;
-    private string _currentIsGiven;
+    private ICell _cell => SudokuProvider.Cells[X, Y];
+    private int _previousValue;
+    private int _currentValue => _cell.Input.Value;
+    private bool _previousIsGiven;
+    private bool _currentIsGiven => _cell.IsGiven;
 
     [Parameter]
     public int X { get; set; }
@@ -18,24 +19,18 @@
 
     protected override void OnInitialized()
     {
-        SudokuProvider.OnValueChanged += Update;
+        SudokuProvider.OnValueChanged += StateHasChanged;
     }
 
-    private void Update()
+    protected override bool ShouldRender()
     {
-        var Cell = SudokuProvider.Cells[X, Y];
-
-        _previousIsGiven = _currentIsGiven;
-        _currentIsGiven = Cell.IsGiven ? "input--is-given " : String.Empty;
-
-        _previousValue = _currentValue;
-        _currentValue = Cell.Input.Value != 0 ? Cell.Input.Value.ToString() : string.Empty;
-
-        if( !string.Equals(_previousValue, _currentValue, StringComparison.Ordinal)
-            || !string.Equals(_previousIsGiven, _currentIsGiven, StringComparison.Ordinal) )
-        {
-            StateHasChanged();
-        }
+        return _previousValue != _currentValue || _previousIsGiven != _currentIsGiven;
     }
 
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+        _previousIsGiven = _currentIsGiven;
+        _previousValue = _currentValue;
+    }
 }
