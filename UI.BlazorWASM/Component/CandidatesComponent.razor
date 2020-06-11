@@ -25,16 +25,17 @@
         _value = Z + 1;
         _text = _value.ToString();
         _cell = SudokuProvider.Cells[X, Y];
-        SudokuProvider.OnCandidatesChanged += Update;
+        SudokuProvider.OnCandidatesChanged += StateHasChanged;
     }
 
-    private void Update()
+    protected override bool ShouldRender()
     {
-        if (_wasVisible != _isVisible)
-        {
-            _wasVisible = _isVisible;
-            StateHasChanged();
-        }
+        return _wasVisible != _isVisible;
     }
 
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+        _wasVisible = _isVisible;
+    }
 }
