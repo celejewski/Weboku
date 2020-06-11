@@ -7,10 +7,10 @@
     </div>
 </Grid9x9Component>
 
-@code {        
-    protected override void OnInitialized()
+@code { 
+    protected override bool ShouldRender()
     {
-        ClickableActionProvider.OnChanged += StateHasChanged;
+        return false;
     }
 
 }
