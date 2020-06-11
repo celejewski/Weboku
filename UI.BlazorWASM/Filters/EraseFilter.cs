@@ -1,12 +1,13 @@
 ﻿using Core.Data;
+using UI.BlazorWASM.Enums;
 
 namespace UI.BlazorWASM.Filters
 {
     public class EraseFilter : IFilter
     {
-        public string IsFiltered(ICell cell)
+        public FilterOption IsFiltered(ICell cell)
         {
-            return FilterStyleClass.None;
+            return FilterOption.None;
         }
     }
 }

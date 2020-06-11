@@ -1,4 +1,5 @@
 ﻿using Core.Data;
+using UI.BlazorWASM.Enums;
 
 namespace UI.BlazorWASM.Filters
 {
@@ -11,19 +12,19 @@ namespace UI.BlazorWASM.Filters
             _value = value;
         }
 
-        public string IsFiltered(ICell cell)
+        public FilterOption IsFiltered(ICell cell)
         {
             if (cell.Input.Value == _value)
             {
-                return FilterStyleClass.Primary;
+                return FilterOption.Primary;
             }
 
             if (cell.Candidates.ContainsKey(_value))
             {
-                return FilterStyleClass.Secondary;
+                return FilterOption.Secondary;
             }
 
-            return FilterStyleClass.None;
+            return FilterOption.None;
         }
     }
 }

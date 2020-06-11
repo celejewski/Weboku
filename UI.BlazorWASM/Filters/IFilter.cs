@@ -1,8 +1,5 @@
 ﻿using Core.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using UI.BlazorWASM.Enums;
 
 namespace UI.BlazorWASM.Filters
 {
@@ -13,6 +10,6 @@ namespace UI.BlazorWASM.Filters
         /// </summary>
         /// <param name="cell">Cell is only argument I need because Cell has X, Y props</param>
         /// <returns>CSS class "filter-false", "filter-true-primary", "filter-true-secondary"</returns>
-        string IsFiltered(ICell cell);
+        FilterOption IsFiltered(ICell cell);
     }
 }

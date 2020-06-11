@@ -1,12 +1,17 @@
 ﻿@inject IFilterProvider FilterProvider
 @inject ISudokuProvider SudokuProvider
+@using UI.BlazorWASM.Converters;
+@using UI.BlazorWASM.Enums;
 
 <div class="filter__cell
-            filter__cell--@_currentClass"></div>
+            @_currentClass"></div>
 
 @code {
-    private string _previousClass;
-    private string _currentClass;
+    private string _currentClass => FilterOptionToCssConverter.ToCssClass(_currentFilterOption);
+    private FilterOption _previousFilterOption;
+    private FilterOption _currentFilterOption => FilterProvider.Filter.IsFiltered(_cell);
+
+    private ICell _cell => SudokuProvider.Cells[X, Y];
 
     [Parameter]
     public int X { get; set; }
@@ -14,20 +19,22 @@
     [Parameter]
     public int Y { get; set; }
 
+    protected override bool ShouldRender()
+    {
+        return _previousFilterOption != _currentFilterOption;
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+        _previousFilterOption = _currentFilterOption;
+    }
+
     protected override void OnInitialized()
     {
-        FilterProvider.OnChanged += Update;
-        SudokuProvider.OnValueOrCandidatesChanged += Update;
+        FilterProvider.OnChanged += StateHasChanged;
+        SudokuProvider.OnValueOrCandidatesChanged += StateHasChanged;
     }
 
-    private void Update()
-    {
-        _previousClass = _currentClass;
-        _currentClass = FilterProvider.Filter.IsFiltered(SudokuProvider.Cells[X, Y]);
 
-        if (!string.Equals(_previousClass, _currentClass, StringComparison.Ordinal) )
-        {
-            StateHasChanged();
-        }
-    }
 }
