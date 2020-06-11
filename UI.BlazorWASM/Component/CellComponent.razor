@@ -31,10 +31,10 @@
         _previousValue = _currentValue;
         _currentValue = Cell.Input.Value != 0 ? Cell.Input.Value.ToString() : string.Empty;
 
-        if( !string.Equals(_previousValue, _currentValue) 
-            || !string.Equals(_previousIsGiven, _currentIsGiven))
-        { 
-            StateHasChanged(); 
+        if( !string.Equals(_previousValue, _currentValue, StringComparison.Ordinal)
+            || !string.Equals(_previousIsGiven, _currentIsGiven, StringComparison.Ordinal) )
+        {
+            StateHasChanged();
         }
     }
 

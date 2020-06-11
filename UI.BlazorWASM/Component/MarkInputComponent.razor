@@ -24,7 +24,7 @@
         _previousClass = _currentClass;
         _currentClass = !cell.Input.IsLegal ? "mark__cell mark__cell--danger" : string.Empty;
 
-        if (!string.Equals(_previousClass, _currentClass))
+        if (!string.Equals(_previousClass, _currentClass, StringComparison.Ordinal) )
         {
             StateHasChanged();
         }

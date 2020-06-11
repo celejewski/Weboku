@@ -33,10 +33,10 @@
 
         if (string.IsNullOrEmpty(_currentClass))
         {
-             _currentClass = CellColorConverter.ToCssClass(CandidatesMarkProvider.GetColor(X, Y, value));
+            _currentClass = CellColorConverter.ToCssClass(CandidatesMarkProvider.GetColor(X, Y, value));
         }
 
-        if (!string.Equals(_currentClass, _previousClass))
+        if (!string.Equals(_currentClass, _previousClass, StringComparison.Ordinal) )
         {
             StateHasChanged();
         }
