@@ -25,7 +25,7 @@
         _previousClass = _currentClass;
         _currentClass = FilterProvider.Filter.IsFiltered(SudokuProvider.Cells[X, Y]);
 
-        if (_previousClass != _currentClass)
+        if (!string.Equals(_previousClass, _currentClass))
         {
             StateHasChanged();
         }

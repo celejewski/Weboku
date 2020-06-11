@@ -1,5 +1,6 @@
 ﻿@inject ISudokuProvider SudokuProvider
 @inject CandidatesMarkProvider CandidatesMarkProvider
+@using UI.BlazorWASM.Converters
 
 <div class="mark__cell @_currentClass"></div>
 
@@ -30,12 +31,12 @@
         var isIllegal = cell.Candidates.ContainsKey(value) && !cell.Candidates[value].IsLegal;
         _currentClass = isIllegal ? "mark__cell--danger" : string.Empty;
 
-        if (_currentClass == string.Empty)
+        if (string.IsNullOrEmpty(_currentClass))
         {
-             _currentClass = UI.BlazorWASM.Converters.CellColorConverter.ToCssClass(CandidatesMarkProvider.GetColor(X, Y, value));
+             _currentClass = CellColorConverter.ToCssClass(CandidatesMarkProvider.GetColor(X, Y, value));
         }
 
-        if (_currentClass != _previousClass)
+        if (!string.Equals(_currentClass, _previousClass))
         {
             StateHasChanged();
         }
