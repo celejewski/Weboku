@@ -20,9 +20,9 @@ namespace UI.BlazorWASM.Component.NumpadMenu
 
         public async Task Execute()
         {
-            if( IsSelectable && _selectableMenuItemContainer != null )
+            if( IsSelectable )
             {
-                _selectableMenuItemContainer.SelectItem(this);
+                _selectableMenuItemContainer?.SelectItem(this);
             }
 
             await _command.Execute();
