@@ -1,12 +1,12 @@
 ﻿using Core.Data;
 using System;
-using System.Security.Cryptography.X509Certificates;
+using System.Threading;
 
 namespace UI.BlazorWASM.Providers
 {
     public class GridProvider : IGridProvider
     {
-        private readonly IGridV2 _grid;
+        public IGridV2 Grid { get; set; } = new GridV2();
 
         public event Action OnCandidatesChanged;
         public event Action OnValueChanged;
@@ -14,22 +14,26 @@ namespace UI.BlazorWASM.Providers
 
         public void AddCandidate(int x, int y, InputValue value)
         {
-            _grid.AddCandidate(x, y, value);
+            Grid.AddCandidate(x, y, value);
+            CandidatesChanged();
         }
 
         public void ClearCandidates()
         {
-            _grid.ClearCandidates();
+            Grid.ClearCandidates();
+            CandidatesChanged();
         }
 
         public void ClearCandidates(int x, int y)
         {
-            _grid.ClearCandidates(x, y);
+            Grid.ClearCandidates(x, y);
+            CandidatesChanged();
         }
 
         public void FillCandidates()
         {
-            _grid.FillCandidates();
+            Grid.FillCandidates();
+            CandidatesChanged();
         }
 
         public int GetCandidatesCount(int x, int y)
@@ -37,7 +41,7 @@ namespace UI.BlazorWASM.Providers
             var count = 0;
             for( int value = 1; value < 10; value++ )
             {
-                if( _grid.HasCandidate(x, y, (InputValue) value) )
+                if( Grid.HasCandidate(x, y, (InputValue) value) )
                 {
                     count += 1;
                 }
@@ -47,12 +51,12 @@ namespace UI.BlazorWASM.Providers
 
         public InputValue GetValue(int x, int y)
         {
-            return _grid.GetValue(x, y);
+            return Grid.GetValue(x, y);
         }
 
         public bool HasCandidate(int x, int y, InputValue value)
         {
-            return _grid.HasCandidate(x, y, value);
+            return Grid.HasCandidate(x, y, value);
         }
 
         public bool IsCandidateLegal(int x, int y, InputValue value)
@@ -61,10 +65,9 @@ namespace UI.BlazorWASM.Providers
             return true;
         }
 
-        public bool IsGiven(int x, int y)
+        public bool GetIsGiven(int x, int y)
         {
-#warning Not implemneted
-            return false;
+            return Grid.GetIsGiven(x, y);
         }
 
         public bool IsValueLegal(int x, int y)
@@ -75,17 +78,36 @@ namespace UI.BlazorWASM.Providers
 
         public void RemoveCandidate(int x, int y, InputValue value)
         {
-            _grid.RemoveCandidate(x, y, value);
+            Grid.RemoveCandidate(x, y, value);
+            CandidatesChanged();
         }
 
         public void SetValue(int x, int y, InputValue value)
         {
-            _grid.SetValue(x, y, value);
+            if (value != InputValue.Empty)
+            {
+                ClearCandidates(x, y);
+            }
+            Grid.SetValue(x, y, value);
+            ValueChanged();
         }
 
         public void ToggleCandidate(int x, int y, InputValue value)
         {
-            _grid.ToggleCandidate(x, y, value);
+            Grid.ToggleCandidate(x, y, value);
+            CandidatesChanged();
+        }
+
+        private void ValueChanged()
+        {
+            OnValueOrCandidatesChanged?.Invoke();
+            OnValueChanged?.Invoke();
+
+        }
+        private void CandidatesChanged()
+        {
+            OnValueOrCandidatesChanged?.Invoke();
+            OnCandidatesChanged?.Invoke();
         }
     }
 }

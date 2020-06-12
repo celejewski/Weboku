@@ -8,7 +8,7 @@
     private InputValue _previousValue;
     private InputValue _currentValue => GridProvider.GetValue(X, Y);
     private bool _previousIsGiven;
-    private bool _currentIsGiven => GridProvider.IsGiven(X, Y);
+    private bool _currentIsGiven => GridProvider.GetIsGiven(X, Y);
 
     [Parameter]
     public int X { get; set; }

@@ -2,6 +2,9 @@
 {
     public interface IGridV2 
     {
+        bool GetIsGiven(int x, int y);
+        void SetIsGiven(int x, int y, bool value);
+
         InputValue GetValue(int x, int y);
         void SetValue(int x, int y, InputValue value);
 

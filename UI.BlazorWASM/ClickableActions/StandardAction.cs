@@ -25,7 +25,7 @@ namespace UI.BlazorWASM.ClickableActions
                 return;
             }
 
-            if( _gridProvider.IsGiven(args.X, args.Y))
+            if( _gridProvider.GetIsGiven(args.X, args.Y))
             {
                 return;
             }

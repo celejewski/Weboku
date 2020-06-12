@@ -5,6 +5,8 @@ namespace UI.BlazorWASM.Providers
 {
     public class GridProviderWrapper : IGridProvider
     {
+        public IGridV2 Grid { get; set; } = new GridV2();
+
         private readonly ISudokuProvider _sudokuProvider;
 
         public event Action OnCandidatesChanged;
@@ -88,7 +90,7 @@ namespace UI.BlazorWASM.Providers
             }
         }
 
-        public bool IsGiven(int x, int y)
+        public bool GetIsGiven(int x, int y)
         {
             return _sudokuProvider.Cells[x, y].IsGiven;
         }

@@ -7,7 +7,7 @@
     <div class="modal__content">
         @foreach( var difficulty in new[] { "Easy", "Medium", "Hard", "Extreme", "Unfair" } )
         {
-            <ModalButtonComponent OnClick=CommandProvider.StartNewGame(difficulty)>
+            <ModalButtonComponent OnClick=CommandProvider.StartNewGameV2(difficulty)>
                 @difficulty
             </ModalButtonComponent>
         }

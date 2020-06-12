@@ -22,6 +22,7 @@ namespace UI.BlazorWASM.Providers
         private readonly NumpadMenuProvider _numpadMenuProvider;
         private readonly PasteProvider _pasteProvider;
         private readonly IGridProvider _gridProvider;
+        private readonly RESTGridGeneratorV2 _gridGeneratorV2;
 
         //private readonly HintsProvider _hintsProvider;
 
@@ -38,7 +39,8 @@ namespace UI.BlazorWASM.Providers
             ModalProvider modalProvider,
             NumpadMenuProvider numpadMenuProvider,
             PasteProvider pasteProvider,
-            IGridProvider gridProvider)
+            IGridProvider gridProvider,
+            RESTGridGeneratorV2 gridGeneratorV2)
         {
             _sudokuGenerator = sudokuGenerator;
             _gridHistoryManager = gridHistoryManager;
@@ -53,6 +55,7 @@ namespace UI.BlazorWASM.Providers
             _numpadMenuProvider = numpadMenuProvider;
             _pasteProvider = pasteProvider;
             _gridProvider = gridProvider;
+            _gridGeneratorV2 = gridGeneratorV2;
         }
         public ICommand StartNewGame(string difficulty)
         {
@@ -159,6 +162,11 @@ namespace UI.BlazorWASM.Providers
         public ICommand ShowHintModal()
         {
             return new ShowHintModalCommand(_modalProvider);
+        }
+
+        public ICommand StartNewGameV2(string difficulty)
+        {
+            return new StartNewGameCommandV2(_gridGeneratorV2, _gridProvider, _modalProvider);
         }
     }
 }

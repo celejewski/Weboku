@@ -23,7 +23,7 @@ namespace UI.BlazorWASM.Providers
             {
                 return _sharedFields switch
                 {
-                    SharedFields.Givens => (int x, int y) =>  _gridProvider.IsGiven(x, y) ? _gridProvider.GetValue(x, y) : InputValue.Empty,
+                    SharedFields.Givens => (int x, int y) =>  _gridProvider.GetIsGiven(x, y) ? _gridProvider.GetValue(x, y) : InputValue.Empty,
                     SharedFields.GivensAndInputs => (int x, int y) => _gridProvider.GetValue(x, y),
                     _ => throw new NotImplementedException(),
                 };

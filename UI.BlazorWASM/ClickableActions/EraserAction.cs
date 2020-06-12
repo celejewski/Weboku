@@ -31,7 +31,7 @@ namespace UI.BlazorWASM.ClickableActions
                 _gridHistoryManager.Save();
                 _gridProvider.SetValue(args.X, args.Y, args.Value);
             }
-            else if (_gridProvider.GetValue(args.X, args.Y) == args.Value && _gridProvider.IsGiven(args.X, args.Y))
+            else if (_gridProvider.GetValue(args.X, args.Y) == args.Value && _gridProvider.GetIsGiven(args.X, args.Y))
             {
                 _gridHistoryManager.Save();
                 _gridProvider.SetValue(args.X, args.Y, InputValue.Empty);

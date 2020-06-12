@@ -5,6 +5,7 @@ namespace UI.BlazorWASM.Providers
 {
     public interface IGridProvider
     {
+        public IGridV2 Grid { get; set; }
         InputValue GetValue(int x, int y);
         void SetValue(int x, int y, InputValue value);
 
@@ -19,7 +20,7 @@ namespace UI.BlazorWASM.Providers
         bool IsValueLegal(int x, int y);
         bool IsCandidateLegal(int x, int y, InputValue value);
 
-        bool IsGiven(int x, int y);
+        bool GetIsGiven(int x, int y);
 
         int GetCandidatesCount(int x, int y);
 
