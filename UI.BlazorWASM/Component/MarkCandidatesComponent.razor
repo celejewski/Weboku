@@ -1,5 +1,6 @@
 ﻿@inject ISudokuProvider SudokuProvider
 @inject CandidatesMarkProvider CandidatesMarkProvider
+@inject IGridProvider GridProvider
 @using UI.BlazorWASM.Converters
 @using UI.BlazorWASM.Enums
 
@@ -15,8 +16,7 @@
     [Parameter]
     public int Z { get; set; }
 
-    private int _value => Z + 1;
-    private ICell _cell => SudokuProvider.Cells[X, Y];
+    private InputValue _value => (InputValue)  Z + 1;
 
     private string _currentClass => CellColorConverter.ToCssClass(_currentColor);
 
@@ -25,8 +25,8 @@
     {
         get
         {
-            var isIllegal = _cell.Candidates.ContainsKey(_value) && !_cell.Candidates[_value].IsLegal;
-            return isIllegal ? Color.Illegal : CandidatesMarkProvider.GetColor(X, Y, _value);
+            var isIllegal = GridProvider.HasCandidate(X, Y, _value) && !GridProvider.IsCandidateLegal(X, Y, _value);
+            return isIllegal ? Color.Illegal : CandidatesMarkProvider.GetColor(X, Y, (int) _value);
         }
     }
 

@@ -85,5 +85,15 @@ namespace UI.BlazorWASM.Providers
         {
             return _sudokuProvider.Cells[x, y].IsGiven;
         }
+
+        public bool IsValueLegal(int x, int y)
+        {
+            return _sudokuProvider.Cells[x, y].Input.IsLegal;
+        }
+
+        public bool IsCandidateLegal(int x, int y, InputValue value)
+        {
+            return _sudokuProvider.Cells[x, y].Candidates[(int)value].IsLegal;
+        }
     }
 }

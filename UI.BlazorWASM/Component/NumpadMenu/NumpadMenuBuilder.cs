@@ -18,6 +18,7 @@ namespace UI.BlazorWASM.ViewModels
         private readonly ISudokuProvider _sudokuProvider;
         private readonly NumpadMenuProvider _numpadMenuProvider;
         private readonly CommandProvider _commandProvider;
+        private readonly IGridProvider _gridProvider;
 
         public NumpadMenuBuilder(
             FilterProvider filterProvider, 
@@ -26,7 +27,8 @@ namespace UI.BlazorWASM.ViewModels
             CellColorProvider cellColorProvider, 
             ISudokuProvider sudokuProvider, 
             NumpadMenuProvider numpadMenuProvider,
-            CommandProvider commandProvider
+            CommandProvider commandProvider,
+            IGridProvider gridProvider
             )
         {
             _filterProvider = filterProvider;
@@ -36,6 +38,7 @@ namespace UI.BlazorWASM.ViewModels
             _sudokuProvider = sudokuProvider;
             _numpadMenuProvider = numpadMenuProvider;
             _commandProvider = commandProvider;
+            _gridProvider = gridProvider;
         }
 
         readonly Dictionary<int, SelectValueNumpadMenuItem> _dict = new Dictionary<int, SelectValueNumpadMenuItem>();
@@ -43,7 +46,7 @@ namespace UI.BlazorWASM.ViewModels
         {
             if( !_dict.ContainsKey(value) )
             {
-                _dict[value] = new SelectValueNumpadMenuItem(value, _sudokuProvider, _numpadMenuProvider, _commandProvider);
+                _dict[value] = new SelectValueNumpadMenuItem(value, _gridProvider, _numpadMenuProvider, _commandProvider);
             }
             return _dict[value];
         }
