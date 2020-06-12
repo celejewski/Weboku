@@ -1,12 +1,11 @@
 ﻿@inject ISudokuProvider SudokuProvider
+@inject IGridProvider GridProvider
 
-<div class="@(_currentIsLegal ? "mark__cell mark__cell--danger" : string.Empty)"></div>
+<div class="@(_currentIsLegal ? string.Empty : "mark__cell mark__cell--danger")"></div>
 
 @code {
     private bool _previousIsLegal;
-    private bool _currentIsLegal => !_cell.Input.IsLegal;
-
-    private ICell _cell => SudokuProvider.Cells[X, Y];
+    private bool _currentIsLegal => GridProvider.IsValueLegal(X, Y);
 
     [Parameter]
     public int X { get; set; }
