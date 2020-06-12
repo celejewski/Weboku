@@ -13,7 +13,7 @@ namespace UI.BlazorWASM.ClickableActions
         private void Clear(int x, int y)
         {
             _gridHistoryManager.Save();
-            _gridProvider.RemoveCandidates(x, y);
+            _gridProvider.ClearCandidates(x, y);
             _gridProvider.SetValue(x, y, InputValue.Empty);
         }
         public CleanerAction(IGridProvider gridProvider, IGridHistoryManager gridHistoryManager)

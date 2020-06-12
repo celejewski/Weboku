@@ -39,7 +39,7 @@ namespace UI.BlazorWASM.Providers
             }
         }
 
-        public void RemoveCandidates(int x, int y)
+        public void ClearCandidates(int x, int y)
         {
             for( int value = 1; value < 10; value++ )
             {

@@ -66,7 +66,7 @@ namespace UI.BlazorWASM.ViewModels
         PairsNumpadMenuItem _pairsNumpadMenuItem;
         public PairsNumpadMenuItem Pairs()
         {
-            return _pairsNumpadMenuItem ??= new PairsNumpadMenuItem(_sudokuProvider, _numpadMenuProvider, _commandProvider);
+            return _pairsNumpadMenuItem ??= new PairsNumpadMenuItem(_sudokuProvider, _numpadMenuProvider, _commandProvider, _gridProvider);
         }
 
         public ClearColorsNumpadMenuItem ClearColors()
