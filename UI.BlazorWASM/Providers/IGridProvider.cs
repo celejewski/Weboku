@@ -19,5 +19,7 @@ namespace UI.BlazorWASM.Providers
         bool IsCandidateLegal(int x, int y, InputValue value);
 
         bool IsGiven(int x, int y);
+
+        int GetCandidatesCount(int x, int y);
     }
 }

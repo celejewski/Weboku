@@ -1,5 +1,6 @@
 ﻿using Core.Data;
 using UI.BlazorWASM.Enums;
+using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.Filters
 {
@@ -10,6 +11,6 @@ namespace UI.BlazorWASM.Filters
         /// </summary>
         /// <param name="cell">Cell is only argument I need because Cell has X, Y props</param>
         /// <returns>CSS class "filter-false", "filter-true-primary", "filter-true-secondary"</returns>
-        FilterOption IsFiltered(ICell cell);
+        FilterOption IsFiltered(IGridProvider gridProvider, int x, int y);
     }
 }

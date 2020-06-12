@@ -1,5 +1,6 @@
 ﻿@inject FilterProvider FilterProvider
 @inject ISudokuProvider SudokuProvider
+@inject IGridProvider GridProvider
 @using UI.BlazorWASM.Converters;
 @using UI.BlazorWASM.Enums;
 
@@ -9,9 +10,7 @@
 @code {
     private string _currentClass => FilterOptionToCssConverter.ToCssClass(_currentFilterOption);
     private FilterOption _previousFilterOption;
-    private FilterOption _currentFilterOption => FilterProvider.Filter.IsFiltered(_cell);
-
-    private ICell _cell => SudokuProvider.Cells[X, Y];
+    private FilterOption _currentFilterOption => FilterProvider.Filter.IsFiltered(GridProvider, X, Y);
 
     [Parameter]
     public int X { get; set; }

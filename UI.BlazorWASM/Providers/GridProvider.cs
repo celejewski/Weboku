@@ -95,5 +95,10 @@ namespace UI.BlazorWASM.Providers
         {
             return _sudokuProvider.Cells[x, y].Candidates[(int)value].IsLegal;
         }
+
+        public int GetCandidatesCount(int x, int y)
+        {
+            return _sudokuProvider.Cells[x, y].Candidates.Count;
+        }
     }
 }
