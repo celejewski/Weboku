@@ -5,14 +5,12 @@ namespace UI.BlazorWASM.Providers
 {
     public class GameStateChecker
     {
-        private readonly ISudokuProvider _sudokuProvider;
         private readonly IGridProvider _gridProvider;
 
         public event Action OnSolved;
 
-        public GameStateChecker(ISudokuProvider sudokuProvider, IGridProvider gridProvider)
+        public GameStateChecker(IGridProvider gridProvider)
         {
-            _sudokuProvider = sudokuProvider;
             _gridProvider = gridProvider;
             _gridProvider.OnValueChanged += Check;
         }

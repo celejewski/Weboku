@@ -1,9 +1,8 @@
-﻿@inject ISudokuProvider SudokuProvider
-@inject GameTimerProvider GameTimerProvider
+﻿@inject GameTimerProvider GameTimerProvider
 
 <div class="game-info">
     <div class="game-info__time-elapsed">@GameTimerProvider.Elapsed.ToString("mm\\:ss")</div>
-    <div class="game-info__difficulty">@SudokuProvider.Sudoku.Difficulty</div>
+    @*<div class="game-info__difficulty">@SudokuProvider.Sudoku.Difficulty</div>*@
 </div>
 
 @code {        

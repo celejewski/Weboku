@@ -15,7 +15,6 @@ namespace UI.BlazorWASM.ViewModels
         private readonly IClickableActionProvider _clickableActionProvider;
         private readonly IGridHistoryManager _gridHistoryManager;
         private readonly CellColorProvider _cellColorProvider;
-        private readonly ISudokuProvider _sudokuProvider;
         private readonly NumpadMenuProvider _numpadMenuProvider;
         private readonly CommandProvider _commandProvider;
         private readonly IGridProvider _gridProvider;
@@ -25,7 +24,6 @@ namespace UI.BlazorWASM.ViewModels
             IClickableActionProvider clickableActionProvider, 
             IGridHistoryManager gridHistoryManager, 
             CellColorProvider cellColorProvider, 
-            ISudokuProvider sudokuProvider, 
             NumpadMenuProvider numpadMenuProvider,
             CommandProvider commandProvider,
             IGridProvider gridProvider
@@ -35,7 +33,6 @@ namespace UI.BlazorWASM.ViewModels
             _clickableActionProvider = clickableActionProvider;
             _gridHistoryManager = gridHistoryManager;
             _cellColorProvider = cellColorProvider;
-            _sudokuProvider = sudokuProvider;
             _numpadMenuProvider = numpadMenuProvider;
             _commandProvider = commandProvider;
             _gridProvider = gridProvider;
@@ -66,7 +63,7 @@ namespace UI.BlazorWASM.ViewModels
         PairsNumpadMenuItem _pairsNumpadMenuItem;
         public PairsNumpadMenuItem Pairs()
         {
-            return _pairsNumpadMenuItem ??= new PairsNumpadMenuItem(_sudokuProvider, _numpadMenuProvider, _commandProvider, _gridProvider);
+            return _pairsNumpadMenuItem ??= new PairsNumpadMenuItem(_numpadMenuProvider, _commandProvider, _gridProvider);
         }
 
         public ClearColorsNumpadMenuItem ClearColors()

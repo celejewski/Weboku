@@ -26,7 +26,6 @@ namespace UI.BlazorWASM
             builder.Services.AddSingleton<HodokuGridConverter, HodokuGridConverter>();
             builder.Services.AddSingleton<IGridGenerator, RESTGridGenerator>();
             builder.Services.AddSingleton<CellColorProvider, CellColorProvider>();
-            builder.Services.AddSingleton<ISudokuProvider, SudokuProvider>();
             builder.Services.AddSingleton<IGridHistoryManager, GridHistoryManager>();
             builder.Services.AddSingleton<FilterProvider, FilterProvider>();
             builder.Services.AddSingleton<IClickableActionProvider, ClickableActionProvider>();

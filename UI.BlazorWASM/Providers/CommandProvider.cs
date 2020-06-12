@@ -11,7 +11,6 @@ namespace UI.BlazorWASM.Providers
     {
         private readonly ISudokuGenerator _sudokuGenerator;
         private readonly IGridHistoryManager _gridHistoryManager;
-        private readonly ISudokuProvider _sudokuProvider;
         private readonly GameTimerProvider _gameTimerProvider;
         private readonly IGridConverter _gridConverter;
         private readonly FilterProvider _filterProvider;
@@ -29,7 +28,6 @@ namespace UI.BlazorWASM.Providers
         public CommandProvider(
             ISudokuGenerator sudokuGenerator,
             IGridHistoryManager gridHistoryManager,
-            ISudokuProvider sudokuProvider,
             GameTimerProvider gameTimerProvider,
             IGridConverter gridConverter,
             FilterProvider filterProvider,
@@ -44,7 +42,6 @@ namespace UI.BlazorWASM.Providers
         {
             _sudokuGenerator = sudokuGenerator;
             _gridHistoryManager = gridHistoryManager;
-            _sudokuProvider = sudokuProvider;
             _gameTimerProvider = gameTimerProvider;
             _gridConverter = gridConverter;
             _filterProvider = filterProvider;
@@ -59,18 +56,18 @@ namespace UI.BlazorWASM.Providers
         }
         public ICommand StartNewGame(string difficulty)
         {
-            return new StartNewGameCommand(difficulty, _sudokuGenerator, _gridHistoryManager, _sudokuProvider, _gameTimerProvider, _gridConverter, _modalProvider, _cellColorProvider);
+            return new StartNewGameCommand(difficulty, _sudokuGenerator, _gridHistoryManager, _gameTimerProvider, _gridConverter, _modalProvider, _cellColorProvider);
         }
 
         public ICommand FindAllCandidates()
         {
-            var command = new FindAllCandidatesCommand(_sudokuProvider, _gridHistoryManager);
+            var command = new FindAllCandidatesCommand( _gridHistoryManager);
             return command;
         }
 
         public ICommand RestartGame()
         {
-            return new RestartGameCommand(_sudokuProvider, _gridHistoryManager, _gameTimerProvider, _cellColorProvider);
+            return new RestartGameCommand(_gridProvider, _gridHistoryManager, _gameTimerProvider, _cellColorProvider);
         }
 
         public ICommand SelectPairsFilter()
@@ -156,7 +153,7 @@ namespace UI.BlazorWASM.Providers
         public ICommand StartNewGameFromPasted()
         {
             return new StartNewGameFromPastedCommand(
-                _sudokuProvider, _pasteProvider, _modalProvider, _cellColorProvider, _gridHistoryManager, _gameTimerProvider);
+                _pasteProvider, _modalProvider, _cellColorProvider, _gridHistoryManager, _gameTimerProvider);
         }
 
         public ICommand ShowHintModal()

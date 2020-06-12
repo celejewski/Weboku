@@ -13,7 +13,6 @@ namespace UI.BlazorWASM.Providers
         private readonly Base64GridConverter _base64GridConverter;
         private readonly NavigationManager _navigationManager;
         public event Action OnChanged;
-        private readonly ISudokuProvider _sudokuProvider;
         private readonly IGridProvider _gridProvider;
         private readonly HodokuGridConverter _hodokuGridConverter;
 
@@ -80,19 +79,16 @@ namespace UI.BlazorWASM.Providers
         }
 
         public ShareProvider(
-            ISudokuProvider sudokuProvider,
             IGridProvider gridProvider,
             HodokuGridConverter hodokuGridConverter,
             Base64GridConverter base64GridConverter,
             NavigationManager navigationManager
             )
         {
-            _sudokuProvider = sudokuProvider;
             _gridProvider = gridProvider;
             _hodokuGridConverter = hodokuGridConverter;
             _base64GridConverter = base64GridConverter;
             _navigationManager = navigationManager;
-            _grid = sudokuProvider.GetGridClone();
             gridProvider.OnValueOrCandidatesChanged += () => _dirty = true;
         }
 
