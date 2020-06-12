@@ -8,7 +8,7 @@ using UI.BlazorWASM.ViewModels;
 
 namespace UI.BlazorWASM.Providers
 {
-    public class HotkeyProvider : IHotkeyProvider
+    public class HotkeyProvider
     {
         public event Action OnChanged;
         public static IList<Hotkey> Hotkeys { get; } = new List<Hotkey>();
