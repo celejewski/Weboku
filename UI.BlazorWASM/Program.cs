@@ -10,7 +10,7 @@ using UI.BlazorWASM.Providers;
 using UI.BlazorWASM.Managers;
 using UI.BlazorWASM.ViewModels;
 using UI.BlazorWASM.ClickableActions;
-using UI.BlazorWASM.Hints;
+//using UI.BlazorWASM.Hints;
 
 namespace UI.BlazorWASM
 {
@@ -45,9 +45,9 @@ namespace UI.BlazorWASM
             builder.Services.AddSingleton<Base64GridConverter, Base64GridConverter>();
             builder.Services.AddSingleton<ChainGridConverter, ChainGridConverter>();
             builder.Services.AddSingleton<CandidatesMarkProvider, CandidatesMarkProvider>();
-            builder.Services.AddSingleton<HintsHelper, HintsHelper>();
-            builder.Services.AddSingleton<HodokuParser, HodokuParser>();
-            builder.Services.AddSingleton<HintsProvider, HintsProvider>();
+            //builder.Services.AddSingleton<HintsHelper, HintsHelper>();
+            //builder.Services.AddSingleton<HodokuParser, HodokuParser>();
+            //builder.Services.AddSingleton<HintsProvider, HintsProvider>();
             builder.Services.AddSingleton<IGridProvider, GridProvider>();
             builder.Services.AddCors();
             var app = builder.Build();
