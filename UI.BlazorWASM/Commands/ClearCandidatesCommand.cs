@@ -6,19 +6,19 @@ namespace UI.BlazorWASM.Commands
 {
     public class ClearCandidatesCommand : ICommand
     {
-        private readonly ISudokuProvider _sudokuProvider;
+        private readonly IGridProvider _gridProvider;
         private readonly IGridHistoryManager _gridHistoryManager;
 
-        public ClearCandidatesCommand(ISudokuProvider sudokuProvider, IGridHistoryManager gridHistoryManager)
+        public ClearCandidatesCommand(IGridProvider gridProvider, IGridHistoryManager gridHistoryManager)
         {
-            _sudokuProvider = sudokuProvider;
+            _gridProvider = gridProvider;
             _gridHistoryManager = gridHistoryManager;
         }
 
         public Task Execute()
         {
             _gridHistoryManager.Save();
-            _sudokuProvider.ClearAllCandidates();
+            _gridProvider.ClearCandidates();
             return Task.CompletedTask;
         }
     }

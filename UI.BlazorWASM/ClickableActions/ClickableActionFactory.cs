@@ -9,14 +9,12 @@ namespace UI.BlazorWASM.ClickableActions
         private readonly IGridHistoryManager _gridHistoryManager;
         private readonly CellColorProvider _cellColorProvider;
         private readonly IGridProvider _gridProvider;
-        private readonly ISudokuProvider _sudokuProvider;
 
-        public ClickableActionFactory(IGridHistoryManager gridHistoryManager, CellColorProvider cellColorProvider, IGridProvider gridProvider, ISudokuProvider sudokuProvider)
+        public ClickableActionFactory(IGridHistoryManager gridHistoryManager, CellColorProvider cellColorProvider, IGridProvider gridProvider)
         {
             _gridHistoryManager = gridHistoryManager;
             _cellColorProvider = cellColorProvider;
             _gridProvider = gridProvider;
-            _sudokuProvider = sudokuProvider;
         }
         
         public IClickableAction ColorAction()
