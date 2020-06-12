@@ -117,6 +117,27 @@ namespace UI.BlazorWASM.Providers
             CandidatesChanged();
         }
 
+        public void FindAllCandidates()
+        {
+            _grid.FillCandidates();
+            for( int x = 0; x < 9; x++ )
+            {
+                for( int y = 0; y < 9; y++ )
+                {
+                    if (_grid.GetValue(x, y) == InputValue.Empty)
+                    {
+                        continue;
+                    }
+
+                    foreach( var coords in GridHelper.GetCoordsWhichCanSee(x, y) )
+                    {
+                        _grid.RemoveCandidate(coords.X, coords.Y, _grid.GetValue(x, y));    
+                    }
+                }
+            }
+            CandidatesChanged();
+        }
+
         private void ValueChanged()
         {
             OnValueOrCandidatesChanged?.Invoke();

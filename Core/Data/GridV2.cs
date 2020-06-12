@@ -36,7 +36,10 @@
             {
                 for( int j = 0; j < 9; j++ )
                 {
-                    _candidates[i, j] = CandidateValue.All;
+                    if( _inputs[i, j] == InputValue.Empty )
+                    {
+                        _candidates[i, j] = CandidateValue.All;
+                    }
                 }
             }
         }

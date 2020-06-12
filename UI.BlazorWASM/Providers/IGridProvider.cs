@@ -23,6 +23,7 @@ namespace UI.BlazorWASM.Providers
         bool GetIsGiven(int x, int y);
 
         int GetCandidatesCount(int x, int y);
+        void FindAllCandidates();
 
         event Action OnCandidatesChanged;
         event Action OnValueChanged;

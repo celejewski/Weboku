@@ -61,7 +61,7 @@ namespace UI.BlazorWASM.Providers
 
         public ICommand FindAllCandidates()
         {
-            var command = new FindAllCandidatesCommand( _gridHistoryManager);
+            var command = new FindAllCandidatesCommand( _gridHistoryManager, _gridProvider);
             return command;
         }
 

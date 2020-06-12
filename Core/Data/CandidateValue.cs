@@ -5,16 +5,16 @@ namespace Core.Data
     [Flags]
     enum CandidateValue : short
     {
-        None = 0,
-        One = 1,
-        Two = 2,
-        Three = 4,
-        Four = 8,
-        Five = 16,
-        Six = 32,
-        Seven = 64,
-        Eight = 128,
-        Nine = 256,
+        None = 1,
+        One = 2,
+        Two = 4,
+        Three = 8,
+        Four = 16,
+        Five = 32,
+        Six = 64,
+        Seven = 128,
+        Eight = 256,
+        Nine = 512,
         All = One | Two | Three | Four | Five | Six | Seven | Eight | Nine
     }
 }
