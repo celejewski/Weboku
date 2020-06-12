@@ -1,16 +1,19 @@
-﻿using System;
+﻿using Core.Data;
+using System;
 
 namespace UI.BlazorWASM.Providers
 {
     public class GameStateChecker
     {
         private readonly ISudokuProvider _sudokuProvider;
+        private readonly IGridProvider _gridProvider;
 
         public event Action OnSolved;
 
-        public GameStateChecker(ISudokuProvider sudokuProvider)
+        public GameStateChecker(ISudokuProvider sudokuProvider, IGridProvider gridProvider)
         {
             _sudokuProvider = sudokuProvider;
+            _gridProvider = gridProvider;
             _sudokuProvider.OnValueChanged += Check;
         }
 
@@ -20,8 +23,7 @@ namespace UI.BlazorWASM.Providers
             {
                 for( int x = 0; x < 9; x++ )
                 {
-                    var cell = _sudokuProvider.Cells[x, y];
-                    if (cell.Input.Value == 0 || !cell.Input.IsLegal)
+                    if (_gridProvider.GetValue(x, y) == InputValue.Empty || !_gridProvider.IsValueLegal(x, y))
                     {
                         return;
                     }
