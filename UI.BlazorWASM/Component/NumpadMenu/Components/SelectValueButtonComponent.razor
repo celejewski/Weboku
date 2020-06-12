@@ -1,4 +1,4 @@
-﻿@inject ISudokuProvider SudokuProvider
+﻿@inject IGridProvider GridProvider
 @inject NumpadMenuProvider NumpadMenuProvider
 
 <LabelButtonComponent NumpadMenuLabel="NumpadMenuLabel"></LabelButtonComponent>
@@ -9,7 +9,7 @@
 
     protected override void OnInitialized()
     {
-        SudokuProvider.OnValueChanged += StateHasChanged;
+        GridProvider.OnValueChanged += StateHasChanged;
         NumpadMenuProvider.OnChanged += StateHasChanged;
     }
 }

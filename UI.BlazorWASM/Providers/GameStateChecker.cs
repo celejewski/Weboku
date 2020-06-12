@@ -14,7 +14,7 @@ namespace UI.BlazorWASM.Providers
         {
             _sudokuProvider = sudokuProvider;
             _gridProvider = gridProvider;
-            _sudokuProvider.OnValueChanged += Check;
+            _gridProvider.OnValueChanged += Check;
         }
 
         private void Check()

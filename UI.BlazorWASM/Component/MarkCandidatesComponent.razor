@@ -1,5 +1,4 @@
-﻿@inject ISudokuProvider SudokuProvider
-@inject CandidatesMarkProvider CandidatesMarkProvider
+﻿@inject CandidatesMarkProvider CandidatesMarkProvider
 @inject IGridProvider GridProvider
 @using UI.BlazorWASM.Converters
 @using UI.BlazorWASM.Enums
@@ -32,7 +31,7 @@
 
     protected override void OnInitialized()
     {
-        SudokuProvider.OnCandidatesChanged += StateHasChanged;
+        GridProvider.OnCandidatesChanged += StateHasChanged;
         CandidatesMarkProvider.OnChanged += StateHasChanged;
     }
 

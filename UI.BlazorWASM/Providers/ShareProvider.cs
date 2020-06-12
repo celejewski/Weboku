@@ -93,7 +93,7 @@ namespace UI.BlazorWASM.Providers
             _base64GridConverter = base64GridConverter;
             _navigationManager = navigationManager;
             _grid = sudokuProvider.GetGridClone();
-            sudokuProvider.OnValueOrCandidatesChanged += () => _dirty = true;
+            gridProvider.OnValueOrCandidatesChanged += () => _dirty = true;
         }
 
         private void Update()

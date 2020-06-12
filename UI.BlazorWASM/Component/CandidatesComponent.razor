@@ -1,5 +1,4 @@
 ﻿@inject IGridProvider GridProvider
-@inject ISudokuProvider SudokuProvider
 
 <div class="candidates">
     @if( _isVisible )
@@ -25,7 +24,7 @@
     {
         _value = Z + 1;
         _text = _value.ToString();
-        SudokuProvider.OnCandidatesChanged += StateHasChanged;
+        GridProvider.OnCandidatesChanged += StateHasChanged;
     }
 
     protected override bool ShouldRender()

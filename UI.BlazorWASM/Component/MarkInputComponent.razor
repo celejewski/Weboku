@@ -1,5 +1,4 @@
-﻿@inject ISudokuProvider SudokuProvider
-@inject IGridProvider GridProvider
+﻿@inject IGridProvider GridProvider
 
 <div class="@(_currentIsLegal ? string.Empty : "mark__cell mark__cell--danger")"></div>
 
@@ -15,7 +14,7 @@
 
     protected override void OnInitialized()
     {
-        SudokuProvider.OnValueChanged += StateHasChanged;
+        GridProvider.OnValueChanged += StateHasChanged;
     }
 
     protected override bool ShouldRender()

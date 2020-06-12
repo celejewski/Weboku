@@ -1,4 +1,5 @@
 ﻿using Core.Data;
+using System;
 
 namespace UI.BlazorWASM.Providers
 {
@@ -21,5 +22,9 @@ namespace UI.BlazorWASM.Providers
         bool IsGiven(int x, int y);
 
         int GetCandidatesCount(int x, int y);
+
+        event Action OnCandidatesChanged;
+        event Action OnValueChanged;
+        event Action OnValueOrCandidatesChanged;
     }
 }

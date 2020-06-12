@@ -7,9 +7,16 @@ namespace UI.BlazorWASM.Providers
     {
         private readonly ISudokuProvider _sudokuProvider;
 
+        public event Action OnCandidatesChanged;
+        public event Action OnValueChanged;
+        public event Action OnValueOrCandidatesChanged;
+
         public GridProvider(ISudokuProvider sudokuProvider)
         {
             _sudokuProvider = sudokuProvider;
+            _sudokuProvider.OnCandidatesChanged += () => OnCandidatesChanged?.Invoke();
+            _sudokuProvider.OnValueChanged += () => OnValueChanged?.Invoke();
+            _sudokuProvider.OnValueOrCandidatesChanged+= () => OnValueOrCandidatesChanged?.Invoke();
         }
 
         public InputValue GetValue(int x, int y) => (InputValue) _sudokuProvider.Cells[x, y].Input.Value;

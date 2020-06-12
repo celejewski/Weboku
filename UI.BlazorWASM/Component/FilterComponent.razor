@@ -1,5 +1,4 @@
 ﻿@inject FilterProvider FilterProvider
-@inject ISudokuProvider SudokuProvider
 @inject IGridProvider GridProvider
 @using UI.BlazorWASM.Converters;
 @using UI.BlazorWASM.Enums;
@@ -32,7 +31,7 @@
     protected override void OnInitialized()
     {
         FilterProvider.OnChanged += StateHasChanged;
-        SudokuProvider.OnValueOrCandidatesChanged += StateHasChanged;
+        GridProvider.OnValueOrCandidatesChanged += StateHasChanged;
     }
 
 
