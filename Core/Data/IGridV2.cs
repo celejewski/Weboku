@@ -11,5 +11,6 @@
         void ToggleCandidate(int x, int y, InputValue value);
         void FillCandidates();
         void ClearCandidates();
+        void ClearCandidates(int x, int y);
     }
 }

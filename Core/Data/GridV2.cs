@@ -19,9 +19,14 @@
             {
                 for( int j = 0; j < 9; j++ )
                 {
-                    _candidates[i, j] = CandidateValue.None;
+                    ClearCandidates(i, j);
                 }
             }
+        }
+
+        public void ClearCandidates(int x, int y)
+        {
+            _candidates[x, y] = CandidateValue.None;
         }
 
         public void FillCandidates()
