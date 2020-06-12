@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
+﻿using UI.BlazorWASM.Commands;
 using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.Component.NumpadMenu
 {
     public class ClearColorsNumpadMenuItem : BaseMenuOption, INumpadMenuLabel
     {
-        public ClearColorsNumpadMenuItem(CommandProvider commandProvider)
-            :base(commandProvider.ClearColors())
+        public ClearColorsNumpadMenuItem(ClearColorsCommand command)
+            :base(command)
         {
         }
         public override bool IsDimmed => false;

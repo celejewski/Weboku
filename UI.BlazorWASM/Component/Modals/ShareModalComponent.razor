@@ -1,5 +1,5 @@
 ﻿@inject IJSRuntime JSRuntime
-@inject CommandProvider CommandProvider
+@inject CloseModalCommand CloseModalCommand
 @inject ShareProvider ShareProvider
 @inject NavigationManager NavigationManager
 
@@ -33,7 +33,7 @@
                    class="share__output" />
             <div class="share__row">
                 <div class="share__close"
-                     @onclick="CommandProvider.CloseModal().Execute">Close</div>
+                     @onclick="CloseModalCommand.Execute">Close</div>
             </div>
         </Content>
     </ModalWithGridTemplateComponent>

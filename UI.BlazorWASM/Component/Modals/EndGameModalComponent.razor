@@ -1,5 +1,5 @@
 ﻿@inject GameTimerProvider GameTimerProvider
-@inject CommandProvider CommandProvider
+@inject ShowNewGameModalCommand ShowNewGameModalCommand
 
 <ModalTemplateComponent>
     <div class="text-center">
@@ -19,7 +19,7 @@
     </div>
 
     <div class="modal__footer with-hr">
-        <ModalButtonComponent OnClick="CommandProvider.ShowNewGameModal()"
+        <ModalButtonComponent OnClick="ShowNewGameModalCommand"
                               IsSecondary="true">
             Play again
         </ModalButtonComponent>

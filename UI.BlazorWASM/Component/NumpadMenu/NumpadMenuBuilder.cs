@@ -18,6 +18,14 @@ namespace UI.BlazorWASM.ViewModels
         private readonly NumpadMenuProvider _numpadMenuProvider;
         private readonly CommandProvider _commandProvider;
         private readonly IGridProvider _gridProvider;
+        private readonly RedoCommand _redoCommand;
+        private readonly SelectPairsFilterCommand _selectPairsFilterCommand;
+        private readonly ClearColorsCommand _clearColorsCommand;
+        private readonly UndoCommand _undoCommand;
+        private readonly SelectCleanerAction _selectCleanerAction;
+        private readonly SelectStandardActionCommand _selectStandardActionCommand;
+        private readonly SelectEraserActionCommand _selectEraserActionCommand;
+        private readonly SelectColorActionCommand _selectColorActionCommand;
 
         public NumpadMenuBuilder(
             FilterProvider filterProvider, 
@@ -26,7 +34,15 @@ namespace UI.BlazorWASM.ViewModels
             CellColorProvider cellColorProvider, 
             NumpadMenuProvider numpadMenuProvider,
             CommandProvider commandProvider,
-            IGridProvider gridProvider
+            IGridProvider gridProvider,
+            RedoCommand redoCommand,
+            SelectPairsFilterCommand selectPairsFilterCommand,
+            ClearColorsCommand clearColorsCommand,
+            UndoCommand undoCommand,
+            SelectCleanerAction selectCleanerAction,
+            SelectStandardActionCommand selectStandardActionCommand,
+            SelectEraserActionCommand selectEraserActionCommand,
+            SelectColorActionCommand selectColorActionCommand
             )
         {
             _filterProvider = filterProvider;
@@ -36,6 +52,14 @@ namespace UI.BlazorWASM.ViewModels
             _numpadMenuProvider = numpadMenuProvider;
             _commandProvider = commandProvider;
             _gridProvider = gridProvider;
+            _redoCommand = redoCommand;
+            _selectPairsFilterCommand = selectPairsFilterCommand;
+            _clearColorsCommand = clearColorsCommand;
+            _undoCommand = undoCommand;
+            _selectCleanerAction = selectCleanerAction;
+            _selectStandardActionCommand = selectStandardActionCommand;
+            _selectEraserActionCommand = selectEraserActionCommand;
+            _selectColorActionCommand = selectColorActionCommand;
         }
 
         readonly Dictionary<int, SelectValueNumpadMenuItem> _dict = new Dictionary<int, SelectValueNumpadMenuItem>();
@@ -50,25 +74,25 @@ namespace UI.BlazorWASM.ViewModels
 
         public RedoNumpadMenuItem Redo()
         {
-            var command = new RedoNumpadMenuItem(_commandProvider, _gridHistoryManager);
+            var command = new RedoNumpadMenuItem(_redoCommand, _gridHistoryManager);
             return command;
         }
 
         public UndoNumpadMenuItem Undo()
         {
-            var command = new UndoNumpadMenuItem(_gridHistoryManager, _commandProvider);
+            var command = new UndoNumpadMenuItem(_gridHistoryManager, _undoCommand);
             return command;
         }
 
         PairsNumpadMenuItem _pairsNumpadMenuItem;
         public PairsNumpadMenuItem Pairs()
         {
-            return _pairsNumpadMenuItem ??= new PairsNumpadMenuItem(_numpadMenuProvider, _commandProvider, _gridProvider);
+            return _pairsNumpadMenuItem ??= new PairsNumpadMenuItem(_numpadMenuProvider, _selectPairsFilterCommand, _gridProvider);
         }
 
         public ClearColorsNumpadMenuItem ClearColors()
         {
-            var command = new ClearColorsNumpadMenuItem(_commandProvider);
+            var command = new ClearColorsNumpadMenuItem(_clearColorsCommand);
             return command;
         }
 
@@ -87,22 +111,22 @@ namespace UI.BlazorWASM.ViewModels
         SelectCleanerActionMenuItem _eraseMenuItem;
         public SelectCleanerActionMenuItem SelectCleanerAction()
         {
-            return _eraseMenuItem ??= new SelectCleanerActionMenuItem(_numpadMenuProvider, _commandProvider); 
+            return _eraseMenuItem ??= new SelectCleanerActionMenuItem(_numpadMenuProvider, _selectCleanerAction); 
         }
 
         public SelectStandardActionMenuItem SelectStandardAction()
         {
-            return new SelectStandardActionMenuItem(_numpadMenuProvider, _commandProvider);
+            return new SelectStandardActionMenuItem(_numpadMenuProvider, _selectStandardActionCommand);
         }
 
         public SelectEraserActionMenuItem SelectEraserAction()
         {
-            return new SelectEraserActionMenuItem(_numpadMenuProvider, _commandProvider);
+            return new SelectEraserActionMenuItem(_numpadMenuProvider, _selectEraserActionCommand);
         }
 
         public SelectColorActionMenuItem SelectColorAction()
         {
-            return new SelectColorActionMenuItem(_numpadMenuProvider, _commandProvider);
+            return new SelectColorActionMenuItem(_numpadMenuProvider, _selectColorActionCommand);
         }
     }
 }

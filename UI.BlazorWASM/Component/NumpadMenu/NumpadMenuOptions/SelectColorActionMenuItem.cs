@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using UI.BlazorWASM.Commands;
 using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.Component.NumpadMenu.NumpadMenuOptions
@@ -9,8 +10,8 @@ namespace UI.BlazorWASM.Component.NumpadMenu.NumpadMenuOptions
     public class SelectColorActionMenuItem : BaseMenuOption, INumpadMenuLabel
     {
 
-        public SelectColorActionMenuItem(NumpadMenuProvider numpadMenuProvider, CommandProvider commandProvider)
-            :base(commandProvider.SelectColorAction(), numpadMenuProvider.ActionContainer)
+        public SelectColorActionMenuItem(NumpadMenuProvider numpadMenuProvider, SelectColorActionCommand command)
+            :base(command, numpadMenuProvider.ActionContainer)
         {
 
         }

@@ -1,4 +1,4 @@
-﻿@inject CommandProvider CommandProvider
+﻿@inject CloseModalCommand CloseModalCommand
 @inject ModalProvider ModalProvider
 
 <ModalTemplateComponent>
@@ -22,7 +22,7 @@
     </div>
 
     <div class="modal__footer with-hr">
-        <ModalButtonComponent OnClick="CommandProvider.CloseModal()"
+        <ModalButtonComponent OnClick="CloseModalCommand"
                               IsSecondary="true">
             Close
         </ModalButtonComponent>

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
+using UI.BlazorWASM.Commands;
 using UI.BlazorWASM.Enums;
 using UI.BlazorWASM.ViewModels;
 
@@ -32,9 +33,9 @@ namespace UI.BlazorWASM.Providers
             }
         }
 
-        public HotkeyProvider(CommandProvider commandProvider, NumpadMenuBuilder numpadMenuBuilder)
+        public HotkeyProvider(FindAllCandidatesCommand findAllCandidatesCommand, NumpadMenuBuilder numpadMenuBuilder)
         {
-            Register(new Hotkey { Command = commandProvider.FindAllCandidates(), Key = "f", Ctrl = true });
+            Register(new Hotkey { Command = findAllCandidatesCommand, Key = "f", Ctrl = true });
             for( int value = 1; value < 10; value++ )
             {
                 Register(new Hotkey { Command = numpadMenuBuilder.SelectValue(value), Key = value.ToString() });

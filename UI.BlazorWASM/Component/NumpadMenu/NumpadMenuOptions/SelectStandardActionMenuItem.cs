@@ -1,11 +1,12 @@
-﻿using UI.BlazorWASM.Providers;
+﻿using UI.BlazorWASM.Commands;
+using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.Component.NumpadMenu.NumpadMenuOptions
 {
     public class SelectStandardActionMenuItem : BaseMenuOption, INumpadMenuLabel
     {
-        public SelectStandardActionMenuItem(NumpadMenuProvider numpadMenuProvider, CommandProvider commandProvider)
-            :base(commandProvider.SelectStandardAction(), numpadMenuProvider.ActionContainer)
+        public SelectStandardActionMenuItem(NumpadMenuProvider numpadMenuProvider, SelectStandardActionCommand command)
+            :base(command, numpadMenuProvider.ActionContainer)
         {
 
         }

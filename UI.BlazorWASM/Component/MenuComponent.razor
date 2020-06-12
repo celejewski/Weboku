@@ -1,4 +1,11 @@
 ﻿@inject CommandProvider CommandProvider
+@inject ShowMainMenuModalCommand ShowMainMenuModalCommand
+@inject ShowShareModalCommand ShowShareModalCommand
+@inject RestartGameCommand RestartGameCommand
+@inject ShowHowToPlayModalCommand ShowHowToPlayModalCommand
+@inject ShowHintModalCommand ShowHintModalCommand
+@inject FindAllCandidatesCommand FindAllCandidatesCommand
+@inject ClearCandidatesCommand ClearCandidatesCommand
 
 <div class="menu">
     <div class="menu__item">
@@ -7,11 +14,11 @@
                 <MenuLabelComponent>Menu</MenuLabelComponent>
             </Header>
             <Content>
-                <MenuLinkComponent OnMouseDown="CommandProvider.ShowMainMenuModal()">Main menu</MenuLinkComponent>
-                <MenuLinkComponent OnMouseDown="CommandProvider.ShowShareModal()">Share</MenuLinkComponent>
-                <MenuLinkComponent OnMouseDown="CommandProvider.RestartGame()">Restart game</MenuLinkComponent>
-                <MenuLinkComponent OnMouseDown="CommandProvider.ShowHowToPlayModal()">How to play</MenuLinkComponent>
-                <MenuLinkComponent OnMouseDown="CommandProvider.ShowHintModal()">Show hint</MenuLinkComponent>
+                <MenuLinkComponent OnMouseDown="ShowMainMenuModalCommand">Main menu</MenuLinkComponent>
+                <MenuLinkComponent OnMouseDown="ShowShareModalCommand">Share</MenuLinkComponent>
+                <MenuLinkComponent OnMouseDown="RestartGameCommand">Restart game</MenuLinkComponent>
+                <MenuLinkComponent OnMouseDown="ShowHowToPlayModalCommand">How to play</MenuLinkComponent>
+                <MenuLinkComponent OnMouseDown="ShowHintModalCommand">Show hint</MenuLinkComponent>
             </Content>
         </DropdownMenuComponent>
     </div>
@@ -23,8 +30,8 @@
                 <MenuLabelComponent>Candidates</MenuLabelComponent>
             </Header>
             <Content>
-                <MenuLinkComponent OnMouseDown="CommandProvider.FindAllCandidates()">Find all</MenuLinkComponent>
-                <MenuLinkComponent OnMouseDown="CommandProvider.ClearCandidates()">Remove all</MenuLinkComponent>
+                <MenuLinkComponent OnMouseDown="FindAllCandidatesCommand">Find all</MenuLinkComponent>
+                <MenuLinkComponent OnMouseDown="ClearCandidatesCommand">Remove all</MenuLinkComponent>
             </Content>
         </DropdownMenuComponent>
     </div>
