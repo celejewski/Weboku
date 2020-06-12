@@ -1,4 +1,5 @@
 ﻿using Core.Data;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Threading;
 using UI.BlazorWASM.Helpers;
@@ -17,6 +18,8 @@ namespace UI.BlazorWASM.Providers
             set 
             {
                 _grid = value;
+                CalcIsInputLegal();
+                CalcIsCandidateLegal();
                 ValueAndCandidatesChanged();
             }
         }
@@ -171,6 +174,39 @@ namespace UI.BlazorWASM.Providers
                 for( int y = 0; y < 9; y++ )
                 {
                     _isInputLegal[x, y] = true;
+                }
+            }
+        }
+
+        private void CalcIsInputLegal()
+        {
+            for( int x = 0; x < 9; x++ )
+            {
+                for( int y = 0; y < 9; y++ )
+                {
+                    _isInputLegal[x, y] = GridHelper.IsLegal(x, y, GetValue(x, y), this);
+                }
+            }
+        }
+
+        private void CalcIsCandidateLegal()
+        {
+            for( int x = 0; x < 9; x++ )
+            {
+                for( int y = 0; y < 9; y++ )
+                {
+                    if (GetValue(x, y) != InputValue.Empty)
+                    {
+                        continue;
+                    }
+
+                    for( int value = 0; value < 10; value++ )
+                    {
+                        if( HasCandidate(x, y, (InputValue) value) )
+                        {
+                            _isCandidateLegal[x, y, value] = GridHelper.IsLegal(x, y, (InputValue) value, this);
+                        }
+                    }
                 }
             }
         }

@@ -15,5 +15,7 @@
         void FillCandidates();
         void ClearCandidates();
         void ClearCandidates(int x, int y);
+
+        IGridV2 Clone();
     }
 }

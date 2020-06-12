@@ -9,9 +9,10 @@ namespace UI.BlazorWASM.Helpers
     {
         public static bool IsLegal(int x, int y, InputValue value, IGridProvider gridProvider)
         {
-            return GetCoordsWhichCanSee(x, y)
+            return value == InputValue.Empty 
+                || GetCoordsWhichCanSee(x, y)
                 .Where(coords => coords.X != x || coords.Y != y)
-                .All(coords => gridProvider.GetValue(coords.X, coords.Y) != value || value == InputValue.Empty);
+                .All(coords => gridProvider.GetValue(coords.X, coords.Y) != value);
         }
 
         public static IList<Coords> GetCoordsWhichCanSee(int x, int y)

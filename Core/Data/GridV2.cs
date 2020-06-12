@@ -2,10 +2,23 @@
 {
     public class GridV2 : IGridV2
     {
-        private readonly InputValue[,] _inputs = new InputValue[9, 9];
-        private readonly CandidateValue[,] _candidates = new CandidateValue[9, 9];
-        private readonly bool[,] _isGivens = new bool[9, 9];
-        
+        private readonly InputValue[,] _inputs;
+        private readonly CandidateValue[,] _candidates;
+        private readonly bool[,] _isGivens;
+        public GridV2()
+        {
+            _inputs = new InputValue[9, 9];
+            _candidates = new CandidateValue[9, 9];
+            _isGivens = new bool[9, 9];
+        }
+
+        private GridV2(InputValue[,] inputs, CandidateValue[,] candidates, bool[,] isGivens)
+        {
+            _inputs = inputs;
+            _candidates = candidates;
+            _isGivens = isGivens;
+        }
+
         public InputValue GetValue(int x, int y) => _inputs[x, y];
         public void SetValue(int x, int y, InputValue value) => _inputs[x, y] = value;
 
@@ -52,6 +65,15 @@
         public void SetIsGiven(int x, int y, bool value)
         {
             _isGivens[x, y] = value;
+        }
+
+        public IGridV2 Clone()
+        {
+            return new GridV2(
+                (InputValue[,]) _inputs.Clone(),
+                (CandidateValue[,]) _candidates.Clone(),
+                (bool[,]) _isGivens.Clone()
+                );
         }
     }
 }
