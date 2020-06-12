@@ -1,8 +1,6 @@
 ﻿using Core.Converters;
 using Core.Generators;
-using UI.BlazorWASM.ClickableActions;
 using UI.BlazorWASM.Commands;
-using UI.BlazorWASM.Component.NumpadMenu;
 using UI.BlazorWASM.Managers;
 
 namespace UI.BlazorWASM.Providers
@@ -16,10 +14,7 @@ namespace UI.BlazorWASM.Providers
         private readonly FilterProvider _filterProvider;
         private readonly CellColorProvider _cellColorProvider;
         private readonly IClickableActionProvider _clickableActionProvider;
-        private readonly ClickableActionFactory _clickableActionFactory;
         private readonly ModalProvider _modalProvider;
-        private readonly NumpadMenuProvider _numpadMenuProvider;
-        private readonly PasteProvider _pasteProvider;
         private readonly IGridProvider _gridProvider;
         private readonly RESTGridGeneratorV2 _gridGeneratorV2;
 
@@ -33,10 +28,7 @@ namespace UI.BlazorWASM.Providers
             FilterProvider filterProvider,
             CellColorProvider cellColorProvider,
             IClickableActionProvider clickableActionProvider,
-            ClickableActionFactory clickableActionFactory,
             ModalProvider modalProvider,
-            NumpadMenuProvider numpadMenuProvider,
-            PasteProvider pasteProvider,
             IGridProvider gridProvider,
             RESTGridGeneratorV2 gridGeneratorV2)
         {
@@ -47,10 +39,7 @@ namespace UI.BlazorWASM.Providers
             _filterProvider = filterProvider;
             _cellColorProvider = cellColorProvider;
             _clickableActionProvider = clickableActionProvider;
-            _clickableActionFactory = clickableActionFactory;
             _modalProvider = modalProvider;
-            _numpadMenuProvider = numpadMenuProvider;
-            _pasteProvider = pasteProvider;
             _gridProvider = gridProvider;
             _gridGeneratorV2 = gridGeneratorV2;
         }
