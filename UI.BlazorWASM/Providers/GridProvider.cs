@@ -13,7 +13,10 @@ namespace UI.BlazorWASM.Providers
         }
 
         public InputValue GetValue(int x, int y) => (InputValue) _sudokuProvider.Cells[x, y].Input.Value;
-        public void SetValue(int x, int y, InputValue value) => SetValue(x, y, value);
+        public void SetValue(int x, int y, InputValue value)
+        {
+            _sudokuProvider.SetValue(x, y, (int) value);
+        }
 
         public bool HasCandidate(int x, int y, InputValue value)
         {
@@ -33,6 +36,14 @@ namespace UI.BlazorWASM.Providers
             if( HasCandidate(x, y, value) )
             {
                 _sudokuProvider.ToggleCandidate(x, y, (int) value);
+            }
+        }
+
+        public void RemoveCandidates(int x, int y)
+        {
+            for( int value = 1; value < 10; value++ )
+            {
+                RemoveCandidate(x, y, (InputValue) value);
             }
         }
 
@@ -68,6 +79,11 @@ namespace UI.BlazorWASM.Providers
                     }
                 }
             }
+        }
+
+        public bool IsGiven(int x, int y)
+        {
+            return _sudokuProvider.Cells[x, y].IsGiven;
         }
     }
 }

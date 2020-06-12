@@ -1,7 +1,6 @@
-﻿using System.Threading.Tasks;
-using UI.BlazorWASM.ClickableActions;
+﻿using Core.Data;
+using System.Threading.Tasks;
 using UI.BlazorWASM.Filters;
-using UI.BlazorWASM.Managers;
 using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.Commands
@@ -22,7 +21,7 @@ namespace UI.BlazorWASM.Commands
         public Task Execute()
         {
             _filterProvider.SetFilter(new SelectedValueFilter(_value));
-            _clickableActionProvider.Value = _value;
+            _clickableActionProvider.Value = (InputValue) _value;
             return Task.CompletedTask;
 
         }

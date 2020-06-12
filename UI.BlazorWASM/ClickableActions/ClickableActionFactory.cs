@@ -8,12 +8,14 @@ namespace UI.BlazorWASM.ClickableActions
     {
         private readonly IGridHistoryManager _gridHistoryManager;
         private readonly CellColorProvider _cellColorProvider;
+        private readonly IGridProvider _gridProvider;
         private readonly ISudokuProvider _sudokuProvider;
 
-        public ClickableActionFactory(IGridHistoryManager gridHistoryManager, CellColorProvider cellColorProvider, ISudokuProvider sudokuProvider)
+        public ClickableActionFactory(IGridHistoryManager gridHistoryManager, CellColorProvider cellColorProvider, IGridProvider gridProvider, ISudokuProvider sudokuProvider)
         {
             _gridHistoryManager = gridHistoryManager;
             _cellColorProvider = cellColorProvider;
+            _gridProvider = gridProvider;
             _sudokuProvider = sudokuProvider;
         }
         
@@ -23,17 +25,17 @@ namespace UI.BlazorWASM.ClickableActions
         }
         public IClickableAction StandardAction()
         {
-            return new StandardAction(_gridHistoryManager, _cellColorProvider, _sudokuProvider);
+            return new StandardAction(_gridHistoryManager, _cellColorProvider, _gridProvider);
         }
 
         public IClickableAction CleanerAction()
         {
-            return new CleanerAction(_sudokuProvider, _gridHistoryManager);
+            return new CleanerAction(_gridProvider, _gridHistoryManager);
         }
 
         public IClickableAction EraserAction()
         {
-            return new EraserAction(_sudokuProvider, _gridHistoryManager);
+            return new EraserAction(_gridHistoryManager, _gridProvider);
         }
     }
 }

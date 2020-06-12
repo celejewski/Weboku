@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components.Web;
+﻿using Core.Data;
+using Microsoft.AspNetCore.Components.Web;
 using UI.BlazorWASM.Managers;
 using UI.BlazorWASM.Providers;
 
@@ -6,18 +7,18 @@ namespace UI.BlazorWASM.ClickableActions
 {
     public class CleanerAction : IClickableAction
     {
-        private readonly ISudokuProvider _sudokuProvider;
+        private readonly IGridProvider _gridProvider;
         private readonly IGridHistoryManager _gridHistoryManager;
 
         private void Clear(int x, int y)
         {
             _gridHistoryManager.Save();
-            _sudokuProvider.Cells[x,y].Candidates.Clear();
-            _sudokuProvider.SetValue(x, y, 0);
+            _gridProvider.RemoveCandidates(x, y);
+            _gridProvider.SetValue(x, y, InputValue.Empty);
         }
-        public CleanerAction(ISudokuProvider sudokuProvider, IGridHistoryManager gridHistoryManager)
+        public CleanerAction(IGridProvider gridProvider, IGridHistoryManager gridHistoryManager)
         {
-            _sudokuProvider = sudokuProvider;
+            _gridProvider = gridProvider;
             _gridHistoryManager = gridHistoryManager;
         }
 

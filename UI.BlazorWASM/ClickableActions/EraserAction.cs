@@ -1,5 +1,4 @@
-﻿using System;
-using System.Security.Cryptography.X509Certificates;
+﻿using Core.Data;
 using UI.BlazorWASM.Managers;
 using UI.BlazorWASM.Providers;
 
@@ -7,37 +6,35 @@ namespace UI.BlazorWASM.ClickableActions
 {
     public class EraserAction : IClickableAction
     {
-        private readonly ISudokuProvider _sudokuProvider;
         private readonly IGridHistoryManager _gridHistoryManager;
+        private readonly IGridProvider _gridProvider;
 
-        public EraserAction(ISudokuProvider sudokuProvider, IGridHistoryManager gridHistoryManager)
+        public EraserAction(IGridHistoryManager gridHistoryManager, IGridProvider gridProvider)
         {
-            _sudokuProvider = sudokuProvider;
             _gridHistoryManager = gridHistoryManager;
+            _gridProvider = gridProvider;
         }
         
         public void LeftClickAction(ClickableActionArgs args)
         {
-            var cell = _sudokuProvider.Cells[args.X, args.Y];
-            if (cell.Input.Value == 0)
+            if (_gridProvider.GetValue(args.X, args.Y) == InputValue.Empty)
             {
                 _gridHistoryManager.Save();
-                _sudokuProvider.ToggleCandidate(args.X, args.Y, args.Value);
+                _gridProvider.ToggleCandidate(args.X, args.Y, args.Value);
             }
         }
 
         public void RightClickAction(ClickableActionArgs args)
         {
-            var cell = _sudokuProvider.Cells[args.X, args.Y];
-            if (cell.Input.Value == 0)
+            if (_gridProvider.GetValue(args.X, args.Y) == InputValue.Empty)
             {
                 _gridHistoryManager.Save();
-                _sudokuProvider.SetValue(args.X, args.Y, args.Value);
+                _gridProvider.SetValue(args.X, args.Y, args.Value);
             }
-            else if (cell.Input.Value == args.Value && !cell.IsGiven)
+            else if (_gridProvider.GetValue(args.X, args.Y) == args.Value && _gridProvider.IsGiven(args.X, args.Y))
             {
                 _gridHistoryManager.Save();
-                _sudokuProvider.SetValue(args.X, args.Y, 0);
+                _gridProvider.SetValue(args.X, args.Y, InputValue.Empty);
             }
         }
     }

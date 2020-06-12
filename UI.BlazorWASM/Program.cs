@@ -48,6 +48,7 @@ namespace UI.BlazorWASM
             builder.Services.AddSingleton<HintsHelper, HintsHelper>();
             builder.Services.AddSingleton<HodokuParser, HodokuParser>();
             builder.Services.AddSingleton<HintsProvider, HintsProvider>();
+            builder.Services.AddSingleton<IGridProvider, GridProvider>();
             builder.Services.AddCors();
             var app = builder.Build();
            

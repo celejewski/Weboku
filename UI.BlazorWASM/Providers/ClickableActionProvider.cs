@@ -10,11 +10,11 @@ namespace UI.BlazorWASM.Providers
     {
         public IClickableAction ClickableAction { get; private set; }
 
-        private int _value;
+        private InputValue _value;
         private Color _color1;
         private Color _color2;
 
-        public int Value
+        public InputValue Value
         {
             get => _value;
             set
@@ -54,7 +54,7 @@ namespace UI.BlazorWASM.Providers
         public ClickableActionProvider(ClickableActionFactory clickableActionFactory)
         {
             ClickableAction = clickableActionFactory.StandardAction();
-            Value = 1;
+            Value = InputValue.One;
             Color1 = Color.First;
             Color2 = Color.Second;
         }
