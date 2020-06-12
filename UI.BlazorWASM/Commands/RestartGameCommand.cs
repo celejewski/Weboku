@@ -25,7 +25,7 @@ namespace UI.BlazorWASM.Commands
         public Task Execute()
         {
             _gridHistoryManager.Save();
-            _sudokuProvider.Restart();
+            _sudokuProvider.RestartGame();
             _gameTimerProvider.Start();
             _cellColorProvider.ClearAll();
             return Task.CompletedTask;

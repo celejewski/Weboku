@@ -47,7 +47,7 @@ namespace UI.BlazorWASM.Providers
             OnCandidatesChanged?.Invoke();
             OnValueOrCandidatesChanged?.Invoke();
         }
-        
+
         public void ClearAllCandidates()
         {
             for( int y = 0; y < 9; y++ )
@@ -63,13 +63,13 @@ namespace UI.BlazorWASM.Providers
 
         public IGrid GetGridClone() => (IGrid) _grid.Clone();
 
-        public void Restart()
+        public void RestartGame()
         {
             for( int y = 0; y < 9; y++ )
             {
                 for( int x = 0; x < 9; x++ )
                 {
-                    if (!_grid.Cells[x, y].IsGiven)
+                    if( !_grid.Cells[x, y].IsGiven )
                     {
                         _grid.SetValue(x, y, 0);
                     }

@@ -9,14 +9,14 @@ namespace UI.BlazorWASM.Providers
 
         void SetValue(int x, int y, int value);
         void ToggleCandidate(int x, int y, int value);
-        void AssignFrom(IGrid source);
 
         void FillAllCandidates();
         void ClearAllCandidates();
 
-        void Restart();
+        void RestartGame();
 
         IGrid GetGridClone();
+        void AssignFrom(IGrid source);
 
         Sudoku Sudoku { get; set; }
 
