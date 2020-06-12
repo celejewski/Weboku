@@ -3,7 +3,7 @@ using System;
 
 namespace UI.BlazorWASM.Providers
 {
-    public class GridProvider : IGridProvider
+    public class GridProviderWrapper : IGridProvider
     {
         private readonly ISudokuProvider _sudokuProvider;
 
@@ -11,7 +11,7 @@ namespace UI.BlazorWASM.Providers
         public event Action OnValueChanged;
         public event Action OnValueOrCandidatesChanged;
 
-        public GridProvider(ISudokuProvider sudokuProvider)
+        public GridProviderWrapper(ISudokuProvider sudokuProvider)
         {
             _sudokuProvider = sudokuProvider;
             _sudokuProvider.OnCandidatesChanged += () => OnCandidatesChanged?.Invoke();
