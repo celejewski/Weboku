@@ -14,16 +14,17 @@ namespace UI.BlazorWASM.Providers
         private readonly NavigationManager _navigationManager;
         public event Action OnChanged;
         private readonly ISudokuProvider _sudokuProvider;
+        private readonly IGridProvider _gridProvider;
         private readonly HodokuGridConverter _hodokuGridConverter;
 
-        private Func<ICell, int> CellToValue
+        private Func<int, int, InputValue> CellToValue
         {
             get
             {
                 return _sharedFields switch
                 {
-                    SharedFields.Givens => cell => cell.IsGiven ? cell.Input.Value : 0,
-                    SharedFields.GivensAndInputs => cell => cell.Input.Value,
+                    SharedFields.Givens => (int x, int y) =>  _gridProvider.IsGiven(x, y) ? _gridProvider.GetValue(x, y) : InputValue.Empty,
+                    SharedFields.GivensAndInputs => (int x, int y) => _gridProvider.GetValue(x, y),
                     _ => throw new NotImplementedException(),
                 };
             }
@@ -80,12 +81,14 @@ namespace UI.BlazorWASM.Providers
 
         public ShareProvider(
             ISudokuProvider sudokuProvider,
+            IGridProvider gridProvider,
             HodokuGridConverter hodokuGridConverter,
             Base64GridConverter base64GridConverter,
             NavigationManager navigationManager
             )
         {
             _sudokuProvider = sudokuProvider;
+            _gridProvider = gridProvider;
             _hodokuGridConverter = hodokuGridConverter;
             _base64GridConverter = base64GridConverter;
             _navigationManager = navigationManager;
@@ -99,8 +102,7 @@ namespace UI.BlazorWASM.Providers
             {
                 for( int y = 0; y < 9; y++ )
                 {
-                    var source = _sudokuProvider.Cells[x, y];
-                    _grid.SetValue(x, y, CellToValue(source));
+                    _grid.SetValue(x, y, (int) CellToValue(x, y));
                 }
             }
 
