@@ -1,10 +1,19 @@
-﻿using System.Collections.Generic;
+﻿using Core.Data;
+using System.Collections.Generic;
 using System.Linq;
+using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.Helpers
 {
     public class GridHelper
     {
+        public static bool IsLegal(int x, int y, InputValue value, IGridProvider gridProvider)
+        {
+            return GetCoordsWhichCanSee(x, y)
+                .Where(coords => coords.X != x || coords.Y != y)
+                .All(coords => gridProvider.GetValue(coords.X, coords.Y) != value || value == InputValue.Empty);
+        }
+
         public static IList<Coords> GetCoordsWhichCanSee(int x, int y)
         {
             return _indexesWhichCanSee[x, y] ??= CalculateIndexesWhichCanSee(x, y);

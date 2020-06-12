@@ -8,6 +8,9 @@ namespace UI.BlazorWASM.Providers
     public class GridProvider : IGridProvider
     {
         private IGridV2 _grid = new GridV2();
+        private readonly bool[,] _isInputLegal = new bool[9, 9];
+        private readonly bool[,,] _isCandidateLegal = new bool[9, 9, 10];
+
         public IGridV2 Grid
         {
             get => _grid;
@@ -22,9 +25,16 @@ namespace UI.BlazorWASM.Providers
         public event Action OnValueChanged;
         public event Action OnValueOrCandidatesChanged;
 
+        public GridProvider()
+        {
+            ResetIsInputLegal();
+            ResetIsCandidateLegal();
+        }
+
         public void AddCandidate(int x, int y, InputValue value)
         {
             _grid.AddCandidate(x, y, value);
+            _isCandidateLegal[x, y, (int) value] = GridHelper.IsLegal(x, y, value, this);
             CandidatesChanged();
         }
 
@@ -71,8 +81,7 @@ namespace UI.BlazorWASM.Providers
 
         public bool IsCandidateLegal(int x, int y, InputValue value)
         {
-#warning Not implemented
-            return true;
+            return _isCandidateLegal[x, y, (int) value];
         }
 
         public bool GetIsGiven(int x, int y)
@@ -82,8 +91,7 @@ namespace UI.BlazorWASM.Providers
 
         public bool IsValueLegal(int x, int y)
         {
-#warning Not implemented
-            return true;
+            return GetValue(x, y) == InputValue.Empty || _isInputLegal[x, y];
         }
 
         public void RemoveCandidate(int x, int y, InputValue value)
@@ -102,6 +110,7 @@ namespace UI.BlazorWASM.Providers
                 {
                     _grid.RemoveCandidate(coords.X, coords.Y, value);
                 }
+                _isInputLegal[x, y] = GridHelper.IsLegal(x, y, value, this);
                 ValueAndCandidatesChanged();
             }
             else
@@ -113,6 +122,7 @@ namespace UI.BlazorWASM.Providers
 
         public void ToggleCandidate(int x, int y, InputValue value)
         {
+            _isCandidateLegal[x, y, (int) value] = GridHelper.IsLegal(x, y, value, this);
             _grid.ToggleCandidate(x, y, value);
             CandidatesChanged();
         }
@@ -135,7 +145,34 @@ namespace UI.BlazorWASM.Providers
                     }
                 }
             }
+
+            ResetIsCandidateLegal();
             CandidatesChanged();
+        }
+
+        private void ResetIsCandidateLegal()
+        {
+            for( int x = 0; x < 9; x++ )
+            {
+                for( int y = 0; y < 9; y++ )
+                {
+                    for( int value = 0; value < 10; value++ )
+                    {
+                        _isCandidateLegal[x, y, value] = true;
+                    }
+                }
+            }
+        }
+
+        private void ResetIsInputLegal()
+        {
+            for( int x = 0; x < 9; x++ )
+            {
+                for( int y = 0; y < 9; y++ )
+                {
+                    _isInputLegal[x, y] = true;
+                }
+            }
         }
 
         private void ValueChanged()
