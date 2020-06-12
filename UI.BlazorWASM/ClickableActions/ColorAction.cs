@@ -5,9 +5,9 @@ namespace UI.BlazorWASM.ClickableActions
 {
     public class ColorAction : IClickableAction
     {
-        private readonly ICellColorProvider _cellColorProvider;
+        private readonly CellColorProvider _cellColorProvider;
 
-        public ColorAction(ICellColorProvider cellColorProvider)
+        public ColorAction(CellColorProvider cellColorProvider)
         {
             _cellColorProvider = cellColorProvider;
         }

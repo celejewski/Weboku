@@ -9,13 +9,13 @@ namespace UI.BlazorWASM.Commands
     {
         private readonly IClickableActionProvider _clickableActionProvider;
         private readonly ClickableActionFactory _clickableActionFactory;
-        private readonly IFilterProvider _filterProvider;
+        private readonly FilterProvider _filterProvider;
         private readonly NumpadMenuProvider _numpadMenuProvider;
 
         public SelectCleanerAction(
             IClickableActionProvider clickableActionProvider,
             ClickableActionFactory clickableActionFactory,
-            IFilterProvider filterProvider,
+            FilterProvider filterProvider,
             NumpadMenuProvider numpadMenuProvider)
         {
             _clickableActionProvider = clickableActionProvider;

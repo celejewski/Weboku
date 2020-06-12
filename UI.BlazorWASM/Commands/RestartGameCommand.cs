@@ -8,14 +8,14 @@ namespace UI.BlazorWASM.Commands
     {
         private readonly ISudokuProvider _sudokuProvider;
         private readonly IGridHistoryManager _gridHistoryManager;
-        private readonly IGameTimerProvider _gameTimerProvider;
-        private readonly ICellColorProvider _cellColorProvider;
+        private readonly GameTimerProvider _gameTimerProvider;
+        private readonly CellColorProvider _cellColorProvider;
 
         public RestartGameCommand(
             ISudokuProvider sudokuProvider, 
             IGridHistoryManager gridHistoryManager,
-            IGameTimerProvider gameTimerProvider,
-            ICellColorProvider cellColorProvider)
+            GameTimerProvider gameTimerProvider,
+            CellColorProvider cellColorProvider)
         {
             _sudokuProvider = sudokuProvider;
             _gridHistoryManager = gridHistoryManager;

@@ -13,20 +13,20 @@ namespace UI.BlazorWASM.Commands
         private readonly ISudokuGenerator _sudokuGenerator;
         private readonly IGridHistoryManager _gridHistoryManager;
         private readonly ISudokuProvider _sudokuProvider;
-        private readonly IGameTimerProvider _gameTimerProvider;
+        private readonly GameTimerProvider _gameTimerProvider;
         private readonly IGridConverter _gridConverter;
         private readonly ModalProvider _modalProvider;
-        private readonly ICellColorProvider _cellColorProvider;
+        private readonly CellColorProvider _cellColorProvider;
 
         public StartNewGameCommand(
             string difficulty, 
             ISudokuGenerator sudokuGenerator, 
             IGridHistoryManager gridHistoryManager, 
             ISudokuProvider sudokuProvider, 
-            IGameTimerProvider gameTimerProvider, 
+            GameTimerProvider gameTimerProvider, 
             IGridConverter gridConverter,
             ModalProvider modalProvider,
-            ICellColorProvider cellColorProvider)
+            CellColorProvider cellColorProvider)
         {
             _difficulty = difficulty;
             _sudokuGenerator = sudokuGenerator;

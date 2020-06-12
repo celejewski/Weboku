@@ -5,9 +5,9 @@ namespace UI.BlazorWASM.Commands
 {
     public class ClearColorsCommand : ICommand
     {
-        private readonly ICellColorProvider _cellColorProvider;
+        private readonly CellColorProvider _cellColorProvider;
 
-        public ClearColorsCommand(ICellColorProvider cellColorProvider)
+        public ClearColorsCommand(CellColorProvider cellColorProvider)
         {
             _cellColorProvider = cellColorProvider;
         }

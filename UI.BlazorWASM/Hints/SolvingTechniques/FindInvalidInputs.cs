@@ -8,9 +8,9 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
     public class FindInvalidInputs : ISolvingTechnique
     {
         private readonly ISudokuProvider _sudokuProvider;
-        private readonly ICellColorProvider _cellColorProvider;
+        private readonly CellColorProvider _cellColorProvider;
 
-        public FindInvalidInputs(ISudokuProvider sudokuProvider, ICellColorProvider cellColorProvider)
+        public FindInvalidInputs(ISudokuProvider sudokuProvider, CellColorProvider cellColorProvider)
         {
             _sudokuProvider = sudokuProvider;
             _cellColorProvider = cellColorProvider;

@@ -4,7 +4,7 @@ using UI.BlazorWASM.Enums;
 
 namespace UI.BlazorWASM.Providers
 {
-    public class CellColorProvider : ICellColorProvider
+    public class CellColorProvider
     {
         private readonly Color[,] _cellColors = new Color[9, 9];
         

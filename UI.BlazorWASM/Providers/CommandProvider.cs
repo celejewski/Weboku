@@ -12,10 +12,10 @@ namespace UI.BlazorWASM.Providers
         private readonly ISudokuGenerator _sudokuGenerator;
         private readonly IGridHistoryManager _gridHistoryManager;
         private readonly ISudokuProvider _sudokuProvider;
-        private readonly IGameTimerProvider _gameTimerProvider;
+        private readonly GameTimerProvider _gameTimerProvider;
         private readonly IGridConverter _gridConverter;
-        private readonly IFilterProvider _filterProvider;
-        private readonly ICellColorProvider _cellColorProvider;
+        private readonly FilterProvider _filterProvider;
+        private readonly CellColorProvider _cellColorProvider;
         private readonly IClickableActionProvider _clickableActionProvider;
         private readonly ClickableActionFactory _clickableActionFactory;
         private readonly ModalProvider _modalProvider;
@@ -27,10 +27,10 @@ namespace UI.BlazorWASM.Providers
             ISudokuGenerator sudokuGenerator,
             IGridHistoryManager gridHistoryManager,
             ISudokuProvider sudokuProvider,
-            IGameTimerProvider gameTimerProvider,
+            GameTimerProvider gameTimerProvider,
             IGridConverter gridConverter,
-            IFilterProvider filterProvider,
-            ICellColorProvider cellColorProvider,
+            FilterProvider filterProvider,
+            CellColorProvider cellColorProvider,
             IClickableActionProvider clickableActionProvider,
             ClickableActionFactory clickableActionFactory,
             ModalProvider modalProvider,

@@ -8,10 +8,10 @@ namespace UI.BlazorWASM.ClickableActions
     public class StandardAction : IClickableAction
     {
         private readonly IGridHistoryManager _gridHistoryManager;
-        private readonly ICellColorProvider _cellColorProvider;
+        private readonly CellColorProvider _cellColorProvider;
         private readonly ISudokuProvider _sudokuProvider;
 
-        public StandardAction(IGridHistoryManager gridHistoryManager, ICellColorProvider cellColorProvider, ISudokuProvider sudokuProvider)
+        public StandardAction(IGridHistoryManager gridHistoryManager, CellColorProvider cellColorProvider, ISudokuProvider sudokuProvider)
         {
             _gridHistoryManager = gridHistoryManager;
             _cellColorProvider = cellColorProvider;

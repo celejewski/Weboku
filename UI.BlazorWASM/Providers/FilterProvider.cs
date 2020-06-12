@@ -3,7 +3,7 @@ using UI.BlazorWASM.Filters;
 
 namespace UI.BlazorWASM.Providers
 {
-    public class FilterProvider : IFilterProvider
+    public class FilterProvider
     {
         public IFilter Filter { get; private set; } = new SelectedValueFilter(1);
 

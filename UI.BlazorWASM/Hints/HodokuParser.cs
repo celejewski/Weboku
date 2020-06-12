@@ -9,9 +9,9 @@ namespace UI.BlazorWASM.Hints
     public class HodokuParser
     {
         private readonly ISudokuProvider _sudokuProvider;
-        private readonly ICellColorProvider _cellColorProvider;
+        private readonly CellColorProvider _cellColorProvider;
 
-        public HodokuParser(ISudokuProvider sudokuProvider, ICellColorProvider cellColorProvider)
+        public HodokuParser(ISudokuProvider sudokuProvider, CellColorProvider cellColorProvider)
         {
             _sudokuProvider = sudokuProvider;
             _cellColorProvider = cellColorProvider;

@@ -3,7 +3,7 @@ using System.Timers;
 
 namespace UI.BlazorWASM.Providers
 {
-    public class GameTimerProvider : IGameTimerProvider
+    public class GameTimerProvider
     {
         private readonly Timer _timer;
         private readonly ModalProvider _modalProvider;

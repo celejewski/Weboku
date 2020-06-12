@@ -6,9 +6,9 @@ namespace UI.BlazorWASM.Commands
 {
     public class SelectPairsFilterCommand : ICommand
     {
-        private readonly IFilterProvider _filterProvider;
+        private readonly FilterProvider _filterProvider;
 
-        public SelectPairsFilterCommand(IFilterProvider filterProvider)
+        public SelectPairsFilterCommand(FilterProvider filterProvider)
         {
             _filterProvider = filterProvider;
         }

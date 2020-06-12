@@ -11,19 +11,19 @@ namespace UI.BlazorWASM.ViewModels
 {
     public class NumpadMenuBuilder
     {
-        private readonly IFilterProvider _filterProvider;
+        private readonly FilterProvider _filterProvider;
         private readonly IClickableActionProvider _clickableActionProvider;
         private readonly IGridHistoryManager _gridHistoryManager;
-        private readonly ICellColorProvider _cellColorProvider;
+        private readonly CellColorProvider _cellColorProvider;
         private readonly ISudokuProvider _sudokuProvider;
         private readonly NumpadMenuProvider _numpadMenuProvider;
         private readonly CommandProvider _commandProvider;
 
         public NumpadMenuBuilder(
-            IFilterProvider filterProvider, 
+            FilterProvider filterProvider, 
             IClickableActionProvider clickableActionProvider, 
             IGridHistoryManager gridHistoryManager, 
-            ICellColorProvider cellColorProvider, 
+            CellColorProvider cellColorProvider, 
             ISudokuProvider sudokuProvider, 
             NumpadMenuProvider numpadMenuProvider,
             CommandProvider commandProvider

@@ -2,7 +2,7 @@
 
 namespace UI.BlazorWASM.Providers
 {
-    public class GameStateChecker : IGameStateChecker
+    public class GameStateChecker
     {
         private readonly ISudokuProvider _sudokuProvider;
 

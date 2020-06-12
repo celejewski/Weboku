@@ -31,7 +31,7 @@ namespace UI.BlazorWASM.Providers
         private readonly HodokuParser _hodokuParser;
         private readonly ISudokuProvider _sudokuProvider;
         private readonly IGridHistoryManager _gridHistoryManager;
-        private readonly ICellColorProvider _cellColorProvider;
+        private readonly CellColorProvider _cellColorProvider;
 
         public event Action OnChanged;
 
@@ -41,7 +41,7 @@ namespace UI.BlazorWASM.Providers
             ISudokuProvider sudokuProvider,
             HintsHelper hintsHelper,
             IGridHistoryManager gridHistoryManager,
-            ICellColorProvider cellColorProvider)
+            CellColorProvider cellColorProvider)
         {
             CandidatesMarkProvider = candidatesMarkProvider;
             _hodokuParser = hodokuParser;

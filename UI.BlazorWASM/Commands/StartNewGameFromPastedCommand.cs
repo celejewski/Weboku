@@ -10,17 +10,17 @@ namespace UI.BlazorWASM.Commands
         private readonly ISudokuProvider _sudokuProvider;
         private readonly PasteProvider _pasteProvider;
         private readonly ModalProvider _modalProvider;
-        private readonly ICellColorProvider _cellColorProvider;
+        private readonly CellColorProvider _cellColorProvider;
         private readonly IGridHistoryManager _gridHistoryManager;
-        private readonly IGameTimerProvider _gameTimerProvider;
+        private readonly GameTimerProvider _gameTimerProvider;
 
         public StartNewGameFromPastedCommand(
             ISudokuProvider sudokuProvider, 
             PasteProvider pasteProvider, 
             ModalProvider modalProvider,
-            ICellColorProvider cellColorProvider,
+            CellColorProvider cellColorProvider,
             IGridHistoryManager gridHistoryManager,
-            IGameTimerProvider gameTimerProvider)
+            GameTimerProvider gameTimerProvider)
         {
             _sudokuProvider = sudokuProvider;
             _pasteProvider = pasteProvider;
