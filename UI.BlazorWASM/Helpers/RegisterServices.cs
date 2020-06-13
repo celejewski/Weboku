@@ -12,6 +12,18 @@ namespace UI.BlazorWASM.Helpers
 {
     public static class RegisterServices
     {
+
+        public static void RegisterHints(this IServiceCollection services)
+        {
+            services.AddSingleton<Displayer>();
+            services.AddSingleton<Executor>();
+            services.AddSingleton<Informer>();
+            services.AddSingleton<HintsHelper, HintsHelper>();
+            services.AddSingleton<HodokuParser, HodokuParser>();
+            services.AddSingleton<HintsProvider, HintsProvider>();
+            services.AddSingleton<ShowHintModalCommand>();
+        }
+
         public static void RegisterCommands(this IServiceCollection services)
         {
             services.AddSingleton<FindAllCandidatesCommand>();
@@ -33,7 +45,6 @@ namespace UI.BlazorWASM.Helpers
             services.AddSingleton<ShowPasteModalCommand>();
             services.AddSingleton<SelectColorActionCommand>();
             services.AddSingleton<StartNewGameFromPastedCommand>();
-            services.AddSingleton<ShowHintModalCommand>();
         }
 
         public static void RegisterProviders(this IServiceCollection services)
@@ -60,9 +71,6 @@ namespace UI.BlazorWASM.Helpers
             services.AddSingleton<Base64GridConverter>();
             services.AddSingleton<ChainGridConverter>();
             services.AddSingleton<CandidatesMarkProvider>();
-            services.AddSingleton<HintsHelper, HintsHelper>();
-            services.AddSingleton<HodokuParser, HodokuParser>();
-            services.AddSingleton<HintsProvider, HintsProvider>();
             services.AddSingleton<IGridProvider, GridProvider>();
             services.AddSingleton<RESTGridGenerator>();
             services.AddSingleton<SudokuProvider>();

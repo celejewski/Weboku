@@ -20,11 +20,11 @@ namespace UI.BlazorWASM.Hints
         /// </summary>
         /// <param name="text">For example "r1c6"</param>
         /// <returns>For "r1c6" will return x=5, y=0</returns>
-        public static (int x, int y) GetCoords(string text)
+        public static Position GetCoords(string text)
         {
             var x = GetDigit(text, 3) - 1;
             var y = GetDigit(text, 1) - 1;
-            return (x, y);
+            return new Position(x, y);
         }
 
         public static int GetDigit(string text, int pos)
@@ -32,24 +32,29 @@ namespace UI.BlazorWASM.Hints
             return int.Parse(text.Substring(pos, 1));
         }
 
-        public IEnumerable<Coords> GetCellsInRow(int y)
+        public static InputValue GetValue(string text, int pos)
+        {
+            return (InputValue) GetDigit(text, pos);
+        }
+
+        public IEnumerable<Position> GetCellsInRow(int y)
         {
 
             for( int x = 0; x < 9; x++ )
             {
-                yield return new Coords(x, y);
+                yield return new Position(x, y);
             }
         }
-        public IEnumerable<Coords> GetCellsInCol(int x)
+        public IEnumerable<Position> GetCellsInCol(int x)
         {
 
             for( int y = 0; y < 9; y++ )
             {
-                yield return new Coords(x, y);
+                yield return new Position(x, y);
             }
         }
 
-        public IEnumerable<Coords> GetCellsInBlock(int x, int y)
+        public IEnumerable<Position> GetCellsInBlock(int x, int y)
         {
             var startingX = x / 3 * 3;
             var startingY = y / 3 * 3;
@@ -57,7 +62,7 @@ namespace UI.BlazorWASM.Hints
             {
                 for( int offsetY = 0; offsetY < 3; offsetY++ )
                 {
-                    yield return new Coords(startingX + offsetX, startingY + offsetY);
+                    yield return new Position(startingX + offsetX, startingY + offsetY);
                 }
             }
         }

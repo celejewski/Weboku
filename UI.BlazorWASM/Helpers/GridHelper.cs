@@ -15,14 +15,14 @@ namespace UI.BlazorWASM.Helpers
                 .All(coords => gridProvider.GetValue(coords.X, coords.Y) != value);
         }
 
-        public static IList<Coords> GetCoordsWhichCanSee(int x, int y)
+        public static IList<Position> GetCoordsWhichCanSee(int x, int y)
         {
             return _indexesWhichCanSee[x, y] ??= CalculateIndexesWhichCanSee(x, y);
         }
 
-        private static readonly IList<Coords>[,] _indexesWhichCanSee = new IList<Coords>[9, 9];
+        private static readonly IList<Position>[,] _indexesWhichCanSee = new IList<Position>[9, 9];
 
-        private static IList<Coords> CalculateIndexesWhichCanSee(int x, int y)
+        private static IList<Position> CalculateIndexesWhichCanSee(int x, int y)
         {
             return GetIndexesFromCol(x)
                 .Concat(GetIndexesFromRow(y))
@@ -30,23 +30,23 @@ namespace UI.BlazorWASM.Helpers
                 .ToList();
         }
 
-        private static IEnumerable<Coords> GetIndexesFromRow(int y)
+        private static IEnumerable<Position> GetIndexesFromRow(int y)
         {
             for( int col = 0; col < 9; col++ )
             {
-                yield return new Coords(col, y);
+                yield return new Position(col, y);
             }
         }
 
-        private static IEnumerable<Coords> GetIndexesFromCol(int x)
+        private static IEnumerable<Position> GetIndexesFromCol(int x)
         {
             for( int row = 0; row < 9; row++ )
             {
-                yield return new Coords(x, row);
+                yield return new Position(x, row);
             }
         }
 
-        private static IEnumerable<Coords> GetIndexesFromBlock(int x, int y)
+        private static IEnumerable<Position> GetIndexesFromBlock(int x, int y)
         {
             var blockX = (x / 3) * 3;
             var blockY = (y / 3) * 3;
@@ -56,7 +56,7 @@ namespace UI.BlazorWASM.Helpers
                 {
                     var targetX = blockX + offsetX;
                     var targetY = blockY + offsetY;
-                    yield return new Coords(targetX, targetY);
+                    yield return new Position(targetX, targetY);
                 }
             }
         }

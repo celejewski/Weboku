@@ -1,21 +1,22 @@
 ﻿@inject HintsProvider HintsProvider
 @inject CloseModalCommand CloseModalCommand
+@inject UI.BlazorWASM.Hints.Displayer Displayer
 
 <ModalWithGridTemplateComponent>
     <Content>
         <div class="hints-modal__container">
             <div class="hints-modal__title with-hr">Hints</div>
             <div class="hints-modal__technique-container">
-                @if( HintsProvider.ShowHints )
+                @if( Displayer.IsVisible )
                 {
-                    <div class="hints-modal__technique-name">@HintsProvider.TechniqueName</div>
-                    <p class="hints-modal__technique-desc">@HintsProvider.TechniqueDesc</p>
+                    <div class="hints-modal__technique-name">@Displayer.Title</div>
+                    <p class="hints-modal__technique-desc">@Displayer.Desccription</p>
                 }
             </div>
             <div class="hints-modal__menu">
                 <div class="hints-modal__button"
                      @onclick="@(() => HintsProvider.Display())">Reveal hint</div>
-                @if( HintsProvider.ShowHints )
+                @if( Displayer.IsVisible)
                 {
                     <div class="hints-modal__button"
                          @onclick="@(() => HintsProvider.Execute())">Execute</div>
@@ -34,12 +35,12 @@
 @code {
     private void Close()
     {
-        HintsProvider.Hide();
+        Displayer.Hide();
         CloseModalCommand.Execute();
     }
 
-    protected override void OnInitialized()
-    {
-        HintsProvider.OnChanged += StateHasChanged;
-    }
+    //protected override void OnInitialized()
+    //{
+    //    HintsProvider.OnChanged += StateHasChanged;
+    //}
 }

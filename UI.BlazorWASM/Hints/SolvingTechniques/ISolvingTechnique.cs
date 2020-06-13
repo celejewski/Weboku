@@ -4,10 +4,8 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
 {
     public interface ISolvingTechnique
     {
-        string Name { get; }
-        string Desc { get; }
-        void Display();
-        void Execute();
-        bool CanExecute();
+        void Display(Displayer displayer);
+        void Execute(Executor executor);
+        bool CanExecute(Informer informer);
     }
 }

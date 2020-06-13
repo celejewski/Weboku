@@ -2,7 +2,7 @@
 
 <div class="layer">
     <div class="hints-highlight">
-        <div class="hints-highlight__container hints-highlight__blocks">
+        @*<div class="hints-highlight__container hints-highlight__blocks">
             @for( int i = 0; i < 9; i++ )
             {
                 <div class="@HighlightedClass(HintsProvider.IsBlockHighlighted[i])"></div>
@@ -19,19 +19,19 @@
             {
                 <div class="@HighlightedClass(HintsProvider.IsColHighlighted[i])"></div>
             }
-        </div>
+        </div>*@
     </div>
 </div>
 
 
 @code { 
-    protected override void OnInitialized()
-    {
-        HintsProvider.OnChanged += StateHasChanged;
-    }
+    //protected override void OnInitialized()
+    //{
+    //    HintsProvider.OnChanged += StateHasChanged;
+    //}
 
-        private string HighlightedClass(bool isHighlighted)
-    {
-        return HintsProvider.ShowHints && isHighlighted ? "hints-highlight--with-background" : string.Empty; 
-    }
+    //    private string HighlightedClass(bool isHighlighted)
+    //{
+    //    return HintsProvider.ShowHints && isHighlighted ? "hints-highlight--with-background" : string.Empty; 
+    //}
 }

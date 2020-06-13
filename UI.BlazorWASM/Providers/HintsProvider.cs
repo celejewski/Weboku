@@ -1,102 +1,55 @@
-﻿using System;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UI.BlazorWASM.Hints;
 using UI.BlazorWASM.Hints.SolvingTechniques;
 using UI.BlazorWASM.Managers;
 
 namespace UI.BlazorWASM.Providers
 {
-    public class HintsProvider : IProvider
+    public class HintsProvider 
     {
-        private bool _showHints = false;
-        public bool ShowHints
+        private readonly Informer _informer;
+        private readonly Displayer _displayer;
+        private readonly Executor _executor;
+        private readonly IGridHistoryManager _gridHistoryManager;
+        private readonly SudokuProvider _sudokuProvider;
+        private HodokuParser _parser = new HodokuParser();
+        private IEnumerable<ISolvingTechnique> Techniques
         {
-            get => _showHints;
-            set
+            get
             {
-                _showHints = value;
-                OnChanged?.Invoke();
+                foreach( var technique in _parser.GetSolvingTechniques(_sudokuProvider.Steps) )
+                {
+                    yield return technique;
+                }
+                yield return new NotFound();
             }
         }
 
-        public string TechniqueName => NextTechnique.Name;
-        public string TechniqueDesc => NextTechnique.Desc;
-        private ISolvingTechnique NextTechnique => _hodokuParser.GetNextTechnique(_sudokuProvider.Steps);
+        private ISolvingTechnique NextTechnique => Techniques.First(t => t.CanExecute(_informer));
 
-        public bool[] IsBlockHighlighted { get; private set; } = new bool[9];
-        public bool[] IsColHighlighted { get; private set; } = new bool[9];
-        public bool[] IsRowHighlighted { get; private set; } = new bool[9];
-        public HintsHelper HintsHelper { get; }
-
-        public CandidatesMarkProvider CandidatesMarkProvider;
-        private readonly HodokuParser _hodokuParser;
-        private readonly IGridProvider _gridProvider;
-        private readonly IGridHistoryManager _gridHistoryManager;
-        private readonly CellColorProvider _cellColorProvider;
-        private readonly SudokuProvider _sudokuProvider;
-
-        public event Action OnChanged;
-
-        public HintsProvider(
-            CandidatesMarkProvider candidatesMarkProvider,
-            HodokuParser hodokuParser,
-            IGridProvider gridProvider,
-            HintsHelper hintsHelper,
-            IGridHistoryManager gridHistoryManager,
-            CellColorProvider cellColorProvider,
-            SudokuProvider sudokuProvider)
+        public HintsProvider(SudokuProvider sudokuProvider, Informer informer, Displayer displayer, Executor executor, IGridHistoryManager gridHistoryManager)
         {
-            CandidatesMarkProvider = candidatesMarkProvider;
-            _hodokuParser = hodokuParser;
-            _hodokuParser.HintsProvider = this;
-            _gridProvider = gridProvider;
-            HintsHelper = hintsHelper;
-            _gridHistoryManager = gridHistoryManager;
-            _cellColorProvider = cellColorProvider;
             _sudokuProvider = sudokuProvider;
+            _informer = informer;
+            _displayer = displayer;
+            _executor = executor;
+            _gridHistoryManager = gridHistoryManager;
         }
 
         public void Display()
         {
-            if( NextTechnique == null )
-            {
-                return;
-            }
-
-            Clear();
-            NextTechnique.Display();
-            ShowHints = true;
-            OnChanged?.Invoke();
+            _displayer.Reset();
+            NextTechnique.Display(_displayer);
+            _displayer.Show();
         }
 
         public void Execute()
         {
-            Hide();
             _gridHistoryManager.Save();
-            NextTechnique.Execute();
+            NextTechnique.Execute(_executor);
+            _displayer.Hide();
         }
-
-        public void Hide()
-        {
-            Clear();
-            ShowHints = false;
-        }
-
-        private void Clear()
-        {
-            _cellColorProvider.ClearAll();
-            CandidatesMarkProvider.ClearColors();
-            ClearHighlight();
-        }
-
-        private void ClearHighlight()
-        {
-            for( int i = 0; i < 9; i++ )
-            {
-                IsBlockHighlighted[i] = false;
-                IsRowHighlighted[i] = false;
-                IsColHighlighted[i] = false;
-            }
-        }
-
     }
 }

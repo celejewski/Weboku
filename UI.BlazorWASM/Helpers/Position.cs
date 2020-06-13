@@ -1,8 +1,8 @@
 ﻿namespace UI.BlazorWASM.Helpers
 {
-    public readonly struct Coords
+    public readonly struct Position
     {
-        public Coords(int x, int y)
+        public Position(int x, int y)
         {
             X = x;
             Y = y;
