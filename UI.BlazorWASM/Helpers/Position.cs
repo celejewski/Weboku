@@ -4,7 +4,7 @@
     {
         readonly public int X;
         readonly public int Y;
-        public int House => (y / 3) * 3 + (x / 3);
+        public int Block => (Y / 3) * 3 + (X / 3);
 
         public Position(int x, int y)
         {

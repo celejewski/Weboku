@@ -1,4 +1,5 @@
 ﻿using Core.Data;
+using System.Linq;
 using UI.BlazorWASM.Helpers;
 
 namespace UI.BlazorWASM.Hints.SolvingTechniques
@@ -19,11 +20,20 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
             return informer.HasCandidate(_position, _inputValue);
         }
 
-        public void Display(Displayer displayer)
+        public void Display(Displayer displayer, Informer informer)
         {
+
+            var house = informer.FindHouse(_position,
+                positions => positions.Where(pos => informer.HasCandidate(pos, _inputValue))
+                                      .Count() == 1
+                );
+
             displayer.SetTitle("Hidden Single");
             displayer.SetDescription("This cell is only option to place this candidate.");
-            displayer.Mark(Enums.Color.Legal, _position);
+            displayer.Mark(Enums.Color.Info, _position);
+            displayer.Mark(Enums.Color.Legal, _position, _inputValue);
+            displayer.HighlightHouse(_position, house);
+            displayer.SetValueFilter(_inputValue);
         }
 
         public void Execute(Executor executor)

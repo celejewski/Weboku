@@ -784,7 +784,7 @@ h1, h2, h3 {
 }
 
 .mark__cell--danger {
-  border-color: red;
+  border-color: #FF7970;
 }
 
 :root {
@@ -826,19 +826,23 @@ h1, h2, h3 {
 }
 
 .cell-color-danger {
-  background-color: red;
+  background-color: #FF7970;
 }
 
 .cell-color-illegal {
-  background-color: red;
+  background-color: #FF7970;
 }
 
 .cell-color-success {
-  background-color: green;
+  background-color: #6DBC76;
 }
 
 .cell-color-legal {
-  background-color: green;
+  background-color: #6DBC76;
+}
+
+.cell-color-info {
+  background-color: #adcde0;
 }
 
 :root {

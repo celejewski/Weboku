@@ -20,11 +20,13 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
             return informer.HasCandidate(_position, _value);
         }
 
-        public void Display(Displayer displayer)
+        public void Display(Displayer displayer, Informer informer)
         {
             displayer.SetTitle("Naked Single");
             displayer.SetDescription($"There is only one value left in cell {_position}={_value}");
-            displayer.Mark(Color.Legal, _position);
+            displayer.Mark(Color.Info, _position);
+            displayer.Mark(Color.Legal, _position, _value);
+            displayer.SetValueFilter(_value);
         }
 
         public void Execute(Executor executor)

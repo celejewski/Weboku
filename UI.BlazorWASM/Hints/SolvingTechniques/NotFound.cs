@@ -12,7 +12,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
             return true;
         }
 
-        public void Display(Displayer displayer)
+        public void Display(Displayer displayer, Informer informer)
         {
             displayer.SetTitle("No Hint Found");
             displayer.SetDescription("There is no hint avaliable for this sudoku.");

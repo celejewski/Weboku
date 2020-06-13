@@ -30,7 +30,7 @@ namespace UI.BlazorWASM.Helpers
                 .ToList();
         }
 
-        private static IEnumerable<Position> GetIndexesFromRow(int y)
+        public static IEnumerable<Position> GetIndexesFromRow(int y)
         {
             for( int col = 0; col < 9; col++ )
             {
@@ -38,7 +38,7 @@ namespace UI.BlazorWASM.Helpers
             }
         }
 
-        private static IEnumerable<Position> GetIndexesFromCol(int x)
+        public static IEnumerable<Position> GetIndexesFromCol(int x)
         {
             for( int row = 0; row < 9; row++ )
             {
@@ -46,7 +46,7 @@ namespace UI.BlazorWASM.Helpers
             }
         }
 
-        private static IEnumerable<Position> GetIndexesFromBlock(int x, int y)
+        public static IEnumerable<Position> GetIndexesFromBlock(int x, int y)
         {
             var blockX = (x / 3) * 3;
             var blockY = (y / 3) * 3;

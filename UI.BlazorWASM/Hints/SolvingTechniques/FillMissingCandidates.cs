@@ -22,7 +22,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
             return false;
         }
 
-        public void Display(Displayer displayer)
+        public void Display(Displayer displayer, Informer informer)
         {
             displayer.SetTitle("Missing Candidates");
             displayer.SetDescription("Fill all legal candidates before using hints.");

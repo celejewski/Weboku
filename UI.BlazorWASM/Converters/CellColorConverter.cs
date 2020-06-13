@@ -15,6 +15,7 @@ namespace UI.BlazorWASM.Converters
             {
                 Color.Legal => "cell-color-legal",
                 Color.Illegal => "cell-color-illegal",
+                Color.Info => "cell-color-info",
                 Color.First => "cell-color-first",
                 Color.Second => "cell-color-second",
                 Color.Third => "cell-color-third",

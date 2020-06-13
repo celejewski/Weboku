@@ -5,6 +5,7 @@
         None,
         Legal, 
         Illegal,
+        Info,
         First,
         Second,
         Third,

@@ -1,5 +1,7 @@
 ﻿using Core.Data;
+using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UI.BlazorWASM.Commands;
 using UI.BlazorWASM.Component;
 using UI.BlazorWASM.Enums;
@@ -11,40 +13,83 @@ namespace UI.BlazorWASM.Hints
     /// <summary>
     /// Contains methods for displaying user information about ISolvingTechnique.
     /// </summary>
-    public class Displayer
+    public class Displayer : IProvider
     {
         private readonly CellColorProvider _cellColorProvider;
         private readonly CandidatesMarkProvider _candidatesMarkProvider;
+        private readonly CommandProvider _commandProvider;
 
         public bool IsVisible { get; set; }
         public string Title { get; set; }
         public string Desccription { get; set; }
+        public bool[] IsRowHighlighted = new bool[9];
+        public bool[] IsColHighlighted = new bool[9];
+        public bool[] IsBlockHighlighted = new bool[9];
+
+        public event Action OnChanged;
 
         public Displayer(
             CellColorProvider cellColorProvider,
-            CandidatesMarkProvider candidatesMarkProvider)
+            CandidatesMarkProvider candidatesMarkProvider,
+            CommandProvider commandProvider)
         {
             _cellColorProvider = cellColorProvider;
             _candidatesMarkProvider = candidatesMarkProvider;
+            _commandProvider = commandProvider;
         }
 
         public void Reset() 
         {
+            for( int i = 0; i < 9; i++ )
+            {
+                IsRowHighlighted[i] = false;
+                IsColHighlighted[i] = false;
+                IsBlockHighlighted[i] = false;
+            }
             _cellColorProvider.ClearAll();
             _candidatesMarkProvider.ClearColors();
         }
         public void Show() 
         { 
-            IsVisible = true; 
+            IsVisible = true;
+            OnChanged?.Invoke();
         }
         public void Hide() 
         {
             IsVisible = false;
             Reset();
+            OnChanged?.Invoke();
         }
-        public void HighlightRow(Position position) { }
-        public void HighlightCol(Position position) { }
-        public void HighlightBlock(Position position) { }
+        public void HighlightRow(Position position) 
+        {
+            IsRowHighlighted[position.Y] = true;
+        }
+        public void HighlightCol(Position position) 
+        {
+            IsColHighlighted[position.X] = true;
+        }
+        public void HighlightBlock(Position position) 
+        {
+            IsBlockHighlighted[position.Block] = true;
+        }
+
+        public void HighlightHouse(Position position, House house)
+        {
+            switch( house )
+            {
+                case House.None:
+                    return;
+                case House.Row:
+                    HighlightRow(position);
+                    return;
+                case House.Col:
+                    HighlightCol(position);
+                    return;
+                case House.Block:
+                    HighlightBlock(position);
+                    return;
+            }
+        }
 
         public void Mark(Color color, IEnumerable<Position> positions) { }
         public void Mark(Color color, Position position) 
@@ -58,5 +103,10 @@ namespace UI.BlazorWASM.Hints
 
         public void SetTitle(string text) { Title = text; }
         public void SetDescription(string text) { Desccription = text; }
+
+        public void SetValueFilter(InputValue input)
+        {
+            _commandProvider.SelectValue((int) input).Execute();
+        }
     }
 }

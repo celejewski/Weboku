@@ -1,5 +1,6 @@
 ﻿using Core.Data;
 using System;
+using System.Linq;
 using UI.BlazorWASM.Helpers;
 
 namespace UI.BlazorWASM.Hints.SolvingTechniques
@@ -20,11 +21,20 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
             return informer.HasCandidate(_position, _value);
         }
 
-        public void Display(Displayer displayer)
+        public void Display(Displayer displayer, Informer informer)
         {
+
+            var house = informer.FindHouse(_position,
+                positions => positions.Where(pos => !informer.HasValue(pos))
+                                      .Count() == 1
+                );
+
             displayer.SetTitle("Full House");
             displayer.SetDescription("This cell is only without value in house.");
-            displayer.Mark(Enums.Color.Legal, _position);
+            displayer.Mark(Enums.Color.Info, _position);
+            displayer.Mark(Enums.Color.Legal, _position, _value);
+            displayer.HighlightHouse(_position, house);
+            displayer.SetValueFilter(_value);
         }
 
         public void Execute(Executor executor)

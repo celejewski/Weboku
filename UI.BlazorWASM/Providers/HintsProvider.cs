@@ -42,7 +42,7 @@ namespace UI.BlazorWASM.Providers
         public void Display()
         {
             _displayer.Reset();
-            NextTechnique.Display(_displayer);
+            NextTechnique.Display(_displayer, _informer);
             _displayer.Show();
         }
 
