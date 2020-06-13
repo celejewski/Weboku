@@ -1,9 +1,9 @@
 ﻿using Core.Converters;
-using Core.Data;
 using Core.Generators;
 using Microsoft.Extensions.DependencyInjection;
 using UI.BlazorWASM.ClickableActions;
 using UI.BlazorWASM.Commands;
+using UI.BlazorWASM.Hints;
 using UI.BlazorWASM.Managers;
 using UI.BlazorWASM.Providers;
 using UI.BlazorWASM.ViewModels;
@@ -60,9 +60,9 @@ namespace UI.BlazorWASM.Helpers
             services.AddSingleton<Base64GridConverter>();
             services.AddSingleton<ChainGridConverter>();
             services.AddSingleton<CandidatesMarkProvider>();
-            //services.AddSingleton<HintsHelper, HintsHelper>();
-            //services.AddSingleton<HodokuParser, HodokuParser>();
-            //services.AddSingleton<HintsProvider, HintsProvider>();
+            services.AddSingleton<HintsHelper, HintsHelper>();
+            services.AddSingleton<HodokuParser, HodokuParser>();
+            services.AddSingleton<HintsProvider, HintsProvider>();
             services.AddSingleton<IGridProvider, GridProvider>();
             services.AddSingleton<RESTGridGenerator>();
             services.AddSingleton<SudokuProvider>();

@@ -22,6 +22,7 @@ namespace UI.BlazorWASM.Providers
         public string Givens => Sudoku.Given;
         public int Rating => Sudoku.Rating;
 
+        public string Solution => Sudoku.Solution;
         public IEnumerable<string> Steps => Sudoku.Steps;
 
         public event Action OnChanged;

@@ -229,5 +229,7 @@ namespace UI.BlazorWASM.Providers
             OnCandidatesChanged?.Invoke();
             OnValueOrCandidatesChanged?.Invoke();
         }
+
+        public bool HasValue(int x, int y) => _grid.GetValue(x, y) != InputValue.Empty;
     }
 }

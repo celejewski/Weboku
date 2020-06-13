@@ -1,60 +1,63 @@
-﻿//using Core.Data;
-//using System.Collections.Generic;
-//using System.Linq;
-//using UI.BlazorWASM.Providers;
+﻿using Core.Data;
+using System.Collections.Generic;
+using System.Linq;
+using UI.BlazorWASM.Helpers;
+using UI.BlazorWASM.Providers;
 
-//namespace UI.BlazorWASM.Hints.SolvingTechniques
-//{
-//    public class FindInvalidInputs : ISolvingTechnique
-//    {
-//        private readonly ISudokuProvider _sudokuProvider;
-//        private readonly CellColorProvider _cellColorProvider;
+namespace UI.BlazorWASM.Hints.SolvingTechniques
+{
+    public class FindInvalidInputs : ISolvingTechnique
+    {
+        private readonly SudokuProvider _sudokuProvider;
+        private readonly CellColorProvider _cellColorProvider;
+        private readonly IGridProvider _gridProvider;
 
-//        public FindInvalidInputs(ISudokuProvider sudokuProvider, CellColorProvider cellColorProvider)
-//        {
-//            _sudokuProvider = sudokuProvider;
-//            _cellColorProvider = cellColorProvider;
-//        }
-//        public string Name => "Remove Invalid Inputs";
+        public FindInvalidInputs(SudokuProvider sudokuProvider, CellColorProvider cellColorProvider, IGridProvider gridProvider)
+        {
+            _sudokuProvider = sudokuProvider;
+            _cellColorProvider = cellColorProvider;
+            _gridProvider = gridProvider;
+        }
+        public string Name => "Remove Invalid Inputs";
 
-//        public string Desc => "There are some invalid inputs.";
+        public string Desc => "There are some invalid inputs.";
 
-//        public bool CanExecute(ISudokuProvider sudokuProvider)
-//        {
-//            return GetInvalidCells().Any();
-//        }
+        public bool CanExecute()
+        {
+            return GetInvalidCellCoords().Any();
+        }
 
-//        public void Display(HintsProvider hintsProvider)
-//        {
-//            foreach( var cell in GetInvalidCells() )
-//            {
-//                _cellColorProvider.SetColor(cell.X, cell.Y, Enums.Color.Illegal);
-//            }
-//        }
+        public void Display()
+        {
+            foreach( var cell in GetInvalidCellCoords() )
+            {
+                _cellColorProvider.SetColor(cell.X, cell.Y, Enums.Color.Illegal);
+            }
+        }
 
-//        public void Execute(ISudokuProvider sudokuProvider)
-//        {
-//            foreach( var cell in GetInvalidCells() )
-//            {
-//                _sudokuProvider.SetValue(cell.X, cell.Y, 0);
-//            }
-//        }
+        public void Execute()
+        {
+            foreach( var coords in GetInvalidCellCoords() )
+            {
+                _gridProvider.SetValue(coords.X, coords.Y, 0);
+            }
+        }
 
-//        private IEnumerable<ICell> GetInvalidCells()
-//        {
+        private IEnumerable<Coords> GetInvalidCellCoords()
+        {
 
-//            for( int x = 0; x < 9; x++ )
-//            {
-//                for( int y = 0; y < 9; y++ )
-//                {
-//                    var solutionDigit = int.Parse(_sudokuProvider.Sudoku.Solution.Substring(y * 9 + x, 1));
-//                    var cell = _sudokuProvider.Cells[x, y];
-//                    if( cell.Input.Value != 0 && cell.Input.Value != solutionDigit )
-//                    {
-//                        yield return cell;
-//                    }
-//                }
-//            }
-//        }
-//    }
-//}
+            for( int x = 0; x < 9; x++ )
+            {
+                for( int y = 0; y < 9; y++ )
+                {
+                    var solutionDigit = int.Parse(_sudokuProvider.Solution.Substring(y * 9 + x, 1));
+                    if( _gridProvider.GetValue(x, y) != InputValue.Empty 
+                        && _gridProvider.GetValue(x, y) != (InputValue) solutionDigit )
+                    {
+                        yield return new Coords(x, y);
+                    }
+                }
+            }
+        }
+    }
+}

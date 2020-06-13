@@ -21,6 +21,11 @@ namespace UI.BlazorWASM.Providers
         void SetValue(int x, int y, InputValue value);
 
         /// <summary>
+        /// Returns true if has not empty value.
+        /// </summary>
+        bool HasValue(int x, int y);
+
+        /// <summary>
         /// Returns true if candidate is in cell.
         /// </summary>
         bool HasCandidate(int x, int y, InputValue value);

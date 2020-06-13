@@ -1,38 +1,47 @@
-﻿//using System;
-//using UI.BlazorWASM.Providers;
+﻿using Core.Data;
+using System;
+using UI.BlazorWASM.Providers;
 
-//namespace UI.BlazorWASM.Hints.SolvingTechniques
-//{
-//    public class FindCandidates : ISolvingTechnique
-//    {
-//        public string Name => "Add Missing Candidates";
+namespace UI.BlazorWASM.Hints.SolvingTechniques
+{
+    public class FindCandidates : ISolvingTechnique
+    {
+        private readonly SudokuProvider _sudokuProvider;
+        private readonly IGridProvider _gridProvider;
 
-//        public string Desc => "There are some candidates missing.";
+        public FindCandidates(SudokuProvider sudokuProvider, IGridProvider gridProvider)
+        {
+            _sudokuProvider = sudokuProvider;
+            _gridProvider = gridProvider;
+        }
 
-//        public bool CanExecute(ISudokuProvider sudokuProvider)
-//        {
-//            for( int x = 0; x < 9; x++ )
-//            {
-//                for( int y = 0; y < 9; y++ )
-//                {
-//                    var solutionDigit = int.Parse(sudokuProvider.Sudoku.Solution.Substring(y * 9 + x, 1));
-//                    var cell = sudokuProvider.Cells[x, y];
-//                    if(cell.Input.Value == 0 && !cell.Candidates.ContainsKey(solutionDigit))
-//                    {
-//                        return true;
-//                    }
-//                }
-//            }
-//            return false;
-//        }
+        public string Name => "Add Missing Candidates";
 
-//        public void Display(HintsProvider hintsProvider)
-//        {
-//        }
+        public string Desc => "There are some candidates missing.";
 
-//        public void Execute(ISudokuProvider sudokuProvider)
-//        {
-//            sudokuProvider.FillAllCandidates();
-//        }
-//    }
-//}
+        public bool CanExecute()
+        {
+            for( int x = 0; x < 9; x++ )
+            {
+                for( int y = 0; y < 9; y++ )
+                {
+                    var solutionDigit = int.Parse(_sudokuProvider.Solution.Substring(y * 9 + x, 1));
+                    if( !_gridProvider.HasValue(x, y) && !_gridProvider.HasCandidate(x, y, (InputValue) solutionDigit) )
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        public void Display()
+        {
+        }
+
+        public void Execute()
+        {
+            _gridProvider.FillAllLegalCandidates();
+        }
+    }
+}
