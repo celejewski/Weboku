@@ -22,5 +22,6 @@ namespace UI.BlazorWASM.Hints
         public void AddCandidate(InputValue value, Position position) { }
         public void AddCandidate(InputValue value, IEnumerable<Position> positions) { }
         public void SetInput(InputValue value, Position position) => _gridProvider.SetValue(position.X, position.Y, value);
+        public void FillAllLegalCandidates() => _gridProvider.FillAllLegalCandidates();
     }
 }
