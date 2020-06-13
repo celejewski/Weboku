@@ -21,7 +21,7 @@ namespace UI.BlazorWASM.Providers
         void SetValue(int x, int y, InputValue value);
 
         /// <summary>
-        /// Returns if candidate is in cell.
+        /// Returns true if candidate is in cell.
         /// </summary>
         bool HasCandidate(int x, int y, InputValue value);
 
@@ -51,27 +51,27 @@ namespace UI.BlazorWASM.Providers
         void ClearCandidates(int x, int y);
 
         /// <summary>
-        /// Returns if the value is legal in the cell.
+        /// Returns true if the value in the cell is legal.
         /// </summary>
         bool IsValueLegal(int x, int y);
 
         /// <summary>
-        /// Returns if the candidate is legal in the cell
+        /// Returns true if the candidate in the cell is legal.
         /// </summary>
         bool IsCandidateLegal(int x, int y, InputValue value);
 
         /// <summary>
-        /// Return if cell is given.
+        /// Return true if cell is given.
         /// </summary>
         bool GetIsGiven(int x, int y);
 
         /// <summary>
-        /// Returns count of candidates.
+        /// Returns count of candidates in cell.
         /// </summary>
         int GetCandidatesCount(int x, int y);
 
         /// <summary>
-        /// Fills all legal candidates.
+        /// Fills cells without value with all legal candidates.
         /// </summary>
         void FillAllLegalCandidates();
 
