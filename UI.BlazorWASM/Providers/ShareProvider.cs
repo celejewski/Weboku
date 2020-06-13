@@ -65,8 +65,8 @@ namespace UI.BlazorWASM.Providers
         }
 
 
-        private readonly IGrid _grid;
-        public IGrid Grid
+        private readonly IGridV2 _grid = new GridV2();
+        public IGridV2 Grid
         {
             get
             {
@@ -85,6 +85,7 @@ namespace UI.BlazorWASM.Providers
             NavigationManager navigationManager
             )
         {
+            _dirty = true;
             _gridProvider = gridProvider;
             _hodokuGridConverter = hodokuGridConverter;
             _base64GridConverter = base64GridConverter;
@@ -98,7 +99,7 @@ namespace UI.BlazorWASM.Providers
             {
                 for( int y = 0; y < 9; y++ )
                 {
-                    _grid.SetValue(x, y, (int) CellToValue(x, y));
+                    _grid.SetValue(x, y, (InputValue) CellToValue(x, y));
                 }
             }
 

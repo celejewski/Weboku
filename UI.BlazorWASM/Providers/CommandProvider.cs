@@ -54,7 +54,7 @@ namespace UI.BlazorWASM.Providers
 
         public ICommand StartNewGameV2(string difficulty)
         {
-            return new StartNewGameCommandV2(_gridGeneratorV2, _gridProvider, _modalProvider);
+            return new StartNewGameCommandV2(difficulty, _gridGeneratorV2, _gridProvider, _modalProvider, _cellColorProvider, _gridHistoryManager, _gameTimerProvider);
         }
     }
 }

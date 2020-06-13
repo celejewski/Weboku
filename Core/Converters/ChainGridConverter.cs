@@ -22,7 +22,7 @@ namespace Core.Converters
             return _converters.FirstOrDefault(converter => converter.IsValidText(text));
         }
 
-        public IGrid FromText(string text)
+        public IGridV2 FromText(string text)
         {
             var converter = GetFirstValidOrDefault(text);
             if (converter == null)
@@ -37,7 +37,7 @@ namespace Core.Converters
             return GetFirstValidOrDefault(text) != null;
         }
 
-        public string ToText(IGrid grid)
+        public string ToText(IGridV2 grid)
         {
             return _converters[0].ToText(grid);
         }

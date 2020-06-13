@@ -15,7 +15,7 @@ namespace Core.Converters
             _generator = generator;
         }
 
-        public IGrid FromText(string input)
+        public IGridV2 FromText(string input)
         {
             input = input.Replace('.', '0');
             var grid = _generator.Empty();
@@ -26,7 +26,8 @@ namespace Core.Converters
                     var value = int.Parse(input[y * 9 + x].ToString());
                     if( value != 0 )
                     { 
-                        grid.SetGiven(x, y, value);
+                        grid.SetIsGiven(x, y, true);
+                        grid.SetValue(x, y, (InputValue) value);
                     }
                     else
                     {
@@ -44,15 +45,14 @@ namespace Core.Converters
                 && !Regex.IsMatch(text, @"[^\d]");
         }
 
-        public string ToText(IGrid grid)
+        public string ToText(IGridV2 grid)
         {
             var sb = new StringBuilder();
             for( int y = 0; y < 9; y++ )
             {
                 for( int x = 0; x < 9; x++ )
                 {
-                    var cell = grid.Cells[x, y];
-                    sb.Append(cell.Input.Value);
+                    sb.Append((int) grid.GetValue(x, y));
                 }
             }
             return sb.ToString();

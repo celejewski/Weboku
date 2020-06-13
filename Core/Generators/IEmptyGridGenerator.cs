@@ -4,6 +4,6 @@ namespace Core.Generators
 {
     public interface IEmptyGridGenerator
     {
-        IGrid Empty();
+        IGridV2 Empty();
     }
 }

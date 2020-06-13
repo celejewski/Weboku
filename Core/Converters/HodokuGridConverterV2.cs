@@ -40,15 +40,14 @@ namespace Core.Converters
                 && !Regex.IsMatch(text, @"[^\d]");
         }
 
-        public string ToText(IGrid grid)
+        public string ToText(IGridV2 grid)
         {
             var sb = new StringBuilder();
             for( int y = 0; y < 9; y++ )
             {
                 for( int x = 0; x < 9; x++ )
                 {
-                    var cell = grid.Cells[x, y];
-                    sb.Append(cell.Input.Value);
+                    sb.Append((int) grid.GetValue(x, y));
                 }
             }
             return sb.ToString();

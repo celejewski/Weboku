@@ -5,6 +5,6 @@ namespace Core.Generators
 {
     public interface IGridGenerator : IEmptyGridGenerator
     {
-        Task<IGrid> WithGiven(string difficulty);
+        Task<IGridV2> WithGiven(string difficulty);
     }
 }

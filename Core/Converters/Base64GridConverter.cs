@@ -16,7 +16,7 @@ namespace Core.Converters
             _innerConverter = new HodokuGridConverter(emptyGridGenerator);
         }
 
-        public IGrid FromText(string text)
+        public IGridV2 FromText(string text)
         {
             var bytes = WebEncoders.Base64UrlDecode(text);
             var bigInt = new BigInteger(bytes);
@@ -43,15 +43,15 @@ namespace Core.Converters
             }
         }
 
-        public string ToText(IGrid grid)
+        public string ToText(IGridV2 grid)
         {
             var sb = new StringBuilder();
             sb.Append("1");
-            for( int x = 0; x < 9; x++ )
+            for( int y = 0; y < 9; y++ )
             {
-                for( int y = 0; y < 9; y++ )
+                for( int x = 0; x < 9; x++ )
                 {
-                    sb.Append(grid.Cells[y, x].Input.Value);
+                    sb.Append((int) grid.GetValue(x, y));
                 }
             }
             var bigInt = BigInteger.Parse(sb.ToString());

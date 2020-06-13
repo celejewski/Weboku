@@ -12,7 +12,7 @@ namespace Core.Generators
             _emptyGridGenerator = emptyGridGenerator;
         }
 
-        public IGrid Empty() => _emptyGridGenerator.Empty();
-        public abstract Task<IGrid> WithGiven(string difficulty);
+        public IGridV2 Empty() => _emptyGridGenerator.Empty();
+        public abstract Task<IGridV2> WithGiven(string difficulty);
     }
 }

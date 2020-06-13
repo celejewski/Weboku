@@ -19,7 +19,7 @@ namespace UI.BlazorWASM.Services
             _converter = converter;
         }
 
-        public override async Task<IGrid> WithGiven(string difficulty)
+        public override async Task<IGridV2> WithGiven(string difficulty)
         {
             try
             {
