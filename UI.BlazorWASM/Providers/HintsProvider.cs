@@ -14,7 +14,7 @@ namespace UI.BlazorWASM.Providers
         private readonly Executor _executor;
         private readonly IGridHistoryManager _gridHistoryManager;
         private readonly SudokuProvider _sudokuProvider;
-        private HodokuParser _parser = new HodokuParser();
+        private readonly HodokuParser _parser = new HodokuParser();
         private IEnumerable<ISolvingTechnique> Techniques
         {
             get
