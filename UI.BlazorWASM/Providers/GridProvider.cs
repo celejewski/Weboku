@@ -130,7 +130,7 @@ namespace UI.BlazorWASM.Providers
             CandidatesChanged();
         }
 
-        public void FindAllCandidates()
+        public void FillAllLegalCandidates()
         {
             _grid.FillCandidates();
             for( int x = 0; x < 9; x++ )

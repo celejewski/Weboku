@@ -17,7 +17,7 @@ namespace UI.BlazorWASM.Commands
         public Task Execute()
         {
             _gridHistoryManager.Save();
-            _gridProvider.FindAllCandidates();
+            _gridProvider.FillAllLegalCandidates();
             return Task.CompletedTask;
         }
     }
