@@ -9,7 +9,7 @@ namespace UI.BlazorWASM.Providers
         private readonly IGridConverter _converter;
 
         public bool IsValidText { get; private set; }
-        public IGridV2 Grid { get; private set; }
+        public IGrid Grid { get; private set; }
         private string _pasted;
         public string Pasted 
         { 

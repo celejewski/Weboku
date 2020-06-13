@@ -1,6 +1,6 @@
 ﻿namespace Core.Data
 {
-    static class GridV2Helper
+    static class CandidateValueExtension
     {
         public static CandidateValue ToCandidateValue(this InputValue inputValue)
         {

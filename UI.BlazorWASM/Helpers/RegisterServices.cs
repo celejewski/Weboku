@@ -5,7 +5,6 @@ using UI.BlazorWASM.ClickableActions;
 using UI.BlazorWASM.Commands;
 using UI.BlazorWASM.Managers;
 using UI.BlazorWASM.Providers;
-using UI.BlazorWASM.Services;
 using UI.BlazorWASM.ViewModels;
 
 namespace UI.BlazorWASM.Helpers
@@ -64,7 +63,7 @@ namespace UI.BlazorWASM.Helpers
             //services.AddSingleton<HodokuParser, HodokuParser>();
             //services.AddSingleton<HintsProvider, HintsProvider>();
             services.AddSingleton<IGridProvider, GridProvider>();
-            services.AddSingleton<RESTGridGeneratorV2>();
+            services.AddSingleton<RESTGridGenerator>();
         }
     }
 }

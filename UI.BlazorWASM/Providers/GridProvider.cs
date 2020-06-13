@@ -8,11 +8,11 @@ namespace UI.BlazorWASM.Providers
 {
     public class GridProvider : IGridProvider
     {
-        private IGridV2 _grid = new GridV2();
+        private IGrid _grid = new Grid();
         private readonly bool[,] _isInputLegal = new bool[9, 9];
         private readonly bool[,,] _isCandidateLegal = new bool[9, 9, 10];
 
-        public IGridV2 Grid
+        public IGrid Grid
         {
             get => _grid;
             set 

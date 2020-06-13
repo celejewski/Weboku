@@ -14,8 +14,8 @@ namespace UI.BlazorWASM.Managers
             _gridProvider = gridProvider;
         }
 
-        private readonly Stack<IGridV2> _previousStates = new Stack<IGridV2>();
-        private readonly Stack<IGridV2> _nextStates = new Stack<IGridV2>();
+        private readonly Stack<IGrid> _previousStates = new Stack<IGrid>();
+        private readonly Stack<IGrid> _nextStates = new Stack<IGrid>();
         public bool CanUndo => _previousStates.Count > 0;
 
         public bool CanRedo => _nextStates.Count > 0;

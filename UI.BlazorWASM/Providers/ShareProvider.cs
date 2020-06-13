@@ -65,8 +65,8 @@ namespace UI.BlazorWASM.Providers
         }
 
 
-        private readonly IGridV2 _grid = new GridV2();
-        public IGridV2 Grid
+        private readonly IGrid _grid = new Grid();
+        public IGrid Grid
         {
             get
             {

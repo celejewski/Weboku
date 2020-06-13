@@ -1,25 +1,30 @@
 ﻿using Core.Converters;
 using Core.Data;
-using Core.Generators;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 
-namespace UI.BlazorWASM.Services
+namespace Core.Generators
 {
-    public class RESTGridGenerator : BaseGridGenerator
+    public class RESTGridGenerator : IGridGenerator
     {
         private readonly HttpClient _http;
-        private readonly HodokuGridConverter _converter;
+        private readonly IEmptyGridGenerator _emptyGridGenerator;
+        private readonly IGridConverter _converter;
 
-        public RESTGridGenerator(HttpClient http, HodokuGridConverter converter, IEmptyGridGenerator emptyGridGenerator)
-            :base(emptyGridGenerator)
+        public RESTGridGenerator(HttpClient http, IEmptyGridGenerator emptyGridGenerator, HodokuGridConverter converter)
         {
             _http = http;
+            _emptyGridGenerator = emptyGridGenerator;
             _converter = converter;
         }
 
-        public override async Task<IGridV2> WithGiven(string difficulty)
+        public IGrid Empty()
+        {
+            return _emptyGridGenerator.Empty();
+        }
+
+        public async Task<IGrid> WithGiven(string difficulty)
         {
             try
             {
@@ -28,7 +33,7 @@ namespace UI.BlazorWASM.Services
             }
             catch
             {
-                return _emptyGridGenerator.Empty();
+                return Empty();
             }
         }
     }

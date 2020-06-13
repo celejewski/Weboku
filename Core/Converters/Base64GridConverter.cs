@@ -16,7 +16,7 @@ namespace Core.Converters
             _innerConverter = new HodokuGridConverter(emptyGridGenerator);
         }
 
-        public IGridV2 FromText(string text)
+        public IGrid FromText(string text)
         {
             var bytes = WebEncoders.Base64UrlDecode(text);
             var bigInt = new BigInteger(bytes);
@@ -43,7 +43,7 @@ namespace Core.Converters
             }
         }
 
-        public string ToText(IGridV2 grid)
+        public string ToText(IGrid grid)
         {
             var sb = new StringBuilder();
             sb.Append("1");

@@ -5,7 +5,7 @@ namespace UI.BlazorWASM.Providers
 {
     public interface IGridProvider
     {
-        public IGridV2 Grid { get; set; }
+        public IGrid Grid { get; set; }
         InputValue GetValue(int x, int y);
         void SetValue(int x, int y, InputValue value);
 

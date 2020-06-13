@@ -1,6 +1,6 @@
 ﻿namespace Core.Data
 {
-    public interface IGridV2 
+    public interface IGrid 
     {
         bool GetIsGiven(int x, int y);
         void SetIsGiven(int x, int y, bool value);
@@ -16,6 +16,6 @@
         void ClearCandidates();
         void ClearCandidates(int x, int y);
 
-        IGridV2 Clone();
+        IGrid Clone();
     }
 }

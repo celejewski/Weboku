@@ -15,7 +15,7 @@ namespace Core.Converters
             _generator = generator;
         }
 
-        public IGridV2 FromText(string input)
+        public IGrid FromText(string input)
         {
             input = input.Replace('.', '0');
             var grid = _generator.Empty();
@@ -45,7 +45,7 @@ namespace Core.Converters
                 && !Regex.IsMatch(text, @"[^\d]");
         }
 
-        public string ToText(IGridV2 grid)
+        public string ToText(IGrid grid)
         {
             var sb = new StringBuilder();
             for( int y = 0; y < 9; y++ )

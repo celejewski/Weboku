@@ -1,18 +1,18 @@
 ﻿namespace Core.Data
 {
-    public class GridV2 : IGridV2
+    public class Grid : IGrid
     {
         private readonly InputValue[,] _inputs;
         private readonly CandidateValue[,] _candidates;
         private readonly bool[,] _isGivens;
-        public GridV2()
+        public Grid()
         {
             _inputs = new InputValue[9, 9];
             _candidates = new CandidateValue[9, 9];
             _isGivens = new bool[9, 9];
         }
 
-        private GridV2(InputValue[,] inputs, CandidateValue[,] candidates, bool[,] isGivens)
+        private Grid(InputValue[,] inputs, CandidateValue[,] candidates, bool[,] isGivens)
         {
             _inputs = inputs;
             _candidates = candidates;
@@ -67,9 +67,9 @@
             _isGivens[x, y] = value;
         }
 
-        public IGridV2 Clone()
+        public IGrid Clone()
         {
-            return new GridV2(
+            return new Grid(
                 (InputValue[,]) _inputs.Clone(),
                 (CandidateValue[,]) _candidates.Clone(),
                 (bool[,]) _isGivens.Clone()
