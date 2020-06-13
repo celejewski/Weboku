@@ -1,4 +1,5 @@
 ﻿using Core.Converters;
+using Core.Data;
 using Core.Generators;
 using Microsoft.Extensions.DependencyInjection;
 using UI.BlazorWASM.ClickableActions;
@@ -64,6 +65,7 @@ namespace UI.BlazorWASM.Helpers
             //services.AddSingleton<HintsProvider, HintsProvider>();
             services.AddSingleton<IGridProvider, GridProvider>();
             services.AddSingleton<RESTGridGenerator>();
+            services.AddSingleton<SudokuProvider>();
         }
     }
 }

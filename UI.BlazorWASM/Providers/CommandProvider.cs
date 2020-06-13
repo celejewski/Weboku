@@ -17,6 +17,8 @@ namespace UI.BlazorWASM.Providers
         private readonly ModalProvider _modalProvider;
         private readonly IGridProvider _gridProvider;
         private readonly RESTGridGenerator _gridGeneratorV2;
+        private readonly HodokuGridConverter _hodokuGridConverter;
+        private readonly SudokuProvider _sudokuProvider;
 
         //private readonly HintsProvider _hintsProvider;
 
@@ -30,7 +32,9 @@ namespace UI.BlazorWASM.Providers
             IClickableActionProvider clickableActionProvider,
             ModalProvider modalProvider,
             IGridProvider gridProvider,
-            RESTGridGenerator gridGeneratorV2)
+            RESTGridGenerator gridGeneratorV2,
+            HodokuGridConverter hodokuGridConverter,
+            SudokuProvider sudokuProvider)
         {
             _sudokuGenerator = sudokuGenerator;
             _gridHistoryManager = gridHistoryManager;
@@ -42,6 +46,8 @@ namespace UI.BlazorWASM.Providers
             _modalProvider = modalProvider;
             _gridProvider = gridProvider;
             _gridGeneratorV2 = gridGeneratorV2;
+            _hodokuGridConverter = hodokuGridConverter;
+            _sudokuProvider = sudokuProvider;
         }
         public ICommand SelectValue(int value)
         {
@@ -50,7 +56,7 @@ namespace UI.BlazorWASM.Providers
 
         public ICommand StartNewGameV2(string difficulty)
         {
-            return new StartNewGameCommand(difficulty, _gridGeneratorV2, _gridProvider, _modalProvider, _cellColorProvider, _gridHistoryManager, _gameTimerProvider);
+            return new StartNewGameCommand(difficulty, _sudokuGenerator, _gridProvider, _modalProvider, _cellColorProvider, _gridHistoryManager, _gameTimerProvider, _hodokuGridConverter, _sudokuProvider);
         }
     }
 }

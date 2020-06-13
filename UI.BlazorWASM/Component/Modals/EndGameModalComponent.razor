@@ -1,5 +1,6 @@
 ﻿@inject GameTimerProvider GameTimerProvider
 @inject ShowNewGameModalCommand ShowNewGameModalCommand
+@inject SudokuProvider SudokuProvider
 
 <ModalTemplateComponent>
     <div class="text-center">
@@ -14,7 +15,7 @@
         </div>
         <div class="modal__result-row">
             <span class="modal__result-label">Difficulty</span>
-            @*<span class="modal__result-value">@SudokuProvider.Sudoku.Difficulty</span>*@
+            <span class="modal__result-value">@SudokuProvider.Difficulty</span>
         </div>
     </div>
 
