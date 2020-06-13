@@ -11,10 +11,9 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
                 for( int y = 0; y < 9; y++ )
                 {
                     var position = new Position(x, y);
-                    var answer = informer.GetSolution(position);
-                    System.Console.WriteLine($"{position} {answer}");
+                    var solution = informer.GetSolution(position);
                     if (!informer.HasValue(position) 
-                        && !informer.HasCandidate(position, answer) )
+                        && !informer.HasCandidate(position, solution) )
                     {
                         return true;
                     }

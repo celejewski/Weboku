@@ -13,6 +13,8 @@ namespace UI.BlazorWASM.Hints
             Func<string, ISolvingTechnique>[] techniques =
             {
                 NakedSingle,
+                HiddenSingle, 
+                FullHouse,
                 Unknown,
             };
 
@@ -27,6 +29,12 @@ namespace UI.BlazorWASM.Hints
                     }
                 }
             }
+        }
+
+        public ISolvingTechnique Unknown(string step)
+        {
+            Console.WriteLine($"Unknown step: {step}");
+            return null;
         }
 
         public ISolvingTechnique NakedSingle(string step)
@@ -44,54 +52,35 @@ namespace UI.BlazorWASM.Hints
             return new NakedSingle(pos, value);
         }
 
-        public ISolvingTechnique Unknown(string step)
+        public ISolvingTechnique HiddenSingle(string step)
         {
-            Console.WriteLine($"Unknown step: {step}");
-            return null;
+            //Naked Single: r1c6=6
+            if( !step.Contains("Hidden Single") )
+            {
+                return null;
+            }
+
+            // r1c6=6
+            var cell = step.Substring(step.Length - 6, 6);
+            var position = HintsHelper.GetCoords(cell);
+            var value = HintsHelper.GetValue(cell, 5);
+            return new HiddenSingle(position, value);
+
         }
 
-        //public ISolvingTechnique HiddenSingle(string step)
-        //{
-        //    //Naked Single: r1c6=6
-        //    if( !step.Contains("Hidden Single") )
-        //    {
-        //        return null;
-        //    }
+        public ISolvingTechnique FullHouse(string step)
+        {
+            //Naked Single: r1c6=6
+            if( !step.Contains("Full House") )
+            {
+                return null;
+            }
 
-        //    // r1c6=6
-        //    var cell = step.Substring(step.Length - 6, 6);
-        //    var (x, y) = HintsHelper.GetCoords(cell);
-        //    var value = HintsHelper.GetDigit(cell, 5);
-        //    return new HiddenSingle(x, y, value, _candidatesMarkProvider, _gridProvider, HintsProvider, _hintsHelper);
-
-        //}
-
-        //    public ISolvingTechnique FullHouse(string step)
-        //    {
-
-        //        //Naked Single: r1c6=6
-        //        if( !step.Contains("Full House") )
-        //        {
-        //            return null;
-        //        }
-
-        //        // r1c6=6
-        //        var cell = step.Substring(step.Length - 6, 6);
-        //        var (x, y) = HintsHelper.GetCoords(cell);
-        //        var value = HintsHelper.GetDigit(cell, 5);
-        //        return new FullHouse(x, y, value);
-        //    }
-
-        //public ISolvingTechnique FindCandidates()
-        //{
-        //    var technique = new FindCandidates(_sudokuProvider, _gridProvider);
-        //    return technique.CanExecute() ? technique : null;
-        //}
-
-        //public ISolvingTechnique FindInvalidInputs()
-        //{
-        //    var technique = new FindInvalidInputs(_sudokuProvider, _cellColorProvider, _gridProvider);
-        //    return technique.CanExecute() ? technique : null;
-        //}
+            // r1c6=6
+            var cell = step.Substring(step.Length - 6, 6);
+            var position = HintsHelper.GetCoords(cell);
+            var value = HintsHelper.GetValue(cell, 5);
+            return new FullHouse(position, value);
+        }
     }
 }
