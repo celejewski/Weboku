@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Text.RegularExpressions;
 using UI.BlazorWASM.Hints.SolvingTechniques;
 using UI.BlazorWASM.Providers;
 
@@ -13,8 +15,9 @@ namespace UI.BlazorWASM.Hints
             Func<string, ISolvingTechnique>[] techniques =
             {
                 NakedSingle,
-                HiddenSingle, 
+                HiddenSingle,
                 FullHouse,
+                LockedCandidatesPointing,
                 Unknown,
             };
 
@@ -26,6 +29,7 @@ namespace UI.BlazorWASM.Hints
                     if (result != null)
                     {
                         yield return result;
+                        break;
                     }
                 }
             }
@@ -81,6 +85,29 @@ namespace UI.BlazorWASM.Hints
             var position = HintsHelper.GetCoords(cell);
             var value = HintsHelper.GetValue(cell, 5);
             return new FullHouse(position, value);
+        }
+
+        public ISolvingTechnique LockedCandidatesPointing(string step)
+        {
+            // Locked Candidates Type 1 (Pointing): 8 in b3 => r1c136 <> 8
+            // Locked Candidates Type 1 (Pointing): 7 in b3 => r569c7 <> 7
+            if (!step.Contains("Locked Candidates Type 1 (Pointing)"))
+            {
+                return null;
+            }
+
+            var info = step.Substring("Locked Candidates Type 1 (Pointing): ".Length);
+            var value = HintsHelper.GetValue(info, 0);
+            var block = HintsHelper.GetIndex(info, 6);
+
+            var positionsMatch = Regex.Match(info, @"(r[\d]+c[\d]+)"); 
+            if (!positionsMatch.Success)
+            {
+                return null;
+            }
+            var positions = HintsHelper.GetPositions(positionsMatch.Value);
+
+            return new LockedCandidatesPointing(block, value, positions);
         }
     }
 }

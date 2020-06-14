@@ -1,6 +1,8 @@
 ﻿using Core.Data;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using UI.BlazorWASM.Helpers;
 using UI.BlazorWASM.Providers;
 
@@ -32,12 +34,27 @@ namespace UI.BlazorWASM.Hints
             return int.Parse(text.Substring(pos, 1));
         }
 
+        public static int GetDigit(char c)
+        {
+            return GetDigit(c.ToString(), 0);
+        }
+
+        public static int GetIndex(string text, int pos)
+        {
+            return GetDigit(text, pos) - 1;
+        }
+
+        public static int GetIndex(char c)
+        {
+            return GetDigit(c) - 1;
+        }
+
         public static InputValue GetValue(string text, int pos)
         {
             return (InputValue) GetDigit(text, pos);
         }
 
-        public IEnumerable<Position> GetCellsInRow(int y)
+        public static IEnumerable<Position> GetCellsInRow(int y)
         {
 
             for( int x = 0; x < 9; x++ )
@@ -45,7 +62,7 @@ namespace UI.BlazorWASM.Hints
                 yield return new Position(x, y);
             }
         }
-        public IEnumerable<Position> GetCellsInCol(int x)
+        public static IEnumerable<Position> GetCellsInCol(int x)
         {
 
             for( int y = 0; y < 9; y++ )
@@ -54,7 +71,7 @@ namespace UI.BlazorWASM.Hints
             }
         }
 
-        public IEnumerable<Position> GetCellsInBlock(int x, int y)
+        public static IEnumerable<Position> GetCellsInBlock(int x, int y)
         {
             var startingX = x / 3 * 3;
             var startingY = y / 3 * 3;
@@ -67,28 +84,40 @@ namespace UI.BlazorWASM.Hints
             }
         }
 
-        public int GetCandidatesCountInRow(int y, int value)
+        public static IEnumerable<Position> GetPositionsInHouse(Position position, House house)
         {
-            return GetCellsInRow(y)
-                .Count(coords => _gridProvider.HasCandidate(coords.X, coords.Y, (InputValue) value));
-            ;
-        }
-        public int GetCandidatesCountInCol(int x, int value)
-        {
-            return GetCellsInCol(x)
-               .Count(coords => _gridProvider.HasCandidate(coords.X, coords.Y, (InputValue) value));
-
-        }
-        public int GetCandidatesCountInBlock(int x, int y, int value)
-        {
-            return GetCellsInBlock(x, y)
-              .Count(coords => _gridProvider.HasCandidate(coords.X, coords.Y, (InputValue) value));
-
+            return house switch
+            {
+                House.None => Enumerable.Empty<Position>(),
+                House.Row => GetCellsInRow(position.Y),
+                House.Col => GetCellsInCol(position.X),
+                House.Block => GetCellsInBlock(position.X, position.Y),
+            };
         }
 
         public static int GetBlock(int x, int y)
         {
             return y / 3 * 3 + x / 3;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="text">r1c136, r569c7</param>
+        /// <returns></returns>
+        public static IEnumerable<Position> GetPositions(string text)
+        {
+            var splited = text[1..].Split('c');
+            var rows = splited[0].Select(t => GetIndex(t));
+            var cols = splited[1].Select(t => GetIndex(t));
+
+            foreach( var col in cols )
+            {
+                foreach( var row in rows )
+                {
+                    yield return new Position(col, row);
+                }
+            }
         }
     }
 }

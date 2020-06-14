@@ -38,7 +38,7 @@ namespace UI.BlazorWASM.Hints
             _commandProvider = commandProvider;
         }
 
-        public void Reset() 
+        public void Reset()
         {
             for( int i = 0; i < 9; i++ )
             {
@@ -49,28 +49,33 @@ namespace UI.BlazorWASM.Hints
             _cellColorProvider.ClearAll();
             _candidatesMarkProvider.ClearColors();
         }
-        public void Show() 
-        { 
+        public void Show()
+        {
             IsVisible = true;
             OnChanged?.Invoke();
         }
-        public void Hide() 
+        public void Hide()
         {
             IsVisible = false;
             Reset();
             OnChanged?.Invoke();
         }
-        public void HighlightRow(Position position) 
+        public void HighlightRow(Position position)
         {
             IsRowHighlighted[position.Y] = true;
         }
-        public void HighlightCol(Position position) 
+        public void HighlightCol(Position position)
         {
             IsColHighlighted[position.X] = true;
         }
-        public void HighlightBlock(Position position) 
+        public void HighlightBlock(Position position)
         {
-            IsBlockHighlighted[position.Block] = true;
+            HighlightBlock(position.Block);
+        }
+
+        public void HighlightBlock(int block)
+        {
+            IsBlockHighlighted[block] = true;
         }
 
         public void HighlightHouse(Position position, House house)
@@ -91,14 +96,30 @@ namespace UI.BlazorWASM.Hints
             }
         }
 
-        public void Mark(Color color, IEnumerable<Position> positions) { }
-        public void Mark(Color color, Position position) 
+        public void Mark(Color color, IEnumerable<Position> positions)
+        {
+            foreach( var position in positions )
+            {
+                Console.WriteLine(position);
+                Mark(color, position);
+            }
+        }
+
+        public void Mark(Color color, Position position)
         {
             _cellColorProvider.SetColor(position.X, position.Y, color);
         }
-        public void Mark(Color color, Position position, InputValue value) 
+        public void Mark(Color color, Position position, InputValue value)
         {
             _candidatesMarkProvider.SetColor(position.X, position.Y, (int) value, color);
+        }
+
+        public void Mark(Color color, IEnumerable<Position> positions, InputValue inputValue)
+        {
+            foreach( var position in positions )
+            {
+                Mark(color, position, inputValue);
+            }
         }
 
         public void SetTitle(string text) { Title = text; }
