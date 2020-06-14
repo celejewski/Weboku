@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using UI.BlazorWASM.Helpers;
-//using UI.BlazorWASM.Hints;
 
 namespace UI.BlazorWASM
 {

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 using UI.BlazorWASM.Helpers;
 using UI.BlazorWASM.Providers;
 
@@ -106,9 +106,10 @@ namespace UI.BlazorWASM.Hints
         {
             foreach (var input in text.Split(','))
             {
-                var splited = input[1..].Split('c');
-                var rows = splited[0].Select(t => GetIndex(t));
-                var cols = splited[1].Select(t => GetIndex(t));
+                // r12c136
+                var splited = Regex.Match(input, @"r(\d+)c(\d+)");
+                var rows = splited.Groups[1].Value.Select(t => GetIndex(t));
+                var cols = splited.Groups[2].Value.Select(t => GetIndex(t));
 
                 foreach( var col in cols )
                 {
