@@ -1,54 +1,42 @@
 ﻿@import '_Variables.scss';
 
-.cell-color-choice {
-    margin: 0 30%;
+.cell-color {
     width: 100%;
     height: 100%;
+    border: 0.3rem solid transparent;
+    color: transparent;
+    border-color: currentColor;
 }
 
-.cell-color {
-    width: 80%;
-    height: 80%;
-    margin: 10%;
-    opacity: 0.9;
+.color-none {
+    color: transparent;
 }
 
-.cell-color-none {
-    background-color: transparent;
+.color-first {
+    color: $color-1;
+    
 }
 
-.cell-color-first {
-    background-color: $color-1;
+.color-second {
+    color: $color-2;
 }
 
-.cell-color-second {
-    background-color: $color-2;
+.color-third {
+    color: $color-3;
 }
 
-.cell-color-third {
-    background-color: $color-3;
+.color-fourth {
+    color: $color-4;
 }
 
-.cell-color-fourth {
-    background-color: $color-4;
+.color-illegal {
+    color: $color-danger;
 }
 
-.cell-color-danger {
-    background-color: $color-danger;
+.color-legal {
+    color: $color-success;
 }
 
-.cell-color-illegal {
-    background-color: $color-danger;
-}
-
-.cell-color-success {
-    background-color: $color-success;
-}
-
-.cell-color-legal {
-    background-color: $color-success;
-}
-
-.cell-color-info {
-    background-color: $color-3;
+.color-info {
+    color: $color-3;
 }

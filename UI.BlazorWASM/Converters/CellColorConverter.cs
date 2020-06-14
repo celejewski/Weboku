@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using UI.BlazorWASM.Enums;
 
 namespace UI.BlazorWASM.Converters
@@ -13,13 +10,13 @@ namespace UI.BlazorWASM.Converters
 
             return cellColor switch
             {
-                Color.Legal => "cell-color-legal",
-                Color.Illegal => "cell-color-illegal",
-                Color.Info => "cell-color-info",
-                Color.First => "cell-color-first",
-                Color.Second => "cell-color-second",
-                Color.Third => "cell-color-third",
-                Color.Fourth => "cell-color-fourth",
+                Color.Legal => "color-legal",
+                Color.Illegal => "color-illegal",
+                Color.Info => "color-info",
+                Color.First => "color-first",
+                Color.Second => "color-second",
+                Color.Third => "color-third",
+                Color.Fourth => "color-fourth",
                 Color.None => string.Empty,
                 _ => throw new NotImplementedException(),
             };

@@ -31,7 +31,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
 
             displayer.SetTitle("Full House");
             displayer.SetDescription("This cell is only without value in house.");
-            displayer.MarkCell(Enums.Color.Info, _position);
+            displayer.MarkCell(Enums.Color.Legal, _position);
             displayer.MarkCandidate(Enums.Color.Legal, _position, _value);
             displayer.HighlightHouse(_position, house);
             displayer.SetValueFilter(_value);

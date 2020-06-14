@@ -33,8 +33,10 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
             var positionsInHouse = HintsHelper.GetPositionsInHouse(_positionsToRemoveFrom.First(), RowOrCol());
             var positionsWithCandidate = positionsInHouse.Where(pos => informer.HasCandidate(pos, _inputValue));
             
-            displayer.MarkCells(Enums.Color.Info, positionsWithCandidate);
+            displayer.MarkCells(Enums.Color.Legal, positionsWithCandidate);
             displayer.MarkCandidates(Enums.Color.Legal, positionsWithCandidate, _inputValue);
+
+            displayer.MarkCells(Enums.Color.Illegal, _positionsToRemoveFrom);
             displayer.MarkCandidates(Enums.Color.Illegal, _positionsToRemoveFrom, _inputValue);
             displayer.HighlightBlock(_block);
             displayer.HighlightHouse(_positionsToRemoveFrom.First(), RowOrCol());

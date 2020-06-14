@@ -437,6 +437,7 @@ h1, h2, h3 {
   bottom: 8%;
   right: 8%;
   left: 8%;
+  background-color: currentColor;
   clip-path: polygon(0 0, 100% 0, 0 100%);
 }
 
@@ -447,6 +448,7 @@ h1, h2, h3 {
   bottom: 8%;
   right: 8%;
   left: 8%;
+  background-color: currentColor;
   clip-path: polygon(100% 0, 100% 100%, 0 100%);
 }
 
@@ -780,11 +782,12 @@ h1, h2, h3 {
   border-radius: 50%;
   border-style: solid;
   border-color: currentColor;
+  background: currentColor;
   margin: 10%;
 }
 
 .mark__cell--danger {
-  border-color: #FF7970;
+  border-color: #FFB0B0;
 }
 
 :root {
@@ -792,57 +795,44 @@ h1, h2, h3 {
   --max-width: 700px;
 }
 
-.cell-color-choice {
-  margin: 0 30%;
+.cell-color {
   width: 100%;
   height: 100%;
+  border: 0.3rem solid transparent;
+  color: transparent;
+  border-color: currentColor;
 }
 
-.cell-color {
-  width: 80%;
-  height: 80%;
-  margin: 10%;
-  opacity: 0.9;
+.color-none {
+  color: transparent;
 }
 
-.cell-color-none {
-  background-color: transparent;
+.color-first {
+  color: #FFB0B0;
 }
 
-.cell-color-first {
-  background-color: #FF7970;
+.color-second {
+  color: #B0FFB0;
 }
 
-.cell-color-second {
-  background-color: #6DBC76;
+.color-third {
+  color: #adcde0;
 }
 
-.cell-color-third {
-  background-color: #adcde0;
+.color-fourth {
+  color: #9792E3;
 }
 
-.cell-color-fourth {
-  background-color: #9792E3;
+.color-illegal {
+  color: #FFB0B0;
 }
 
-.cell-color-danger {
-  background-color: #FF7970;
+.color-legal {
+  color: #B0FFB0;
 }
 
-.cell-color-illegal {
-  background-color: #FF7970;
-}
-
-.cell-color-success {
-  background-color: #6DBC76;
-}
-
-.cell-color-legal {
-  background-color: #6DBC76;
-}
-
-.cell-color-info {
-  background-color: #adcde0;
+.color-info {
+  color: #adcde0;
 }
 
 :root {
@@ -1181,13 +1171,24 @@ h1, h2, h3 {
 }
 
 .paste__input--is-invalid {
-  background-color: #FF7970;
+  background-color: #FFB0B0;
+}
+
+@keyframes glow {
+  from {
+    opacity: 0.35;
+  }
+  to {
+    opacity: 0.15;
+  }
 }
 
 .hints-highlight {
   position: relative;
   width: 100%;
   height: 100%;
+  opacity: 0.1;
+  animation: glow 1500ms linear 0s infinite alternate;
 }
 
 .hints-highlight__container {
@@ -1210,17 +1211,8 @@ h1, h2, h3 {
   grid-template-columns: repeat(9, 1fr);
 }
 
-@keyframes glow {
-  from {
-    background-color: #BFBFBF;
-  }
-  to {
-    background-color: #A5A5A5;
-  }
-}
-
 .hints-highlight--with-background {
-  animation: glow 1500ms linear 0s infinite alternate;
+  background-color: black;
 }
 
 :root {

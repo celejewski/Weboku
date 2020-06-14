@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UI.BlazorWASM.Enums;
 using UI.BlazorWASM.Helpers;
 using UI.BlazorWASM.Providers;
+using UI.BlazorWASM.ViewModels;
 
 namespace UI.BlazorWASM.Hints
 {
@@ -15,6 +16,7 @@ namespace UI.BlazorWASM.Hints
         private readonly CellColorProvider _cellColorProvider;
         private readonly CandidatesMarkProvider _candidatesMarkProvider;
         private readonly CommandProvider _commandProvider;
+        private readonly NumpadMenuBuilder _numpadMenuBuilder;
 
         public bool IsVisible { get; set; }
         public string Title { get; set; }
@@ -28,11 +30,13 @@ namespace UI.BlazorWASM.Hints
         public Displayer(
             CellColorProvider cellColorProvider,
             CandidatesMarkProvider candidatesMarkProvider,
-            CommandProvider commandProvider)
+            CommandProvider commandProvider,
+            NumpadMenuBuilder numpadMenuBuilder)
         {
             _cellColorProvider = cellColorProvider;
             _candidatesMarkProvider = candidatesMarkProvider;
             _commandProvider = commandProvider;
+            _numpadMenuBuilder = numpadMenuBuilder;
         }
 
         public void Reset()
@@ -125,7 +129,7 @@ namespace UI.BlazorWASM.Hints
 
         public void SetValueFilter(InputValue input)
         {
-            _commandProvider.SelectValue((int) input).Execute();
+            _numpadMenuBuilder.SelectValue((int) input).Execute();
         }
     }
 }

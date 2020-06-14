@@ -1,7 +1,19 @@
-﻿.hints-highlight {
+﻿@keyframes glow {
+    from {
+        opacity: 0.35;
+    }
+
+    to {
+        opacity: 0.15;
+    }
+}
+
+.hints-highlight {
     position: relative;
     width: 100%;
     height: 100%;
+    opacity: 0.1;
+    animation: glow 1500ms linear 0s infinite alternate;
 
     &__container {
         position: absolute;
@@ -23,17 +35,7 @@
         grid-template-columns: repeat(9, 1fr);
     }
 
-    @keyframes glow {
-        from {
-            background-color: #BFBFBF;
-        }
-
-        to {
-            background-color: #A5A5A5;
-        }
-    }
-
     &--with-background {
-        animation: glow 1500ms linear 0s infinite alternate;
+        background-color: black;
     }
 }

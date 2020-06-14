@@ -1,9 +1,6 @@
 ﻿using Core.Data;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UI.BlazorWASM.Helpers;
 
 namespace UI.BlazorWASM.Hints.SolvingTechniques
@@ -35,8 +32,10 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
             var positionsWithCandidate = positionsInBlock.Where(pos => informer.HasCandidate(pos, _inputValue));
             var positionsWithLegalCandidate = positionsWithCandidate.Except(_positionsToRemoveCandidate);
 
-            displayer.MarkCells(Enums.Color.Info, positionsWithCandidate);
+            displayer.MarkCells(Enums.Color.Legal, positionsWithCandidate);
             displayer.MarkCandidates(Enums.Color.Legal, positionsWithCandidate, _inputValue);
+
+            displayer.MarkCells(Enums.Color.Illegal, _positionsToRemoveCandidate);
             displayer.MarkCandidates(Enums.Color.Illegal, _positionsToRemoveCandidate, _inputValue);
             displayer.HighlightBlock(positionsWithLegalCandidate.First());
             displayer.HighlightHouse(positionsWithLegalCandidate.First(), _house);
