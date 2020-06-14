@@ -19,6 +19,7 @@ namespace UI.BlazorWASM.Providers
         {
             get
             {
+                yield return new FindIncorrectSolution(_informer);
                 yield return new FillMissingCandidates();
                 foreach( var technique in _parser.GetSolvingTechniques(_sudokuProvider.Steps).ToList() )
                 {

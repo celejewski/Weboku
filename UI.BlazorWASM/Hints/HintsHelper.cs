@@ -68,7 +68,7 @@ namespace UI.BlazorWASM.Hints
         public static IEnumerable<Position> GetPositionsInBlock(int block)
         {
             var x = (block % 3) * 3;
-            var y = (block / 3);
+            var y = (block / 3) * 3;
             return GetPositionsInBlock(new Position(x, y));
         }
 
