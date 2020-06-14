@@ -96,29 +96,29 @@ namespace UI.BlazorWASM.Hints
             }
         }
 
-        public void Mark(Color color, IEnumerable<Position> positions)
+        public void MarkCells(Color color, IEnumerable<Position> positions)
         {
             foreach( var position in positions )
             {
                 Console.WriteLine(position);
-                Mark(color, position);
+                MarkCell(color, position);
             }
         }
 
-        public void Mark(Color color, Position position)
+        public void MarkCell(Color color, Position position)
         {
             _cellColorProvider.SetColor(position.X, position.Y, color);
         }
-        public void Mark(Color color, Position position, InputValue value)
+        public void MarkCandidate(Color color, Position position, InputValue value)
         {
             _candidatesMarkProvider.SetColor(position.X, position.Y, (int) value, color);
         }
 
-        public void Mark(Color color, IEnumerable<Position> positions, InputValue inputValue)
+        public void MarkCandidates(Color color, IEnumerable<Position> positions, InputValue inputValue)
         {
             foreach( var position in positions )
             {
-                Mark(color, position, inputValue);
+                MarkCandidate(color, position, inputValue);
             }
         }
 

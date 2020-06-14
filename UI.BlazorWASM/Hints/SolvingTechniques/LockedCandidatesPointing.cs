@@ -30,13 +30,13 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
             displayer.SetTitle("Locked Candidates Pointing");
             displayer.SetDescription($"Pointing");
 
-            var positionsInHouse = HintsHelper.GetPositionsInHouse(_positionsToRemoveFrom.First(), IsRowOrCol());
+            var positionsInHouse = HintsHelper.GetPositionsInHouse(_positionsToRemoveFrom.First(), RowOrCol());
             var positionsWithCandidate = positionsInHouse.Where(pos => informer.HasCandidate(pos, _inputValue));
             
-            displayer.Mark(Enums.Color.Info, positionsWithCandidate);
-            displayer.Mark(Enums.Color.Legal, positionsWithCandidate, _inputValue);
-            displayer.Mark(Enums.Color.Illegal, _positionsToRemoveFrom, _inputValue);
-            displayer.HighlightHouse(_positionsToRemoveFrom.First(), IsRowOrCol());
+            displayer.MarkCells(Enums.Color.Info, positionsWithCandidate);
+            displayer.MarkCandidates(Enums.Color.Legal, positionsWithCandidate, _inputValue);
+            displayer.MarkCandidates(Enums.Color.Illegal, _positionsToRemoveFrom, _inputValue);
+            displayer.HighlightHouse(_positionsToRemoveFrom.First(), RowOrCol());
             displayer.SetValueFilter(_inputValue);
         }
 
@@ -45,7 +45,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
             executor.RemoveCandidate(_inputValue, _positionsToRemoveFrom);
         }
 
-        private House IsRowOrCol()
+        private House RowOrCol()
         {
             return _positionsToRemoveFrom.First().X == _positionsToRemoveFrom.Last().X ? House.Col : House.Row;
         }

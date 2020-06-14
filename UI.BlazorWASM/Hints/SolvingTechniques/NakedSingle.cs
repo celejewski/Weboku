@@ -24,8 +24,8 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
         {
             displayer.SetTitle("Naked Single");
             displayer.SetDescription($"There is only one value left in cell {_position}={_value}");
-            displayer.Mark(Color.Info, _position);
-            displayer.Mark(Color.Legal, _position, _value);
+            displayer.MarkCell(Color.Info, _position);
+            displayer.MarkCandidate(Color.Legal, _position, _value);
             displayer.SetValueFilter(_value);
         }
 
