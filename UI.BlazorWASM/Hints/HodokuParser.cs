@@ -50,9 +50,9 @@ namespace UI.BlazorWASM.Hints
             }
 
             // r1c6=6
-            var cell = step.Substring(step.Length - 6, 6);
-            var pos = HintsHelper.GetCoords(cell);
-            var value = HintsHelper.GetValue(cell, 5);
+            var info = step.Substring(step.Length - 6, 6);
+            var pos = HintsHelper.GetPosition(info);
+            var value = HintsHelper.GetValue(info, 5);
             return new NakedSingle(pos, value);
         }
 
@@ -66,7 +66,7 @@ namespace UI.BlazorWASM.Hints
 
             // r1c6=6
             var cell = step.Substring(step.Length - 6, 6);
-            var position = HintsHelper.GetCoords(cell);
+            var position = HintsHelper.GetPosition(cell);
             var value = HintsHelper.GetValue(cell, 5);
             return new HiddenSingle(position, value);
 
@@ -82,7 +82,7 @@ namespace UI.BlazorWASM.Hints
 
             // r1c6=6
             var cell = step.Substring(step.Length - 6, 6);
-            var position = HintsHelper.GetCoords(cell);
+            var position = HintsHelper.GetPosition(cell);
             var value = HintsHelper.GetValue(cell, 5);
             return new FullHouse(position, value);
         }

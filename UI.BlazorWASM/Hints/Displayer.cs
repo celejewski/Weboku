@@ -100,7 +100,6 @@ namespace UI.BlazorWASM.Hints
         {
             foreach( var position in positions )
             {
-                Console.WriteLine(position);
                 MarkCell(color, position);
             }
         }
