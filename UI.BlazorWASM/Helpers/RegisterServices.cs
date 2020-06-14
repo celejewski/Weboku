@@ -18,7 +18,6 @@ namespace UI.BlazorWASM.Helpers
             services.AddSingleton<Displayer>();
             services.AddSingleton<Executor>();
             services.AddSingleton<Informer>();
-            services.AddSingleton<HintsHelper, HintsHelper>();
             services.AddSingleton<HodokuParser, HodokuParser>();
             services.AddSingleton<HintsProvider, HintsProvider>();
             services.AddSingleton<ShowHintModalCommand>();

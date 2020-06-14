@@ -9,15 +9,8 @@ using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.Hints
 {
-    public class HintsHelper
+    public static class HintsHelper
     {
-        private readonly IGridProvider _gridProvider;
-
-        public HintsHelper(IGridProvider gridProvider)
-        {
-            _gridProvider = gridProvider;
-        }
-
         /// <summary>
         /// 
         /// </summary>
