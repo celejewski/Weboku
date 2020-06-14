@@ -37,6 +37,7 @@ namespace UI.BlazorWASM.Commands
                 }
             }
 
+            _gridProvider.ClearCandidates();
             _gameTimerProvider.Start();
             _cellColorProvider.ClearAll();
             return Task.CompletedTask;
