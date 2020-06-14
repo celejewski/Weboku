@@ -41,7 +41,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
 
         public void Execute(Executor executor)
         {
-            executor.RemoveCandidate(_inputValue, _positionsToRemoveCandidate);
+            executor.RemoveCandidates(_inputValue, _positionsToRemoveCandidate);
         }
     }
 }

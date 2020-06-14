@@ -22,15 +22,24 @@ namespace UI.BlazorWASM.Hints
         {
             _gridProvider.RemoveCandidate(position.X, position.Y, value);
         }
-        public void RemoveCandidate(InputValue value, IEnumerable<Position> positions) 
+        public void RemoveCandidates(InputValue value, IEnumerable<Position> positions) 
         {
             foreach( var position in positions )
             {
                 RemoveCandidate(value, position);
             }
         }
-        public void AddCandidate(InputValue value, Position position) { throw new NotImplementedException(); }
-        public void AddCandidates(InputValue value, IEnumerable<Position> positions) { throw new NotImplementedException(); }
+        public void AddCandidate(InputValue value, Position position) 
+        {
+            _gridProvider.AddCandidate(position.X, position.Y, value);
+        }
+        public void AddCandidates(InputValue value, IEnumerable<Position> positions) 
+        {
+            foreach( var pos in positions )
+            {
+                AddCandidate(value, pos);
+            }
+        }
         public void SetInput(InputValue value, Position position) => _gridProvider.SetValue(position.X, position.Y, value);
         public void FillAllLegalCandidates() => _gridProvider.FillAllLegalCandidates();
     }

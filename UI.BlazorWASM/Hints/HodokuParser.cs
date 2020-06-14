@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Text.RegularExpressions;
 using UI.BlazorWASM.Helpers;
 using UI.BlazorWASM.Hints.SolvingTechniques;
@@ -20,6 +21,7 @@ namespace UI.BlazorWASM.Hints
                 FullHouse,
                 LockedCandidatesPointing,
                 LockedCandidatesClaiming,
+                LockedPair,
                 Unknown,
             };
 
@@ -31,6 +33,7 @@ namespace UI.BlazorWASM.Hints
                     if (result != null)
                     {
                         yield return result;
+                        break;
                     }
                 }
             }
@@ -39,7 +42,7 @@ namespace UI.BlazorWASM.Hints
         public ISolvingTechnique Unknown(string step)
         {
             Console.WriteLine($"Unknown step: {step}");
-            return null;
+            return new NotFound();
         }
 
         public ISolvingTechnique NakedSingle(string step)
@@ -131,6 +134,25 @@ namespace UI.BlazorWASM.Hints
             var positions = HintsHelper.GetPositions(positionsMatch.Groups[1].Value);
 
             return new LockedCandidatesClaiming(value, positions, house);
+        }
+
+        public ISolvingTechnique LockedPair(string step)
+        {
+            // Locked Pair: 2,3 in r46c3 => r159c3,r46c1,r56c2 <> 3, r6c2,r79c3 <> 2
+            // Locked Pair: 6,9 in r8c13 => r8c456,r9c3<>9, r7c1,r8c56<>6
+            if( !step.Contains("Locked Pair: ") )
+            {
+                return null;
+            }
+
+            Console.WriteLine(step);
+            var info = step.Substring("Locked Pair: ".Length);
+            var value1 = HintsHelper.GetValue(info, 0);
+            var value2 = HintsHelper.GetValue(info, 2);
+
+            var positions = HintsHelper.GetPositions(info.Substring(7, 5)).ToList();
+
+            return new LockedPair(positions[0], positions[1], value1, value2);
         }
     }
 }

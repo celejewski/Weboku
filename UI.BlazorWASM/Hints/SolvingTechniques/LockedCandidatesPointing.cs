@@ -42,7 +42,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
 
         public void Execute(Executor executor)
         {
-            executor.RemoveCandidate(_inputValue, _positionsToRemoveFrom);
+            executor.RemoveCandidates(_inputValue, _positionsToRemoveFrom);
         }
 
         private House RowOrCol(Informer informer)
