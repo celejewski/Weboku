@@ -65,6 +65,13 @@ namespace UI.BlazorWASM.Hints
             }
         }
 
+        public static IEnumerable<Position> GetPositionsInBlock(int block)
+        {
+            var x = (block % 3) * 3;
+            var y = (block / 3);
+            return GetPositionsInBlock(new Position(x, y));
+        }
+
         public static IEnumerable<Position> GetPositionsInBlock(Position position)
         {
             var startingX = position.X / 3 * 3;
@@ -113,5 +120,17 @@ namespace UI.BlazorWASM.Hints
                 }
             }
         }
+        public static House FindHouse(Position position, Predicate<IEnumerable<Position>> predicate)
+        {
+            foreach( var house in new[] { House.Row, House.Col, House.Block } )
+            {
+                if( predicate(GetPositionsInHouse(position, house)) )
+                {
+                    return house;
+                }
+            }
+            return House.None;
+        }
+
     }
 }

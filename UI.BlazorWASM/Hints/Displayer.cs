@@ -99,6 +99,12 @@ namespace UI.BlazorWASM.Hints
             }
         }
 
+        public void Mark(Color color, IEnumerable<Position> positions, InputValue value)
+        {
+            MarkCells(color, positions);
+            MarkCandidates(color, positions, value);
+        }
+
         public void MarkCells(Color color, IEnumerable<Position> positions)
         {
             foreach( var position in positions )

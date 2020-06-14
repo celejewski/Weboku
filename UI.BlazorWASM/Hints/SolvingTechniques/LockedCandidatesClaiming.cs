@@ -28,15 +28,12 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
             displayer.SetTitle("Locked Candidates - Claiming");
             displayer.SetDescription("Claiming");
 
-            var positionsInBlock = HintsHelper.GetPositionsInBlock(_positionsToRemoveCandidate.First());
-            var positionsWithCandidate = positionsInBlock.Where(pos => informer.HasCandidate(pos, _inputValue));
+            var positionsWithCandidate = informer.GetPositionsWithCandidate(House.Block, _positionsToRemoveCandidate.First(), _inputValue);
             var positionsWithLegalCandidate = positionsWithCandidate.Except(_positionsToRemoveCandidate);
 
-            displayer.MarkCells(Enums.Color.Legal, positionsWithCandidate);
-            displayer.MarkCandidates(Enums.Color.Legal, positionsWithCandidate, _inputValue);
-
-            displayer.MarkCells(Enums.Color.Illegal, _positionsToRemoveCandidate);
-            displayer.MarkCandidates(Enums.Color.Illegal, _positionsToRemoveCandidate, _inputValue);
+            displayer.Mark(Enums.Color.Legal, positionsWithCandidate, _inputValue);
+            var toMarkIllegal = informer.WithCandidate(_positionsToRemoveCandidate, _inputValue);
+            displayer.Mark(Enums.Color.Illegal, toMarkIllegal, _inputValue);
             displayer.HighlightBlock(positionsWithLegalCandidate.First());
             displayer.HighlightHouse(positionsWithLegalCandidate.First(), _house);
             displayer.SetValueFilter(_inputValue);
