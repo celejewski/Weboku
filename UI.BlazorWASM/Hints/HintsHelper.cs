@@ -132,5 +132,16 @@ namespace UI.BlazorWASM.Hints
             return House.None;
         }
 
+        public static string Format(House house)
+        {
+            return house switch
+            {
+                House.None => "none",
+                House.Row => "row",
+                House.Col => "column",
+                House.Block => "block",
+                _ => throw new ArgumentException("House not supported by HintHelper.Format")
+            };
+        }
     }
 }

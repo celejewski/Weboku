@@ -23,7 +23,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
         public void Display(Displayer displayer, Informer informer)
         {
             displayer.SetTitle("Naked Single");
-            displayer.SetDescription($"There is only one value left in cell {_position}={_value}");
+            displayer.SetDescription($"There is only one valid candidate left in cell {_position}");
             displayer.MarkCell(Color.Legal, _position);
             displayer.MarkCandidate(Color.Legal, _position, _value);
             displayer.HighlightBlock(_position);

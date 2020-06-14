@@ -27,8 +27,12 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
 
         public void Display(Displayer displayer, Informer informer)
         {
+            var rowOrCol = HintsHelper.Format(RowOrCol(informer));
             displayer.SetTitle("Locked Candidates - Pointing");
-            displayer.SetDescription($"Pointing");
+            displayer.SetDescription(
+                $"In block {_block+1}, value {_inputValue:D} can only be placed in one {rowOrCol}. " +
+                $"This means that value {_inputValue:D} cannot occur in other blocks in this {rowOrCol}, " +
+                $"because then there would be no option to put a value of {_inputValue:D} in block {_block+1}");
 
             var positionsWithCandidate = informer.GetPositionsWithCandidate(RowOrCol(informer), _positionsToRemoveFrom.First(), _inputValue);
             displayer.Mark(Enums.Color.Legal, positionsWithCandidate, _inputValue);

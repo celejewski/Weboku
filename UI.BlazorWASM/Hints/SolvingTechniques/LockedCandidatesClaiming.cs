@@ -25,8 +25,11 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
 
         public void Display(Displayer displayer, Informer informer)
         {
+            var block = _positionsToRemoveCandidate.First().Block;
+            var house = HintsHelper.Format(_house);
             displayer.SetTitle("Locked Candidates - Claiming");
-            displayer.SetDescription("Claiming");
+            displayer.SetDescription($"The only place in {house} where {_inputValue:D} can appear is in block {block+1}. " +
+                $"So the value of {_inputValue:D} cannot appear anywhere else in the block of {block+1} because then the {house} would have no value of {_inputValue:D} anywhere.");
 
             var positionsWithCandidate = informer.GetPositionsWithCandidate(House.Block, _positionsToRemoveCandidate.First(), _inputValue);
             var positionsWithLegalCandidate = positionsWithCandidate.Except(_positionsToRemoveCandidate);

@@ -145,7 +145,6 @@ namespace UI.BlazorWASM.Hints
                 return null;
             }
 
-            Console.WriteLine(step);
             var info = step.Substring("Locked Pair: ".Length);
             var value1 = HintsHelper.GetValue(info, 0);
             var value2 = HintsHelper.GetValue(info, 2);
