@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
+using UI.BlazorWASM.Helpers;
 using UI.BlazorWASM.Hints.SolvingTechniques;
 using UI.BlazorWASM.Providers;
 
@@ -18,6 +19,7 @@ namespace UI.BlazorWASM.Hints
                 HiddenSingle,
                 FullHouse,
                 LockedCandidatesPointing,
+                LockedCandidatesClaiming,
                 Unknown,
             };
 
@@ -29,7 +31,6 @@ namespace UI.BlazorWASM.Hints
                     if (result != null)
                     {
                         yield return result;
-                        break;
                     }
                 }
             }
@@ -108,6 +109,28 @@ namespace UI.BlazorWASM.Hints
             var positions = HintsHelper.GetPositions(positionsMatch.Value);
 
             return new LockedCandidatesPointing(block, value, positions);
+        }
+
+        public ISolvingTechnique LockedCandidatesClaiming(string step)
+        {
+            // Locked Candidates Type 2 (Claiming): 2 in r6 => r4c456,r5c5<>2
+            if (!step.Contains("Locked Candidates Type 2 (Claiming)", StringComparison.Ordinal))
+            {
+                return null;
+            }
+
+            // 2 in r6 => r4c456,r5c5<>2
+            var info = step.Substring("Locked Candidates Type 2 (Claiming): ".Length);
+            var value = HintsHelper.GetValue(info, 0);
+            var house = info[5] == 'r' ? House.Row : House.Col;
+            var positionsMatch = Regex.Match(info, @"=> (.*)<>\d");
+            if (!positionsMatch.Success)
+            {
+                return null;
+            }
+            var positions = HintsHelper.GetPositions(positionsMatch.Groups[1].Value);
+
+            return new LockedCandidatesClaiming(value, positions, house);
         }
     }
 }

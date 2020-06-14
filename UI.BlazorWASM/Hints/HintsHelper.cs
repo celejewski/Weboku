@@ -65,10 +65,10 @@ namespace UI.BlazorWASM.Hints
             }
         }
 
-        public static IEnumerable<Position> GetPositionsInBlock(int x, int y)
+        public static IEnumerable<Position> GetPositionsInBlock(Position position)
         {
-            var startingX = x / 3 * 3;
-            var startingY = y / 3 * 3;
+            var startingX = position.X / 3 * 3;
+            var startingY = position.Y / 3 * 3;
             for( int offsetX = 0; offsetX < 3; offsetX++ )
             {
                 for( int offsetY = 0; offsetY < 3; offsetY++ )
@@ -85,7 +85,7 @@ namespace UI.BlazorWASM.Hints
                 House.None => Enumerable.Empty<Position>(),
                 House.Row => GetPositionsInRow(position.Y),
                 House.Col => GetPositionsInCol(position.X),
-                House.Block => GetPositionsInBlock(position.X, position.Y),
+                House.Block => GetPositionsInBlock(position),
                 _ => throw new ArgumentException("Unknown house"),
             };
         }

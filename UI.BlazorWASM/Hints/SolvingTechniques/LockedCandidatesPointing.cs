@@ -27,7 +27,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
 
         public void Display(Displayer displayer, Informer informer)
         {
-            displayer.SetTitle("Locked Candidates Pointing");
+            displayer.SetTitle("Locked Candidates - Pointing");
             displayer.SetDescription($"Pointing");
 
             var positionsInHouse = HintsHelper.GetPositionsInHouse(_positionsToRemoveFrom.First(), RowOrCol());
@@ -36,6 +36,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
             displayer.MarkCells(Enums.Color.Info, positionsWithCandidate);
             displayer.MarkCandidates(Enums.Color.Legal, positionsWithCandidate, _inputValue);
             displayer.MarkCandidates(Enums.Color.Illegal, _positionsToRemoveFrom, _inputValue);
+            displayer.HighlightBlock(_block);
             displayer.HighlightHouse(_positionsToRemoveFrom.First(), RowOrCol());
             displayer.SetValueFilter(_inputValue);
         }

@@ -1,9 +1,6 @@
 ﻿using Core.Data;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using UI.BlazorWASM.Commands;
-using UI.BlazorWASM.Component;
 using UI.BlazorWASM.Enums;
 using UI.BlazorWASM.Helpers;
 using UI.BlazorWASM.Providers;
@@ -40,6 +37,8 @@ namespace UI.BlazorWASM.Hints
 
         public void Reset()
         {
+            Title = string.Empty;
+            Desccription = string.Empty;
             for( int i = 0; i < 9; i++ )
             {
                 IsRowHighlighted[i] = false;
