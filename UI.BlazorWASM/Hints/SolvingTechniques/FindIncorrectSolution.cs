@@ -26,7 +26,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
             displayer.MarkCells(Enums.Color.Illegal, GetInvalidSolutionsPosition());
         }
 
-        public void Execute(Executor executor)
+        public void Execute(Executor executor, Informer informer)
         {
             foreach( var pos in GetInvalidSolutionsPosition() )
             {

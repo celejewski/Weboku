@@ -18,7 +18,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
             displayer.SetDescription("There is no hint avaliable for this sudoku.");
         }
 
-        public void Execute(Executor executor)
+        public void Execute(Executor executor, Informer informer)
         {
         }
     }

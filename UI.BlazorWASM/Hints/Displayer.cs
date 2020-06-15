@@ -1,6 +1,7 @@
 ﻿using Core.Data;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UI.BlazorWASM.Enums;
 using UI.BlazorWASM.Helpers;
 using UI.BlazorWASM.Providers;
@@ -17,6 +18,7 @@ namespace UI.BlazorWASM.Hints
         private readonly CandidatesMarkProvider _candidatesMarkProvider;
         private readonly CommandProvider _commandProvider;
         private readonly NumpadMenuBuilder _numpadMenuBuilder;
+        private readonly Informer _informer;
 
         public bool IsVisible { get; set; }
         public string Title { get; set; }
@@ -31,12 +33,14 @@ namespace UI.BlazorWASM.Hints
             CellColorProvider cellColorProvider,
             CandidatesMarkProvider candidatesMarkProvider,
             CommandProvider commandProvider,
-            NumpadMenuBuilder numpadMenuBuilder)
+            NumpadMenuBuilder numpadMenuBuilder,
+            Informer informer)
         {
             _cellColorProvider = cellColorProvider;
             _candidatesMarkProvider = candidatesMarkProvider;
             _commandProvider = commandProvider;
             _numpadMenuBuilder = numpadMenuBuilder;
+            _informer = informer;
         }
 
         public void Reset()
@@ -103,6 +107,10 @@ namespace UI.BlazorWASM.Hints
         {
             MarkCells(color, positions);
             MarkCandidates(color, positions, value);
+        }
+        public void MarkIfHasCandidate(Color color, IEnumerable<Position> positions, InputValue value)
+        {
+            Mark(color, positions.Where(pos => _informer.HasCandidate(pos, value)), value);
         }
 
         public void MarkCells(Color color, IEnumerable<Position> positions)

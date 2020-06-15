@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
+using UI.BlazorWASM.Commands;
 using UI.BlazorWASM.Helpers;
 using UI.BlazorWASM.Hints.SolvingTechniques;
 using UI.BlazorWASM.Providers;
@@ -22,6 +23,9 @@ namespace UI.BlazorWASM.Hints
                 LockedCandidatesPointing,
                 LockedCandidatesClaiming,
                 LockedPair,
+                NakedPair,
+                NakedTriple,
+                LockedTriple,
                 Unknown,
             };
 
@@ -152,6 +156,56 @@ namespace UI.BlazorWASM.Hints
             var positions = HintsHelper.GetPositions(info.Substring(7, 5)).ToList();
 
             return new LockedPair(positions[0], positions[1], value1, value2);
+        }
+
+        public ISolvingTechnique NakedPair(string step)
+        {
+            // Naked Pair: 6,9 in r16c6 => r357c6<>6, r5c6<>9
+            if (!step.Contains("Naked Pair:"))
+            {
+                return null; 
+            }
+
+            Console.WriteLine(step);
+
+            var info = step.Substring("Naked Pair: ".Length);
+            var value1 = HintsHelper.GetValue(info, 0);
+            var value2 = HintsHelper.GetValue(info, 2);
+            var positions = HintsHelper.GetPositions(info.Substring(7, 5)).ToList();
+
+            return new NakedPair(positions[0], positions[1], value1, value2);
+        }
+
+        public ISolvingTechnique NakedTriple(string step)
+        {
+            // Naked Triple: 2,3,5 in r1c5,r2c46 => r13c4,r3c6<>2, r3c46<>5
+            if( !step.Contains("Naked Triple") )
+            {
+                return null;
+            }
+
+            Console.WriteLine(step);
+            var match = Regex.Match(step, ": (.*) in (.*) =>");
+            var values = new int[] { 0, 2, 4 }.Select(pos => HintsHelper.GetValue(match.Groups[1].Value, pos));
+            var positions = HintsHelper.GetPositions(match.Groups[2].Value);
+
+            return new NakedSubset(positions, values);
+        }
+
+        public ISolvingTechnique LockedTriple(string step)
+        {
+            // Naked Triple: 2,3,5 in r1c5,r2c46 => r13c4,r3c6<>2, r3c46<>5
+            if( !step.Contains("Locked Triple") )
+            {
+                return null;
+            }
+
+            Console.WriteLine(step);
+            var match = Regex.Match(step, ": (.*) in (.*) =>");
+            var values = new int[] { 0, 2, 4 }.Select(pos => HintsHelper.GetValue(match.Groups[1].Value, pos));
+            var positions = HintsHelper.GetPositions(match.Groups[2].Value);
+
+            return new NakedSubset(positions, values);
         }
     }
 }

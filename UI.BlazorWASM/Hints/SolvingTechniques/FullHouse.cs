@@ -37,7 +37,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
             displayer.SetValueFilter(_value);
         }
 
-        public void Execute(Executor executor)
+        public void Execute(Executor executor, Informer informer)
         {
             executor.SetInput(_value, _position);
         }

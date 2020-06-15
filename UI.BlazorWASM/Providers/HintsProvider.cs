@@ -50,7 +50,7 @@ namespace UI.BlazorWASM.Providers
         public void Execute()
         {
             _gridHistoryManager.Save();
-            NextTechnique.Execute(_executor);
+            NextTechnique.Execute(_executor, _informer);
             _displayer.Hide();
         }
     }

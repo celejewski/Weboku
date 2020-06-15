@@ -15,6 +15,11 @@ namespace UI.BlazorWASM.Filters
 
         public FilterOption IsFiltered(IGridProvider gridProvider, int x, int y)
         {
+            if( _value == InputValue.Empty)
+            {
+                return FilterOption.None;
+            }
+
             if (gridProvider.GetValue(x, y) == _value)
             {
                 return FilterOption.Primary;

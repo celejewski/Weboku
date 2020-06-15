@@ -132,6 +132,11 @@ namespace UI.BlazorWASM.Hints
             return House.None;
         }
 
+        public static House RowOrCol(params Position[] positions)
+        {
+            return positions[0].X == positions[1].X ? House.Col : House.Row;
+        }
+
         public static string Format(House house)
         {
             return house switch
@@ -142,6 +147,24 @@ namespace UI.BlazorWASM.Hints
                 House.Block => "block",
                 _ => throw new ArgumentException("House not supported by HintHelper.Format")
             };
+        }
+
+        public static IEnumerable<House> GetHouses(IEnumerable<Position> positions)
+        {
+            var first = positions.First();
+
+            if( positions.All(pos => pos.X == first.X) )
+            {
+                yield return House.Col;
+            }
+            if( positions.All(pos => pos.Y == first.Y) )
+            {
+                yield return House.Row;
+            }
+            if( positions.All(pos => pos.Block == first.Block) )
+            {
+                yield return House.Block;
+            }
         }
     }
 }

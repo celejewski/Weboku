@@ -28,7 +28,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
             displayer.SetDescription("Fill all legal candidates before using hints.");
         }
 
-        public void Execute(Executor executor)
+        public void Execute(Executor executor, Informer informer)
         {
             executor.FillAllLegalCandidates();
         }
