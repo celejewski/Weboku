@@ -7,40 +7,106 @@
         <div class="hints-modal__container">
             <div class="hints-modal__title with-hr">Hints</div>
             <div class="hints-modal__technique-container">
-                @if( Displayer.IsVisible )
+                @if( HintsProvider.State != Enums.HintsState.ShowEmpty )
                 {
                     <div class="hints-modal__technique-name">@Displayer.Title</div>
+                }
+                
+                @if( HintsProvider.State == Enums.HintsState.ShowExplanation
+                    || HintsProvider.State == Enums.HintsState.ShowNextStep )
+                {
                     <p class="hints-modal__technique-desc">@Displayer.Desccription</p>
                 }
             </div>
             <div class="hints-modal__menu">
-                <div class="hints-modal__button"
-                     @onclick="@(() => HintsProvider.Display())">Reveal hint</div>
-                @if( Displayer.IsVisible)
+
+                @if( HintsProvider.State == Enums.HintsState.ShowEmpty )
                 {
-                    <div class="hints-modal__button"
-                         @onclick="@(() => HintsProvider.Execute())">Execute</div>
+                    <HintsButtonComponent Action="@ShowHint">Show hint</HintsButtonComponent>
+                    <HintsButtonComponent Action="@ShowNextStep">Next Step</HintsButtonComponent>
                 }
-                else
+                else if( HintsProvider.State == Enums.HintsState.ShowHint )
                 {
                     <div></div>
+                    <HintsButtonComponent Action="@ShowNextStep">Next step</HintsButtonComponent>
                 }
-                <div class="hints-modal__button"
-                     @onclick="Close">Close</div>
+                else if( HintsProvider.State == Enums.HintsState.ShowNextStep )
+                {
+                    if( HintsProvider.HasExplanation )
+                    {
+                        <HintsButtonComponent Action="@ShowExplanation">Explain</HintsButtonComponent>
+                    }
+                    else
+                    {
+                        <div></div>
+                    }
+                    <HintsButtonComponent Action="@Execute">Execute</HintsButtonComponent>
+                }
+                else if( HintsProvider.State == Enums.HintsState.ShowExplanation )
+                {
+                    if( HintsProvider.HasPreviousExplanation )
+                    {
+                        <HintsButtonComponent Action="@ShowPreviousExplanation">Previous</HintsButtonComponent>
+                    }
+                    else
+                    {
+                        <div></div>
+                    }
+
+                    if( HintsProvider.HasNextExplanation )
+                    {
+                        <HintsButtonComponent Action="@ShowNextExplanation">Next</HintsButtonComponent>
+                    }
+                    else
+                    {
+                        <HintsButtonComponent Action="@Execute">Execute</HintsButtonComponent>
+
+                    }
+                }
+                <HintsButtonComponent Action="@Close">Close</HintsButtonComponent>
             </div>
         </div>
     </Content>
 </ModalWithGridTemplateComponent>
 
 @code {
+    private void ShowHint()
+    {
+        HintsProvider.ShowHint();
+    }
+
+    private void ShowNextStep()
+    {
+        HintsProvider.ShowNextStep();
+    }
+
+    private void ShowExplanation()
+    {
+        HintsProvider.ShowExplanation();
+    }
+
+    private void ShowPreviousExplanation()
+    {
+    }
+
+    private void ShowNextExplanation()
+    {
+
+    }
+
+    private void Execute()
+    {
+        HintsProvider.Execute();
+    }
+
     private void Close()
     {
-        Displayer.Hide();
+        HintsProvider.Close();
         CloseModalCommand.Execute();
     }
 
-    //protected override void OnInitialized()
-    //{
-    //    HintsProvider.OnChanged += StateHasChanged;
-    //}
+    protected override void OnInitialized()
+    {
+        HintsProvider.OnChanged += StateHasChanged;
+    }
 }

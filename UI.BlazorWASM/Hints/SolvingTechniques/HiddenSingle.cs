@@ -4,23 +4,24 @@ using UI.BlazorWASM.Helpers;
 
 namespace UI.BlazorWASM.Hints.SolvingTechniques
 {
-    public class HiddenSingle :ISolvingTechnique
+    public class HiddenSingle :BaseSolvingTechnique
     {
         private readonly Position _position;
         private readonly InputValue _inputValue;
 
         public HiddenSingle(Position position, InputValue inputValue)
+            :base("Hidden Single")
         {
             _position = position;
             _inputValue = inputValue;
         }
 
-        public bool CanExecute(Informer informer)
+        public override bool CanExecute(Informer informer)
         {
             return informer.HasCandidate(_position, _inputValue);
         }
 
-        public void Display(Displayer displayer, Informer informer)
+        public override void DisplaySolution(Displayer displayer, Informer informer)
         {
 
             var house = HintsHelper.FindHouse(_position,
@@ -28,7 +29,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
                                       .Count() == 1
                 );
 
-            displayer.SetTitle("Hidden Single");
+            displayer.SetTitle(_title);
             displayer.SetDescription($"In {HintsHelper.Format(house, _position)} value {_inputValue:d} can only be placed in cell {_position}");
 
             var posInHouse = HintsHelper.GetPositionsInHouse(_position, house);
@@ -40,7 +41,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
             displayer.SetValueFilter(_inputValue);
         }
 
-        public void Execute(Executor executor, Informer informer)
+        public override void Execute(Executor executor, Informer informer)
         {
             executor.SetInput(_inputValue, _position);
         }

@@ -1,34 +1,32 @@
 ﻿using Core.Data;
-using Microsoft.AspNetCore.Components.Forms;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using UI.BlazorWASM.Helpers;
 
 namespace UI.BlazorWASM.Hints.SolvingTechniques
 {
-    public class LockedCandidatesPointing : ISolvingTechnique
+    public class LockedCandidatesPointing : BaseSolvingTechnique
     {
         private readonly int _block;
         private readonly InputValue _inputValue;
         private readonly IEnumerable<Position> _positionsToRemoveFrom;
 
         public LockedCandidatesPointing(int block, InputValue inputValue, IEnumerable<Position> positionToRemoveFrom)
+            :base("Locked Candidates - Pointing")
         {
             _block = block;
             _inputValue = inputValue;
             _positionsToRemoveFrom = positionToRemoveFrom;
         }
-        public bool CanExecute(Informer informer)
+        public override bool CanExecute(Informer informer)
         {
             return _positionsToRemoveFrom.Any(pos => informer.HasCandidate(pos, _inputValue));
         }
 
-        public void Display(Displayer displayer, Informer informer)
+        public override void DisplaySolution(Displayer displayer, Informer informer)
         {
             var rowOrCol = HintsHelper.Format(RowOrCol(informer));
-            displayer.SetTitle("Locked Candidates - Pointing");
+            displayer.SetTitle(_title);
             displayer.SetDescription(
                 $"In block {_block+1}, value {_inputValue:D} can only be placed in one {rowOrCol}. " +
                 $"This means that value {_inputValue:D} cannot occur in other blocks in this {rowOrCol}, " +
@@ -44,7 +42,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
             displayer.SetValueFilter(_inputValue);
         }
 
-        public void Execute(Executor executor, Informer informer)
+        public override void Execute(Executor executor, Informer informer)
         {
             executor.RemoveCandidates(_inputValue, _positionsToRemoveFrom);
         }

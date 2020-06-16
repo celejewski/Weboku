@@ -5,24 +5,25 @@ using UI.BlazorWASM.Helpers;
 
 namespace UI.BlazorWASM.Hints.SolvingTechniques
 {
-    public class HiddenSubset : ISolvingTechnique
+    public class HiddenSubset : BaseSolvingTechnique
     {
         private Position Pos => _positions.First();
         private readonly IEnumerable<Position> _positions;
         private readonly IEnumerable<InputValue> _values;
 
         public HiddenSubset(IEnumerable<Position> positions, IEnumerable<InputValue> values)
+            :base("Hidden subset")
         {
             _positions = positions;
             _values = values;
         }
 
-        public bool CanExecute(Informer informer)
+        public override bool CanExecute(Informer informer)
         {
             return ValuesToRemove().Any(value => _positions.Any(pos => informer.HasCandidate(pos, value)));
         }
 
-        public virtual void Display(Displayer displayer, Informer informer)
+        public override void DisplaySolution(Displayer displayer, Informer informer)
         {
             foreach( var value in ValuesToRemove() )
             {
@@ -42,7 +43,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
             displayer.SetValueFilter(InputValue.Empty);
         }
 
-        public void Execute(Executor executor, Informer informer)
+        public override void Execute(Executor executor, Informer informer)
         {
             foreach( var value in ValuesToRemove() )
             {

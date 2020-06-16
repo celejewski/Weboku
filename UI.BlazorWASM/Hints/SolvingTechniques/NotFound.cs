@@ -1,24 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace UI.BlazorWASM.Hints.SolvingTechniques
+﻿namespace UI.BlazorWASM.Hints.SolvingTechniques
 {
-    public class NotFound : ISolvingTechnique
+    public class NotFound : BaseSolvingTechnique
     {
-        public bool CanExecute(Informer informer)
+        public NotFound()
+            : base("No hint found")
+        {
+
+        }
+        public override bool CanExecute(Informer informer)
         {
             return true;
         }
 
-        public void Display(Displayer displayer, Informer informer)
+        public override void DisplaySolution(Displayer displayer, Informer informer)
         {
-            displayer.SetTitle("No Hint Found");
+            displayer.SetTitle(_title);
             displayer.SetDescription("There is no hint avaliable for this sudoku.");
         }
 
-        public void Execute(Executor executor, Informer informer)
+        public override void Execute(Executor executor, Informer informer)
         {
         }
     }

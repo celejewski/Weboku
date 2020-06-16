@@ -1,32 +1,31 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UI.BlazorWASM.Helpers;
 
 namespace UI.BlazorWASM.Hints.SolvingTechniques
 {
-    public class FindIncorrectSolution : ISolvingTechnique
+    public class FindIncorrectSolution : BaseSolvingTechnique
     {
         private readonly Informer _informer;
 
-        public FindIncorrectSolution(Informer informer)
+        public FindIncorrectSolution(Informer informer) : base("There are some invalid inputs")
         {
             _informer = informer;
         }
 
-        public bool CanExecute(Informer informer)
+        public override bool CanExecute(Informer informer)
         {
             return GetInvalidSolutionsPosition().Any();
         }
 
-        public void Display(Displayer displayer, Informer informer)
+        public override void DisplaySolution(Displayer displayer, Informer informer)
         {
-            displayer.SetTitle("There are some invalid inputs");
+            displayer.SetTitle(_title);
             displayer.SetDescription("There are some invalid inputs.");
             displayer.MarkCells(Enums.Color.Illegal, GetInvalidSolutionsPosition());
         }
 
-        public void Execute(Executor executor, Informer informer)
+        public override void Execute(Executor executor, Informer informer)
         {
             foreach( var pos in GetInvalidSolutionsPosition() )
             {

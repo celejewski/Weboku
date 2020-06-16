@@ -21,9 +21,9 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
             _value2 = values.Last();
         }
 
-        public override void Display(Displayer displayer, Informer informer)
+        public override void DisplaySolution(Displayer displayer, Informer informer)
         {
-            base.Display(displayer, informer);
+            base.DisplaySolution(displayer, informer);
             displayer.SetTitle("Naked Pair");
             displayer.SetDescription($"Because the {_pos1} and {_pos2} cells have two and only two values of {_value1:D} and {_value2:D} this means that we can remove these values from the other cells that see both {_pos1} and {_pos2}." +
                 $" If we insert the value of {_value1:D} or {_value2:D} in other cells, then {_pos1} or {_pos2} would be left without a valid value.");

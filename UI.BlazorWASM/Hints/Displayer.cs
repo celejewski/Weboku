@@ -46,7 +46,7 @@ namespace UI.BlazorWASM.Hints
             _markInputProvider = markInputProvider;
         }
 
-        public void Reset()
+        public void Clear()
         {
             Title = string.Empty;
             Desccription = string.Empty;
@@ -68,7 +68,7 @@ namespace UI.BlazorWASM.Hints
         public void Hide()
         {
             IsVisible = false;
-            Reset();
+            Clear();
             OnChanged?.Invoke();
         }
         public void HighlightRow(Position position)

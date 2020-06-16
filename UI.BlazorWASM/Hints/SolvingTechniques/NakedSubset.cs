@@ -5,24 +5,25 @@ using UI.BlazorWASM.Helpers;
 
 namespace UI.BlazorWASM.Hints.SolvingTechniques
 {
-    public class NakedSubset : ISolvingTechnique
+    public class NakedSubset : BaseSolvingTechnique
     {
         private Position Pos => _positions.First();
         protected readonly IEnumerable<Position> _positions;
         protected readonly IEnumerable<InputValue> _values;
 
         public NakedSubset(IEnumerable<Position> positions, IEnumerable<InputValue> values)
+            :base("Naked subset")
         {
             _positions = positions;
             _values = values;
         }
 
-        public bool CanExecute(Informer informer)
+        public override bool CanExecute(Informer informer)
         {
             return GetPositionsToRemove(informer).Any();
         }
 
-        public virtual void Display(Displayer displayer, Informer informer)
+        public override void DisplaySolution(Displayer displayer, Informer informer)
         {
             foreach( var value in _values )
             {
@@ -37,7 +38,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
             displayer.SetValueFilter(InputValue.Empty);
         }
 
-        public void Execute(Executor executor, Informer informer)
+        public override void Execute(Executor executor, Informer informer)
         {
             foreach( var value in _values )
             {
