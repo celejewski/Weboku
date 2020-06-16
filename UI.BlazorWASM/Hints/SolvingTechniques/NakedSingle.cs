@@ -24,12 +24,11 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
         public override void DisplaySolution(Displayer displayer, Informer informer)
         {
             displayer.SetTitle(_title);
-            displayer.SetDescription($"{_value:D} is the only candidate in cell {_position}");
-            displayer.MarkCell(Color.Legal, _position);
-            displayer.MarkCandidate(Color.Legal, _position, _value);
+            displayer.SetDescription($"In cell {_position} there is only one valid candidate, so we can place {_value:D} in cell {_position}.");
+            displayer.Mark(Color.Legal, _position, _value);
             displayer.HighlightBlock(_position);
-            displayer.HighlightRow(_position);
             displayer.HighlightCol(_position);
+            displayer.HighlightRow(_position);
             displayer.SetValueFilter(_value);
         }
 
