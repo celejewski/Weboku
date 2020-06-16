@@ -1,4 +1,6 @@
 ﻿using Core.Data;
+using System.Collections.Generic;
+using System.Linq;
 using UI.BlazorWASM.Helpers;
 
 namespace UI.BlazorWASM.Hints.SolvingTechniques
@@ -10,13 +12,13 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
         private readonly InputValue _value1;
         private readonly InputValue _value2;
 
-        public LockedPair(Position pos1, Position pos2, InputValue value1, InputValue value2)
-            : base(new[]{ pos1, pos2 }, new[]{value1, value2 })
+        public LockedPair(IEnumerable<Position> positions, IEnumerable<InputValue> values)
+            : base(positions, values)
         {
-            _pos1 = pos1;
-            _pos2 = pos2;
-            _value1 = value1;
-            _value2 = value2;
+            _pos1 = positions.First();
+            _pos2 = positions.Last();
+            _value1 = values.First();
+            _value2 = values.Last();
         }
 
 

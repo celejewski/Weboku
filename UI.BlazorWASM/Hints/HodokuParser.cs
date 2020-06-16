@@ -1,14 +1,10 @@
 ﻿using Core.Data;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
-using UI.BlazorWASM.Commands;
 using UI.BlazorWASM.Helpers;
 using UI.BlazorWASM.Hints.SolvingTechniques;
-using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.Hints
 {
@@ -18,18 +14,11 @@ namespace UI.BlazorWASM.Hints
         {
             Func<string, ISolvingTechnique>[] techniques =
             {
-                NakedSingle,
-                HiddenSingle,
-                FullHouse,
-                LockedCandidatesPointing,
-                LockedCandidatesClaiming,
-                NakedSubset,
-                HiddenSubset,
-                LockedPair,
-                NakedPair,
-                NakedTriple,
-                LockedTriple,
-                Unknown,
+                SingleOrDefault,
+                LockedCandidatesPointingOrDefault,
+                LockedCandidatesClaimingOrDefault,
+                SubsetOrDefault,
+                NotFound,
             };
 
             foreach( var step in steps )
@@ -46,59 +35,33 @@ namespace UI.BlazorWASM.Hints
             }
         }
 
-        public ISolvingTechnique Unknown(string step)
+        private ISolvingTechnique NotFound(string step)
         {
             Console.WriteLine($"Unknown step: {step}");
             return new NotFound();
         }
 
-        public ISolvingTechnique NakedSingle(string step)
+        private ISolvingTechnique SingleOrDefault(string step)
         {
-            //Naked Single: r1c6=6
-            if( !step.Contains("Naked Single") )
+            (string name, Type type)[] singles = {
+                ("Naked Single", typeof(NakedSingle)),
+                ("Hidden Single", typeof(HiddenSingle)),
+                ("Full House", typeof(FullHouse)),
+            };
+
+            var technique = singles.FirstOrDefault(single => step.Contains(single.name));
+            if (technique == default)
             {
-                return null;
+                return default;
             }
 
-            // r1c6=6
             var info = step.Substring(step.Length - 6, 6);
-            var pos = HintsHelper.GetPosition(info);
+            var position = HintsHelper.GetPosition(info);
             var value = HintsHelper.GetValue(info, 5);
-            return new NakedSingle(pos, value);
+            return (ISolvingTechnique) Activator.CreateInstance(technique.type, position, value);
         }
 
-        public ISolvingTechnique HiddenSingle(string step)
-        {
-            //Naked Single: r1c6=6
-            if( !step.Contains("Hidden Single") )
-            {
-                return null;
-            }
-
-            // r1c6=6
-            var cell = step.Substring(step.Length - 6, 6);
-            var position = HintsHelper.GetPosition(cell);
-            var value = HintsHelper.GetValue(cell, 5);
-            return new HiddenSingle(position, value);
-
-        }
-
-        public ISolvingTechnique FullHouse(string step)
-        {
-            //Naked Single: r1c6=6
-            if( !step.Contains("Full House") )
-            {
-                return null;
-            }
-
-            // r1c6=6
-            var cell = step.Substring(step.Length - 6, 6);
-            var position = HintsHelper.GetPosition(cell);
-            var value = HintsHelper.GetValue(cell, 5);
-            return new FullHouse(position, value);
-        }
-
-        public ISolvingTechnique LockedCandidatesPointing(string step)
+        private ISolvingTechnique LockedCandidatesPointingOrDefault(string step)
         {
             // Locked Candidates Type 1 (Pointing): 8 in b3 => r1c136 <> 8
             // Locked Candidates Type 1 (Pointing): 7 in b3 => r569c7 <> 7
@@ -121,7 +84,7 @@ namespace UI.BlazorWASM.Hints
             return new LockedCandidatesPointing(block, value, positions);
         }
 
-        public ISolvingTechnique LockedCandidatesClaiming(string step)
+        private ISolvingTechnique LockedCandidatesClaimingOrDefault(string step)
         {
             // Locked Candidates Type 2 (Claiming): 2 in r6 => r4c456,r5c5<>2
             if (!step.Contains("Locked Candidates Type 2 (Claiming)", StringComparison.Ordinal))
@@ -142,132 +105,35 @@ namespace UI.BlazorWASM.Hints
 
             return new LockedCandidatesClaiming(value, positions, house);
         }
-
-        public ISolvingTechnique LockedPair(string step)
+        private ISolvingTechnique SubsetOrDefault(string step)
         {
-            // Locked Pair: 2,3 in r46c3 => r159c3,r46c1,r56c2 <> 3, r6c2,r79c3 <> 2
-            // Locked Pair: 6,9 in r8c13 => r8c456,r9c3<>9, r7c1,r8c56<>6
-            if( !step.Contains("Locked Pair: ") )
-            {
-                return null;
-            }
-
-            var info = step.Substring("Locked Pair: ".Length);
-            var value1 = HintsHelper.GetValue(info, 0);
-            var value2 = HintsHelper.GetValue(info, 2);
-
-            var positions = HintsHelper.GetPositions(info.Substring(7, 5)).ToList();
-
-            return new LockedPair(positions[0], positions[1], value1, value2);
-        }
-
-        public ISolvingTechnique NakedPair(string step)
-        {
-            // Naked Pair: 6,9 in r16c6 => r357c6<>6, r5c6<>9
-            if (!step.Contains("Naked Pair:"))
-            {
-                return null; 
-            }
-
-            Console.WriteLine(step);
-
-            var info = step.Substring("Naked Pair: ".Length);
-            var value1 = HintsHelper.GetValue(info, 0);
-            var value2 = HintsHelper.GetValue(info, 2);
-            var positions = HintsHelper.GetPositions(info.Substring(7, 5)).ToList();
-
-            return new NakedPair(positions[0], positions[1], value1, value2);
-        }
-
-        public ISolvingTechnique NakedTriple(string step)
-        {
-            // Naked Triple: 2,3,5 in r1c5,r2c46 => r13c4,r3c6<>2, r3c46<>5
-            if( !step.Contains("Naked Triple") )
-            {
-                return null;
-            }
-
-            Console.WriteLine(step);
-            var match = Regex.Match(step, ": (.*) in (.*) =>");
-            var values = new int[] { 0, 2, 4 }.Select(pos => HintsHelper.GetValue(match.Groups[1].Value, pos));
-            var positions = HintsHelper.GetPositions(match.Groups[2].Value);
-
-            return new NakedSubset(positions, values);
-        }
-
-        public ISolvingTechnique LockedTriple(string step)
-        {
-            // Naked Triple: 2,3,5 in r1c5,r2c46 => r13c4,r3c6<>2, r3c46<>5
-            if( !step.Contains("Locked Triple") )
-            {
-                return null;
-            }
-
-            Console.WriteLine(step);
-            var match = Regex.Match(step, ": (.*) in (.*) =>");
-            var values = new int[] { 0, 2, 4 }.Select(pos => HintsHelper.GetValue(match.Groups[1].Value, pos));
-            var positions = HintsHelper.GetPositions(match.Groups[2].Value);
-
-            return new NakedSubset(positions, values);
-        }
-
-        public ISolvingTechnique NakedSubset(string step)
-        {
-            // Locked Pair: 2,3 in r46c3 => r159c3,r46c1,r56c2 <> 3, r6c2,r79c3 <> 2
-            // Locked Triple: 1,2,4 in r123c1 => r1c23,r2c2,r89c1<>2,
-            // Naked Pair: 6,9 in r16c6 => r357c6<>6, r5c6<>9
-            // Naked Triple: 2,3,5 in r1c5,r2c46 => r13c4,r3c6<>2, r3c46<>5
-            // Naked Quadruple: 2,6,8,9 in r4569c3 => r128c3<>2, r13c3<>8, r1238c3<>9, r28c3<>6
-            string[] subsetNames = {
-                "Locked Pair",
-                "Locked Triple",
-                "Locked Quadruple",
-                "Naked Pair",
-                "Naked Triple",
-                "Naked Quadruple",
+            (string name, Type type)[] subsets = {
+                ("Locked Pair", typeof(LockedPair)),
+                ("Locked Triple", typeof(NakedSubset)),
+                ("Locked Quadruple", typeof(NakedSubset)),
+                ("Naked Pair", typeof(NakedPair)),
+                ("Naked Triple", typeof(NakedSubset)),
+                ("Naked Quadruple", typeof(NakedSubset)),
+                ("Hidden Pair", typeof(HiddenSubset)),
+                ("Hidden Triple", typeof(HiddenSubset)),
+                ("Hidden Quadruple", typeof(HiddenSubset)),
             };
-            var name = subsetNames.FirstOrDefault(name => step.Contains(name));
-            if (string.IsNullOrEmpty(name))
+
+            var subset = subsets.FirstOrDefault(subset => step.Contains(subset.name));
+            if( subset == default )
             {
-                return null;
+                return default;
             }
-            Console.WriteLine(name);
 
-            var (positions, values) = ParseSubsetArgs(step);
-            return new NakedSubset(positions, values);
-        }
-
-        private ISolvingTechnique HiddenSubset(string step)
-        {
-            string[] subsetNames =
-            {
-                "Hidden Pair",
-                "Hidden Triple",
-                "Hidden Quadruple"
-            };
-            var name = subsetNames.FirstOrDefault(name => step.Contains(name));
-            if(string.IsNullOrEmpty(name))
-            {
-                return null;
-            }
-            Console.WriteLine(step);
-
-            var (positions, values) = ParseSubsetArgs(step);
-            return new HiddenSubset(positions, values);
-        }
-
-        private (IEnumerable<Position> positions, IEnumerable<InputValue> values) ParseSubsetArgs(string step)
-        {
             var match = Regex.Match(step, ": (.*)in (.*) =>");
-            
+
             var valuesText = match.Groups[1].Value;
             var values = Enumerable.Range(0, valuesText.Length / 2)
                 .Select(pos => HintsHelper.GetValue(valuesText, pos * 2));
 
             var positionsText = match.Groups[2].Value;
             var positions = HintsHelper.GetPositions(positionsText);
-
-            return (positions, values);
+            return (ISolvingTechnique) Activator.CreateInstance(subset.type, positions, values);
         }
     }
 }

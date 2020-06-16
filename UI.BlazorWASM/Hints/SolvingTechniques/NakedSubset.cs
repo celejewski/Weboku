@@ -8,8 +8,8 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
     public class NakedSubset : ISolvingTechnique
     {
         private Position Pos => _positions.First();
-        private readonly IEnumerable<Position> _positions;
-        private readonly IEnumerable<InputValue> _values;
+        protected readonly IEnumerable<Position> _positions;
+        protected readonly IEnumerable<InputValue> _values;
 
         public NakedSubset(IEnumerable<Position> positions, IEnumerable<InputValue> values)
         {
