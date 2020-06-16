@@ -73,6 +73,7 @@ namespace UI.BlazorWASM.Helpers
             services.AddSingleton<IGridProvider, GridProvider>();
             services.AddSingleton<RESTGridGenerator>();
             services.AddSingleton<SudokuProvider>();
+            services.AddSingleton<MarkInputProvider>();
         }
     }
 }

@@ -19,6 +19,7 @@ namespace UI.BlazorWASM.Hints
         private readonly CommandProvider _commandProvider;
         private readonly NumpadMenuBuilder _numpadMenuBuilder;
         private readonly Informer _informer;
+        private readonly MarkInputProvider _markInputProvider;
 
         public bool IsVisible { get; set; }
         public string Title { get; set; }
@@ -34,13 +35,15 @@ namespace UI.BlazorWASM.Hints
             CandidatesMarkProvider candidatesMarkProvider,
             CommandProvider commandProvider,
             NumpadMenuBuilder numpadMenuBuilder,
-            Informer informer)
+            Informer informer,
+            MarkInputProvider markInputProvider)
         {
             _cellColorProvider = cellColorProvider;
             _candidatesMarkProvider = candidatesMarkProvider;
             _commandProvider = commandProvider;
             _numpadMenuBuilder = numpadMenuBuilder;
             _informer = informer;
+            _markInputProvider = markInputProvider;
         }
 
         public void Reset()
@@ -53,6 +56,7 @@ namespace UI.BlazorWASM.Hints
                 IsColHighlighted[i] = false;
                 IsBlockHighlighted[i] = false;
             }
+            _markInputProvider.ClearColors();
             _cellColorProvider.ClearAll();
             _candidatesMarkProvider.ClearColors();
         }
@@ -135,6 +139,26 @@ namespace UI.BlazorWASM.Hints
             foreach( var position in positions )
             {
                 MarkCandidate(color, position, inputValue);
+            }
+        }
+
+        public void MarkInput(Color color, Position position)
+        {
+            _markInputProvider.SetColor(position, color);
+        }
+
+        public void MarkInputOrCandidate(Color color, IEnumerable<Position> positions, InputValue candidate)
+        {
+            foreach( var pos in positions )
+            {
+                if (!_informer.HasValue(pos))
+                {
+                    MarkCandidate(color, pos, candidate);
+                }
+                else
+                {
+                    MarkInput(color, pos);
+                }
             }
         }
 

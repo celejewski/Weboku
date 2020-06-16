@@ -30,7 +30,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
                 );
 
             displayer.SetTitle("Full House");
-            displayer.SetDescription($"Cell {_position} is only one without value in this house.");
+            displayer.SetDescription($"In {HintsHelper.Format(house, _position)} cell {_position} is the last one without value.");
             displayer.MarkCell(Enums.Color.Legal, _position);
             displayer.MarkCandidate(Enums.Color.Legal, _position, _value);
             displayer.HighlightHouse(_position, house);

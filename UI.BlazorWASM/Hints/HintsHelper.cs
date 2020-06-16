@@ -149,6 +149,17 @@ namespace UI.BlazorWASM.Hints
             };
         }
 
+        public static string Format(House house, Position position)
+        {
+            return house switch
+            {
+                House.Row => $"row {position.Y + 1}",
+                House.Col => $"column {position.X + 1}",
+                House.Block => $"block {position.Block + 1}",
+                _ => "none"
+            };
+        }
+
         public static IEnumerable<House> GetHouses(IEnumerable<Position> positions)
         {
             var first = positions.First();

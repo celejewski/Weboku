@@ -29,7 +29,11 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
                 );
 
             displayer.SetTitle("Hidden Single");
-            displayer.SetDescription($"Candidate {_inputValue:d} can be placed only in {_position} in this house.");
+            displayer.SetDescription($"In {HintsHelper.Format(house, _position)} value {_inputValue:d} can only be placed in cell {_position}");
+
+            var posInHouse = HintsHelper.GetPositionsInHouse(_position, house);
+            displayer.MarkInputOrCandidate(Enums.Color.Illegal, posInHouse, _inputValue);
+            displayer.MarkCells(Enums.Color.Illegal, posInHouse);
             displayer.MarkCell(Enums.Color.Legal, _position);
             displayer.MarkCandidate(Enums.Color.Legal, _position, _inputValue);
             displayer.HighlightHouse(_position, house);
