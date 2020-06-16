@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core.Data;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -22,6 +23,8 @@ namespace UI.BlazorWASM.Hints
                 FullHouse,
                 LockedCandidatesPointing,
                 LockedCandidatesClaiming,
+                NakedSubset,
+                HiddenSubset,
                 LockedPair,
                 NakedPair,
                 NakedTriple,
@@ -206,6 +209,65 @@ namespace UI.BlazorWASM.Hints
             var positions = HintsHelper.GetPositions(match.Groups[2].Value);
 
             return new NakedSubset(positions, values);
+        }
+
+        public ISolvingTechnique NakedSubset(string step)
+        {
+            // Locked Pair: 2,3 in r46c3 => r159c3,r46c1,r56c2 <> 3, r6c2,r79c3 <> 2
+            // Locked Triple: 1,2,4 in r123c1 => r1c23,r2c2,r89c1<>2,
+            // Naked Pair: 6,9 in r16c6 => r357c6<>6, r5c6<>9
+            // Naked Triple: 2,3,5 in r1c5,r2c46 => r13c4,r3c6<>2, r3c46<>5
+            // Naked Quadruple: 2,6,8,9 in r4569c3 => r128c3<>2, r13c3<>8, r1238c3<>9, r28c3<>6
+            string[] subsetNames = {
+                "Locked Pair",
+                "Locked Triple",
+                "Locked Quadruple",
+                "Naked Pair",
+                "Naked Triple",
+                "Naked Quadruple",
+            };
+            var name = subsetNames.FirstOrDefault(name => step.Contains(name));
+            if (string.IsNullOrEmpty(name))
+            {
+                return null;
+            }
+            Console.WriteLine(name);
+
+            var (positions, values) = ParseSubsetArgs(step);
+            return new NakedSubset(positions, values);
+        }
+
+        private ISolvingTechnique HiddenSubset(string step)
+        {
+            string[] subsetNames =
+            {
+                "Hidden Pair",
+                "Hidden Triple",
+                "Hidden Quadruple"
+            };
+            var name = subsetNames.FirstOrDefault(name => step.Contains(name));
+            if(string.IsNullOrEmpty(name))
+            {
+                return null;
+            }
+            Console.WriteLine(step);
+
+            var (positions, values) = ParseSubsetArgs(step);
+            return new HiddenSubset(positions, values);
+        }
+
+        private (IEnumerable<Position> positions, IEnumerable<InputValue> values) ParseSubsetArgs(string step)
+        {
+            var match = Regex.Match(step, ": (.*)in (.*) =>");
+            
+            var valuesText = match.Groups[1].Value;
+            var values = Enumerable.Range(0, valuesText.Length / 2)
+                .Select(pos => HintsHelper.GetValue(valuesText, pos * 2));
+
+            var positionsText = match.Groups[2].Value;
+            var positions = HintsHelper.GetPositions(positionsText);
+
+            return (positions, values);
         }
     }
 }

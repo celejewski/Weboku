@@ -18,6 +18,13 @@ namespace UI.BlazorWASM.Hints
             _gridProvider = gridProvider;
         }
 
+        public void ClearCandidates(IEnumerable<Position> positions)
+        {
+            foreach( var pos in positions )
+            {
+                _gridProvider.ClearCandidates(pos.X, pos.Y);
+            }
+        }
         public void RemoveCandidate(InputValue value, Position position) 
         {
             _gridProvider.RemoveCandidate(position.X, position.Y, value);
