@@ -177,6 +177,17 @@ namespace UI.BlazorWASM.Hints
             _markInputProvider.SetColor(position, color);
         }
 
+        public void MarkIfInput(Color color, IEnumerable<Position> positions, InputValue value)
+        {
+            foreach( var position in positions )
+            {
+                if (_informer.GetValue(position) == value)
+                {
+                    MarkInput(color, position);
+                }
+            }
+        }
+
         public void MarkInputOrCandidate(Color color, IEnumerable<Position> positions, InputValue candidate)
         {
             foreach( var pos in positions )
