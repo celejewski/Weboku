@@ -69,10 +69,10 @@ namespace UI.BlazorWASM.Helpers
             services.AddSingleton<PasteProvider>();
             services.AddSingleton<Base64GridConverter>();
             services.AddSingleton<ChainGridConverter>();
+            services.AddSingleton<SudokuProvider>();
             services.AddSingleton<CandidatesMarkProvider>();
             services.AddSingleton<IGridProvider, GridProvider>();
             services.AddSingleton<RESTGridGenerator>();
-            services.AddSingleton<SudokuProvider>();
             services.AddSingleton<MarkInputProvider>();
         }
     }
