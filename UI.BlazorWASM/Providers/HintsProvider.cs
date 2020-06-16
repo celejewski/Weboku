@@ -41,9 +41,10 @@ namespace UI.BlazorWASM.Providers
             }
         }
 
-        public bool HasExplanation { get; }
-        public bool HasNextExplanation { get; }
-        public bool HasPreviousExplanation { get; }
+        private ISolvingTechnique _currentTechnique;
+        public bool HasExplanation => _currentTechnique.HasExplanation;
+        public bool HasNextExplanation => _currentTechnique.HasNextExplanation;
+        public bool HasPreviousExplanation => _currentTechnique.HasPreviousExplanation;
 
         private ISolvingTechnique NextTechnique => Techniques.First(t => t.CanExecute(_informer));
 
@@ -56,12 +57,6 @@ namespace UI.BlazorWASM.Providers
             _gridHistoryManager = gridHistoryManager;
         }
 
-        private void Display()
-        {
-            _displayer.Clear();
-            NextTechnique.DisplaySolution(_displayer, _informer);
-            _displayer.Show();
-        }
 
         public void ShowHint()
         {
@@ -73,13 +68,29 @@ namespace UI.BlazorWASM.Providers
 
         public void ShowNextStep()
         {
-            Display();
+            _currentTechnique = NextTechnique;
+            _displayer.Clear();
+            _currentTechnique.DisplaySolution(_displayer, _informer);
+            _displayer.Show();
             SetState(Enums.HintsState.ShowNextStep);
         }
 
         public void ShowExplanation()
         {
+            _currentTechnique.DisplayExplanation(_displayer, _informer);
             SetState(Enums.HintsState.ShowExplanation);
+        }
+
+        public void ShowNextExplanation()
+        {
+            _currentTechnique.NextExplanation();
+            ShowExplanation();
+        }
+
+        public void ShowPreviousExplanation()
+        {
+            _currentTechnique.PreviousExplanation();
+            ShowExplanation();
         }
 
         public void Execute()
@@ -93,7 +104,7 @@ namespace UI.BlazorWASM.Providers
 
         public void Close()
         {
-            Display();
+            _displayer.Clear();
             _displayer.Hide();
             SetState(Enums.HintsState.Hide);
         }
