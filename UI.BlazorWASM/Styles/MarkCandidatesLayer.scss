@@ -8,6 +8,22 @@
     border-radius: 50%;
     border-style: solid;
     border-color: currentColor;
+    /*background: currentColor;*/
+    margin: 10%;
+
+    &--danger {
+        border-color: $color-danger;
+    }
+}
+
+.mark__candidate {
+    width: 80%;
+    height: 80%;
+    color: transparent;
+    border-width: 3px;
+    border-radius: 50%;
+    border-style: solid;
+    border-color: currentColor;
     background: currentColor;
     margin: 10%;
 

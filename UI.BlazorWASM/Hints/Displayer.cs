@@ -107,14 +107,44 @@ namespace UI.BlazorWASM.Hints
             }
         }
 
+        public void HighlightHouses(Position position, IEnumerable<House> houses)
+        {
+            foreach( var house in houses )
+            {
+                HighlightHouse(position, house);
+            }
+        }
+        public void Mark(Color color, Position position, InputValue value)
+        {
+            MarkCell(color, position);
+            MarkCandidate(color, position, value);
+        }
+
         public void Mark(Color color, IEnumerable<Position> positions, InputValue value)
         {
             MarkCells(color, positions);
             MarkCandidates(color, positions, value);
         }
+
+        public void Mark(Color color, IEnumerable<Position> positions, IEnumerable<InputValue> values)
+        {
+            foreach( var value in values )
+            {
+                Mark(color, positions, value);
+            }
+        }
+
         public void MarkIfHasCandidate(Color color, IEnumerable<Position> positions, InputValue value)
         {
             Mark(color, positions.Where(pos => _informer.HasCandidate(pos, value)), value);
+        }
+
+        public void MarkIfHasCandidates(Color color, IEnumerable<Position> positions, IEnumerable<InputValue> values)
+        {
+            foreach( var value in values )
+            {
+                MarkIfHasCandidate(color, positions, value);
+            }
         }
 
         public void MarkCells(Color color, IEnumerable<Position> positions)
@@ -151,7 +181,7 @@ namespace UI.BlazorWASM.Hints
         {
             foreach( var pos in positions )
             {
-                if (!_informer.HasValue(pos))
+                if( !_informer.HasValue(pos) )
                 {
                     MarkCandidate(color, pos, candidate);
                 }

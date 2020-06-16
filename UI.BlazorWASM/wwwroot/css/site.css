@@ -782,11 +782,27 @@ h1, h2, h3 {
   border-radius: 50%;
   border-style: solid;
   border-color: currentColor;
-  background: currentColor;
+  /*background: currentColor;*/
   margin: 10%;
 }
 
 .mark__cell--danger {
+  border-color: #FFB0B0;
+}
+
+.mark__candidate {
+  width: 80%;
+  height: 80%;
+  color: transparent;
+  border-width: 3px;
+  border-radius: 50%;
+  border-style: solid;
+  border-color: currentColor;
+  background: currentColor;
+  margin: 10%;
+}
+
+.mark__candidate--danger {
   border-color: #FFB0B0;
 }
 
