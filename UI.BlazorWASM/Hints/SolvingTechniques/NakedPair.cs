@@ -27,7 +27,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
             _value2 = values.ElementAt(1);
             
             _houses = HintsHelper.GetHouses(_positions);
-            _housesFormated = string.Join(" and ", _houses.Select(house => HintsHelper.Format(house, _pos1)));
+            _housesFormated = string.Join(" and ", _houses.Select(house => Displayer.Format(house, _pos1)));
 
             _positionsInHouses = new List<Position>();
             foreach( var house in _houses )

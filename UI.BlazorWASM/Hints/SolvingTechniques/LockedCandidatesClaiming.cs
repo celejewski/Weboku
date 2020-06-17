@@ -27,7 +27,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
         public override void DisplaySolution(Displayer displayer, Informer informer)
         {
             var block = _positionsToRemoveCandidate.First().Block;
-            var house = HintsHelper.Format(_house);
+            var house = Displayer.Format(_house);
             displayer.SetTitle(_title);
             displayer.SetDescription($"The only place in {house} where {_inputValue:D} can appear is in block {block+1}. " +
                 $"So the value of {_inputValue:D} cannot appear anywhere else in the block of {block+1} because then the {house} would have no value of {_inputValue:D} anywhere.");

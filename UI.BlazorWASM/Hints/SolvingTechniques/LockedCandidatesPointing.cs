@@ -25,7 +25,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
 
         public override void DisplaySolution(Displayer displayer, Informer informer)
         {
-            var rowOrCol = HintsHelper.Format(RowOrCol(informer));
+            var rowOrCol = Displayer.Format(RowOrCol(informer));
             displayer.SetTitle(_title);
             displayer.SetDescription(
                 $"In block {_block+1}, value {_inputValue:D} can only be placed in one {rowOrCol}. " +

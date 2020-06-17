@@ -210,5 +210,27 @@ namespace UI.BlazorWASM.Hints
         {
             _numpadMenuBuilder.SelectValue((int) input).Execute();
         }
+        public static string Format(House house)
+        {
+            return house switch
+            {
+                House.None => "none",
+                House.Row => "row",
+                House.Col => "column",
+                House.Block => "block",
+                _ => throw new ArgumentException("House not supported by HintHelper.Format")
+            };
+        }
+
+        public static string Format(House house, Position position)
+        {
+            return house switch
+            {
+                House.Row => $"row {position.Y + 1}",
+                House.Col => $"column {position.X + 1}",
+                House.Block => $"block {position.Block + 1}",
+                _ => "none"
+            };
+        }
     }
 }

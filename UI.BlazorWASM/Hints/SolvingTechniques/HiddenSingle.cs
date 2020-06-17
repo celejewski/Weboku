@@ -32,7 +32,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
                 positions => positions.Where(pos => informer.HasCandidate(pos, _inputValue))
                                       .Count() == 1
                 );
-            _houseFormated = HintsHelper.Format(_house, _position);
+            _houseFormated = Displayer.Format(_house, _position);
 
             displayer.SetTitle(_title);
             displayer.HighlightHouse(_position, _house);
@@ -42,7 +42,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
         {
             SetupDisplayer(displayer, informer);
 
-            displayer.SetDescription($"In {HintsHelper.Format(_house, _position)} value {_inputValue:d} can only be placed in cell {_position}");
+            displayer.SetDescription($"In {Displayer.Format(_house, _position)} value {_inputValue:d} can only be placed in cell {_position}");
             displayer.SetValueFilter(_inputValue);
 
             displayer.Mark(Enums.Color.Legal, _position, _inputValue);

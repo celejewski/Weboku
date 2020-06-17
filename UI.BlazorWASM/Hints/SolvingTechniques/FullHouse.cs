@@ -46,7 +46,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
         {
             SetupDisplay(displayer, informer);
 
-            displayer.SetDescription($"In {HintsHelper.Format(_house, _position)} cell {_position} is the last one without value.");
+            displayer.SetDescription($"In {Displayer.Format(_house, _position)} cell {_position} is the last one without value.");
             displayer.Mark(Enums.Color.Legal, _position, _value);
             displayer.SetValueFilter(_value);
         }
@@ -60,7 +60,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
         {
             SetupDisplay(displayer, informer);
 
-            displayer.SetDescription($"In {HintsHelper.Format(_house, _position)} there is only one cell without set value. Let's find out what is the value by listing digits from 1 to 9...");
+            displayer.SetDescription($"In {Displayer.Format(_house, _position)} there is only one cell without set value. Let's find out what is the value by listing digits from 1 to 9...");
         }
 
         public Action<Displayer, Informer> ExplainN(InputValue n)
