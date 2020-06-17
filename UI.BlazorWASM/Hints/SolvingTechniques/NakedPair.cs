@@ -46,7 +46,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
 
         private void SetupDisplayer(Displayer displayer)
         {
-            displayer.SetTitle("Naked Pair");
+            displayer.SetTitle(_title);
             displayer.HighlightHouses(_pos1, _houses);
         }
         public override void DisplaySolution(Displayer displayer, Informer informer)
