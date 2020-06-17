@@ -15,6 +15,8 @@
                      @onclick="@(() => ShareProvider.SharedFields = Enums.SharedFields.Givens)">Only givens</div>
                 <div class="share__option @FieldClass(Enums.SharedFields.GivensAndInputs)"
                      @onclick="@(() => ShareProvider.SharedFields = Enums.SharedFields.GivensAndInputs)">User inputs</div>
+                <div class="share__option @FieldClass(Enums.SharedFields.Everything)"
+                     @onclick="@(() => ShareProvider.SharedFields = Enums.SharedFields.Everything)">Everything</div>
             </div>
 
             <div class="share__radio">

@@ -3,6 +3,7 @@
     public enum SharedFields
     {
         Givens,
-        GivensAndInputs
+        GivensAndInputs,
+        Everything,
     }
 }

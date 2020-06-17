@@ -24,6 +24,7 @@ namespace UI.BlazorWASM.Providers
                 {
                     SharedFields.Givens => (int x, int y) =>  _gridProvider.GetIsGiven(x, y) ? _gridProvider.GetValue(x, y) : InputValue.Empty,
                     SharedFields.GivensAndInputs => (int x, int y) => _gridProvider.GetValue(x, y),
+                    SharedFields.Everything => (int x, int y) => _gridProvider.GetValue(x, y),
                     _ => throw new NotImplementedException(),
                 };
             }
@@ -65,7 +66,7 @@ namespace UI.BlazorWASM.Providers
         }
 
 
-        private readonly IGrid _grid = new Grid();
+        private IGrid _grid = new Grid();
         public IGrid Grid
         {
             get
@@ -95,19 +96,26 @@ namespace UI.BlazorWASM.Providers
 
         private void Update()
         {
-            for( int x = 0; x < 9; x++ )
+            if( _sharedFields == SharedFields.Everything )
             {
-                for( int y = 0; y < 9; y++ )
+                _grid = _gridProvider.Grid.Clone();
+            }
+            else
+            {
+                for( int x = 0; x < 9; x++ )
                 {
-                    _grid.SetValue(x, y, (InputValue) CellToValue(x, y));
+                    for( int y = 0; y < 9; y++ )
+                    {
+                        _grid.SetValue(x, y, (InputValue) CellToValue(x, y));
+                    }
                 }
             }
 
             IGridConverter converter = SharedConverter switch
             {
                 SharedConverter.Hodoku => _hodokuGridConverter,
-                SharedConverter.MyFormat => _base64GridConverter,
-                SharedConverter.MyLink => _base64GridConverter,
+                SharedConverter.MyFormat => new Base64CandidatesConverter(),
+                SharedConverter.MyLink => new Base64CandidatesConverter(),
                 _ => throw new ArgumentException("incorrect SharedConverter")
             };
             var text = converter.ToText(_grid);

@@ -15,6 +15,7 @@ namespace Core.Converters
         {
             _converters.Add(base64GridConverter);
             _converters.Add(hodokuGridConverter);
+            _converters.Add(new Base64CandidatesConverter());
         }
 
         private IGridConverter GetFirstValidOrDefault(string text)
