@@ -9,7 +9,6 @@ namespace UI.BlazorWASM.Hints
     {
         public static IEnumerable<Position> GetPositionsInRow(int y)
         {
-
             for( int x = 0; x < 9; x++ )
             {
                 yield return new Position(x, y);
@@ -17,7 +16,6 @@ namespace UI.BlazorWASM.Hints
         }
         public static IEnumerable<Position> GetPositionsInCol(int x)
         {
-
             for( int y = 0; y < 9; y++ )
             {
                 yield return new Position(x, y);

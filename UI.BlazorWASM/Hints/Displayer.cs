@@ -16,14 +16,13 @@ namespace UI.BlazorWASM.Hints
     {
         private readonly CellColorProvider _cellColorProvider;
         private readonly CandidatesMarkProvider _candidatesMarkProvider;
-        private readonly CommandProvider _commandProvider;
         private readonly NumpadMenuBuilder _numpadMenuBuilder;
         private readonly Informer _informer;
         private readonly MarkInputProvider _markInputProvider;
 
         public bool IsVisible { get; set; }
         public string Title { get; set; }
-        public string Desccription { get; set; }
+        public string Description { get; set; }
         public bool[] IsRowHighlighted = new bool[9];
         public bool[] IsColHighlighted = new bool[9];
         public bool[] IsBlockHighlighted = new bool[9];
@@ -33,14 +32,12 @@ namespace UI.BlazorWASM.Hints
         public Displayer(
             CellColorProvider cellColorProvider,
             CandidatesMarkProvider candidatesMarkProvider,
-            CommandProvider commandProvider,
             NumpadMenuBuilder numpadMenuBuilder,
             Informer informer,
             MarkInputProvider markInputProvider)
         {
             _cellColorProvider = cellColorProvider;
             _candidatesMarkProvider = candidatesMarkProvider;
-            _commandProvider = commandProvider;
             _numpadMenuBuilder = numpadMenuBuilder;
             _informer = informer;
             _markInputProvider = markInputProvider;
@@ -49,7 +46,7 @@ namespace UI.BlazorWASM.Hints
         public void Clear()
         {
             Title = string.Empty;
-            Desccription = string.Empty;
+            Description = string.Empty;
             for( int i = 0; i < 9; i++ )
             {
                 IsRowHighlighted[i] = false;
@@ -60,34 +57,14 @@ namespace UI.BlazorWASM.Hints
             _cellColorProvider.ClearAll();
             _candidatesMarkProvider.ClearColors();
         }
-        public void Show()
-        {
-            IsVisible = true;
-            OnChanged?.Invoke();
-        }
-        public void Hide()
-        {
-            IsVisible = false;
-            Clear();
-            OnChanged?.Invoke();
-        }
-        public void HighlightRow(Position position)
-        {
-            IsRowHighlighted[position.Y] = true;
-        }
-        public void HighlightCol(Position position)
-        {
-            IsColHighlighted[position.X] = true;
-        }
-        public void HighlightBlock(Position position)
-        {
-            HighlightBlock(position.Block);
-        }
+        public void SetTitle(string text) { Title = text; }
+        public void SetDescription(string text) { Description = text; }
 
-        public void HighlightBlock(int block)
-        {
-            IsBlockHighlighted[block] = true;
-        }
+        public void HighlightRow(Position position) => IsRowHighlighted[position.Y] = true;
+        public void HighlightCol(Position position) => IsColHighlighted[position.X] = true;
+        public void HighlightBlock(Position position) => HighlightBlock(position.Block);
+
+        public void HighlightBlock(int block) => IsBlockHighlighted[block] = true;
 
         public void HighlightHouse(Position position, House house)
         {
@@ -114,6 +91,31 @@ namespace UI.BlazorWASM.Hints
                 HighlightHouse(position, house);
             }
         }
+
+        public void MarkCell(Color color, Position position) => _cellColorProvider.SetColor(position.X, position.Y, color);
+        public void MarkCells(Color color, IEnumerable<Position> positions)
+        {
+            foreach( var position in positions )
+            {
+                MarkCell(color, position);
+            }
+        }
+        public void MarkCandidate(Color color, Position position, InputValue value)
+        {
+            _candidatesMarkProvider.SetColor(position.X, position.Y, (int) value, color);
+        }
+
+        public void MarkCandidates(Color color, IEnumerable<Position> positions, InputValue inputValue)
+        {
+            foreach( var position in positions )
+            {
+                MarkCandidate(color, position, inputValue);
+            }
+        }
+
+        public void MarkInput(Color color, Position position) => _markInputProvider.SetColor(position, color);
+
+
         public void Mark(Color color, Position position, InputValue value)
         {
             MarkCell(color, position);
@@ -147,37 +149,7 @@ namespace UI.BlazorWASM.Hints
             }
         }
 
-        public void MarkCells(Color color, IEnumerable<Position> positions)
-        {
-            foreach( var position in positions )
-            {
-                MarkCell(color, position);
-            }
-        }
-
-        public void MarkCell(Color color, Position position)
-        {
-            _cellColorProvider.SetColor(position.X, position.Y, color);
-        }
-        public void MarkCandidate(Color color, Position position, InputValue value)
-        {
-            _candidatesMarkProvider.SetColor(position.X, position.Y, (int) value, color);
-        }
-
-        public void MarkCandidates(Color color, IEnumerable<Position> positions, InputValue inputValue)
-        {
-            foreach( var position in positions )
-            {
-                MarkCandidate(color, position, inputValue);
-            }
-        }
-
-        public void MarkInput(Color color, Position position)
-        {
-            _markInputProvider.SetColor(position, color);
-        }
-
-        public void MarkIfInput(Color color, IEnumerable<Position> positions, InputValue value)
+        public void MarkIfInputEquals(Color color, IEnumerable<Position> positions, InputValue value)
         {
             foreach( var position in positions )
             {
@@ -202,9 +174,6 @@ namespace UI.BlazorWASM.Hints
                 }
             }
         }
-
-        public void SetTitle(string text) { Title = text; }
-        public void SetDescription(string text) { Desccription = text; }
 
         public void SetValueFilter(InputValue input)
         {
@@ -232,5 +201,17 @@ namespace UI.BlazorWASM.Hints
                 _ => "none"
             };
         }
+        public void Show()
+        {
+            IsVisible = true;
+            OnChanged?.Invoke();
+        }
+        public void Hide()
+        {
+            Clear();
+            IsVisible = false;
+            OnChanged?.Invoke();
+        }
+
     }
 }

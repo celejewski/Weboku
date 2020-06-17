@@ -72,7 +72,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
                 var limit = (int) n + 1;
                 for( int i = 0; i < limit; i++ )
                 {
-                    displayer.MarkIfInput(Enums.Color.Illegal, positions, (InputValue)(i+1));
+                    displayer.MarkIfInputEquals(Enums.Color.Illegal, positions, (InputValue)(i+1));
                 }
                 var digits = Enumerable.Range(0, limit).Select(i => (i + 1).ToString() + "... ");
                 displayer.SetDescription(string.Join(" ", digits));
@@ -84,7 +84,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
             SetupDisplay(displayer, informer);
             ExplainN((InputValue) (_value - 1))(displayer, informer);
             displayer.Mark(Enums.Color.Legal, _position, _value);
-            displayer.SetDescription($"{displayer.Desccription} Bingo! Value {_value:D} is the one.");
+            displayer.SetDescription($"{displayer.Description} Bingo! Value {_value:D} is the one.");
         }
     }
 }
