@@ -16,8 +16,7 @@ namespace UI.BlazorWASM.Providers
         private readonly IGridHistoryManager _gridHistoryManager;
         private readonly SudokuProvider _sudokuProvider;
         private readonly HodokuParser _parser = new HodokuParser();
-
-
+        
         public event Action OnChanged;
 
         public HintsState State { get; private set; }
@@ -41,11 +40,11 @@ namespace UI.BlazorWASM.Providers
             }
         }
 
-        private ISolvingTechnique _currentTechnique;
         public bool HasExplanation => _currentTechnique.HasExplanation;
         public bool HasNextExplanation => _currentTechnique.HasNextExplanation;
         public bool HasPreviousExplanation => _currentTechnique.HasPreviousExplanation;
 
+        private ISolvingTechnique _currentTechnique;
         private ISolvingTechnique NextTechnique => Techniques.First(t => t.CanExecute(_informer));
 
         public HintsProvider(SudokuProvider sudokuProvider, Informer informer, Displayer displayer, Executor executor, IGridHistoryManager gridHistoryManager)
@@ -100,7 +99,6 @@ namespace UI.BlazorWASM.Providers
             _displayer.Hide();
             SetState(Enums.HintsState.ShowEmpty);
         }
-
 
         public void Close()
         {

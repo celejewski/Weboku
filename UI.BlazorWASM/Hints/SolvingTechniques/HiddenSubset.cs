@@ -36,7 +36,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
                 displayer.MarkIfHasCandidate(Enums.Color.Legal, _positions, value);
             }
 
-            foreach( var house in GetHouses() )
+            foreach( var house in HintsHelper.GetHouses(_positions) )
             {
                 displayer.HighlightHouse(Pos, house);
             }
@@ -49,11 +49,6 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
             {
                 executor.RemoveCandidates(value, _positions);
             }
-        }
-
-        private IEnumerable<House> GetHouses()
-        {
-            return HintsHelper.GetHouses(_positions);
         }
 
         private IEnumerable<InputValue> ValuesToRemove()
