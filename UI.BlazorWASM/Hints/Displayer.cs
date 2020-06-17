@@ -56,6 +56,7 @@ namespace UI.BlazorWASM.Hints
             _markInputProvider.ClearColors();
             _cellColorProvider.ClearAll();
             _candidatesMarkProvider.ClearColors();
+            OnChanged?.Invoke();
         }
         public void SetTitle(string text) { Title = text; }
         public void SetDescription(string text) { Description = text; }
