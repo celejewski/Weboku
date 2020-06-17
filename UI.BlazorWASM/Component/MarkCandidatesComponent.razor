@@ -1,5 +1,4 @@
 ﻿@inject CandidatesMarkProvider CandidatesMarkProvider
-@inject IGridProvider GridProvider
 @using UI.BlazorWASM.Converters
 @using UI.BlazorWASM.Enums
 
@@ -24,14 +23,12 @@
     {
         get
         {
-            var isIllegal = GridProvider.HasCandidate(X, Y, _value) && !GridProvider.IsCandidateLegal(X, Y, _value);
-            return isIllegal ? Color.Illegal : CandidatesMarkProvider.GetColor(X, Y, (int) _value);
+            return CandidatesMarkProvider.GetColor(X, Y, _value);
         }
     }
 
     protected override void OnInitialized()
     {
-        GridProvider.OnCandidatesChanged += StateHasChanged;
         CandidatesMarkProvider.OnChanged += StateHasChanged;
     }
 
