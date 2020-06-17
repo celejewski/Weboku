@@ -7,15 +7,17 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
 {
     public class HiddenSubset : BaseSolvingTechnique
     {
-        private Position Pos => _positions.First();
-        private readonly IEnumerable<Position> _positions;
-        private readonly IEnumerable<InputValue> _values;
+        protected Position Position => _positions.First();
+        protected readonly IEnumerable<Position> _positions;
+        protected readonly IEnumerable<InputValue> _values;
+        protected readonly House _house;
 
         public HiddenSubset(IEnumerable<Position> positions, IEnumerable<InputValue> values)
             :base("Hidden subset")
         {
             _positions = positions;
             _values = values;
+            _house = HintsHelper.GetHouses(positions).First();
         }
 
         public override bool CanExecute(Informer informer)
@@ -25,6 +27,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
 
         public override void DisplaySolution(Displayer displayer, Informer informer)
         {
+            displayer.SetTitle(_title);
             foreach( var value in ValuesToRemove() )
             {
                 displayer.MarkIfHasCandidate(Enums.Color.Illegal, _positions, value);
@@ -32,14 +35,10 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
 
             foreach( var value in _values )
             {
-                System.Console.WriteLine($"Legal {value}");
                 displayer.MarkIfHasCandidate(Enums.Color.Legal, _positions, value);
             }
 
-            foreach( var house in HintsHelper.GetHouses(_positions) )
-            {
-                displayer.HighlightHouse(Pos, house);
-            }
+            displayer.HighlightHouse(Position, _house);
             displayer.SetValueFilter(InputValue.Empty);
         }
 

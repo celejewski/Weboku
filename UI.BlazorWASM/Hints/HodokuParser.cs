@@ -108,13 +108,13 @@ namespace UI.BlazorWASM.Hints
         private ISolvingTechnique SubsetOrDefault(string step)
         {
             (string name, Type type)[] subsets = {
-                ("Locked Pair", typeof(LockedPair)),
+                ("Locked Pair", typeof(NakedPair)),
                 ("Locked Triple", typeof(NakedSubset)),
                 ("Locked Quadruple", typeof(NakedSubset)),
                 ("Naked Pair", typeof(NakedPair)),
                 ("Naked Triple", typeof(NakedSubset)),
                 ("Naked Quadruple", typeof(NakedSubset)),
-                ("Hidden Pair", typeof(HiddenSubset)),
+                ("Hidden Pair", typeof(HiddenPair)),
                 ("Hidden Triple", typeof(HiddenSubset)),
                 ("Hidden Quadruple", typeof(HiddenSubset)),
             };

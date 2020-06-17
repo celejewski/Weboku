@@ -25,6 +25,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
 
         public override void DisplaySolution(Displayer displayer, Informer informer)
         {
+            displayer.SetTitle(_title);
             foreach( var value in _values )
             {
                 displayer.MarkIfHasCandidate(Enums.Color.Illegal, GetPositionsToRemove(informer), value);
