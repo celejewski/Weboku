@@ -45,7 +45,7 @@
         bottom: $padding;
         right: $padding;
         left: $padding;
-        background-color: currentColor;
+        background-color: var(--color);
     }
 
     &__color1 {

@@ -1,7 +1,32 @@
-﻿.candidates {
+﻿@import '_Variables.scss';
+
+.mark__cell {
+    --color: transparent;
+    width: 80%;
+    height: 80%;
+    border-width: 3px;
+    border-radius: 50%;
+    border-style: solid;
+    border-color: var(--color);
+    /*background: currentColor;*/
+    margin: 10%;
+
+    &--danger {
+        border-color: $color-danger;
+    }
+}
+
+.mark__candidate {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
     height: 100%;
+    border-radius: 50%;
+    background: var(--color, transparent);
+    margin: 5%;
+
+    &--danger {
+        border-color: $color-danger;
+    }
 }

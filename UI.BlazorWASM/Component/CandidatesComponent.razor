@@ -1,11 +1,20 @@
 ﻿@inject IGridProvider GridProvider
+@inject CandidatesMarkProvider CandidatesMarkProvider
+@using UI.BlazorWASM.Converters
+@using UI.BlazorWASM.Enums
 
-<div class="candidates">
-    @if( _isVisible )
-    {
-        @_text
-    }
-</div>
+@if( _wasEveryVisible || _isVisible )
+{
+    <div class="mark__candidate @_currentClass"
+         style="grid-column: @((int) Z % 3 + 1); grid-row: @((int) Z / 3 + 1);">
+        @if (_isVisible)
+        {
+            @_text
+        }
+    </div>
+}
+
+
 @code {
     [Parameter]
     public int X { get; set; }
@@ -14,26 +23,41 @@
     [Parameter]
     public int Z { get; set; }
 
-    private int _value;
+    private InputValue _value;
     private string _text;
-    private bool _isVisible { get => GridProvider.HasCandidate(X, Y, (InputValue) _value); }
+    private bool _isVisible => GridProvider.HasCandidate(X, Y, _value);
     private bool _wasVisible;
+    private bool _wasEveryVisible;
 
     protected override void OnInitialized()
     {
-        _value = Z + 1;
-        _text = _value.ToString();
+        _value = (InputValue) Z + 1;
+        _text = (Z + 1).ToString();
         GridProvider.OnCandidatesChanged += StateHasChanged;
+        CandidatesMarkProvider.OnChanged += StateHasChanged;
     }
 
     protected override bool ShouldRender()
     {
-        return _wasVisible != _isVisible;
+        return _wasVisible != _isVisible || _previousColor != _currentColor;
     }
 
     protected override void OnAfterRender(bool firstRender)
     {
         base.OnAfterRender(firstRender);
+        _wasEveryVisible = _wasEveryVisible || _isVisible;
         _wasVisible = _isVisible;
+        _previousColor = _currentColor;
+    }
+
+    private string _currentClass => CellColorConverter.ToCssClass(_currentColor);
+
+    private Color _previousColor;
+    private Color _currentColor
+    {
+        get
+        {
+            return CandidatesMarkProvider.GetColor(X, Y, _value);
+        }
     }
 }

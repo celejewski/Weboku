@@ -5,7 +5,7 @@
     height: 100%;
     border: 0.3rem solid transparent;
     color: transparent;
-    border-color: currentColor;
+    border-color: var(--color, transparent);
 }
 
 .color-none {
@@ -13,30 +13,29 @@
 }
 
 .color-first {
-    color: $color-1;
-    
+    --color: $color-1;
 }
 
 .color-second {
-    color: $color-2;
+    --color: $color-2;
 }
 
 .color-third {
-    color: $color-3;
+    --color: $color-3;
 }
 
 .color-fourth {
-    color: $color-4;
+    --color: $color-4;
 }
 
 .color-illegal {
-    color: $color-danger;
+    --color: $color-danger;
 }
 
 .color-legal {
-    color: $color-success;
+    --color: $color-success;
 }
 
 .color-info {
-    color: $color-3;
+    --color: $color-3;
 }
