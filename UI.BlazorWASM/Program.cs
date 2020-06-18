@@ -1,6 +1,7 @@
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using UI.BlazorWASM.Helpers;
@@ -18,6 +19,7 @@ namespace UI.BlazorWASM
             builder.Services.RegisterProviders();
             builder.Services.RegisterCommands();
             builder.Services.RegisterHints();
+            builder.Services.AddBlazoredLocalStorage();
             builder.Services.AddCors();
             var app = builder.Build();
            

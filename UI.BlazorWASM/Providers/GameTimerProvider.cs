@@ -21,6 +21,7 @@ namespace UI.BlazorWASM.Providers
                 OnChanged?.Invoke();
             };
             _modalProvider = modalProvider;
+            Start();
         }
 
         public TimeSpan Elapsed { get; private set; }

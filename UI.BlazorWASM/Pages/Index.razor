@@ -9,6 +9,7 @@
 @inject ModalProvider ModalProvider
 @inject PasteProvider PasteProvider
 @using UI.BlazorWASM.Component.Modals;
+@inject PreserveStateProvider PreserveStateProvider
 
 <div id="wrapper"
      class="wrapper">
@@ -47,10 +48,12 @@
     [Parameter]
     public string SharedSudoku { get; set; }
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
         GameStateChecker.OnSolved += OnGameEnd;
         Task.Run(() => GridGenerator.WithGiven("medium"));
+        await PreserveStateProvider.Load();
+        PreserveStateProvider.AutoSave(TimeSpan.FromSeconds(5));
 
         if( !string.IsNullOrEmpty(SharedSudoku) )
         {

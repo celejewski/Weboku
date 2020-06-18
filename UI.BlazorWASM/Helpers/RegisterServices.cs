@@ -15,65 +15,67 @@ namespace UI.BlazorWASM.Helpers
 
         public static void RegisterHints(this IServiceCollection services)
         {
-            services.AddSingleton<Displayer>();
-            services.AddSingleton<Executor>();
-            services.AddSingleton<Informer>();
-            services.AddSingleton<HodokuParser, HodokuParser>();
-            services.AddSingleton<HintsProvider, HintsProvider>();
-            services.AddSingleton<ShowHintModalCommand>();
+            services.AddScoped<Displayer>();
+            services.AddScoped<Executor>();
+            services.AddScoped<Informer>();
+            services.AddScoped<HodokuParser, HodokuParser>();
+            services.AddScoped<HintsProvider, HintsProvider>();
+            services.AddScoped<ShowHintModalCommand>();
         }
 
         public static void RegisterCommands(this IServiceCollection services)
         {
-            services.AddSingleton<FindAllCandidatesCommand>();
-            services.AddSingleton<RestartGameCommand>();
-            services.AddSingleton<SelectPairsFilterCommand>();
-            services.AddSingleton<SelectCleanerAction>();
-            services.AddSingleton<ClearColorsCommand>();
-            services.AddSingleton<RedoCommand>();
-            services.AddSingleton<UndoCommand>();
-            services.AddSingleton<ShowNewGameModalCommand>();
-            services.AddSingleton<ShowHowToPlayModalCommand>();
-            services.AddSingleton<ShowMainMenuModalCommand>();
-            services.AddSingleton<CloseModalCommand>();
-            services.AddSingleton<SelectStandardActionCommand>();
-            services.AddSingleton<SelectEraserActionCommand>();
-            services.AddSingleton<SelectColorActionCommand>();
-            services.AddSingleton<ClearCandidatesCommand>();
-            services.AddSingleton<ShowShareModalCommand>();
-            services.AddSingleton<ShowPasteModalCommand>();
-            services.AddSingleton<SelectColorActionCommand>();
-            services.AddSingleton<StartNewGameFromPastedCommand>();
+            services.AddScoped<FindAllCandidatesCommand>();
+            services.AddScoped<RestartGameCommand>();
+            services.AddScoped<SelectPairsFilterCommand>();
+            services.AddScoped<SelectCleanerAction>();
+            services.AddScoped<ClearColorsCommand>();
+            services.AddScoped<RedoCommand>();
+            services.AddScoped<UndoCommand>();
+            services.AddScoped<ShowNewGameModalCommand>();
+            services.AddScoped<ShowHowToPlayModalCommand>();
+            services.AddScoped<ShowMainMenuModalCommand>();
+            services.AddScoped<CloseModalCommand>();
+            services.AddScoped<SelectStandardActionCommand>();
+            services.AddScoped<SelectEraserActionCommand>();
+            services.AddScoped<SelectColorActionCommand>();
+            services.AddScoped<ClearCandidatesCommand>();
+            services.AddScoped<ShowShareModalCommand>();
+            services.AddScoped<ShowPasteModalCommand>();
+            services.AddScoped<SelectColorActionCommand>();
+            services.AddScoped<StartNewGameFromPastedCommand>();
         }
 
         public static void RegisterProviders(this IServiceCollection services)
         {
-            services.AddSingleton<IEmptyGridGenerator, EmptyGridGenerator>();
-            services.AddSingleton<HodokuGridConverter>();
-            services.AddSingleton<IGridGenerator, RESTGridGenerator>();
-            services.AddSingleton<CellColorProvider>();
-            services.AddSingleton<IGridHistoryManager, GridHistoryManager>();
-            services.AddSingleton<FilterProvider>();
-            services.AddSingleton<IClickableActionProvider, ClickableActionProvider>();
-            services.AddSingleton<NumpadMenuBuilder>();
-            services.AddSingleton<NumpadMenuProvider>();
-            services.AddSingleton<HotkeyProvider>();
-            services.AddSingleton<CommandProvider>();
-            services.AddSingleton<GameTimerProvider>();
-            services.AddSingleton<GameStateChecker>();
-            services.AddSingleton<IGridConverter, HodokuGridConverter>();
-            services.AddSingleton<ISudokuGenerator, RESTSudokuGenerator>();
-            services.AddSingleton<ModalProvider>();
-            services.AddSingleton<ClickableActionFactory>();
-            services.AddSingleton<ShareProvider>();
-            services.AddSingleton<PasteProvider>();
-            services.AddSingleton<Base64GridConverter>();
-            services.AddSingleton<ChainGridConverter>();
-            services.AddSingleton<SudokuProvider>();
-            services.AddSingleton<IGridProvider, GridProvider>();
-            services.AddSingleton<CandidatesMarkProvider>();
-            services.AddSingleton<RESTGridGenerator>();
-            services.AddSingleton<MarkInputProvider>();
+            services.AddScoped<IEmptyGridGenerator, EmptyGridGenerator>();
+            services.AddScoped<HodokuGridConverter>();
+            services.AddScoped<IGridGenerator, RESTGridGenerator>();
+            services.AddScoped<CellColorProvider>();
+            services.AddScoped<IGridHistoryManager, GridHistoryManager>();
+            services.AddScoped<FilterProvider>();
+            services.AddScoped<IClickableActionProvider, ClickableActionProvider>();
+            services.AddScoped<NumpadMenuBuilder>();
+            services.AddScoped<NumpadMenuProvider>();
+            services.AddScoped<HotkeyProvider>();
+            services.AddScoped<CommandProvider>();
+            services.AddScoped<GameTimerProvider>();
+            services.AddScoped<GameStateChecker>();
+            services.AddScoped<IGridConverter, HodokuGridConverter>();
+            services.AddScoped<ISudokuGenerator, RESTSudokuGenerator>();
+            services.AddScoped<ModalProvider>();
+            services.AddScoped<ClickableActionFactory>();
+            services.AddScoped<ShareProvider>();
+            services.AddScoped<PasteProvider>();
+            services.AddScoped<Base64GridConverter>();
+            services.AddScoped<ChainGridConverter>();
+            services.AddScoped<SudokuProvider>();
+            services.AddScoped<IGridProvider, GridProvider>();
+            services.AddScoped<CandidatesMarkProvider>();
+            services.AddScoped<RESTGridGenerator>();
+            services.AddScoped<MarkInputProvider>();
+            services.AddScoped<StorageProvider>();
+            services.AddScoped<PreserveStateProvider>();
         }
     }
 }

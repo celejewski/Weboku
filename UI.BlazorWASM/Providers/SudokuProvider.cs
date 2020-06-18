@@ -10,7 +10,7 @@ namespace UI.BlazorWASM.Providers
         
         public Sudoku Sudoku 
         { 
-            private get => _sudoku;
+            get => _sudoku;
             set
             {
                 _sudoku = value;

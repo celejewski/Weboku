@@ -125,11 +125,13 @@ namespace Core.Converters
         int _counter = 0;
         private void SetValue(Grid grid, BitArray bitArray, int x, int y)
         {
+            // IsGiven?
             if ( bitArray.Get(_counter++))
             {
                 grid.SetIsGiven(x, y, true);
                 grid.SetValue(x, y, GetValue(bitArray));
             }
+            // IsInput?
             else if (bitArray.Get(_counter++))
             {
                 grid.SetIsGiven(x, y, false);
@@ -145,7 +147,6 @@ namespace Core.Converters
                     if( bitArray.Get(_counter++) )
                     {
                         grid.AddCandidate(x, y, (InputValue) i + 1);
-                        Console.WriteLine($"{x}, {y} add {i+1}");
                     }
                 }
             }
