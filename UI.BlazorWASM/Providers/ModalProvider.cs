@@ -9,6 +9,11 @@ namespace UI.BlazorWASM.Providers
         private readonly Stack<ModalState> _previousStates = new Stack<ModalState>();
         public ModalState CurrentState { get; private set; } = ModalState.MainMenu;
 
+        public ModalProvider()
+        {
+            _previousStates.Push(ModalState.None);
+        }
+
         public void SetModalState(ModalState state)
         {
             _previousStates.Push(CurrentState);
