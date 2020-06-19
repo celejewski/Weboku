@@ -18,21 +18,6 @@ namespace UI.BlazorWASM.Providers
         public event Action OnChanged;
         private readonly IGridProvider _gridProvider;
         private readonly HodokuGridConverter _hodokuGridConverter;
-
-        private Func<int, int, InputValue> CellToValue
-        {
-            get
-            {
-                return _sharedFields switch
-                {
-                    SharedFields.Givens => (int x, int y) =>  _gridProvider.GetIsGiven(x, y) ? _gridProvider.GetValue(x, y) : InputValue.Empty,
-                    SharedFields.GivensAndInputs => (int x, int y) => _gridProvider.GetValue(x, y),
-                    SharedFields.Everything => (int x, int y) => _gridProvider.GetValue(x, y),
-                    _ => throw new NotImplementedException(),
-                };
-            }
-        }
-
         private string _converted;
         public string Converted
         {
@@ -57,7 +42,7 @@ namespace UI.BlazorWASM.Providers
                 Update();
             }
         }
-        private SharedFields _sharedFields = SharedFields.GivensAndInputs;
+        private SharedFields _sharedFields = SharedFields.Everything;
         public SharedFields SharedFields 
         { 
             get =>_sharedFields;
@@ -121,23 +106,31 @@ namespace UI.BlazorWASM.Providers
             }
         }
 
-        private void Update()
+        private static IGrid TransformGrid(IGrid input, SharedFields sharedFields)
         {
-            if( _sharedFields == SharedFields.Everything )
+            var output = input.Clone();
+            if ( sharedFields == SharedFields.Everything)
             {
-                _grid = _gridProvider.Grid.Clone();
-            }
-            else
-            {
-                for( int x = 0; x < 9; x++ )
-                {
-                    for( int y = 0; y < 9; y++ )
-                    {
-                        _grid.SetValue(x, y, (InputValue) CellToValue(x, y));
-                    }
-                }
+                return output;
             }
 
+            for( int x = 0; x < 9; x++ )
+            {
+                for( int y = 0; y < 9; y++ )
+                {
+                    if ( sharedFields == SharedFields.Givens && !output.GetIsGiven(x, y))
+                    {
+                        output.SetValue(x, y, InputValue.Empty);
+                    }
+                    output.ClearCandidates(x, y);
+                }
+            }
+            return output;
+        }
+
+        private void Update()
+        {
+            _grid = TransformGrid(_gridProvider.Grid, _sharedFields);
             IGridConverter converter = SharedConverter switch
             {
                 SharedConverter.Hodoku => _hodokuGridConverter,
