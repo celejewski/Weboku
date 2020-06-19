@@ -3,16 +3,13 @@
 @using UI.BlazorWASM.Converters
 @using UI.BlazorWASM.Enums
 
-@if( _wasEveryVisible || _isVisible )
-{
-    <div class="mark__candidate @_currentClass"
-         style="grid-column: @((int) Z % 3 + 1); grid-row: @((int) Z / 3 + 1);">
-        @if (_isVisible)
-        {
-            @_text
-        }
-    </div>
-}
+<div class="mark__candidate @_currentClass"
+        style="grid-column: @((int) Z % 3 + 1); grid-row: @((int) Z / 3 + 1);">
+    @if (_isVisible)
+    {
+        @_text
+    }
+</div>
 
 
 @code {

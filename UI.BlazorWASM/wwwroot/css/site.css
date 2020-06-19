@@ -964,13 +964,12 @@ h1, h2, h3 {
 }
 
 .mark__cell {
-  --color: transparent;
   width: 80%;
   height: 80%;
   border-width: 3px;
   border-radius: 50%;
   border-style: solid;
-  border-color: var(--color);
+  border-color: var(--color, transparent);
   /*background: currentColor;*/
   margin: 10%;
 }
