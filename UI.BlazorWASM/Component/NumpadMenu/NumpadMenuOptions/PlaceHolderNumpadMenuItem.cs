@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using UI.BlazorWASM.Enums;
 
 namespace UI.BlazorWASM.Component.NumpadMenu
 {
@@ -13,7 +14,9 @@ namespace UI.BlazorWASM.Component.NumpadMenu
 
         public bool IsSelectable => false;
 
-        public string CssClass => string.Empty;
+        public Color Color1 => Color.None;
+
+        public Color Color2 => Color.None;
 
         public Task Execute() => Task.CompletedTask;
     }

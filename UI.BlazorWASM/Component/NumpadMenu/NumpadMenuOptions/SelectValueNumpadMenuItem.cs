@@ -1,17 +1,18 @@
-﻿using UI.BlazorWASM.Providers;
+﻿using Core.Data;
+using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.Component.NumpadMenu
 {
     public class SelectValueNumpadMenuItem : BaseMenuOption, INumpadMenuLabel
     {
         private readonly int _value;
-        private readonly ISudokuProvider _sudokuProvider;
+        private readonly IGridProvider _gridProvider;
 
-        public SelectValueNumpadMenuItem(int value, ISudokuProvider sudokuProvider, NumpadMenuProvider numpadMenuProvider , CommandProvider commandProvider ) 
-            : base(numpadMenuProvider, commandProvider.SelectValue(value))
+        public SelectValueNumpadMenuItem(int value, IGridProvider gridProvider, NumpadMenuProvider numpadMenuProvider , CommandProvider commandProvider ) 
+            : base(commandProvider.SelectValue(value), numpadMenuProvider.FilterContainer)
         {
             _value = value;
-            _sudokuProvider = sudokuProvider;
+            _gridProvider = gridProvider;
         }
 
         public override bool IsDimmed
@@ -21,12 +22,19 @@ namespace UI.BlazorWASM.Component.NumpadMenu
                 int count = 0;
                 for( int y = 0; y < 9; y++ )
                 {
-                    for( int x = 0; x < 9; x++ )
+                    if( count != y )
                     {
-                        var cell = _sudokuProvider.Cells[x, y];
-                        if (cell.Input.Value == _value
-                            && cell.Input.IsLegal)
+                        return false;
+                    }
+
+                    for( int x = 0; x < 9; x++ )
+                    {;
+                        if (_gridProvider.GetValue(x, y) == (InputValue) _value)
                         {
+                            if (!_gridProvider.IsValueLegal(x, y))
+                            {
+                                return false;
+                            }
                             count += 1;
                         }
                     }

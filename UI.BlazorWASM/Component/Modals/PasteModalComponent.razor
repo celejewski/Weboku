@@ -1,0 +1,29 @@
+﻿@inject IJSRuntime JSRuntime
+@inject PasteProvider PasteProvider
+@inject StartNewGameFromPastedCommand StartNewGameFromPastedCommand 
+@inject CloseModalCommand CloseModalCommand
+
+<ModalWithGridTemplateComponent>
+    <Grid>
+        <PasteLayerComponent />
+    </Grid>
+    <Content>
+        <h1 class="paste__header with-hr">Paste</h1>
+        <textarea class="paste__input @_validClass"
+                  @bind="@PasteProvider.Pasted" @bind:event="oninput"></textarea>
+
+        <div class="paste__row">
+            <div class="paste__close"
+                 @onclick="StartNewGameFromPastedCommand.Execute">Start game</div>
+        </div>
+
+        <div class="paste__row">
+            <div class="paste__close"
+                 @onclick="CloseModalCommand.Execute">Close</div>
+        </div>
+    </Content>
+</ModalWithGridTemplateComponent>
+
+@code {
+    private string _validClass => PasteProvider.IsValid ? String.Empty : "paste__input--is-invalid";
+}

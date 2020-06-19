@@ -18,9 +18,14 @@
 @import 'ShadowLayer.scss';
 @import 'InputLayer.scss';
 @import 'DropdownMenu.scss';
-@import 'MarkCandidatesLayer.scss';
 @import 'CellColorLayer.scss';
 @import 'GameInfo.scss';
+@import 'Share.scss';
+@import 'CandidatesComponent.scss';
+@import 'ModalWithGridTemplate.scss';
+@import 'PasteModal.scss';
+@import 'HintsHighlightLayer.scss';
+@import 'HintsModalComponents.scss';
 
 .with-hr {
     position: relative;

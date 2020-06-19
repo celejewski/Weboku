@@ -1,0 +1,29 @@
+﻿@inject ModalProvider ModalProvider
+@inject PasteProvider PasteProvider
+
+@if( ModalProvider.CurrentState == Modals.ModalState.Paste )
+{
+    <BackgroundLayerComponent />
+    <BorderLayerComponent />
+    <Grid9x9Component>
+        <div class="input">
+            @{
+                var value = PasteProvider.Grid.GetValue(context.x, context.y);
+                if( value != InputValue.Empty )
+                {
+                    @((int)value)
+                }
+            }
+        </div>
+    </Grid9x9Component>
+    <ShadowLayerComponent />
+}
+
+@code {
+
+    protected override void OnInitialized()
+    {
+        ModalProvider.OnChanged += StateHasChanged;
+        PasteProvider.OnChanged += StateHasChanged;
+    }
+}

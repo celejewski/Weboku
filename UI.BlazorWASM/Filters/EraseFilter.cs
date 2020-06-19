@@ -1,21 +1,13 @@
-﻿using Core.Data;
+﻿using UI.BlazorWASM.Enums;
+using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.Filters
 {
     public class EraseFilter : IFilter
     {
-        public string IsFiltered(ICell cell)
+        public FilterOption IsFiltered(IGridProvider gridProvider, int x, int y)
         {
-            if( cell.Input.Value != 0 && !cell.IsGiven )
-            {
-                return FilterStyleClass.Primary;
-            }
-            else if (cell.Candidates.Count > 0)
-            {
-                return FilterStyleClass.Secondary;
-            }
-
-            return FilterStyleClass.None;
+            return FilterOption.None;
         }
     }
 }

@@ -1,15 +1,18 @@
-﻿using Microsoft.AspNetCore.Components.Web;
+﻿using Core.Data;
+using Microsoft.AspNetCore.Components.Web;
+using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
+using UI.BlazorWASM.Commands;
 using UI.BlazorWASM.Enums;
 using UI.BlazorWASM.ViewModels;
 
 namespace UI.BlazorWASM.Providers
 {
-    public class HotkeyProvider : IHotkeyProvider
+    public class HotkeyProvider
     {
         public event Action OnChanged;
-        public IList<Hotkey> Hotkeys { get; } = new List<Hotkey>();
+        public static IList<Hotkey> Hotkeys { get; } = new List<Hotkey>();
 
         public void Register(Hotkey hotkey)
         {
@@ -17,8 +20,8 @@ namespace UI.BlazorWASM.Providers
             OnChanged?.Invoke();
         }
 
-
-        public void OnKeyDown(KeyboardEventArgs e)
+        [JSInvokable]
+        public static void OnKeyDown(KeyboardEventArgs e)
         {
             foreach( var item in Hotkeys )
             {
@@ -30,9 +33,9 @@ namespace UI.BlazorWASM.Providers
             }
         }
 
-        public HotkeyProvider(CommandProvider commandProvider, NumpadMenuBuilder numpadMenuBuilder)
+        public HotkeyProvider(FindAllCandidatesCommand findAllCandidatesCommand, NumpadMenuBuilder numpadMenuBuilder)
         {
-            Register(new Hotkey { Command = commandProvider.FindAllCandidates(), Key = "f", Ctrl = true });
+            Register(new Hotkey { Command = findAllCandidatesCommand, Key = "f", Ctrl = true });
             for( int value = 1; value < 10; value++ )
             {
                 Register(new Hotkey { Command = numpadMenuBuilder.SelectValue(value), Key = value.ToString() });
@@ -41,20 +44,18 @@ namespace UI.BlazorWASM.Providers
             Register(new Hotkey { Command = numpadMenuBuilder.Undo(), Key = "z", Ctrl = true });
             Register(new Hotkey { Command = numpadMenuBuilder.Pairs(), Key = "x" });
             Register(new Hotkey { Command = numpadMenuBuilder.ClearColors(), Key = "r" });
-            Register(new Hotkey { Command = numpadMenuBuilder.SelectErase(), Key = "0" });
+            //Register(new Hotkey { Command = numpadMenuBuilder.SelectCleanerAction(), Key = "0" });
 
             
-            var dict = new Dictionary<CellColor, string>
+            var dict = new Dictionary<(Color, Color), string>
             {
-                { CellColor.First, "a" },
-                { CellColor.Second, "s" },
-                { CellColor.Third, "d" },
-                { CellColor.Fourth, "f" }
+                { (Color.First, Color.Second), "a" },
+                { (Color.Third, Color.Fourth), "s" }
             };
 
             foreach( var item in dict )
             {
-                Register(new Hotkey { Command = numpadMenuBuilder.SelectColor(item.Key), Key = item.Value });
+                Register(new Hotkey { Command = numpadMenuBuilder.SelectColor(item.Key.Item1, item.Key.Item2), Key = item.Value });
             }
         }
     }

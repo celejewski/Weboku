@@ -6,18 +6,18 @@ namespace UI.BlazorWASM.Commands
 {
     public class FindAllCandidatesCommand : ICommand
     {
-        private readonly ISudokuProvider _sudokuProvider;
         private readonly IGridHistoryManager _gridHistoryManager;
+        private readonly IGridProvider _gridProvider;
 
-        public FindAllCandidatesCommand(ISudokuProvider sudokuProvider, IGridHistoryManager gridHistoryManager)
+        public FindAllCandidatesCommand(IGridHistoryManager gridHistoryManager, IGridProvider gridProvider)
         {
-            _sudokuProvider = sudokuProvider;
             _gridHistoryManager = gridHistoryManager;
+            _gridProvider = gridProvider;
         }
         public Task Execute()
         {
             _gridHistoryManager.Save();
-            _sudokuProvider.FillAllCandidates();
+            _gridProvider.FillAllLegalCandidates();
             return Task.CompletedTask;
         }
     }

@@ -7,63 +7,60 @@ namespace UI.BlazorWASM.Managers
 {
     public class GridHistoryManager : IGridHistoryManager
     {
-        public GridHistoryManager(ISudokuProvider sudokuProvider)
+        private readonly IGridProvider _gridProvider;
+
+        public GridHistoryManager(IGridProvider gridProvider)
         {
-            _sudokuProvider = sudokuProvider;
+            _gridProvider = gridProvider;
         }
 
         private readonly Stack<IGrid> _previousStates = new Stack<IGrid>();
         private readonly Stack<IGrid> _nextStates = new Stack<IGrid>();
-        private readonly ISudokuProvider _sudokuProvider;
+        public bool CanUndo => _previousStates.Count > 0;
+
+        public bool CanRedo => _nextStates.Count > 0;
 
         public event Action OnChanged;
 
-        public bool CanUndo { get => _previousStates.Count > 0; }
-        public bool CanRedo { get => _nextStates.Count > 0; }
+        private void Changed() => OnChanged?.Invoke();
 
-        public void Save()
+        public void ClearRedo()
         {
-            _previousStates.Push(_sudokuProvider.GetGridClone());
             _nextStates.Clear();
-            OnChanged?.Invoke();
+            Changed();
         }
 
-        public void Undo()
+        public void ClearUndo()
         {
-            if( CanUndo )
-            {
-                var current = _sudokuProvider.GetGridClone();
-                _nextStates.Push(current);
-
-                var previous = _previousStates.Pop();
-                _sudokuProvider.AssignFrom(previous);
-                OnChanged?.Invoke();
-            }
+            _previousStates.Clear();
+            Changed();
         }
 
         public void Redo()
         {
             if( CanRedo )
             {
-                var current = _sudokuProvider.GetGridClone();
-                _previousStates.Push(current);
-
-                var next = _nextStates.Pop();
-                _sudokuProvider.AssignFrom(next);
-                OnChanged?.Invoke();
+                _previousStates.Push(_gridProvider.Grid.Clone());
+                _gridProvider.Grid = _nextStates.Pop();
+                Changed();
             }
         }
 
-        public void ClearUndo()
+        public void Save()
         {
-            _previousStates.Clear();
-            OnChanged?.Invoke();
+            _previousStates.Push(_gridProvider.Grid.Clone());
+            ClearRedo();
+            Changed();
         }
 
-        public void ClearRedo()
+        public void Undo()
         {
-            _nextStates.Clear();
-            OnChanged?.Invoke();
+            if( CanUndo )
+            {
+                _nextStates.Push(_gridProvider.Grid.Clone());
+                _gridProvider.Grid = _previousStates.Pop();
+                Changed();
+            }
         }
     }
 }

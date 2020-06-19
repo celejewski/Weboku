@@ -1,57 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using UI.BlazorWASM.Filters;
-using UI.BlazorWASM.Providers;
-using UI.BlazorWASM.ViewModels;
+﻿using Core.Data;
+using UI.BlazorWASM.Enums;
+using UI.BlazorWASM.Helpers;
 
 namespace UI.BlazorWASM.Hints.SolvingTechniques
 {
-    public class NakedSingle : HintHandler
+    public class NakedSingle : BaseSolvingTechnique
     {
-        private readonly ISudokuProvider _sudokuProvider;
-        private readonly ICellColorProvider _cellColorProvider;
-        private readonly IFilterProvider _filterProvider;
-        private readonly NumpadMenuBuilder _numpadMenuBuilder;
+        private readonly Position _position;
+        private readonly InputValue _value;
 
-        public NakedSingle(ISudokuProvider sudokuProvider, ICellColorProvider cellColorProvider, IFilterProvider filterProvider, NumpadMenuBuilder numpadMenuBuilder)
+        public NakedSingle(Position position, InputValue value)
+            :base("Naked Single")
         {
-            _sudokuProvider = sudokuProvider;
-            _cellColorProvider = cellColorProvider;
-            _filterProvider = filterProvider;
-            _numpadMenuBuilder = numpadMenuBuilder;
+            _position = position;
+            _value = value;
         }
 
-        // Naked Single: r4c7=1
-        // Hidden Single: r9c1=3 
-        // Full House: r6c8=1Z
-        public override async Task Execute(string step, IEnumerator<string> enumerator)
+        public override bool CanExecute(Informer informer)
         {
-            if( step.Contains("Naked Single: ")
-                || step.Contains("Hidden Single: ")
-                || step.Contains("Full House: "))
-            {
-                var split = step.Split("=");
-                var value = int.Parse(split[1]);
-                var target = split[0][^4..];
-                var technique = split[0].Split(":")[0];
+            return informer.HasCandidate(_position, _value);
+        }
 
-                var x = int.Parse(target[3..4]) - 1;
-                var y = int.Parse(target[1..2]) - 1;
+        public override void DisplaySolution(Displayer displayer, Informer informer)
+        {
+            displayer.SetTitle(_title);
+            displayer.SetDescription($"In cell {_position} there is only one valid candidate, so we can place {_value:D} in cell {_position}.");
+            displayer.Mark(Color.Legal, _position, _value);
+            displayer.HighlightBlock(_position);
+            displayer.HighlightCol(_position);
+            displayer.HighlightRow(_position);
+            displayer.SetValueFilter(_value);
+        }
 
-                Console.WriteLine($"{technique} target {target} has value {value} {x}, {y}");
-                if (_sudokuProvider.Cells[x,y].Input.Value == 0)
-                {
-                    Console.WriteLine($"{x}, {y}");
-
-                    await _numpadMenuBuilder.SelectValue(value).Execute();
-                    _cellColorProvider.SetColor(x, y, Enums.CellColor.Legal);
-                    return;
-                }
-            }
-            
-            await _next?.Execute(step, enumerator);
+        public override void Execute(Executor executor, Informer informer)
+        {
+            executor.SetInput(_value, _position);
         }
     }
 }

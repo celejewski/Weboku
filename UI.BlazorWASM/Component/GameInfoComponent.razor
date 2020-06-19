@@ -1,0 +1,15 @@
+﻿@inject GameTimerProvider GameTimerProvider
+@inject SudokuProvider SudokuProvider
+
+<div class="game-info">
+    <div class="game-info__time-elapsed">@GameTimerProvider.Elapsed.ToString("mm\\:ss")</div>
+    <div class="game-info__difficulty">@SudokuProvider.Difficulty</div>
+</div>
+
+@code {        
+    
+    protected override void OnInitialized()
+    {
+        GameTimerProvider.OnChanged += StateHasChanged;
+    }
+}

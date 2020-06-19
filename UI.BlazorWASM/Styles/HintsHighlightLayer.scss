@@ -1,0 +1,41 @@
+﻿@keyframes glow {
+    from {
+        opacity: 0.35;
+    }
+
+    to {
+        opacity: 0.15;
+    }
+}
+
+.hints-highlight {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    opacity: 0.1;
+    animation: glow 1500ms linear 0s infinite alternate;
+
+    &__container {
+        position: absolute;
+        display: grid;
+        width: 100%;
+        height: 100%;
+    }
+
+    &__blocks {
+        grid-template-rows: repeat(3, 1fr);
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    &__rows {
+        grid-template-rows: repeat(9, 1fr);
+    }
+
+    &__cols {
+        grid-template-columns: repeat(9, 1fr);
+    }
+
+    &--with-background {
+        background-color: black;
+    }
+}

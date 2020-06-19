@@ -1,0 +1,11 @@
+﻿<div class="hints-modal__button"
+     @onclick="@Action">@ChildContent</div>
+
+@code {
+    [Parameter]
+    public Action Action { get; set; }
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+}

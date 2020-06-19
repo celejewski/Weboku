@@ -1,0 +1,20 @@
+﻿@inject NumpadMenuProvider NumpadMenuProvider
+
+<div @onclick="NumpadMenuLabel.Execute"
+     class="numpad__button numpad__label
+                 @(NumpadMenuProvider.IsSelected(NumpadMenuLabel) ? "numpad__label--selected" : string.Empty)
+                 @(NumpadMenuLabel.IsDimmed ? "numpad__label--dimmed" : string.Empty)
+                 ">
+    @NumpadMenuLabel.Label
+</div>
+
+
+@code {
+    [Parameter]
+    public INumpadMenuLabel NumpadMenuLabel { get; set; }
+
+    protected override void OnInitialized()
+    {
+        NumpadMenuProvider.OnChanged += StateHasChanged;
+    }
+}

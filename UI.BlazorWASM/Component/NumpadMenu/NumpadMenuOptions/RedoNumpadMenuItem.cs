@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using UI.BlazorWASM.Commands;
 using UI.BlazorWASM.Managers;
 using UI.BlazorWASM.Providers;
 
@@ -8,8 +9,8 @@ namespace UI.BlazorWASM.Component.NumpadMenu
     {
         private readonly IGridHistoryManager _gridHistoryManager;
 
-        public RedoNumpadMenuItem(NumpadMenuProvider numpadMenuProvider, CommandProvider commandProvider, IGridHistoryManager gridHistoryManager)
-            :base(numpadMenuProvider, commandProvider.Redo())
+        public RedoNumpadMenuItem(RedoCommand command, IGridHistoryManager gridHistoryManager)
+            :base(command)
         {
             _gridHistoryManager = gridHistoryManager;
         }

@@ -1,20 +1,26 @@
-﻿@inject CommandProvider CommandProvider
+﻿@inject CloseModalCommand CloseModalCommand
+@inject CommandProvider CommandProvider
 @inject ModalProvider ModalProvider
 
-<h1 class="modal__title with-hr">New game</h1>
+<ModalTemplateComponent>
+    <h1 class="modal__title with-hr">New game</h1>
 
-<div class="modal__content">
-    @foreach( var difficulty in new[] { "Easy", "Medium", "Hard", "Extreme", "Unfair" } )
-    {
-        <a @onclick="@(CommandProvider.StartNewGame(difficulty).Execute)"
-            class="modal__button modal__button--primary">@difficulty</a>
-    }
-</div>
+    <div class="modal__content">
+        @foreach( var difficulty in new[] { "Easy", "Medium", "Hard", "Extreme", "Unfair" } )
+        {
+            <ModalButtonComponent OnClick=CommandProvider.StartNewGameV2(difficulty)>
+                @difficulty
+            </ModalButtonComponent>
+        }
+    </div>
 
-<div class="modal__footer with-hr">
-    <a @onclick="@(() => ModalProvider.Modal.SetState(ModalState.HowToPlay))"
-       class="modal__button modal__button--secondary"> How to play</a>
-</div>
+    <div class="modal__footer with-hr">
+        <ModalButtonComponent OnClick="CloseModalCommand"
+                              IsSecondary="true">
+            Close
+        </ModalButtonComponent>
+    </div>
+</ModalTemplateComponent>
 
 @code {
 

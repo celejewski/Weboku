@@ -1,32 +1,25 @@
-﻿using Microsoft.AspNetCore.Components.Web;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using UI.BlazorWASM.Enums;
+﻿using UI.BlazorWASM.Enums;
 using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.ClickableActions
 {
     public class ColorAction : IClickableAction
     {
-        private readonly CellColor _cellColor;
-        private readonly ICellColorProvider _cellColorProvider;
+        private readonly CellColorProvider _cellColorProvider;
 
-        public ColorAction(CellColor cellColor, ICellColorProvider cellColorProvider)
+        public ColorAction(CellColorProvider cellColorProvider)
         {
-            _cellColor = cellColor;
             _cellColorProvider = cellColorProvider;
         }
 
-        public void LeftClickAction(MouseEventArgs e, int x, int y)
+        public void LeftClickAction(ClickableActionArgs args)
         {
-            _cellColorProvider.ToggleColor(x, y, _cellColor);
+            _cellColorProvider.ToggleColor(args.X, args.Y, args.Color1);
         }
 
-        public void RightClickAction(MouseEventArgs e, int x, int y)
+        public void RightClickAction(ClickableActionArgs args)
         {
-            _cellColorProvider.ToggleColor(x, y, _cellColor);
+            _cellColorProvider.ToggleColor(args.X, args.Y, args.Color2);
         }
     }
 }

@@ -1,50 +1,42 @@
 ﻿@page "/"
+@page "/paste/{SharedSudoku}"
 @inject IGridGenerator GridGenerator
 @inject HotkeyProvider HotkeyProvider
 @inject IJSRuntime JSRuntime
 @inject CommandProvider CommandProvider
-@inject IGameStateChecker GameStateChecker
-@inject IGameTimerProvider GameTimerProvider
+@inject GameStateChecker GameStateChecker
+@inject GameTimerProvider GameTimerProvider
 @inject ModalProvider ModalProvider
-@using UI.BlazorWASM.Component.Modals; 
+@inject PasteProvider PasteProvider
+@using UI.BlazorWASM.Component.Modals;
+@inject PreserveStateProvider PreserveStateProvider
 
-
-<ModalComponent @ref="_modal"/>
-
-<div id="wrapper" 
+<div id="wrapper"
      class="wrapper">
     <div id="main"
          class="main"
-         onblur="this.focus()"
-         @onkeydown="HotkeyProvider.OnKeyDown"
-         tabindex="0"
          @oncontextmenu:preventDefault="true">
+
+        <ModalComponent />
 
         <div class="main__grid">
             <BackgroundLayerComponent />
-
             <FilterLayerComponent />
-
+            <HintsHighlightLayerComponent />
             <CellColorLayerComponent />
-
-            <MarkCandidatesLayerComponent />
-
             <MarkInputLayerComponent />
-
             <InputLayerComponent />
-            
-            <BorderLayerComponent />
             <CandidatesLayerComponent />
-
+            <BorderLayerComponent />
             <ShadowLayerComponent />
             <ClickableLayerComponent />
-
         </div>
-
+        <div class="main__game-info">
+            <GameInfoComponent />
+        </div>
         <div class="main__numpad">
             <NumpadMenuComponent />
         </div>
-
         <div class="main__menu">
             <MenuComponent />
         </div>
@@ -52,43 +44,31 @@
 </div>
 
 @code {
-    private ModalComponent _modal;
-
-    private async Task StartNewGame(string difficulty)
-    {
-        await CommandProvider.StartNewGame(difficulty).Execute();
-    }
+    [Parameter]
+    public string SharedSudoku { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         GameStateChecker.OnSolved += OnGameEnd;
-        await GridGenerator.WithGiven("medium");
+        Task.Run(() => GridGenerator.WithGiven("medium"));
+        await PreserveStateProvider.Load();
+        PreserveStateProvider.AutoSave(TimeSpan.FromSeconds(5));
+
+        if( !string.IsNullOrEmpty(SharedSudoku) )
+        {
+            PasteProvider.Pasted = SharedSudoku;
+            ModalProvider.SetModalState(ModalState.Paste);
+        }
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if( !firstRender )
-        {
-            await JSRuntime.InvokeVoidAsync("focusMain");
-            await JSRuntime.InvokeVoidAsync("resize");
-        }
-        else
-        {
-            ModalProvider.Modal = _modal;
-            _modal.SetState(ModalState.NewGame);
-        }
+        await JSRuntime.InvokeVoidAsync("resize");
     }
 
     private void OnGameEnd()
     {
         GameTimerProvider.Stop();
-        _modal.SetState(ModalState.EndGame);
-        StateHasChanged();
-    }
-
-    private void PlayAgain()
-    {
-        _modal.SetState(ModalState.NewGame);
-        StateHasChanged();
+        ModalProvider.SetModalState(ModalState.EndGame);
     }
 }

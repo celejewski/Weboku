@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.Commands
@@ -16,7 +13,7 @@ namespace UI.BlazorWASM.Commands
         }
         public Task Execute()
         {
-            _modalProvider.Modal.SetState(Component.Modals.ModalState.NewGame);
+            _modalProvider.SetModalState(Component.Modals.ModalState.NewGame);
             return Task.CompletedTask;
         }
     }

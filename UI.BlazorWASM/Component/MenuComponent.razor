@@ -1,19 +1,24 @@
-﻿@inject IJSRuntime JSRuntime
-@inject HodokuGridConverter HodokuGridConverter
-@inject ISudokuProvider SudokuProvider
-@inject CommandProvider CommandProvider
-@inject IGameTimerProvider GameTimerProvider
-@inject ModalProvider ModalProvider
+﻿@inject CommandProvider CommandProvider
+@inject ShowMainMenuModalCommand ShowMainMenuModalCommand
+@inject ShowShareModalCommand ShowShareModalCommand
+@inject RestartGameCommand RestartGameCommand
+@inject ShowHowToPlayModalCommand ShowHowToPlayModalCommand
+@inject ShowHintModalCommand ShowHintModalCommand
+@inject FindAllCandidatesCommand FindAllCandidatesCommand
+@inject ClearCandidatesCommand ClearCandidatesCommand
 
 <div class="menu">
     <div class="menu__item">
         <DropdownMenuComponent>
             <Header> 
-                <span class="dropdown__item dropdown__label">Menu</span>
+                <MenuLabelComponent>Menu</MenuLabelComponent>
             </Header>
             <Content>
-                <a class="dropdown__item dropdown__link" @onmousedown="NewGame">New game </a>
-                <a class="dropdown__item dropdown__link" @onmousedown="RestartGame">Restart game</a>
+                <MenuLinkComponent OnMouseDown="ShowMainMenuModalCommand">Main menu</MenuLinkComponent>
+                <MenuLinkComponent OnMouseDown="ShowShareModalCommand">Share</MenuLinkComponent>
+                <MenuLinkComponent OnMouseDown="RestartGameCommand">Restart game</MenuLinkComponent>
+                <MenuLinkComponent OnMouseDown="ShowHowToPlayModalCommand">How to play</MenuLinkComponent>
+                <MenuLinkComponent OnMouseDown="ShowHintModalCommand">Show hint</MenuLinkComponent>
             </Content>
         </DropdownMenuComponent>
     </div>
@@ -22,39 +27,15 @@
     <div class="menu__item">
         <DropdownMenuComponent>
             <Header>
-                <span class="dropdown__item dropdown__label">Help</span>
+                <MenuLabelComponent>Candidates</MenuLabelComponent>
             </Header>
             <Content>
-                <a @onmousedown="@Find"
-                   class="dropdown__item dropdown__link">Find candidates</a>
-                <a @onmousedown="@ShowHowToPlay"
-                   class="dropdown__item dropdown__link">How to play</a>
+                <MenuLinkComponent OnMouseDown="FindAllCandidatesCommand">Find all</MenuLinkComponent>
+                <MenuLinkComponent OnMouseDown="ClearCandidatesCommand">Remove all</MenuLinkComponent>
             </Content>
         </DropdownMenuComponent>
     </div>
 </div>
 
 @code {
-    [Parameter]
-    public Func<string, Task> StartNewGame { get; set; }
-
-    private void NewGame()
-    {
-        ModalProvider.Modal.SetState(Modals.ModalState.NewGame);
-    }
-
-    private void RestartGame()
-    {
-        CommandProvider.Restart().Execute();
-    }
-
-    private void Find()
-    {
-        CommandProvider.FindAllCandidates().Execute();
-    }
-
-    private void ShowHowToPlay()
-    {
-        ModalProvider.Modal.SetState(Modals.ModalState.HowToPlay);
-    }
 }

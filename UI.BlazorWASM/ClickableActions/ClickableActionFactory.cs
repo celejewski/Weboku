@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using UI.BlazorWASM.Enums;
+﻿using UI.BlazorWASM.Enums;
 using UI.BlazorWASM.Managers;
 using UI.BlazorWASM.Providers;
 
@@ -11,28 +7,33 @@ namespace UI.BlazorWASM.ClickableActions
     public class ClickableActionFactory
     {
         private readonly IGridHistoryManager _gridHistoryManager;
-        private readonly ICellColorProvider _cellColorProvider;
-        private readonly ISudokuProvider _sudokuProvider;
+        private readonly CellColorProvider _cellColorProvider;
+        private readonly IGridProvider _gridProvider;
 
-        public ClickableActionFactory(IGridHistoryManager gridHistoryManager, ICellColorProvider cellColorProvider, ISudokuProvider sudokuProvider)
+        public ClickableActionFactory(IGridHistoryManager gridHistoryManager, CellColorProvider cellColorProvider, IGridProvider gridProvider)
         {
             _gridHistoryManager = gridHistoryManager;
             _cellColorProvider = cellColorProvider;
-            _sudokuProvider = sudokuProvider;
+            _gridProvider = gridProvider;
         }
         
-        public IClickableAction ColorAction(CellColor cellColor)
+        public IClickableAction ColorAction()
         {
-            return new ColorAction(cellColor, _cellColorProvider); 
+            return new ColorAction(_cellColorProvider); 
         }
-        public IClickableAction StandardAction(int value)
+        public IClickableAction StandardAction()
         {
-            return new StandardAction(_gridHistoryManager, _cellColorProvider, _sudokuProvider, value);
+            return new StandardAction(_gridHistoryManager, _cellColorProvider, _gridProvider);
         }
 
-        public IClickableAction EraseAction()
+        public IClickableAction CleanerAction()
         {
-            return new EraseAction(_sudokuProvider, _gridHistoryManager);
+            return new CleanerAction(_gridProvider, _gridHistoryManager);
+        }
+
+        public IClickableAction EraserAction()
+        {
+            return new EraserAction(_gridHistoryManager, _gridProvider);
         }
     }
 }

@@ -1,15 +1,21 @@
 ﻿namespace Core.Data
 {
-    public interface IGrid
+    public interface IGrid 
     {
-        ICell[,] Cells { get; }
+        bool GetIsGiven(int x, int y);
+        void SetIsGiven(int x, int y, bool value);
 
-        void AssignFrom(IGrid source);
-        object Clone();
-        void FillAllCandidates();
-        bool IsLegalValue(int x, int y, int value);
-        void SetGiven(int x, int y, int value);
-        void SetValue(int x, int y, int value);
-        void ToggleCandidate(int x, int y, int value);
+        InputValue GetValue(int x, int y);
+        void SetValue(int x, int y, InputValue value);
+
+        bool HasCandidate(int x, int y, InputValue value);
+        void AddCandidate(int x, int y, InputValue value);
+        void RemoveCandidate(int x, int y, InputValue value);
+        void ToggleCandidate(int x, int y, InputValue value);
+        void FillCandidates();
+        void ClearCandidates();
+        void ClearCandidates(int x, int y);
+
+        IGrid Clone();
     }
 }

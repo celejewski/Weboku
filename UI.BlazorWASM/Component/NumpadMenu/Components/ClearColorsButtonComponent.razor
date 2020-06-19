@@ -1,0 +1,16 @@
+﻿@inject NumpadMenuBuilder NumpadMenuBuilder
+
+<div @onclick="_clearColors.Execute"
+     class="numpad__button numpad__label numpad__clear-colors">
+    Clear colors
+</div>
+
+@code {
+
+    private INumpadMenuItem _clearColors;
+
+    protected override void OnInitialized()
+    {
+        _clearColors = NumpadMenuBuilder.ClearColors();
+    }
+}

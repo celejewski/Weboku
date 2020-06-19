@@ -1,35 +1,42 @@
-﻿@using UI.BlazorWASM.Component.Modals
+﻿@inject ModalProvider ModalProvider
 
-<div class="modal-container"
-     style="@_style">
-    <div class="modal-overlay">
-        <div class="modal">
-            @if( _option == ModalState.NewGame )
-            {
-                <NewGameModalComponent />
-            }
-            else if (_option == ModalState.EndGame)
-            {
-                <EndGameModalComponent />
-            }
-            else if (_option == ModalState.HowToPlay)
-            {
-                <HowToPlayModalComponent NextState="_previous" />
-            }
-        </div>
+    <div class="modal-container"
+         style="@_style">
+        @if( ModalProvider.CurrentState == ModalState.NewGame )
+        {
+            <NewGameModalComponent />
+        }
+        else if( ModalProvider.CurrentState == ModalState.EndGame )
+        {
+            <EndGameModalComponent />
+        }
+        else if( ModalProvider.CurrentState == ModalState.HowToPlay )
+        {
+            <HowToPlayModalComponent />
+        }
+        else if( ModalProvider.CurrentState == ModalState.MainMenu )
+        {
+            <MainMenuModalComponent />
+        }
+        else if( ModalProvider.CurrentState == ModalState.Share )
+        {
+            <ShareModalComponent />
+        }
+        else if( ModalProvider.CurrentState == ModalState.Paste )
+        {
+            <PasteModalComponent />
+        }
+        else if (ModalProvider.CurrentState == ModalState.Hints)
+        {
+            <HintsModalComponent />
+        }
     </div>
-</div>
 
 @code {
-    private ModalState _previous = ModalState.None;
-    private ModalState _option = ModalState.None;
+    private string _style { get => ModalProvider.CurrentState == ModalState.None ? "display: none;" : string.Empty; }
 
-    private string _style { get => _option == ModalState.None ? "display: none;" : string.Empty; }
-
-    public void SetState(ModalState state)
+    protected override void OnInitialized()
     {
-        _previous = _option;
-        _option = state;
-        StateHasChanged();
+        ModalProvider.OnChanged += StateHasChanged;
     }
 }

@@ -1,6 +1,4 @@
 ﻿using System.Threading.Tasks;
-using UI.BlazorWASM.ClickableActions;
-using UI.BlazorWASM.Converters;
 using UI.BlazorWASM.Enums;
 using UI.BlazorWASM.Providers;
 
@@ -8,18 +6,22 @@ namespace UI.BlazorWASM.Component.NumpadMenu
 {
     public class SelectColorMenuItem : ISelectColorMenuItem
     {
-        private readonly CellColor _cellColor;
-        private readonly ICellColorProvider _cellColorProvider;
+        public Color Color1 { get; }
+        public Color Color2 { get; }
         private readonly IClickableActionProvider _clickableActionProvider;
+        private readonly NumpadMenuProvider _numpadMenuProvider;
 
-        public SelectColorMenuItem(CellColor cellColor, ICellColorProvider cellColorProvider, IClickableActionProvider clickableActionProvider)
+        public SelectColorMenuItem(
+            Color color1, 
+            Color color2, 
+            IClickableActionProvider clickableActionProvider, 
+            NumpadMenuProvider numpadMenuProvider)
         {
-            _cellColor = cellColor;
-            _cellColorProvider = cellColorProvider;
+            Color1 = color1;
+            Color2 = color2;
             _clickableActionProvider = clickableActionProvider;
+            _numpadMenuProvider = numpadMenuProvider;
         }
-
-        public string CssClass => CellColorConverter.ToCssClass(_cellColor);
 
         public bool IsDimmed => false;
 
@@ -27,7 +29,9 @@ namespace UI.BlazorWASM.Component.NumpadMenu
 
         public Task Execute()
         {
-            _clickableActionProvider.SetClickableAction(new ColorAction(_cellColor, _cellColorProvider));
+            _numpadMenuProvider.ColorContainer.SelectItem(this);
+            _clickableActionProvider.Color1 = Color1;
+            _clickableActionProvider.Color2 = Color2;
             return Task.CompletedTask;
         }
     }

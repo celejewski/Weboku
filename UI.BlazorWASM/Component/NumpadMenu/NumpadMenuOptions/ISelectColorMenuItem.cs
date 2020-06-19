@@ -1,7 +1,10 @@
-﻿namespace UI.BlazorWASM.Component.NumpadMenu
+﻿using UI.BlazorWASM.Enums;
+
+namespace UI.BlazorWASM.Component.NumpadMenu
 {
     public interface ISelectColorMenuItem : INumpadMenuItem
     {
-        string CssClass { get; }
+        Color Color1 { get; }
+        Color Color2 { get; }
     }
 }

@@ -2,15 +2,15 @@
 
 <Grid9x9Component>
     <div class="clickable"
-         @onclick="(e) => ClickableActionProvider.ClickableAction.LeftClickAction(e, context.x, context.y)"
-         @oncontextmenu="(e) => ClickableActionProvider.ClickableAction.RightClickAction(e, context.x, context.y)">
+         @onclick="@((e) => ClickableActionProvider.OnLeftClick(e, context.x, context.y))"
+         @oncontextmenu="@((e) => ClickableActionProvider.OnRightClick(e, context.x, context.y))">
     </div>
 </Grid9x9Component>
 
-@code {        
-    protected override void OnInitialized()
+@code { 
+    protected override bool ShouldRender()
     {
-        ClickableActionProvider.OnChanged += StateHasChanged;
+        return false;
     }
 
 }

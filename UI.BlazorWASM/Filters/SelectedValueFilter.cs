@@ -1,29 +1,36 @@
 ﻿using Core.Data;
+using UI.BlazorWASM.Enums;
+using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.Filters
 {
     public class SelectedValueFilter : IFilter
     {
-        private readonly int _value;
+        private readonly InputValue _value;
 
         public SelectedValueFilter(int value)
         {
-            _value = value;
+            _value = (InputValue) value;
         }
 
-        public string IsFiltered(ICell cell)
+        public FilterOption IsFiltered(IGridProvider gridProvider, int x, int y)
         {
-            if (cell.Input.Value == _value)
+            if( _value == InputValue.Empty)
             {
-                return FilterStyleClass.Primary;
+                return FilterOption.None;
             }
 
-            if (cell.Candidates.ContainsKey(_value))
+            if (gridProvider.GetValue(x, y) == _value)
             {
-                return FilterStyleClass.Secondary;
+                return FilterOption.Primary;
             }
 
-            return FilterStyleClass.None;
+            if (gridProvider.HasCandidate(x, y, _value))
+            {
+                return FilterOption.Secondary;
+            }
+
+            return FilterOption.None;
         }
     }
 }

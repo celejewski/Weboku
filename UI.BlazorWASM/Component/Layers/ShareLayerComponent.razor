@@ -1,0 +1,29 @@
+﻿@inject ModalProvider ModalProvider
+@inject ShareProvider ShareProvider
+
+@if( ModalProvider.CurrentState == Modals.ModalState.Share )
+{
+    <BackgroundLayerComponent />
+    <BorderLayerComponent />
+    <Grid9x9Component>
+        <div class="input">
+            @{
+                var value = ShareProvider.Grid.GetValue(context.x, context.y);
+                if( value != InputValue.Empty )
+                {
+                    @((int)value)
+                }
+            }
+        </div>
+    </Grid9x9Component>
+    <ShadowLayerComponent />
+}
+
+@code {
+
+    protected override void OnInitialized()
+    {
+        ModalProvider.OnChanged += StateHasChanged;
+        ShareProvider.OnChanged += StateHasChanged;
+    }
+}

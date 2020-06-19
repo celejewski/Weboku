@@ -1,5 +1,4 @@
 ﻿using Core.Data;
-using Microsoft.AspNetCore.Components.Web;
 using UI.BlazorWASM.Enums;
 using UI.BlazorWASM.Managers;
 using UI.BlazorWASM.Providers;
@@ -8,61 +7,56 @@ namespace UI.BlazorWASM.ClickableActions
 {
     public class StandardAction : IClickableAction
     {
-        private readonly int _selectedValue;
-        private readonly ICell[,] _cells;
         private readonly IGridHistoryManager _gridHistoryManager;
-        private readonly ICellColorProvider _cellColorProvider;
-        private readonly ISudokuProvider _sudokuProvider;
+        private readonly CellColorProvider _cellColorProvider;
+        private readonly IGridProvider _gridProvider;
 
-        public StandardAction(IGridHistoryManager gridHistoryManager, ICellColorProvider cellColorProvider, ISudokuProvider sudokuProvider, int selectedValue)
+        public StandardAction(IGridHistoryManager gridHistoryManager, CellColorProvider cellColorProvider, IGridProvider gridProvider)
         {
-            _cells = sudokuProvider.Cells;
             _gridHistoryManager = gridHistoryManager;
             _cellColorProvider = cellColorProvider;
-            _sudokuProvider = sudokuProvider;
-            _selectedValue = selectedValue;
+            _gridProvider = gridProvider;
         }
-        public void LeftClickAction(MouseEventArgs e, int x, int y)
+        public void LeftClickAction(ClickableActionArgs args)
         {
-            if( e.CtrlKey )
+            if( args.MouseEventArgs.CtrlKey )
             {
-                _cellColorProvider.ToggleColor(x, y, CellColor.First);
+                _cellColorProvider.ToggleColor(args.X, args.Y, args.Color1);
                 return;
             }
 
-            var cell = _cells[x, y];
-            if( cell.IsGiven )
+            if( _gridProvider.GetIsGiven(args.X, args.Y))
             {
                 return;
             }
 
-            if( _selectedValue == 0 || cell.Input.Value == 0 )
+            if( args.Value == InputValue.Empty || _gridProvider.GetValue(args.X, args.Y) == InputValue.Empty)
             {
                 _gridHistoryManager.Save();
-                _sudokuProvider.SetValue(cell.X, cell.Y, _selectedValue);
+                _gridProvider.SetValue(args.X, args.Y, args.Value);
             }
-            else if( cell.Input.Value == _selectedValue )
+            else if( _gridProvider.GetValue(args.X, args.Y) == args.Value )
             {
                 _gridHistoryManager.Save();
-                _sudokuProvider.SetValue(cell.X, cell.Y, 0);
+                _gridProvider.SetValue(args.X, args.Y, 0);
             }
         }
-        public void RightClickAction(MouseEventArgs e, int x, int y)
+        public void RightClickAction(ClickableActionArgs args)
         {
-            if( e.CtrlKey )
+            if( args.MouseEventArgs.CtrlKey )
             {
-                _cellColorProvider.ToggleColor(x, y, CellColor.Second);
+                _cellColorProvider.ToggleColor(args.X, args.Y, args.Color2);
                 return;
             }
 
-            var cell = _cells[x, y];
-            if( cell.Input.Value != 0 || _selectedValue == 0 )
+            
+            if( _gridProvider.GetValue(args.X, args.Y) != InputValue.Empty || args.Value == InputValue.Empty )
             {
                 return;
             }
 
             _gridHistoryManager.Save();
-            _sudokuProvider.ToggleCandidate(cell.X, cell.Y, _selectedValue);
+            _gridProvider.ToggleCandidate(args.X, args.Y, args.Value);
         }
     }
 }

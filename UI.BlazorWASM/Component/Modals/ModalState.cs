@@ -6,5 +6,9 @@
         NewGame,
         EndGame,
         HowToPlay,
+        MainMenu,
+        Share,
+        Paste,
+        Hints,
     }
 }

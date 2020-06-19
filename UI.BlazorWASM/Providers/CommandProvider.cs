@@ -1,8 +1,6 @@
 ﻿using Core.Converters;
 using Core.Generators;
-using UI.BlazorWASM.ClickableActions;
 using UI.BlazorWASM.Commands;
-using UI.BlazorWASM.Component.NumpadMenu;
 using UI.BlazorWASM.Managers;
 
 namespace UI.BlazorWASM.Providers
@@ -11,87 +9,54 @@ namespace UI.BlazorWASM.Providers
     {
         private readonly ISudokuGenerator _sudokuGenerator;
         private readonly IGridHistoryManager _gridHistoryManager;
-        private readonly ISudokuProvider _sudokuProvider;
-        private readonly IGameTimerProvider _gameTimerProvider;
+        private readonly GameTimerProvider _gameTimerProvider;
         private readonly IGridConverter _gridConverter;
-        private readonly IFilterProvider _filterProvider;
-        private readonly ICellColorProvider _cellColorProvider;
+        private readonly FilterProvider _filterProvider;
+        private readonly CellColorProvider _cellColorProvider;
         private readonly IClickableActionProvider _clickableActionProvider;
-        private readonly ClickableActionFactory _clickableActionFactory;
         private readonly ModalProvider _modalProvider;
+        private readonly IGridProvider _gridProvider;
+        private readonly RESTGridGenerator _gridGeneratorV2;
+        private readonly HodokuGridConverter _hodokuGridConverter;
+        private readonly SudokuProvider _sudokuProvider;
+
+        //private readonly HintsProvider _hintsProvider;
 
         public CommandProvider(
-            ISudokuGenerator sudokuGenerator, 
-            IGridHistoryManager gridHistoryManager, 
-            ISudokuProvider sudokuProvider, 
-            IGameTimerProvider gameTimerProvider, 
-            IGridConverter gridConverter, 
-            IFilterProvider filterProvider, 
-            ICellColorProvider cellColorProvider, 
-            IClickableActionProvider clickableActionProvider, 
-            ClickableActionFactory clickableActionFactory, 
-            ModalProvider modalProvider)
+            ISudokuGenerator sudokuGenerator,
+            IGridHistoryManager gridHistoryManager,
+            GameTimerProvider gameTimerProvider,
+            IGridConverter gridConverter,
+            FilterProvider filterProvider,
+            CellColorProvider cellColorProvider,
+            IClickableActionProvider clickableActionProvider,
+            ModalProvider modalProvider,
+            IGridProvider gridProvider,
+            RESTGridGenerator gridGeneratorV2,
+            HodokuGridConverter hodokuGridConverter,
+            SudokuProvider sudokuProvider)
         {
             _sudokuGenerator = sudokuGenerator;
             _gridHistoryManager = gridHistoryManager;
-            _sudokuProvider = sudokuProvider;
             _gameTimerProvider = gameTimerProvider;
             _gridConverter = gridConverter;
             _filterProvider = filterProvider;
             _cellColorProvider = cellColorProvider;
             _clickableActionProvider = clickableActionProvider;
-            _clickableActionFactory = clickableActionFactory;
             _modalProvider = modalProvider;
+            _gridProvider = gridProvider;
+            _gridGeneratorV2 = gridGeneratorV2;
+            _hodokuGridConverter = hodokuGridConverter;
+            _sudokuProvider = sudokuProvider;
         }
-        public ICommand StartNewGame(string difficulty)
-        {
-            return new StartNewGameCommand(difficulty, _sudokuGenerator, _gridHistoryManager, _sudokuProvider, _gameTimerProvider, _gridConverter, _modalProvider, _cellColorProvider);
-        }
-
-        public ICommand FindAllCandidates()
-        {
-            var command = new FindAllCandidatesCommand(_sudokuProvider, _gridHistoryManager);
-            return command;
-        }
-
-        public ICommand Restart()
-        {
-            return new RestartCommand(_sudokuProvider, _gridHistoryManager, _gameTimerProvider, _cellColorProvider);
-        }
-
-        public ICommand SelectPairsFilter()
-        {
-            return new SelectPairsFilterCommand(_filterProvider);
-        }
-
         public ICommand SelectValue(int value)
         {
-            return new SelectValueCommand(value, _filterProvider, _clickableActionProvider, _clickableActionFactory);
+            return new SelectValueCommand(value, _filterProvider, _clickableActionProvider);
         }
 
-        public ICommand SelectErase()
+        public ICommand StartNewGameV2(string difficulty)
         {
-            return new SelectEraseCommand(_clickableActionProvider, _clickableActionFactory, _filterProvider);
-        }
-
-        public ICommand ClearColors()
-        {
-            return new ClearColorsCommand(_cellColorProvider);
-        }
-
-        public ICommand Redo()
-        {
-            return new RedoCommand(_gridHistoryManager);
-        }
-
-        public ICommand Undo()
-        {
-            return new UndoCommand(_gridHistoryManager);
-        }
-
-        public ICommand ShowNewGameModal()
-        {
-            return new ShowNewGameModalCommand(_modalProvider);
+            return new StartNewGameCommand(difficulty, _sudokuGenerator, _gridProvider, _modalProvider, _cellColorProvider, _gridHistoryManager, _gameTimerProvider, _hodokuGridConverter, _sudokuProvider);
         }
     }
 }

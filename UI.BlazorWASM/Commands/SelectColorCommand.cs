@@ -10,19 +10,18 @@ namespace UI.BlazorWASM.Commands
 {
     public class SelectColorCommand : ICommand
     {
-        private readonly CellColor _cellColor;
+        private readonly Color _cellColor;
         private readonly IClickableActionProvider _clickableActionProvider;
-        private readonly ClickableActionFactory _clickableActionFactory;
 
-        public SelectColorCommand(CellColor cellColor, IClickableActionProvider clickableActionProvider, ClickableActionFactory clickableActionFactory)
+        public SelectColorCommand(Color cellColor, IClickableActionProvider clickableActionProvider)
         {
             _cellColor = cellColor;
             _clickableActionProvider = clickableActionProvider;
-            _clickableActionFactory = clickableActionFactory;
         }
         public Task Execute()
         {
-            _clickableActionProvider.SetClickableAction(_clickableActionFactory.ColorAction(_cellColor));
+            _clickableActionProvider.Color1 = _cellColor;
+            _clickableActionProvider.Color2 = _cellColor;
             return Task.CompletedTask;
         }
     }

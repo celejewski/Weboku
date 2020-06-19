@@ -1,0 +1,15 @@
+﻿<a @onclick="@(() => OnClick?.Execute())"
+   class="modal__button @_modalClass">@ChildContent</a>
+
+@code {
+    [Parameter]
+    public ICommand OnClick { get; set; }
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    [Parameter]
+    public bool IsSecondary { get; set; } = false;
+
+    private string _modalClass { get => IsSecondary ? "modal__button--secondary" : "modal__button--primary"; }
+}

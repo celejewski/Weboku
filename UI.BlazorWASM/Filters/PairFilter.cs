@@ -1,19 +1,13 @@
-﻿using Core.Data;
+﻿using UI.BlazorWASM.Enums;
+using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.Filters
 {
     public class PairFilter : IFilter
     {
-        public string IsFiltered(ICell cell)
+        public FilterOption IsFiltered(IGridProvider gridProvider, int x, int y)
         {
-            if (cell.Candidates.Count == 2)
-            {
-                return FilterStyleClass.Secondary;
-            }
-            else
-            {
-                return FilterStyleClass.None;
-            }
+            return gridProvider.GetCandidatesCount(x, y) == 2 ? FilterOption.Secondary : FilterOption.None;
         }
     }
 }

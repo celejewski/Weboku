@@ -1,93 +1,48 @@
 ﻿@inject NumpadMenuBuilder NumpadMenuBuilder
-@inject ISudokuProvider SudokuProvider
-@inject NumpadMenuProvider NumpadMenuProvider 
-@inject IGameTimerProvider GameTimerProvider
+@inject NumpadMenuProvider NumpadMenuProvider
+@using UI.BlazorWASM.Component.NumpadMenu.Components
+
 
     <div class="numpad">
-        <div class="numpad__game-info">
-            <div class="game-info">
-                <div class="game-info__time-elapsed">@GameTimerProvider.Elapsed.ToString("mm\\:ss")</div>
-                <div class="game-info__difficulty">@SudokuProvider.Sudoku.Difficulty</div>
-            </div>
+        <GridHistoryButtonComponent NumpadMenuLabel="NumpadMenuBuilder.Undo()" />
+        <SelectValueButtonComponent @ref="_initialFilter"
+                                    NumpadMenuLabel="NumpadMenuBuilder.SelectValue(1)" />
+        <SelectValueButtonComponent NumpadMenuLabel="NumpadMenuBuilder.SelectValue(2)" />
+        <SelectValueButtonComponent NumpadMenuLabel="NumpadMenuBuilder.SelectValue(3)" />
+        <IconButtonComponent @ref="_initialAction"
+                              NumpadMenuLabel="NumpadMenuBuilder.SelectStandardAction()" />
 
-        </div>
+        <GridHistoryButtonComponent NumpadMenuLabel="NumpadMenuBuilder.Redo()" />
+        <SelectValueButtonComponent NumpadMenuLabel="NumpadMenuBuilder.SelectValue(4)" />
+        <SelectValueButtonComponent NumpadMenuLabel="NumpadMenuBuilder.SelectValue(5)" />
+        <SelectValueButtonComponent NumpadMenuLabel="NumpadMenuBuilder.SelectValue(6)" />
+        <IconButtonComponent NumpadMenuLabel="NumpadMenuBuilder.SelectEraserAction()" />
 
-        @foreach( var item in _menuLabels )
-        {
-            var bound = item;
-            <div @onclick="@((e) => OnClick(bound))"
-                 class="numpad__button numpad__label
-                 @(bound == NumpadMenuProvider.SelectedItem ? "numpad__label--highlighted" : string.Empty) 
-                 @(@bound.IsDimmed ? "numpad__label--dimmed" : string.Empty)
-                 ">
-                @item.Label
-            </div>
-        }
+        <PairsFilterButtonComponent NumpadMenuLabel="NumpadMenuBuilder.Pairs()" />
+        <SelectValueButtonComponent NumpadMenuLabel="NumpadMenuBuilder.SelectValue(7)" />
+        <SelectValueButtonComponent NumpadMenuLabel="NumpadMenuBuilder.SelectValue(8)" />
+        <SelectValueButtonComponent NumpadMenuLabel="NumpadMenuBuilder.SelectValue(9)" />
+        <IconButtonComponent NumpadMenuLabel="NumpadMenuBuilder.SelectCleanerAction()" />
 
-        <div class="numpad__hidden"></div>
-
-        <div @onclick="@((e) => NumpadMenuBuilder.ClearColors().Execute())"
-             class="numpad__button numpad__label numpad__clear-colors">
-            Clear colors
-        </div>
-        
-        @foreach( var item in _selectColorMenuItems )
-        {
-            var bound = item;
-            <div @onclick="@((e) => OnClick(bound))"
-                 class="numpad__button">
-                <div class="numpad__color @item.CssClass">
-                </div>
-            </div>
-        }
+        <ClearColorsButtonComponent />
+        <ColorButtonComponent @ref="_initialColor"
+                              SelectColorMenuItem="NumpadMenuBuilder.SelectColor(Enums.Color.First, Enums.Color.Second)" />
+        <ColorButtonComponent SelectColorMenuItem="NumpadMenuBuilder.SelectColor(Enums.Color.Third, Enums.Color.Fourth)" />
+        <IconButtonComponent NumpadMenuLabel="NumpadMenuBuilder.SelectColorAction()" />
     </div>
 
 @code {
+    private SelectValueButtonComponent _initialFilter;
+    private IconButtonComponent _initialAction;
+    private ColorButtonComponent _initialColor;
 
-    private IList<INumpadMenuLabel> _menuLabels;
-    private IList<ISelectColorMenuItem> _selectColorMenuItems;
-
-    private void OnClick(INumpadMenuItem clicked)
+    protected override void OnAfterRender(bool firstRender)
     {
-        clicked.Execute();
-    }
-
-    protected override void OnInitialized()
-    {
-        SudokuProvider.OnValueOrCandidatesChanged += StateHasChanged;
-        NumpadMenuProvider.OnChanged += StateHasChanged;
-        GameTimerProvider.OnChanged += StateHasChanged;
-
-        _menuLabels = new INumpadMenuLabel[]
-{
-            NumpadMenuBuilder.Undo(),
-            NumpadMenuBuilder.SelectValue(1),
-            NumpadMenuBuilder.SelectValue(2),
-            NumpadMenuBuilder.SelectValue(3),
-
-            NumpadMenuBuilder.Redo(),
-            NumpadMenuBuilder.SelectValue(4),
-            NumpadMenuBuilder.SelectValue(5),
-            NumpadMenuBuilder.SelectValue(6),
-
-            NumpadMenuBuilder.SelectErase(),
-            NumpadMenuBuilder.SelectValue(7),
-            NumpadMenuBuilder.SelectValue(8),
-            NumpadMenuBuilder.SelectValue(9),
-
-            NumpadMenuBuilder.Pairs(),
-};
-
-        _selectColorMenuItems = new ISelectColorMenuItem[]
+        if(firstRender)
         {
-            NumpadMenuBuilder.SelectColor(Enums.CellColor.First),
-            NumpadMenuBuilder.SelectColor(Enums.CellColor.Second),
-            NumpadMenuBuilder.SelectColor(Enums.CellColor.Third),
-            NumpadMenuBuilder.SelectColor(Enums.CellColor.Fourth),
-        };
-
-
-        NumpadMenuProvider.SelectItem(_menuLabels[1]);
+            NumpadMenuProvider.FilterContainer.SelectItem(_initialFilter.NumpadMenuLabel);
+            NumpadMenuProvider.ActionContainer.SelectItem(_initialAction.NumpadMenuLabel);
+            NumpadMenuProvider.ColorContainer.SelectItem(_initialColor.SelectColorMenuItem);
+        }
     }
-
 }

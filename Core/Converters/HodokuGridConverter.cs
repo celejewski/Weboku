@@ -1,6 +1,8 @@
 ﻿using Core.Data;
 using Core.Generators;
+using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Core.Converters
 {
@@ -15,6 +17,7 @@ namespace Core.Converters
 
         public IGrid FromText(string input)
         {
+            input = input.Replace('.', '0');
             var grid = _generator.Empty();
             for( int x = 0; x < 9; x++ )
             {
@@ -23,7 +26,8 @@ namespace Core.Converters
                     var value = int.Parse(input[y * 9 + x].ToString());
                     if( value != 0 )
                     { 
-                        grid.SetGiven(x, y, value);
+                        grid.SetIsGiven(x, y, true);
+                        grid.SetValue(x, y, (InputValue) value);
                     }
                     else
                     {
@@ -34,25 +38,26 @@ namespace Core.Converters
             return grid;
         }
 
-        public string ToText(IGrid grid, IncludedFields format)
+        public bool IsValidText(string text)
+        {
+            text = text.Replace('.', '0');
+            return text.Length == 81
+                && !Regex.IsMatch(text, @"[^\d]");
+        }
+
+        public string ToText(IGrid grid)
         {
             var sb = new StringBuilder();
             for( int y = 0; y < 9; y++ )
             {
                 for( int x = 0; x < 9; x++ )
                 {
-                    var cell = grid.Cells[x, y];
-                    if (!cell.IsGiven && format == IncludedFields.Givens)
-                    {
-                        sb.Append("0");
-                    }
-                    else
-                    {
-                        sb.Append(cell.Input.Value);
-                    }
+                    sb.Append((int) grid.GetValue(x, y));
                 }
             }
             return sb.ToString();
         }
+
+        
     }
 }

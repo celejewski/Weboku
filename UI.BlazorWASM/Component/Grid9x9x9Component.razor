@@ -2,9 +2,7 @@
     <div class="candidates-grid">
         @for( int z = 0; z < 9; z++ )
         {
-            <div class="candidates-grid__cell">
                 @ChildContent((context.x, context.y, z))
-            </div>
         }
     </div>
 </Grid9x9Component>

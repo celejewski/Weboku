@@ -1,0 +1,15 @@
+﻿@inject IGridProvider GridProvider
+@inject NumpadMenuProvider NumpadMenuProvider
+
+<LabelButtonComponent NumpadMenuLabel="NumpadMenuLabel"></LabelButtonComponent>
+
+@code {
+    [Parameter]
+    public INumpadMenuLabel NumpadMenuLabel { get; set; }
+
+    protected override void OnInitialized()
+    {
+        GridProvider.OnValueChanged += StateHasChanged;
+        NumpadMenuProvider.OnChanged += StateHasChanged;
+    }
+}

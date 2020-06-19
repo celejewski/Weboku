@@ -1,11 +1,12 @@
-﻿$color-danger: red;
-$color-success: green;
-$color-1: #FF7970;
-$color-2: #6DBC76;
-$color-3: #9B7261;
+﻿$color-1: #FFB0B0;
+$color-2: #B0FFB0;
+$color-3: #adcde0;
 $color-4: #9792E3;
+$color-danger: $color-1;
+$color-success: $color-2;
 $menu-background-color: #3A77EA;
 $color-body-bg: #555555;
+$modal-background: #F1F1F1;
 
 $color-dark: #616161;
 $color-normal: #7A7A7A;
@@ -22,6 +23,8 @@ $color-front-primary: #7A7A7A;
 $color-back-primary: #FBFBFB;
 $color-front-secondary: #898989;
 $color-back-secondary: #DEDEDE;
+
+$color-numpad-selected: #e2b22b;
 
 $color-shadow: #616161;
 

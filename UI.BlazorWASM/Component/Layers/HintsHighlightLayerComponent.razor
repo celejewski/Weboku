@@ -1,0 +1,37 @@
+﻿@inject UI.BlazorWASM.Hints.Displayer Displayer
+
+<div class="layer">
+    <div class="hints-highlight">
+        <div class="hints-highlight__container hints-highlight__blocks">
+            @for( int i = 0; i < 9; i++ )
+            {
+                <div class="@HighlightedClass(Displayer.IsBlockHighlighted[i])"></div>
+            }
+        </div>
+        <div class="hints-highlight__container hints-highlight__rows">
+            @for( int i = 0; i < 9; i++ )
+            {
+                <div class="@HighlightedClass(Displayer.IsRowHighlighted[i])"></div>
+            }
+        </div>
+        <div class="hints-highlight__container hints-highlight__cols">
+            @for( int i = 0; i < 9; i++ )
+            {
+                <div class="@HighlightedClass(Displayer.IsColHighlighted[i])"></div>
+            }
+        </div>
+    </div>
+</div>
+
+
+@code { 
+    protected override void OnInitialized()
+    {
+        Displayer.OnChanged += StateHasChanged;
+    }
+
+    private string HighlightedClass(bool isHighlighted)
+    {
+        return Displayer.IsVisible && isHighlighted ? "hints-highlight--with-background" : string.Empty;
+    }
+}

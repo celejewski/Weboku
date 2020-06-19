@@ -1,5 +1,6 @@
 ﻿using Core.Converters;
 using Core.Generators;
+using System.Linq;
 using System.Threading.Tasks;
 using UI.BlazorWASM.Component.Modals;
 using UI.BlazorWASM.Managers;
@@ -10,42 +11,53 @@ namespace UI.BlazorWASM.Commands
     public class StartNewGameCommand : ICommand
     {
         private readonly string _difficulty;
-        private readonly ISudokuGenerator _sudokuGenerator;
-        private readonly IGridHistoryManager _gridHistoryManager;
-        private readonly ISudokuProvider _sudokuProvider;
-        private readonly IGameTimerProvider _gameTimerProvider;
-        private readonly IGridConverter _gridConverter;
+        private readonly ISudokuGenerator _generator;
+        private readonly IGridProvider _gridProvider;
         private readonly ModalProvider _modalProvider;
-        private readonly ICellColorProvider _cellColorProvider;
+        private readonly CellColorProvider _cellColorProvider;
+        private readonly IGridHistoryManager _gridHistoryManager;
+        private readonly GameTimerProvider _gameTimerProvider;
+        private readonly HodokuGridConverter _hodokuGridConverter;
+        private readonly SudokuProvider _sudokuProvider;
 
         public StartNewGameCommand(
             string difficulty, 
-            ISudokuGenerator sudokuGenerator, 
-            IGridHistoryManager gridHistoryManager, 
-            ISudokuProvider sudokuProvider, 
-            IGameTimerProvider gameTimerProvider, 
-            IGridConverter gridConverter,
+            ISudokuGenerator generator, 
+            IGridProvider gridProvider, 
             ModalProvider modalProvider,
-            ICellColorProvider cellColorProvider)
+            CellColorProvider cellColorProvider,
+            IGridHistoryManager gridHistoryManager,
+            GameTimerProvider gameTimerProvider,
+            HodokuGridConverter hodokuGridConverter,
+            SudokuProvider sudokuProvider)
         {
             _difficulty = difficulty;
-            _sudokuGenerator = sudokuGenerator;
-            _gridHistoryManager = gridHistoryManager;
-            _sudokuProvider = sudokuProvider;
-            _gameTimerProvider = gameTimerProvider;
-            _gridConverter = gridConverter;
+            _generator = generator;
+            _gridProvider = gridProvider;
             _modalProvider = modalProvider;
             _cellColorProvider = cellColorProvider;
+            _gridHistoryManager = gridHistoryManager;
+            _gameTimerProvider = gameTimerProvider;
+            _hodokuGridConverter = hodokuGridConverter;
+            _sudokuProvider = sudokuProvider;
         }
+
         public async Task Execute()
         {
-            var sudoku = await _sudokuGenerator.Generate(_difficulty);
+            var sudoku = await _generator.Generate(_difficulty);
+            if (false && !sudoku.Steps.Any(text => text.Contains("Naked Triple", System.StringComparison.OrdinalIgnoreCase)))
+            {
+#warning for testing only
+                System.Console.WriteLine("Looking for different sudoku");
+                Execute();
+                return;
+            }
+
+            _gridProvider.Grid =  _hodokuGridConverter.FromText(sudoku.Given);
             _sudokuProvider.Sudoku = sudoku;
-            var newGrid = _gridConverter.FromText(sudoku.Given);
-            _sudokuProvider.AssignFrom(newGrid);
+            _modalProvider.SetModalState(ModalState.None);
             _cellColorProvider.ClearAll();
             _gridHistoryManager.ClearUndo();
-            _modalProvider.Modal.SetState(ModalState.None);
             _gameTimerProvider.Start();
         }
     }

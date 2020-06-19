@@ -1,0 +1,118 @@
+﻿@import '_Variables.scss';
+
+.share {
+    &__header {
+        grid-column: span 2;
+        font-size: 2.5rem;
+        align-self: center;
+        justify-self: stretch;
+        text-align: center;
+    }
+
+    &__radio {
+        grid-column: span 1;
+        grid-row: span 4;
+
+        @include color-secondary;
+        border-radius: 5%;
+        border: 1px solid #888;
+        box-shadow: 0 4px 12px 0 rgba(0,0,0,0.15);
+    }
+
+    &__option {
+        @include color-primary;
+        font-size: 1.05rem;
+        margin: 0.8em;
+        padding: 0.25em 0.25em;
+        text-align: center;
+        border: 1px solid #888;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0, 0.15);
+
+        &--selected {
+            font-weight: $font-bold;
+            position:relative;
+
+            &::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                box-shadow: 0 0 8px 2px $color-numpad-selected inset;
+            }
+
+            &::before {
+                position:absolute;
+                left: 0.5em;
+                top: 50%;
+                transform: translateY(-50%);
+                content: 'X';
+            }
+        }
+
+        &:hover {
+            background-color: white;
+            border: 1px solid black;
+            box-shadow: 0 0 0 1px black inset;
+        }
+    }
+
+    &__label {
+        width: 100%;
+        display: inline-block;
+        text-align: center;
+        font-weight: $font-bold;
+        font-size: 1.3rem;
+        color: black;
+        border-bottom: 2px solid #AAA;
+        padding: 0.4em 0;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.15);
+    }
+
+    &__output {
+        grid-column: span 2;
+        font-size: 1.25rem;
+        margin: auto;
+        width: 85%;
+        box-shadow: 0 4px 8px 0 rgba(0, 0,0,0.15);
+    }
+
+    &__row {
+        grid-column: span 2;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+
+    &__close {
+        @include color-primary;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        font-weight: $font-bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        width: 40%;
+        max-width: 13em;
+        margin: 0.1em 0.25em;
+        font-size: 1.5rem;
+        padding: 0.35em 0.15em;
+        border: 1px solid #888;
+
+        &:hover {
+            background-color: white;
+            font-weight: $font-bold;
+            border: 1px solid black;
+        }
+    }
+
+    &__input {
+        grid-row: span 2;
+        grid-column: span 2;
+    }
+}
