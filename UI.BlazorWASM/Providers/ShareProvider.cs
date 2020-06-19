@@ -3,6 +3,7 @@ using Core.Data;
 using Microsoft.AspNetCore.Components;
 using System;
 using UI.BlazorWASM.Enums;
+using UI.BlazorWASM.Filters;
 
 namespace UI.BlazorWASM.Providers
 {
@@ -10,8 +11,10 @@ namespace UI.BlazorWASM.Providers
     {
         private bool _dirty;
 
-        private readonly Base64GridConverter _base64GridConverter;
         private readonly NavigationManager _navigationManager;
+        private readonly ModalProvider _modalProvider;
+        private readonly FilterProvider _filterProvider;
+
         public event Action OnChanged;
         private readonly IGridProvider _gridProvider;
         private readonly HodokuGridConverter _hodokuGridConverter;
@@ -82,16 +85,40 @@ namespace UI.BlazorWASM.Providers
         public ShareProvider(
             IGridProvider gridProvider,
             HodokuGridConverter hodokuGridConverter,
-            Base64GridConverter base64GridConverter,
-            NavigationManager navigationManager
+            NavigationManager navigationManager,
+            ModalProvider modalProvider,
+            FilterProvider filterProvider
             )
         {
             _dirty = true;
             _gridProvider = gridProvider;
             _hodokuGridConverter = hodokuGridConverter;
-            _base64GridConverter = base64GridConverter;
             _navigationManager = navigationManager;
+            _modalProvider = modalProvider;
+            _filterProvider = filterProvider;
             gridProvider.OnValueOrCandidatesChanged += () => _dirty = true;
+            modalProvider.OnChanged += () => CheckVisibility();
+            CheckVisibility();
+        }
+
+        private bool _isOpened = false;
+        private IFilter _previousFilter = null;
+        public void CheckVisibility()
+        {
+            Console.WriteLine("Check visibilty");
+            if( !_isOpened && _modalProvider.CurrentState == Component.Modals.ModalState.Share )
+            {
+                Console.WriteLine("Share is opening");
+                _isOpened = true;
+                _previousFilter = _filterProvider.Filter;
+                _filterProvider.SetFilter(new SharedFilter(this));
+            }
+            else if (_isOpened && _modalProvider.CurrentState != Component.Modals.ModalState.Share)
+            {
+                Console.WriteLine("Share is closing");
+                _isOpened = false;
+                _filterProvider.SetFilter(_previousFilter);
+            }
         }
 
         private void Update()
@@ -128,6 +155,8 @@ namespace UI.BlazorWASM.Providers
                 _converted = text;
             }
             _dirty = false;
+
+            _filterProvider.SetFilter(new SharedFilter(this));
             OnChanged?.Invoke();
         }
     }
