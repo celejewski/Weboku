@@ -1,5 +1,5 @@
 ﻿@inject IJSRuntime JSRuntime
-@inject CloseModalCommand CloseModalCommand
+@inject ShowPreviousModalCommand ShowPreviousModalCommand
 @inject ShareProvider ShareProvider
 @inject NavigationManager NavigationManager
 
@@ -9,30 +9,30 @@
         <div class="share__radio">
             <span class="share__label">What to include?</span>
             <div class="share__option @FieldClass(Enums.SharedFields.Givens)"
-                    @onclick="@(() => ShareProvider.SharedFields = Enums.SharedFields.Givens)">Only givens</div>
+                 @onclick="@(() => ShareProvider.SharedFields = Enums.SharedFields.Givens)">Only givens</div>
             <div class="share__option @FieldClass(Enums.SharedFields.GivensAndInputs)"
-                    @onclick="@(() => ShareProvider.SharedFields = Enums.SharedFields.GivensAndInputs)">User inputs</div>
+                 @onclick="@(() => ShareProvider.SharedFields = Enums.SharedFields.GivensAndInputs)">User inputs</div>
             <div class="share__option @FieldClass(Enums.SharedFields.Everything)"
-                    @onclick="@(() => ShareProvider.SharedFields = Enums.SharedFields.Everything)">Everything</div>
+                 @onclick="@(() => ShareProvider.SharedFields = Enums.SharedFields.Everything)">Everything</div>
         </div>
 
         <div class="share__radio">
             <span class="share__label">What format to use?</span>
             <div class="share__option @FormatClass(Enums.SharedConverter.Hodoku)"
-                    @onclick="@(() => ShareProvider.SharedConverter = Enums.SharedConverter.Hodoku)">Hodoku</div>
+                 @onclick="@(() => ShareProvider.SharedConverter = Enums.SharedConverter.Hodoku)">Hodoku</div>
             <div class="share__option @FormatClass(Enums.SharedConverter.MyFormat)"
-                    @onclick="@(() => ShareProvider.SharedConverter = Enums.SharedConverter.MyFormat)">My format</div>
+                 @onclick="@(() => ShareProvider.SharedConverter = Enums.SharedConverter.MyFormat)">My format</div>
             <div class="share__option @FormatClass(Enums.SharedConverter.MyLink)"
-                    @onclick="@(() => ShareProvider.SharedConverter = Enums.SharedConverter.MyLink)">My link</div>
+                 @onclick="@(() => ShareProvider.SharedConverter = Enums.SharedConverter.MyLink)">My link</div>
         </div>
 
         <input type="text"
-                value="@ShareProvider.Converted"
-                id="share__output"
-                class="share__output" />
+               value="@ShareProvider.Converted"
+               id="share__output"
+               class="share__output" />
         <div class="share__row">
             <div class="share__close"
-                    @onclick="CloseModalCommand.Execute">Close</div>
+                 @onclick="ShowPreviousModalCommand.Execute">Close</div>
         </div>
     </Content>
 </ModalWithGridTemplateComponent>

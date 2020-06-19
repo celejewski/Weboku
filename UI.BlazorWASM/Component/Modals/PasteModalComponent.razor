@@ -1,7 +1,7 @@
 ﻿@inject IJSRuntime JSRuntime
 @inject PasteProvider PasteProvider
 @inject StartNewGameFromPastedCommand StartNewGameFromPastedCommand 
-@inject CloseModalCommand CloseModalCommand
+@inject ShowPreviousModalCommand ShowPreviousModalCommand
 
 <ModalWithGridTemplateComponent>
     <Content>
@@ -16,7 +16,7 @@
 
         <div class="paste__row">
             <div class="paste__close"
-                 @onclick="CloseModalCommand.Execute">Close</div>
+                 @onclick="ShowPreviousModalCommand.Execute">Close</div>
         </div>
     </Content>
 </ModalWithGridTemplateComponent>

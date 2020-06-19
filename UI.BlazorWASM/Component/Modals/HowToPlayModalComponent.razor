@@ -1,4 +1,4 @@
-﻿@inject CloseModalCommand CloseModalCommand
+﻿@inject ShowPreviousModalCommand ShowPreviousModalCommand
 @inject ModalProvider ModalProvider
 
 <ModalTemplateComponent>
@@ -22,7 +22,7 @@
     </div>
 
     <div class="modal__footer with-hr">
-        <ModalButtonComponent OnClick="CloseModalCommand"
+        <ModalButtonComponent OnClick="ShowPreviousModalCommand"
                               IsSecondary="true">
             Close
         </ModalButtonComponent>

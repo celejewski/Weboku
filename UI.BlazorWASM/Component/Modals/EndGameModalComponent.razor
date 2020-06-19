@@ -1,6 +1,6 @@
 ﻿@inject GameTimerProvider GameTimerProvider
-@inject ShowNewGameModalCommand ShowNewGameModalCommand
 @inject SudokuProvider SudokuProvider
+@inject ShowMainMenuModalCommand ShowMainMenuModalCommand
 
 <ModalTemplateComponent>
     <div class="text-center">
@@ -20,9 +20,9 @@
     </div>
 
     <div class="modal__footer with-hr">
-        <ModalButtonComponent OnClick="ShowNewGameModalCommand"
+        <ModalButtonComponent OnClick="ShowMainMenuModalCommand"
                               IsSecondary="true">
-            Play again
+            Close
         </ModalButtonComponent>
     </div>
 </ModalTemplateComponent>

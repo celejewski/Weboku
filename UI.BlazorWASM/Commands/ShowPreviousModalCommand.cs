@@ -1,21 +1,23 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.Commands
 {
-    public class CloseModalCommand : ICommand
+    public class ShowPreviousModalCommand : ICommand
     {
         private readonly ModalProvider _modalProvider;
 
-        public CloseModalCommand(ModalProvider modalProvider)
+        public ShowPreviousModalCommand(ModalProvider modalProvider)
         {
             _modalProvider = modalProvider;
         }
 
         public Task Execute()
         {
-            _modalProvider.SetModalState(Component.Modals.ModalState.None);
+            if( _modalProvider.HasPreviousState )
+            {
+                _modalProvider.GoToPreviousState();
+            }
             return Task.CompletedTask;
         }
     }

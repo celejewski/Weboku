@@ -44,6 +44,7 @@ namespace UI.BlazorWASM.Helpers
             services.AddScoped<ShowPasteModalCommand>();
             services.AddScoped<SelectColorActionCommand>();
             services.AddScoped<StartNewGameFromPastedCommand>();
+            services.AddScoped<ShowPreviousModalCommand>();
         }
 
         public static void RegisterProviders(this IServiceCollection services)
