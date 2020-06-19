@@ -24,6 +24,16 @@ namespace UI.BlazorWASM.Providers
             _timer.Elapsed += (o, e) => Save();
         }
 
+        public void PauseAutoSave()
+        {
+            _timer.Stop();
+        }
+
+        public void ResumeAutoSave()
+        {
+            _timer.Start();
+        }
+
         public async Task Save()
         {
             if( _isDirty )

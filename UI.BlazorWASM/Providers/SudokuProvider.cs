@@ -24,6 +24,7 @@ namespace UI.BlazorWASM.Providers
 
         public string Solution => Sudoku.Solution;
         public InputValue GetSolution(int x, int y) => (InputValue) int.Parse(Solution.Substring(y * 9 + x, 1));
+        public bool HasSolution => !string.IsNullOrEmpty(Sudoku.Solution);
         public IEnumerable<string> Steps => Sudoku.Steps;
 
         public event Action OnChanged;

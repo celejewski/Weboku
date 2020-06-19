@@ -96,11 +96,14 @@ namespace UI.BlazorWASM.Providers
 
         public bool IsValueLegal(int x, int y)
         {
-            return GetIsGiven(x, y)
-                || GetValue(x, y) == InputValue.Empty
-                || string.IsNullOrEmpty(_sudokuProvider.Solution)
-                || GetValue(x, y) == _sudokuProvider.GetSolution(x, y);
-            //return GetValue(x, y) == InputValue.Empty || _isInputLegal[x, y];
+            if( _sudokuProvider.HasSolution )
+            {
+                return GetIsGiven(x, y)
+                    || GetValue(x, y) == InputValue.Empty
+                    || GetValue(x, y) == _sudokuProvider.GetSolution(x, y);
+            }
+            
+            return GetValue(x, y) == InputValue.Empty || _isInputLegal[x, y];
         }
 
         public void RemoveCandidate(int x, int y, InputValue value)
