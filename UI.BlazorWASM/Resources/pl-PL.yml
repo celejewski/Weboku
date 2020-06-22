@@ -41,4 +41,13 @@ menu__candidates-header: Kandydaci
 menu__find-all: Wypełnij
 menu__remove-all: Wyczyść
 
+how-to-play__header: Jak grać
+how-to-play__p1: | 
+    Użyj lewego przycisku myszki żeby wstawić wartość do kratki.
+    Użyj prawego przycisku żeby zrobić notkę.
+how-to-play__p2: Możesz skorzystać z menu lub klawiatury żeby zmienić wstawianą wartość.
+how-to-play__p3: |
+    Skorzystaj z kolorowania żeby ułatwić zauważenie z zaawansowanych technik.
+    Możesz kolorować kratki kiedy trzymasz ctrl i klikniesz.
+
 modal__close: Zamknij

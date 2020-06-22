@@ -1,30 +1,29 @@
 ﻿@inject ShowPreviousModalCommand ShowPreviousModalCommand
 @inject ModalProvider ModalProvider
+@inject ILanguageContainerService Loc
 
 <ModalTemplateComponent>
     <div class="text-center">
-        <h1 class="modal__title with-hr">How to play</h1>
+        <h1 class="modal__title with-hr">@Loc.Keys["how-to-play__header"]</h1>
         <span class="modal__subtitle"></span>
     </div>
 
     <div class="modal__content">
         <p class="modal__text">
-            Press the left mouse button to insert the value into the grid.
-            Press the right mouse button to make a note.
+            @Loc.Keys["how-to-play__p1"]
         </p>
         <p class="modal__text">
-            Use the buttons or keyboard to change the value used.
+            @Loc.Keys["how-to-play__p2"]
         </p>
         <p class="modal__text">
-            Use the cell color-coding option to simplify advanced techniques.
-            You can also use the coloring options by holding ctrl and clicking.
+            @Loc.Keys["how-to-play__p3"]
         </p>
     </div>
 
     <div class="modal__footer with-hr">
         <ModalButtonComponent OnClick="ShowPreviousModalCommand"
                               IsSecondary="true">
-            Close
+            @Loc.Keys["modal__close"]
         </ModalButtonComponent>
     </div>
 </ModalTemplateComponent>
