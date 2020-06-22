@@ -4,33 +4,25 @@
 @inject ShowPasteModalCommand ShowPasteModalCommand
 @inject ShowNewGameModalCommand ShowNewGameModalCommand
 @inject ModalProvider ModalProvider
-
+@inject ILanguageContainerService LanguageContainer
 
 <ModalTemplateComponent>
     <h1 class="modal__title with-hr">Main menu</h1>
 
     <div class="modal__content">
-        <ModalButtonComponent OnClick="ShowNewGameModalCommand">
-            New game
-        </ModalButtonComponent>
-        <ModalButtonComponent OnClick="ShowHowToPlayModalCommand">
-            How to play
-        </ModalButtonComponent>
-        <ModalButtonComponent OnClick="ShowShareModalCommand">
-            Share
-        </ModalButtonComponent>
-        <ModalButtonComponent OnClick="ShowPasteModalCommand">
-            Paste
-        </ModalButtonComponent>
+        <ModalButtonComponent OnClick="ShowNewGameModalCommand">@LanguageContainer.Keys["main-menu__new-game"]</ModalButtonComponent>
+        <ModalButtonComponent OnClick="ShowHowToPlayModalCommand">@LanguageContainer.Keys["main-menu__how-to-play"]</ModalButtonComponent>
+        <ModalButtonComponent OnClick="ShowShareModalCommand">@LanguageContainer.Keys["main-menu__share"]</ModalButtonComponent>
+        <ModalButtonComponent OnClick="ShowPasteModalCommand">@LanguageContainer.Keys["main-menu__paste"]</ModalButtonComponent>
     </div>
 
     <div class="modal__footer with-hr">
         @if( ModalProvider.HasPreviousState )
         {
-            <ModalButtonComponent OnClick="CloseModalCommand"
-                                  IsSecondary="true">
-                Close
-            </ModalButtonComponent>
+        <ModalButtonComponent OnClick="CloseModalCommand"
+                              IsSecondary="true">
+            @LanguageContainer.Keys["modal__close"]
+        </ModalButtonComponent>
         }
     </div>
 </ModalTemplateComponent>
