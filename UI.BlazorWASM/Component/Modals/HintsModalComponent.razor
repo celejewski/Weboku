@@ -1,19 +1,20 @@
 ﻿@inject HintsProvider HintsProvider
 @inject CloseModalCommand CloseModalCommand
 @inject UI.BlazorWASM.Hints.Displayer Displayer
+@inject ILanguageContainerService LanguageContainer
 
 <ModalWithGridTemplateComponent>
     <Content>
         <div class="hints-modal__container">
-            <div class="hints-modal__title with-hr">Hints</div>
+            <div class="hints-modal__title with-hr">@LanguageContainer.Keys["hints__header"]</div>
             <div class="hints-modal__technique-container">
                 @if( HintsProvider.State != Enums.HintsState.ShowEmpty )
                 {
                     <div class="hints-modal__technique-name">@Displayer.Title</div>
                 }
-                
+
                 @if( HintsProvider.State == Enums.HintsState.ShowExplanation
-                    || HintsProvider.State == Enums.HintsState.ShowNextStep )
+                   || HintsProvider.State == Enums.HintsState.ShowNextStep )
                 {
                     <p class="hints-modal__technique-desc">@Displayer.Description</p>
                 }
@@ -22,31 +23,31 @@
 
                 @if( HintsProvider.State == Enums.HintsState.ShowEmpty )
                 {
-                    <HintsButtonComponent Action="@ShowHint">Show hint</HintsButtonComponent>
-                    <HintsButtonComponent Action="@ShowNextStep">Next Step</HintsButtonComponent>
+                    <HintsButtonComponent Action="@ShowHint">@LanguageContainer.Keys["hints__show-hint"]</HintsButtonComponent>
+                    <HintsButtonComponent Action="@ShowNextStep">@LanguageContainer.Keys["hints__show-next-step"]</HintsButtonComponent>
                 }
                 else if( HintsProvider.State == Enums.HintsState.ShowHint )
                 {
                     <div></div>
-                    <HintsButtonComponent Action="@ShowNextStep">Next step</HintsButtonComponent>
+                    <HintsButtonComponent Action="@ShowNextStep">@LanguageContainer.Keys["hints__show-next-step"]</HintsButtonComponent>
                 }
                 else if( HintsProvider.State == Enums.HintsState.ShowNextStep )
                 {
                     if( HintsProvider.HasExplanation )
                     {
-                        <HintsButtonComponent Action="@ShowExplanation">Explain</HintsButtonComponent>
+                        <HintsButtonComponent Action="@ShowExplanation">@LanguageContainer.Keys["hints__show-explanation"]</HintsButtonComponent>
                     }
                     else
                     {
                         <div></div>
                     }
-                    <HintsButtonComponent Action="@Execute">Execute</HintsButtonComponent>
+                    <HintsButtonComponent Action="@Execute">@LanguageContainer.Keys["hints__execute"]</HintsButtonComponent>
                 }
                 else if( HintsProvider.State == Enums.HintsState.ShowExplanation )
                 {
                     if( HintsProvider.HasPreviousExplanation )
                     {
-                        <HintsButtonComponent Action="@ShowPreviousExplanation">Previous</HintsButtonComponent>
+                        <HintsButtonComponent Action="@ShowPreviousExplanation">@LanguageContainer.Keys["hints__show-previous-explanation"]</HintsButtonComponent>
                     }
                     else
                     {
@@ -55,15 +56,15 @@
 
                     if( HintsProvider.HasNextExplanation )
                     {
-                        <HintsButtonComponent Action="@ShowNextExplanation">Next</HintsButtonComponent>
+                        <HintsButtonComponent Action="@ShowNextExplanation">@LanguageContainer.Keys["hints__show-next-explanation"]</HintsButtonComponent>
                     }
                     else
                     {
-                        <HintsButtonComponent Action="@Execute">Execute</HintsButtonComponent>
+                        <HintsButtonComponent Action="@Execute">@LanguageContainer.Keys["hints__execute"]</HintsButtonComponent>
 
                     }
                 }
-                <HintsButtonComponent Action="@Close">Close</HintsButtonComponent>
+                <HintsButtonComponent Action="@Close">@LanguageContainer.Keys["modal__close"]</HintsButtonComponent>
             </div>
         </div>
     </Content>

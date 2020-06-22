@@ -8,7 +8,7 @@
 @inject ILanguageContainerService LanguageContainer
 
 <ModalTemplateComponent>
-    <h1 class="modal__title with-hr">Main menu</h1>
+    <h1 class="modal__title with-hr">@LanguageContainer.Keys["main-menu__header"]</h1>
 
     <div class="modal__content">
         <ModalButtonComponent OnClick="ShowNewGameModalCommand">@LanguageContainer.Keys["main-menu__new-game"]</ModalButtonComponent>

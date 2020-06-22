@@ -1,7 +1,34 @@
-﻿main-menu__new-game: New game
+﻿main-menu__header: Menu
+main-menu__new-game: New game
 main-menu__how-to-play: How to play
 main-menu__share: Share
 main-menu__paste: Paste
 main-menu__settings: Settings 
+
+end-game__header: Solved
+end-game__congratulations: Congratulations you did it!
+end-game__time: Your time
+end-game__difficulty: Difficulty
+
+hints__header: Hints
+hints__show-hint: Show hint
+hints__show-next-step: Next step
+hints__show-explanation: Show explanation
+hints__execute: Execute
+hints__show-previous-explanation: Previous
+hints__show-next-explanation: Next
+
+paste__header: Paste
+paste__start-game: Start game
+
+share__header: Share
+share__fields-header: What to include?
+share__givens-only: Only givens
+share__givens-and-inputs: User inputs
+share__everything: Everything
+share__format-header: What format to use?
+share__hodoku: HoDoKu
+share__my-format: My format
+share__link: Link
 
 modal__close: Close
