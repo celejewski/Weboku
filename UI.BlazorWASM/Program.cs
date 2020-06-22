@@ -23,7 +23,6 @@ namespace UI.BlazorWASM
             builder.Services.AddCors();
             builder.Services.RegisterLocalization();
             var app = builder.Build();
-           
             await app.RunAsync();
         }
     }

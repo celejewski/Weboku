@@ -6,10 +6,10 @@ namespace UI.BlazorWASM.Providers
 {
     public class SettingsProvider
     {
-        private readonly LocalStorageService _localStorageService;
+        private readonly ISyncLocalStorageService _localStorageService;
         private readonly ILanguageContainerService _languageContainerService;
 
-        public SettingsProvider(LocalStorageService localStorageService, ILanguageContainerService languageContainerService)
+        public SettingsProvider(ISyncLocalStorageService localStorageService, ILanguageContainerService languageContainerService)
         {
             _localStorageService = localStorageService;
             _languageContainerService = languageContainerService;

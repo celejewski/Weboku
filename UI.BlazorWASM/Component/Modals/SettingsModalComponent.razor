@@ -1,0 +1,25 @@
+﻿@inject ShowPreviousModalCommand ShowPreviousModalCommand
+@inject ILanguageContainerService LanguageContainer
+@inject SettingsProvider SettingsProvider
+
+<ModalTemplateComponent>
+    <h1 class="modal__title with-hr">Settings</h1>
+
+    <div class="modal__content">
+        <button @onclick='() => SetLanguage("en-US")'>English</button>
+        <button @onclick='() => SetLanguage("pl-PL")'>Polish</button>
+    </div>
+
+    <div class="modal__footer with-hr">
+        <ModalButtonComponent OnClick="ShowPreviousModalCommand"IsSecondary="true">
+            @LanguageContainer.Keys["modal__close"]
+        </ModalButtonComponent>
+    </div>
+</ModalTemplateComponent>
+
+@code {
+    private void SetLanguage(string name)
+    {
+        SettingsProvider.SetLanguage(name);
+    }
+}

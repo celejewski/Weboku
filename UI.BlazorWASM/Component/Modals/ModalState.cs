@@ -10,5 +10,6 @@
         Share,
         Paste,
         Hints,
+        Settings,
     }
 }

@@ -30,6 +30,10 @@
         {
             <HintsModalComponent />
         }
+        else if (ModalProvider.CurrentState == ModalState.Settings)
+        {
+            <SettingsModalComponent />
+        }
     </div>
 
 @code {
