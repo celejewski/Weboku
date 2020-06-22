@@ -16,7 +16,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
         public HiddenPair(IEnumerable<Position> positions, IEnumerable<InputValue> values) 
             :base(positions, values)
         {
-            _title = "Hidden Pair";
+            _locKey = "hidden-pair";
             _houseFormatted = Displayer.Format(_house, Position);
 
             _pos1 = positions.ElementAt(0);
@@ -29,10 +29,8 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
         {
             base.DisplaySolution(displayer, informer);
 
-            displayer.SetDescription(
-                $"In {_houseFormatted} values {_value1:D} and {_value2:D} can be placed only in cells {_pos1} and {_pos2}, " +
-                $"so we can remove other candidates in this cells."
-                );
+            displayer.SetDescription("hidden-pair__description", 
+                _houseFormatted, _value1, _value2, _pos1, _pos2);
             
         }
     }

@@ -12,7 +12,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
         protected readonly IEnumerable<InputValue> _values;
 
         public NakedSubset(IEnumerable<Position> positions, IEnumerable<InputValue> values)
-            :base("Naked subset")
+            :base("naked-subset")
         {
             _positions = positions;
             _values = values;
@@ -25,7 +25,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
 
         public override void DisplaySolution(Displayer displayer, Informer informer)
         {
-            displayer.SetTitle(_title);
+            base.DisplaySolution(displayer, informer);
             foreach( var value in _values )
             {
                 displayer.MarkIfHasCandidate(Enums.Color.Illegal, GetPositionsToRemove(informer), value);

@@ -13,7 +13,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
         protected readonly House _house;
 
         public HiddenSubset(IEnumerable<Position> positions, IEnumerable<InputValue> values)
-            :base("Hidden subset")
+            :base("hidden-subset")
         {
             _positions = positions;
             _values = values;
@@ -27,7 +27,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
 
         public override void DisplaySolution(Displayer displayer, Informer informer)
         {
-            displayer.SetTitle(_title);
+            displayer.SetTitle(TitleKey);
             foreach( var value in ValuesToRemove() )
             {
                 displayer.MarkIfHasCandidate(Enums.Color.Illegal, _positions, value);

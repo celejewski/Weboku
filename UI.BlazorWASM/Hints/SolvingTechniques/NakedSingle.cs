@@ -10,7 +10,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
         private readonly InputValue _value;
 
         public NakedSingle(Position position, InputValue value)
-            :base("Naked Single")
+            :base("naked-single")
         {
             _position = position;
             _value = value;
@@ -23,8 +23,8 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
 
         public override void DisplaySolution(Displayer displayer, Informer informer)
         {
-            displayer.SetTitle(_title);
-            displayer.SetDescription($"In cell {_position} there is only one valid candidate, so we can place {_value:D} in cell {_position}.");
+            displayer.SetTitle(TitleKey);
+            displayer.SetDescription(DescriptionKey, _position, _value, _position);
             displayer.Mark(Color.Legal, _position, _value);
             displayer.HighlightBlock(_position);
             displayer.HighlightCol(_position);

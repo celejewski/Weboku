@@ -13,7 +13,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
         private House _house;
         private string _houseFormated;
         public HiddenSingle(Position position, InputValue inputValue)
-            :base("Hidden Single")
+            :base("hidden-single")
         {
             _position = position;
             _inputValue = inputValue;
@@ -34,7 +34,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
                 );
             _houseFormated = Displayer.Format(_house, _position);
 
-            displayer.SetTitle(_title);
+            displayer.SetTitle(TitleKey);
             displayer.HighlightHouse(_position, _house);
         }
 
@@ -42,7 +42,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
         {
             SetupDisplayer(displayer, informer);
 
-            displayer.SetDescription($"In {Displayer.Format(_house, _position)} value {_inputValue:d} can only be placed in cell {_position}");
+            displayer.SetDescription(DescriptionKey, Displayer.Format(_house, _position), _inputValue, _position);
             displayer.SetValueFilter(_inputValue);
 
             displayer.Mark(Enums.Color.Legal, _position, _inputValue);
@@ -57,14 +57,14 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
         {
             SetupDisplayer(displayer, informer);
             displayer.SetValueFilter(0);
-            displayer.SetDescription($"Hidden single is when in row, column or block candidate can be only found in one cell. In this case lets focus on {_houseFormated}.");
+            displayer.SetDescription(ExplanationKey(1), _houseFormated);
         }
 
         private void Explain2(Displayer displayer, Informer informer)
         {
             SetupDisplayer(displayer, informer);
             displayer.SetValueFilter(_inputValue);
-            displayer.SetDescription($"When we filter value {_inputValue:D} we can notice that in {_houseFormated} it can go only to {_position}. Still don't see it?");
+            displayer.SetDescription(ExplanationKey(2), _inputValue, _houseFormated, _position);
         }
         private void Explain3(Displayer displayer, Informer informer)
         {
@@ -73,7 +73,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
             displayer.MarkInputOrCandidate(Enums.Color.Illegal, posInHouse, _inputValue);
             displayer.MarkCells(Enums.Color.Illegal, posInHouse);
             displayer.Mark(Enums.Color.Legal, _position, _inputValue);
-            displayer.SetDescription($"Other cells already have different values or don't have {_inputValue:D} as candidate. Only place where {_inputValue:D} can go in {_houseFormated} is cell {_position}.");
+            displayer.SetDescription(ExplanationKey(3), _inputValue, _inputValue, _houseFormated, _position);
         }
     }
 }

@@ -12,7 +12,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
 
         private House _house;
         public FullHouse(Position position, InputValue value) 
-            : base("Full House")
+            : base("full-house")
         {
             _position = position;
             _value = value;
@@ -39,14 +39,14 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
                                       .Count() == 1
                 );
 
-            displayer.SetTitle(_title);
+            displayer.SetTitle(TitleKey);
             displayer.HighlightHouse(_position, _house);
         }
         public override void DisplaySolution(Displayer displayer, Informer informer)
         {
             SetupDisplay(displayer, informer);
 
-            displayer.SetDescription($"In {Displayer.Format(_house, _position)} cell {_position} is the last one without value.");
+            displayer.SetDescription(DescriptionKey, Displayer.Format(_house, _position), _position);
             displayer.Mark(Enums.Color.Legal, _position, _value);
             displayer.SetValueFilter(_value);
         }
@@ -60,7 +60,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
         {
             SetupDisplay(displayer, informer);
 
-            displayer.SetDescription($"In {Displayer.Format(_house, _position)} there is only one cell without set value. Let's find out what is the value by listing digits from 1 to 9...");
+            displayer.SetDescription(ExplanationKey("first"), Displayer.Format(_house, _position));
         }
 
         public Action<Displayer, Informer> ExplainN(InputValue n)
@@ -84,7 +84,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
             SetupDisplay(displayer, informer);
             ExplainN((InputValue) (_value - 1))(displayer, informer);
             displayer.Mark(Enums.Color.Legal, _position, _value);
-            displayer.SetDescription($"{displayer.Description} Bingo! Value {_value:D} is the one.");
+            displayer.SetDescription(ExplanationKey("last"), displayer.Description, _value);
         }
     }
 }
