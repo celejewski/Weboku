@@ -1,7 +1,44 @@
-﻿main-menu__new-game: Nowa gra
+﻿main-menu__header: Menu
+main-menu__new-game: Nowa gra 
 main-menu__how-to-play: Jak grać
 main-menu__share: Udostępnij
 main-menu__paste: Wklej
 main-menu__settings: Ustawienia
+
+end-game__header: Gratulacje
+end-game__congratulations: Sudoku jest rozwiązane!
+end-game__time: Twój czas
+end-game__difficulty: Poziom trudności
+
+hints__header: Podpowiedź
+hints__show-hint: Wskazówka
+hints__show-next-step: Rozwiązanie
+hints__show-explanation: Objaśnienie
+hints__execute: Wykonaj
+hints__show-previous-explanation: Poprzednie
+hints__show-next-explanation: Następny
+
+paste__header: Wklej
+paste__start-game: Zacznij grę
+
+share__header: Udostępnij
+share__fields-header: Co udostępnić?
+share__givens-only: Pola startowe
+share__givens-and-inputs: Wypełnione pola
+share__everything: Wszystko
+share__format-header: Jakiego formatu użyć?
+share__hodoku: HoDoKu
+share__my-format: My format
+share__link: Link
+
+menu__menu-header: Menu
+menu__main-menu: Menu główne
+menu__share: Udostępnij
+menu__restart-game: Zrestartuj grę
+menu__how-to-play: Jak grać
+menu__show-hint: Podpowiedzi
+menu__candidates-header: Kandydaci
+menu__find-all: Wypełnij
+menu__remove-all: Wyczyść
 
 modal__close: Zamknij

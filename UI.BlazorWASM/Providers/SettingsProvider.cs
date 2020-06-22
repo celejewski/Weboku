@@ -1,10 +1,11 @@
 ﻿using Blazored.LocalStorage;
 using System.Globalization;
 using AKSoftware.Localization.MultiLanguages;
+using System;
 
 namespace UI.BlazorWASM.Providers
 {
-    public class SettingsProvider
+    public class SettingsProvider : IProvider
     {
         private readonly ISyncLocalStorageService _localStorageService;
         private readonly ILanguageContainerService _languageContainerService;
@@ -30,11 +31,14 @@ namespace UI.BlazorWASM.Providers
             private set; 
         }
 
+        public event Action OnChanged;
+
         public void SetLanguage(string name)
         {
             CultureInfo = new CultureInfo(name);
             _localStorageService.SetItem("LanguageName", name);
             _languageContainerService.SetLanguage(CultureInfo);
+            OnChanged?.Invoke();
         }
 
     }

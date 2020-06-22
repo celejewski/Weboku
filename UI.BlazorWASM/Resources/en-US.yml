@@ -31,4 +31,14 @@ share__hodoku: HoDoKu
 share__my-format: My format
 share__link: Link
 
+menu__menu-header: Menu
+menu__main-menu: Main Menu
+menu__share: Share
+menu__restart-game: Restart game
+menu__how-to-play: How to Play
+menu__show-hint: Show hint
+menu__candidates-header: Candidates
+menu__find-all: Find all
+menu__remove-all: Remove all
+
 modal__close: Close
