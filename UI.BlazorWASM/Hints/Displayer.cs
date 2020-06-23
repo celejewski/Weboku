@@ -197,7 +197,7 @@ namespace UI.BlazorWASM.Hints
 
         public void SetValueFilter(InputValue input)
         {
-            _numpadMenuBuilder.SelectValue((int) input).Execute();
+            _ = _numpadMenuBuilder.SelectValue((int) input).Execute();
         }
         public static string Format(House house)
         {

@@ -21,7 +21,7 @@ namespace UI.BlazorWASM.Providers
             _gridProvider.OnValueOrCandidatesChanged += () => _isDirty = true;
 
             _timer = new Timer();
-            _timer.Elapsed += (o, e) => Save();
+            _timer.Elapsed += (o, e) => _ = Save();
         }
 
         public void PauseAutoSave()

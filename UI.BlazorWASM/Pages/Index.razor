@@ -51,7 +51,7 @@
     protected override async Task OnInitializedAsync()
     {
         GameStateChecker.OnSolved += OnGameEnd;
-        Task.Run(() => GridGenerator.WithGiven("medium"));
+        _ = Task.Run(() => GridGenerator.WithGiven("medium"));
         await PreserveStateProvider.Load();
         PreserveStateProvider.AutoSave(TimeSpan.FromSeconds(5));
 

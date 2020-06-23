@@ -44,7 +44,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
             });
         }
 
-        private void SetupDisplayer(Displayer displayer, Informer informer)
+        private void SetupDisplayer(Displayer displayer)
         {
             displayer.SetTitle(TitleKey);
             displayer.HighlightHouses(_pos1, _houses);
@@ -52,20 +52,20 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
         public override void DisplaySolution(Displayer displayer, Informer informer)
         {
             base.DisplaySolution(displayer, informer);
-            SetupDisplayer(displayer, informer);
+            SetupDisplayer(displayer);
             displayer.SetDescription(DescriptionKey, _pos1, _pos2, _value1, _value2, _housesFormated);
         }
 
         private void Explain1(Displayer displayer, Informer informer)
         {
-            SetupDisplayer(displayer, informer);
+            SetupDisplayer(displayer);
             displayer.Mark(Enums.Color.Legal, _positions, _values);
             displayer.SetDescription(ExplanationKey(1), _pos1, _pos2, _value1, _value2);
         }
 
         private void Explain2(Displayer displayer, Informer informer)
         {
-            SetupDisplayer(displayer, informer);
+            SetupDisplayer(displayer);
             displayer.MarkIfHasCandidate(Enums.Color.Illegal, _positionsInHouses, _value1);
             displayer.Mark(Enums.Color.Legal, _pos1, _value1);
             displayer.SetDescription(ExplanationKey(2), _value1, _pos1);
@@ -73,7 +73,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
 
         private void Explain3(Displayer displayer, Informer informer)
         {
-            SetupDisplayer(displayer, informer);
+            SetupDisplayer(displayer);
             displayer.MarkIfHasCandidates(Enums.Color.Illegal, _positionsInHouses, _values);
             displayer.Mark(Enums.Color.Legal, _pos1, _value1);
             displayer.Mark(Enums.Color.Legal, _pos2, _value2);
@@ -82,7 +82,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
         
         private void Explain4(Displayer displayer, Informer informer)
         {
-            SetupDisplayer(displayer, informer);
+            SetupDisplayer(displayer);
             displayer.MarkIfHasCandidates(Enums.Color.Illegal, _positionsInHouses, _values);
             displayer.Mark(Enums.Color.Legal, _pos1, _value2);
             displayer.Mark(Enums.Color.Legal, _pos2, _value1);
@@ -91,7 +91,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
 
         private void Explain5(Displayer displayer, Informer informer)
         {
-            SetupDisplayer(displayer, informer);
+            SetupDisplayer(displayer);
             displayer.MarkIfHasCandidates(Enums.Color.Illegal, _positionsInHouses, _values);
             displayer.Mark(Enums.Color.Legal, _positions, _values);
             displayer.SetDescription(ExplanationKey(5), _value1, _value2, _housesFormated);
