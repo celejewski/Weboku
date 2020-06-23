@@ -44,10 +44,66 @@ menu__remove-all: Wyczyść
 how-to-play__header: Jak grać
 how-to-play__p1: | 
     Użyj lewego przycisku myszki żeby wstawić wartość do kratki.
-    Użyj prawego przycisku żeby zrobić notkę.
+    Użyj prawego przycisku żeby zrobić notkę.C:\Users\xyz\source\repos\Sudoku\UI.BlazorWASM\Managers\
 how-to-play__p2: Możesz skorzystać z menu lub klawiatury żeby zmienić wstawianą wartość.
 how-to-play__p3: |
     Skorzystaj z kolorowania żeby ułatwić zauważenie z zaawansowanych technik.
     Możesz kolorować kratki kiedy trzymasz ctrl i klikniesz.
 
 modal__close: Zamknij
+
+fill-missing-candidates__title: Wypełnij brakujących kandydatów
+fill-missing-candidates__description: System podpowiedzi wymaga wypełnienia wszystkich kandydatów przed użyciem.
+
+find-incorrect-solution__title: Błędne liczby.
+find-incorrect-solution__description: Niektóre wprowadzone liczby są niepoprawne.
+
+full-house__title: Full House
+full-house__description: W {0} komórka {1} jest ostatnią bez ustalonej wartości.
+full-house__explanation-first: "W {0} jest tylko jedna komórka bez ustalonej wartości. Znajdźmy jej ostatnią wartość poprzez zaznaczenie wartości od 1 do 9..."
+full-house__explanation-last: "{0} Bingo! Wartość {1:D} jest tą poszukiwaną."
+
+hidden-pair__title: "Hidden Pair"
+hidden-pair__description: "W {0} wartości {1:D} i {2:D} mogą być wstawione tylko do komórek {3} i {4}, więc możemy usunąć innych kandydatów z tych komórek."
+
+hidden-single__title: "Hidden Single"
+hidden-single__description: "W {0} wartość {1:d} może być wstawiona tylko do komórki {2}"
+hidden-single__explanation-1: "Hidden single jest wtedy kiedy w rzędzie, kolumnie lub bloku kandydat może być znaleziony tylko w jednej komórce. W tym przypadku skupmy się na {0}."
+hidden-single__explanation-2: "Kiedy wyfiltrujemy wartość {0:D} możemy zauważyć w {1} może być tylko w komórce {2}. Dalej tego nie widzisz?"
+hidden-single__explanation-3: "Inne komórki już mają ustaloną wartość lub nie mają {0:D} jako kandydata. Jedyne miejsce gdzie wartość {1:D} może się znaleźć w {2} jest w komórce {3}."
+
+hidden-subset__title: "Hidden Subset"
+hidden-subset__description: " "
+
+locked-candiates-claiming__title: "Locked Candidates - Claiming"
+locked-candiates-claiming__description: "W {0} wartość {1:D} może być wstawiona jedynie do {2}, więc kandydat {3:D} w {4} poza {5} może być usunięty."
+locked-candiates-claiming__explanation-1: "Skumpy się na {0}..."
+locked-candiates-claiming__explanation-2: "... Z ustawionym filtrem możemy zobaczyć gdzie wartość {0:D} może być wstawiona..."
+locked-candiates-claiming__explanation-3: "... jedna z komórek musi mieć wartość {0:D}, nie wiemy jeszcze która z nich..."
+locked-candiates-claiming__explanation-4: "... ale możemy zauważyć, że te wszystkie komórki leżą w {0}..."
+locked-candiates-claiming__explanation-5: "... to oznacza, że możemy usunąć kandydata {0:D} z innych komórek w {1}."
+
+locked-candiates-pointing__title: "Locked Candidates - Pointing"
+locked-candiates-pointing__description: "W {0} wartość {1:D} może być wstawiona tylko w {2}, więc kandydat {3:D} w {4} poza {5} może być usunięty."
+locked-candiates-pointing__explanation-1: "Skupmy się na {0}..."
+locked-candiates-pointing__explanation-2: "... z ustawionym filtrem możemy zobaczyć gdzie wartość {0:D} może być wstawiona..."
+locked-candiates-pointing__explanation-3: "... jedna z komórek musi mieć wartość {0:D}, nie wiemy jeszcze która z nich..."
+locked-candiates-pointing__explanation-4: "... ale możemy zauważyć, że te wszystkie komórki leżą w {0}..."
+locked-candiates-pointing__explanation-5: "... to ozncza, że możemy usunąć kandydata {0:D} z innych komórek w {1}."
+
+naked-pair__title: "Naked Pair"
+naked-pair__description: "Ponieważ komórki {0} i {1} mają jedynie dwóch tych samych kandydatów {2:D} i {3:D}, możemy wyeliminować tych kandydatów z pozostałych komórek {4}."
+naked-pair__explanation-1: "W komórce {0} i {1} jedynymi pozostałymi kandydatami są {2:D} i {3:D}."
+naked-pair__explanation-2: "Jeżeli wstawimy wartość {0:D} w {1} wtedy możemy usunąc niektórych kandydatów..."
+naked-pair__explanation-3: "... wymusiłoby to wartość {0:D} w {1}."
+naked-pair__explanation-4: "Jeżeli wstawimy wartość {0:D} w {1} wtedy otrzymujemy drugie możliwe rozwiązanie z {2:D} w {3}..."
+naked-pair__explanation-5: "Nie wiemy która z tych opcji jest rozwiązaniem, ale w obu przypadkach możemy wyeliminować kandydatów {0:D} i {1:D} w {2}"
+
+naked-single__title: "Naked Single"
+naked-single__description: "In cell {0} there is only one valid candidate, so we can place {1:D} in cell {2}."
+
+naked-subset__title: "Naked Subset"
+naked-subset__description: ""
+
+no-hint__title: "No hint found"
+no-hint__description: "There is no hint avaliable for this sudoku."
