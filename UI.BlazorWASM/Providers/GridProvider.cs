@@ -39,7 +39,7 @@ namespace UI.BlazorWASM.Providers
         public void AddCandidate(int x, int y, InputValue value)
         {
             _grid.AddCandidate(x, y, value);
-            _isCandidateLegal[x, y, (int) value] = GridHelper.IsLegal(x, y, value, this);
+            _isCandidateLegal[x, y, (int) value] = GridHelper.IsLegal(x, y, value, Grid);
             CandidatesChanged();
         }
 
@@ -122,7 +122,7 @@ namespace UI.BlazorWASM.Providers
                 {
                     _grid.RemoveCandidate(coords.X, coords.Y, value);
                 }
-                _isInputLegal[x, y] = GridHelper.IsLegal(x, y, value, this);
+                _isInputLegal[x, y] = GridHelper.IsLegal(x, y, value, Grid);
                 ValueAndCandidatesChanged();
             }
             else
@@ -134,7 +134,7 @@ namespace UI.BlazorWASM.Providers
 
         public void ToggleCandidate(int x, int y, InputValue value)
         {
-            _isCandidateLegal[x, y, (int) value] = GridHelper.IsLegal(x, y, value, this);
+            _isCandidateLegal[x, y, (int) value] = GridHelper.IsLegal(x, y, value, Grid);
             _grid.ToggleCandidate(x, y, value);
             CandidatesChanged();
         }
@@ -193,7 +193,7 @@ namespace UI.BlazorWASM.Providers
             {
                 for( int y = 0; y < 9; y++ )
                 {
-                    _isInputLegal[x, y] = GridHelper.IsLegal(x, y, GetValue(x, y), this);
+                    _isInputLegal[x, y] = GridHelper.IsLegal(x, y, GetValue(x, y), Grid);
                 }
             }
         }
@@ -213,7 +213,7 @@ namespace UI.BlazorWASM.Providers
                     {
                         if( HasCandidate(x, y, (InputValue) value) )
                         {
-                            _isCandidateLegal[x, y, value] = GridHelper.IsLegal(x, y, (InputValue) value, this);
+                            _isCandidateLegal[x, y, value] = GridHelper.IsLegal(x, y, (InputValue) value, Grid);
                         }
                     }
                 }

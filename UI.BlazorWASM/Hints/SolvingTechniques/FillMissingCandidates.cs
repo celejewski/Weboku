@@ -1,4 +1,4 @@
-﻿using UI.BlazorWASM.Helpers;
+﻿using Core.Data;
 
 namespace UI.BlazorWASM.Hints.SolvingTechniques
 {

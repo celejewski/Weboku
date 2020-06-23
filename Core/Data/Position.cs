@@ -1,4 +1,4 @@
-﻿namespace UI.BlazorWASM.Helpers
+﻿namespace Core.Data
 {
     public readonly struct Position
     {

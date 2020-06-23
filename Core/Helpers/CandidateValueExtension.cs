@@ -1,4 +1,6 @@
-﻿namespace Core.Data
+﻿using Core.Data;
+
+namespace Core.Helpers
 {
     static class CandidateValueExtension
     {

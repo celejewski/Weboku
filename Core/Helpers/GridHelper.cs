@@ -1,26 +1,17 @@
 ﻿using Core.Data;
 using System.Collections.Generic;
 using System.Linq;
-using UI.BlazorWASM.Providers;
 
-namespace UI.BlazorWASM.Helpers
+namespace Core.Data
 {
     public class GridHelper
     {
-        public static bool IsLegal(int x, int y, InputValue value, IGridProvider gridProvider)
-        {
-            return value == InputValue.Empty 
-                || GetCoordsWhichCanSee(x, y)
-                .Where(coords => coords.X != x || coords.Y != y)
-                .All(coords => gridProvider.GetValue(coords.X, coords.Y) != value);
-        }
+        private static readonly IList<Position>[,] _indexesWhichCanSee = new IList<Position>[9, 9];
 
         public static IList<Position> GetCoordsWhichCanSee(int x, int y)
         {
             return _indexesWhichCanSee[x, y] ??= CalculateIndexesWhichCanSee(x, y);
         }
-
-        private static readonly IList<Position>[,] _indexesWhichCanSee = new IList<Position>[9, 9];
 
         private static IList<Position> CalculateIndexesWhichCanSee(int x, int y)
         {
@@ -59,6 +50,14 @@ namespace UI.BlazorWASM.Helpers
                     yield return new Position(targetX, targetY);
                 }
             }
+        }
+
+        public static bool IsLegal(int x, int y, InputValue value, IGrid grid)
+        {
+            return value == InputValue.Empty
+                || GetCoordsWhichCanSee(x, y)
+                .Where(coords => coords.X != x || coords.Y != y)
+                .All(coords => grid.GetValue(coords.X, coords.Y) != value);
         }
     }
 }

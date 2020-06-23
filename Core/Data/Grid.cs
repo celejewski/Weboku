@@ -1,4 +1,6 @@
-﻿namespace Core.Data
+﻿using Core.Helpers;
+
+namespace Core.Data
 {
     public class Grid : IGrid
     {
