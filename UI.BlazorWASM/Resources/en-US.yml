@@ -33,7 +33,7 @@ end-game__difficulty: Difficulty
 hints__header: Hints
 hints__show-hint: Show hint
 hints__show-next-step: Next step
-hints__show-explanation: Show explanation
+hints__show-explanation: Explain
 hints__execute: Execute
 hints__show-previous-explanation: Previous
 hints__show-next-explanation: Next
