@@ -8,21 +8,7 @@ namespace Core.Solvers
         public IGrid Solve(IGrid input)
         {
             var grid = input.Clone();
-
-            for( int x = 0; x < 9; x++ )
-            {
-                for( int y = 0; y < 9; y++ )
-                {
-                    for( int value = 1; value < 10; value++ )
-                    {
-                        if( GridHelper.IsLegal(x, y, (InputValue) value, grid) )
-                        {
-                            grid.AddCandidate(x, y, (InputValue) value);
-                        }
-                    }
-                }
-            }
-
+            GridHelper.SetAllLegalCandidates(grid);
             return SolveStep(grid);
         }
 

@@ -1,5 +1,7 @@
 ﻿using Core.Helpers;
+using System;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Core.Data
 {
@@ -23,13 +25,17 @@ namespace Core.Data
         }
 
         public InputValue GetValue(int x, int y) => _inputs[x, y];
-        public void SetValue(int x, int y, InputValue value) => _inputs[x, y] = value;
+        public void SetValue(int x, int y, InputValue value)
+        {
+            _inputs[x, y] = value;
+            _candidates[x, y] = CandidateValue.None;
+        }
 
         public bool HasCandidate(int x, int y, InputValue value) => (_candidates[x, y] & value.ToCandidateValue()) == value.ToCandidateValue();
         public void ToggleCandidate(int x, int y, InputValue value) => _candidates[x, y] ^= value.ToCandidateValue();
         public void RemoveCandidate(int x, int y, InputValue value) => _candidates[x, y] &= ~value.ToCandidateValue();
         public void AddCandidate(int x, int y, InputValue value) => _candidates[x, y] |= value.ToCandidateValue();
-        
+
 
         public void ClearCandidates()
         {
@@ -84,19 +90,20 @@ namespace Core.Data
         public int GetCandidatesCount(int x, int y)
         {
             var candidates = _candidates[x, y];
-            if (!_candidatesCount.ContainsKey(candidates))
+            if( !_candidatesCount.ContainsKey(candidates) )
             {
                 int count = 0;
                 for( int value = 1; value < 10; value++ )
                 {
-                    if (HasCandidate(x, y, (InputValue) value))
+                    if( HasCandidate(x, y, (InputValue) value) )
                     {
                         count += 1;
                     }
                 }
                 _candidatesCount[candidates] = count;
             }
-            return _candidatesCount[candidates];
+            var result = _candidatesCount[candidates];
+            return result;
         }
 
         public bool HasValue(int x, int y) => GetValue(x, y) != InputValue.Empty;

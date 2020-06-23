@@ -27,5 +27,31 @@ namespace Core.Tests
             var actual = Helper(input);
             Assert.Equal(expected, actual);
         }
+
+        [Fact]
+        public void NakedSingle()
+        {
+            string input = "3796854215241379688162497536953721842819645374375..6927534...1916879..45942851376";
+            string expected = "379685421524137968816249753695372184281964537437518692753426819168793245942851376";
+            var actual = Helper(input);
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void Singles()
+        {
+            string input = "86.7..9....7.3..8.2....4..1385.....................5276..4....3.2..7.6....8..1.75";
+            string expected = "864715932157239486293864751385927164712546398946183527679452813521378649438691275";
+            var actual = Helper(input);
+            Assert.Equal(expected, actual);
+        }
+        [Fact]
+        public void Singles_2()
+        {
+            string input = "123.67....4..8....5.............3.563.56.91.229.1.............8....3..9....27.635";
+            string expected = "123567849947382561568914327814723956375649182296158473632495718751836294489271635";
+            var actual = Helper(input);
+            Assert.Equal(expected, actual);
+        }
     }
 }

@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
+using System.Xml.Schema;
 
 namespace Core.Solvers
 {
@@ -15,6 +16,7 @@ namespace Core.Solvers
 
             while (true)
             {
+                GridHelper.SetAllLegalCandidates(grid);
                 var nextStep = NextStep(grid);
                 if (nextStep == null)
                 {
@@ -25,7 +27,9 @@ namespace Core.Solvers
         }
 
         private static readonly Func<IGrid, IGrid>[] _steps = new Func<IGrid, IGrid>[] { 
-            FullHouse
+            FullHouse,
+            NakedSingle,
+            HiddenSingle,
         };
         private static Func<IGrid, IGrid> NextStep(IGrid input)
         {
@@ -44,13 +48,50 @@ namespace Core.Solvers
             var grid = input.Clone();
             foreach( var indexes in GetIndexesFromAllHouses() )
             {
-                if (indexes.Count(index => input.HasValue(index.X, index.Y)) == 8)
+                if (indexes.Count(index => grid.HasValue(index.X, index.Y)) == 8)
                 {
                     var value = GridHelper.Values.First(
-                        value => indexes.All(index => input.GetValue(index.X, index.Y) != value));
-                    var pos = indexes.First(index => !input.HasValue(index.X, index.Y));
+                        value => indexes.All(index => grid.GetValue(index.X, index.Y) != value));
+                    var pos = indexes.First(index => !grid.HasValue(index.X, index.Y));
 
                     grid.SetValue(pos.X, pos.Y, value);
+                    return grid;
+                }
+            }
+            return null;
+        }
+
+        private static IGrid NakedSingle(IGrid input)
+        {
+            foreach( var pos in GridHelper.Positions )
+            {
+                if (!input.HasValue(pos.X, pos.Y)
+                    && input.GetCandidatesCount(pos.X, pos.Y) == 1)
+                {
+                    var grid = input.Clone();
+                    var value = GridHelper.Values.First(value => grid.HasCandidate(pos.X, pos.Y, value));
+                    grid.SetValue(pos.X, pos.Y, value);
+
+                    return grid;
+                }
+            }
+            return null;
+        }
+        
+        private static IGrid HiddenSingle(IGrid input)
+        {
+            foreach( var indexes in GetIndexesFromAllHouses() )
+            {
+                foreach( var value in GridHelper.Values )
+                {
+                    var isHiddenSingle = indexes.Count(index => input.HasCandidate(index.X, index.Y, value)) == 1;
+                    if (!isHiddenSingle)
+                    {
+                        continue;
+                    }
+                    var first = indexes.First(index => input.HasCandidate(index.X, index.Y, value));
+                    var grid = input.Clone();
+                    grid.SetValue(first.X, first.Y, value);
                     return grid;
                 }
             }

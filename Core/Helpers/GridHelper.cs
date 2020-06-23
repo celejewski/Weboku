@@ -61,6 +61,24 @@ namespace Core.Data
                 .All(coords => grid.GetValue(coords.X, coords.Y) != value);
         }
 
+        public static void SetAllLegalCandidates(IGrid grid)
+        {
+            grid.FillCandidates();
+            for( int x = 0; x < 9; x++ )
+            {
+                for( int y = 0; y < 9; y++ )
+                {
+                    for( int value = 1; value < 10; value++ )
+                    {
+                        if( !GridHelper.IsLegal(x, y, (InputValue) value, grid) )
+                        {
+                            grid.RemoveCandidate(x, y, (InputValue) value);
+                        }
+                    }
+                }
+            }
+        }
+
         public static IEnumerable<InputValue> Values = new InputValue[]
         {
             InputValue.One,
@@ -73,5 +91,26 @@ namespace Core.Data
             InputValue.Eight,
             InputValue.Nine,
         };
+
+        private static List<Position> _positions = new List<Position>();
+        public static IEnumerable<Position> Positions
+        {
+            get
+            {
+                if( _positions != null && _positions.Count > 0)
+                {
+                    return _positions;
+                }
+                
+                for( int x = 0; x < 9; x++ )
+                {
+                    for( int y = 0; y < 9; y++ )
+                    {
+                        _positions.Add(new Position(x, y));
+                    }
+                };
+                return _positions;
+            }
+        }
     }
 }
