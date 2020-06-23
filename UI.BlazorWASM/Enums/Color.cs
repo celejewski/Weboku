@@ -3,7 +3,7 @@
     public enum Color
     {
         None,
-        Legal, 
+        Legal,
         Illegal,
         Info,
         First,

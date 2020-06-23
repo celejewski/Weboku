@@ -11,6 +11,6 @@
             X = x;
             Y = y;
         }
-        public override string ToString() => $"r{Y+1}c{X+1}";
+        public override string ToString() => $"r{Y + 1}c{X + 1}";
     }
 }

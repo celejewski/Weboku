@@ -12,9 +12,9 @@ namespace UI.BlazorWASM.Component.NumpadMenu
         private readonly NumpadMenuProvider _numpadMenuProvider;
 
         public SelectColorMenuItem(
-            Color color1, 
-            Color color2, 
-            IClickableActionProvider clickableActionProvider, 
+            Color color1,
+            Color color2,
+            IClickableActionProvider clickableActionProvider,
             NumpadMenuProvider numpadMenuProvider)
         {
             Color1 = color1;

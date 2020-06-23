@@ -2,9 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 
 namespace Core.Generator
 {
@@ -20,7 +18,7 @@ namespace Core.Generator
 
         public Sudoku Generate(string difficulty)
         {
-            if (_dict.ContainsKey(difficulty))
+            if( _dict.ContainsKey(difficulty) )
             {
                 var list = _dict[difficulty];
                 var index = _random.Next() % list.Count;

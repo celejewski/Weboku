@@ -27,7 +27,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
         public abstract bool CanExecute(Informer informer);
 
         protected readonly List<Action<Displayer, Informer>> _explanationSteps = new List<Action<Displayer, Informer>>();
-        
+
         public bool HasExplanation => _explanationSteps.Count > 0;
 
         private int _index;

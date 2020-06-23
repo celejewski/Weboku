@@ -1,7 +1,7 @@
-﻿using Blazored.LocalStorage;
-using System.Globalization;
-using AKSoftware.Localization.MultiLanguages;
+﻿using AKSoftware.Localization.MultiLanguages;
+using Blazored.LocalStorage;
 using System;
+using System.Globalization;
 
 namespace UI.BlazorWASM.Providers
 {
@@ -26,9 +26,9 @@ namespace UI.BlazorWASM.Providers
         }
 
         public CultureInfo CultureInfo
-        { 
-            get; 
-            private set; 
+        {
+            get;
+            private set;
         }
 
         public event Action OnChanged;

@@ -7,7 +7,7 @@ namespace Core.Generators
     {
         protected readonly IEmptyGridGenerator _emptyGridGenerator;
 
-        protected BaseGridGenerator(IEmptyGridGenerator emptyGridGenerator) 
+        protected BaseGridGenerator(IEmptyGridGenerator emptyGridGenerator)
         {
             _emptyGridGenerator = emptyGridGenerator;
         }

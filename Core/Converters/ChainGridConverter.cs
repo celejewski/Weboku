@@ -26,7 +26,7 @@ namespace Core.Converters
         public IGrid FromText(string text)
         {
             var converter = GetFirstValidOrDefault(text);
-            if (converter == null)
+            if( converter == null )
             {
                 throw new ArgumentException(text);
             }

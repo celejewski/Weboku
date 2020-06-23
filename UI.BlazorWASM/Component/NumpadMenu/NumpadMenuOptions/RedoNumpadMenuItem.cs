@@ -8,7 +8,7 @@ namespace UI.BlazorWASM.Component.NumpadMenu
         private readonly IGridHistoryManager _gridHistoryManager;
 
         public RedoNumpadMenuItem(RedoCommand command, IGridHistoryManager gridHistoryManager)
-            :base(command)
+            : base(command)
         {
             _gridHistoryManager = gridHistoryManager;
         }

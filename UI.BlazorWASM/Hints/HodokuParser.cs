@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using UI.BlazorWASM.Helpers;
 using UI.BlazorWASM.Hints.SolvingTechniques;
 
 namespace UI.BlazorWASM.Hints
@@ -26,7 +25,7 @@ namespace UI.BlazorWASM.Hints
                 foreach( var technique in techniques )
                 {
                     var result = technique(step);
-                    if (result != null)
+                    if( result != null )
                     {
                         yield return result;
                         break;
@@ -50,7 +49,7 @@ namespace UI.BlazorWASM.Hints
             };
 
             var technique = singles.FirstOrDefault(single => step.Contains(single.name));
-            if (technique == default)
+            if( technique == default )
             {
                 return default;
             }
@@ -65,7 +64,7 @@ namespace UI.BlazorWASM.Hints
         {
             // Locked Candidates Type 1 (Pointing): 8 in b3 => r1c136 <> 8
             // Locked Candidates Type 1 (Pointing): 7 in b3 => r569c7 <> 7
-            if (!step.Contains("Locked Candidates Type 1 (Pointing)"))
+            if( !step.Contains("Locked Candidates Type 1 (Pointing)") )
             {
                 return null;
             }
@@ -74,8 +73,8 @@ namespace UI.BlazorWASM.Hints
             var value = ParseValue(info, 0);
             var block = ParseIndex(info, 6);
 
-            var positionsMatch = Regex.Match(info, @"(r[\d]+c[\d]+)"); 
-            if (!positionsMatch.Success)
+            var positionsMatch = Regex.Match(info, @"(r[\d]+c[\d]+)");
+            if( !positionsMatch.Success )
             {
                 return null;
             }
@@ -87,7 +86,7 @@ namespace UI.BlazorWASM.Hints
         private ISolvingTechnique LockedCandidatesClaimingOrDefault(string step)
         {
             // Locked Candidates Type 2 (Claiming): 2 in r6 => r4c456,r5c5<>2
-            if (!step.Contains("Locked Candidates Type 2 (Claiming)", StringComparison.Ordinal))
+            if( !step.Contains("Locked Candidates Type 2 (Claiming)", StringComparison.Ordinal) )
             {
                 return null;
             }
@@ -97,7 +96,7 @@ namespace UI.BlazorWASM.Hints
             var value = ParseValue(info, 0);
             var house = info[5] == 'r' ? House.Row : House.Col;
             var positionsMatch = Regex.Match(info, @"=> (.*)<>\d");
-            if (!positionsMatch.Success)
+            if( !positionsMatch.Success )
             {
                 return null;
             }
@@ -135,7 +134,7 @@ namespace UI.BlazorWASM.Hints
             var positions = GetPositions(positionsText);
             return (ISolvingTechnique) Activator.CreateInstance(subset.type, positions, values);
         }
-        
+
         /// <summary>
         /// 
         /// </summary>

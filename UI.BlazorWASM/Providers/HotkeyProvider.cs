@@ -1,5 +1,4 @@
-﻿using Core.Data;
-using Microsoft.AspNetCore.Components.Web;
+﻿using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
@@ -46,7 +45,7 @@ namespace UI.BlazorWASM.Providers
             Register(new Hotkey { Command = numpadMenuBuilder.ClearColors(), Key = "r" });
             //Register(new Hotkey { Command = numpadMenuBuilder.SelectCleanerAction(), Key = "0" });
 
-            
+
             var dict = new Dictionary<(Color, Color), string>
             {
                 { (Color.First, Color.Second), "a" },

@@ -1,6 +1,5 @@
 ﻿using Core.Data;
 using Core.Generators;
-using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -25,7 +24,7 @@ namespace Core.Converters
                 {
                     var value = int.Parse(input[y * 9 + x].ToString());
                     if( value != 0 )
-                    { 
+                    {
                         grid.SetIsGiven(x, y, true);
                         grid.SetValue(x, y, (InputValue) value);
                     }
@@ -58,6 +57,6 @@ namespace Core.Converters
             return sb.ToString();
         }
 
-        
+
     }
 }

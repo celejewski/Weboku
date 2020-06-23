@@ -1,5 +1,4 @@
 ﻿using Core.Data;
-using UI.BlazorWASM.Enums;
 using UI.BlazorWASM.Managers;
 using UI.BlazorWASM.Providers;
 
@@ -25,12 +24,12 @@ namespace UI.BlazorWASM.ClickableActions
                 return;
             }
 
-            if( _gridProvider.GetIsGiven(args.X, args.Y))
+            if( _gridProvider.GetIsGiven(args.X, args.Y) )
             {
                 return;
             }
 
-            if( args.Value == InputValue.Empty || _gridProvider.GetValue(args.X, args.Y) == InputValue.Empty)
+            if( args.Value == InputValue.Empty || _gridProvider.GetValue(args.X, args.Y) == InputValue.Empty )
             {
                 _gridHistoryManager.Save();
                 _gridProvider.SetValue(args.X, args.Y, args.Value);
@@ -49,7 +48,7 @@ namespace UI.BlazorWASM.ClickableActions
                 return;
             }
 
-            
+
             if( _gridProvider.GetValue(args.X, args.Y) != InputValue.Empty || args.Value == InputValue.Empty )
             {
                 return;

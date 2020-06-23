@@ -8,6 +8,6 @@ namespace UI.BlazorWASM.ViewModels
 
         public bool Ctrl { get; set; } = false;
         public ICommand Command { get; set; }
-        
+
     }
 }

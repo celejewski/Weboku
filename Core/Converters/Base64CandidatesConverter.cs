@@ -4,7 +4,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace Core.Converters
@@ -71,7 +70,7 @@ namespace Core.Converters
             var isGiven = grid.GetIsGiven(x, y);
             var hasInput = grid.GetValue(x, y) != InputValue.Empty;
             var input = grid.GetValue(x, y);
-            if(isGiven)
+            if( isGiven )
             {
                 yield return true;
                 foreach( var bit in ValueToBools(input) )
@@ -79,7 +78,7 @@ namespace Core.Converters
                     yield return bit;
                 }
             }
-            else if (hasInput)
+            else if( hasInput )
             {
                 yield return false;
                 yield return true;
@@ -126,13 +125,13 @@ namespace Core.Converters
         private void SetValue(Grid grid, BitArray bitArray, int x, int y)
         {
             // IsGiven?
-            if ( bitArray.Get(_counter++))
+            if( bitArray.Get(_counter++) )
             {
                 grid.SetIsGiven(x, y, true);
                 grid.SetValue(x, y, GetValue(bitArray));
             }
             // IsInput?
-            else if (bitArray.Get(_counter++))
+            else if( bitArray.Get(_counter++) )
             {
                 grid.SetIsGiven(x, y, false);
                 grid.SetValue(x, y, GetValue(bitArray));

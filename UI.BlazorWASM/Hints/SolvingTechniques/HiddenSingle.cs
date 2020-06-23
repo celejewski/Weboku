@@ -1,11 +1,10 @@
 ﻿using Core.Data;
 using System;
 using System.Linq;
-using UI.BlazorWASM.Helpers;
 
 namespace UI.BlazorWASM.Hints.SolvingTechniques
 {
-    public class HiddenSingle :BaseSolvingTechnique
+    public class HiddenSingle : BaseSolvingTechnique
     {
         private readonly Position _position;
         private readonly InputValue _inputValue;
@@ -13,12 +12,12 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
         private House _house;
         private string _houseFormated;
         public HiddenSingle(Position position, InputValue inputValue)
-            :base("hidden-single")
+            : base("hidden-single")
         {
             _position = position;
             _inputValue = inputValue;
 
-            _explanationSteps.AddRange( new Action<Displayer, Informer>[] { Explain1, Explain2, Explain3 } );
+            _explanationSteps.AddRange(new Action<Displayer, Informer>[] { Explain1, Explain2, Explain3 });
         }
 
         public override bool CanExecute(Informer informer)

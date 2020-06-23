@@ -7,9 +7,9 @@ namespace UI.BlazorWASM.Providers
     public class SudokuProvider : IProvider
     {
         private Sudoku _sudoku = new Sudoku();
-        
-        public Sudoku Sudoku 
-        { 
+
+        public Sudoku Sudoku
+        {
             get => _sudoku;
             set
             {

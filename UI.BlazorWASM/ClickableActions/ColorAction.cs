@@ -1,5 +1,4 @@
-﻿using UI.BlazorWASM.Enums;
-using UI.BlazorWASM.Providers;
+﻿using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.ClickableActions
 {

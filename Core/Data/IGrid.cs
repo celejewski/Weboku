@@ -1,6 +1,6 @@
 ﻿namespace Core.Data
 {
-    public interface IGrid 
+    public interface IGrid
     {
         bool GetIsGiven(int x, int y);
         void SetIsGiven(int x, int y, bool value);

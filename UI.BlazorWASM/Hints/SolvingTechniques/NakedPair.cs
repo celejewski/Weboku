@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UI.BlazorWASM.Helpers;
 
 namespace UI.BlazorWASM.Hints.SolvingTechniques
 {
@@ -18,14 +17,14 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
         private readonly List<Position> _positionsInHouses;
 
         public NakedPair(IEnumerable<Position> positions, IEnumerable<InputValue> values)
-            :base(positions, values)
+            : base(positions, values)
         {
             _locKey = "naked-pair";
             _pos1 = positions.ElementAt(0);
             _pos2 = positions.ElementAt(1);
             _value1 = values.ElementAt(0);
             _value2 = values.ElementAt(1);
-            
+
             _houses = HintsHelper.GetHouses(_positions);
             _housesFormated = string.Join(" and ", _houses.Select(house => Displayer.Format(house, _pos1)));
 
@@ -79,7 +78,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
             displayer.Mark(Enums.Color.Legal, _pos2, _value2);
             displayer.SetDescription(ExplanationKey(3), _value2, _pos2);
         }
-        
+
         private void Explain4(Displayer displayer, Informer informer)
         {
             SetupDisplayer(displayer);

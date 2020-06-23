@@ -16,7 +16,7 @@ namespace UI.BlazorWASM.Commands
         private readonly SudokuProvider _sudokuProvider;
 
         public StartNewGameFromPastedCommand(
-            PasteProvider pasteProvider, 
+            PasteProvider pasteProvider,
             ModalProvider modalProvider,
             CellColorProvider cellColorProvider,
             IGridHistoryManager gridHistoryManager,

@@ -33,7 +33,7 @@ namespace UI.BlazorWASM.Providers
         }
 
         private SharedConverter _sharedConverter = SharedConverter.MyLink;
-        public SharedConverter SharedConverter 
+        public SharedConverter SharedConverter
         {
             get => _sharedConverter;
             set
@@ -43,9 +43,9 @@ namespace UI.BlazorWASM.Providers
             }
         }
         private SharedFields _sharedFields = SharedFields.Everything;
-        public SharedFields SharedFields 
-        { 
-            get =>_sharedFields;
+        public SharedFields SharedFields
+        {
+            get => _sharedFields;
             set
             {
                 _sharedFields = value;
@@ -98,7 +98,7 @@ namespace UI.BlazorWASM.Providers
                 _previousFilter = _filterProvider.Filter;
                 _filterProvider.SetFilter(new SharedFilter(this));
             }
-            else if (_isOpened && _modalProvider.CurrentState != Component.Modals.ModalState.Share)
+            else if( _isOpened && _modalProvider.CurrentState != Component.Modals.ModalState.Share )
             {
                 Console.WriteLine("Share is closing");
                 _isOpened = false;
@@ -109,7 +109,7 @@ namespace UI.BlazorWASM.Providers
         private static IGrid TransformGrid(IGrid input, SharedFields sharedFields)
         {
             var output = input.Clone();
-            if ( sharedFields == SharedFields.Everything)
+            if( sharedFields == SharedFields.Everything )
             {
                 return output;
             }
@@ -118,7 +118,7 @@ namespace UI.BlazorWASM.Providers
             {
                 for( int y = 0; y < 9; y++ )
                 {
-                    if ( sharedFields == SharedFields.Givens && !output.GetIsGiven(x, y))
+                    if( sharedFields == SharedFields.Givens && !output.GetIsGiven(x, y) )
                     {
                         output.SetValue(x, y, InputValue.Empty);
                     }

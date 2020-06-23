@@ -1,5 +1,4 @@
-﻿using Core.Data;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UI.BlazorWASM.Commands;
 using UI.BlazorWASM.Component.NumpadMenu;
 using UI.BlazorWASM.Component.NumpadMenu.NumpadMenuOptions;
@@ -28,10 +27,10 @@ namespace UI.BlazorWASM.ViewModels
         private readonly SelectColorActionCommand _selectColorActionCommand;
 
         public NumpadMenuBuilder(
-            FilterProvider filterProvider, 
-            IClickableActionProvider clickableActionProvider, 
-            IGridHistoryManager gridHistoryManager, 
-            CellColorProvider cellColorProvider, 
+            FilterProvider filterProvider,
+            IClickableActionProvider clickableActionProvider,
+            IGridHistoryManager gridHistoryManager,
+            CellColorProvider cellColorProvider,
             NumpadMenuProvider numpadMenuProvider,
             CommandProvider commandProvider,
             IGridProvider gridProvider,
@@ -111,7 +110,7 @@ namespace UI.BlazorWASM.ViewModels
         SelectCleanerActionMenuItem _eraseMenuItem;
         public SelectCleanerActionMenuItem SelectCleanerAction()
         {
-            return _eraseMenuItem ??= new SelectCleanerActionMenuItem(_numpadMenuProvider, _selectCleanerAction); 
+            return _eraseMenuItem ??= new SelectCleanerActionMenuItem(_numpadMenuProvider, _selectCleanerAction);
         }
 
         public SelectStandardActionMenuItem SelectStandardAction()

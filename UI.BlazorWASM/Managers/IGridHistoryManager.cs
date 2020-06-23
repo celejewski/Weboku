@@ -1,5 +1,4 @@
-﻿using Core.Data;
-using UI.BlazorWASM.Providers;
+﻿using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.Managers
 {

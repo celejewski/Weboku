@@ -1,6 +1,5 @@
 ﻿using Core.Data;
 using System.Collections.Generic;
-using UI.BlazorWASM.Helpers;
 using System.Linq;
 
 namespace UI.BlazorWASM.Hints.SolvingTechniques
@@ -13,8 +12,8 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
         private readonly InputValue _value1;
         private readonly InputValue _value2;
 
-        public HiddenPair(IEnumerable<Position> positions, IEnumerable<InputValue> values) 
-            :base(positions, values)
+        public HiddenPair(IEnumerable<Position> positions, IEnumerable<InputValue> values)
+            : base(positions, values)
         {
             _locKey = "hidden-pair";
             _houseFormatted = Displayer.Format(_house, Position);
@@ -29,9 +28,9 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
         {
             base.DisplaySolution(displayer, informer);
 
-            displayer.SetDescription("hidden-pair__description", 
+            displayer.SetDescription("hidden-pair__description",
                 _houseFormatted, _value1, _value2, _pos1, _pos2);
-            
+
         }
     }
 }

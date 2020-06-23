@@ -24,8 +24,8 @@ namespace UI.BlazorWASM.Providers
             }
         }
 
-        public Color Color1 
-        { 
+        public Color Color1
+        {
             get => _color1;
             set
             {

@@ -1,5 +1,4 @@
-﻿using Core.Data;
-using UI.BlazorWASM.Commands;
+﻿using UI.BlazorWASM.Commands;
 using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.Component.NumpadMenu
@@ -8,7 +7,7 @@ namespace UI.BlazorWASM.Component.NumpadMenu
     {
         private readonly IGridProvider _gridProvider;
 
-        public PairsNumpadMenuItem(NumpadMenuProvider numpadMenuProvider, SelectPairsFilterCommand command, IGridProvider gridProvider) 
+        public PairsNumpadMenuItem(NumpadMenuProvider numpadMenuProvider, SelectPairsFilterCommand command, IGridProvider gridProvider)
             : base(command, numpadMenuProvider.FilterContainer)
         {
             _gridProvider = gridProvider;
@@ -22,7 +21,7 @@ namespace UI.BlazorWASM.Component.NumpadMenu
                 {
                     for( int x = 0; x < 9; x++ )
                     {
-                        if (_gridProvider.GetCandidatesCount(x, y) == 2)
+                        if( _gridProvider.GetCandidatesCount(x, y) == 2 )
                         {
                             return false;
                         }

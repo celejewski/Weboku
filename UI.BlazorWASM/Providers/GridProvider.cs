@@ -1,8 +1,5 @@
 ﻿using Core.Data;
-using Microsoft.AspNetCore.Http;
 using System;
-using System.Threading;
-using UI.BlazorWASM.Helpers;
 
 namespace UI.BlazorWASM.Providers
 {
@@ -16,7 +13,7 @@ namespace UI.BlazorWASM.Providers
         public IGrid Grid
         {
             get => _grid;
-            set 
+            set
             {
                 _grid = value;
                 CalcIsInputLegal();
@@ -102,7 +99,7 @@ namespace UI.BlazorWASM.Providers
                     || GetValue(x, y) == InputValue.Empty
                     || GetValue(x, y) == _sudokuProvider.GetSolution(x, y);
             }
-            
+
             return GetValue(x, y) == InputValue.Empty || _isInputLegal[x, y];
         }
 
@@ -114,11 +111,11 @@ namespace UI.BlazorWASM.Providers
 
         public void SetValue(int x, int y, InputValue value)
         {
-            if (value != InputValue.Empty)
+            if( value != InputValue.Empty )
             {
                 _grid.SetValue(x, y, value);
                 ClearCandidates(x, y);
-                foreach( var coords in GridHelper.GetCoordsWhichCanSee(x, y))
+                foreach( var coords in GridHelper.GetCoordsWhichCanSee(x, y) )
                 {
                     _grid.RemoveCandidate(coords.X, coords.Y, value);
                 }
@@ -126,7 +123,7 @@ namespace UI.BlazorWASM.Providers
                 ValueAndCandidatesChanged();
             }
             else
-            { 
+            {
                 _grid.SetValue(x, y, value);
                 ValueChanged();
             }
@@ -146,14 +143,14 @@ namespace UI.BlazorWASM.Providers
             {
                 for( int y = 0; y < 9; y++ )
                 {
-                    if (_grid.GetValue(x, y) == InputValue.Empty)
+                    if( _grid.GetValue(x, y) == InputValue.Empty )
                     {
                         continue;
                     }
 
                     foreach( var coords in GridHelper.GetCoordsWhichCanSee(x, y) )
                     {
-                        _grid.RemoveCandidate(coords.X, coords.Y, _grid.GetValue(x, y));    
+                        _grid.RemoveCandidate(coords.X, coords.Y, _grid.GetValue(x, y));
                     }
                 }
             }
@@ -204,7 +201,7 @@ namespace UI.BlazorWASM.Providers
             {
                 for( int y = 0; y < 9; y++ )
                 {
-                    if (GetValue(x, y) != InputValue.Empty)
+                    if( GetValue(x, y) != InputValue.Empty )
                     {
                         continue;
                     }

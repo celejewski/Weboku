@@ -1,7 +1,6 @@
 ﻿using Core.Data;
 using System.Collections.Generic;
 using System.Linq;
-using UI.BlazorWASM.Helpers;
 
 namespace UI.BlazorWASM.Hints.SolvingTechniques
 {
@@ -13,7 +12,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
         protected readonly House _house;
 
         public HiddenSubset(IEnumerable<Position> positions, IEnumerable<InputValue> values)
-            :base("hidden-subset")
+            : base("hidden-subset")
         {
             _positions = positions;
             _values = values;
@@ -55,7 +54,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
             for( int i = 1; i < 10; i++ )
             {
                 var value = (InputValue) i;
-                if (!_values.Contains(value))
+                if( !_values.Contains(value) )
                 {
                     yield return value;
                 }

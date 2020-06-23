@@ -1,7 +1,6 @@
 ﻿using Core.Data;
 using System.Collections.Generic;
 using System.Linq;
-using UI.BlazorWASM.Helpers;
 
 namespace UI.BlazorWASM.Hints.SolvingTechniques
 {
@@ -12,7 +11,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
         protected readonly IEnumerable<InputValue> _values;
 
         public NakedSubset(IEnumerable<Position> positions, IEnumerable<InputValue> values)
-            :base("naked-subset")
+            : base("naked-subset")
         {
             _positions = positions;
             _values = values;
@@ -56,7 +55,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
         {
             var positionsInHouses = GetHouses()
                 .SelectMany(house => HintsHelper.GetPositionsInHouse(Pos, house));
-            
+
             return positionsInHouses
                 .Where(pos => _values.Any(value => informer.HasCandidate(pos, value)))
                 .Except(_positions);

@@ -1,6 +1,5 @@
 ﻿using Core.Data;
 using UI.BlazorWASM.Enums;
-using UI.BlazorWASM.Helpers;
 
 namespace UI.BlazorWASM.Hints.SolvingTechniques
 {
@@ -10,7 +9,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
         private readonly InputValue _value;
 
         public NakedSingle(Position position, InputValue value)
-            :base("naked-single")
+            : base("naked-single")
         {
             _position = position;
             _value = value;

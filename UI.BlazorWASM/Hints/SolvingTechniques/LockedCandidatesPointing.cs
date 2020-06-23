@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UI.BlazorWASM.Helpers;
 
 namespace UI.BlazorWASM.Hints.SolvingTechniques
 {
@@ -15,14 +14,14 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
         private readonly IEnumerable<Position> _positionsToRemoveFrom;
 
         public LockedCandidatesPointing(int block, InputValue inputValue, IEnumerable<Position> positionToRemoveFrom)
-            :base("locked-candiates-pointing")
+            : base("locked-candiates-pointing")
         {
             _block = block;
-            _blockFormated = $"block {_block+1}";
+            _blockFormated = $"block {_block + 1}";
             _inputValue = inputValue;
             _positionsToRemoveFrom = positionToRemoveFrom;
 
-            _explanationSteps.AddRange( new Action<Displayer, Informer>[]
+            _explanationSteps.AddRange(new Action<Displayer, Informer>[]
             {
                 Explain1,
                 Explain2,

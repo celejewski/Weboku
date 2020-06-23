@@ -15,8 +15,8 @@ namespace UI.BlazorWASM.Providers
         private IGrid _gridBackup;
         public IGrid Grid { get; private set; }
         private string _pasted;
-        public string Pasted 
-        { 
+        public string Pasted
+        {
             get => _pasted;
             set
             {
@@ -24,7 +24,7 @@ namespace UI.BlazorWASM.Providers
                 if( IsValid )
                 {
                     Grid = _converter.FromText(_pasted);
-                    if (_isVisible)
+                    if( _isVisible )
                     {
                         _gridProvider.Grid = Grid;
                     }
@@ -55,12 +55,12 @@ namespace UI.BlazorWASM.Providers
         private bool _isVisible;
         public void OnModalChange()
         {
-            if (!_isVisible && _modalProvider.CurrentState == Component.Modals.ModalState.Paste)
+            if( !_isVisible && _modalProvider.CurrentState == Component.Modals.ModalState.Paste )
             {
                 _isVisible = true;
                 OnShow();
             }
-            else if (_isVisible && _modalProvider.CurrentState != Component.Modals.ModalState.Paste)
+            else if( _isVisible && _modalProvider.CurrentState != Component.Modals.ModalState.Paste )
             {
                 _isVisible = false;
                 OnHide();

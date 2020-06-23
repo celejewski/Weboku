@@ -3,11 +3,10 @@ using Core.Converters;
 using Core.Data;
 using System.Threading.Tasks;
 using UI.BlazorWASM.Enums;
-using System.Text.Json;
 
 namespace UI.BlazorWASM.Providers
 {
-    public class StorageProvider 
+    public class StorageProvider
     {
         private readonly ILocalStorageService _localStorageService;
         private readonly IGridConverter _converter = new Base64CandidatesConverter();
@@ -22,12 +21,12 @@ namespace UI.BlazorWASM.Providers
             return _localStorageService.ContainKeyAsync(StorageKey.Grid.ToString());
         }
 
-        public Task SaveGrid(IGrid grid) 
+        public Task SaveGrid(IGrid grid)
         {
             var converted = _converter.ToText(grid);
             return _localStorageService.SetItemAsync<string>(StorageKey.Grid.ToString(), converted);
         }
-        public async Task<IGrid> LoadGrid() 
+        public async Task<IGrid> LoadGrid()
         {
             var text = await _localStorageService.GetItemAsync<string>(StorageKey.Grid.ToString());
             return _converter.FromText(text);
@@ -42,7 +41,7 @@ namespace UI.BlazorWASM.Providers
         {
             return _localStorageService.SetItemAsync<Sudoku>(StorageKey.Sudoku.ToString(), sudoku);
         }
-        public async Task<Sudoku> LoadSudoku() 
+        public async Task<Sudoku> LoadSudoku()
         {
             return await _localStorageService.GetItemAsync<Sudoku>(StorageKey.Sudoku.ToString());
         }

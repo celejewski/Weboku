@@ -22,7 +22,7 @@ namespace Core.Converters
             var bigInt = new BigInteger(bytes);
             var parsed = bigInt.ToString().Substring(1);
 
-            if (parsed.Length != 81)
+            if( parsed.Length != 81 )
             {
                 throw new ArgumentException();
             }
@@ -37,7 +37,7 @@ namespace Core.Converters
                 FromText(text);
                 return true;
             }
-            catch 
+            catch
             {
                 return false;
             }

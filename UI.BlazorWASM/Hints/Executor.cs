@@ -1,6 +1,5 @@
 ﻿using Core.Data;
 using System.Collections.Generic;
-using UI.BlazorWASM.Helpers;
 using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.Hints
@@ -24,22 +23,22 @@ namespace UI.BlazorWASM.Hints
                 _gridProvider.ClearCandidates(pos.X, pos.Y);
             }
         }
-        public void RemoveCandidate(InputValue value, Position position) 
+        public void RemoveCandidate(InputValue value, Position position)
         {
             _gridProvider.RemoveCandidate(position.X, position.Y, value);
         }
-        public void RemoveCandidates(InputValue value, IEnumerable<Position> positions) 
+        public void RemoveCandidates(InputValue value, IEnumerable<Position> positions)
         {
             foreach( var position in positions )
             {
                 RemoveCandidate(value, position);
             }
         }
-        public void AddCandidate(InputValue value, Position position) 
+        public void AddCandidate(InputValue value, Position position)
         {
             _gridProvider.AddCandidate(position.X, position.Y, value);
         }
-        public void AddCandidates(InputValue value, IEnumerable<Position> positions) 
+        public void AddCandidates(InputValue value, IEnumerable<Position> positions)
         {
             foreach( var pos in positions )
             {

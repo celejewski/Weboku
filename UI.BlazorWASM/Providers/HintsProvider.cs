@@ -16,7 +16,7 @@ namespace UI.BlazorWASM.Providers
         private readonly IGridHistoryManager _gridHistoryManager;
         private readonly SudokuProvider _sudokuProvider;
         private readonly HodokuParser _parser = new HodokuParser();
-        
+
         public event Action OnChanged;
 
         public HintsState State { get; private set; }

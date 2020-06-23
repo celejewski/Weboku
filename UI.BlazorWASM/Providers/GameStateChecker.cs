@@ -21,7 +21,7 @@ namespace UI.BlazorWASM.Providers
             {
                 for( int x = 0; x < 9; x++ )
                 {
-                    if (_gridProvider.GetValue(x, y) == InputValue.Empty || !_gridProvider.IsValueLegal(x, y))
+                    if( _gridProvider.GetValue(x, y) == InputValue.Empty || !_gridProvider.IsValueLegal(x, y) )
                     {
                         return;
                     }

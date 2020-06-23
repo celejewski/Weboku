@@ -7,11 +7,11 @@ namespace UI.BlazorWASM.Providers
     public class CellColorProvider
     {
         private readonly Color[,] _cellColors = new Color[9, 9];
-        
+
         public event Action OnChanged;
-        
+
         public Color GetColor(int x, int y) => _cellColors[x, y];
-        
+
         public string GetCssClass(int x, int y)
         {
             return CellColorConverter.ToCssClass(_cellColors[x, y]);

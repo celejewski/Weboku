@@ -21,9 +21,9 @@ namespace UI.BlazorWASM.Commands
         private readonly SudokuProvider _sudokuProvider;
 
         public StartNewGameCommand(
-            string difficulty, 
-            ISudokuGenerator generator, 
-            IGridProvider gridProvider, 
+            string difficulty,
+            ISudokuGenerator generator,
+            IGridProvider gridProvider,
             ModalProvider modalProvider,
             CellColorProvider cellColorProvider,
             IGridHistoryManager gridHistoryManager,
@@ -45,7 +45,7 @@ namespace UI.BlazorWASM.Commands
         public async Task Execute()
         {
             var sudoku = await _generator.Generate(_difficulty);
-            if (false && !sudoku.Steps.Any(text => text.Contains("Naked Triple", System.StringComparison.OrdinalIgnoreCase)))
+            if( false && !sudoku.Steps.Any(text => text.Contains("Naked Triple", System.StringComparison.OrdinalIgnoreCase)) )
             {
 #warning for testing only
                 System.Console.WriteLine("Looking for different sudoku");
@@ -53,7 +53,7 @@ namespace UI.BlazorWASM.Commands
                 return;
             }
 
-            _gridProvider.Grid =  _hodokuGridConverter.FromText(sudoku.Given);
+            _gridProvider.Grid = _hodokuGridConverter.FromText(sudoku.Given);
             _sudokuProvider.Sudoku = sudoku;
             _modalProvider.SetModalState(ModalState.None);
             _cellColorProvider.ClearAll();

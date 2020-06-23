@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using UI.BlazorWASM.Commands;
-using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.Component.NumpadMenu
 {

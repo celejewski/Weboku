@@ -1,5 +1,4 @@
 ﻿using Core.Data;
-using Microsoft.AspNetCore.Components.Web;
 using UI.BlazorWASM.Managers;
 using UI.BlazorWASM.Providers;
 

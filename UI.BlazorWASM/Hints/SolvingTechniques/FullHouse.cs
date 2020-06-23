@@ -1,7 +1,6 @@
 ﻿using Core.Data;
 using System;
 using System.Linq;
-using UI.BlazorWASM.Helpers;
 
 namespace UI.BlazorWASM.Hints.SolvingTechniques
 {
@@ -11,7 +10,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
         private readonly InputValue _value;
 
         private House _house;
-        public FullHouse(Position position, InputValue value) 
+        public FullHouse(Position position, InputValue value)
             : base("full-house")
         {
             _position = position;
@@ -19,9 +18,9 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
 
             _explanationSteps.Add(Explain1);
 
-            for( int i = 0; i < (int) (_value-1); i++ )
+            for( int i = 0; i < (int) (_value - 1); i++ )
             {
-                var explain = ExplainN((InputValue)i);
+                var explain = ExplainN((InputValue) i);
                 _explanationSteps.Add(explain);
             }
             _explanationSteps.Add(ExplainLast);
@@ -72,7 +71,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
                 var limit = (int) n + 1;
                 for( int i = 0; i < limit; i++ )
                 {
-                    displayer.MarkIfInputEquals(Enums.Color.Illegal, positions, (InputValue)(i+1));
+                    displayer.MarkIfInputEquals(Enums.Color.Illegal, positions, (InputValue) (i + 1));
                 }
                 var digits = Enumerable.Range(0, limit).Select(i => (i + 1).ToString() + "... ");
                 displayer.SetDescription(string.Join(" ", digits));

@@ -14,10 +14,10 @@ namespace UI.BlazorWASM.ClickableActions
             _gridHistoryManager = gridHistoryManager;
             _gridProvider = gridProvider;
         }
-        
+
         public void LeftClickAction(ClickableActionArgs args)
         {
-            if (_gridProvider.GetValue(args.X, args.Y) == InputValue.Empty)
+            if( _gridProvider.GetValue(args.X, args.Y) == InputValue.Empty )
             {
                 _gridHistoryManager.Save();
                 _gridProvider.ToggleCandidate(args.X, args.Y, args.Value);
@@ -26,12 +26,12 @@ namespace UI.BlazorWASM.ClickableActions
 
         public void RightClickAction(ClickableActionArgs args)
         {
-            if (_gridProvider.GetValue(args.X, args.Y) == InputValue.Empty)
+            if( _gridProvider.GetValue(args.X, args.Y) == InputValue.Empty )
             {
                 _gridHistoryManager.Save();
                 _gridProvider.SetValue(args.X, args.Y, args.Value);
             }
-            else if (_gridProvider.GetValue(args.X, args.Y) == args.Value && _gridProvider.GetIsGiven(args.X, args.Y))
+            else if( _gridProvider.GetValue(args.X, args.Y) == args.Value && _gridProvider.GetIsGiven(args.X, args.Y) )
             {
                 _gridHistoryManager.Save();
                 _gridProvider.SetValue(args.X, args.Y, InputValue.Empty);

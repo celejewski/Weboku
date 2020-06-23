@@ -15,7 +15,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
                 {
                     var position = new Position(x, y);
                     var solution = informer.GetSolution(position);
-                    if (!informer.HasValue(position) 
+                    if( !informer.HasValue(position)
                         && !informer.HasCandidate(position, solution) )
                     {
                         return true;

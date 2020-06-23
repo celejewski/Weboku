@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UI.BlazorWASM.Enums;
-using UI.BlazorWASM.Helpers;
 using UI.BlazorWASM.Providers;
 using UI.BlazorWASM.ViewModels;
 
@@ -63,17 +62,17 @@ namespace UI.BlazorWASM.Hints
             _candidatesMarkProvider.ClearColors();
             OnChanged?.Invoke();
         }
-        public void SetTitle(string key, params object[] args) 
-        { 
-            Title = string.Format(Loc.Keys[key], args); 
+        public void SetTitle(string key, params object[] args)
+        {
+            Title = string.Format(Loc.Keys[key], args);
         }
-        public void SetDescription(string key, params object[] args) 
+        public void SetDescription(string key, params object[] args)
         {
             try
             {
                 Description = string.Format(Loc.Keys[key], args);
             }
-            catch (Exception ex)
+            catch( Exception ex )
             {
                 Console.WriteLine(key);
                 Console.WriteLine(ex.ToString());
@@ -173,7 +172,7 @@ namespace UI.BlazorWASM.Hints
         {
             foreach( var position in positions )
             {
-                if (_informer.GetValue(position) == value)
+                if( _informer.GetValue(position) == value )
                 {
                     MarkInput(color, position);
                 }

@@ -1,5 +1,4 @@
-﻿using UI.BlazorWASM.Enums;
-using UI.BlazorWASM.Managers;
+﻿using UI.BlazorWASM.Managers;
 using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.ClickableActions
@@ -16,10 +15,10 @@ namespace UI.BlazorWASM.ClickableActions
             _cellColorProvider = cellColorProvider;
             _gridProvider = gridProvider;
         }
-        
+
         public IClickableAction ColorAction()
         {
-            return new ColorAction(_cellColorProvider); 
+            return new ColorAction(_cellColorProvider);
         }
         public IClickableAction StandardAction()
         {
