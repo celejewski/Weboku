@@ -1,9 +1,28 @@
-﻿main-menu__header: Menu
+﻿menu__menu-header: Menu
+menu__main-menu: Menu główne
+menu__share: Udostępnij
+menu__restart-game: Zrestartuj grę
+menu__how-to-play: Jak grać
+menu__show-hint: Podpowiedzi
+menu__candidates-header: Kandydaci
+menu__find-all: Wypełnij
+menu__remove-all: Wyczyść
+
+numpad-redo__label: "Cofnij"
+numpad-undo__label: "Dalej"
+numpad-pairs__label: "Pary"
+numpad-clear-colors__label: "Usuń kolory"
+
+main-menu__header: Menu
 main-menu__new-game: Nowa gra 
 main-menu__how-to-play: Jak grać
 main-menu__share: Udostępnij
 main-menu__paste: Wklej
 main-menu__settings: Ustawienia
+
+new-game__header: Nowa gra
+
+settings__header: Ustawienia
 
 end-game__header: Gratulacje
 end-game__congratulations: Sudoku jest rozwiązane!
@@ -31,20 +50,10 @@ share__hodoku: HoDoKu
 share__my-format: My format
 share__link: Link
 
-menu__menu-header: Menu
-menu__main-menu: Menu główne
-menu__share: Udostępnij
-menu__restart-game: Zrestartuj grę
-menu__how-to-play: Jak grać
-menu__show-hint: Podpowiedzi
-menu__candidates-header: Kandydaci
-menu__find-all: Wypełnij
-menu__remove-all: Wyczyść
-
 how-to-play__header: Jak grać
 how-to-play__p1: | 
     Użyj lewego przycisku myszki żeby wstawić wartość do kratki.
-    Użyj prawego przycisku żeby zrobić notkę.C:\Users\xyz\source\repos\Sudoku\UI.BlazorWASM\Managers\
+    Użyj prawego przycisku żeby zrobić notkę.
 how-to-play__p2: Możesz skorzystać z menu lub klawiatury żeby zmienić wstawianą wartość.
 how-to-play__p3: |
     Skorzystaj z kolorowania żeby ułatwić zauważenie z zaawansowanych technik.

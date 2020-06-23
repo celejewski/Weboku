@@ -1,9 +1,11 @@
 ﻿@inject ShowPreviousModalCommand ShowPreviousModalCommand
 @inject CommandProvider CommandProvider
 @inject ModalProvider ModalProvider
+@inject ILanguageContainerService Loc
+@inject SettingsProvider SettingsProvider
 
 <ModalTemplateComponent>
-    <h1 class="modal__title with-hr">New game</h1>
+    <h1 class="modal__title with-hr">@Loc.Keys["new-game__header"]</h1>
 
     <div class="modal__content">
         @foreach( var difficulty in new[] { "Easy", "Medium", "Hard", "Extreme", "Unfair" } )
@@ -17,11 +19,14 @@
     <div class="modal__footer with-hr">
         <ModalButtonComponent OnClick="ShowPreviousModalCommand"
                               IsSecondary="true">
-            Close
+            @Loc.Keys["modal__close"]
         </ModalButtonComponent>
     </div>
 </ModalTemplateComponent>
 
 @code {
-
+    protected override void OnInitialized()
+    {
+        SettingsProvider.OnChanged += StateHasChanged;
+    }
 }

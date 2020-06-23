@@ -34,6 +34,6 @@ namespace UI.BlazorWASM.Component.NumpadMenu
 
         public override bool IsSelectable => true;
 
-        public string Label => "Pairs";
+        public string Label => "numpad-pairs__label";
     }
 }

@@ -1,8 +1,10 @@
 ﻿@inject NumpadMenuBuilder NumpadMenuBuilder
+@inject ILanguageContainerService Loc
+@inject SettingsProvider SettingsProvider
 
 <div @onclick="_clearColors.Execute"
      class="numpad__button numpad__label numpad__clear-colors">
-    Clear colors
+    @Loc.Keys["numpad-clear-colors__label"]
 </div>
 
 @code {
@@ -12,5 +14,6 @@
     protected override void OnInitialized()
     {
         _clearColors = NumpadMenuBuilder.ClearColors();
+        SettingsProvider.OnChanged += StateHasChanged;
     }
 }

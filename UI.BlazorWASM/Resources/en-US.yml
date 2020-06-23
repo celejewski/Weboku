@@ -1,9 +1,28 @@
-﻿main-menu__header: Menu
+﻿menu__menu-header: Menu
+menu__main-menu: Main Menu
+menu__share: Share
+menu__restart-game: Restart game
+menu__how-to-play: How to Play
+menu__show-hint: Show hint
+menu__candidates-header: Candidates
+menu__find-all: Find all
+menu__remove-all: Remove all
+
+numpad-redo__label: "Redo"
+numpad-undo__label: "Undo"
+numpad-pairs__label: "Pairs"
+numpad-clear-colors__label: "Clear colors"
+
+main-menu__header: Menu
 main-menu__new-game: New game
 main-menu__how-to-play: How to play
 main-menu__share: Share
 main-menu__paste: Paste
 main-menu__settings: Settings 
+
+new-game__header: New Game
+
+settings__header: Settings
 
 end-game__header: Solved
 end-game__congratulations: Congratulations you did it!
@@ -30,16 +49,6 @@ share__format-header: What format to use?
 share__hodoku: HoDoKu
 share__my-format: My format
 share__link: Link
-
-menu__menu-header: Menu
-menu__main-menu: Main Menu
-menu__share: Share
-menu__restart-game: Restart game
-menu__how-to-play: How to Play
-menu__show-hint: Show hint
-menu__candidates-header: Candidates
-menu__find-all: Find all
-menu__remove-all: Remove all
 
 how-to-play__header: How to play
 how-to-play__p1: | 
