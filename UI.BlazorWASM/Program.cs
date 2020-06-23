@@ -21,8 +21,8 @@ namespace UI.BlazorWASM
             builder.Services.RegisterHints();
             builder.Services.AddBlazoredLocalStorage();
             builder.Services.AddCors();
+            builder.Services.RegisterLocalization();
             var app = builder.Build();
-           
             await app.RunAsync();
         }
     }

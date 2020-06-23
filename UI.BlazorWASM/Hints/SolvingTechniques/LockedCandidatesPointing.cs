@@ -15,7 +15,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
         private readonly IEnumerable<Position> _positionsToRemoveFrom;
 
         public LockedCandidatesPointing(int block, InputValue inputValue, IEnumerable<Position> positionToRemoveFrom)
-            :base("Locked Candidates - Pointing")
+            :base("locked-candiates-pointing")
         {
             _block = block;
             _blockFormated = $"block {_block+1}";
@@ -39,7 +39,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
         private void SetupDisplay(Displayer displayer, Informer informer)
         {
             displayer.Clear();
-            displayer.SetTitle(_title);
+            displayer.SetTitle(TitleKey);
             _rowOrColFormated = Displayer.Format(RowOrCol(informer), _positionsToRemoveFrom.First());
 
         }
@@ -55,10 +55,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
             displayer.HighlightHouse(_positionsToRemoveFrom.First(), RowOrCol(informer));
             displayer.SetValueFilter(_inputValue);
 
-            displayer.SetDescription(
-                $"In {_blockFormated} value {_inputValue:D} can be placed only in {_rowOrColFormated}, " +
-                $"so any candidate {_inputValue:D} in {_rowOrColFormated} outside {_blockFormated} can be removed."
-                );
+            displayer.SetDescription(DescriptionKey, _blockFormated, _inputValue, _rowOrColFormated, _inputValue, _rowOrColFormated, _blockFormated);
         }
 
         public void Explain1(Displayer displayer, Informer informer)
@@ -67,7 +64,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
 
             displayer.HighlightBlock(_block);
             displayer.SetValueFilter(InputValue.Empty);
-            displayer.SetDescription($"Lets focus on {_blockFormated}...");
+            displayer.SetDescription(ExplanationKey(1), _blockFormated);
         }
 
         public void Explain2(Displayer displayer, Informer informer)
@@ -76,7 +73,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
 
             displayer.HighlightBlock(_block);
             displayer.SetValueFilter(_inputValue);
-            displayer.SetDescription($"... with filter we can see where value {_inputValue:D} can be placed...");
+            displayer.SetDescription(ExplanationKey(2), _inputValue);
         }
 
         public void Explain3(Displayer displayer, Informer informer)
@@ -85,7 +82,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
             displayer.HighlightBlock(_block);
             displayer.SetValueFilter(_inputValue);
             displayer.Mark(Enums.Color.Legal, PositionWithLegalCandidates(informer), _inputValue);
-            displayer.SetDescription($"... one of this cells has to be {_inputValue:D}, we don't know yet which one...");
+            displayer.SetDescription(ExplanationKey(3), _inputValue);
         }
         public void Explain4(Displayer displayer, Informer informer)
         {
@@ -94,7 +91,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
             displayer.HighlightHouse(_positionsToRemoveFrom.First(), RowOrCol(informer));
             displayer.SetValueFilter(_inputValue);
             displayer.Mark(Enums.Color.Legal, PositionWithLegalCandidates(informer), _inputValue);
-            displayer.SetDescription($"... but we can notice that all this cells lay in {_rowOrColFormated}...");
+            displayer.SetDescription(ExplanationKey(4), _rowOrColFormated);
         }
         public void Explain5(Displayer displayer, Informer informer)
         {
@@ -104,7 +101,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
             displayer.SetValueFilter(_inputValue);
             displayer.Mark(Enums.Color.Illegal, _positionsToRemoveFrom, _inputValue);
             displayer.Mark(Enums.Color.Legal, PositionWithLegalCandidates(informer), _inputValue);
-            displayer.SetDescription($"... it means we can remove candidate {_inputValue:D} from other cells in {_rowOrColFormated}.");
+            displayer.SetDescription(ExplanationKey(5), _inputValue, _rowOrColFormated);
         }
 
         public override void Execute(Executor executor, Informer informer)

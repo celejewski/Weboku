@@ -4,9 +4,8 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
 {
     public class FillMissingCandidates : BaseSolvingTechnique
     {
-        public FillMissingCandidates() : base("Missing Candidates")
+        public FillMissingCandidates() : base("fill-missing-candidates")
         {
-
         }
         public override bool CanExecute(Informer informer)
         {
@@ -24,12 +23,6 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
                 }
             }
             return false;
-        }
-
-        public override void DisplaySolution(Displayer displayer, Informer informer)
-        {
-            displayer.SetTitle(_title);
-            displayer.SetDescription("Fill all legal candidates before using hints.");
         }
 
         public override void Execute(Executor executor, Informer informer)

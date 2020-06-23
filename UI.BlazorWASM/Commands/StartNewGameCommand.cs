@@ -49,7 +49,7 @@ namespace UI.BlazorWASM.Commands
             {
 #warning for testing only
                 System.Console.WriteLine("Looking for different sudoku");
-                Execute();
+                _ = Execute();
                 return;
             }
 

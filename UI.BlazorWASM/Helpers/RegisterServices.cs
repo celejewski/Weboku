@@ -7,6 +7,9 @@ using UI.BlazorWASM.Hints;
 using UI.BlazorWASM.Managers;
 using UI.BlazorWASM.Providers;
 using UI.BlazorWASM.ViewModels;
+using AKSoftware.Localization.MultiLanguages;
+using System.Reflection;
+using System;
 
 namespace UI.BlazorWASM.Helpers
 {
@@ -21,6 +24,12 @@ namespace UI.BlazorWASM.Helpers
             services.AddScoped<HodokuParser, HodokuParser>();
             services.AddScoped<HintsProvider, HintsProvider>();
             services.AddScoped<ShowHintModalCommand>();
+        }
+
+        public static void RegisterLocalization(this IServiceCollection services)
+        {
+            services.AddLangaugeContainer(Assembly.GetExecutingAssembly());
+            services.AddScoped<SettingsProvider>();
         }
 
         public static void RegisterCommands(this IServiceCollection services)
@@ -45,6 +54,7 @@ namespace UI.BlazorWASM.Helpers
             services.AddScoped<SelectColorActionCommand>();
             services.AddScoped<StartNewGameFromPastedCommand>();
             services.AddScoped<ShowPreviousModalCommand>();
+            services.AddScoped<ShowSettingsModalCommand>();
         }
 
         public static void RegisterProviders(this IServiceCollection services)

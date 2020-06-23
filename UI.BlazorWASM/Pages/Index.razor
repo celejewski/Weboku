@@ -10,6 +10,7 @@
 @inject PasteProvider PasteProvider
 @using UI.BlazorWASM.Component.Modals;
 @inject PreserveStateProvider PreserveStateProvider
+@inject SettingsProvider SettingsProvider
 
 <div id="wrapper"
      class="wrapper">
@@ -50,7 +51,7 @@
     protected override async Task OnInitializedAsync()
     {
         GameStateChecker.OnSolved += OnGameEnd;
-        Task.Run(() => GridGenerator.WithGiven("medium"));
+        _ = Task.Run(() => GridGenerator.WithGiven("medium"));
         await PreserveStateProvider.Load();
         PreserveStateProvider.AutoSave(TimeSpan.FromSeconds(5));
 

@@ -1,0 +1,119 @@
+﻿menu__menu-header: Menu
+menu__main-menu: Main Menu
+menu__share: Share
+menu__restart-game: Restart game
+menu__how-to-play: How to Play
+menu__show-hint: Show hint
+menu__candidates-header: Candidates
+menu__find-all: Find all
+menu__remove-all: Remove all
+
+numpad-redo__label: "Redo"
+numpad-undo__label: "Undo"
+numpad-pairs__label: "Pairs"
+numpad-clear-colors__label: "Clear colors"
+
+main-menu__header: Menu
+main-menu__new-game: New game
+main-menu__how-to-play: How to play
+main-menu__share: Share
+main-menu__paste: Paste
+main-menu__settings: Settings 
+
+new-game__header: New Game
+
+settings__header: Settings
+settings__select-language: Select language
+
+end-game__header: Solved
+end-game__congratulations: Congratulations you did it!
+end-game__time: Your time
+end-game__difficulty: Difficulty
+
+hints__header: Hints
+hints__show-hint: Show hint
+hints__show-next-step: Next step
+hints__show-explanation: Explain
+hints__execute: Execute
+hints__show-previous-explanation: Previous
+hints__show-next-explanation: Next
+
+paste__header: Paste
+paste__start-game: Start game
+
+share__header: Share
+share__fields-header: What to include?
+share__givens-only: Only givens
+share__givens-and-inputs: User inputs
+share__everything: Everything
+share__format-header: What format to use?
+share__hodoku: HoDoKu
+share__my-format: My format
+share__link: Link
+
+how-to-play__header: How to play
+how-to-play__p1: | 
+    Press the left mouse button to insert the value into the grid.
+    Press the right mouse button to make a note.
+how-to-play__p2: Use the buttons or keyboard to change the value used.
+how-to-play__p3: |
+    Use the cell color-coding option to simplify advanced techniques.
+    You can also use the coloring options by holding ctrl and clicking.
+
+modal__close: Close
+
+fill-missing-candidates__title: Fill Missing Candidates
+fill-missing-candidates__description: Fill all legal candidates before using hints.
+
+find-incorrect-solution__title: There are some invalid inputs
+find-incorrect-solution__description: There are some invalid inputs.
+
+full-house__title: Full House
+full-house__description: In {0} cell {1} is the last one without value.
+full-house__explanation-first: "In {0} there is only one cell without set value. Let's find out what is the value by listing digits from 1 to 9..."
+full-house__explanation-last: "{0} Bingo! Value {1:D} is the one."
+
+hidden-pair__title: "Hidden Pair"
+hidden-pair__description: "In {0} values {1:D} and {2:D} can be placed only in cells {3} and {4}, so we can remove other candidates in this cells."
+
+hidden-single__title: "Hidden Single"
+hidden-single__description: "In {0} value {1:d} can only be placed in cell {2}"
+hidden-single__explanation-1: "Hidden single is when in row, column or block candidate can be only found in one cell. In this case lets focus on {0}."
+hidden-single__explanation-2: "When we filter value {0:D} we can notice that in {1} it can go only to {2}. Still don't see it?"
+hidden-single__explanation-3: "Other cells already have different values or don't have {0:D} as candidate. Only place where {1:D} can go in {2} is cell {3}."
+
+hidden-subset__title: "Hidden Subset"
+hidden-subset__description: " "
+
+locked-candiates-claiming__title: "Locked Candidates - Claiming"
+locked-candiates-claiming__description: "In {0} value {1:D} can be placed only in {2}, so any candidate {3:D} in {4} outside {5} can be removed."
+locked-candiates-claiming__explanation-1: "Lets focus on {0}..."
+locked-candiates-claiming__explanation-2: "... with filter we can see where value {0:D} can be placed..."
+locked-candiates-claiming__explanation-3: "... one of this cells has to be {0:D}, we don't know yet which one..."
+locked-candiates-claiming__explanation-4: "... but we can notice that all this cells lay in {0}..."
+locked-candiates-claiming__explanation-5: "... it means we can remove candidate {0:D} from other cells in {1}."
+
+locked-candiates-pointing__title: "Locked Candidates - Pointing"
+locked-candiates-pointing__description: "In {0} value {1:D} can be placed only in {2}, so any candidate {3:D} in {4} outside {5} can be removed."
+locked-candiates-pointing__explanation-1: "Lets focus on {0}..."
+locked-candiates-pointing__explanation-2: "... with filter we can see where value {0:D} can be placed..."
+locked-candiates-pointing__explanation-3: "... one of this cells has to be {0:D}, we don't know yet which one..."
+locked-candiates-pointing__explanation-4: "... but we can notice that all this cells lay in {0}..."
+locked-candiates-pointing__explanation-5: "... it means we can remove candidate {0:D} from other cells in {1}."
+
+naked-pair__title: "Naked Pair"
+naked-pair__description: "Because cells {0} and {1} have only the same two cadidates left {2:D} and {3:D}, you can eliminated that two candidates from all other cells {4}."
+naked-pair__explanation-1: "In cell {0} and {1} are only two candidates left {2:D} and {3:D}."
+naked-pair__explanation-2: "If we place {0:D} in {1} then we can remove some candidates..."
+naked-pair__explanation-3: "... it would force {0:D} in {1}."
+naked-pair__explanation-4: "If we place {0:D} in {1} then we get another possible solution with {2} in {3}..."
+naked-pair__explanation-5: "We don't know which option is final, but in both cases we can eliminate the remaining candidates {0:D} and {1:D} in {2}"
+
+naked-single__title: "Naked Single"
+naked-single__description: "In cell {0} there is only one valid candidate, so we can place {1:D} in cell {2}."
+
+naked-subset__title: "Naked Subset"
+naked-subset__description: ""
+
+no-hint__title: "No hint found"
+no-hint__description: "There is no hint avaliable for this sudoku."

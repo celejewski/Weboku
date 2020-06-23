@@ -1,4 +1,5 @@
-﻿using Core.Data;
+﻿using AKSoftware.Localization.MultiLanguages;
+using Core.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,8 @@ namespace UI.BlazorWASM.Hints
         public bool IsVisible { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
+        public ILanguageContainerService Loc { get; }
+
         public bool[] IsRowHighlighted = new bool[9];
         public bool[] IsColHighlighted = new bool[9];
         public bool[] IsBlockHighlighted = new bool[9];
@@ -34,13 +37,15 @@ namespace UI.BlazorWASM.Hints
             CandidatesMarkProvider candidatesMarkProvider,
             NumpadMenuBuilder numpadMenuBuilder,
             Informer informer,
-            MarkInputProvider markInputProvider)
+            MarkInputProvider markInputProvider,
+            ILanguageContainerService loc)
         {
             _cellColorProvider = cellColorProvider;
             _candidatesMarkProvider = candidatesMarkProvider;
             _numpadMenuBuilder = numpadMenuBuilder;
             _informer = informer;
             _markInputProvider = markInputProvider;
+            Loc = loc;
         }
 
         public void Clear()
@@ -58,8 +63,22 @@ namespace UI.BlazorWASM.Hints
             _candidatesMarkProvider.ClearColors();
             OnChanged?.Invoke();
         }
-        public void SetTitle(string text) { Title = text; }
-        public void SetDescription(string text) { Description = text; }
+        public void SetTitle(string key, params object[] args) 
+        { 
+            Title = string.Format(Loc.Keys[key], args); 
+        }
+        public void SetDescription(string key, params object[] args) 
+        {
+            try
+            {
+                Description = string.Format(Loc.Keys[key], args);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(key);
+                Console.WriteLine(ex.ToString());
+            }
+        }
 
         public void HighlightRow(Position position) => IsRowHighlighted[position.Y] = true;
         public void HighlightCol(Position position) => IsColHighlighted[position.X] = true;
@@ -178,7 +197,7 @@ namespace UI.BlazorWASM.Hints
 
         public void SetValueFilter(InputValue input)
         {
-            _numpadMenuBuilder.SelectValue((int) input).Execute();
+            _ = _numpadMenuBuilder.SelectValue((int) input).Execute();
         }
         public static string Format(House house)
         {

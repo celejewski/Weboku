@@ -8,7 +8,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
     {
         private readonly Informer _informer;
 
-        public FindIncorrectSolution(Informer informer) : base("There are some invalid inputs")
+        public FindIncorrectSolution(Informer informer) : base("find-incorrect-solution")
         {
             _informer = informer;
         }
@@ -20,8 +20,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
 
         public override void DisplaySolution(Displayer displayer, Informer informer)
         {
-            displayer.SetTitle(_title);
-            displayer.SetDescription("There are some invalid inputs.");
+            base.DisplaySolution(displayer, informer);
             displayer.MarkCells(Enums.Color.Illegal, GetInvalidSolutionsPosition());
         }
 

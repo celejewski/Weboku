@@ -18,7 +18,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
         private string _blockFormatted;
 
         public LockedCandidatesClaiming(InputValue inputValue, IEnumerable<Position> positionsToRemoveCandidate, House house)
-            : base("Locked Candidates - Claiming")
+            : base("locked-candiates-claiming")
         {
             _inputValue = inputValue;
             _positionsToRemoveCandidate = positionsToRemoveCandidate;
@@ -43,7 +43,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
         private void SetupDisplay(Displayer displayer, Informer informer)
         {
             displayer.Clear();
-            displayer.SetTitle(_title);
+            displayer.SetTitle(TitleKey);
             var positionsWithCandidate = informer.GetPositionsWithCandidate(House.Block, _positionsToRemoveCandidate.First(), _inputValue);
             _positionsWithLegalCandidate = positionsWithCandidate.Except(_positionsToRemoveCandidate);
             _houseFormatted = Displayer.Format(_house, Position);
@@ -61,9 +61,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
             displayer.HighlightHouse(Position, _house);
             displayer.SetValueFilter(_inputValue);
 
-            displayer.SetDescription(
-                $"In {_houseFormatted} value {_inputValue:D} can be placed only in {_blockFormatted}, "
-                + $"so any candidate {_inputValue:D} in {_blockFormatted} outside {_houseFormatted} can be removed.");
+            displayer.SetDescription(DescriptionKey, _houseFormatted, _inputValue, _blockFormatted, _inputValue, _blockFormatted, _houseFormatted);
         }
 
         private void Explain1(Displayer displayer, Informer informer)
@@ -72,7 +70,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
 
             displayer.HighlightHouse(Position, _house);
             displayer.SetValueFilter(InputValue.Empty);
-            displayer.SetDescription($"Lets focus on {_houseFormatted}...");
+            displayer.SetDescription(ExplanationKey(1), _houseFormatted);
         }
         private void Explain2(Displayer displayer, Informer informer)
         {
@@ -80,7 +78,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
 
             displayer.HighlightHouse(Position, _house);
             displayer.SetValueFilter(_inputValue);
-            displayer.SetDescription($"... with filter we can see where value {_inputValue:D} can be placed...");
+            displayer.SetDescription(ExplanationKey(2), _inputValue);
         }
         private void Explain3(Displayer displayer, Informer informer)
         {
@@ -89,7 +87,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
             displayer.HighlightHouse(Position, _house);
             displayer.MarkIfHasCandidate(Enums.Color.Legal, _positionsWithLegalCandidate, _inputValue);
             displayer.SetValueFilter(_inputValue);
-            displayer.SetDescription($"... one of this cells has to be {_inputValue:D}, we don't know yet which one...");
+            displayer.SetDescription(ExplanationKey(3), _inputValue);
         }
         private void Explain4(Displayer displayer, Informer informer)
         {
@@ -98,7 +96,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
             displayer.HighlightBlock(Position);
             displayer.MarkIfHasCandidate(Enums.Color.Legal, _positionsWithLegalCandidate, _inputValue);
             displayer.SetValueFilter(_inputValue);
-            displayer.SetDescription($"... but we can notice that all this cells lay in {_blockFormatted}...");
+            displayer.SetDescription(ExplanationKey(4), _blockFormatted);
         }
         private void Explain5(Displayer displayer, Informer informer)
         {
@@ -109,7 +107,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
             displayer.MarkIfHasCandidate(Enums.Color.Legal, _positionsWithLegalCandidate, _inputValue);
             displayer.MarkIfHasCandidate(Enums.Color.Illegal, _positionsWithIllegalCandidate, _inputValue);
             displayer.SetValueFilter(_inputValue);
-            displayer.SetDescription($"... it means we can remove candidate {_inputValue:D} from other cells in {_blockFormatted}.");
+            displayer.SetDescription(ExplanationKey(5), _inputValue, _blockFormatted);
         }
 
         public override void Execute(Executor executor, Informer informer)

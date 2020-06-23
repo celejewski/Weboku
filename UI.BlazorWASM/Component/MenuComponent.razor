@@ -6,19 +6,21 @@
 @inject ShowHintModalCommand ShowHintModalCommand
 @inject FindAllCandidatesCommand FindAllCandidatesCommand
 @inject ClearCandidatesCommand ClearCandidatesCommand
+@inject ILanguageContainerService Loc
+@inject SettingsProvider SettingsProvider
 
 <div class="menu">
     <div class="menu__item">
         <DropdownMenuComponent>
-            <Header> 
-                <MenuLabelComponent>Menu</MenuLabelComponent>
+            <Header>
+                <MenuLabelComponent>@Loc.Keys["menu__menu-header"]</MenuLabelComponent>
             </Header>
             <Content>
-                <MenuLinkComponent OnMouseDown="ShowMainMenuModalCommand">Main menu</MenuLinkComponent>
-                <MenuLinkComponent OnMouseDown="ShowShareModalCommand">Share</MenuLinkComponent>
-                <MenuLinkComponent OnMouseDown="RestartGameCommand">Restart game</MenuLinkComponent>
-                <MenuLinkComponent OnMouseDown="ShowHowToPlayModalCommand">How to play</MenuLinkComponent>
-                <MenuLinkComponent OnMouseDown="ShowHintModalCommand">Show hint</MenuLinkComponent>
+                <MenuLinkComponent OnMouseDown="ShowMainMenuModalCommand">@Loc.Keys["menu__main-menu"]</MenuLinkComponent>
+                <MenuLinkComponent OnMouseDown="ShowShareModalCommand">@Loc.Keys["menu__share"]</MenuLinkComponent>
+                <MenuLinkComponent OnMouseDown="RestartGameCommand">@Loc.Keys["menu__restart-game"]</MenuLinkComponent>
+                <MenuLinkComponent OnMouseDown="ShowHowToPlayModalCommand">@Loc.Keys["menu__how-to-play"]</MenuLinkComponent>
+                <MenuLinkComponent OnMouseDown="ShowHintModalCommand">@Loc.Keys["menu__show-hint"]</MenuLinkComponent>
             </Content>
         </DropdownMenuComponent>
     </div>
@@ -27,15 +29,20 @@
     <div class="menu__item">
         <DropdownMenuComponent>
             <Header>
-                <MenuLabelComponent>Candidates</MenuLabelComponent>
+                <MenuLabelComponent>@Loc.Keys["menu__candidates-header"]</MenuLabelComponent>
             </Header>
             <Content>
-                <MenuLinkComponent OnMouseDown="FindAllCandidatesCommand">Find all</MenuLinkComponent>
-                <MenuLinkComponent OnMouseDown="ClearCandidatesCommand">Remove all</MenuLinkComponent>
+                <MenuLinkComponent OnMouseDown="FindAllCandidatesCommand">@Loc.Keys["menu__find-all"]</MenuLinkComponent>
+                <MenuLinkComponent OnMouseDown="ClearCandidatesCommand">@Loc.Keys["menu__remove-all"]</MenuLinkComponent>
             </Content>
         </DropdownMenuComponent>
     </div>
 </div>
 
 @code {
+    protected override void OnInitialized()
+    {
+        SettingsProvider.OnChanged += StateHasChanged;
+        base.OnInitialized();
+    }
 }

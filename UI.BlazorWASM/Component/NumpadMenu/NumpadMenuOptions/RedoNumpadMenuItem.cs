@@ -1,7 +1,5 @@
-﻿using System.Threading.Tasks;
-using UI.BlazorWASM.Commands;
+﻿using UI.BlazorWASM.Commands;
 using UI.BlazorWASM.Managers;
-using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.Component.NumpadMenu
 {
@@ -18,6 +16,6 @@ namespace UI.BlazorWASM.Component.NumpadMenu
 
         public override bool IsSelectable => false;
 
-        public string Label => "Redo";
+        public string Label => "numpad-redo__label";
     }
 }

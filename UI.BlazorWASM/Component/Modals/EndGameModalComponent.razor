@@ -1,20 +1,21 @@
 ﻿@inject GameTimerProvider GameTimerProvider
 @inject SudokuProvider SudokuProvider
 @inject ShowMainMenuModalCommand ShowMainMenuModalCommand
+@inject ILanguageContainerService LanguageContainer
 
 <ModalTemplateComponent>
     <div class="text-center">
-        <h1 class="modal__title with-hr">solved</h1>
-        <span class="modal__subtitle">Congratulations you did it!</span>
+        <h1 class="modal__title with-hr">@LanguageContainer.Keys["end-game__header"]</h1>
+        <span class="modal__subtitle">@LanguageContainer.Keys["end-game__congratulations"]</span>
     </div>
 
     <div class="modal__content">
         <div class="modal__result-row">
-            <span class="modal__result-label">Your time</span>
+            <span class="modal__result-label">@LanguageContainer.Keys["end-game__time"]</span>
             <span class="modal__result-value">@GameTimerProvider.Elapsed.ToString("mm\\:ss")</span>
         </div>
         <div class="modal__result-row">
-            <span class="modal__result-label">Difficulty</span>
+            <span class="modal__result-label">@LanguageContainer.Keys["end-game__difficulty"]</span>
             <span class="modal__result-value">@SudokuProvider.Difficulty</span>
         </div>
     </div>
@@ -22,7 +23,7 @@
     <div class="modal__footer with-hr">
         <ModalButtonComponent OnClick="ShowMainMenuModalCommand"
                               IsSecondary="true">
-            Close
+            @LanguageContainer.Keys["modal__close"]
         </ModalButtonComponent>
     </div>
 </ModalTemplateComponent>

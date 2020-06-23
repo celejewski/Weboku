@@ -1,22 +1,23 @@
 ﻿@inject IJSRuntime JSRuntime
 @inject PasteProvider PasteProvider
-@inject StartNewGameFromPastedCommand StartNewGameFromPastedCommand 
+@inject StartNewGameFromPastedCommand StartNewGameFromPastedCommand
 @inject ShowPreviousModalCommand ShowPreviousModalCommand
+@inject ILanguageContainerService LanguageContainer
 
 <ModalWithGridTemplateComponent>
     <Content>
-        <h1 class="paste__header with-hr">Paste</h1>
+        <h1 class="paste__header with-hr">@LanguageContainer.Keys["paste__header"]</h1>
         <textarea class="paste__input @_validClass"
                   @bind="@PasteProvider.Pasted" @bind:event="oninput"></textarea>
 
         <div class="paste__row">
             <div class="paste__close"
-                 @onclick="StartNewGameFromPastedCommand.Execute">Start game</div>
+                 @onclick="StartNewGameFromPastedCommand.Execute">@LanguageContainer.Keys["paste__start-game"]</div>
         </div>
 
         <div class="paste__row">
             <div class="paste__close"
-                 @onclick="ShowPreviousModalCommand.Execute">Close</div>
+                 @onclick="ShowPreviousModalCommand.Execute">@LanguageContainer.Keys["modal__close"]</div>
         </div>
     </Content>
 </ModalWithGridTemplateComponent>

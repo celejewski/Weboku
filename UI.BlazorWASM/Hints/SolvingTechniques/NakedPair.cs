@@ -20,7 +20,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
         public NakedPair(IEnumerable<Position> positions, IEnumerable<InputValue> values)
             :base(positions, values)
         {
-            _title = "Naked Pair";
+            _locKey = "naked-pair";
             _pos1 = positions.ElementAt(0);
             _pos2 = positions.ElementAt(1);
             _value1 = values.ElementAt(0);
@@ -46,24 +46,21 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
 
         private void SetupDisplayer(Displayer displayer)
         {
-            displayer.SetTitle(_title);
+            displayer.SetTitle(TitleKey);
             displayer.HighlightHouses(_pos1, _houses);
         }
         public override void DisplaySolution(Displayer displayer, Informer informer)
         {
             base.DisplaySolution(displayer, informer);
             SetupDisplayer(displayer);
-            displayer.SetDescription(
-                $"Because cells {_pos1} and {_pos2} have only the same two cadidates left {_value1:D} and {_value2:D}, " +
-                $"you can eliminated that two candidates from all other cells {_housesFormated}."
-                );
+            displayer.SetDescription(DescriptionKey, _pos1, _pos2, _value1, _value2, _housesFormated);
         }
 
         private void Explain1(Displayer displayer, Informer informer)
         {
             SetupDisplayer(displayer);
             displayer.Mark(Enums.Color.Legal, _positions, _values);
-            displayer.SetDescription($"In cell {_pos1} and {_pos2} are only two candidates left {_value1:D} and {_value2:D}.");
+            displayer.SetDescription(ExplanationKey(1), _pos1, _pos2, _value1, _value2);
         }
 
         private void Explain2(Displayer displayer, Informer informer)
@@ -71,7 +68,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
             SetupDisplayer(displayer);
             displayer.MarkIfHasCandidate(Enums.Color.Illegal, _positionsInHouses, _value1);
             displayer.Mark(Enums.Color.Legal, _pos1, _value1);
-            displayer.SetDescription($"If we place {_value1:D} in {_pos1} then we can remove some candidates...");
+            displayer.SetDescription(ExplanationKey(2), _value1, _pos1);
         }
 
         private void Explain3(Displayer displayer, Informer informer)
@@ -80,7 +77,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
             displayer.MarkIfHasCandidates(Enums.Color.Illegal, _positionsInHouses, _values);
             displayer.Mark(Enums.Color.Legal, _pos1, _value1);
             displayer.Mark(Enums.Color.Legal, _pos2, _value2);
-            displayer.SetDescription($"... it would force {_value2:D} in {_pos2}.");
+            displayer.SetDescription(ExplanationKey(3), _value2, _pos2);
         }
         
         private void Explain4(Displayer displayer, Informer informer)
@@ -89,7 +86,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
             displayer.MarkIfHasCandidates(Enums.Color.Illegal, _positionsInHouses, _values);
             displayer.Mark(Enums.Color.Legal, _pos1, _value2);
             displayer.Mark(Enums.Color.Legal, _pos2, _value1);
-            displayer.SetDescription($"If we place {_value2:D} in {_pos1} then we get another possible solution with {_value1} in {_pos2}...");
+            displayer.SetDescription(ExplanationKey(4), _value2, _pos1, _value1, _pos2);
         }
 
         private void Explain5(Displayer displayer, Informer informer)
@@ -97,7 +94,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
             SetupDisplayer(displayer);
             displayer.MarkIfHasCandidates(Enums.Color.Illegal, _positionsInHouses, _values);
             displayer.Mark(Enums.Color.Legal, _positions, _values);
-            displayer.SetDescription($"We don't know which option is final, but in both cases we can eliminate the remaining candidates {_value1:D} and {_value2:D} in {_housesFormated}");
+            displayer.SetDescription(ExplanationKey(5), _value1, _value2, _housesFormated);
         }
     }
 }
