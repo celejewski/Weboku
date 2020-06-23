@@ -1,4 +1,5 @@
 ﻿using Core.Helpers;
+using System.Collections.Generic;
 
 namespace Core.Data
 {
@@ -28,6 +29,7 @@ namespace Core.Data
         public void ToggleCandidate(int x, int y, InputValue value) => _candidates[x, y] ^= value.ToCandidateValue();
         public void RemoveCandidate(int x, int y, InputValue value) => _candidates[x, y] &= ~value.ToCandidateValue();
         public void AddCandidate(int x, int y, InputValue value) => _candidates[x, y] |= value.ToCandidateValue();
+        
 
         public void ClearCandidates()
         {
@@ -77,5 +79,26 @@ namespace Core.Data
                 (bool[,]) _isGivens.Clone()
                 );
         }
+
+        private static readonly Dictionary<CandidateValue, int> _candidatesCount = new Dictionary<CandidateValue, int>();
+        public int GetCandidatesCount(int x, int y)
+        {
+            var candidates = _candidates[x, y];
+            if (!_candidatesCount.ContainsKey(candidates))
+            {
+                int count = 0;
+                for( int value = 1; value < 10; value++ )
+                {
+                    if (HasCandidate(x, y, (InputValue) value))
+                    {
+                        count += 1;
+                    }
+                }
+                _candidatesCount[candidates] = count;
+            }
+            return _candidatesCount[candidates];
+        }
+
+        public bool HasValue(int x, int y) => GetValue(x, y) != InputValue.Empty;
     }
 }

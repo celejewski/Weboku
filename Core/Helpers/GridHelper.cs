@@ -6,6 +6,7 @@ namespace Core.Data
     public class GridHelper
     {
         private static readonly IList<Position>[,] _indexesWhichCanSee = new IList<Position>[9, 9];
+        private static readonly Dictionary<short, bool> _candidatesCount = new Dictionary<short, bool>();
 
         public static IList<Position> GetCoordsWhichCanSee(int x, int y)
         {
@@ -19,6 +20,7 @@ namespace Core.Data
                 .Concat(GetIndexesFromBlock(x, y))
                 .ToList();
         }
+
 
         public static IEnumerable<Position> GetIndexesFromRow(int y)
         {
@@ -58,5 +60,18 @@ namespace Core.Data
                 .Where(coords => coords.X != x || coords.Y != y)
                 .All(coords => grid.GetValue(coords.X, coords.Y) != value);
         }
+
+        public static IEnumerable<InputValue> Values = new InputValue[]
+        {
+            InputValue.One,
+            InputValue.Two,
+            InputValue.Three,
+            InputValue.Four,
+            InputValue.Five,
+            InputValue.Six,
+            InputValue.Seven,
+            InputValue.Eight,
+            InputValue.Nine,
+        };
     }
 }
