@@ -23,6 +23,7 @@ main-menu__settings: Ustawienia
 new-game__header: Nowa gra
 
 settings__header: Ustawienia
+settings__select-language: Wybierz język
 
 end-game__header: Gratulacje
 end-game__congratulations: Sudoku jest rozwiązane!

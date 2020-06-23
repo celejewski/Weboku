@@ -23,6 +23,7 @@ main-menu__settings: Settings
 new-game__header: New Game
 
 settings__header: Settings
+settings__select-language: Select language
 
 end-game__header: Solved
 end-game__congratulations: Congratulations you did it!

@@ -1,13 +1,19 @@
 ﻿@inject ShowPreviousModalCommand ShowPreviousModalCommand
 @inject ILanguageContainerService Loc
-@inject SettingsProvider SettingsProvider
+@inject CommandProvider CommandProvider
+@inject SettingsProvider SettingsProvider 
 
 <ModalTemplateComponent>
     <h1 class="modal__title with-hr">@Loc.Keys["settings__header"]</h1>
 
     <div class="modal__content">
-        <button @onclick='() => SetLanguage("en-US")'>English</button>
-        <button @onclick='() => SetLanguage("pl-PL")'>Polish</button>
+        <h1 class="text-center">@Loc.Keys["settings__select-language"]</h1>
+        <ModalButtonComponent OnClick=@(CommandProvider.SetLanguage("en-US"))>
+            English
+        </ModalButtonComponent>
+        <ModalButtonComponent OnClick=@(CommandProvider.SetLanguage("pl-PL"))>
+            Polski
+        </ModalButtonComponent>
     </div>
 
     <div class="modal__footer with-hr">
@@ -18,8 +24,8 @@
 </ModalTemplateComponent>
 
 @code {
-    private void SetLanguage(string name)
+    protected override void OnInitialized()
     {
-        SettingsProvider.SetLanguage(name);
+        SettingsProvider.OnChanged += StateHasChanged;
     }
 }
