@@ -1,4 +1,5 @@
-﻿using UI.BlazorWASM.Enums;
+﻿using Core.Data;
+using UI.BlazorWASM.Enums;
 using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.Filters
@@ -12,12 +13,12 @@ namespace UI.BlazorWASM.Filters
             _shareProvider = shareProvider;
         }
 
-        public FilterOption IsFiltered(IGridProvider gridProvider, int x, int y)
+        public FilterOption IsFiltered(IGridProvider gridProvider, Position pos)
         {
             return _shareProvider.SharedFields switch
             {
-                SharedFields.Givens => gridProvider.GetIsGiven(x, y) ? FilterOption.Primary : FilterOption.None,
-                SharedFields.GivensAndInputs => gridProvider.HasValue(x, y) ? FilterOption.Primary : FilterOption.None,
+                SharedFields.Givens => gridProvider.GetIsGiven(pos) ? FilterOption.Primary : FilterOption.None,
+                SharedFields.GivensAndInputs => gridProvider.HasValue(pos) ? FilterOption.Primary : FilterOption.None,
                 SharedFields.Everything => FilterOption.Primary,
                 _ => FilterOption.None,
             };

@@ -34,10 +34,10 @@ namespace UI.BlazorWASM.Providers
             _sudokuProvider = sudokuProvider;
         }
 
-        public void AddCandidate(int x, int y, InputValue value)
+        public void AddCandidate(Position pos, InputValue value)
         {
-            _grid.AddCandidate(x, y, value);
-            _isCandidateLegal[x, y, (int) value] = GridHelper.IsLegal(x, y, value, Grid);
+            _grid.AddCandidate(pos, value);
+            _isCandidateLegal[pos.x, pos.y, value] = GridHelper.IsLegal(pos, value, Grid);
             CandidatesChanged();
         }
 
@@ -47,9 +47,9 @@ namespace UI.BlazorWASM.Providers
             CandidatesChanged();
         }
 
-        public void ClearCandidates(int x, int y)
+        public void ClearCandidates(Position pos)
         {
-            _grid.ClearCandidates(x, y);
+            _grid.ClearCandidates(pos);
             CandidatesChanged();
         }
 
@@ -59,150 +59,124 @@ namespace UI.BlazorWASM.Providers
             CandidatesChanged();
         }
 
-        public int GetCandidatesCount(int x, int y)
+        public int GetCandidatesCount(Position pos)
         {
-            return InputValue.NonEmpty.Count(value => _grid.HasCandidate(x, y, value));
+            return InputValue.NonEmpty.Count(value => _grid.HasCandidate(pos, value));
         }
 
-        public InputValue GetValue(int x, int y)
+        public InputValue GetValue(Position pos)
         {
-            return _grid.GetValue(x, y);
+            return _grid.GetValue(pos);
         }
 
-        public bool HasCandidate(int x, int y, InputValue value)
+        public bool HasCandidate(Position pos, InputValue value)
         {
-            return _grid.HasCandidate(x, y, value);
+            return _grid.HasCandidate(pos, value);
         }
 
-        public bool IsCandidateLegal(int x, int y, InputValue value)
+        public bool IsCandidateLegal(Position pos, InputValue value)
         {
-            return _isCandidateLegal[x, y, (int) value];
+            return _isCandidateLegal[pos.x, pos.y, value];
         }
 
-        public bool GetIsGiven(int x, int y)
+        public bool GetIsGiven(Position pos)
         {
-            return _grid.GetIsGiven(x, y);
+            return _grid.GetIsGiven(pos);
         }
 
-        public bool IsValueLegal(int x, int y)
+        public bool IsValueLegal(Position pos)
         {
             if( _sudokuProvider.HasSolution )
             {
-                return GetIsGiven(x, y)
-                    || GetValue(x, y) == InputValue.Empty
-                    || GetValue(x, y) == _sudokuProvider.GetSolution(x, y);
+                return GetIsGiven(pos)
+                    || GetValue(pos) == InputValue.Empty
+                    || GetValue(pos) == _sudokuProvider.GetSolution(pos.x, pos.y);
             }
 
-            return GetValue(x, y) == InputValue.Empty || _isInputLegal[x, y];
+            return GetValue(pos) == InputValue.Empty || _isInputLegal[pos.x, pos.y];
         }
 
-        public void RemoveCandidate(int x, int y, InputValue value)
+        public void RemoveCandidate(Position pos, InputValue value)
         {
-            _grid.RemoveCandidate(x, y, value);
+            _grid.RemoveCandidate(pos, value);
             CandidatesChanged();
         }
 
-        public void SetValue(int x, int y, InputValue value)
+        public void SetValue(Position pos, InputValue value)
         {
             if( value != InputValue.Empty )
             {
-                _grid.SetValue(x, y, value);
-                ClearCandidates(x, y);
-                foreach( var coords in GridHelper.GetCoordsWhichCanSee(x, y) )
+                _grid.SetValue(pos, value);
+                ClearCandidates(pos);
+                foreach( var coords in GridHelper.GetCoordsWhichCanSee(pos) )
                 {
-                    _grid.RemoveCandidate(coords.X, coords.Y, value);
+                    _grid.RemoveCandidate(coords, value);
                 }
-                _isInputLegal[x, y] = GridHelper.IsLegal(x, y, value, Grid);
+                _isInputLegal[pos.x, pos.y] = GridHelper.IsLegal(pos, value, Grid);
                 ValueAndCandidatesChanged();
             }
             else
             {
-                _grid.SetValue(x, y, value);
+                _grid.SetValue(pos, value);
                 ValueChanged();
             }
         }
 
-        public void ToggleCandidate(int x, int y, InputValue value)
+        public void ToggleCandidate(Position pos, InputValue value)
         {
-            _isCandidateLegal[x, y, (int) value] = GridHelper.IsLegal(x, y, value, Grid);
-            _grid.ToggleCandidate(x, y, value);
+            _isCandidateLegal[pos.x, pos.y, value] = GridHelper.IsLegal(pos, value, Grid);
+            _grid.ToggleCandidate(pos, value);
             CandidatesChanged();
         }
 
         public void FillAllLegalCandidates()
         {
             _grid.FillCandidates();
-            for( int x = 0; x < 9; x++ )
+            foreach( var pos in Position.All.Where(pos => _grid.HasValue(pos)) )
             {
-                for( int y = 0; y < 9; y++ )
+                foreach( var coords in GridHelper.GetCoordsWhichCanSee(pos) )
                 {
-                    if( _grid.GetValue(x, y) == InputValue.Empty )
-                    {
-                        continue;
-                    }
-
-                    foreach( var coords in GridHelper.GetCoordsWhichCanSee(x, y) )
-                    {
-                        _grid.RemoveCandidate(coords.X, coords.Y, _grid.GetValue(x, y));
-                    }
+                    _grid.RemoveCandidate(coords, _grid.GetValue(pos));
                 }
             }
-
             ResetIsCandidateLegal();
             CandidatesChanged();
         }
 
         private void ResetIsCandidateLegal()
         {
-            for( int x = 0; x < 9; x++ )
+            foreach( var pos in Position.All )
             {
-                for( int y = 0; y < 9; y++ )
+                foreach( var value in InputValue.NonEmpty )
                 {
-                    for( int value = 0; value < 10; value++ )
-                    {
-                        _isCandidateLegal[x, y, value] = true;
-                    }
+                    _isCandidateLegal[pos.x, pos.y, value] = true;
                 }
             }
         }
 
         private void ResetIsInputLegal()
         {
-            for( int x = 0; x < 9; x++ )
+            foreach( var pos in Position.All )
             {
-                for( int y = 0; y < 9; y++ )
-                {
-                    _isInputLegal[x, y] = true;
-                }
+                _isInputLegal[pos.x, pos.y] = true;
             }
         }
 
         private void CalcIsInputLegal()
         {
-            for( int x = 0; x < 9; x++ )
+            foreach( var pos in Position.All )
             {
-                for( int y = 0; y < 9; y++ )
-                {
-                    _isInputLegal[x, y] = GridHelper.IsLegal(x, y, GetValue(x, y), Grid);
-                }
+                _isInputLegal[pos.x, pos.y] = GridHelper.IsLegal(pos, GetValue(pos), Grid);
             }
         }
 
         private void CalcIsCandidateLegal()
         {
-            for( int x = 0; x < 9; x++ )
+            foreach( var pos in Position.All.Where(pos => !HasValue(pos)) )
             {
-                for( int y = 0; y < 9; y++ )
+                foreach( var value in InputValue.Values.Where(value => HasCandidate(pos, value)) )
                 {
-                    if( HasValue(x, y) )
-                    {
-                        continue;
-                    }
-
-                    foreach( var value in InputValue.Values.Where(value => HasCandidate(x, y, value)))
-                    {
-                        _isCandidateLegal[x, y, value] = GridHelper.IsLegal(x, y, value, Grid);
-                    }
+                    _isCandidateLegal[pos.x, pos.y, value] = GridHelper.IsLegal(pos, value, Grid);
                 }
             }
         }
@@ -226,6 +200,6 @@ namespace UI.BlazorWASM.Providers
             OnValueOrCandidatesChanged?.Invoke();
         }
 
-        public bool HasValue(int x, int y) => _grid.GetValue(x, y) != InputValue.Empty;
+        public bool HasValue(Position pos) => _grid.HasValue(pos);
     }
 }

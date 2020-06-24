@@ -8,7 +8,7 @@
     <Grid9x9Component>
         <div class="input">
             @{
-                var value = PasteProvider.Grid.GetValue(context.x, context.y);
+                var value = PasteProvider.Grid.GetValue(new Position(context.x, context.y));
                 if( value != InputValue.Empty )
                 {
                     @((int)value)

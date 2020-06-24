@@ -9,11 +9,11 @@ namespace UI.BlazorWASM.ClickableActions
         private readonly IGridProvider _gridProvider;
         private readonly IGridHistoryManager _gridHistoryManager;
 
-        private void Clear(int x, int y)
+        private void Clear(Position pos)
         {
             _gridHistoryManager.Save();
-            _gridProvider.ClearCandidates(x, y);
-            _gridProvider.SetValue(x, y, InputValue.Empty);
+            _gridProvider.ClearCandidates(pos);
+            _gridProvider.SetValue(pos, InputValue.Empty);
         }
         public CleanerAction(IGridProvider gridProvider, IGridHistoryManager gridHistoryManager)
         {
@@ -23,12 +23,12 @@ namespace UI.BlazorWASM.ClickableActions
 
         public void LeftClickAction(ClickableActionArgs args)
         {
-            Clear(args.X, args.Y);
+            Clear(args.Pos);
         }
 
         public void RightClickAction(ClickableActionArgs args)
         {
-            Clear(args.X, args.Y);
+            Clear(args.Pos);
         }
     }
 }

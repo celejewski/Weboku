@@ -22,33 +22,30 @@ namespace Core.Data
             _isGivens = isGivens;
         }
 
-        public InputValue GetValue(int x, int y) => _inputs[x, y];
-        public void SetValue(int x, int y, InputValue value)
+        public InputValue GetValue(Position pos) => _inputs[pos.x, pos.y];
+        public void SetValue(Position pos, InputValue value)
         {
-            _inputs[x, y] = value;
-            _candidates[x, y] = CandidateValue.None;
+            _inputs[pos.x, pos.y] = value;
+            _candidates[pos.x, pos.y] = CandidateValue.None;
         }
 
-        public bool HasCandidate(int x, int y, InputValue value) => (_candidates[x, y] & value.ToCandidateValue()) == value.ToCandidateValue();
-        public void ToggleCandidate(int x, int y, InputValue value) => _candidates[x, y] ^= value.ToCandidateValue();
-        public void RemoveCandidate(int x, int y, InputValue value) => _candidates[x, y] &= ~value.ToCandidateValue();
-        public void AddCandidate(int x, int y, InputValue value) => _candidates[x, y] |= value.ToCandidateValue();
+        public bool HasCandidate(Position pos, InputValue value) => (_candidates[pos.x, pos.y] & value.ToCandidateValue()) == value.ToCandidateValue();
+        public void ToggleCandidate(Position pos, InputValue value) => _candidates[pos.x, pos.y] ^= value.ToCandidateValue();
+        public void RemoveCandidate(Position pos, InputValue value) => _candidates[pos.x, pos.y] &= ~value.ToCandidateValue();
+        public void AddCandidate(Position pos, InputValue value) => _candidates[pos.x, pos.y] |= value.ToCandidateValue();
 
 
         public void ClearCandidates()
         {
-            for( int i = 0; i < 9; i++ )
+            foreach( var pos in Position.All )
             {
-                for( int j = 0; j < 9; j++ )
-                {
-                    ClearCandidates(i, j);
-                }
+                ClearCandidates(pos);
             }
         }
 
-        public void ClearCandidates(int x, int y)
+        public void ClearCandidates(Position pos)
         {
-            _candidates[x, y] = CandidateValue.None;
+            _candidates[pos.x, pos.y] = CandidateValue.None;
         }
 
         public void FillCandidates()
@@ -65,14 +62,14 @@ namespace Core.Data
             }
         }
 
-        public bool GetIsGiven(int x, int y)
+        public bool GetIsGiven(Position pos)
         {
-            return _isGivens[x, y];
+            return _isGivens[pos.x, pos.y];
         }
 
-        public void SetIsGiven(int x, int y, bool value)
+        public void SetIsGiven(Position pos, bool value)
         {
-            _isGivens[x, y] = value;
+            _isGivens[pos.x, pos.y] = value;
         }
 
         public IGrid Clone()
@@ -84,16 +81,16 @@ namespace Core.Data
                 );
         }
 
-        private static readonly Dictionary<CandidateValue, int> _candidatesCount = new Dictionary<CandidateValue, int>();
-        public int GetCandidatesCount(int x, int y)
+        private static readonly Dictionary<CandidateValue, int> _candidatesCount = new Dictionary<CandidateValue, int>(1024);
+        public int GetCandidatesCount(Position pos)
         {
-            var candidates = _candidates[x, y];
+            var candidates = _candidates[pos.x, pos.y];
             if( !_candidatesCount.ContainsKey(candidates) )
             {
                 int count = 0;
                 for( int value = 1; value < 10; value++ )
                 {
-                    if( HasCandidate(x, y, (InputValue) value) )
+                    if( HasCandidate(pos, value) )
                     {
                         count += 1;
                     }
@@ -104,6 +101,6 @@ namespace Core.Data
             return result;
         }
 
-        public bool HasValue(int x, int y) => GetValue(x, y) != InputValue.Empty;
+        public bool HasValue(Position pos) => GetValue(pos) != InputValue.Empty;
     }
 }

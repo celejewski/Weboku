@@ -1,4 +1,5 @@
-﻿using UI.BlazorWASM.Commands;
+﻿using Core.Data;
+using UI.BlazorWASM.Commands;
 using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.Component.NumpadMenu
@@ -17,14 +18,11 @@ namespace UI.BlazorWASM.Component.NumpadMenu
         {
             get
             {
-                for( int y = 0; y < 9; y++ )
+                foreach( var pos in Position.All )
                 {
-                    for( int x = 0; x < 9; x++ )
+                    if( _gridProvider.GetCandidatesCount(pos) == 2 )
                     {
-                        if( _gridProvider.GetCandidatesCount(x, y) == 2 )
-                        {
-                            return false;
-                        }
+                        return false;
                     }
                 }
                 return true;

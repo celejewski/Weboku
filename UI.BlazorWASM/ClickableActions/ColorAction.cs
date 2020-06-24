@@ -13,12 +13,12 @@ namespace UI.BlazorWASM.ClickableActions
 
         public void LeftClickAction(ClickableActionArgs args)
         {
-            _cellColorProvider.ToggleColor(args.X, args.Y, args.Color1);
+            _cellColorProvider.ToggleColor(args.Pos, args.Color1);
         }
 
         public void RightClickAction(ClickableActionArgs args)
         {
-            _cellColorProvider.ToggleColor(args.X, args.Y, args.Color2);
+            _cellColorProvider.ToggleColor(args.Pos, args.Color2);
         }
     }
 }

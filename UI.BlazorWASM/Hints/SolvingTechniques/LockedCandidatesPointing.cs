@@ -122,7 +122,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
         {
             var positionsInBlock = HintsHelper.GetPositionsInBlock(_block);
             var positionsWithCandidate = positionsInBlock.Where(pos => informer.HasCandidate(pos, _inputValue));
-            return positionsWithCandidate.First().X == positionsWithCandidate.Last().X ? House.Col : House.Row;
+            return positionsWithCandidate.First().x == positionsWithCandidate.Last().x ? House.Col : House.Row;
         }
     }
 }

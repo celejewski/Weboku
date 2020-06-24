@@ -19,12 +19,12 @@ namespace UI.BlazorWASM.Hints
             _sudokuProvider = sudokuProvider;
         }
 
-        public InputValue GetValue(Position position) => _gridProvider.GetValue(position.X, position.Y);
-        public bool HasValue(Position position) => _gridProvider.HasValue(position.X, position.Y);
-        public bool HasCandidate(Position position, InputValue value) => _gridProvider.HasCandidate(position.X, position.Y, value);
-        public InputValue GetSolution(Position position) => _sudokuProvider.GetSolution(position.X, position.Y);
+        public InputValue GetValue(Position position) => _gridProvider.GetValue(position);
+        public bool HasValue(Position position) => _gridProvider.HasValue(position);
+        public bool HasCandidate(Position position, InputValue value) => _gridProvider.HasCandidate(position, value);
+        public InputValue GetSolution(Position position) => _sudokuProvider.GetSolution(position.x, position.y);
 
-        public int GetCandidatesCount(Position position) => _gridProvider.GetCandidatesCount(position.X, position.Y);
+        public int GetCandidatesCount(Position position) => _gridProvider.GetCandidatesCount(position);
 
         public IEnumerable<Position> GetPositionsWithCandidate(House house, Position housePosition, InputValue inputValue)
         {

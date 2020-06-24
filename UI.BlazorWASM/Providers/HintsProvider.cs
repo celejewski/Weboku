@@ -62,7 +62,7 @@ namespace UI.BlazorWASM.Providers
             _displayer.Clear();
             NextTechnique.DisplayHint(_displayer, _informer);
             _displayer.Show();
-            SetState(Enums.HintsState.ShowHint);
+            SetState(HintsState.ShowHint);
         }
 
         public void ShowNextStep()
@@ -71,13 +71,13 @@ namespace UI.BlazorWASM.Providers
             _displayer.Clear();
             _currentTechnique.DisplaySolution(_displayer, _informer);
             _displayer.Show();
-            SetState(Enums.HintsState.ShowNextStep);
+            SetState(HintsState.ShowNextStep);
         }
 
         public void ShowExplanation()
         {
             _currentTechnique.DisplayExplanation(_displayer, _informer);
-            SetState(Enums.HintsState.ShowExplanation);
+            SetState(HintsState.ShowExplanation);
         }
 
         public void ShowNextExplanation()
@@ -97,14 +97,14 @@ namespace UI.BlazorWASM.Providers
             _gridHistoryManager.Save();
             NextTechnique.Execute(_executor, _informer);
             _displayer.Hide();
-            SetState(Enums.HintsState.ShowEmpty);
+            SetState(HintsState.ShowEmpty);
         }
 
         public void Close()
         {
             _displayer.Clear();
             _displayer.Hide();
-            SetState(Enums.HintsState.Hide);
+            SetState(HintsState.Hide);
         }
 
     }

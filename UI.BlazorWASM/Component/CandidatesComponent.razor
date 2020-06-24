@@ -22,7 +22,7 @@
 
     private InputValue _value;
     private string _text;
-    private bool _isVisible => GridProvider.HasCandidate(X, Y, _value);
+    private bool _isVisible => GridProvider.HasCandidate(new Position(X, Y), _value);
     private bool _wasVisible;
     private bool _wasEveryVisible;
 
@@ -54,7 +54,7 @@
     {
         get
         {
-            return CandidatesMarkProvider.GetColor(X, Y, _value);
+            return CandidatesMarkProvider.GetColor(new Position(X, Y), _value);
         }
     }
 }

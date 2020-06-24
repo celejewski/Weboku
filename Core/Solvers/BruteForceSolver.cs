@@ -1,5 +1,6 @@
 ﻿using Core.Data;
 using System;
+using System.Linq;
 
 namespace Core.Solvers
 {
@@ -24,14 +25,14 @@ namespace Core.Solvers
             {
                 for( int value = 1; value < 10; value++ )
                 {
-                    if( input.HasCandidate(pos.Value.X, pos.Value.Y, (InputValue) value) )
+                    if( input.HasCandidate(pos.Value, value) )
                     {
                         var grid = input.Clone();
-                        grid.SetValue(pos.Value.X, pos.Value.Y, (InputValue) value);
+                        grid.SetValue(pos.Value, value);
 
-                        foreach( var coords in GridHelper.GetCoordsWhichCanSee(pos.Value.X, pos.Value.Y) )
+                        foreach( var coords in GridHelper.GetCoordsWhichCanSee(pos.Value) )
                         {
-                            grid.RemoveCandidate(coords.X, coords.Y, (InputValue) value);
+                            grid.RemoveCandidate(coords, value);
                         }
 
                         var output = SolveStep(grid);
@@ -47,41 +48,28 @@ namespace Core.Solvers
 
         private bool IsSolved(IGrid grid)
         {
-            for( int x = 0; x < 9; x++ )
-            {
-                for( int y = 0; y < 9; y++ )
-                {
-                    if( grid.GetValue(x, y) == InputValue.Empty )
-                    {
-                        return false;
-                    }
-                }
-            }
-            return true;
+            return Position.All.All(pos => grid.HasValue(pos));
         }
 
         private Position? GetNextPosition(IGrid grid)
         {
             int count = 10;
-            Position? pos = null;
-            for( int x = 0; x < 9; x++ )
+            Position? result = null;
+            foreach( var pos in Position.All )
             {
-                for( int y = 0; y < 9; y++ )
+                if( grid.GetValue(pos) == InputValue.Empty
+                        && grid.GetCandidatesCount(pos) < count )
                 {
-                    if( grid.GetValue(x, y) == InputValue.Empty
-                        && grid.GetCandidatesCount(x, y) < count )
+                    if( grid.GetCandidatesCount(pos) == 0 )
                     {
-                        if( grid.GetCandidatesCount(x, y) == 0 )
-                        {
-                            return null;
-                        }
-
-                        count = grid.GetCandidatesCount(x, y);
-                        pos = new Position(x, y);
+                        return null;
                     }
+
+                    count = grid.GetCandidatesCount(pos);
+                    result = pos;
                 }
             }
-            return pos;
+            return result;
         }
     }
 }

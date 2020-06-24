@@ -79,8 +79,8 @@ namespace UI.BlazorWASM.Hints
             }
         }
 
-        public void HighlightRow(Position position) => IsRowHighlighted[position.Y] = true;
-        public void HighlightCol(Position position) => IsColHighlighted[position.X] = true;
+        public void HighlightRow(Position position) => IsRowHighlighted[position.y] = true;
+        public void HighlightCol(Position position) => IsColHighlighted[position.x] = true;
         public void HighlightBlock(Position position) => HighlightBlock(position.Block);
 
         public void HighlightBlock(int block) => IsBlockHighlighted[block] = true;
@@ -111,7 +111,7 @@ namespace UI.BlazorWASM.Hints
             }
         }
 
-        public void MarkCell(Color color, Position position) => _cellColorProvider.SetColor(position.X, position.Y, color);
+        public void MarkCell(Color color, Position position) => _cellColorProvider.SetColor(position.x, position.y, color);
         public void MarkCells(Color color, IEnumerable<Position> positions)
         {
             foreach( var position in positions )
@@ -121,7 +121,7 @@ namespace UI.BlazorWASM.Hints
         }
         public void MarkCandidate(Color color, Position position, InputValue value)
         {
-            _candidatesMarkProvider.SetColor(position.X, position.Y, (int) value, color);
+            _candidatesMarkProvider.SetColor(position.x, position.y, (int) value, color);
         }
 
         public void MarkCandidates(Color color, IEnumerable<Position> positions, InputValue inputValue)
@@ -214,8 +214,8 @@ namespace UI.BlazorWASM.Hints
         {
             return house switch
             {
-                House.Row => $"row {position.Y + 1}",
-                House.Col => $"column {position.X + 1}",
+                House.Row => $"row {position.y + 1}",
+                House.Col => $"column {position.x + 1}",
                 House.Block => $"block {position.Block + 1}",
                 _ => "none"
             };

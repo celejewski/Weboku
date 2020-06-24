@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core.Data;
+using System;
 using UI.BlazorWASM.Converters;
 using UI.BlazorWASM.Enums;
 
@@ -22,9 +23,9 @@ namespace UI.BlazorWASM.Providers
             OnChanged?.Invoke();
         }
 
-        public void ToggleColor(int x, int y, Color color)
+        public void ToggleColor(Position pos, Color color)
         {
-            _cellColors[x, y] = _cellColors[x, y] == color ? Color.None : color;
+            _cellColors[pos.x, pos.y] = _cellColors[pos.x, pos.y] == color ? Color.None : color;
             OnChanged?.Invoke();
         }
 

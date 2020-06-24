@@ -16,15 +16,16 @@ namespace Core.Tests
             {
                 var x = _random.Next(9);
                 var y = _random.Next(9);
+                var pos = new Position(x, y);
 
-                _grid.ClearCandidates(x, y);
+                _grid.ClearCandidates(pos);
                 var repeats = _random.Next(10) + 1;
                 for( int j = 0; j < repeats; j++ )
                 {
                     var value = (InputValue) (_random.Next(9) + 1);
-                    _grid.AddCandidate(x, y, value);
+                    _grid.AddCandidate(pos, value);
                 }
-                Assert.InRange(_grid.GetCandidatesCount(x, y), 1, 9);
+                Assert.InRange(_grid.GetCandidatesCount(pos), 1, 9);
             }
         }
     }
