@@ -6,7 +6,6 @@ namespace Core.Data
     public class GridHelper
     {
         private static readonly IList<Position>[,] _indexesWhichCanSee = new IList<Position>[9, 9];
-        private static readonly Dictionary<short, bool> _candidatesCount = new Dictionary<short, bool>();
 
         public static IList<Position> GetCoordsWhichCanSee(int x, int y)
         {
@@ -70,9 +69,9 @@ namespace Core.Data
                 {
                     for( int value = 1; value < 10; value++ )
                     {
-                        if( !GridHelper.IsLegal(x, y, (InputValue) value, grid) )
+                        if( !IsLegal(x, y, value, grid) )
                         {
-                            grid.RemoveCandidate(x, y, (InputValue) value);
+                            grid.RemoveCandidate(x, y, value);
                         }
                     }
                 }
