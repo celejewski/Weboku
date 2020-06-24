@@ -1,4 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using Core.Converters;
+using Core.Generators;
+using Core.Solvers;
+using System.Threading.Tasks;
 using UI.BlazorWASM.Component.Modals;
 using UI.BlazorWASM.Managers;
 using UI.BlazorWASM.Providers;
@@ -36,8 +39,17 @@ namespace UI.BlazorWASM.Commands
         public Task Execute()
         {
             _modalProvider.SetModalState(ModalState.None);
-            _gridProvider.Grid = _pasteProvider.Grid.Clone();
-            _sudokuProvider.Sudoku = new Core.Data.Sudoku();
+            var grid = _pasteProvider.Grid.Clone();
+            _gridProvider.Grid = grid;
+
+            var solver = new BruteForceSolver();
+            var solution = solver.Solve(grid);
+            var converter = new HodokuGridConverter(new EmptyGridGenerator());
+            
+            var sudoku = new Core.Data.Sudoku();
+            sudoku.Solution = converter.ToText(solution);
+            _sudokuProvider.Sudoku = sudoku;
+
             _cellColorProvider.ClearAll();
             _gridHistoryManager.ClearUndo();
             _gameTimerProvider.Start();
