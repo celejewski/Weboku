@@ -6,10 +6,10 @@ using Xunit;
 namespace Core.Tests
 {
 
-    public class SolverTest
+    public class SolverTest 
     {
-        private readonly BruteForceSolver _bruteForceSolver = new Solvers.BruteForceSolver();
-        private readonly IGridConverter _converter = new Converters.HodokuGridConverter(new EmptyGridGenerator());
+        readonly BruteForceSolver _bruteForceSolver = new Solvers.BruteForceSolver();
+        readonly IGridConverter _converter = new Converters.HodokuGridConverter(new EmptyGridGenerator());
 
         [Fact]
         public void Solution1()

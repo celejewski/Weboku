@@ -19,26 +19,17 @@ namespace Core.Solvers
                 return input;
             }
 
-            var pos = GetNextPosition(input);
-            if( pos != null )
+            if( GetNextPosition(input) is Position pos)
             {
-                for( int value = 1; value < 10; value++ )
+                foreach( var value in InputValue.NonEmpty.Where(value => input.HasCandidate(pos, value)) )
                 {
-                    if( input.HasCandidate(pos.Value, value) )
+                    var grid = input.Clone();
+                    grid.SetValue(pos, value);
+                    GridHelper.RemoveCandidatesSeenBy(grid, pos);
+
+                    if( SolveStep(grid) is Grid output)
                     {
-                        var grid = input.Clone();
-                        grid.SetValue(pos.Value, value);
-
-                        foreach( var coords in GridHelper.GetCoordsWhichCanSee(pos.Value) )
-                        {
-                            grid.RemoveCandidate(coords, value);
-                        }
-
-                        var output = SolveStep(grid);
-                        if( output != null )
-                        {
-                            return output;
-                        }
+                        return output;
                     }
                 }
             }

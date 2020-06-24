@@ -1,6 +1,7 @@
 ﻿using Core.Converters;
 using Core.Generators;
 using Core.Solvers;
+using System.Runtime.InteropServices;
 using Xunit;
 
 namespace Core.Tests

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Core.Data
@@ -40,6 +41,20 @@ namespace Core.Data
                         grid.RemoveCandidate(pos, value);
                     }
                 }
+            }
+        }
+
+        public static void RemoveCandidatesSeenBy(IGrid grid, Position pos)
+        {
+            var value = grid.GetValue(pos);
+            if (value == InputValue.Empty)
+            {
+                return;
+            }
+
+            foreach( var coords in GridHelper.GetCoordsWhichCanSee(pos) )
+            {
+                grid.RemoveCandidate(coords, value);
             }
         }
     }
