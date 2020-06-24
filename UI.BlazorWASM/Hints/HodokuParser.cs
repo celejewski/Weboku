@@ -169,7 +169,7 @@ namespace UI.BlazorWASM.Hints
 
         public static InputValue ParseValue(string text, int pos)
         {
-            return (InputValue) ParseDigit(text, pos);
+            return ParseDigit(text, pos);
         }
 
         /// <summary>

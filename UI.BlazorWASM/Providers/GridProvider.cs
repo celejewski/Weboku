@@ -1,5 +1,6 @@
 ﻿using Core.Data;
 using System;
+using System.Linq;
 
 namespace UI.BlazorWASM.Providers
 {
@@ -60,15 +61,7 @@ namespace UI.BlazorWASM.Providers
 
         public int GetCandidatesCount(int x, int y)
         {
-            var count = 0;
-            for( int value = 1; value < 10; value++ )
-            {
-                if( _grid.HasCandidate(x, y, (InputValue) value) )
-                {
-                    count += 1;
-                }
-            }
-            return count;
+            return InputValue.NonEmpty.Count(value => _grid.HasCandidate(x, y, value));
         }
 
         public InputValue GetValue(int x, int y)
@@ -201,17 +194,14 @@ namespace UI.BlazorWASM.Providers
             {
                 for( int y = 0; y < 9; y++ )
                 {
-                    if( GetValue(x, y) != InputValue.Empty )
+                    if( HasValue(x, y) )
                     {
                         continue;
                     }
 
-                    for( int value = 0; value < 10; value++ )
+                    foreach( var value in InputValue.Values.Where(value => HasCandidate(x, y, value)))
                     {
-                        if( HasCandidate(x, y, (InputValue) value) )
-                        {
-                            _isCandidateLegal[x, y, value] = GridHelper.IsLegal(x, y, (InputValue) value, Grid);
-                        }
+                        _isCandidateLegal[x, y, value] = GridHelper.IsLegal(x, y, value, Grid);
                     }
                 }
             }
