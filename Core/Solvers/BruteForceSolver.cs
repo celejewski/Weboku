@@ -19,18 +19,21 @@ namespace Core.Solvers
                 return input;
             }
 
-            if( GetNextPosition(input) is Position pos)
+            if( !CanBeSolved(input) )
             {
-                foreach( var value in InputValue.NonEmpty.Where(value => input.HasCandidate(pos, value)) )
-                {
-                    var grid = input.Clone();
-                    grid.SetValue(pos, value);
-                    GridHelper.RemoveCandidatesSeenBy(grid, pos);
+                return null;
+            }
 
-                    if( SolveStep(grid) is Grid output)
-                    {
-                        return output;
-                    }
+            var pos = GetNextPosition(input);
+            foreach( var value in InputValue.NonEmpty.Where(value => input.HasCandidate(pos, value)) )
+            {
+                var grid = input.Clone();
+                grid.SetValue(pos, value);
+                GridHelper.RemoveCandidatesSeenBy(grid, pos);
+
+                if( SolveStep(grid) is Grid output )
+                {
+                    return output;
                 }
             }
             return null;
@@ -41,25 +44,16 @@ namespace Core.Solvers
             return Position.All.All(pos => grid.HasValue(pos));
         }
 
-        private Position? GetNextPosition(IGrid grid)
+        private bool CanBeSolved(IGrid grid)
         {
-            int count = 10;
-            Position? result = null;
-            foreach( var pos in Position.All )
-            {
-                if( grid.GetValue(pos) == InputValue.Empty
-                        && grid.GetCandidatesCount(pos) < count )
-                {
-                    if( grid.GetCandidatesCount(pos) == 0 )
-                    {
-                        return null;
-                    }
+            return Position.All.All(pos => grid.HasValue(pos) || grid.GetCandidatesCount(pos) > 0);
+        }
 
-                    count = grid.GetCandidatesCount(pos);
-                    result = pos;
-                }
-            }
-            return result;
+        private Position GetNextPosition(IGrid grid)
+        {
+            return Position.All.Where(pos => !grid.HasValue(pos))
+                .Aggregate((nextPos, pos) => grid.GetCandidatesCount(pos) < grid.GetCandidatesCount(nextPos) ? pos : nextPos);
+
         }
     }
 }
