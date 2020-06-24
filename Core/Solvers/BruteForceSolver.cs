@@ -20,16 +20,20 @@ namespace Core.Solvers
             }
 
             var pos = GetNextPosition(input);
-            Console.WriteLine(pos);
             if( pos != null )
             {
                 for( int value = 1; value < 10; value++ )
                 {
-                    if( input.HasCandidate(pos.Value.X, pos.Value.Y, (InputValue) value)
-                        && GridHelper.IsLegal(pos.Value.X, pos.Value.Y, (InputValue) value, input) )
+                    if( input.HasCandidate(pos.Value.X, pos.Value.Y, (InputValue) value) )
                     {
                         var grid = input.Clone();
                         grid.SetValue(pos.Value.X, pos.Value.Y, (InputValue) value);
+
+                        foreach( var coords in GridHelper.GetCoordsWhichCanSee(pos.Value.X, pos.Value.Y) )
+                        {
+                            grid.RemoveCandidate(coords.X, coords.Y, (InputValue) value);
+                        }
+
                         var output = SolveStep(grid);
                         if( output != null )
                         {
