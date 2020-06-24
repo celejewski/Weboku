@@ -95,18 +95,14 @@ namespace Core.Solvers
             return null;
         }
 
-        private readonly static List<IEnumerable<Position>> _indexesFromAllHouses = new List<IEnumerable<Position>>();
-        private static IEnumerable<IEnumerable<Position>> GetIndexesFromAllHouses()
+        static SmartSolver()
         {
-            if (_indexesFromAllHouses.Count > 0)
-            {
-                return _indexesFromAllHouses;
-            }
-            _indexesFromAllHouses.AddRange( Position.Blocks
+
+            _indexesFromAllHouses.AddRange(Position.Blocks
                 .Concat(Position.Cols)
                 .Concat(Position.Rows));
-
-            return _indexesFromAllHouses;
         }
+        private readonly static List<IEnumerable<Position>> _indexesFromAllHouses = new List<IEnumerable<Position>>();
+        private static IEnumerable<IEnumerable<Position>> GetIndexesFromAllHouses() => _indexesFromAllHouses;
     }
 }
