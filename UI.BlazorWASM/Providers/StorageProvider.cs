@@ -29,6 +29,11 @@ namespace UI.BlazorWASM.Providers
         public async Task<IGrid> LoadGrid()
         {
             var text = await _localStorageService.GetItemAsync<string>(StorageKey.Grid.ToString());
+            if (!_converter.IsValidText(text))
+            {
+                System.Console.WriteLine("Invalid grid");
+                return new Grid();
+            }
             return _converter.FromText(text);
         }
 

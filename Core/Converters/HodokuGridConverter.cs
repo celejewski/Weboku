@@ -36,6 +36,11 @@ namespace Core.Converters
 
         public bool IsValidText(string text)
         {
+            if (string.IsNullOrEmpty(text))
+            {
+                return false;
+            }
+
             text = text.Replace('.', '0');
             return text.Length == 81
                 && !Regex.IsMatch(text, @"[^\d]");
