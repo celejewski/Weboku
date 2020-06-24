@@ -45,9 +45,11 @@ namespace UI.BlazorWASM.Commands
             var solver = new BruteForceSolver();
             var solution = solver.Solve(grid);
             var converter = new HodokuGridConverter(new EmptyGridGenerator());
-            
-            var sudoku = new Core.Data.Sudoku();
-            sudoku.Solution = converter.ToText(solution);
+
+            var sudoku = new Core.Data.Sudoku
+            {
+                Solution = converter.ToText(solution)
+            };
             _sudokuProvider.Sudoku = sudoku;
 
             _cellColorProvider.ClearAll();

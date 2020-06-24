@@ -5,10 +5,10 @@ namespace UI.BlazorWASM.Component.NumpadMenu
 {
     public class SelectValueNumpadMenuItem : BaseMenuOption, INumpadMenuLabel
     {
-        private readonly int _value;
+        private readonly InputValue _value;
         private readonly IGridProvider _gridProvider;
 
-        public SelectValueNumpadMenuItem(int value, IGridProvider gridProvider, NumpadMenuProvider numpadMenuProvider, CommandProvider commandProvider)
+        public SelectValueNumpadMenuItem(InputValue value, IGridProvider gridProvider, NumpadMenuProvider numpadMenuProvider, CommandProvider commandProvider)
             : base(commandProvider.SelectValue(value), numpadMenuProvider.FilterContainer)
         {
             _value = value;
@@ -29,8 +29,7 @@ namespace UI.BlazorWASM.Component.NumpadMenu
 
                     for( int x = 0; x < 9; x++ )
                     {
-                        ;
-                        if( _gridProvider.GetValue(x, y) == (InputValue) _value )
+                        if( _gridProvider.GetValue(x, y) == _value )
                         {
                             if( !_gridProvider.IsValueLegal(x, y) )
                             {

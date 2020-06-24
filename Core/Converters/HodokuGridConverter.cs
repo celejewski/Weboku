@@ -30,7 +30,7 @@ namespace Core.Converters
                     }
                     else
                     {
-                        grid.SetValue(x, y, 0);
+                        grid.SetValue(x, y, InputValue.Empty);
                     }
                 }
             }

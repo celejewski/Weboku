@@ -1,4 +1,5 @@
 ﻿using Core.Data;
+using System;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
@@ -22,8 +23,9 @@ namespace Core.Generators
                 sudoku.Difficulty = difficulty;
                 return sudoku;
             }
-            catch
+            catch (Exception ex)
             {
+                Console.WriteLine(ex.ToString());
                 return new Sudoku();
             }
         }

@@ -18,9 +18,9 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
 
             _explanationSteps.Add(Explain1);
 
-            for( int i = 0; i < (int) (_value - 1); i++ )
+            for( int i = 0; i < _value - 1; i++ )
             {
-                var explain = ExplainN((InputValue) i);
+                var explain = ExplainN(i);
                 _explanationSteps.Add(explain);
             }
             _explanationSteps.Add(ExplainLast);
@@ -68,10 +68,10 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
             {
                 SetupDisplay(displayer, informer);
                 var positions = HintsHelper.GetPositionsInHouse(_position, _house);
-                var limit = (int) n + 1;
+                var limit = n + 1;
                 for( int i = 0; i < limit; i++ )
                 {
-                    displayer.MarkIfInputEquals(Enums.Color.Illegal, positions, (InputValue) (i + 1));
+                    displayer.MarkIfInputEquals(Enums.Color.Illegal, positions, i + 1);
                 }
                 var digits = Enumerable.Range(0, limit).Select(i => (i + 1).ToString() + "... ");
                 displayer.SetDescription(string.Join(" ", digits));
@@ -81,7 +81,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
         public void ExplainLast(Displayer displayer, Informer informer)
         {
             SetupDisplay(displayer, informer);
-            ExplainN((InputValue) (_value - 1))(displayer, informer);
+            ExplainN(_value - 1)(displayer, informer);
             displayer.Mark(Enums.Color.Legal, _position, _value);
             displayer.SetDescription(ExplanationKey("last"), displayer.Description, _value);
         }

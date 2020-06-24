@@ -51,9 +51,8 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
 
         private IEnumerable<InputValue> ValuesToRemove()
         {
-            for( int i = 1; i < 10; i++ )
+            foreach (var value in InputValue.NonEmpty)
             {
-                var value = (InputValue) i;
                 if( !_values.Contains(value) )
                 {
                     yield return value;

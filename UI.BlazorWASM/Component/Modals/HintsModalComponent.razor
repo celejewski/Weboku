@@ -104,7 +104,7 @@
     private void Close()
     {
         HintsProvider.Close();
-        CloseModalCommand.Execute();
+        _ = CloseModalCommand.Execute();
     }
 
     protected override void OnInitialized()

@@ -8,9 +8,9 @@ namespace UI.BlazorWASM.Filters
     {
         private readonly InputValue _value;
 
-        public SelectedValueFilter(int value)
+        public SelectedValueFilter(InputValue value)
         {
-            _value = (InputValue) value;
+            _value = value;
         }
 
         public FilterOption IsFiltered(IGridProvider gridProvider, int x, int y)

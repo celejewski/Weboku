@@ -10,10 +10,8 @@ namespace UI.BlazorWASM.ViewModels
 {
     public class NumpadMenuBuilder
     {
-        private readonly FilterProvider _filterProvider;
         private readonly IClickableActionProvider _clickableActionProvider;
         private readonly IGridHistoryManager _gridHistoryManager;
-        private readonly CellColorProvider _cellColorProvider;
         private readonly NumpadMenuProvider _numpadMenuProvider;
         private readonly CommandProvider _commandProvider;
         private readonly IGridProvider _gridProvider;
@@ -27,10 +25,8 @@ namespace UI.BlazorWASM.ViewModels
         private readonly SelectColorActionCommand _selectColorActionCommand;
 
         public NumpadMenuBuilder(
-            FilterProvider filterProvider,
             IClickableActionProvider clickableActionProvider,
             IGridHistoryManager gridHistoryManager,
-            CellColorProvider cellColorProvider,
             NumpadMenuProvider numpadMenuProvider,
             CommandProvider commandProvider,
             IGridProvider gridProvider,
@@ -44,10 +40,8 @@ namespace UI.BlazorWASM.ViewModels
             SelectColorActionCommand selectColorActionCommand
             )
         {
-            _filterProvider = filterProvider;
             _clickableActionProvider = clickableActionProvider;
             _gridHistoryManager = gridHistoryManager;
-            _cellColorProvider = cellColorProvider;
             _numpadMenuProvider = numpadMenuProvider;
             _commandProvider = commandProvider;
             _gridProvider = gridProvider;

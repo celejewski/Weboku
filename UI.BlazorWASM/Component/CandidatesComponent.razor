@@ -28,7 +28,7 @@
 
     protected override void OnInitialized()
     {
-        _value = (InputValue) Z + 1;
+        _value = Z + 1;
         _text = (Z + 1).ToString();
         GridProvider.OnCandidatesChanged += StateHasChanged;
         CandidatesMarkProvider.OnChanged += StateHasChanged;
