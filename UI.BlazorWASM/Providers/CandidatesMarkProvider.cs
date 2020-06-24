@@ -36,10 +36,10 @@ namespace UI.BlazorWASM.Providers
             OnChanged?.Invoke();
         }
 
-        public Color GetColor(int x, int y, InputValue candidate)
+        public Color GetColor(Position pos, InputValue candidate)
         {
-            var isLegal = !_gridProvider.HasCandidate(x, y, candidate) || _gridProvider.IsCandidateLegal(x, y, candidate);
-            return isLegal ? _colors[x, y, (int) candidate - 1] : Color.Illegal;
+            var isLegal = !_gridProvider.HasCandidate(pos, candidate) || _gridProvider.IsCandidateLegal(pos, candidate);
+            return isLegal ? _colors[pos.x, pos.y, candidate - 1] : Color.Illegal;
         }
 
         public event Action OnChanged;

@@ -1,23 +1,24 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Core.Data
 {
     public class GridHelper
     {
-        private static readonly IList<Position>[,] _indexesWhichCanSee = new IList<Position>[9, 9];
+        private static readonly IReadOnlyList<Position>[,] _indexesWhichCanSee = new IReadOnlyList<Position>[9, 9];
 
-        public static IList<Position> GetCoordsWhichCanSee(int x, int y)
+        public static IReadOnlyList<Position> GetCoordsWhichCanSee(Position pos)
         {
-            return _indexesWhichCanSee[x, y] ??= CalculateIndexesWhichCanSee(x, y);
+            return _indexesWhichCanSee[pos.x, pos.y] ??= CalculateIndexesWhichCanSee(pos);
         }
 
-        private static IList<Position> CalculateIndexesWhichCanSee(int x, int y)
+        private static IReadOnlyList<Position> CalculateIndexesWhichCanSee(Position pos)
         {
-            return GetIndexesFromCol(x)
-                .Concat(GetIndexesFromRow(y))
-                .Concat(GetIndexesFromBlock(x, y))
-                .ToList();
+            return Position.Cols[pos.x]
+                .Concat(Position.Rows[pos.y])
+                .Concat(Position.Blocks[pos.Block])
+                .ToArray();
         }
 
 
@@ -52,27 +53,24 @@ namespace Core.Data
             }
         }
 
-        public static bool IsLegal(int x, int y, InputValue value, IGrid grid)
+        public static bool IsLegal(Position pos, InputValue value, IGrid grid)
         {
             return value == InputValue.Empty
-                || GetCoordsWhichCanSee(x, y)
-                .Where(coords => coords.X != x || coords.Y != y)
-                .All(coords => grid.GetValue(coords.X, coords.Y) != value);
+                || GetCoordsWhichCanSee(pos)
+                .Where(coords => !pos.Equals(coords))
+                .All(coords => grid.GetValue(coords) != value);
         }
 
         public static void SetAllLegalCandidates(IGrid grid)
         {
             grid.FillCandidates();
-            for( int x = 0; x < 9; x++ )
+            foreach( var pos in Position.All )
             {
-                for( int y = 0; y < 9; y++ )
+                foreach( var value in InputValue.NonEmpty )
                 {
-                    for( int value = 1; value < 10; value++ )
+                    if( !IsLegal(pos, value, grid) )
                     {
-                        if( !IsLegal(x, y, value, grid) )
-                        {
-                            grid.RemoveCandidate(x, y, value);
-                        }
+                        grid.RemoveCandidate(pos, value);
                     }
                 }
             }

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using Core.Data;
+using System.Threading.Tasks;
 using UI.BlazorWASM.Managers;
 using UI.BlazorWASM.Providers;
 
@@ -26,14 +27,11 @@ namespace UI.BlazorWASM.Commands
         {
             _gridHistoryManager.Save();
 
-            for( int x = 0; x < 9; x++ )
+            foreach( var pos in Position.All )
             {
-                for( int y = 0; y < 9; y++ )
+                if( !_gridProvider.GetIsGiven(pos) )
                 {
-                    if( !_gridProvider.GetIsGiven(x, y) )
-                    {
-                        _gridProvider.SetValue(x, y, Core.Data.InputValue.Empty);
-                    }
+                    _gridProvider.SetValue(pos, InputValue.Empty);
                 }
             }
 

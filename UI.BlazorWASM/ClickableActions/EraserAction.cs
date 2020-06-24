@@ -17,24 +17,24 @@ namespace UI.BlazorWASM.ClickableActions
 
         public void LeftClickAction(ClickableActionArgs args)
         {
-            if( _gridProvider.GetValue(args.X, args.Y) == InputValue.Empty )
+            if( _gridProvider.GetValue(args.Pos) == InputValue.Empty )
             {
                 _gridHistoryManager.Save();
-                _gridProvider.ToggleCandidate(args.X, args.Y, args.Value);
+                _gridProvider.ToggleCandidate(args.Pos, args.Value);
             }
         }
 
         public void RightClickAction(ClickableActionArgs args)
         {
-            if( _gridProvider.GetValue(args.X, args.Y) == InputValue.Empty )
+            if( _gridProvider.GetValue(args.Pos) == InputValue.Empty )
             {
                 _gridHistoryManager.Save();
-                _gridProvider.SetValue(args.X, args.Y, args.Value);
+                _gridProvider.SetValue(args.Pos, args.Value);
             }
-            else if( _gridProvider.GetValue(args.X, args.Y) == args.Value && _gridProvider.GetIsGiven(args.X, args.Y) )
+            else if( _gridProvider.GetValue(args.Pos) == args.Value && _gridProvider.GetIsGiven(args.Pos) )
             {
                 _gridHistoryManager.Save();
-                _gridProvider.SetValue(args.X, args.Y, InputValue.Empty);
+                _gridProvider.SetValue(args.Pos, InputValue.Empty);
             }
         }
     }

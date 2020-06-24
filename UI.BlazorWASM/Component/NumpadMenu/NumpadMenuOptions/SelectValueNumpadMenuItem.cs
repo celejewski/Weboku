@@ -29,9 +29,9 @@ namespace UI.BlazorWASM.Component.NumpadMenu
 
                     for( int x = 0; x < 9; x++ )
                     {
-                        if( _gridProvider.GetValue(x, y) == _value )
+                        if( _gridProvider.GetValue(new Position(x, y)) == _value )
                         {
-                            if( !_gridProvider.IsValueLegal(x, y) )
+                            if( !_gridProvider.IsValueLegal(new Position(x, y)) )
                             {
                                 return false;
                             }

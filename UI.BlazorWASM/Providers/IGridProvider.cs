@@ -13,37 +13,37 @@ namespace UI.BlazorWASM.Providers
         /// <summary>
         /// Returns value of cell.
         /// </summary>
-        InputValue GetValue(int x, int y);
+        InputValue GetValue(Position pos);
 
         /// <summary>
         /// Sets value of cell and removes candidate from seen cells.
         /// </summary>
-        void SetValue(int x, int y, InputValue value);
+        void SetValue(Position pos, InputValue value);
 
         /// <summary>
         /// Returns true if has not empty value.
         /// </summary>
-        bool HasValue(int x, int y);
+        bool HasValue(Position pos);
 
         /// <summary>
         /// Returns true if candidate is in cell.
         /// </summary>
-        bool HasCandidate(int x, int y, InputValue value);
+        bool HasCandidate(Position pos, InputValue value);
 
         /// <summary>
         /// Adds candidate to cell.
         /// </summary>
-        void AddCandidate(int x, int y, InputValue value);
+        void AddCandidate(Position pos, InputValue value);
 
         /// <summary>
         /// Removes candidate from cell.
         /// </summary>
-        void RemoveCandidate(int x, int y, InputValue value);
+        void RemoveCandidate(Position pos, InputValue value);
 
         /// <summary>
         /// Toggles candidate in cell.
         /// </summary>
-        void ToggleCandidate(int x, int y, InputValue value);
+        void ToggleCandidate(Position pos, InputValue value);
 
         /// <summary>
         /// Removes all candidates in grid.
@@ -53,27 +53,27 @@ namespace UI.BlazorWASM.Providers
         /// <summary>
         /// Removes all candidates in cell.
         /// </summary>
-        void ClearCandidates(int x, int y);
+        void ClearCandidates(Position pos);
 
         /// <summary>
         /// Returns true if the value in the cell is legal.
         /// </summary>
-        bool IsValueLegal(int x, int y);
+        bool IsValueLegal(Position pos);
 
         /// <summary>
         /// Returns true if the candidate in the cell is legal.
         /// </summary>
-        bool IsCandidateLegal(int x, int y, InputValue value);
+        bool IsCandidateLegal(Position pos, InputValue value);
 
         /// <summary>
         /// Return true if cell is given.
         /// </summary>
-        bool GetIsGiven(int x, int y);
+        bool GetIsGiven(Position pos);
 
         /// <summary>
         /// Returns count of candidates in cell.
         /// </summary>
-        int GetCandidatesCount(int x, int y);
+        int GetCandidatesCount(Position pos);
 
         /// <summary>
         /// Fills cells without value with all legal candidates.

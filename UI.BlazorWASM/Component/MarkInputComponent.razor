@@ -5,7 +5,7 @@
 
 @code {
     private bool _previousIsLegal;
-    private bool _currentIsLegal => GridProvider.IsValueLegal(X, Y);
+    private bool _currentIsLegal => GridProvider.IsValueLegal(new Position(X, Y));
 
     private string GetCurrentClass()
     {

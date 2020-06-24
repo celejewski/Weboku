@@ -43,14 +43,11 @@ namespace Core.Converters
 
         private IEnumerable<bool> GridToBools(IGrid grid)
         {
-            for( int y = 0; y < 9; y++ )
+            foreach( var pos in Position.All )
             {
-                for( int x = 0; x < 9; x++ )
+                foreach( var bit in CellToBools(grid, pos) )
                 {
-                    foreach( var bit in CellToBools(grid, x, y) )
-                    {
-                        yield return bit;
-                    }
+                    yield return bit;
                 }
             }
         }
@@ -64,12 +61,12 @@ namespace Core.Converters
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <returns></returns>
-        private IEnumerable<bool> CellToBools(IGrid grid, int x, int y)
+        private IEnumerable<bool> CellToBools(IGrid grid, Position pos)
         {
 
-            var isGiven = grid.GetIsGiven(x, y);
-            var hasInput = grid.GetValue(x, y) != InputValue.Empty;
-            var input = grid.GetValue(x, y);
+            var isGiven = grid.GetIsGiven(pos);
+            var hasInput = grid.GetValue(pos) != InputValue.Empty;
+            var input = grid.GetValue(pos);
             if( isGiven )
             {
                 yield return true;
@@ -94,13 +91,13 @@ namespace Core.Converters
 
                 foreach( var value in InputValue.NonEmpty )
                 {
-                    yield return grid.HasCandidate(x, y, value);
+                    yield return grid.HasCandidate(pos, value);
                 }
             }
         }
         private IEnumerable<bool> ValueToBools(InputValue input)
         {
-            var binary = Convert.ToString((int) input - 1, 2).PadLeft(4, '0');
+            var binary = Convert.ToString(input - 1, 2).PadLeft(4, '0');
             foreach( var digit in binary )
             {
                 yield return digit == '1';
@@ -112,41 +109,38 @@ namespace Core.Converters
             _counter = 0;
             var grid = new Grid();
 
-            for( int y = 0; y < 9; y++ )
+            foreach( var pos in Position.All )
             {
-                for( int x = 0; x < 9; x++ )
-                {
-                    SetValue(grid, bitArray, x, y);
-                }
+                SetValue(grid, bitArray, pos);
             }
             return grid;
         }
 
         int _counter = 0;
-        private void SetValue(Grid grid, BitArray bitArray, int x, int y)
+        private void SetValue(Grid grid, BitArray bitArray, Position pos)
         {
             // IsGiven?
             if( bitArray.Get(_counter++) )
             {
-                grid.SetIsGiven(x, y, true);
-                grid.SetValue(x, y, GetValue(bitArray));
+                grid.SetIsGiven(pos, true);
+                grid.SetValue(pos, GetValue(bitArray));
             }
             // IsInput?
             else if( bitArray.Get(_counter++) )
             {
-                grid.SetIsGiven(x, y, false);
-                grid.SetValue(x, y, GetValue(bitArray));
+                grid.SetIsGiven(pos, false);
+                grid.SetValue(pos, GetValue(bitArray));
             }
             else
             {
-                grid.SetIsGiven(x, y, false);
-                grid.SetValue(x, y, InputValue.Empty);
+                grid.SetIsGiven(pos, false);
+                grid.SetValue(pos, InputValue.Empty);
 
                 foreach( var value in InputValue.NonEmpty )
                 {
                     if( bitArray.Get(_counter++) )
                     {
-                        grid.AddCandidate(x, y, value);
+                        grid.AddCandidate(pos, value);
                     }
                 }
             }

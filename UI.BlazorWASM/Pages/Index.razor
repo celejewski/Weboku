@@ -53,7 +53,7 @@
         GameStateChecker.OnSolved += OnGameEnd;
         _ = Task.Run(() => GridGenerator.WithGiven("medium"));
         await PreserveStateProvider.Load();
-        PreserveStateProvider.AutoSave(TimeSpan.FromSeconds(5));
+        PreserveStateProvider.AutoSave(TimeSpan.FromSeconds(2));
 
         if( !string.IsNullOrEmpty(SharedSudoku) )
         {

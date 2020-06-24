@@ -20,12 +20,12 @@ namespace UI.BlazorWASM.Hints
         {
             foreach( var pos in positions )
             {
-                _gridProvider.ClearCandidates(pos.X, pos.Y);
+                _gridProvider.ClearCandidates(pos);
             }
         }
         public void RemoveCandidate(InputValue value, Position position)
         {
-            _gridProvider.RemoveCandidate(position.X, position.Y, value);
+            _gridProvider.RemoveCandidate(position, value);
         }
         public void RemoveCandidates(InputValue value, IEnumerable<Position> positions)
         {
@@ -36,7 +36,7 @@ namespace UI.BlazorWASM.Hints
         }
         public void AddCandidate(InputValue value, Position position)
         {
-            _gridProvider.AddCandidate(position.X, position.Y, value);
+            _gridProvider.AddCandidate(position, value);
         }
         public void AddCandidates(InputValue value, IEnumerable<Position> positions)
         {
@@ -45,7 +45,7 @@ namespace UI.BlazorWASM.Hints
                 AddCandidate(value, pos);
             }
         }
-        public void SetInput(InputValue value, Position position) => _gridProvider.SetValue(position.X, position.Y, value);
+        public void SetInput(InputValue value, Position position) => _gridProvider.SetValue(position, value);
         public void FillAllLegalCandidates() => _gridProvider.FillAllLegalCandidates();
     }
 }

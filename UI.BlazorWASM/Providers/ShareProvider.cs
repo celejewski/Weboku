@@ -114,16 +114,13 @@ namespace UI.BlazorWASM.Providers
                 return output;
             }
 
-            for( int x = 0; x < 9; x++ )
+            foreach( var pos in Position.All )
             {
-                for( int y = 0; y < 9; y++ )
+                if( sharedFields == SharedFields.Givens && !output.GetIsGiven(pos) )
                 {
-                    if( sharedFields == SharedFields.Givens && !output.GetIsGiven(x, y) )
-                    {
-                        output.SetValue(x, y, InputValue.Empty);
-                    }
-                    output.ClearCandidates(x, y);
+                    output.SetValue(pos, InputValue.Empty);
                 }
+                output.ClearCandidates(pos);
             }
             return output;
         }

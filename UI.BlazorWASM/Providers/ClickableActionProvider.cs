@@ -63,8 +63,7 @@ namespace UI.BlazorWASM.Providers
             return new ClickableActionArgs
             {
                 MouseEventArgs = e,
-                X = x,
-                Y = y,
+                Pos = new Position(x, y),
                 Value = Value,
                 Color1 = Color1,
                 Color2 = Color2

@@ -18,20 +18,17 @@ namespace Core.Converters
         {
             input = input.Replace('.', '0');
             var grid = _generator.Empty();
-            for( int x = 0; x < 9; x++ )
+            foreach( var pos in Position.All )
             {
-                for( int y = 0; y < 9; y++ )
+                var value = int.Parse(input[pos.y * 9 + pos.x].ToString());
+                if( value != 0 )
                 {
-                    var value = int.Parse(input[y * 9 + x].ToString());
-                    if( value != 0 )
-                    {
-                        grid.SetIsGiven(x, y, true);
-                        grid.SetValue(x, y, (InputValue) value);
-                    }
-                    else
-                    {
-                        grid.SetValue(x, y, InputValue.Empty);
-                    }
+                    grid.SetIsGiven(pos, true);
+                    grid.SetValue(pos, value);
+                }
+                else
+                {
+                    grid.SetValue(pos, InputValue.Empty);
                 }
             }
             return grid;
@@ -47,12 +44,9 @@ namespace Core.Converters
         public string ToText(IGrid grid)
         {
             var sb = new StringBuilder();
-            for( int y = 0; y < 9; y++ )
+            foreach( var pos in Position.All )
             {
-                for( int x = 0; x < 9; x++ )
-                {
-                    sb.Append((int) grid.GetValue(x, y));
-                }
+                sb.Append(grid.GetValue(pos));
             }
             return sb.ToString();
         }

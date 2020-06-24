@@ -9,7 +9,7 @@
 @code {
     private string _currentClass => FilterOptionToCssConverter.ToCssClass(_currentFilterOption);
     private FilterOption _previousFilterOption;
-    private FilterOption _currentFilterOption => FilterProvider.Filter.IsFiltered(GridProvider, X, Y);
+    private FilterOption _currentFilterOption => FilterProvider.Filter.IsFiltered(GridProvider, new Position(X, Y));
 
     [Parameter]
     public int X { get; set; }

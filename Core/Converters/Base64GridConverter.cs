@@ -47,12 +47,10 @@ namespace Core.Converters
         {
             var sb = new StringBuilder();
             sb.Append("1");
-            for( int y = 0; y < 9; y++ )
+            foreach( var pos in Position.All )
             {
-                for( int x = 0; x < 9; x++ )
-                {
-                    sb.Append((int) grid.GetValue(x, y));
-                }
+                sb.Append(grid.GetValue(pos));
+
             }
             var bigInt = BigInteger.Parse(sb.ToString());
             var bytes = bigInt.ToByteArray();

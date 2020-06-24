@@ -1,5 +1,6 @@
 ﻿using Core.Data;
 using System;
+using System.Linq;
 
 namespace UI.BlazorWASM.Providers
 {
@@ -17,18 +18,10 @@ namespace UI.BlazorWASM.Providers
 
         private void Check()
         {
-            for( int y = 0; y < 9; y++ )
+            if( Position.All.All(pos => _gridProvider.HasValue(pos) && _gridProvider.IsValueLegal(pos)) )
             {
-                for( int x = 0; x < 9; x++ )
-                {
-                    if( _gridProvider.GetValue(x, y) == InputValue.Empty || !_gridProvider.IsValueLegal(x, y) )
-                    {
-                        return;
-                    }
-                }
+                OnSolved?.Invoke();
             }
-
-            OnSolved?.Invoke();
         }
     }
 }

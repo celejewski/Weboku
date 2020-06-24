@@ -10,7 +10,7 @@ namespace UI.BlazorWASM.Providers
 
         public void SetColor(Position position, Color color)
         {
-            SetColor(position.X, position.Y, color);
+            SetColor(position.x, position.y, color);
         }
 
         public void SetColor(int x, int y, Color color)

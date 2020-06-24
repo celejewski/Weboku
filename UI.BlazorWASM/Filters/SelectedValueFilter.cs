@@ -13,19 +13,19 @@ namespace UI.BlazorWASM.Filters
             _value = value;
         }
 
-        public FilterOption IsFiltered(IGridProvider gridProvider, int x, int y)
+        public FilterOption IsFiltered(IGridProvider gridProvider, Position pos)
         {
             if( _value == InputValue.Empty )
             {
                 return FilterOption.None;
             }
 
-            if( gridProvider.GetValue(x, y) == _value )
+            if( gridProvider.GetValue(pos) == _value )
             {
                 return FilterOption.Primary;
             }
 
-            if( gridProvider.HasCandidate(x, y, _value) )
+            if( gridProvider.HasCandidate(pos, _value) )
             {
                 return FilterOption.Secondary;
             }

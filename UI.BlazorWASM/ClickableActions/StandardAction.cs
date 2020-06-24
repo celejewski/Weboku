@@ -20,42 +20,42 @@ namespace UI.BlazorWASM.ClickableActions
         {
             if( args.MouseEventArgs.CtrlKey )
             {
-                _cellColorProvider.ToggleColor(args.X, args.Y, args.Color1);
+                _cellColorProvider.ToggleColor(args.Pos, args.Color1);
                 return;
             }
 
-            if( _gridProvider.GetIsGiven(args.X, args.Y) )
+            if( _gridProvider.GetIsGiven(args.Pos) )
             {
                 return;
             }
 
-            if( args.Value == InputValue.Empty || _gridProvider.GetValue(args.X, args.Y) == InputValue.Empty )
+            if( args.Value == InputValue.Empty || _gridProvider.GetValue(args.Pos) == InputValue.Empty )
             {
                 _gridHistoryManager.Save();
-                _gridProvider.SetValue(args.X, args.Y, args.Value);
+                _gridProvider.SetValue(args.Pos, args.Value);
             }
-            else if( _gridProvider.GetValue(args.X, args.Y) == args.Value )
+            else if( _gridProvider.GetValue(args.Pos) == args.Value )
             {
                 _gridHistoryManager.Save();
-                _gridProvider.SetValue(args.X, args.Y, InputValue.Empty);
+                _gridProvider.SetValue(args.Pos, InputValue.Empty);
             }
         }
         public void RightClickAction(ClickableActionArgs args)
         {
             if( args.MouseEventArgs.CtrlKey )
             {
-                _cellColorProvider.ToggleColor(args.X, args.Y, args.Color2);
+                _cellColorProvider.ToggleColor(args.Pos, args.Color2);
                 return;
             }
 
 
-            if( _gridProvider.GetValue(args.X, args.Y) != InputValue.Empty || args.Value == InputValue.Empty )
+            if( _gridProvider.GetValue(args.Pos) != InputValue.Empty || args.Value == InputValue.Empty )
             {
                 return;
             }
 
             _gridHistoryManager.Save();
-            _gridProvider.ToggleCandidate(args.X, args.Y, args.Value);
+            _gridProvider.ToggleCandidate(args.Pos, args.Value);
         }
     }
 }
