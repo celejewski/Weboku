@@ -174,7 +174,7 @@ namespace UI.BlazorWASM.Providers
         {
             foreach( var pos in Position.All.Where(pos => !HasValue(pos)) )
             {
-                foreach( var value in InputValue.Values.Where(value => HasCandidate(pos, value)) )
+                foreach( var value in InputValue.NonEmpty.Where(value => HasCandidate(pos, value)) )
                 {
                     _isCandidateLegal[pos.x, pos.y, value] = GridHelper.IsLegal(pos, value, Grid);
                 }

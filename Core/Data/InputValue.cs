@@ -20,35 +20,23 @@ namespace Core.Data
 
         public static readonly IEnumerable<InputValue> NonEmpty = new[]
         {
-            One, Two, Three, Four, Five, Six, Seven, Eight,Nine
+            One, Two, Three, Four, Five, Six, Seven, Eight, Nine
         };
 
-        public static readonly IReadOnlyList<InputValue> Values = new[]
+        private static readonly IReadOnlyList<InputValue> _values = new[]
         {
             Empty, One, Two, Three, Four, Five, Six, Seven, Eight, Nine
         };
 
         public static implicit operator int(InputValue value) => value._value;
-        public static implicit operator InputValue(int index) => Values[index];
+        public static implicit operator InputValue(int index) => _values[index];
 
-        public override int GetHashCode()
-        {
-            return _value.GetHashCode();
-        }
+        public override int GetHashCode() => _value;
 
-        public override string ToString()
-        {
-            return _value.ToString();
-        }
+        public override string ToString() => _value.ToString();
 
-        public override bool Equals(object obj)
-        {
-            return Equals((InputValue) obj);
-        }
+        public override bool Equals(object obj) => Equals((InputValue) obj);
 
-        public bool Equals(InputValue other)
-        {
-            return _value == other._value;
-        }
+        public bool Equals(InputValue other) => _value == other._value;
     }
 }
