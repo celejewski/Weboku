@@ -92,7 +92,7 @@ namespace Core.Data
             InputValue.Nine,
         };
 
-        private static List<Position> _positions = new List<Position>();
+        private static readonly List<Position> _positions = new List<Position>();
         public static IEnumerable<Position> Positions
         {
             get

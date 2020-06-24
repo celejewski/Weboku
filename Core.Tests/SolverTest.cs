@@ -8,8 +8,8 @@ namespace Core.Tests
 
     public class SolverTest 
     {
-        BruteForceSolver _bruteForceSolver = new Solvers.BruteForceSolver();
-        IGridConverter _converter = new Converters.HodokuGridConverter(new EmptyGridGenerator());
+        readonly BruteForceSolver _bruteForceSolver = new Solvers.BruteForceSolver();
+        readonly IGridConverter _converter = new Converters.HodokuGridConverter(new EmptyGridGenerator());
 
         [Fact]
         public void Solution1()
@@ -24,6 +24,7 @@ namespace Core.Tests
             Assert.Equal(expected, actualString);
         }
 
+        [Fact]
         public void Solution2()
         {
             var givens = "6.481.9..7..3......3..96....4......1..2...3..9......5....67..8......5..6..3.827.4";
