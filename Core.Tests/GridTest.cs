@@ -25,7 +25,7 @@ namespace Core.Tests
                     var value = (InputValue) (_random.Next(9) + 1);
                     _grid.AddCandidate(pos, value);
                 }
-                Assert.InRange(_grid.GetCandidatesCount(pos), 1, 9);
+                Assert.InRange(_grid.CandidatesCount(pos), 1, 9);
             }
         }
     }

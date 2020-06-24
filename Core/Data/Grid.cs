@@ -82,7 +82,7 @@ namespace Core.Data
         }
 
         private static readonly Dictionary<CandidateValue, int> _candidatesCount = new Dictionary<CandidateValue, int>(1024);
-        public int GetCandidatesCount(Position pos)
+        public int CandidatesCount(Position pos)
         {
             var candidates = _candidates[pos.x, pos.y];
             if( !_candidatesCount.ContainsKey(candidates) )

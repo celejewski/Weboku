@@ -10,7 +10,7 @@
         bool HasValue(Position pos);
 
         bool HasCandidate(Position pos, InputValue value);
-        int GetCandidatesCount(Position pos);
+        int CandidatesCount(Position pos);
 
         void AddCandidate(Position pos, InputValue value);
         void RemoveCandidate(Position pos, InputValue value);

@@ -63,7 +63,7 @@ namespace Core.Solvers
             foreach( var pos in Position.All )
             {
                 if (!input.HasValue(pos)
-                    && input.GetCandidatesCount(pos) == 1)
+                    && input.CandidatesCount(pos) == 1)
                 {
                     var grid = input.Clone();
                     var value = InputValue.NonEmpty.First(value => grid.HasCandidate(pos, value));

@@ -61,7 +61,7 @@ namespace UI.BlazorWASM.Providers
 
         public int GetCandidatesCount(Position pos)
         {
-            return InputValue.NonEmpty.Count(value => _grid.HasCandidate(pos, value));
+            return _grid.CandidatesCount(pos);
         }
 
         public InputValue GetValue(Position pos)
