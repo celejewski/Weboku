@@ -7,33 +7,14 @@ namespace UI.BlazorWASM.Hints
 {
     public static class HintsHelper
     {
-        public static IEnumerable<Position> GetPositionsInRow(int y)
-        {
-            return Position.Rows[y];
-        }
-        public static IEnumerable<Position> GetPositionsInCol(int x)
-        {
-            return Position.Cols[x];
-        }
-
-        public static IEnumerable<Position> GetPositionsInBlock(int block)
-        {
-            return Position.Blocks[block];
-        }
-
-        public static IEnumerable<Position> GetPositionsInBlock(Position position)
-        {
-            return Position.Blocks[position.block];
-        }
-
         public static IEnumerable<Position> GetPositionsInHouse(Position position, House house)
         {
             return house switch
             {
                 House.None => Enumerable.Empty<Position>(),
-                House.Row => GetPositionsInRow(position.y),
-                House.Col => GetPositionsInCol(position.x),
-                House.Block => GetPositionsInBlock(position),
+                House.Row => Position.Rows[position.y],
+                House.Col => Position.Cols[position.x],
+                House.Block => Position.Blocks[position.block],
                 _ => throw new ArgumentException("Unknown house"),
             };
         }
