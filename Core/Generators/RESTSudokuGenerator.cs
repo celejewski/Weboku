@@ -23,7 +23,7 @@ namespace Core.Generators
                 sudoku.Difficulty = difficulty;
                 return sudoku;
             }
-            catch (Exception ex)
+            catch( Exception ex )
             {
                 Console.WriteLine(ex.ToString());
                 return new Sudoku();

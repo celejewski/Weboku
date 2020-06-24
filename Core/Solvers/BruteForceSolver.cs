@@ -1,5 +1,4 @@
 ﻿using Core.Data;
-using System;
 using System.Linq;
 
 namespace Core.Solvers

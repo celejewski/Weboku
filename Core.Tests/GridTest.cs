@@ -1,6 +1,6 @@
 ﻿using Core.Data;
-using Xunit;
 using System;
+using Xunit;
 
 namespace Core.Tests
 {

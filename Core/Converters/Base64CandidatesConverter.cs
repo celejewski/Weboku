@@ -25,7 +25,7 @@ namespace Core.Converters
                 FromText(text);
                 return true;
             }
-            catch (Exception ex)
+            catch( Exception ex )
             {
                 return false;
             }
@@ -116,7 +116,7 @@ namespace Core.Converters
             return grid;
         }
 
-        int _counter = 0;
+        private int _counter = 0;
         private void SetValue(Grid grid, BitArray bitArray, Position pos)
         {
             // IsGiven?

@@ -55,7 +55,7 @@ namespace UI.BlazorWASM.ViewModels
             _selectColorActionCommand = selectColorActionCommand;
         }
 
-        readonly Dictionary<int, SelectValueNumpadMenuItem> _dict = new Dictionary<int, SelectValueNumpadMenuItem>();
+        private readonly Dictionary<int, SelectValueNumpadMenuItem> _dict = new Dictionary<int, SelectValueNumpadMenuItem>();
         public SelectValueNumpadMenuItem SelectValue(int value)
         {
             if( !_dict.ContainsKey(value) )
@@ -77,7 +77,7 @@ namespace UI.BlazorWASM.ViewModels
             return command;
         }
 
-        PairsNumpadMenuItem _pairsNumpadMenuItem;
+        private PairsNumpadMenuItem _pairsNumpadMenuItem;
         public PairsNumpadMenuItem Pairs()
         {
             return _pairsNumpadMenuItem ??= new PairsNumpadMenuItem(_numpadMenuProvider, _selectPairsFilterCommand, _gridProvider);
@@ -100,8 +100,7 @@ namespace UI.BlazorWASM.ViewModels
             return new PlaceHolderNumpadMenuItem();
         }
 
-
-        SelectCleanerActionMenuItem _eraseMenuItem;
+        private SelectCleanerActionMenuItem _eraseMenuItem;
         public SelectCleanerActionMenuItem SelectCleanerAction()
         {
             return _eraseMenuItem ??= new SelectCleanerActionMenuItem(_numpadMenuProvider, _selectCleanerAction);

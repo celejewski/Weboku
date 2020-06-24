@@ -3,7 +3,7 @@
 namespace Core.Data
 {
     [Flags]
-    enum CandidateValue : short
+    internal enum CandidateValue : short
     {
         None = 1,
         One = 2,

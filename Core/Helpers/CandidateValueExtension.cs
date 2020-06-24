@@ -2,11 +2,11 @@
 
 namespace Core.Helpers
 {
-    static class CandidateValueExtension
+    internal static class CandidateValueExtension
     {
         public static CandidateValue ToCandidateValue(this InputValue inputValue)
         {
-            return (CandidateValue) (1 << (int) inputValue);
+            return (CandidateValue) (1 << inputValue);
         }
     }
 }

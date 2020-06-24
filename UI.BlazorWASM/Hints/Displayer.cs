@@ -121,7 +121,7 @@ namespace UI.BlazorWASM.Hints
         }
         public void MarkCandidate(Color color, Position position, InputValue value)
         {
-            _candidatesMarkProvider.SetColor(position.x, position.y, (int) value, color);
+            _candidatesMarkProvider.SetColor(position.x, position.y, value, color);
         }
 
         public void MarkCandidates(Color color, IEnumerable<Position> positions, InputValue inputValue)
@@ -196,7 +196,7 @@ namespace UI.BlazorWASM.Hints
 
         public void SetValueFilter(InputValue input)
         {
-            _ = _numpadMenuBuilder.SelectValue((int) input).Execute();
+            _ = _numpadMenuBuilder.SelectValue(input).Execute();
         }
         public static string Format(House house)
         {

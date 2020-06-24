@@ -11,11 +11,11 @@ namespace Core.Solvers
         {
             var grid = input.Clone();
 
-            while (true)
+            while( true )
             {
                 GridHelper.SetAllLegalCandidates(grid);
                 var nextStep = NextStep(grid);
-                if (nextStep == null)
+                if( nextStep == null )
                 {
                     return grid;
                 }
@@ -23,7 +23,7 @@ namespace Core.Solvers
             }
         }
 
-        private static readonly Func<IGrid, IGrid>[] _steps = new Func<IGrid, IGrid>[] { 
+        private static readonly Func<IGrid, IGrid>[] _steps = new Func<IGrid, IGrid>[] {
             FullHouse,
             NakedSingle,
             HiddenSingle,
@@ -33,7 +33,7 @@ namespace Core.Solvers
             foreach( var step in _steps )
             {
                 var output = step(input);
-                if (output != null)
+                if( output != null )
                 {
                     return step;
                 }
@@ -45,7 +45,7 @@ namespace Core.Solvers
             var grid = input.Clone();
             foreach( var indexes in GetIndexesFromAllHouses() )
             {
-                if (indexes.Count(index => grid.HasValue(index)) == 8)
+                if( indexes.Count(index => grid.HasValue(index)) == 8 )
                 {
                     var value = InputValue.NonEmpty.First(
                         value => indexes.All(index => grid.GetValue(index) != value));
@@ -62,8 +62,8 @@ namespace Core.Solvers
         {
             foreach( var pos in Position.All )
             {
-                if (!input.HasValue(pos)
-                    && input.GetCandidatesCount(pos) == 1)
+                if( !input.HasValue(pos)
+                    && input.GetCandidatesCount(pos) == 1 )
                 {
                     var grid = input.Clone();
                     var value = InputValue.NonEmpty.First(value => grid.HasCandidate(pos, value));
@@ -74,7 +74,7 @@ namespace Core.Solvers
             }
             return null;
         }
-        
+
         private static IGrid HiddenSingle(IGrid input)
         {
             foreach( var indexes in GetIndexesFromAllHouses() )
@@ -82,7 +82,7 @@ namespace Core.Solvers
                 foreach( var value in InputValue.NonEmpty )
                 {
                     var isHiddenSingle = indexes.Count(index => input.HasCandidate(index, value)) == 1;
-                    if (!isHiddenSingle)
+                    if( !isHiddenSingle )
                     {
                         continue;
                     }
@@ -98,11 +98,11 @@ namespace Core.Solvers
         private readonly static List<IEnumerable<Position>> _indexesFromAllHouses = new List<IEnumerable<Position>>();
         private static IEnumerable<IEnumerable<Position>> GetIndexesFromAllHouses()
         {
-            if (_indexesFromAllHouses.Count > 0)
+            if( _indexesFromAllHouses.Count > 0 )
             {
                 return _indexesFromAllHouses;
             }
-            _indexesFromAllHouses.AddRange( Position.Blocks
+            _indexesFromAllHouses.AddRange(Position.Blocks
                 .Concat(Position.Cols)
                 .Concat(Position.Rows));
 
