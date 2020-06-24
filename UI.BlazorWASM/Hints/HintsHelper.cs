@@ -23,7 +23,7 @@ namespace UI.BlazorWASM.Hints
 
         public static IEnumerable<Position> GetPositionsInBlock(Position position)
         {
-            return Position.Blocks[position.Block];
+            return Position.Blocks[position.block];
         }
 
         public static IEnumerable<Position> GetPositionsInHouse(Position position, House house)
@@ -67,7 +67,7 @@ namespace UI.BlazorWASM.Hints
             {
                 yield return House.Row;
             }
-            if( positions.All(pos => pos.Block == first.Block) )
+            if( positions.All(pos => pos.block == first.block) )
             {
                 yield return House.Block;
             }

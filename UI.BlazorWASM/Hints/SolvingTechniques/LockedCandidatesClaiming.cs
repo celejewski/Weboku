@@ -46,7 +46,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
             var positionsWithCandidate = informer.GetPositionsWithCandidate(House.Block, _positionsToRemoveCandidate.First(), _inputValue);
             _positionsWithLegalCandidate = positionsWithCandidate.Except(_positionsToRemoveCandidate);
             _houseFormatted = Displayer.Format(_house, Position);
-            _blockFormatted = $"block { Position.Block + 1 }";
+            _blockFormatted = $"block { Position.block + 1 }";
             _positionsWithIllegalCandidate = GetPositiosnWithIllegalCandidate(informer);
         }
 

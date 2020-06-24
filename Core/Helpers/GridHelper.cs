@@ -17,7 +17,7 @@ namespace Core.Data
         {
             return Position.Cols[pos.x]
                 .Concat(Position.Rows[pos.y])
-                .Concat(Position.Blocks[pos.Block])
+                .Concat(Position.Blocks[pos.block])
                 .ToArray();
         }
 

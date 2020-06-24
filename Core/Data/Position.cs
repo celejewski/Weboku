@@ -8,12 +8,13 @@ namespace Core.Data
     {
         public readonly int x;
         public readonly int y;
-        public int Block => (y / 3) * 3 + (x / 3);
+        public readonly int block;
 
         public Position(int x, int y)
         {
             this.x = x;
             this.y = y;
+            block = (y / 3) * 3 + (x / 3);
         }
         public override string ToString() => $"r{y + 1}c{x + 1}";
 
@@ -58,7 +59,7 @@ namespace Core.Data
             {
                 _rows[pos.y].Add(pos);
                 _cols[pos.x].Add(pos);
-                _blocks[pos.Block].Add(pos);
+                _blocks[pos.block].Add(pos);
             }
         }
     }

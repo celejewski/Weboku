@@ -81,7 +81,7 @@ namespace UI.BlazorWASM.Hints
 
         public void HighlightRow(Position position) => IsRowHighlighted[position.y] = true;
         public void HighlightCol(Position position) => IsColHighlighted[position.x] = true;
-        public void HighlightBlock(Position position) => HighlightBlock(position.Block);
+        public void HighlightBlock(Position position) => HighlightBlock(position.block);
 
         public void HighlightBlock(int block) => IsBlockHighlighted[block] = true;
 
@@ -216,7 +216,7 @@ namespace UI.BlazorWASM.Hints
             {
                 House.Row => $"row {position.y + 1}",
                 House.Col => $"column {position.x + 1}",
-                House.Block => $"block {position.Block + 1}",
+                House.Block => $"block {position.block + 1}",
                 _ => "none"
             };
         }
