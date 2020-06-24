@@ -47,7 +47,7 @@ namespace Core.Solvers
             {
                 if (indexes.Count(index => grid.HasValue(index)) == 8)
                 {
-                    var value = GridHelper.Values.First(
+                    var value = InputValue.NonEmpty.First(
                         value => indexes.All(index => grid.GetValue(index) != value));
                     var pos = indexes.First(index => !grid.HasValue(index));
 
@@ -60,13 +60,13 @@ namespace Core.Solvers
 
         private static IGrid NakedSingle(IGrid input)
         {
-            foreach( var pos in GridHelper.Positions )
+            foreach( var pos in Position.All )
             {
                 if (!input.HasValue(pos)
                     && input.GetCandidatesCount(pos) == 1)
                 {
                     var grid = input.Clone();
-                    var value = GridHelper.Values.First(value => grid.HasCandidate(pos, value));
+                    var value = InputValue.NonEmpty.First(value => grid.HasCandidate(pos, value));
                     grid.SetValue(pos, value);
 
                     return grid;
@@ -79,7 +79,7 @@ namespace Core.Solvers
         {
             foreach( var indexes in GetIndexesFromAllHouses() )
             {
-                foreach( var value in GridHelper.Values )
+                foreach( var value in InputValue.NonEmpty )
                 {
                     var isHiddenSingle = indexes.Count(index => input.HasCandidate(index, value)) == 1;
                     if (!isHiddenSingle)
