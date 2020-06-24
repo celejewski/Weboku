@@ -1,5 +1,6 @@
 ﻿using Core.Converters;
 using Core.Data;
+using System;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
@@ -31,8 +32,9 @@ namespace Core.Generators
                 var sudoku = await _http.GetFromJsonAsync<Sudoku>($"http://andzej-002-site2.ftempurl.com/sudokugenerator/{difficulty}");
                 return _converter.FromText(sudoku.Given);
             }
-            catch
+            catch (Exception ex)
             {
+                Console.WriteLine(ex.ToString());
                 return Empty();
             }
         }

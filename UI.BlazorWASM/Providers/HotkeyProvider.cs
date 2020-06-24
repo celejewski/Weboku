@@ -27,7 +27,7 @@ namespace UI.BlazorWASM.Providers
                 if( item.Key == e.Key
                     && item.Ctrl == e.CtrlKey )
                 {
-                    item.Command.Execute();
+                    _ = item.Command.Execute();
                 }
             }
         }

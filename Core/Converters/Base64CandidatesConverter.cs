@@ -25,7 +25,7 @@ namespace Core.Converters
                 FromText(text);
                 return true;
             }
-            catch
+            catch 
             {
                 return false;
             }
