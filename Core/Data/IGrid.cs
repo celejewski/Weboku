@@ -7,8 +7,11 @@
 
         InputValue GetValue(int x, int y);
         void SetValue(int x, int y, InputValue value);
+        bool HasValue(int x, int y);
 
         bool HasCandidate(int x, int y, InputValue value);
+        int GetCandidatesCount(int x, int y);
+
         void AddCandidate(int x, int y, InputValue value);
         void RemoveCandidate(int x, int y, InputValue value);
         void ToggleCandidate(int x, int y, InputValue value);
