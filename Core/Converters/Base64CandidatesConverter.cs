@@ -91,9 +91,10 @@ namespace Core.Converters
             {
                 yield return false;
                 yield return false;
-                for( int value = 0; value < 9; value++ )
+
+                foreach( var value in InputValue.NonEmpty )
                 {
-                    yield return grid.HasCandidate(x, y, (InputValue) value + 1);
+                    yield return grid.HasCandidate(x, y, value);
                 }
             }
         }
@@ -141,11 +142,11 @@ namespace Core.Converters
                 grid.SetIsGiven(x, y, false);
                 grid.SetValue(x, y, InputValue.Empty);
 
-                for( int i = 0; i < 9; i++ )
+                foreach( var value in InputValue.NonEmpty )
                 {
                     if( bitArray.Get(_counter++) )
                     {
-                        grid.AddCandidate(x, y, (InputValue) i + 1);
+                        grid.AddCandidate(x, y, value);
                     }
                 }
             }

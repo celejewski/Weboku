@@ -37,7 +37,7 @@ namespace UI.BlazorWASM.ClickableActions
             else if( _gridProvider.GetValue(args.X, args.Y) == args.Value )
             {
                 _gridHistoryManager.Save();
-                _gridProvider.SetValue(args.X, args.Y, 0);
+                _gridProvider.SetValue(args.X, args.Y, InputValue.Empty);
             }
         }
         public void RightClickAction(ClickableActionArgs args)

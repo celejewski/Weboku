@@ -55,7 +55,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
         private void Explain1(Displayer displayer, Informer informer)
         {
             SetupDisplayer(displayer, informer);
-            displayer.SetValueFilter(0);
+            displayer.SetValueFilter(InputValue.Empty);
             displayer.SetDescription(ExplanationKey(1), _houseFormated);
         }
 
