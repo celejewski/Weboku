@@ -20,7 +20,7 @@ namespace UI.BlazorWASM.Component.NumpadMenu
             {
                 foreach( var pos in Position.All )
                 {
-                    if( _gridProvider.GetCandidatesCount(pos) == 2 )
+                    if( _gridProvider.CandidatesCount(pos) == 2 )
                     {
                         return false;
                     }

@@ -73,7 +73,7 @@ namespace UI.BlazorWASM.Providers
         /// <summary>
         /// Returns count of candidates in cell.
         /// </summary>
-        int GetCandidatesCount(Position pos);
+        int CandidatesCount(Position pos);
 
         /// <summary>
         /// Fills cells without value with all legal candidates.

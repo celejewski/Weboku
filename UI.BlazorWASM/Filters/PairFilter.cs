@@ -8,7 +8,7 @@ namespace UI.BlazorWASM.Filters
     {
         public FilterOption IsFiltered(IGridProvider gridProvider, Position pos)
         {
-            return gridProvider.GetCandidatesCount(pos) == 2 ? FilterOption.Secondary : FilterOption.None;
+            return gridProvider.CandidatesCount(pos) == 2 ? FilterOption.Secondary : FilterOption.None;
         }
     }
 }

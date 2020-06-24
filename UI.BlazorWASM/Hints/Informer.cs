@@ -24,7 +24,7 @@ namespace UI.BlazorWASM.Hints
         public bool HasCandidate(Position position, InputValue value) => _gridProvider.HasCandidate(position, value);
         public InputValue GetSolution(Position position) => _sudokuProvider.GetSolution(position.x, position.y);
 
-        public int GetCandidatesCount(Position position) => _gridProvider.GetCandidatesCount(position);
+        public int GetCandidatesCount(Position position) => _gridProvider.CandidatesCount(position);
 
         public IEnumerable<Position> GetPositionsWithCandidate(House house, Position housePosition, InputValue inputValue)
         {

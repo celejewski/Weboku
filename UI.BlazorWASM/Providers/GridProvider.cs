@@ -59,7 +59,7 @@ namespace UI.BlazorWASM.Providers
             CandidatesChanged();
         }
 
-        public int GetCandidatesCount(Position pos)
+        public int CandidatesCount(Position pos)
         {
             return _grid.CandidatesCount(pos);
         }
