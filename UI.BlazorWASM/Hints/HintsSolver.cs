@@ -1,7 +1,6 @@
 ﻿using Core.Data;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using UI.BlazorWASM.Hints.SolvingTechniques;
 
@@ -9,34 +8,30 @@ namespace UI.BlazorWASM.Hints
 {
     public class HintsSolver
     {
-        public ISolvingTechnique Solve(IGrid input)
+        private static readonly Func<IGrid, ISolvingTechnique>[] _steps = new Func<IGrid, ISolvingTechnique>[] 
         {
-            var grid = input.Clone();
-
-            GridHelper.SetAllLegalCandidates(grid);
-            return NextStep(grid)(grid);
-        }
-
-        private static readonly Func<IGrid, ISolvingTechnique>[] _steps = new Func<IGrid, ISolvingTechnique>[] {
             FullHouse,
             NakedSingle,
             HiddenSingle,
         };
-        private static Func<IGrid, ISolvingTechnique> NextStep(IGrid input)
+        private readonly static List<IEnumerable<Position>> _indexesFromAllHouses = new List<IEnumerable<Position>>();
+        static HintsSolver()
         {
-            foreach( var step in _steps )
-            {
-                var output = step(input);
-                if( output != null )
-                {
-                    return step;
-                }
-            }
-            return null;
+            _indexesFromAllHouses.AddRange(Position.Blocks
+                .Concat(Position.Cols)
+                .Concat(Position.Rows));
         }
+        public static ISolvingTechnique NextStep(IGrid input)
+        {
+            return _steps.Select(step => step(input))
+                .FirstOrDefault(solvingTechnique => solvingTechnique != null)
+                ?? new NotFound();
+        }
+
+        #region Singles
         private static ISolvingTechnique FullHouse(IGrid input)
         {
-            foreach( var indexes in GetIndexesFromAllHouses() )
+            foreach( var indexes in _indexesFromAllHouses )
             {
                 if( indexes.Count(index => input.HasValue(index)) == 8 )
                 {
@@ -64,7 +59,7 @@ namespace UI.BlazorWASM.Hints
         }
         private static ISolvingTechnique HiddenSingle(IGrid input)
         {
-            foreach( var indexes in GetIndexesFromAllHouses() )
+            foreach( var indexes in _indexesFromAllHouses )
             {
                 foreach( var value in InputValue.NonEmpty )
                 {
@@ -77,14 +72,8 @@ namespace UI.BlazorWASM.Hints
             }
             return null;
         }
-        static HintsSolver()
-        {
-            _indexesFromAllHouses.AddRange(Position.Blocks
-                .Concat(Position.Cols)
-                .Concat(Position.Rows));
-        }
-        private readonly static List<IEnumerable<Position>> _indexesFromAllHouses = new List<IEnumerable<Position>>();
-        private static IEnumerable<IEnumerable<Position>> GetIndexesFromAllHouses() => _indexesFromAllHouses;
+        #endregion
+
 
     }
 }
