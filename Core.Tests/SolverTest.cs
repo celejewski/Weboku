@@ -74,5 +74,15 @@ namespace Core.Tests
 
             Assert.Equal(expected, actualString);
         }
+
+        [Fact]
+        public void NoSolution()
+        {
+            var givens = ".....9...571..5....9.....83...49.5..82.6.3.74..9.28...63.....1....8..43....9.....";
+            var grid = _converter.FromText(givens);
+            var actual = _bruteForceSolver.Solve(grid);
+
+            Assert.Null(actual);
+        }
     }
 }
