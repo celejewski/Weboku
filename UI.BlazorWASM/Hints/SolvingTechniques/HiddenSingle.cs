@@ -27,7 +27,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
 
         private void SetupDisplayer(Displayer displayer, Informer informer)
         {
-            _house = HintsHelper.FindHouse(_position,
+            _house = HintsHelper.HouseFirstOrDefault(_position,
                 positions => positions.Where(pos => informer.HasCandidate(pos, _inputValue))
                                       .Count() == 1
                 );

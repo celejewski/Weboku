@@ -19,16 +19,12 @@ namespace UI.BlazorWASM.Hints
             };
         }
 
-        public static House FindHouse(Position position, Predicate<IEnumerable<Position>> predicate)
+        private static IEnumerable<House> _houses = new[] { House.Row, House.Col, House.Block };
+        public static House HouseFirstOrDefault(Position pos, Predicate<IEnumerable<Position>> predicate)
         {
-            foreach( var house in new[] { House.Row, House.Col, House.Block } )
-            {
-                if( predicate(GetPositionsInHouse(position, house)) )
-                {
-                    return house;
-                }
-            }
-            return House.None;
+            return _houses.FirstOrDefault(
+                house => predicate(GetPositionsInHouse(pos, house))
+                );
         }
 
         public static House RowOrCol(params Position[] positions)
