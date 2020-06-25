@@ -58,26 +58,26 @@ namespace UI.BlazorWASM.Providers
             Color1 = Color.First;
             Color2 = Color.Second;
         }
-        private ClickableActionArgs CreateArgs(MouseEventArgs e, int x, int y)
+        private ClickableActionArgs CreateArgs(MouseEventArgs e, Position pos)
         {
             return new ClickableActionArgs
             {
                 MouseEventArgs = e,
-                Pos = new Position(x, y),
+                Pos = pos,
                 Value = Value,
                 Color1 = Color1,
                 Color2 = Color2
             };
         }
 
-        public void OnLeftClick(MouseEventArgs e, int x, int y)
+        public void OnLeftClick(MouseEventArgs e, Position pos)
         {
-            ClickableAction.LeftClickAction(CreateArgs(e, x, y));
+            ClickableAction.LeftClickAction(CreateArgs(e, pos));
         }
 
-        public void OnRightClick(MouseEventArgs e, int x, int y)
+        public void OnRightClick(MouseEventArgs e, Position pos)
         {
-            ClickableAction.RightClickAction(CreateArgs(e, x, y));
+            ClickableAction.RightClickAction(CreateArgs(e, pos));
         }
     }
 }

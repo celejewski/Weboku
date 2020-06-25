@@ -13,7 +13,7 @@ namespace UI.BlazorWASM.Providers
         void SetClickableAction(IClickableAction clickableAction);
         IClickableAction ClickableAction { get; }
 
-        void OnLeftClick(MouseEventArgs e, int x, int y);
-        void OnRightClick(MouseEventArgs e, int x, int y);
+        void OnLeftClick(MouseEventArgs e, Position pos);
+        void OnRightClick(MouseEventArgs e, Position pos);
     }
 }

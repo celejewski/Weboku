@@ -1,7 +1,7 @@
 ﻿@inject CellColorProvider CellColorProvider
 
 <Grid9x9Component>
-    <div class="cell-color @CellColorProvider.GetCssClass(context.x, context.y)"></div>
+    <div class="cell-color @CellColorProvider.GetCssClass(context)"></div>
 </Grid9x9Component>
 
 @code { 

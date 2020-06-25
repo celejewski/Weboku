@@ -13,9 +13,9 @@ namespace UI.BlazorWASM.Providers
 
         public Color GetColor(int x, int y) => _cellColors[x, y];
 
-        public string GetCssClass(int x, int y)
+        public string GetCssClass(Position pos)
         {
-            return CellColorConverter.ToCssClass(_cellColors[x, y]);
+            return CellColorConverter.ToCssClass(_cellColors[pos.x, pos.y]);
         }
         public void SetColor(int x, int y, Color color)
         {

@@ -1,16 +1,13 @@
 ﻿<div class="layer grid-9x9 border-layer">
-    @for( int i = 0; i < 9; i++ )
+    @foreach( var pos in Position.All )
     {
-        @for( int j = 0; j < 9; j++ )
-        {
-            <div class="border-layer__cell"></div>
-        }
+        <div class="border-layer__cell"></div>
     }
 </div>
 
 <div class="layer grid-3x3 border-layer">
-    @for( int i = 0; i < 9; i++ )
-    {
-    <div class="border-layer__block"></div>
+    @foreach (var block in Position.Blocks)
+    { 
+        <div class="border-layer__block"></div>
     }
 </div>

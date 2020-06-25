@@ -1,52 +1,38 @@
 ﻿<div class="layer grid-9x9">
-    @for( int y = 0; y < 9; y++ )
+    @foreach( var pos in Position.All )
     {
-        for( int x = 0; x < 9; x++ )
-        {
-            int block = (y / 3) * 3 + (x / 3);
-            string blockParity = block % 2 == 1 ? "even" : "odd";
-            string cornerStyle = GetCornerStyle(x, y);
-            <div class="grid-9x9__cell 
-                        grid-9x9__cell--@blockParity
-                        @cornerStyle">
-                @ChildContent((x, y))
-            </div>
-        }
+        string blockParity = pos.block % 2 == 1 ? "even" : "odd";
+        <div class="grid-9x9__cell
+                    grid-9x9__cell--@blockParity
+                    @GetCornerStyle(pos)">
+            @ChildContent(pos)
+        </div>
     }
 </div>
 
 @code {
     [Parameter]
-    public RenderFragment<(int x, int y)> ChildContent { get; set; }
+    public RenderFragment<Position> ChildContent { get; set; }
 
-    private string GetCornerStyle(int x, int y)
+    private string GetCornerStyle(Position pos)
     {
-        if (y == 0)
+        if( pos.y == 0 && pos.x == 0 )
         {
-            if (x == 0)
-            {
-                return "grid-9x9__cell--top-left-corner";
-            }
-
-            if ( x == 8)
-            {
-                return "grid-9x9__cell--top-right-corner";
-            }
+            return "grid-9x9__cell--top-left-corner";
         }
-
-        if (y == 8)
+        else if( pos.y == 0 && pos.x == 8 )
         {
-            if( x == 0 )
-            {
-                return "grid-9x9__cell--bottom-left-corner";
-            }
-
-            if( x == 8 )
-            {
-                return "grid-9x9__cell--bottom-right-corner";
-            }
+            return "grid-9x9__cell--top-right-corner";
         }
-
+        else if( pos.y == 8 && pos.x == 0 )
+        {
+            return "grid-9x9__cell--bottom-left-corner";
+        }
+        else if(pos.y == 8 && pos.x == 8 )
+        {
+            return "grid-9x9__cell--bottom-right-corner";
+        }
+    
         return string.Empty;
     }
 }

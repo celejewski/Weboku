@@ -2,8 +2,8 @@
 
 <Grid9x9Component>
     <div class="clickable"
-         @onclick="@((e) => ClickableActionProvider.OnLeftClick(e, context.x, context.y))"
-         @oncontextmenu="@((e) => ClickableActionProvider.OnRightClick(e, context.x, context.y))">
+         @onclick="@((e) => ClickableActionProvider.OnLeftClick(e, context))"
+         @oncontextmenu="@((e) => ClickableActionProvider.OnRightClick(e, context))">
     </div>
 </Grid9x9Component>
 
