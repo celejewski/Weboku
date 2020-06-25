@@ -16,6 +16,8 @@ namespace UI.BlazorWASM.Hints
             NakedSingle,
             HiddenSingle,
             LockedCandidatesPointing,
+            LockedCandidatesClaimingRow,
+            LockedCandidatesClaimingCol,
         };
         private readonly static List<IEnumerable<Position>> _indexesFromAllHouses
             = new List<IEnumerable<Position>>();
@@ -122,7 +124,68 @@ namespace UI.BlazorWASM.Hints
             return null;
         }
 
+        private static ISolvingTechnique LockedCandidatesClaimingRow(IGrid grid)
+        {
+            foreach( var value in InputValue.NonEmpty )
+            {
+                foreach( var row in Position.Rows )
+                {
+                    var positionsInRow = row.Where(pos => grid.HasCandidate(pos, value));
 
+                    if (!positionsInRow.Any())
+                    {
+                        continue;
+                    }
+
+                    var first = positionsInRow.First();
+                    if (positionsInRow.Any(pos => pos.block != first.block))
+                    {
+                        continue;
+                    }
+
+                    var positionsInBlock = Position.Blocks[first.block]
+                        .Where(pos => grid.HasCandidate(pos, value));
+
+                    var positionsToRemove = positionsInBlock.Except(positionsInRow);
+                    if (positionsToRemove.Any())
+                    {
+                        return new LockedCandidatesClaiming(value, positionsToRemove, House.Row);
+                    }
+                }
+            }
+            return null;
+        }
+
+        private static ISolvingTechnique LockedCandidatesClaimingCol(IGrid grid)
+        {
+            foreach( var value in InputValue.NonEmpty )
+            {
+                foreach( var col in Position.Cols )
+                {
+                    var positionsInCol = col.Where(pos => grid.HasCandidate(pos, value));
+                    if (!positionsInCol.Any())
+                    {
+                        continue;
+                    }
+
+                    var first = positionsInCol.First();
+                    if (positionsInCol.Any(pos => pos.block != first.block))
+                    {
+                        continue;
+                    }
+
+                    var positionsInBlock = Position.Blocks[first.block]
+                        .Where(pos => grid.HasCandidate(pos, value));
+
+                    var positionsToRemove = positionsInBlock.Except(positionsInCol);
+                    if (positionsToRemove.Any())
+                    {
+                        return new LockedCandidatesClaiming(value, positionsToRemove, House.Col);
+                    }
+                }
+            }
+            return null;
+        }
 
         private static bool AreInRow(IEnumerable<Position> positons)
         {
