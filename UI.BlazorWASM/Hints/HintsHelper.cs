@@ -19,7 +19,7 @@ namespace UI.BlazorWASM.Hints
             };
         }
 
-        private static IEnumerable<House> _houses = new[] { House.Row, House.Col, House.Block };
+        private static readonly IEnumerable<House> _houses = new[] { House.Row, House.Col, House.Block };
         public static House HouseFirstOrDefault(Position pos, Predicate<IEnumerable<Position>> predicate)
         {
             return _houses.FirstOrDefault(
