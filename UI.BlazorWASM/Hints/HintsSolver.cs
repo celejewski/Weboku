@@ -19,6 +19,7 @@ namespace UI.BlazorWASM.Hints
             LockedCandidatesClaimingRow,
             LockedCandidatesClaimingCol,
             NakedPair,
+            NakedSubset,
         };
         private readonly static List<IEnumerable<Position>> _indexesFromAllHouses
             = new List<IEnumerable<Position>>();
@@ -127,20 +128,19 @@ namespace UI.BlazorWASM.Hints
 
         private static ISolvingTechnique LockedCandidatesClaimingRow(IGrid grid)
         {
-            Console.WriteLine("LockedCandidatesClaimingRow");
             foreach( var value in InputValue.NonEmpty )
             {
                 foreach( var row in Position.Rows )
                 {
                     var positionsInRow = row.Where(pos => grid.HasCandidate(pos, value));
 
-                    if (!positionsInRow.Any())
+                    if( !positionsInRow.Any() )
                     {
                         continue;
                     }
 
                     var first = positionsInRow.First();
-                    if (positionsInRow.Any(pos => pos.block != first.block))
+                    if( positionsInRow.Any(pos => pos.block != first.block) )
                     {
                         continue;
                     }
@@ -149,31 +149,29 @@ namespace UI.BlazorWASM.Hints
                         .Where(pos => grid.HasCandidate(pos, value));
 
                     var positionsToRemove = positionsInBlock.Except(positionsInRow);
-                    if (positionsToRemove.Any())
+                    if( positionsToRemove.Any() )
                     {
                         return new LockedCandidatesClaiming(value, positionsToRemove, House.Row);
                     }
                 }
             }
-            Console.WriteLine("LockedCandidatesClaimingRow end");
             return null;
         }
 
         private static ISolvingTechnique LockedCandidatesClaimingCol(IGrid grid)
         {
-            Console.WriteLine("LockedCandidatesClaimingCol");
             foreach( var value in InputValue.NonEmpty )
             {
                 foreach( var col in Position.Cols )
                 {
                     var positionsInCol = col.Where(pos => grid.HasCandidate(pos, value));
-                    if (!positionsInCol.Any())
+                    if( !positionsInCol.Any() )
                     {
                         continue;
                     }
 
                     var first = positionsInCol.First();
-                    if (positionsInCol.Any(pos => pos.block != first.block))
+                    if( positionsInCol.Any(pos => pos.block != first.block) )
                     {
                         continue;
                     }
@@ -182,13 +180,12 @@ namespace UI.BlazorWASM.Hints
                         .Where(pos => grid.HasCandidate(pos, value));
 
                     var positionsToRemove = positionsInBlock.Except(positionsInCol);
-                    if (positionsToRemove.Any())
+                    if( positionsToRemove.Any() )
                     {
                         return new LockedCandidatesClaiming(value, positionsToRemove, House.Col);
                     }
                 }
             }
-            Console.WriteLine("LockedCandidatesClaimingCol end");
             return null;
         }
 
@@ -210,15 +207,15 @@ namespace UI.BlazorWASM.Hints
             foreach( var house in _indexesFromAllHouses )
             {
                 var filteredPositions = house.Where(pos => input.CandidatesCount(pos) == 2);
-                foreach( var pos1 in filteredPositions)
+                foreach( var pos1 in filteredPositions )
                 {
                     var candidates = InputValue.NonEmpty.Where(value => input.HasCandidate(pos1, value));
-                    if (!candidates.Any())
+                    if( !candidates.Any() )
                     {
                         continue;
                     }
                     var filtered = filteredPositions.Where(pos => candidates.All(value => input.HasCandidate(pos, value)));
-                    if (filtered.Count() == 2)
+                    if( filtered.Count() == 2 )
                     {
                         var positionsInHouses = HintsHelper.GetHouses(filtered)
                             .SelectMany(house => HintsHelper.GetPositionsInHouse(pos1, house));
@@ -226,7 +223,7 @@ namespace UI.BlazorWASM.Hints
                         var positionsToRemoveFrom = positionsInHouses
                             .Where(pos => candidates.Any(value => input.HasCandidate(pos, value)))
                             .Except(filtered);
-                        if(positionsToRemoveFrom.Any())
+                        if( positionsToRemoveFrom.Any() )
                         {
                             return new NakedPair(filtered, candidates);
                         }
@@ -234,6 +231,73 @@ namespace UI.BlazorWASM.Hints
                 }
             }
 
+            return null;
+        }
+
+        private static ISolvingTechnique NakedSubset(IGrid input)
+        {
+            for( int depth = 2; depth < 5; depth++ )
+            {
+                foreach( var house in _indexesFromAllHouses )
+                {
+                    if( NakedSubsetStep(input, new List<Position>(), new HashSet<InputValue>(), house, depth) is NakedSubset subset )
+                    {
+                        return subset;
+                    }
+                }
+            }
+            return null;
+        }
+
+        private static ISolvingTechnique NakedSubsetStep(
+            IGrid input,
+            List<Position> positions,
+            HashSet<InputValue> values,
+            IEnumerable<Position> house,
+            int depth)
+        {
+            if( values.Count > depth )
+            {
+                return null;
+            }
+
+            if( positions.Count == depth )
+            {
+                var first = positions.First();
+                var positionsSeenBy = HintsHelper.GetHouses(positions)
+                    .SelectMany(house => HintsHelper.GetPositionsInHouse(first, house))
+                    .Except(positions);
+
+                if( values.Any(value => positionsSeenBy.Any(pos => input.HasCandidate(pos, value))))
+                {
+                    return new NakedSubset(positions, values);
+                }
+            }
+
+            var positionsInHouse = house
+                .Where(pos => !input.HasValue(pos) && input.CandidatesCount(pos) <= depth)
+                .Except(positions);
+
+            foreach( var pos in positionsInHouse )
+            {
+                var positionsNew = new List<Position>(positions)
+                {
+                    pos
+                };
+                var valuesNew = new HashSet<InputValue>(values);
+                foreach( var value in InputValue.NonEmpty )
+                {
+                    if( input.HasCandidate(pos, value) )
+                    {
+                        valuesNew.Add(value);
+                    }
+                }
+
+                if( NakedSubsetStep(input, positionsNew, valuesNew, house, depth) is NakedSubset subset )
+                {
+                    return subset;
+                }
+            }
             return null;
         }
         #endregion
