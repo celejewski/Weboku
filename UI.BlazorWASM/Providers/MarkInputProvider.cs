@@ -19,7 +19,7 @@ namespace UI.BlazorWASM.Providers
             OnChanged?.Invoke();
         }
 
-        public Color GetColor(int x, int y) => _colors[x, y];
+        public Color GetColor(Position pos) => _colors[pos.x, pos.y];
 
         public void ClearColors()
         {
