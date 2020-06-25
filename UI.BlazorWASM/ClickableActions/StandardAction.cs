@@ -10,7 +10,11 @@ namespace UI.BlazorWASM.ClickableActions
         private readonly CellColorProvider _cellColorProvider;
         private readonly IGridProvider _gridProvider;
 
-        public StandardAction(IGridHistoryManager gridHistoryManager, CellColorProvider cellColorProvider, IGridProvider gridProvider)
+        public StandardAction(
+            IGridHistoryManager gridHistoryManager, 
+            CellColorProvider cellColorProvider, 
+            IGridProvider gridProvider
+            )
         {
             _gridHistoryManager = gridHistoryManager;
             _cellColorProvider = cellColorProvider;
@@ -29,7 +33,8 @@ namespace UI.BlazorWASM.ClickableActions
                 return;
             }
 
-            if( args.Value == InputValue.Empty || _gridProvider.GetValue(args.Pos) == InputValue.Empty )
+            if( args.Value == InputValue.Empty 
+                || !_gridProvider.HasValue(args.Pos))
             {
                 _gridHistoryManager.Save();
                 _gridProvider.SetValue(args.Pos, args.Value);
@@ -48,8 +53,8 @@ namespace UI.BlazorWASM.ClickableActions
                 return;
             }
 
-
-            if( _gridProvider.GetValue(args.Pos) != InputValue.Empty || args.Value == InputValue.Empty )
+            if( _gridProvider.HasValue(args.Pos) 
+                || args.Value == InputValue.Empty )
             {
                 return;
             }
