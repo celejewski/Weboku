@@ -42,22 +42,21 @@ namespace Core.Solvers
         }
         private static IGrid FullHouse(IGrid input)
         {
-            var grid = input.Clone();
             foreach( var indexes in GetIndexesFromAllHouses() )
             {
-                if (indexes.Count(index => grid.HasValue(index)) == 8)
+                if (indexes.Count(index => input.HasValue(index)) == 8)
                 {
+                    var output = input.Clone();
                     var value = InputValue.NonEmpty.First(
-                        value => indexes.All(index => grid.GetValue(index) != value));
-                    var pos = indexes.First(index => !grid.HasValue(index));
+                        value => indexes.All(index => output.GetValue(index) != value));
+                    var pos = indexes.First(index => !output.HasValue(index));
 
-                    grid.SetValue(pos, value);
-                    return grid;
+                    output.SetValue(pos, value);
+                    return output;
                 }
             }
             return null;
         }
-
         private static IGrid NakedSingle(IGrid input)
         {
             foreach( var pos in Position.All )
@@ -65,39 +64,34 @@ namespace Core.Solvers
                 if (!input.HasValue(pos)
                     && input.CandidatesCount(pos) == 1)
                 {
-                    var grid = input.Clone();
-                    var value = InputValue.NonEmpty.First(value => grid.HasCandidate(pos, value));
-                    grid.SetValue(pos, value);
+                    var output = input.Clone();
+                    var value = InputValue.NonEmpty.First(value => output.HasCandidate(pos, value));
+                    output.SetValue(pos, value);
 
-                    return grid;
+                    return output;
                 }
             }
             return null;
-        }
-        
+        }        
         private static IGrid HiddenSingle(IGrid input)
         {
             foreach( var indexes in GetIndexesFromAllHouses() )
             {
                 foreach( var value in InputValue.NonEmpty )
                 {
-                    var isHiddenSingle = indexes.Count(index => input.HasCandidate(index, value)) == 1;
-                    if (!isHiddenSingle)
+                    if (indexes.Count(index => input.HasCandidate(index, value)) == 1 )
                     {
-                        continue;
+                        var candidate = indexes.First(index => input.HasCandidate(index, value));
+                        var output = input.Clone();
+                        output.SetValue(candidate, value);
+                        return output;
                     }
-                    var first = indexes.First(index => input.HasCandidate(index, value));
-                    var grid = input.Clone();
-                    grid.SetValue(first, value);
-                    return grid;
                 }
             }
             return null;
         }
-
         static SmartSolver()
         {
-
             _indexesFromAllHouses.AddRange(Position.Blocks
                 .Concat(Position.Cols)
                 .Concat(Position.Rows));
