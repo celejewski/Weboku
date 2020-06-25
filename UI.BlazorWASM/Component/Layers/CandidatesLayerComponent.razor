@@ -1,5 +1,9 @@
-﻿<Grid9x9x9Component>
-    <CandidatesComponent X="context.x"
-                         Y="context.y"
-                         Z="context.z" />
-</Grid9x9x9Component>
+﻿<Grid9x9Component>
+    <div class="candidates-grid">
+        @foreach( var value in InputValue.NonEmpty )
+        {
+            <CandidatesComponent Pos="context"
+                                 Value="value" />
+        }
+    </div>
+</Grid9x9Component>
