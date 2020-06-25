@@ -34,6 +34,7 @@ namespace UI.BlazorWASM.Providers
                 yield return new FindIncorrectSolution(_informer);
                 yield return new FillMissingCandidates();
                 yield return HintsSolver.NextStep(_gridProvider.Grid);
+                yield return new NotFound();
             }
         }
 
