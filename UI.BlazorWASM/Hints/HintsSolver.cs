@@ -19,6 +19,7 @@ namespace UI.BlazorWASM.Hints
             LockedCandidatesClaimingRow,
             LockedCandidatesClaimingCol,
             NakedPair,
+            HiddenSubset,
             NakedSubset,
         };
         private readonly static List<IEnumerable<Position>> _indexesFromAllHouses
@@ -302,5 +303,68 @@ namespace UI.BlazorWASM.Hints
         }
         #endregion
 
+        #region Hidden Subset
+        public static ISolvingTechnique HiddenSubset(IGrid input)
+        {
+            for( int depth = 2; depth < 5; depth++ )
+            {
+                foreach( var house in _indexesFromAllHouses )
+                {
+                    if( HiddenSubsetStep(input, house, new HashSet<Position>(), new List<InputValue>(), depth) is HiddenSubset subset )
+                    {
+                        return subset;
+                    }
+                }
+            }
+            return null;
+        }
+
+        public static ISolvingTechnique HiddenSubsetStep(
+            IGrid input,
+            IEnumerable<Position> house,
+            HashSet<Position> positions,
+            List<InputValue> values,
+            int depth)
+        {
+            if (positions.Count > depth || values.Count > depth)
+            {
+                return null;
+            }
+
+            if (positions.Count == depth && values.Count == depth)
+            {
+                if (positions.Any(pos => InputValue.NonEmpty.Except(values).Any(value => input.HasCandidate(pos, value))))
+                {
+                    return new HiddenSubset(positions, values);
+                }
+            }
+
+            foreach( var value in InputValue.NonEmpty.Except(values) )
+            {
+                var positionsWithCandidate = house
+                    .Where(pos => input.HasCandidate(pos, value));
+
+                var count = positionsWithCandidate.Count();
+                if (count > depth || count == 0)
+                {
+                    continue;
+                }
+
+                var positionsNew = positions.ToHashSet();
+                foreach( var pos in positionsWithCandidate )
+                {
+                    positionsNew.Add(pos);
+                }
+                var valuesNew = values.ToList();
+                valuesNew.Add(value);
+                if (HiddenSubsetStep(input, house, positionsNew, valuesNew, depth) is HiddenSubset output)
+                {
+                    return output;
+                }
+            }
+
+            return null;
+        }
+        #endregion
     }
 }

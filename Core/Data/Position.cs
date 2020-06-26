@@ -62,5 +62,19 @@ namespace Core.Data
                 _blocks[pos.block].Add(pos);
             }
         }
+
+        public override int GetHashCode()
+        {
+            return y * 9 + x;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is Position pos)
+            {
+                return x == pos.x && y == pos.y;
+            }
+            return false;
+        }
     }
 }
