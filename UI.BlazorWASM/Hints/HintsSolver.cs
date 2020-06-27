@@ -19,8 +19,8 @@ namespace UI.BlazorWASM.Hints
             LockedCandidatesPointing,
             LockedCandidatesClaiming,
             NakedPair,
-            HiddenSubset,
             NakedSubset,
+            HiddenSubset,
         };
         public static ISolvingTechnique NextStep(IGrid input)
         {
@@ -156,16 +156,17 @@ namespace UI.BlazorWASM.Hints
             {
                 foreach( var house in Position.Houses )
                 {
-                    if( NakedSubsetStep(input, new List<Position>(), new HashSet<InputValue>(), house, depth) is NakedSubset subset )
+                    var result = NakedSubsetStep(input, new List<Position>(), new HashSet<InputValue>(), house, depth);
+                    if( result != default )
                     {
-                        return subset;
+                        return new NakedSubset(result.positions, result.values);
                     }
                 }
             }
             return null;
         }
 
-        private static ISolvingTechnique NakedSubsetStep(
+        private static (IEnumerable<Position> positions, IEnumerable<InputValue> values) NakedSubsetStep(
             IGrid input,
             List<Position> positions,
             HashSet<InputValue> values,
@@ -174,7 +175,7 @@ namespace UI.BlazorWASM.Hints
         {
             if( values.Count > depth )
             {
-                return null;
+                return default;
             }
 
             if( positions.Count == depth )
@@ -186,7 +187,7 @@ namespace UI.BlazorWASM.Hints
 
                 if( values.Any(value => positionsSeenBy.Any(pos => input.HasCandidate(pos, value))))
                 {
-                    return new NakedSubset(positions, values);
+                    return (positions, values);
                 }
             }
 
@@ -209,12 +210,13 @@ namespace UI.BlazorWASM.Hints
                     }
                 }
 
-                if( NakedSubsetStep(input, positionsNew, valuesNew, house, depth) is NakedSubset subset )
+                var result = NakedSubsetStep(input, positionsNew, valuesNew, house, depth);
+                if( result != default )
                 {
-                    return subset;
+                    return result;
                 }
             }
-            return null;
+            return default;
         }
         #endregion
 
