@@ -17,8 +17,7 @@ namespace UI.BlazorWASM.Hints
             NakedSingle,
             HiddenSingle,
             LockedCandidatesPointing,
-            LockedCandidatesClaimingRow,
-            LockedCandidatesClaimingCol,
+            LockedCandidatesClaiming,
             NakedPair,
             HiddenSubset,
             NakedSubset,
@@ -98,64 +97,19 @@ namespace UI.BlazorWASM.Hints
             return null;
         }
 
-        private static ISolvingTechnique LockedCandidatesClaimingRow(IGrid grid)
+        private static ISolvingTechnique LockedCandidatesClaiming(IGrid grid)
         {
             foreach( var value in InputValue.NonEmpty )
             {
-                foreach( var row in Position.Rows )
+                foreach( var house in Position.Rows.Concat(Position.Cols) )
                 {
-                    var positionsInRow = row.WithCandidate(grid, value);
-
-                    var count = positionsInRow.Count();
-                    if( count != 2 && count != 3 )
-                    {
-                        continue;
-                    }
-
-                    var first = positionsInRow.First();
-                    if( positionsInRow.Any(pos => pos.block != first.block) )
-                    {
-                        continue;
-                    }
-
-                    var positionsInBlock = Position.Blocks[first.block]
+                    var positionsInHouse = house.WithCandidate(grid, value);
+                    var positionsToRemove = Position.GetOtherPositionsSeenBy(positionsInHouse)
                         .WithCandidate(grid, value);
 
-                    var positionsToRemove = positionsInBlock.Except(positionsInRow);
                     if( positionsToRemove.Any() )
                     {
-                        return new LockedCandidatesClaiming(value, positionsToRemove, House.Row);
-                    }
-                }
-            }
-            return null;
-        }
-
-        private static ISolvingTechnique LockedCandidatesClaimingCol(IGrid grid)
-        {
-            foreach( var value in InputValue.NonEmpty )
-            {
-                foreach( var col in Position.Cols )
-                {
-                    var positionsInCol = col.Where(pos => grid.HasCandidate(pos, value));
-                    if( !positionsInCol.Any() )
-                    {
-                        continue;
-                    }
-
-                    var first = positionsInCol.First();
-                    if( positionsInCol.Any(pos => pos.block != first.block) )
-                    {
-                        continue;
-                    }
-
-                    var positionsInBlock = Position.Blocks[first.block]
-                        .Where(pos => grid.HasCandidate(pos, value));
-
-                    var positionsToRemove = positionsInBlock.Except(positionsInCol);
-                    if( positionsToRemove.Any() )
-                    {
-                        return new LockedCandidatesClaiming(value, positionsToRemove, House.Col);
+                        return new LockedCandidatesClaiming(value, positionsToRemove, Position.GetHouse(positionsInHouse));
                     }
                 }
             }

@@ -73,6 +73,28 @@ namespace Core.Data
                 }
             }
         }
+
+        public static House GetHouse(IEnumerable<Position> positions)
+        {
+            if( !positions.Any() )
+            {
+                return House.None;
+            }
+            var first = positions.First();
+            if( positions.All(pos => pos.x == first.x) )
+            {
+                return House.Col;
+            }
+            if (positions.All(pos=>pos.y==first.y))
+            {
+                return House.Row;
+            }
+            if(positions.All(pos=>pos.block==first.block))
+            {
+                return House.Block;
+            }
+            return House.None;
+        }
         static Position()
         {
             for( int y = 0; y < 9; y++ )
