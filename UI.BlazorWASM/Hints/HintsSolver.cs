@@ -115,17 +115,6 @@ namespace UI.BlazorWASM.Hints
             }
             return null;
         }
-
-        private static bool AreInRow(IEnumerable<Position> positons)
-        {
-            return positons.Any()
-                && positons.All(pos => pos.y == positons.First().y);
-        }
-        private static bool AreInCol(IEnumerable<Position> positons)
-        {
-            return positons.Any()
-                && positons.All(pos => pos.x == positons.First().x);
-        }
         #endregion
 
         #region Naked Subset
