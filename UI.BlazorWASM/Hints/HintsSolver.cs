@@ -120,35 +120,38 @@ namespace UI.BlazorWASM.Hints
         #endregion
 
         #region Naked Subset
-        private static ISolvingTechnique NakedPair(IGrid input)
+        private static ISolvingTechnique NakedPair(IGrid grid)
         {
-            var result = NakedSubset(input, 2);
+            var result = NakedSubset(grid, 2);
             return result != default
                 ? new NakedPair(result.positions, result.values) 
                 : null;
         }
 
-        private static ISolvingTechnique NakedTriple(IGrid input)
+        private static ISolvingTechnique NakedTriple(IGrid grid)
         {
-            var result = NakedSubset(input, 3);
+            var result = NakedSubset(grid, 3);
             return result != default
                 ? new NakedSubset(result.positions, result.values)
                 : null;
         }
 
-        private static ISolvingTechnique NakedQuadruple(IGrid input)
+        private static ISolvingTechnique NakedQuadruple(IGrid grid)
         {
-            var result = NakedSubset(input, 4);
+            var result = NakedSubset(grid, 4);
             return result != default
                 ? new NakedSubset(result.positions, result.values)
                 : null;
         }
 
-        private static (IEnumerable<Position> positions, IEnumerable<InputValue> values) NakedSubset(IGrid input, int depth)
+        private static (IEnumerable<Position> positions, IEnumerable<InputValue> values) NakedSubset(IGrid grid, int depth)
         {
             foreach( var house in Position.Houses )
             {
-                var result = NakedSubsetStep(input, new List<Position>(), new HashSet<InputValue>(), house, depth);
+                var positionsInHouse = house
+                    .WithoutValue(grid)
+                    .Where(pos => grid.CandidatesCount(pos) <= depth);
+                var result = NakedSubsetStep(grid, new List<Position>(), new HashSet<InputValue>(), positionsInHouse, depth);
                 if( result != default )
                 {
                     return result;
@@ -158,7 +161,7 @@ namespace UI.BlazorWASM.Hints
         }
 
         private static (IEnumerable<Position> positions, IEnumerable<InputValue> values) NakedSubsetStep(
-            IGrid input,
+            IGrid grid,
             List<Position> positions,
             HashSet<InputValue> values,
             IEnumerable<Position> house,
@@ -171,34 +174,22 @@ namespace UI.BlazorWASM.Hints
 
             if( positions.Count == depth )
             {
-                var first = positions.First();
                 var positionsSeenBy = Position.GetOtherPositionsSeenBy(positions);
-
-                if( values.Any(value => positionsSeenBy.WithCandidate(input, value).Any()))
-                {
-                    return (positions, values);
-                }
-                else
-                {
-                    return default;
-                }
+                return values.Any(value => positionsSeenBy.WithCandidate(grid, value).Any())
+                    ? (positions, values) 
+                    : default;
             }
 
-            var positionsInHouse = house
-                .WithoutValue(input)
-                .Where(pos => input.CandidatesCount(pos) <= depth)
-                .Except(positions);
-
-            foreach( var pos in positionsInHouse )
+            foreach( var pos in house.Except(positions) )
             {
                 var positionsNew = new List<Position>(positions)
                 {
                     pos
                 };
                 var valuesNew = new HashSet<InputValue>(values);
-                valuesNew.UnionWith(input.GetCandidates(pos));
+                valuesNew.UnionWith(grid.GetCandidates(pos));
 
-                var result = NakedSubsetStep(input, positionsNew, valuesNew, house, depth);
+                var result = NakedSubsetStep(grid, positionsNew, valuesNew, house, depth);
                 if( result != default )
                 {
                     return result;
