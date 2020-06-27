@@ -59,13 +59,13 @@ namespace UI.BlazorWASM.Hints
             }
             return null;
         }
-        private static ISolvingTechnique HiddenSingle(IGrid input)
+        private static ISolvingTechnique HiddenSingle(IGrid grid)
         {
-            foreach( var indexes in Position.Houses )
+            foreach( var positions in Position.Houses )
             {
                 foreach( var value in InputValue.NonEmpty )
                 {
-                    var positionsWithCandidate = indexes.WithCandidate(input, value);
+                    var positionsWithCandidate = positions.WithCandidate(grid, value);
                     if( positionsWithCandidate.Count() == 1 )
                     {
                         var pos = positionsWithCandidate.First();
@@ -85,17 +85,9 @@ namespace UI.BlazorWASM.Hints
                 foreach( var block in Position.Blocks )
                 {
                     var positionsInBlock = block.WithCandidate(grid, value);
-
-                    var count = positionsInBlock.Count();
-                    if( count != 2 && count != 3 )
-                    {
-                        continue;
-                    }
-
-                    var positionsInHouse = Position.GetPositionsSeenBy(positionsInBlock)
+                    var positionsToRemove = Position.GetOtherPositionsSeenBy(positionsInBlock)
                         .WithCandidate(grid, value);
 
-                    var positionsToRemove = positionsInHouse.Except(positionsInBlock);
                     if( positionsToRemove.Any() )
                     {
                         var first = positionsInBlock.First();
