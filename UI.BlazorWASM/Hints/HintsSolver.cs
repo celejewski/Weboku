@@ -92,29 +92,14 @@ namespace UI.BlazorWASM.Hints
                         continue;
                     }
 
-                    var first = positionsInBlock.First();
-                    if( AreInRow(positionsInBlock) )
+                    var positionsInHouse = Position.GetPositionsSeenBy(positionsInBlock)
+                        .WithCandidate(grid, value);
+
+                    var positionsToRemove = positionsInHouse.Except(positionsInBlock);
+                    if( positionsToRemove.Any() )
                     {
-                        var positionsInRow = Position.Rows[first.y]
-                            .WithCandidate(grid, value);
-
-                        var positionsToRemove = positionsInRow.Except(positionsInBlock);
-                        if( positionsToRemove.Any() )
-                        {
-                            return new LockedCandidatesPointing(first.block, value, positionsToRemove);
-                        }
-                    }
-
-                    if( AreInCol(positionsInBlock) )
-                    {
-                        var positionsInCol = Position.Cols[first.x]
-                            .WithCandidate(grid, value);
-
-                        var positionsToRemove = positionsInCol.Except(positionsInBlock);
-                        if( positionsToRemove.Any() )
-                        {
-                            return new LockedCandidatesPointing(first.block, value, positionsToRemove);
-                        }
+                        var first = positionsInBlock.First();
+                        return new LockedCandidatesPointing(first.block, value, positionsToRemove);
                     }
                 }
             }

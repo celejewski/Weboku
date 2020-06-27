@@ -41,6 +41,38 @@ namespace Core.Data
         private static readonly List<IEnumerable<Position>> _houses;
         public static IEnumerable<IEnumerable<Position>> Houses => _houses;
 
+        public static IEnumerable<Position> GetPositionsSeenBy(IEnumerable<Position> positions)
+        {
+            if (!positions.Any())
+            {
+                yield break;
+            }
+
+            var first = positions.First();
+            if (positions.All(pos => pos.x == first.x))
+            {
+                foreach( var pos in Cols[first.x] )
+                {
+                    yield return pos;
+                }
+            }
+
+            if (positions.All(pos => pos.y == first.y))
+            {
+                foreach( var pos in Rows[first.y] )
+                {
+                    yield return pos;
+                }
+            }
+
+            if (positions.All(pos => pos.block == first.block))
+            {
+                foreach( var pos in Blocks[first.block] )
+                {
+                    yield return pos;
+                }
+            }
+        }
         static Position()
         {
             for( int y = 0; y < 9; y++ )
