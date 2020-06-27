@@ -19,7 +19,8 @@ namespace UI.BlazorWASM.Hints
             LockedCandidatesPointing,
             LockedCandidatesClaiming,
             NakedPair,
-            NakedSubset,
+            NakedTriple,
+            NakedQuadruple,
             HiddenSubset,
         };
         public static ISolvingTechnique NextStep(IGrid input)
@@ -120,32 +121,39 @@ namespace UI.BlazorWASM.Hints
         #region Naked Subset
         private static ISolvingTechnique NakedPair(IGrid input)
         {
+            var result = NakedSubset(input, 2);
+            return result != default
+                ? new NakedPair(result.positions, result.values) 
+                : null;
+        }
+
+        private static ISolvingTechnique NakedTriple(IGrid input)
+        {
+            var result = NakedSubset(input, 3);
+            return result != default
+                ? new NakedSubset(result.positions, result.values)
+                : null;
+        }
+
+        private static ISolvingTechnique NakedQuadruple(IGrid input)
+        {
+            var result = NakedSubset(input, 4);
+            return result != default
+                ? new NakedSubset(result.positions, result.values)
+                : null;
+        }
+
+        private static (IEnumerable<Position> positions, IEnumerable<InputValue> values) NakedSubset(IGrid input, int depth)
+        {
             foreach( var house in Position.Houses )
             {
-                var depth = 2;
                 var result = NakedSubsetStep(input, new List<Position>(), new HashSet<InputValue>(), house, depth);
                 if( result != default )
                 {
-                    return new NakedPair(result.positions, result.values);
+                    return result;
                 }
             }
-            return null;
-        }
-
-        private static ISolvingTechnique NakedSubset(IGrid input)
-        {
-            for( int depth = 3; depth < 5; depth++ )
-            {
-                foreach( var house in Position.Houses )
-                {
-                    var result = NakedSubsetStep(input, new List<Position>(), new HashSet<InputValue>(), house, depth);
-                    if( result != default )
-                    {
-                        return new NakedSubset(result.positions, result.values);
-                    }
-                }
-            }
-            return null;
+            return default;
         }
 
         private static (IEnumerable<Position> positions, IEnumerable<InputValue> values) NakedSubsetStep(
