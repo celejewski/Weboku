@@ -22,13 +22,14 @@ namespace UI.BlazorWASM.Hints
             HiddenSubset,
             NakedSubset,
         };
-        private readonly static List<IEnumerable<Position>> _indexesFromAllHouses
-            = new List<IEnumerable<Position>>();
+        private readonly static List<IEnumerable<Position>> _indexesFromAllHouses;
         static HintsSolver()
         {
-            _indexesFromAllHouses.AddRange(Position.Blocks
+            _indexesFromAllHouses = new List<IEnumerable<Position>>(
+                Position.Blocks
                 .Concat(Position.Cols)
-                .Concat(Position.Rows));
+                .Concat(Position.Rows)
+                );
         }
         public static ISolvingTechnique NextStep(IGrid input)
         {
