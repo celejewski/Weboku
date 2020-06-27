@@ -20,8 +20,9 @@ namespace UI.BlazorWASM.Hints
             LockedCandidatesClaiming,
             NakedPair,
             NakedTriple,
+            HiddenPair,
             NakedQuadruple,
-            HiddenSubset,
+            HiddenTriple
         };
         public static ISolvingTechnique NextStep(IGrid input)
         {
@@ -211,22 +212,36 @@ namespace UI.BlazorWASM.Hints
         #endregion
 
         #region Hidden Subset
-        public static ISolvingTechnique HiddenSubset(IGrid input)
+        public static ISolvingTechnique HiddenPair(IGrid input)
         {
-            for( int depth = 2; depth < 5; depth++ )
-            {
-                foreach( var house in Position.Houses )
-                {
-                    if( HiddenSubsetStep(input, house, new HashSet<Position>(), new List<InputValue>(), depth) is HiddenSubset subset )
-                    {
-                        return subset;
-                    }
-                }
-            }
-            return null;
+            var result = HiddenSubset(input, 2);
+            return result != default
+                ? new HiddenPair(result.positions, result.values)
+                : default;
         }
 
-        public static ISolvingTechnique HiddenSubsetStep(
+        public static ISolvingTechnique HiddenTriple(IGrid input)
+        {
+            var result = HiddenSubset(input, 3);
+            return result != default
+                ? new HiddenSubset(result.positions, result.values)
+                : default;
+        }
+
+        public static (IEnumerable<Position> positions, IEnumerable<InputValue> values) HiddenSubset(IGrid input, int depth)
+        {
+            foreach( var house in Position.Houses )
+            {
+                var result = HiddenSubsetStep(input, house, new HashSet<Position>(), new List<InputValue>(), depth);
+                if(  result != default )
+                {
+                    return result;
+                }
+            }
+            return default;
+        }
+
+        public static (IEnumerable<Position> positions, IEnumerable<InputValue> values) HiddenSubsetStep(
             IGrid input,
             IEnumerable<Position> house,
             HashSet<Position> positions,
@@ -235,14 +250,14 @@ namespace UI.BlazorWASM.Hints
         {
             if (positions.Count > depth || values.Count > depth)
             {
-                return null;
+                return default;
             }
 
             if (positions.Count == depth && values.Count == depth)
             {
                 if (positions.Any(pos => InputValue.NonEmpty.Except(values).Any(value => input.HasCandidate(pos, value))))
                 {
-                    return new HiddenSubset(positions, values);
+                    return (positions, values);
                 }
             }
 
@@ -264,13 +279,14 @@ namespace UI.BlazorWASM.Hints
                 }
                 var valuesNew = values.ToList();
                 valuesNew.Add(value);
-                if (HiddenSubsetStep(input, house, positionsNew, valuesNew, depth) is HiddenSubset output)
+                var result = HiddenSubsetStep(input, house, positionsNew, valuesNew, depth);
+                if ( result != default)
                 {
-                    return output;
+                    return result;
                 }
             }
 
-            return null;
+            return default;
         }
         #endregion
     }
