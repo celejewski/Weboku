@@ -34,11 +34,11 @@ namespace Core.Helpers
         }
 
 
-        public static Positions WithCandidate(this Positions positions, IGrid grid, InputValue candidate)
+        public static Positions WithCandidate(this Positions positions, IGrid grid, InputValue value)
         {
             foreach( var pos in positions )
             {
-                if( grid.HasCandidate(pos, candidate))
+                if( grid.HasCandidate(pos, value))
                 {
                     yield return pos;
                 }

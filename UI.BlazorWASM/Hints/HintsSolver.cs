@@ -78,13 +78,13 @@ namespace UI.BlazorWASM.Hints
         #endregion
 
         #region Locked Candidates
-        private static ISolvingTechnique LockedCandidatesPointing(IGrid input)
+        private static ISolvingTechnique LockedCandidatesPointing(IGrid grid)
         {
             foreach( var value in InputValue.NonEmpty )
             {
                 foreach( var block in Position.Blocks )
                 {
-                    var positionsInBlock = block.Where(pos => input.HasCandidate(pos, value));
+                    var positionsInBlock = block.WithCandidate(grid, value);
 
                     var count = positionsInBlock.Count();
                     if( count != 2 && count != 3 )
@@ -96,11 +96,11 @@ namespace UI.BlazorWASM.Hints
                     if( AreInRow(positionsInBlock) )
                     {
                         var positionsInRow = Position.Rows[first.y]
-                            .Where(pos => input.HasCandidate(pos, value));
+                            .WithCandidate(grid, value);
 
-                        if( positionsInRow.Count() > count )
+                        var positionsToRemove = positionsInRow.Except(positionsInBlock);
+                        if( positionsToRemove.Any() )
                         {
-                            var positionsToRemove = positionsInRow.Except(positionsInBlock);
                             return new LockedCandidatesPointing(first.block, value, positionsToRemove);
                         }
                     }
@@ -108,11 +108,11 @@ namespace UI.BlazorWASM.Hints
                     if( AreInCol(positionsInBlock) )
                     {
                         var positionsInCol = Position.Cols[first.x]
-                            .Where(pos => input.HasCandidate(pos, value));
+                            .WithCandidate(grid, value);
 
-                        if( positionsInCol.Count() > count )
+                        var positionsToRemove = positionsInCol.Except(positionsInBlock);
+                        if( positionsToRemove.Any() )
                         {
-                            var positionsToRemove = positionsInCol.Except(positionsInBlock);
                             return new LockedCandidatesPointing(first.block, value, positionsToRemove);
                         }
                     }
@@ -127,9 +127,10 @@ namespace UI.BlazorWASM.Hints
             {
                 foreach( var row in Position.Rows )
                 {
-                    var positionsInRow = row.Where(pos => grid.HasCandidate(pos, value));
+                    var positionsInRow = row.WithCandidate(grid, value);
 
-                    if( !positionsInRow.Any() )
+                    var count = positionsInRow.Count();
+                    if( count != 2 && count != 3 )
                     {
                         continue;
                     }
@@ -141,7 +142,7 @@ namespace UI.BlazorWASM.Hints
                     }
 
                     var positionsInBlock = Position.Blocks[first.block]
-                        .Where(pos => grid.HasCandidate(pos, value));
+                        .WithCandidate(grid, value);
 
                     var positionsToRemove = positionsInBlock.Except(positionsInRow);
                     if( positionsToRemove.Any() )
