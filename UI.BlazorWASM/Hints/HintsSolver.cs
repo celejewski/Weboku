@@ -180,6 +180,10 @@ namespace UI.BlazorWASM.Hints
                 {
                     return (positions, values);
                 }
+                else
+                {
+                    return default;
+                }
             }
 
             var positionsInHouse = house
@@ -248,16 +252,20 @@ namespace UI.BlazorWASM.Hints
             List<InputValue> values,
             int depth)
         {
-            if (positions.Count > depth || values.Count > depth)
+            if (positions.Count > depth )
             {
                 return default;
             }
 
-            if (positions.Count == depth && values.Count == depth)
+            if (values.Count == depth)
             {
                 if (positions.Any(pos => InputValue.NonEmpty.Except(values).Any(value => input.HasCandidate(pos, value))))
                 {
                     return (positions, values);
+                }
+                else
+                {
+                    return default;
                 }
             }
 
