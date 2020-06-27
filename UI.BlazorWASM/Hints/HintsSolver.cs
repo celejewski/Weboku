@@ -174,18 +174,15 @@ namespace UI.BlazorWASM.Hints
 
             if( positions.Count == depth )
             {
-                var positionsSeenBy = Position.GetOtherPositionsSeenBy(positions);
-                return values.Any(value => positionsSeenBy.WithCandidate(grid, value).Any())
+                var positionsSeen = Position.GetOtherPositionsSeenBy(positions);
+                return values.Any(value => positionsSeen.WithCandidate(grid, value).Any())
                     ? (positions, values) 
                     : default;
             }
 
             foreach( var pos in house.Except(positions) )
             {
-                var positionsNew = new List<Position>(positions)
-                {
-                    pos
-                };
+                var positionsNew = new List<Position>(positions) { pos };
                 var valuesNew = new HashSet<InputValue>(values);
                 valuesNew.UnionWith(grid.GetCandidates(pos));
 
