@@ -122,37 +122,19 @@ namespace UI.BlazorWASM.Hints
         {
             foreach( var house in Position.Houses )
             {
-                var filteredPositions = house.Where(pos => input.CandidatesCount(pos) == 2);
-                foreach( var pos1 in filteredPositions )
+                var depth = 2;
+                var result = NakedSubsetStep(input, new List<Position>(), new HashSet<InputValue>(), house, depth);
+                if( result != default )
                 {
-                    var candidates = InputValue.NonEmpty.Where(value => input.HasCandidate(pos1, value));
-                    if( !candidates.Any() )
-                    {
-                        continue;
-                    }
-                    var filtered = filteredPositions.Where(pos => candidates.All(value => input.HasCandidate(pos, value)));
-                    if( filtered.Count() == 2 )
-                    {
-                        var positionsInHouses = HintsHelper.GetHouses(filtered)
-                            .SelectMany(house => HintsHelper.GetPositionsInHouse(pos1, house));
-
-                        var positionsToRemoveFrom = positionsInHouses
-                            .Where(pos => candidates.Any(value => input.HasCandidate(pos, value)))
-                            .Except(filtered);
-                        if( positionsToRemoveFrom.Any() )
-                        {
-                            return new NakedPair(filtered, candidates);
-                        }
-                    }
+                    return new NakedPair(result.positions, result.values);
                 }
             }
-
             return null;
         }
 
         private static ISolvingTechnique NakedSubset(IGrid input)
         {
-            for( int depth = 2; depth < 5; depth++ )
+            for( int depth = 3; depth < 5; depth++ )
             {
                 foreach( var house in Position.Houses )
                 {
