@@ -38,6 +38,9 @@ namespace Core.Data
         private static readonly List<List<Position>> _blocks = new List<List<Position>>();
         public static IReadOnlyList<IEnumerable<Position>> Blocks => _blocks;
 
+        private static readonly List<IEnumerable<Position>> _houses;
+        public static IEnumerable<IEnumerable<Position>> Houses => _houses;
+
         static Position()
         {
             for( int y = 0; y < 9; y++ )
@@ -61,6 +64,12 @@ namespace Core.Data
                 _cols[pos.x].Add(pos);
                 _blocks[pos.block].Add(pos);
             }
+
+            _houses = new List<IEnumerable<Position>>(
+                Blocks
+                .Concat(Cols)
+                .Concat(Rows)
+                );
         }
 
         public override int GetHashCode()

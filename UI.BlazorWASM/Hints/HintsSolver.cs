@@ -1,4 +1,5 @@
 ﻿using Core.Data;
+using Core.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -22,15 +23,6 @@ namespace UI.BlazorWASM.Hints
             HiddenSubset,
             NakedSubset,
         };
-        private readonly static List<IEnumerable<Position>> _indexesFromAllHouses;
-        static HintsSolver()
-        {
-            _indexesFromAllHouses = new List<IEnumerable<Position>>(
-                Position.Blocks
-                .Concat(Position.Cols)
-                .Concat(Position.Rows)
-                );
-        }
         public static ISolvingTechnique NextStep(IGrid input)
         {
             return _steps.Select(step => step(input))
@@ -39,15 +31,15 @@ namespace UI.BlazorWASM.Hints
         }
 
         #region Singles
-        private static ISolvingTechnique FullHouse(IGrid input)
+        private static ISolvingTechnique FullHouse(IGrid grid)
         {
-            foreach( var indexes in _indexesFromAllHouses )
+            foreach( var indexes in Position.Houses )
             {
-                if( indexes.Count(index => input.HasValue(index)) == 8 )
+                if( indexes.WithValue(grid).Count() == 8 )
                 {
                     var value = InputValue.NonEmpty.First(
-                        value => indexes.All(index => input.GetValue(index) != value));
-                    var pos = indexes.First(index => !input.HasValue(index));
+                        value => indexes.All(index => grid.GetValue(index) != value));
+                    var pos = indexes.First(index => !grid.HasValue(index));
 
                     return new FullHouse(pos, value);
                 }
@@ -69,13 +61,14 @@ namespace UI.BlazorWASM.Hints
         }
         private static ISolvingTechnique HiddenSingle(IGrid input)
         {
-            foreach( var indexes in _indexesFromAllHouses )
+            foreach( var indexes in Position.Houses )
             {
                 foreach( var value in InputValue.NonEmpty )
                 {
-                    if( indexes.Count(index => input.HasCandidate(index, value)) == 1 )
+                    var positionsWithCandidate = indexes.WithCandidate(input, value);
+                    if( positionsWithCandidate.Count() == 1 )
                     {
-                        var pos = indexes.First(index => input.HasCandidate(index, value));
+                        var pos = positionsWithCandidate.First();
                         return new HiddenSingle(pos, value);
                     }
                 }
@@ -206,7 +199,7 @@ namespace UI.BlazorWASM.Hints
         #region Naked Subset
         private static ISolvingTechnique NakedPair(IGrid input)
         {
-            foreach( var house in _indexesFromAllHouses )
+            foreach( var house in Position.Houses )
             {
                 var filteredPositions = house.Where(pos => input.CandidatesCount(pos) == 2);
                 foreach( var pos1 in filteredPositions )
@@ -240,7 +233,7 @@ namespace UI.BlazorWASM.Hints
         {
             for( int depth = 2; depth < 5; depth++ )
             {
-                foreach( var house in _indexesFromAllHouses )
+                foreach( var house in Position.Houses )
                 {
                     if( NakedSubsetStep(input, new List<Position>(), new HashSet<InputValue>(), house, depth) is NakedSubset subset )
                     {
@@ -309,7 +302,7 @@ namespace UI.BlazorWASM.Hints
         {
             for( int depth = 2; depth < 5; depth++ )
             {
-                foreach( var house in _indexesFromAllHouses )
+                foreach( var house in Position.Houses )
                 {
                     if( HiddenSubsetStep(input, house, new HashSet<Position>(), new List<InputValue>(), depth) is HiddenSubset subset )
                     {
