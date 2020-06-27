@@ -172,11 +172,9 @@ namespace UI.BlazorWASM.Hints
             if( positions.Count == depth )
             {
                 var first = positions.First();
-                var positionsSeenBy = HintsHelper.GetHouses(positions)
-                    .SelectMany(house => HintsHelper.GetPositionsInHouse(first, house))
-                    .Except(positions);
+                var positionsSeenBy = Position.GetOtherPositionsSeenBy(positions);
 
-                if( values.Any(value => positionsSeenBy.Any(pos => input.HasCandidate(pos, value))))
+                if( values.Any(value => positionsSeenBy.WithCandidate(input, value).Any()))
                 {
                     return (positions, values);
                 }
@@ -187,7 +185,8 @@ namespace UI.BlazorWASM.Hints
             }
 
             var positionsInHouse = house
-                .Where(pos => !input.HasValue(pos) && input.CandidatesCount(pos) <= depth)
+                .WithoutValue(input)
+                .Where(pos => input.CandidatesCount(pos) <= depth)
                 .Except(positions);
 
             foreach( var pos in positionsInHouse )
@@ -197,13 +196,7 @@ namespace UI.BlazorWASM.Hints
                     pos
                 };
                 var valuesNew = new HashSet<InputValue>(values);
-                foreach( var value in InputValue.NonEmpty )
-                {
-                    if( input.HasCandidate(pos, value) )
-                    {
-                        valuesNew.Add(value);
-                    }
-                }
+                valuesNew.UnionWith(input.GetCandidates(pos));
 
                 var result = NakedSubsetStep(input, positionsNew, valuesNew, house, depth);
                 if( result != default )

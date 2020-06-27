@@ -1,4 +1,6 @@
-﻿namespace Core.Data
+﻿using System.Collections.Generic;
+
+namespace Core.Data
 {
     public interface IGrid
     {
@@ -10,6 +12,7 @@
         bool HasValue(Position pos);
 
         bool HasCandidate(Position pos, InputValue value);
+        IEnumerable<InputValue> GetCandidates(Position pos);
         int CandidatesCount(Position pos);
 
         void AddCandidate(Position pos, InputValue value);

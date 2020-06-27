@@ -33,6 +33,16 @@ namespace Core.Helpers
             }
         }
 
+        public static Positions WithoutValue(this Positions positions, IGrid grid)
+        {
+            foreach( var pos in positions )
+            {
+                if( !grid.HasValue(pos) )
+                {
+                    yield return pos;
+                }
+            }
+        }
 
         public static Positions WithCandidate(this Positions positions, IGrid grid, InputValue value)
         {
