@@ -239,7 +239,9 @@ namespace UI.BlazorWASM.Hints
             }
             if (values.Count == depth)
             {
-                return positions.Any(pos => InputValue.NonEmpty.Except(values).Any(value => input.HasCandidate(pos, value)))
+                var isAnyCandidateAnywhereToRemove = positions.Any(
+                    pos => InputValue.NonEmpty.Except(values).Any(value => input.HasCandidate(pos, value)));
+                return isAnyCandidateAnywhereToRemove
                     ? (positions, values)
                     : default;
             }
