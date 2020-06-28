@@ -63,7 +63,6 @@ namespace UI.BlazorWASM.Hints
         private static ISolvingTechnique HiddenSingle(IGrid grid)
         {
             foreach( var positions in Position.Houses )
-            {
                 foreach( var value in InputValue.NonEmpty )
                 {
                     var positionsWithCandidate = positions.WithCandidate(grid, value);
@@ -73,7 +72,6 @@ namespace UI.BlazorWASM.Hints
                         return new HiddenSingle(pos, value);
                     }
                 }
-            }
             return null;
         }
         #endregion
@@ -82,7 +80,6 @@ namespace UI.BlazorWASM.Hints
         private static ISolvingTechnique LockedCandidatesPointing(IGrid grid)
         {
             foreach( var value in InputValue.NonEmpty )
-            {
                 foreach( var block in Position.Blocks )
                 {
                     var positionsInBlock = block.WithCandidate(grid, value);
@@ -95,14 +92,12 @@ namespace UI.BlazorWASM.Hints
                         return new LockedCandidatesPointing(first.block, value, positionsToRemove);
                     }
                 }
-            }
             return null;
         }
 
         private static ISolvingTechnique LockedCandidatesClaiming(IGrid grid)
         {
             foreach( var value in InputValue.NonEmpty )
-            {
                 foreach( var house in Position.Rows.Concat(Position.Cols) )
                 {
                     var positionsInHouse = house.WithCandidate(grid, value);
@@ -114,7 +109,6 @@ namespace UI.BlazorWASM.Hints
                         return new LockedCandidatesClaiming(value, positionsToRemove, Position.GetHouse(positionsInHouse));
                     }
                 }
-            }
             return null;
         }
         #endregion
@@ -151,11 +145,9 @@ namespace UI.BlazorWASM.Hints
                 var positionsInHouse = house
                     .WithoutValue(grid)
                     .Where(pos => grid.CandidatesCount(pos) <= depth);
+                
                 var result = NakedSubsetStep(grid, new List<Position>(), new HashSet<InputValue>(), positionsInHouse, depth);
-                if( result != default )
-                {
-                    return result;
-                }
+                if( result != default ) return result;
             }
             return default;
         }
@@ -167,11 +159,7 @@ namespace UI.BlazorWASM.Hints
             IEnumerable<Position> house,
             int depth)
         {
-            if( values.Count > depth )
-            {
-                return default;
-            }
-
+            if( values.Count > depth ) return default;
             if( positions.Count == depth )
             {
                 var positionsSeen = Position.GetOtherPositionsSeenBy(positions);
@@ -187,10 +175,7 @@ namespace UI.BlazorWASM.Hints
                 valuesNew.UnionWith(grid.GetCandidates(pos));
 
                 var result = NakedSubsetStep(grid, positionsNew, valuesNew, house, depth);
-                if( result != default )
-                {
-                    return result;
-                }
+                if( result != default ) return result;
             }
             return default;
         }
@@ -218,10 +203,7 @@ namespace UI.BlazorWASM.Hints
             foreach( var house in Position.Houses )
             {
                 var result = HiddenSubsetStep(input, house, new HashSet<Position>(), new List<InputValue>(), depth);
-                if(  result != default )
-                {
-                    return result;
-                }
+                if(  result != default ) return result;
             }
             return default;
         }
@@ -233,10 +215,7 @@ namespace UI.BlazorWASM.Hints
             List<InputValue> values,
             int depth)
         {
-            if (positions.Count > depth )
-            {
-                return default;
-            }
+            if (positions.Count > depth ) return default;
             if (values.Count == depth)
             {
                 var isAnyCandidateAnywhereToRemove = positions.Any(
@@ -250,19 +229,13 @@ namespace UI.BlazorWASM.Hints
             {
                 var positionsWithCandidate = house.Where(pos => input.HasCandidate(pos, value));
                 var count = positionsWithCandidate.Count();
-                if (count > depth || count == 0)
-                {
-                    continue;
-                }
+                if (count > depth || count == 0) continue;
 
                 var positionsNew = positions.ToHashSet();
                 positionsNew.UnionWith(positionsWithCandidate);
                 var valuesNew = new List<InputValue>(values) { value };
                 var result = HiddenSubsetStep(input, house, positionsNew, valuesNew, depth);
-                if ( result != default)
-                {
-                    return result;
-                }
+                if ( result != default) return result;
             }
             return default;
         }
