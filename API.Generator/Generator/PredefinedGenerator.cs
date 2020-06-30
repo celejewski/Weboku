@@ -8,15 +8,15 @@ namespace Core.Generator
 {
     public class PredefinedGenerator : ISudokuGenerator
     {
-        private static Dictionary<string, List<Sudoku>> _dict;
+        private static Dictionary<string, List<SudokuV1>> _dict;
         private static readonly Random _random = new Random();
         public PredefinedGenerator()
         {
             var file = File.ReadAllText("combined.txt");
-            _dict = JsonSerializer.Deserialize<Dictionary<string, List<Sudoku>>>(file);
+            _dict = JsonSerializer.Deserialize<Dictionary<string, List<SudokuV1>>>(file);
         }
 
-        public Sudoku Generate(string difficulty)
+        public SudokuV1 Generate(string difficulty)
         {
             if( _dict.ContainsKey(difficulty) )
             {
@@ -26,7 +26,7 @@ namespace Core.Generator
             }
             else
             {
-                return new Sudoku();
+                return new SudokuV1();
             }
         }
     }

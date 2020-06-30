@@ -5,6 +5,6 @@ namespace Core.Generators
 {
     public interface ISudokuGenerator
     {
-        Task<Sudoku> Generate(string difficulty);
+        Task<SudokuV1> Generate(string difficulty);
     }
 }

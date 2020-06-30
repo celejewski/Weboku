@@ -46,7 +46,7 @@ namespace UI.BlazorWASM.Commands
             var solution = solver.Solve(grid);
             var converter = new HodokuGridConverter(new EmptyGridGenerator());
 
-            var sudoku = new Core.Data.Sudoku
+            var sudoku = new Core.Data.SudokuV1
             {
                 Solution = converter.ToText(solution)
             };

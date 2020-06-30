@@ -22,7 +22,7 @@ namespace UI.BlazorWASM.Hints
         public InputValue GetValue(Position position) => _gridProvider.GetValue(position);
         public bool HasValue(Position position) => _gridProvider.HasValue(position);
         public bool HasCandidate(Position position, InputValue value) => _gridProvider.HasCandidate(position, value);
-        public InputValue GetSolution(Position position) => _sudokuProvider.GetSolution(position.x, position.y);
+        public InputValue GetSolution(Position position) => _sudokuProvider.GetSolution(position);
 
         public int GetCandidatesCount(Position position) => _gridProvider.CandidatesCount(position);
 

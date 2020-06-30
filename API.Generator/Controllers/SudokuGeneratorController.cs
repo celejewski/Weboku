@@ -16,7 +16,7 @@ namespace API.Generator.Controllers
         }
 
         [HttpGet("{difficulty?}")]
-        public Sudoku Get(string difficulty = "Medium")
+        public SudokuV1 Get(string difficulty = "Medium")
         {
             return _sudokuGenerator.Generate(difficulty);
         }

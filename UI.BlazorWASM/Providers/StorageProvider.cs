@@ -42,13 +42,13 @@ namespace UI.BlazorWASM.Providers
             return _localStorageService.ContainKeyAsync(StorageKey.Sudoku.ToString());
         }
 
-        public Task SaveSudoku(Sudoku sudoku)
+        public Task SaveSudoku(SudokuV1 sudoku)
         {
-            return _localStorageService.SetItemAsync<Sudoku>(StorageKey.Sudoku.ToString(), sudoku);
+            return _localStorageService.SetItemAsync<SudokuV1>(StorageKey.Sudoku.ToString(), sudoku);
         }
-        public async Task<Sudoku> LoadSudoku()
+        public async Task<SudokuV1> LoadSudoku()
         {
-            return await _localStorageService.GetItemAsync<Sudoku>(StorageKey.Sudoku.ToString());
+            return await _localStorageService.GetItemAsync<SudokuV1>(StorageKey.Sudoku.ToString());
         }
     }
 }

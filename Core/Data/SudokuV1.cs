@@ -2,7 +2,7 @@
 
 namespace Core.Data
 {
-    public class Sudoku
+    public class SudokuV1
     {
         public string Given { get; set; }
         public string Solution { get; set; }
