@@ -8,8 +8,8 @@ menu__candidates-header: Kandydaci
 menu__find-all: Wypełnij
 menu__remove-all: Wyczyść
 
-numpad-redo__label: "Cofnij"
-numpad-undo__label: "Dalej"
+numpad-redo__label: "Dalej"
+numpad-undo__label: "Cofnij"
 numpad-pairs__label: "Pary"
 numpad-clear-colors__label: "Usuń kolory"
 
