@@ -38,6 +38,17 @@ hints__execute: Wykonaj
 hints__show-previous-explanation: Poprzednie
 hints__show-next-explanation: Następny
 
+hints__house--none: ""
+hints__house--block: "blok"
+hints__house--row: "wiersz"
+hints__house--col: "kolumna"
+
+hints__house-formatted--none: ""
+hints__house-formatted--block: "b"
+hints__house-formatted--row: "r"
+hints__house-formatted--col: "c"
+hints__house-formatted--seperator: " i "
+
 paste__header: Wklej
 paste__start-game: Zacznij grę
 

@@ -6,7 +6,6 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
 {
     public class HiddenPair : HiddenSubset
     {
-        private readonly string _houseFormatted;
         private readonly Position _pos1;
         private readonly Position _pos2;
         private readonly InputValue _value1;
@@ -16,7 +15,6 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
             : base(positions, values)
         {
             _locKey = "hidden-pair";
-            _houseFormatted = Displayer.Format(_house, Position);
 
             _pos1 = positions.ElementAt(0);
             _pos2 = positions.ElementAt(1);
@@ -27,9 +25,10 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
         public override void DisplaySolution(Displayer displayer, Informer informer)
         {
             base.DisplaySolution(displayer, informer);
-
+            
+            var houseFormatted = displayer.Format(_house, Position);
             displayer.SetDescription("hidden-pair__description",
-                _houseFormatted, _value1, _value2, _pos1, _pos2);
+                houseFormatted, _value1, _value2, _pos1, _pos2);
 
         }
     }

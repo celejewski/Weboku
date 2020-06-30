@@ -8,7 +8,6 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
     public class LockedCandidatesPointing : BaseSolvingTechnique
     {
         private readonly int _block;
-        private readonly string _blockFormated;
         private string _rowOrColFormated;
         private readonly InputValue _inputValue;
         private readonly IEnumerable<Position> _positionsToRemoveFrom;
@@ -17,7 +16,6 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
             : base("locked-candiates-pointing")
         {
             _block = block;
-            _blockFormated = $"block {_block + 1}";
             _inputValue = inputValue;
             _positionsToRemoveFrom = positionToRemoveFrom;
 
@@ -39,7 +37,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
         {
             displayer.Clear();
             displayer.SetTitle(TitleKey);
-            _rowOrColFormated = Displayer.Format(RowOrCol(informer), _positionsToRemoveFrom.First());
+            _rowOrColFormated = displayer.Format(RowOrCol(informer), _positionsToRemoveFrom.First());
 
         }
 
@@ -54,7 +52,8 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
             displayer.HighlightHouse(_positionsToRemoveFrom.First(), RowOrCol(informer));
             displayer.SetValueFilter(_inputValue);
 
-            displayer.SetDescription(DescriptionKey, _blockFormated, _inputValue, _rowOrColFormated, _inputValue, _rowOrColFormated, _blockFormated);
+            var blockFormatted = displayer.Format(House.Block, Position.FromBlock(_block));
+            displayer.SetDescription(DescriptionKey, blockFormatted, _inputValue, _rowOrColFormated, _inputValue, _rowOrColFormated, blockFormatted);
         }
 
         public void Explain1(Displayer displayer, Informer informer)
@@ -63,7 +62,8 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
 
             displayer.HighlightBlock(_block);
             displayer.SetValueFilter(InputValue.Empty);
-            displayer.SetDescription(ExplanationKey(1), _blockFormated);
+            var blockFormatted = displayer.Format(House.Block, Position.FromBlock(_block));
+            displayer.SetDescription(ExplanationKey(1), blockFormatted);
         }
 
         public void Explain2(Displayer displayer, Informer informer)

@@ -31,7 +31,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
                 positions => positions.Where(pos => informer.HasCandidate(pos, _inputValue))
                                       .Count() == 1
                 );
-            _houseFormated = Displayer.Format(_house, _position);
+            _houseFormated = displayer.Format(_house, _position);
 
             displayer.SetTitle(TitleKey);
             displayer.HighlightHouse(_position, _house);
@@ -41,7 +41,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
         {
             SetupDisplayer(displayer, informer);
 
-            displayer.SetDescription(DescriptionKey, Displayer.Format(_house, _position), _inputValue, _position);
+            displayer.SetDescription(DescriptionKey, displayer.Format(_house, _position), _inputValue, _position);
             displayer.SetValueFilter(_inputValue);
 
             displayer.Mark(Enums.Color.Legal, _position, _inputValue);

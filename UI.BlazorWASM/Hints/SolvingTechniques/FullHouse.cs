@@ -45,7 +45,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
         {
             SetupDisplay(displayer, informer);
 
-            displayer.SetDescription(DescriptionKey, Displayer.Format(_house, _position), _position);
+            displayer.SetDescription(DescriptionKey, displayer.Format(_house, _position), _position);
             displayer.Mark(Enums.Color.Legal, _position, _value);
             displayer.SetValueFilter(_value);
         }
@@ -59,7 +59,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
         {
             SetupDisplay(displayer, informer);
 
-            displayer.SetDescription(ExplanationKey("first"), Displayer.Format(_house, _position));
+            displayer.SetDescription(ExplanationKey("first"), displayer.Format(_house, _position));
         }
 
         public Action<Displayer, Informer> ExplainN(InputValue n)

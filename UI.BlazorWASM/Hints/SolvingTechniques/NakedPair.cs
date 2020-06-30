@@ -12,7 +12,6 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
         private readonly InputValue _value1;
         private readonly InputValue _value2;
 
-        private readonly string _housesFormated;
         private readonly IEnumerable<House> _houses;
         private readonly List<Position> _positionsInHouses;
 
@@ -26,7 +25,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
             _value2 = values.ElementAt(1);
 
             _houses = HintsHelper.GetHouses(_positions);
-            _housesFormated = string.Join(" and ", _houses.Select(house => Displayer.Format(house, _pos1)));
+            
 
             _positionsInHouses = new List<Position>();
             foreach( var house in _houses )
@@ -50,6 +49,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
         }
         public override void DisplaySolution(Displayer displayer, Informer informer)
         {
+            var _housesFormated = displayer.Format(_houses, _pos1);
             base.DisplaySolution(displayer, informer);
             SetupDisplayer(displayer);
             displayer.SetDescription(DescriptionKey, _pos1, _pos2, _value1, _value2, _housesFormated);
@@ -90,6 +90,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
 
         private void Explain5(Displayer displayer, Informer informer)
         {
+            var _housesFormated = displayer.Format(_houses, _pos1);
             SetupDisplayer(displayer);
             displayer.MarkIfHasCandidates(Enums.Color.Illegal, _positionsInHouses, _values);
             displayer.Mark(Enums.Color.Legal, _positions, _values);

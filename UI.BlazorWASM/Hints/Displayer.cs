@@ -198,27 +198,32 @@ namespace UI.BlazorWASM.Hints
         {
             _ = _numpadMenuBuilder.SelectValue((int) input).Execute();
         }
-        public static string Format(House house)
+        public string Format(House house)
         {
             return house switch
             {
-                House.None => "none",
-                House.Row => "row",
-                House.Col => "column",
-                House.Block => "block",
+                House.None => Loc.Keys["hints__house--none"],
+                House.Row => Loc.Keys["hints__house--row"],
+                House.Col => Loc.Keys["hints__house--column"],
+                House.Block => Loc.Keys["hints__house--block"],
                 _ => throw new ArgumentException("House not supported by HintHelper.Format")
             };
         }
 
-        public static string Format(House house, Position position)
+        public string Format(House house, Position position)
         {
             return house switch
             {
-                House.Row => $"row {position.y + 1}",
-                House.Col => $"column {position.x + 1}",
-                House.Block => $"block {position.block + 1}",
-                _ => "none"
+                House.Row => $"{Loc.Keys["hints__house-formatted--row"]}{position.y + 1}",
+                House.Col => $"{Loc.Keys["hints__house-formatted--col"]}{position.x + 1}",
+                House.Block => $"{Loc.Keys["hints__house-formatted--block"]}{position.block + 1}",
+                _ => $"{Loc.Keys["hints__house-formatted--none"]}"
             };
+        }
+
+        public string Format(IEnumerable<House> houses, Position pos)
+        {
+            return string.Join(Loc.Keys["hints__houses-formatted--seperator"], houses.Select(house => Format(house, pos)));
         }
         public void Show()
         {
