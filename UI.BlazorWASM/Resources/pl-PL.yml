@@ -110,10 +110,10 @@ naked-pair__explanation-4: "Jeżeli wstawimy wartość {0:D} w {1} wtedy otrzymu
 naked-pair__explanation-5: "Nie wiemy która z tych opcji jest rozwiązaniem, ale w obu przypadkach możemy wyeliminować kandydatów {0:D} i {1:D} w {2}"
 
 naked-single__title: "Naked Single"
-naked-single__description: "In cell {0} there is only one valid candidate, so we can place {1:D} in cell {2}."
+naked-single__description: "W komórce {0} jest tylko jeden poprawny kandydat, więc możemy wstawić {1:D} w komórce {2}."
 
 naked-subset__title: "Naked Subset"
 naked-subset__description: ""
 
-no-hint__title: "No hint found"
-no-hint__description: "There is no hint avaliable for this sudoku."
+no-hint__title: "Podpowiedź niedostępna"
+no-hint__description: "Podpowiedź jest niedostępna dla tej łamigłówki."
