@@ -14,6 +14,7 @@ namespace UI.BlazorWASM.Providers
         private readonly Displayer _displayer;
         private readonly Executor _executor;
         private readonly IGridHistoryManager _gridHistoryManager;
+        private readonly IGridProvider _gridProvider;
         private readonly SudokuProvider _sudokuProvider;
         private readonly HodokuParser _parser = new HodokuParser();
 
@@ -32,10 +33,7 @@ namespace UI.BlazorWASM.Providers
             {
                 yield return new FindIncorrectSolution(_informer);
                 yield return new FillMissingCandidates();
-                foreach( var technique in _parser.GetSolvingTechniques(_sudokuProvider.Steps).ToList() )
-                {
-                    yield return technique;
-                }
+                yield return HintsSolver.NextStep(_gridProvider.Grid);
                 yield return new NotFound();
             }
         }
@@ -47,13 +45,20 @@ namespace UI.BlazorWASM.Providers
         private ISolvingTechnique _currentTechnique;
         private ISolvingTechnique NextTechnique => Techniques.First(t => t.CanExecute(_informer));
 
-        public HintsProvider(SudokuProvider sudokuProvider, Informer informer, Displayer displayer, Executor executor, IGridHistoryManager gridHistoryManager)
+        public HintsProvider(
+            SudokuProvider sudokuProvider, 
+            Informer informer, 
+            Displayer displayer, 
+            Executor executor, 
+            IGridHistoryManager gridHistoryManager,
+            IGridProvider gridProvider)
         {
             _sudokuProvider = sudokuProvider;
             _informer = informer;
             _displayer = displayer;
             _executor = executor;
             _gridHistoryManager = gridHistoryManager;
+            _gridProvider = gridProvider;
         }
 
 

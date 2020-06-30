@@ -102,5 +102,16 @@ namespace Core.Data
         }
 
         public bool HasValue(Position pos) => GetValue(pos) != InputValue.Empty;
+
+        public IEnumerable<InputValue> GetCandidates(Position pos)
+        {
+            foreach( var value in InputValue.NonEmpty )
+            {
+                if (HasCandidate(pos, value))
+                {
+                    yield return value;
+                }
+            }
+        }
     }
 }
