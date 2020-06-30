@@ -15,18 +15,18 @@ namespace Core.Generators
             _http = http;
         }
 
-        public async Task<SudokuV1> Generate(string difficulty)
+        public async Task<Sudoku> Generate(string difficulty)
         {
             try
             {
-                var sudoku = await _http.GetFromJsonAsync<SudokuV1>($"http://andzej-002-site2.ftempurl.com/sudokugenerator/{difficulty}");
+                var sudoku = await _http.GetFromJsonAsync<Sudoku>($"http://andzej-002-site2.ftempurl.com/sudokugenerator/{difficulty}");
                 sudoku.Difficulty = difficulty;
                 return sudoku;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
-                return new SudokuV1();
+                return new Sudoku();
             }
         }
     }

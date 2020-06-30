@@ -1,0 +1,36 @@
+﻿using Core.Data;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text.Json;
+
+namespace Core.Generator
+{
+    public class PredefinedGeneratorV2 : ISudokuGenerator
+    {
+        private static Dictionary<string, List<Sudoku>> _dict;
+        private static readonly Random _random = new Random();
+        public PredefinedGeneratorV2()
+        {
+            var file = File.ReadAllText("combinedv2.txt");
+            _dict = JsonSerializer.Deserialize<Dictionary<string, List<Sudoku>>>(file);
+        }
+
+        public Sudoku Generate(string difficulty)
+        {
+            if( _dict.ContainsKey(difficulty) )
+            {
+                var list = _dict[difficulty];
+                var index = _random.Next() % list.Count;
+                var sudoku = list[index];
+                sudoku.Steps = Enumerable.Empty<string>();
+                return sudoku;
+            }
+            else
+            {
+                return new Sudoku();
+            }
+        }
+    }
+}

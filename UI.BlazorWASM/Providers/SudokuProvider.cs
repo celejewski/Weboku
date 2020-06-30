@@ -7,7 +7,7 @@ namespace UI.BlazorWASM.Providers
 {
     public class SudokuProvider : IProvider
     {
-        private SudokuV1 _sudoku = new SudokuV1();
+        private Sudoku _sudoku = new Sudoku();
         private readonly ISolver _solver = new BruteForceSolver();
         private readonly IGridConverter _converter;
 
@@ -16,7 +16,7 @@ namespace UI.BlazorWASM.Providers
             _converter = chainGridConverter;
         }
 
-        public SudokuV1 Sudoku
+        public Sudoku Sudoku
         {
             get => _sudoku;
             set
