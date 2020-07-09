@@ -126,5 +126,8 @@ naked-single__description: "W komórce {0} jest tylko jeden poprawny kandydat, w
 naked-subset__title: "Naked Subset"
 naked-subset__description: ""
 
+xwing__title: "X-Wing"
+xwing__description: "W {0} i {1} jest X-Wing na wartości {2}, więc możemy usunąć niektórych kandydatów z {3} lub {4}."
+
 no-hint__title: "Podpowiedź niedostępna"
 no-hint__description: "Podpowiedź jest niedostępna dla tej łamigłówki."

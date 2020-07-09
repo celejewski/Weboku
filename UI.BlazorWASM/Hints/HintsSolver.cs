@@ -21,6 +21,7 @@ namespace UI.BlazorWASM.Hints
             NakedPair,
             NakedTriple,
             HiddenPair,
+            XWing,
             NakedQuadruple,
             HiddenTriple
         };
@@ -118,7 +119,7 @@ namespace UI.BlazorWASM.Hints
         {
             var result = NakedSubset(grid, 2);
             return result != default
-                ? new NakedPair(result.positions, result.values) 
+                ? new NakedPair(result.positions, result.values)
                 : null;
         }
 
@@ -145,7 +146,7 @@ namespace UI.BlazorWASM.Hints
                 var positionsInHouse = house
                     .WithoutValue(grid)
                     .Where(pos => grid.CandidatesCount(pos) <= depth);
-                
+
                 var result = NakedSubsetStep(grid, new List<Position>(), new HashSet<InputValue>(), positionsInHouse, depth);
                 if( result != default ) return result;
             }
@@ -164,7 +165,7 @@ namespace UI.BlazorWASM.Hints
             {
                 var positionsSeen = Position.GetOtherPositionsSeenBy(positions);
                 return values.Any(value => positionsSeen.WithCandidate(grid, value).Any())
-                    ? (positions, values) 
+                    ? (positions, values)
                     : default;
             }
 
@@ -203,7 +204,7 @@ namespace UI.BlazorWASM.Hints
             foreach( var house in Position.Houses )
             {
                 var result = HiddenSubsetStep(input, house, new HashSet<Position>(), new List<InputValue>(), depth);
-                if(  result != default ) return result;
+                if( result != default ) return result;
             }
             return default;
         }
@@ -215,8 +216,8 @@ namespace UI.BlazorWASM.Hints
             List<InputValue> values,
             int depth)
         {
-            if (positions.Count > depth ) return default;
-            if (values.Count == depth)
+            if( positions.Count > depth ) return default;
+            if( values.Count == depth )
             {
                 var isAnyCandidateAnywhereToRemove = positions.Any(
                     pos => InputValue.NonEmpty.Except(values).Any(value => input.HasCandidate(pos, value)));
@@ -229,16 +230,55 @@ namespace UI.BlazorWASM.Hints
             {
                 var positionsWithCandidate = house.Where(pos => input.HasCandidate(pos, value));
                 var count = positionsWithCandidate.Count();
-                if (count > depth || count == 0) continue;
+                if( count > depth || count == 0 ) continue;
 
                 var positionsNew = positions.ToHashSet();
                 positionsNew.UnionWith(positionsWithCandidate);
                 var valuesNew = new List<InputValue>(values) { value };
                 var result = HiddenSubsetStep(input, house, positionsNew, valuesNew, depth);
-                if ( result != default) return result;
+                if( result != default ) return result;
             }
             return default;
         }
         #endregion
+
+        public static ISolvingTechnique XWing(IGrid input)
+        {
+            foreach( var value in InputValue.NonEmpty )
+            {
+                foreach( var houses in new[] { Position.Rows, Position.Cols } )
+                {
+                    var filtered = houses.Select(
+                        house => house.Where(pos => input.HasCandidate(pos, value)))
+                        .Where(positions => positions.Count() == 2);
+
+                    var housesCombined = new List<(IEnumerable<Position> first, IEnumerable<Position> second)>();
+                    for( int i = 0; i < filtered.Count(); i++ )
+                    {
+                        for( int j = i+1; j < filtered.Count(); j++ )
+                        {
+                            var pair = (first: filtered.ElementAt(i), second: filtered.ElementAt(j));
+                            housesCombined.Add(pair);
+                        }
+                    }
+
+                    var housesCombinedAndFiltered = housesCombined.Where(pair => pair.first.All(pos1 => pair.second.Any(pos2 => pos1.x == pos2.x || pos1.y == pos2.y)));
+                    if( housesCombinedAndFiltered.Any() )
+                    {
+                        var firstHouse = housesCombinedAndFiltered.First().first;
+                        var secondHouse = housesCombinedAndFiltered.First().second;
+
+                        var positions = firstHouse.Concat(secondHouse);
+                        var positionsSeen = positions.SelectMany(pos => Position.Cols[pos.x].Concat(Position.Rows[pos.y]));
+                        var positionsToRemove = positionsSeen.Except(positions)
+                            .Where(pos => input.HasCandidate(pos, value));
+
+                        if (positionsToRemove.Any()) return new XWing(value, positions, positionsToRemove, Position.GetHouse(firstHouse));
+                        
+                    };
+                }
+            }
+            return default;
+        }
     }
 }

@@ -80,7 +80,9 @@ namespace UI.BlazorWASM.Hints
         }
 
         public void HighlightRow(Position position) => IsRowHighlighted[position.y] = true;
+        public void HighlightRow(int y) => IsRowHighlighted[y] = true;
         public void HighlightCol(Position position) => IsColHighlighted[position.x] = true;
+        public void HighlightCol(int x) => IsColHighlighted[x] = true;
         public void HighlightBlock(Position position) => HighlightBlock(position.block);
 
         public void HighlightBlock(int block) => IsBlockHighlighted[block] = true;

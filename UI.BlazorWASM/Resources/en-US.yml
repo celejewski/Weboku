@@ -126,5 +126,8 @@ naked-single__description: "In cell {0} there is only one valid candidate, so we
 naked-subset__title: "Naked Subset"
 naked-subset__description: ""
 
+xwing__title: "X-Wing"
+xwing__description: "In {0} and {1} there is X-Wing with value {2}, so we can remove some candidates in {3} or {4}."
+
 no-hint__title: "No hint found"
 no-hint__description: "There is no hint avaliable for this sudoku."
