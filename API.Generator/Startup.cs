@@ -20,7 +20,7 @@ namespace API.Generator
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddSingleton<ISudokuGenerator, PredefinedGenerator>();
+            services.AddSingleton<ISudokuGenerator, PredefinedGeneratorV2>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

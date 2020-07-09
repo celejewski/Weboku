@@ -90,7 +90,7 @@ namespace UI.BlazorWASM.Providers
             {
                 return GetIsGiven(pos)
                     || GetValue(pos) == InputValue.Empty
-                    || GetValue(pos) == _sudokuProvider.GetSolution(pos.x, pos.y);
+                    || GetValue(pos) == _sudokuProvider.GetSolution(pos);
             }
 
             return GetValue(pos) == InputValue.Empty || _isInputLegal[pos.x, pos.y];

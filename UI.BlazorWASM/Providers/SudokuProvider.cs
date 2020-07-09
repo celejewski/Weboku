@@ -1,12 +1,20 @@
-﻿using Core.Data;
+﻿using Core.Converters;
+using Core.Data;
+using Core.Solvers;
 using System;
-using System.Collections.Generic;
 
 namespace UI.BlazorWASM.Providers
 {
     public class SudokuProvider : IProvider
     {
         private Sudoku _sudoku = new Sudoku();
+        private readonly ISolver _solver = new BruteForceSolver();
+        private readonly IGridConverter _converter;
+
+        public SudokuProvider(ChainGridConverter chainGridConverter)
+        {
+            _converter = chainGridConverter;
+        }
 
         public Sudoku Sudoku
         {
@@ -14,18 +22,20 @@ namespace UI.BlazorWASM.Providers
             set
             {
                 _sudoku = value;
+                if (_converter.IsValidText(_sudoku.Given))
+                {
+                    var grid = _converter.FromText(_sudoku.Given);
+                    _solution = _solver.Solve(grid);
+                }
                 OnChanged?.Invoke();
             }
         }
 
         public string Difficulty => Sudoku.Difficulty;
-        public string Givens => Sudoku.Given;
-        public int Rating => Sudoku.Rating;
 
-        public string Solution => Sudoku.Solution;
-        public InputValue GetSolution(int x, int y) => int.Parse(Solution.Substring(y * 9 + x, 1));
-        public bool HasSolution => !string.IsNullOrEmpty(Sudoku.Solution);
-        public IEnumerable<string> Steps => Sudoku.Steps;
+        private IGrid _solution;
+        public InputValue GetSolution(Position pos) =>  _solution?.GetValue(pos) ?? InputValue.Empty;
+        public bool HasSolution => _solution != null;
 
         public event Action OnChanged;
     }
