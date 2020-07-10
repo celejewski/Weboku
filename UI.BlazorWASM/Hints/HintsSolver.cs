@@ -22,6 +22,7 @@ namespace UI.BlazorWASM.Hints
             NakedTriple,
             HiddenPair,
             XWing,
+            XYWing,
             NakedQuadruple,
             HiddenTriple
         };
@@ -278,6 +279,45 @@ namespace UI.BlazorWASM.Hints
                     };
                 }
             }
+            return default;
+        }
+
+        public static ISolvingTechnique XYWing(IGrid input)
+        {
+            var pairPositions = Position.All.Where(pos => input.CandidatesCount(pos) == 2);
+
+            foreach( var pivot in pairPositions )
+            {
+                var seenBy = GridHelper.GetCoordsWhichCanSee(pivot)
+                    .Where(pos => input.CandidatesCount(pos) == 2);
+
+                var candidate1 = input.GetCandidates(pivot).First();
+                var candidate2 = input.GetCandidates(pivot).Last(); ;
+
+                var seenWithCandidate1 = seenBy.Where(pos => input.HasCandidate(pos, candidate1) && !input.HasCandidate(pos, candidate2));
+                var seenWithCandidate2 = seenBy.Where(pos => input.HasCandidate(pos, candidate2) && !input.HasCandidate(pos, candidate1));
+
+                foreach( var pos1 in seenWithCandidate1.Where(pos => !pos.Equals(pivot)) )
+                {
+                    foreach( var pos2 in seenWithCandidate2.Where(pos => !pos.Equals(pivot) && !pos.Equals(pos1)) )
+                    {
+                        if( pos1.IsSharingHouseWith(pos2) ) continue;
+
+                        var candidates1 = input.GetCandidates(pos1);
+                        var candidates2 = input.GetCandidates(pos2);
+                        var sharedValue = candidates1.FirstOrDefault(value => candidates2.Contains(value));
+                        if( sharedValue == InputValue.Empty ) continue;
+
+                        var positionsToRemoveFrom = Position.GetOtherPositionsSeenBy(pos1, pos2)
+                            .Where(pos => input.HasCandidate(pos, sharedValue));
+                        if (positionsToRemoveFrom.Any())
+                        {
+                            return new XYWing(pivot, pos1, pos2, candidate1, candidate2, positionsToRemoveFrom, sharedValue);
+                        }
+                    }
+                }
+            }
+
             return default;
         }
     }

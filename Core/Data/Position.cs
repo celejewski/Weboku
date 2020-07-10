@@ -74,6 +74,13 @@ namespace Core.Data
             }
         }
 
+        public static IEnumerable<Position> GetOtherPositionsSeenBy(params Position[] positions)
+        {
+            return Position.All.Where(pos1 => positions.All(pos2 => pos1.IsSharingHouseWith(pos2)));
+        }
+
+        public bool IsSharingHouseWith(Position pos) => x == pos.x || y == pos.y || block == pos.block;
+
         public static House GetHouse(IEnumerable<Position> positions)
         {
             if( !positions.Any() )
