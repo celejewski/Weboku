@@ -17,6 +17,8 @@ namespace UI.BlazorWASM.ClickableActions
 
         public void LeftClickAction(ClickableActionArgs args)
         {
+            if( _gridProvider.GetIsGiven(args.Pos) ) return;
+
             if( _gridProvider.GetValue(args.Pos) == InputValue.Empty )
             {
                 _gridHistoryManager.Save();
@@ -26,12 +28,14 @@ namespace UI.BlazorWASM.ClickableActions
 
         public void RightClickAction(ClickableActionArgs args)
         {
+            if( _gridProvider.GetIsGiven(args.Pos) ) return;
+
             if( _gridProvider.GetValue(args.Pos) == InputValue.Empty )
             {
                 _gridHistoryManager.Save();
                 _gridProvider.SetValue(args.Pos, args.Value);
             }
-            else if( _gridProvider.GetValue(args.Pos) == args.Value && _gridProvider.GetIsGiven(args.Pos) )
+            else if( _gridProvider.GetValue(args.Pos) == args.Value )
             {
                 _gridHistoryManager.Save();
                 _gridProvider.SetValue(args.Pos, InputValue.Empty);

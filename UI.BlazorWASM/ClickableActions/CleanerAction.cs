@@ -11,6 +11,7 @@ namespace UI.BlazorWASM.ClickableActions
 
         private void Clear(Position pos)
         {
+            if( _gridProvider.GetIsGiven(pos) ) return;
             _gridHistoryManager.Save();
             _gridProvider.ClearCandidates(pos);
             _gridProvider.SetValue(pos, InputValue.Empty);
