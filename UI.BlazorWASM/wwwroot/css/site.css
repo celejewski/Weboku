@@ -115,9 +115,8 @@ html {
 
 .main__game-info {
   grid-row: span 1;
-  display: flex;
-  justify-content: center;
-  align-items: start;
+  display: grid;
+  position: relative;
 }
 
 .main__grid {
@@ -470,10 +469,6 @@ h1, h2, h3 {
 .numpad__label--dimmed {
   color: #898989;
   background-color: #DEDEDE;
-}
-
-.numpad__label--dimmed:hover {
-  pointer-events: none;
 }
 
 .numpad__label--selected {
@@ -1281,6 +1276,58 @@ h1, h2, h3 {
   justify-content: center;
   text-transform: uppercase;
   letter-spacing: 0.1px;
+}
+
+:root {
+  --max-size: 700px;
+  --max-width: 700px;
+}
+
+.tooltip {
+  color: #7A7A7A;
+  background-color: #FBFBFB;
+  position: absolute;
+  visibility: hidden;
+  font-size: 1.25rem;
+  left: 6%;
+  right: 6%;
+  top: -1rem;
+  bottom: 1rem;
+  border: 1px solid black;
+  border-radius: 1rem;
+  box-shadow: 0 8px 4px 0px rgba(0, 0, 0, 0.15);
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tooltip--visible {
+  visibility: visible;
+}
+
+:root {
+  --max-size: 700px;
+  --max-width: 700px;
+}
+
+.tooltip-toggler {
+  color: #7A7A7A;
+  background-color: #FBFBFB;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 100%;
+  border: 1px solid black;
+  margin: auto;
+  display: flex;
+  justify-content: center !important;
+  align-items: center !important;
+  text-align: center;
+  font-size: 2rem;
+}
+
+.tooltip-toggler--tooltip-visible {
+  background: #e2b22b;
 }
 
 .with-hr {

@@ -86,6 +86,7 @@ namespace UI.BlazorWASM.Helpers
             services.AddScoped<MarkInputProvider>();
             services.AddScoped<StorageProvider>();
             services.AddScoped<PreserveStateProvider>();
+            services.AddScoped<TooltipProvider>();
         }
     }
 }

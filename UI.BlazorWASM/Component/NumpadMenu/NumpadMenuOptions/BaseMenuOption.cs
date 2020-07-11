@@ -17,8 +17,12 @@ namespace UI.BlazorWASM.Component.NumpadMenu
         public abstract bool IsDimmed { get; }
         public abstract bool IsSelectable { get; }
 
+        public virtual string Tooltip => "tooltip__not-found";
+
         public async Task Execute()
         {
+            if( IsDimmed ) return;
+
             if( IsSelectable )
             {
                 _selectableMenuItemContainer?.SelectItem(this);

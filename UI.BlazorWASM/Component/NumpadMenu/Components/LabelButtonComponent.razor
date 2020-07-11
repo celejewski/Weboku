@@ -1,15 +1,15 @@
 ﻿@inject NumpadMenuProvider NumpadMenuProvider
 @inject ILanguageContainerService Loc
 @inject SettingsProvider SettingsProvider
-
-<div @onclick="NumpadMenuLabel.Execute"
-     class="numpad__button numpad__label
-                 @(NumpadMenuProvider.IsSelected(NumpadMenuLabel) ? "numpad__label--selected" : string.Empty)
-                 @(NumpadMenuLabel.IsDimmed ? "numpad__label--dimmed" : string.Empty)
-                 ">
-    @Loc.Keys[NumpadMenuLabel.Label]
-</div>
-
+@inject TooltipProvider TooltipProvider
+ 
+        <div @onclick="OnClick"
+             class="numpad__button numpad__label
+                     @(NumpadMenuProvider.IsSelected(NumpadMenuLabel) ? "numpad__label--selected" : string.Empty)
+                     @(NumpadMenuLabel.IsDimmed ? "numpad__label--dimmed" : string.Empty)
+                     ">
+            @Loc.Keys[NumpadMenuLabel.Label]
+        </div>
 
 @code {
     [Parameter]
@@ -19,5 +19,15 @@
     {
         NumpadMenuProvider.OnChanged += StateHasChanged;
         SettingsProvider.OnChanged += StateHasChanged;
+    }
+
+    private Task OnClick()
+    {
+        if (TooltipProvider.IsVisible)
+        {
+            TooltipProvider.Text = NumpadMenuLabel.Tooltip;
+        }
+
+        return NumpadMenuLabel.Execute();
     }
 }

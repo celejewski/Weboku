@@ -1,0 +1,19 @@
+﻿@inject TooltipProvider TooltipProvider
+
+<div @onclick="OnClick"
+     class="tooltip
+     @(TooltipProvider.IsVisible ? "tooltip--visible" : String.Empty)">
+    @TooltipProvider.Text
+</div>
+
+@code {
+    protected override void OnInitialized()
+    {
+        TooltipProvider.OnChanged += StateHasChanged;
+    }
+
+    private void OnClick()
+    {
+        TooltipProvider.IsVisible = false;
+    }
+}

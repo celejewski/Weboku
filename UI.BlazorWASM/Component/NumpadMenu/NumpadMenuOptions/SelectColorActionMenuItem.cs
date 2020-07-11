@@ -12,6 +12,7 @@ namespace UI.BlazorWASM.Component.NumpadMenu.NumpadMenuOptions
 
         }
         public string Label => "fas fa-paint-roller";
+        public override string Tooltip => "select-color-action__tooltip";
 
         public override bool IsDimmed => false;
 

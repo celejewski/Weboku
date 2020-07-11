@@ -12,6 +12,7 @@ namespace UI.BlazorWASM.Component.NumpadMenu.NumpadMenuOptions
         }
 
         public string Label => "fas fa-marker";
+        public override string Tooltip => "select-standard-action__tooltip";
 
         public override bool IsDimmed => false;
 

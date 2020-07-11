@@ -1,8 +1,9 @@
 ﻿@inject NumpadMenuBuilder NumpadMenuBuilder
 @inject ILanguageContainerService Loc
 @inject SettingsProvider SettingsProvider
+@inject TooltipProvider TooltipProvider
 
-<div @onclick="_clearColors.Execute"
+<div @onclick="OnClick"
      class="numpad__button numpad__label numpad__clear-colors">
     @Loc.Keys["numpad-clear-colors__label"]
 </div>
@@ -15,5 +16,15 @@
     {
         _clearColors = NumpadMenuBuilder.ClearColors();
         SettingsProvider.OnChanged += StateHasChanged;
+    }
+
+    private Task OnClick()
+    {
+        if (TooltipProvider.IsVisible)
+        {
+            TooltipProvider.Text = _clearColors.Tooltip;
+        }
+
+        return _clearColors.Execute();
     }
 }

@@ -11,6 +11,7 @@ namespace UI.BlazorWASM.Component.NumpadMenu.NumpadMenuOptions
 
         }
         public string Label => "fas fa-pencil-alt";
+        public override string Tooltip => "select-eraser__tooltip";
 
         public override bool IsDimmed => false;
 

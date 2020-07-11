@@ -1,6 +1,7 @@
 ﻿@inject NumpadMenuProvider NumpadMenuProvider
+@inject TooltipProvider TooltipProvider
 
-<div @onclick="NumpadMenuLabel.Execute"
+<div @onclick="OnClick"
      class="numpad__button numpad__label
                 @(NumpadMenuProvider.IsSelected(NumpadMenuLabel) ? "numpad__label--selected" : string.Empty)
                 @(NumpadMenuLabel.IsDimmed ? "numpad__label--dimmed" : string.Empty)
@@ -15,5 +16,15 @@
     protected override void OnInitialized()
     {
         NumpadMenuProvider.ActionContainer.OnChanged += StateHasChanged;
+    }
+
+    private Task OnClick()
+    {
+        if( TooltipProvider.IsVisible )
+        {
+            TooltipProvider.Text = NumpadMenuLabel.Tooltip;
+        }
+
+        return NumpadMenuLabel.Execute();
     }
 }

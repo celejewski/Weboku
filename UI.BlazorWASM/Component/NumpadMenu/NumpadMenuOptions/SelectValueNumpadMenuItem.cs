@@ -46,5 +46,6 @@ namespace UI.BlazorWASM.Component.NumpadMenu
         public override bool IsSelectable => true;
 
         public string Label => _value.ToString();
+        public override string Tooltip => "select-value__tooltip";
     }
 }
