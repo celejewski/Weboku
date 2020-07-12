@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using UI.BlazorWASM.Hints.SolvingTechniques;
+using System.Diagnostics;
 
 namespace UI.BlazorWASM.Hints
 {
@@ -29,9 +30,20 @@ namespace UI.BlazorWASM.Hints
         };
         public static ISolvingTechnique NextStep(IGrid input)
         {
-            return _steps.Select(step => step(input))
+            return _steps.Select(step => Benchmark(step, input))
                 .FirstOrDefault(solvingTechnique => solvingTechnique != null)
                 ?? new NotFound();
+        }
+
+        private static ISolvingTechnique Benchmark(Func<IGrid, ISolvingTechnique> action, IGrid grid)
+        {
+            var stopwatch = Stopwatch.StartNew();
+            var result = action(grid);
+            stopwatch.Stop();
+#if DEBUG
+            Console.WriteLine($"{stopwatch.ElapsedMilliseconds}ms - {action.Method.Name}");
+#endif
+            return result;
         }
 
         #region Singles
@@ -149,7 +161,9 @@ namespace UI.BlazorWASM.Hints
                     .WithoutValue(grid)
                     .Where(pos => grid.CandidatesCount(pos) <= depth);
 
-                var result = NakedSubsetStep(grid, new List<Position>(), new HashSet<InputValue>(), positionsInHouse, depth);
+                if( positionsInHouse.Count() < depth ) continue;
+
+                var result = NakedSubsetStep(grid, new List<Position>(), new HashSet<InputValue>(), positionsInHouse, depth, 0);
                 if( result != default ) return result;
             }
             return default;
@@ -160,7 +174,8 @@ namespace UI.BlazorWASM.Hints
             List<Position> positions,
             HashSet<InputValue> values,
             IEnumerable<Position> house,
-            int depth)
+            int depth,
+            int index)
         {
             if( values.Count > depth ) return default;
             if( positions.Count == depth )
@@ -171,13 +186,14 @@ namespace UI.BlazorWASM.Hints
                     : default;
             }
 
-            foreach( var pos in house.Except(positions) )
+            foreach( var pos in house.Skip(index+1) )
             {
+                index += 1;
                 var positionsNew = new List<Position>(positions) { pos };
                 var valuesNew = new HashSet<InputValue>(values);
                 valuesNew.UnionWith(grid.GetCandidates(pos));
 
-                var result = NakedSubsetStep(grid, positionsNew, valuesNew, house, depth);
+                var result = NakedSubsetStep(grid, positionsNew, valuesNew, house, depth, index);
                 if( result != default ) return result;
             }
             return default;

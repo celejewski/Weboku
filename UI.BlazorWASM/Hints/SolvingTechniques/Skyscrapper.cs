@@ -1,5 +1,6 @@
 ﻿using Core.Data;
 using System;
+using System.Linq;
 
 namespace UI.BlazorWASM.Hints.SolvingTechniques
 {
@@ -23,7 +24,8 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
 
         public override bool CanExecute(Informer informer)
         {
-            return true;
+            return Position.GetOtherPositionsSeenBy(_pos1, _pos2)
+                .Any(pos => informer.HasCandidate(pos, _value));
         }
 
         public override void DisplaySolution(Displayer displayer, Informer informer)
