@@ -13,6 +13,19 @@ numpad-undo__label: "Undo"
 numpad-pairs__label: "Pairs"
 numpad-clear-colors__label: "Clear colors"
 
+tooltip-toggler__tooltip: "Click button you want to learn more about"
+numpad-redo__tooltip: "(CTRL+Y) Redo last action"
+numpad-undo__tooltip: "(CTRL+Z) Undo last action"
+numpad-pairs__tooltip: "(X) Filter cells having 2 candidates"
+select-value__tooltip: "(1-9) Change selected value and filter"
+select-standard-action__tooltip: "MARKER: (LEFT CLICK) inputs the selected value / (RIGHT CLICK) inputs the value as a note"
+select-eraser__tooltip: "PENCIL: (LEFT CLICK) inputs the value as a note / (RIGHT CLICK) inputs the value"
+select-cleaner-action__tooltip: "CLEANER: (LEFT/RIGHT CLICK) removes everything from cell"
+select-color-action__tooltip: "PAINT ROLLER: (LEFT/RIGHT CLICK) colors cell border with selected color scheme"
+change-color__tooltip: "Choose a color scheme for the paint roller"
+numpad-clear-colors__tooltip: "(R) Remove all colored borders"
+
+
 main-menu__header: Menu
 main-menu__new-game: New game
 main-menu__how-to-play: How to play

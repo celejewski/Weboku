@@ -1,9 +1,10 @@
 ﻿@inject TooltipProvider TooltipProvider
+@inject ILanguageContainerService Loc
 
 <div @onclick="OnClick"
      class="tooltip
      @(TooltipProvider.IsVisible ? "tooltip--visible" : String.Empty)">
-    @TooltipProvider.Text
+    @Loc.Keys[TooltipProvider.Text]
 </div>
 
 @code {
