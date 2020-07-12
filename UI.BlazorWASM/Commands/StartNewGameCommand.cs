@@ -45,14 +45,6 @@ namespace UI.BlazorWASM.Commands
         public async Task Execute()
         {
             var sudoku = await _generator.Generate(_difficulty);
-            if( false && !sudoku.Steps.Any(text => text.Contains("Naked Triple", System.StringComparison.OrdinalIgnoreCase)) )
-            {
-#warning for testing only
-                System.Console.WriteLine("Looking for different sudoku");
-                _ = Execute();
-                return;
-            }
-
             _gridProvider.Grid = _hodokuGridConverter.FromText(sudoku.Given);
             _sudokuProvider.Sudoku = sudoku;
             _modalProvider.SetModalState(ModalState.None);
