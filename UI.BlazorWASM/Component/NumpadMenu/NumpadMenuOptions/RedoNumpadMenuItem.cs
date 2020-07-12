@@ -17,5 +17,6 @@ namespace UI.BlazorWASM.Component.NumpadMenu
         public override bool IsSelectable => false;
 
         public string Label => "numpad-redo__label";
+        public override string Tooltip => "numpad-redo__tooltip"; 
     }
 }

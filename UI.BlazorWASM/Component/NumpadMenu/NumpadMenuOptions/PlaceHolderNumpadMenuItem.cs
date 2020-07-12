@@ -15,6 +15,8 @@ namespace UI.BlazorWASM.Component.NumpadMenu
 
         public Color Color2 => Color.None;
 
+        public string Tooltip => "";
+
         public Task Execute() => Task.CompletedTask;
     }
 }

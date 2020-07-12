@@ -23,6 +23,7 @@ namespace UI.BlazorWASM.Component.NumpadMenu
             _numpadMenuProvider = numpadMenuProvider;
         }
 
+        public string Tooltip => "change-color__tooltip";
         public bool IsDimmed => false;
 
         public bool IsSelectable => true;

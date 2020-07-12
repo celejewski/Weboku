@@ -37,9 +37,8 @@
 
     &__game-info {
         grid-row: span 1;
-        display: flex;
-        justify-content: center;
-        align-items: start;
+        display: grid;
+        position: relative;
     }
 
     &__grid {

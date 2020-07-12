@@ -13,5 +13,7 @@ namespace UI.BlazorWASM.Component.NumpadMenu
         public override bool IsSelectable => false;
 
         public string Label => "numpad-clear-colors__label";
+
+        public override string Tooltip => "numpad-clear-colors__tooltip";
     }
 }

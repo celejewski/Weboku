@@ -1,0 +1,20 @@
+﻿@inject TooltipProvider TooltipProvider
+@inject ILanguageContainerService Loc
+
+<div @onclick="OnClick"
+     class="tooltip
+     @(TooltipProvider.IsVisible ? "tooltip--visible" : String.Empty)">
+    @Loc.Keys[TooltipProvider.Text]
+</div>
+
+@code {
+    protected override void OnInitialized()
+    {
+        TooltipProvider.OnChanged += StateHasChanged;
+    }
+
+    private void OnClick()
+    {
+        TooltipProvider.IsVisible = false;
+    }
+}

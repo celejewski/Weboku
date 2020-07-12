@@ -43,17 +43,6 @@ namespace UI.BlazorWASM.Providers
             Register(new Hotkey { Command = numpadMenuBuilder.Undo(), Key = "z", Ctrl = true });
             Register(new Hotkey { Command = numpadMenuBuilder.Pairs(), Key = "x" });
             Register(new Hotkey { Command = numpadMenuBuilder.ClearColors(), Key = "r" });
-
-            var dict = new Dictionary<(Color, Color), string>
-            {
-                { (Color.First, Color.Second), "a" },
-                { (Color.Third, Color.Fourth), "s" }
-            };
-
-            foreach( var item in dict )
-            {
-                Register(new Hotkey { Command = numpadMenuBuilder.SelectColor(item.Key.Item1, item.Key.Item2), Key = item.Value });
-            }
         }
     }
 }

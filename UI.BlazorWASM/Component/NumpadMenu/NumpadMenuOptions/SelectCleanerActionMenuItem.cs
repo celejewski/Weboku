@@ -11,6 +11,7 @@ namespace UI.BlazorWASM.Component.NumpadMenu
 
         }
         public string Label => "fas fa-eraser";
+        public override string Tooltip => "select-cleaner-action__tooltip";
 
         public override bool IsDimmed => false;
 

@@ -1,7 +1,8 @@
 ﻿@inject NumpadMenuProvider NumpadMenuProvider
+@inject TooltipProvider TooltipProvider
 @using BlazorWASM.Converters
 
-<div @onclick="SelectColorMenuItem.Execute"
+<div @onclick="OnClick"
      class="numpad__button">
     <div class="numpad__color
                 @(IsSelected ? "numpad__color--selected" : string.Empty)">
@@ -19,5 +20,15 @@
     protected override void OnInitialized()
     {
         NumpadMenuProvider.ColorContainer.OnChanged += StateHasChanged;
+    }
+
+    private Task OnClick()
+    {
+        if( TooltipProvider.IsVisible )
+        {
+            TooltipProvider.Text = SelectColorMenuItem.Tooltip;
+        }
+
+        return SelectColorMenuItem.Execute();
     }
 }

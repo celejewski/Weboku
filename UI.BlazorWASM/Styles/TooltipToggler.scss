@@ -1,0 +1,21 @@
+﻿@import '_Variables.scss';
+
+.tooltip-toggler {
+    @include color-primary;
+
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 100%;
+    border: 1px solid black;
+
+    margin: auto;
+    display: flex;
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center;
+    font-size: 2rem;
+
+    &--tooltip-visible {
+        background: $color-numpad-selected;
+    }
+}
