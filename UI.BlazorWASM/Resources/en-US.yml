@@ -142,6 +142,9 @@ naked-subset__description: ""
 xwing__title: "X-Wing"
 xwing__description: "In {0} and {1} there is X-Wing with value {2}, so we can remove some candidates in {3} or {4}."
 
+skyscrapper__title: "Skyscrapper"
+skyscrapper__description: ""
+
 xywing__title: "XY-Wing"
 xywing__description: "Cell {0} is pivot and cells {1} and {2} are pincers. Using this technique you can remove value {3} from cells seen by both pincers."
 

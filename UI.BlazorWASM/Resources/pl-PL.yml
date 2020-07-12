@@ -141,6 +141,9 @@ naked-subset__description: ""
 xwing__title: "X-Wing"
 xwing__description: "W {0} i {1} jest X-Wing na wartości {2}, więc możemy usunąć niektórych kandydatów z {3} lub {4}."
 
+skyscrapper__title: "Skyscrapper"
+skyscrapper__description: ""
+
 xywing__title: "XY-Wing"
 xywing__description: "Komórka {0} jest osią, a komórki {1} i {2} są ramionami. Używając tej techniki możesz usunąć wartość {3} z komórek widzianych przed oba ramiona."
 

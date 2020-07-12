@@ -102,6 +102,9 @@ namespace Core.Data
             }
             return House.None;
         }
+
+        public static House GetHouse(params Position[] positions) => GetHouse((IEnumerable<Position>)positions);
+
         static Position()
         {
             for( int y = 0; y < 9; y++ )
