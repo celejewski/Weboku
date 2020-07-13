@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Timers;
+using UI.BlazorWASM.Enums;
 
 namespace UI.BlazorWASM.Providers
 {
@@ -40,6 +41,7 @@ namespace UI.BlazorWASM.Providers
             {
                 await _storageProvider.SaveGrid(_gridProvider.Grid);
                 await _storageProvider.SaveSudoku(_sudokuProvider.Sudoku);
+                await _storageProvider.SavePreferredDifficulty(_sudokuProvider.PreferredDifficulty);
                 _isDirty = false;
             }
         }
@@ -53,6 +55,10 @@ namespace UI.BlazorWASM.Providers
             if( await _storageProvider.HasSavedSudoku() )
             {
                 _sudokuProvider.Sudoku = await _storageProvider.LoadSudoku();
+            }
+            if (await _storageProvider.HasSaved(StorageKey.PreferredDifficulty))
+            {
+                _sudokuProvider.PreferredDifficulty = await _storageProvider.LoadPreferredDifficulty();
             }
         }
 

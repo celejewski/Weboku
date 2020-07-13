@@ -1330,6 +1330,62 @@ h1, h2, h3 {
   background: #e2b22b;
 }
 
+:root {
+  --max-size: 700px;
+  --max-width: 700px;
+}
+
+.modal-new-game__select-diffculty-container {
+  color: #7A7A7A;
+  background-color: #FBFBFB;
+  background-color: #F1F1F1;
+  margin: 1.1em auto;
+  padding: 0.7em;
+  font-size: 1.3rem;
+  border: 1px solid #CCC;
+  border-radius: 0.25rem;
+  /*        box-shadow: 0 4px 12px 0 rgba(0,0,0,0.15);*/
+  line-height: 1.5;
+  height: 15rem;
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+}
+
+.modal-new-game__select-difficulty {
+  color: #7A7A7A;
+  background-color: #FBFBFB;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-top: 1px solid #CCC;
+  border-bottom: 1px solid #CCC;
+  max-height: 3rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.15);
+}
+
+.modal-new-game__select-difficulty-header {
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  font-weight: 900;
+  margin: 0 auto;
+}
+
+.modal-new-game__start-new-game {
+  color: #7A7A7A;
+  background-color: #FBFBFB;
+  text-transform: uppercase;
+  font-weight: 700;
+  border: 1px solid #BBB;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.15);
+  padding: 0.5em;
+  margin: auto auto 0 auto;
+  max-width: 15rem;
+}
+
 .with-hr {
   position: relative;
   padding: 3.2px 0;

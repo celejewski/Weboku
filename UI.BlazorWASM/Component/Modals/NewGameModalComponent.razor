@@ -3,17 +3,38 @@
 @inject ModalProvider ModalProvider
 @inject ILanguageContainerService Loc
 @inject SettingsProvider SettingsProvider
+@inject SudokuProvider SudokuProvider
 
 <ModalTemplateComponent>
     <h1 class="modal__title with-hr">@Loc.Keys["new-game__header"]</h1>
 
     <div class="modal__content">
-        @foreach( var difficulty in new[] { "Easy", "Medium", "Hard", "Extreme", "Unfair" } )
-        {
-            <ModalButtonComponent OnClick=CommandProvider.StartNewGameV2(difficulty)>
-                @difficulty
-            </ModalButtonComponent>
-        }
+
+        <div class="modal-new-game__select-diffculty-container">
+            <div class="modal-new-game__select-difficulty-header">Choose difficulty</div>
+            <div class="modal-new-game__select-difficulty">
+                @if( IsEasierAvailable )
+                {
+                    <i class="fas fa-chevron-left" @onclick="SelectEasier" ></i>
+                }
+                else
+                {
+                    <i></i>
+                }
+                <span class="modal-new-game__selected-difficulty">@SelectedDifficulty</span>
+                @if( IsHarderAvailable )
+                {
+                    <i class="fas fa-chevron-right" @onclick="SelectHarder"></i>
+                }
+                else
+                {
+                    <i></i>
+                }
+
+            </div>
+            <div class="modal-new-game__start-new-game"
+                 @onclick="CommandProvider.StartNewGameV2(SelectedDifficulty).Execute">Start new game</div>
+        </div>
     </div>
 
     <div class="modal__footer with-hr">
@@ -25,8 +46,23 @@
 </ModalTemplateComponent>
 
 @code {
+
+    private string[] _difficulties = new[] { "Easy", "Medium", "Hard", "Extreme", "Unfair" };
     protected override void OnInitialized()
     {
         SettingsProvider.OnChanged += StateHasChanged;
+        var index = Array.IndexOf(_difficulties, SudokuProvider.PreferredDifficulty);
+        _index = index != -1 ? index : 0;
     }
+
+    private int _index = 0;
+
+    private bool IsEasierAvailable => _index > 0;
+    private bool IsHarderAvailable => _index + 1 < _difficulties.Length;
+
+    private void SelectHarder() => _index += 1;
+    private void SelectEasier() => _index -= 1;
+
+    private string SelectedDifficulty => _difficulties[_index];
+
 }
