@@ -1,0 +1,53 @@
+﻿@import '_Variables.scss';
+
+.modal-new-game {
+    &__select-diffculty-container {
+        @include color-primary;
+        background-color: $modal-background;
+        margin: 1.1em auto;
+        padding: 0.7em;
+        font-size: 1.3rem;
+        border: 1px solid #CCC;
+        border-radius: 0.25rem;
+/*        box-shadow: 0 4px 12px 0 rgba(0,0,0,0.15);*/
+        line-height: 1.5;
+        height: 15rem;
+        display: grid;
+        grid-template-rows: repeat(3, 1fr);
+    }
+
+    &__select-difficulty {
+        @include color-primary;
+
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        border-top: 1px solid #CCC;
+        border-bottom: 1px solid #CCC;
+        max-height: 3rem;
+
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 4px 0 rgba(0,0,0,0.15);
+    }
+
+    &__select-difficulty-header {
+        font-size: 1.5rem;
+        text-transform: uppercase;
+        font-weight: $font-black;
+        margin: 0 auto;
+    }
+
+    &__start-new-game {
+        @include color-primary;
+        text-transform: uppercase;
+        font-weight: $font-bold;
+        border: 1px solid #BBB;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 4px 0 rgba(0,0,0,0.15);
+        padding: 0.5em;
+        margin: auto auto 0 auto;
+        max-width: 15rem;
+    }
+}

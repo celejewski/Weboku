@@ -22,7 +22,7 @@ namespace UI.BlazorWASM.Providers
             set
             {
                 _sudoku = value;
-                if (_converter.IsValidText(_sudoku.Given))
+                if( _converter.IsValidText(_sudoku.Given) )
                 {
                     var grid = _converter.FromText(_sudoku.Given);
                     _solution = _solver.Solve(grid);
@@ -32,9 +32,20 @@ namespace UI.BlazorWASM.Providers
         }
 
         public string Difficulty => Sudoku.Difficulty;
+        public string PreferredDifficulty
+        {
+            get => _preferredDifficulty;
+            set
+            {
+                _preferredDifficulty = value;
+                OnChanged?.Invoke();
+            }
+        }
 
         private IGrid _solution;
-        public InputValue GetSolution(Position pos) =>  _solution?.GetValue(pos) ?? InputValue.Empty;
+        private string _preferredDifficulty;
+
+        public InputValue GetSolution(Position pos) => _solution?.GetValue(pos) ?? InputValue.Empty;
         public bool HasSolution => _solution != null;
 
         public event Action OnChanged;

@@ -4,5 +4,6 @@
     {
         Grid,
         Sudoku,
+        PreferredDifficulty,
     }
 }
