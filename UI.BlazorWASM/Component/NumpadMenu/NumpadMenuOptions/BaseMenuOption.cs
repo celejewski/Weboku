@@ -21,8 +21,6 @@ namespace UI.BlazorWASM.Component.NumpadMenu
 
         public async Task Execute()
         {
-            if( IsDimmed ) return;
-
             if( IsSelectable )
             {
                 _selectableMenuItemContainer?.SelectItem(this);
