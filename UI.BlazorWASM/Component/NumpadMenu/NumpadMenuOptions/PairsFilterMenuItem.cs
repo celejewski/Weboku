@@ -4,11 +4,11 @@ using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.Component.NumpadMenu
 {
-    public class PairsNumpadMenuItem : BaseMenuOption, INumpadMenuLabel
+    public class PairsFilterMenuItem : BaseMenuOption, INumpadMenuLabel
     {
         private readonly IGridProvider _gridProvider;
 
-        public PairsNumpadMenuItem(NumpadMenuProvider numpadMenuProvider, SelectPairsFilterCommand command, IGridProvider gridProvider)
+        public PairsFilterMenuItem(NumpadMenuProvider numpadMenuProvider, SelectPairsFilterCommand command, IGridProvider gridProvider)
             : base(command, numpadMenuProvider.FilterContainer)
         {
             _gridProvider = gridProvider;

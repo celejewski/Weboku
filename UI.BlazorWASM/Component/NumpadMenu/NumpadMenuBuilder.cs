@@ -55,12 +55,12 @@ namespace UI.BlazorWASM.ViewModels
             _selectColorActionCommand = selectColorActionCommand;
         }
 
-        readonly Dictionary<int, SelectValueNumpadMenuItem> _dict = new Dictionary<int, SelectValueNumpadMenuItem>();
-        public SelectValueNumpadMenuItem SelectValue(int value)
+        readonly Dictionary<int, SelectValueMenuItem> _dict = new Dictionary<int, SelectValueMenuItem>();
+        public SelectValueMenuItem SelectValue(int value)
         {
             if( !_dict.ContainsKey(value) )
             {
-                _dict[value] = new SelectValueNumpadMenuItem(value, _gridProvider, _numpadMenuProvider, _commandProvider);
+                _dict[value] = new SelectValueMenuItem(value, _gridProvider, _numpadMenuProvider, _commandProvider);
             }
             return _dict[value];
         }
@@ -71,21 +71,21 @@ namespace UI.BlazorWASM.ViewModels
             return command;
         }
 
-        public UndoNumpadMenuItem Undo()
+        public UndoMenuItem Undo()
         {
-            var command = new UndoNumpadMenuItem(_gridHistoryManager, _undoCommand);
+            var command = new UndoMenuItem(_gridHistoryManager, _undoCommand);
             return command;
         }
 
-        PairsNumpadMenuItem _pairsNumpadMenuItem;
-        public PairsNumpadMenuItem Pairs()
+        PairsFilterMenuItem _pairsNumpadMenuItem;
+        public PairsFilterMenuItem Pairs()
         {
-            return _pairsNumpadMenuItem ??= new PairsNumpadMenuItem(_numpadMenuProvider, _selectPairsFilterCommand, _gridProvider);
+            return _pairsNumpadMenuItem ??= new PairsFilterMenuItem(_numpadMenuProvider, _selectPairsFilterCommand, _gridProvider);
         }
 
-        public ClearColorsNumpadMenuItem ClearColors()
+        public ClearColorsMenuItem ClearColors()
         {
-            var command = new ClearColorsNumpadMenuItem(_clearColorsCommand);
+            var command = new ClearColorsMenuItem(_clearColorsCommand);
             return command;
         }
 
@@ -95,9 +95,9 @@ namespace UI.BlazorWASM.ViewModels
             return command;
         }
 
-        public PlaceHolderNumpadMenuItem PlaceHolder()
+        public PlaceHolderMenuItem PlaceHolder()
         {
-            return new PlaceHolderNumpadMenuItem();
+            return new PlaceHolderMenuItem();
         }
 
 

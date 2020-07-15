@@ -3,12 +3,12 @@ using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.Component.NumpadMenu
 {
-    public class SelectValueNumpadMenuItem : BaseMenuOption, INumpadMenuLabel
+    public class SelectValueMenuItem : BaseMenuOption, INumpadMenuLabel
     {
         private readonly InputValue _value;
         private readonly IGridProvider _gridProvider;
 
-        public SelectValueNumpadMenuItem(InputValue value, IGridProvider gridProvider, NumpadMenuProvider numpadMenuProvider, CommandProvider commandProvider)
+        public SelectValueMenuItem(InputValue value, IGridProvider gridProvider, NumpadMenuProvider numpadMenuProvider, CommandProvider commandProvider)
             : base(commandProvider.SelectValue(value), numpadMenuProvider.FilterContainer)
         {
             _value = value;

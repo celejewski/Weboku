@@ -2,9 +2,9 @@
 
 namespace UI.BlazorWASM.Component.NumpadMenu
 {
-    public class ClearColorsNumpadMenuItem : BaseMenuOption, INumpadMenuLabel
+    public class ClearColorsMenuItem : BaseMenuOption, INumpadMenuLabel
     {
-        public ClearColorsNumpadMenuItem(ClearColorsCommand command)
+        public ClearColorsMenuItem(ClearColorsCommand command)
             : base(command)
         {
         }

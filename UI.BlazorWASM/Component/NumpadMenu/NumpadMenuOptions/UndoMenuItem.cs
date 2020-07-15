@@ -3,11 +3,11 @@ using UI.BlazorWASM.Managers;
 
 namespace UI.BlazorWASM.Component.NumpadMenu
 {
-    public class UndoNumpadMenuItem : BaseMenuOption, INumpadMenuLabel
+    public class UndoMenuItem : BaseMenuOption, INumpadMenuLabel
     {
         private readonly IGridHistoryManager _gridHistoryManager;
 
-        public UndoNumpadMenuItem(IGridHistoryManager gridHistoryManager, UndoCommand command)
+        public UndoMenuItem(IGridHistoryManager gridHistoryManager, UndoCommand command)
             : base(command)
         {
             _gridHistoryManager = gridHistoryManager;

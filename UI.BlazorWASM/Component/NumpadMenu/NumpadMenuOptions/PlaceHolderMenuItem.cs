@@ -3,7 +3,7 @@ using UI.BlazorWASM.Enums;
 
 namespace UI.BlazorWASM.Component.NumpadMenu
 {
-    public class PlaceHolderNumpadMenuItem : INumpadMenuLabel, ISelectColorMenuItem
+    public class PlaceHolderMenuItem : INumpadMenuLabel, ISelectColorMenuItem
     {
         public string Label => string.Empty;
 
