@@ -6,40 +6,30 @@ namespace UI.BlazorWASM.ClickableActions
 {
     public class EraserAction : IClickableAction
     {
-        private readonly IGridHistoryManager _gridHistoryManager;
         private readonly IGridProvider _gridProvider;
+        private readonly IGridHistoryManager _gridHistoryManager;
 
-        public EraserAction(IGridHistoryManager gridHistoryManager, IGridProvider gridProvider)
+        private void Clear(Position pos)
         {
-            _gridHistoryManager = gridHistoryManager;
+            if( _gridProvider.GetIsGiven(pos) ) return;
+            _gridHistoryManager.Save();
+            _gridProvider.ClearCandidates(pos);
+            _gridProvider.SetValue(pos, InputValue.Empty);
+        }
+        public EraserAction(IGridProvider gridProvider, IGridHistoryManager gridHistoryManager)
+        {
             _gridProvider = gridProvider;
+            _gridHistoryManager = gridHistoryManager;
         }
 
         public void LeftClickAction(ClickableActionArgs args)
         {
-            if( _gridProvider.GetIsGiven(args.Pos) ) return;
-
-            if( _gridProvider.GetValue(args.Pos) == InputValue.Empty )
-            {
-                _gridHistoryManager.Save();
-                _gridProvider.ToggleCandidate(args.Pos, args.Value);
-            }
+            Clear(args.Pos);
         }
 
         public void RightClickAction(ClickableActionArgs args)
         {
-            if( _gridProvider.GetIsGiven(args.Pos) ) return;
-
-            if( _gridProvider.GetValue(args.Pos) == InputValue.Empty )
-            {
-                _gridHistoryManager.Save();
-                _gridProvider.SetValue(args.Pos, args.Value);
-            }
-            else if( _gridProvider.GetValue(args.Pos) == args.Value )
-            {
-                _gridHistoryManager.Save();
-                _gridProvider.SetValue(args.Pos, InputValue.Empty);
-            }
+            Clear(args.Pos);
         }
     }
 }

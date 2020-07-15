@@ -53,7 +53,7 @@ namespace UI.BlazorWASM.Providers
 
         public ClickableActionProvider(ClickableActionFactory clickableActionFactory)
         {
-            ClickableAction = clickableActionFactory.StandardAction();
+            ClickableAction = clickableActionFactory.MarkerAction();
             Value = InputValue.One;
             Color1 = Color.First;
             Color2 = Color.Second;

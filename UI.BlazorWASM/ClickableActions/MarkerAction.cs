@@ -4,13 +4,13 @@ using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.ClickableActions
 {
-    public class StandardAction : IClickableAction
+    public class MarkerAction : IClickableAction
     {
         private readonly IGridHistoryManager _gridHistoryManager;
         private readonly CellColorProvider _cellColorProvider;
         private readonly IGridProvider _gridProvider;
 
-        public StandardAction(
+        public MarkerAction(
             IGridHistoryManager gridHistoryManager, 
             CellColorProvider cellColorProvider, 
             IGridProvider gridProvider

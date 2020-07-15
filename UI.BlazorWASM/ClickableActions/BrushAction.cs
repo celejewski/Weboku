@@ -2,11 +2,11 @@
 
 namespace UI.BlazorWASM.ClickableActions
 {
-    public class ColorAction : IClickableAction
+    public class BrushAction : IClickableAction
     {
         private readonly CellColorProvider _cellColorProvider;
 
-        public ColorAction(CellColorProvider cellColorProvider)
+        public BrushAction(CellColorProvider cellColorProvider)
         {
             _cellColorProvider = cellColorProvider;
         }

@@ -3,15 +3,15 @@ using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.Component.NumpadMenu
 {
-    public class SelectCleanerActionMenuItem : BaseMenuOption, INumpadMenuLabel
+    public class SelectActionEraserMenuItem : BaseMenuOption, INumpadMenuLabel
     {
-        public SelectCleanerActionMenuItem(NumpadMenuProvider numpadMenuProvider, SelectCleanerAction command)
+        public SelectActionEraserMenuItem(NumpadMenuProvider numpadMenuProvider, SelectCleanerAction command)
             : base(command, numpadMenuProvider.ActionContainer)
         {
 
         }
         public string Label => "fas fa-eraser";
-        public override string Tooltip => "select-cleaner-action__tooltip";
+        public override string Tooltip => "select-action-eraser__tooltip";
 
         public override bool IsDimmed => false;
 

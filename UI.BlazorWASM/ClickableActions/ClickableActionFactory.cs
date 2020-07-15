@@ -16,23 +16,23 @@ namespace UI.BlazorWASM.ClickableActions
             _gridProvider = gridProvider;
         }
 
-        public IClickableAction ColorAction()
+        public IClickableAction BrushAction()
         {
-            return new ColorAction(_cellColorProvider);
+            return new BrushAction(_cellColorProvider);
         }
-        public IClickableAction StandardAction()
+        public IClickableAction MarkerAction()
         {
-            return new StandardAction(_gridHistoryManager, _cellColorProvider, _gridProvider);
-        }
-
-        public IClickableAction CleanerAction()
-        {
-            return new CleanerAction(_gridProvider, _gridHistoryManager);
+            return new MarkerAction(_gridHistoryManager, _cellColorProvider, _gridProvider);
         }
 
         public IClickableAction EraserAction()
         {
-            return new EraserAction(_gridHistoryManager, _gridProvider);
+            return new EraserAction(_gridProvider, _gridHistoryManager);
+        }
+
+        public IClickableAction PencilAction()
+        {
+            return new PencilAction(_gridHistoryManager, _gridProvider);
         }
     }
 }

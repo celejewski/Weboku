@@ -101,25 +101,25 @@ namespace UI.BlazorWASM.ViewModels
         }
 
 
-        SelectCleanerActionMenuItem _eraseMenuItem;
-        public SelectCleanerActionMenuItem SelectCleanerAction()
+        SelectActionEraserMenuItem _eraseMenuItem;
+        public SelectActionEraserMenuItem SelectCleanerAction()
         {
-            return _eraseMenuItem ??= new SelectCleanerActionMenuItem(_numpadMenuProvider, _selectCleanerAction);
+            return _eraseMenuItem ??= new SelectActionEraserMenuItem(_numpadMenuProvider, _selectCleanerAction);
         }
 
-        public SelectStandardActionMenuItem SelectStandardAction()
+        public SelectActionMarkerMenuItem SelectStandardAction()
         {
-            return new SelectStandardActionMenuItem(_numpadMenuProvider, _selectStandardActionCommand);
+            return new SelectActionMarkerMenuItem(_numpadMenuProvider, _selectStandardActionCommand);
         }
 
-        public SelectEraserActionMenuItem SelectEraserAction()
+        public SelectActionPencilMenuItem SelectEraserAction()
         {
-            return new SelectEraserActionMenuItem(_numpadMenuProvider, _selectEraserActionCommand);
+            return new SelectActionPencilMenuItem(_numpadMenuProvider, _selectEraserActionCommand);
         }
 
-        public SelectColorActionMenuItem SelectColorAction()
+        public SelectActionBrushMenuItem SelectColorAction()
         {
-            return new SelectColorActionMenuItem(_numpadMenuProvider, _selectColorActionCommand);
+            return new SelectActionBrushMenuItem(_numpadMenuProvider, _selectColorActionCommand);
         }
     }
 }

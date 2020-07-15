@@ -18,10 +18,12 @@ numpad-redo__tooltip: "(CTRL+Y) Powtórz cofniętą akcję."
 numpad-undo__tooltip: "(CTRL+Z) Cofnij ostatnią akcje."
 numpad-pairs__tooltip: "(X) Wyfiltruj komórki z dokładnie dwoma kandydatami."
 select-value__tooltip: "(1-9) Zmień wybraną wartość i filtr."
-select-standard-action__tooltip: "MARKER: (LEWY PRZYCISK MYSZY) wstaw wybraną wartość (PRAWY PRZYCISK MYSZY) wstaw wartość jako notkę"
-select-eraser__tooltip: "OŁÓWEK: (LEWY PRZYCISK MYSZY) wstaw wartość jako notkę (PRAWY PRZYCISK MYSZY) wstaw wybraną wartość"
-select-cleaner-action__tooltip: "GUMKA: (LEWY/PRAWY PRZYCISK MYSZY) usuń wszystko z komórki"
-select-color-action__tooltip: "PĘDZEL: (LEWY/PRAWY PRZYCISK MYSZY) Pokoloruj ramkę komórki wybranymi kolorami"
+
+select-action-marker__tooltip: "MARKER: (LEWY PRZYCISK MYSZY) wstaw wybraną wartość (PRAWY PRZYCISK MYSZY) wstaw wartość jako notkę"
+select-action-pencil__tooltip: "OŁÓWEK: (LEWY PRZYCISK MYSZY) wstaw wartość jako notkę (PRAWY PRZYCISK MYSZY) wstaw wybraną wartość"
+select-action-eraser__tooltip: "GUMKA: (LEWY/PRAWY PRZYCISK MYSZY) usuń wszystko z komórki"
+select-action-brush__tooltip: "PĘDZEL: (LEWY/PRAWY PRZYCISK MYSZY) Pokoloruj ramkę komórki wybranymi kolorami"
+
 change-color__tooltip: "Wybierz schemat kolorów użyty przez pędzel"
 numpad-clear-colors__tooltip: "(R) Usuń wszystkie wstawione kolorowe obramowania."
 

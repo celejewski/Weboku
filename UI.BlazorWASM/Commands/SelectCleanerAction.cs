@@ -25,7 +25,7 @@ namespace UI.BlazorWASM.Commands
         }
         public Task Execute()
         {
-            _clickableActionProvider.SetClickableAction(_clickableActionFactory.CleanerAction());
+            _clickableActionProvider.SetClickableAction(_clickableActionFactory.EraserAction());
             _filterProvider.SetFilter(new EraseFilter());
             _numpadMenuProvider.FilterContainer.DeselectItem();
             return Task.CompletedTask;

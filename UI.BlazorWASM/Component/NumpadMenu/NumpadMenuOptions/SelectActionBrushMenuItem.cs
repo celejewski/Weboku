@@ -3,16 +3,16 @@ using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.Component.NumpadMenu.NumpadMenuOptions
 {
-    public class SelectStandardActionMenuItem : BaseMenuOption, INumpadMenuLabel
+    public class SelectActionBrushMenuItem : BaseMenuOption, INumpadMenuLabel
     {
-        public SelectStandardActionMenuItem(NumpadMenuProvider numpadMenuProvider, SelectStandardActionCommand command)
+
+        public SelectActionBrushMenuItem(NumpadMenuProvider numpadMenuProvider, SelectColorActionCommand command)
             : base(command, numpadMenuProvider.ActionContainer)
         {
 
         }
-
-        public string Label => "fas fa-marker";
-        public override string Tooltip => "select-standard-action__tooltip";
+        public string Label => "fas fa-paint-roller";
+        public override string Tooltip => "select-action-brush__tooltip";
 
         public override bool IsDimmed => false;
 
