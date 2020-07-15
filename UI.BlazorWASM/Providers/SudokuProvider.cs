@@ -31,6 +31,8 @@ namespace UI.BlazorWASM.Providers
             }
         }
 
+        public bool IsUserCreatingCustomSudoku { get; set; }
+
         public string Difficulty => Sudoku.Difficulty;
         public string PreferredDifficulty
         {
@@ -46,7 +48,7 @@ namespace UI.BlazorWASM.Providers
         private string _preferredDifficulty;
 
         public InputValue GetSolution(Position pos) => _solution?.GetValue(pos) ?? InputValue.Empty;
-        public bool HasSolution => _solution != null;
+        public bool HasSolution => !IsUserCreatingCustomSudoku && _solution != null;
 
         public event Action OnChanged;
     }

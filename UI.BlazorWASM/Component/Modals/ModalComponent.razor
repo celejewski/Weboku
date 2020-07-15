@@ -37,7 +37,16 @@
     </div>
 
 @code {
-    private string _style { get => ModalProvider.CurrentState == ModalState.None ? "display: none;" : string.Empty; }
+    private string _style
+    {
+        get
+        {
+            return ModalProvider.CurrentState == ModalState.None 
+                || ModalProvider.CurrentState == ModalState.CustomSudoku
+                ? "display: none;" 
+                : string.Empty;
+        }
+    }
 
     protected override void OnInitialized()
     {

@@ -4,6 +4,8 @@
 @inject ILanguageContainerService Loc
 @inject SettingsProvider SettingsProvider
 @inject SudokuProvider SudokuProvider
+@inject ShowPasteModalCommand ShowPasteModalCommand
+@inject ShowCustomSudokuCommand ShowCustomSudokuCommand
 
 <ModalTemplateComponent>
     <h1 class="modal__title with-hr">@Loc.Keys["new-game__header"]</h1>
@@ -32,9 +34,16 @@
                 }
 
             </div>
-            <div class="modal-new-game__start-new-game"
-                 @onclick="CommandProvider.StartNewGameV2(SelectedDifficulty).Execute">Start new game</div>
-        </div>
+
+            <ModalButtonComponent OnClick="CommandProvider.StartNewGameV2(SelectedDifficulty)">
+                New game
+            </ModalButtonComponent>
+
+            </div>
+
+        <ModalButtonComponent OnClick="ShowCustomSudokuCommand">
+            Custom sudoku
+        </ModalButtonComponent>
     </div>
 
     <div class="modal__footer with-hr">

@@ -11,5 +11,6 @@
         Paste,
         Hints,
         Settings,
+        CustomSudoku,
     }
 }
