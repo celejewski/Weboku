@@ -19,10 +19,10 @@ namespace UI.BlazorWASM.ViewModels
         private readonly SelectPairsFilterCommand _selectPairsFilterCommand;
         private readonly ClearColorsCommand _clearColorsCommand;
         private readonly UndoCommand _undoCommand;
-        private readonly SelectCleanerAction _selectCleanerAction;
-        private readonly SelectStandardActionCommand _selectStandardActionCommand;
-        private readonly SelectEraserActionCommand _selectEraserActionCommand;
-        private readonly SelectColorActionCommand _selectColorActionCommand;
+        private readonly SelectActionEraserCommand _selectActionEraserCommand;
+        private readonly SelectActionMarkerCommand _selectActionMarkerCommand;
+        private readonly SelectActionPencilCommand _selectActionPencilCommand;
+        private readonly SelectActionBrushCommand _selectActionBrushCommand;
 
         public NumpadMenuBuilder(
             IClickableActionProvider clickableActionProvider,
@@ -34,10 +34,10 @@ namespace UI.BlazorWASM.ViewModels
             SelectPairsFilterCommand selectPairsFilterCommand,
             ClearColorsCommand clearColorsCommand,
             UndoCommand undoCommand,
-            SelectCleanerAction selectCleanerAction,
-            SelectStandardActionCommand selectStandardActionCommand,
-            SelectEraserActionCommand selectEraserActionCommand,
-            SelectColorActionCommand selectColorActionCommand
+            SelectActionEraserCommand selectCleanerAction,
+            SelectActionMarkerCommand selectStandardActionCommand,
+            SelectActionPencilCommand selectEraserActionCommand,
+            SelectActionBrushCommand selectColorActionCommand
             )
         {
             _clickableActionProvider = clickableActionProvider;
@@ -49,10 +49,10 @@ namespace UI.BlazorWASM.ViewModels
             _selectPairsFilterCommand = selectPairsFilterCommand;
             _clearColorsCommand = clearColorsCommand;
             _undoCommand = undoCommand;
-            _selectCleanerAction = selectCleanerAction;
-            _selectStandardActionCommand = selectStandardActionCommand;
-            _selectEraserActionCommand = selectEraserActionCommand;
-            _selectColorActionCommand = selectColorActionCommand;
+            _selectActionEraserCommand = selectCleanerAction;
+            _selectActionMarkerCommand = selectStandardActionCommand;
+            _selectActionPencilCommand = selectEraserActionCommand;
+            _selectActionBrushCommand = selectColorActionCommand;
         }
 
         readonly Dictionary<int, SelectValueMenuItem> _dict = new Dictionary<int, SelectValueMenuItem>();
@@ -104,22 +104,22 @@ namespace UI.BlazorWASM.ViewModels
         SelectActionEraserMenuItem _eraseMenuItem;
         public SelectActionEraserMenuItem SelectCleanerAction()
         {
-            return _eraseMenuItem ??= new SelectActionEraserMenuItem(_numpadMenuProvider, _selectCleanerAction);
+            return _eraseMenuItem ??= new SelectActionEraserMenuItem(_numpadMenuProvider, _selectActionEraserCommand);
         }
 
         public SelectActionMarkerMenuItem SelectStandardAction()
         {
-            return new SelectActionMarkerMenuItem(_numpadMenuProvider, _selectStandardActionCommand);
+            return new SelectActionMarkerMenuItem(_numpadMenuProvider, _selectActionMarkerCommand);
         }
 
         public SelectActionPencilMenuItem SelectEraserAction()
         {
-            return new SelectActionPencilMenuItem(_numpadMenuProvider, _selectEraserActionCommand);
+            return new SelectActionPencilMenuItem(_numpadMenuProvider, _selectActionPencilCommand);
         }
 
         public SelectActionBrushMenuItem SelectColorAction()
         {
-            return new SelectActionBrushMenuItem(_numpadMenuProvider, _selectColorActionCommand);
+            return new SelectActionBrushMenuItem(_numpadMenuProvider, _selectActionBrushCommand);
         }
     }
 }

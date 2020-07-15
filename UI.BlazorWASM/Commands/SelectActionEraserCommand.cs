@@ -5,14 +5,14 @@ using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.Commands
 {
-    public class SelectCleanerAction : ICommand
+    public class SelectActionEraserCommand : ICommand
     {
         private readonly IClickableActionProvider _clickableActionProvider;
         private readonly ClickableActionFactory _clickableActionFactory;
         private readonly FilterProvider _filterProvider;
         private readonly NumpadMenuProvider _numpadMenuProvider;
 
-        public SelectCleanerAction(
+        public SelectActionEraserCommand(
             IClickableActionProvider clickableActionProvider,
             ClickableActionFactory clickableActionFactory,
             FilterProvider filterProvider,

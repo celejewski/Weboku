@@ -4,12 +4,12 @@ using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.Commands
 {
-    public class SelectEraserActionCommand : ICommand
+    public class SelectActionPencilCommand : ICommand
     {
         private readonly IClickableActionProvider _clickableActionProvider;
         private readonly ClickableActionFactory _clickableActionFactory;
 
-        public SelectEraserActionCommand(IClickableActionProvider clickableActionProvider, ClickableActionFactory clickableActionFactory)
+        public SelectActionPencilCommand(IClickableActionProvider clickableActionProvider, ClickableActionFactory clickableActionFactory)
         {
             _clickableActionProvider = clickableActionProvider;
             _clickableActionFactory = clickableActionFactory;

@@ -5,7 +5,7 @@ namespace UI.BlazorWASM.Component.NumpadMenu.NumpadMenuOptions
 {
     public class SelectActionMarkerMenuItem : BaseMenuOption, INumpadMenuLabel
     {
-        public SelectActionMarkerMenuItem(NumpadMenuProvider numpadMenuProvider, SelectStandardActionCommand command)
+        public SelectActionMarkerMenuItem(NumpadMenuProvider numpadMenuProvider, SelectActionMarkerCommand command)
             : base(command, numpadMenuProvider.ActionContainer)
         {
 

@@ -5,7 +5,7 @@ namespace UI.BlazorWASM.Component.NumpadMenu
 {
     public class SelectActionEraserMenuItem : BaseMenuOption, INumpadMenuLabel
     {
-        public SelectActionEraserMenuItem(NumpadMenuProvider numpadMenuProvider, SelectCleanerAction command)
+        public SelectActionEraserMenuItem(NumpadMenuProvider numpadMenuProvider, SelectActionEraserCommand command)
             : base(command, numpadMenuProvider.ActionContainer)
         {
 

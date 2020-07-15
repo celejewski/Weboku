@@ -36,7 +36,7 @@ namespace UI.BlazorWASM.Helpers
             services.AddScoped<FindAllCandidatesCommand>();
             services.AddScoped<RestartGameCommand>();
             services.AddScoped<SelectPairsFilterCommand>();
-            services.AddScoped<SelectCleanerAction>();
+            services.AddScoped<SelectActionEraserCommand>();
             services.AddScoped<ClearColorsCommand>();
             services.AddScoped<RedoCommand>();
             services.AddScoped<UndoCommand>();
@@ -44,13 +44,13 @@ namespace UI.BlazorWASM.Helpers
             services.AddScoped<ShowHowToPlayModalCommand>();
             services.AddScoped<ShowMainMenuModalCommand>();
             services.AddScoped<CloseModalCommand>();
-            services.AddScoped<SelectStandardActionCommand>();
-            services.AddScoped<SelectEraserActionCommand>();
-            services.AddScoped<SelectColorActionCommand>();
+            services.AddScoped<SelectActionMarkerCommand>();
+            services.AddScoped<SelectActionPencilCommand>();
+            services.AddScoped<SelectActionBrushCommand>();
             services.AddScoped<ClearCandidatesCommand>();
             services.AddScoped<ShowShareModalCommand>();
             services.AddScoped<ShowPasteModalCommand>();
-            services.AddScoped<SelectColorActionCommand>();
+            services.AddScoped<SelectActionBrushCommand>();
             services.AddScoped<StartNewGameFromPastedCommand>();
             services.AddScoped<ShowPreviousModalCommand>();
             services.AddScoped<ShowSettingsModalCommand>();
