@@ -3,6 +3,7 @@ using SmartSolver.SolvingTechniques;
 using SmartSolver.TechniqueFinders;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 
 namespace SmartSolver
 {
@@ -19,6 +20,8 @@ namespace SmartSolver
                 new FullHouseFinder(_factory),
                 new NakedSingleFinder(_factory),
                 new HiddenSingleFinder(_factory),
+                new LockedCandidatesPointingFinder(_factory),
+                new LockedCandidatesClaimingFinder(_factory),
                 new HiddenPairFinder(_factory),
             };
         }

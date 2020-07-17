@@ -1,5 +1,4 @@
 ﻿using Core.Data;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace SmartSolver.SolvingTechniques
@@ -13,8 +12,8 @@ namespace SmartSolver.SolvingTechniques
         public ISolvingTechnique HiddenSingle(Position pos, InputValue value);
         public ISolvingTechnique HiddenPair(IEnumerable<Position> positions, IEnumerable<InputValue> values);
         public ISolvingTechnique HiddenSubset(IEnumerable<Position> positions, IEnumerable<InputValue> values);
-        public ISolvingTechnique LockedCandidatesPointing();
-        public ISolvingTechnique LockedCandidatesClaiming();
+        public ISolvingTechnique LockedCandidatesPointing(int block, InputValue inputValue, IEnumerable<Position> positionToRemoveFrom);
+        public ISolvingTechnique LockedCandidatesClaiming(InputValue inputValue, IEnumerable<Position> positionsToRemoveCandidate, House house);
         public ISolvingTechnique XWing();
         public ISolvingTechnique XYWing();
         public ISolvingTechnique Skyscrapper();

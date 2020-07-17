@@ -26,14 +26,14 @@ namespace SmartSolver.SolvingTechniques
             return new HiddenSubset(positions, values);
         }
 
-        public ISolvingTechnique LockedCandidatesClaiming()
+        public ISolvingTechnique LockedCandidatesClaiming(InputValue inputValue, IEnumerable<Position> positionsToRemoveCandidate, House house)
         {
-            throw new NotImplementedException();
+            return new LockedCandidatesClaiming(inputValue, positionsToRemoveCandidate, house);
         }
 
-        public ISolvingTechnique LockedCandidatesPointing()
+        public ISolvingTechnique LockedCandidatesPointing(int block, InputValue inputValue, IEnumerable<Position> positionToRemoveFrom)
         {
-            throw new NotImplementedException();
+            return new LockedCandidatesPointing(block, inputValue, positionToRemoveFrom);
         }
 
         public ISolvingTechnique NakedPair(IEnumerable<Position> positions, IEnumerable<InputValue> values)

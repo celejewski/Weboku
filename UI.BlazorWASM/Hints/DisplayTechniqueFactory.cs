@@ -16,6 +16,8 @@ namespace UI.BlazorWASM.Hints
                 (typeof(FullHouse), typeof(FullHouseDisplayer)),
                 (typeof(HiddenSingle), typeof(HiddenSingleDisplayer)),
                 (typeof(HiddenPair), typeof(HiddenPairDisplayer)),
+                (typeof(LockedCandidatesPointing), typeof(LockedCandidatesPointingDisplayer)),
+                (typeof(LockedCandidatesClaiming), typeof(LockedCandidatesClaimingDisplayer)),
             };
 
             var tuple = tuples.FirstOrDefault(tuple => technique.GetType() == tuple.Item1);
