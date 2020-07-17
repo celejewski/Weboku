@@ -3,21 +3,21 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using UI.BlazorWASM.Hints.SolvingTechniqueDisplayers;
 using UI.BlazorWASM.Hints.SolvingTechniques;
 
 namespace UI.BlazorWASM.Hints
 {
     public class HodokuParser
     {
-        public IEnumerable<ISolvingTechnique> GetSolvingTechniques(IEnumerable<string> steps)
+        public IEnumerable<IDisplaySolvingTechniqueOld> GetSolvingTechniques(IEnumerable<string> steps)
         {
-            Func<string, ISolvingTechnique>[] techniques =
+            Func<string, IDisplaySolvingTechniqueOld>[] techniques =
             {
                 SingleOrDefault,
                 LockedCandidatesPointingOrDefault,
                 LockedCandidatesClaimingOrDefault,
                 SubsetOrDefault,
-                NotFound,
             };
 
             foreach( var step in steps )
@@ -34,13 +34,13 @@ namespace UI.BlazorWASM.Hints
             }
         }
 
-        private ISolvingTechnique NotFound(string step)
+        private IDisplaySolvingTechnique NotFound(string step)
         {
             Console.WriteLine($"Unknown step: {step}");
-            return new NotFound();
+            return new NotFoundDisplayer();
         }
 
-        private ISolvingTechnique SingleOrDefault(string step)
+        private IDisplaySolvingTechniqueOld SingleOrDefault(string step)
         {
             (string name, Type type)[] singles = {
                 ("Naked Single", typeof(NakedSingle)),
@@ -57,10 +57,10 @@ namespace UI.BlazorWASM.Hints
             var info = step.Substring(step.Length - 6, 6);
             var position = ParsePosition(info);
             var value = ParseValue(info, 5);
-            return (ISolvingTechnique) Activator.CreateInstance(technique.type, position, value);
+            return (IDisplaySolvingTechniqueOld) Activator.CreateInstance(technique.type, position, value);
         }
 
-        private ISolvingTechnique LockedCandidatesPointingOrDefault(string step)
+        private IDisplaySolvingTechniqueOld LockedCandidatesPointingOrDefault(string step)
         {
             // Locked Candidates Type 1 (Pointing): 8 in b3 => r1c136 <> 8
             // Locked Candidates Type 1 (Pointing): 7 in b3 => r569c7 <> 7
@@ -83,7 +83,7 @@ namespace UI.BlazorWASM.Hints
             return new LockedCandidatesPointing(block, value, positions);
         }
 
-        private ISolvingTechnique LockedCandidatesClaimingOrDefault(string step)
+        private IDisplaySolvingTechniqueOld LockedCandidatesClaimingOrDefault(string step)
         {
             // Locked Candidates Type 2 (Claiming): 2 in r6 => r4c456,r5c5<>2
             if( !step.Contains("Locked Candidates Type 2 (Claiming)", StringComparison.Ordinal) )
@@ -104,7 +104,7 @@ namespace UI.BlazorWASM.Hints
 
             return new LockedCandidatesClaiming(value, positions, house);
         }
-        private ISolvingTechnique SubsetOrDefault(string step)
+        private IDisplaySolvingTechniqueOld SubsetOrDefault(string step)
         {
             (string name, Type type)[] subsets = {
                 ("Locked Pair", typeof(NakedPair)),
@@ -132,7 +132,7 @@ namespace UI.BlazorWASM.Hints
 
             var positionsText = match.Groups[2].Value;
             var positions = GetPositions(positionsText);
-            return (ISolvingTechnique) Activator.CreateInstance(subset.type, positions, values);
+            return (IDisplaySolvingTechniqueOld) Activator.CreateInstance(subset.type, positions, values);
         }
 
         /// <summary>

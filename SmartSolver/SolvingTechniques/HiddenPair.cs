@@ -1,17 +1,14 @@
 ﻿using Core.Data;
+using System.Collections.Generic;
 
 namespace SmartSolver.SolvingTechniques
 {
-    public class HiddenPair : ISolvingTechnique
+    public class HiddenPair : HiddenSubset
     {
-        public bool CanExecute(IGrid grid)
+        public HiddenPair(IEnumerable<Position> positions, IEnumerable<InputValue> values)
+            : base(positions, values)
         {
-            throw new System.NotImplementedException();
-        }
 
-        public void Execute(IGrid grid)
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

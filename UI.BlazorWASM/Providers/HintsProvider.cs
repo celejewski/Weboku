@@ -1,10 +1,12 @@
-﻿using System;
+﻿using SmartSolver;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UI.BlazorWASM.Enums;
 using UI.BlazorWASM.Hints;
-using UI.BlazorWASM.Hints.SolvingTechniques;
+using UI.BlazorWASM.Hints.SolvingTechniqueDisplayers;
 using UI.BlazorWASM.Managers;
+using SmartSolver.SolvingTechniques;
 
 namespace UI.BlazorWASM.Providers
 {
@@ -12,11 +14,8 @@ namespace UI.BlazorWASM.Providers
     {
         private readonly Informer _informer;
         private readonly Displayer _displayer;
-        private readonly Executor _executor;
         private readonly IGridHistoryManager _gridHistoryManager;
         private readonly IGridProvider _gridProvider;
-        private readonly SudokuProvider _sudokuProvider;
-        private readonly HodokuParser _parser = new HodokuParser();
 
         public event Action OnChanged;
 
@@ -27,14 +26,13 @@ namespace UI.BlazorWASM.Providers
             OnChanged?.Invoke();
         }
 
-        private IEnumerable<ISolvingTechnique> Techniques
+        private IEnumerable<IDisplaySolvingTechnique> Techniques
         {
             get
             {
-                yield return new FindIncorrectSolution(_informer);
-                yield return new FillMissingCandidates();
-                yield return HintsSolver.NextStep(_gridProvider.Grid);
-                yield return new NotFound();
+                var smart = new Solver(new SolvingTechniqueFactory());
+                var technique = smart.NextStep(_gridProvider.Grid) ;
+                yield return DisplayTechniqueFactory.GetDisplayer(technique);
             }
         }
 
@@ -42,21 +40,17 @@ namespace UI.BlazorWASM.Providers
         public bool HasNextExplanation => _currentTechnique.HasNextExplanation;
         public bool HasPreviousExplanation => _currentTechnique.HasPreviousExplanation;
 
-        private ISolvingTechnique _currentTechnique;
-        private ISolvingTechnique NextTechnique => Techniques.First(t => t.CanExecute(_informer));
+        private IDisplaySolvingTechnique _currentTechnique;
+        private IDisplaySolvingTechnique NextTechnique => Techniques.First(t => t.CanExecute(_gridProvider.Grid));
 
         public HintsProvider(
-            SudokuProvider sudokuProvider, 
             Informer informer, 
-            Displayer displayer, 
-            Executor executor, 
+            Displayer displayer,
             IGridHistoryManager gridHistoryManager,
             IGridProvider gridProvider)
         {
-            _sudokuProvider = sudokuProvider;
             _informer = informer;
             _displayer = displayer;
-            _executor = executor;
             _gridHistoryManager = gridHistoryManager;
             _gridProvider = gridProvider;
         }
@@ -100,7 +94,8 @@ namespace UI.BlazorWASM.Providers
         public void Execute()
         {
             _gridHistoryManager.Save();
-            NextTechnique.Execute(_executor, _informer);
+            NextTechnique.Execute(_gridProvider.Grid);
+            _gridProvider.Grid = _gridProvider.Grid;
             _displayer.Hide();
             SetState(HintsState.ShowEmpty);
         }

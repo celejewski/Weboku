@@ -149,5 +149,23 @@ namespace Core.Data
             }
             return false;
         }
+
+        public static IEnumerable<House> GetHouses(IEnumerable<Position> positions)
+        {
+            var first = positions.First();
+
+            if( positions.All(pos => pos.x == first.x) )
+            {
+                yield return House.Col;
+            }
+            if( positions.All(pos => pos.y == first.y) )
+            {
+                yield return House.Row;
+            }
+            if( positions.All(pos => pos.block == first.block) )
+            {
+                yield return House.Block;
+            }
+        }
     }
 }

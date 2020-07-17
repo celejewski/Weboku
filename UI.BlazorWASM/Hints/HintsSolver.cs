@@ -11,8 +11,8 @@ namespace UI.BlazorWASM.Hints
 {
     public class HintsSolver
     {
-        private static readonly Func<IGrid, ISolvingTechnique>[] _steps
-            = new Func<IGrid, ISolvingTechnique>[]
+        private static readonly Func<IGrid, IDisplaySolvingTechniqueOld>[] _steps
+            = new Func<IGrid, IDisplaySolvingTechniqueOld>[]
         {
             FullHouse,
             NakedSingle,
@@ -28,14 +28,13 @@ namespace UI.BlazorWASM.Hints
             NakedQuadruple,
             HiddenTriple
         };
-        public static ISolvingTechnique NextStep(IGrid input)
+        public static IDisplaySolvingTechniqueOld NextStep(IGrid input)
         {
             return _steps.Select(step => Benchmark(step, input))
-                .FirstOrDefault(solvingTechnique => solvingTechnique != null)
-                ?? new NotFound();
+                .FirstOrDefault(solvingTechnique => solvingTechnique != null);
         }
 
-        private static ISolvingTechnique Benchmark(Func<IGrid, ISolvingTechnique> action, IGrid grid)
+        private static IDisplaySolvingTechniqueOld Benchmark(Func<IGrid, IDisplaySolvingTechniqueOld> action, IGrid grid)
         {
             var stopwatch = Stopwatch.StartNew();
             var result = action(grid);
@@ -47,7 +46,7 @@ namespace UI.BlazorWASM.Hints
         }
 
         #region Singles
-        private static ISolvingTechnique FullHouse(IGrid grid)
+        private static IDisplaySolvingTechniqueOld FullHouse(IGrid grid)
         {
             foreach( var indexes in Position.Houses )
             {
@@ -62,7 +61,7 @@ namespace UI.BlazorWASM.Hints
             }
             return null;
         }
-        private static ISolvingTechnique NakedSingle(IGrid input)
+        private static IDisplaySolvingTechniqueOld NakedSingle(IGrid input)
         {
             foreach( var pos in Position.All )
             {
@@ -75,7 +74,7 @@ namespace UI.BlazorWASM.Hints
             }
             return null;
         }
-        private static ISolvingTechnique HiddenSingle(IGrid grid)
+        private static IDisplaySolvingTechniqueOld HiddenSingle(IGrid grid)
         {
             foreach( var positions in Position.Houses )
                 foreach( var value in InputValue.NonEmpty )
@@ -92,7 +91,7 @@ namespace UI.BlazorWASM.Hints
         #endregion
 
         #region Locked Candidates
-        private static ISolvingTechnique LockedCandidatesPointing(IGrid grid)
+        private static IDisplaySolvingTechniqueOld LockedCandidatesPointing(IGrid grid)
         {
             foreach( var value in InputValue.NonEmpty )
                 foreach( var block in Position.Blocks )
@@ -110,7 +109,7 @@ namespace UI.BlazorWASM.Hints
             return null;
         }
 
-        private static ISolvingTechnique LockedCandidatesClaiming(IGrid grid)
+        private static IDisplaySolvingTechniqueOld LockedCandidatesClaiming(IGrid grid)
         {
             foreach( var value in InputValue.NonEmpty )
                 foreach( var house in Position.Rows.Concat(Position.Cols) )
@@ -129,7 +128,7 @@ namespace UI.BlazorWASM.Hints
         #endregion
 
         #region Naked Subset
-        private static ISolvingTechnique NakedPair(IGrid grid)
+        private static IDisplaySolvingTechniqueOld NakedPair(IGrid grid)
         {
             var result = NakedSubset(grid, 2);
             return result != default
@@ -137,7 +136,7 @@ namespace UI.BlazorWASM.Hints
                 : null;
         }
 
-        private static ISolvingTechnique NakedTriple(IGrid grid)
+        private static IDisplaySolvingTechniqueOld NakedTriple(IGrid grid)
         {
             var result = NakedSubset(grid, 3);
             return result != default
@@ -145,7 +144,7 @@ namespace UI.BlazorWASM.Hints
                 : null;
         }
 
-        private static ISolvingTechnique NakedQuadruple(IGrid grid)
+        private static IDisplaySolvingTechniqueOld NakedQuadruple(IGrid grid)
         {
             var result = NakedSubset(grid, 4);
             return result != default
@@ -201,7 +200,7 @@ namespace UI.BlazorWASM.Hints
         #endregion
 
         #region Hidden Subset
-        public static ISolvingTechnique HiddenPair(IGrid input)
+        public static IDisplaySolvingTechniqueOld HiddenPair(IGrid input)
         {
             var result = HiddenSubset(input, 2);
             return result != default
@@ -209,7 +208,7 @@ namespace UI.BlazorWASM.Hints
                 : default;
         }
 
-        public static ISolvingTechnique HiddenTriple(IGrid input)
+        public static IDisplaySolvingTechniqueOld HiddenTriple(IGrid input)
         {
             var result = HiddenSubset(input, 3);
             return result != default
@@ -261,7 +260,7 @@ namespace UI.BlazorWASM.Hints
         #endregion
 
         #region Wings
-        public static ISolvingTechnique XWing(IGrid input)
+        public static IDisplaySolvingTechniqueOld XWing(IGrid input)
         {
             foreach( var value in InputValue.NonEmpty )
             {
@@ -300,7 +299,7 @@ namespace UI.BlazorWASM.Hints
             return default;
         }
 
-        public static ISolvingTechnique XYWing(IGrid input)
+        public static IDisplaySolvingTechniqueOld XYWing(IGrid input)
         {
             var pairPositions = Position.All.Where(pos => input.CandidatesCount(pos) == 2);
 
@@ -340,7 +339,7 @@ namespace UI.BlazorWASM.Hints
         }
         #endregion
 
-        private static ISolvingTechnique Skyscrapper(IGrid input)
+        private static IDisplaySolvingTechniqueOld Skyscrapper(IGrid input)
         {
             foreach( var value in InputValue.NonEmpty )
             {

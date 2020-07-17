@@ -11,9 +11,11 @@ namespace SmartSolver.TechniqueFinders
             foreach( var house in Position.Houses )
             {
                 var result = HiddenSubsetStep(input, house, new HashSet<Position>(), new List<InputValue>(), depth);
-                if( result != default ) return result;
+                foreach( var item in result )
+                {
+                    yield return item;
+                }
             }
-            return default;
         }
 
         private IEnumerable<(IEnumerable<Position> positions, IEnumerable<InputValue> values)> HiddenSubsetStep(
@@ -26,10 +28,8 @@ namespace SmartSolver.TechniqueFinders
             if( positions.Count > depth ) yield break;
             if( values.Count == depth )
             {
-                var isAnyCandidateAnywhereToRemove = positions.Any(
-                    pos => InputValue.NonEmpty.Except(values).Any(value => input.HasCandidate(pos, value)));
-                if( isAnyCandidateAnywhereToRemove ) yield return (positions, values);
-                else yield break;
+                yield return (positions, values);
+                yield break;
             }
 
             foreach( var value in InputValue.NonEmpty.Except(values) )
@@ -42,13 +42,11 @@ namespace SmartSolver.TechniqueFinders
                 positionsNew.UnionWith(positionsWithCandidate);
                 var valuesNew = new List<InputValue>(values) { value };
                 var result = HiddenSubsetStep(input, house, positionsNew, valuesNew, depth);
-                if( result != default )
+                foreach( var item in result )
                 {
-                    foreach( var item in result )
-                    {
-                        yield return item;
-                    }
+                    yield return item;
                 }
+                
             }
         }
     }

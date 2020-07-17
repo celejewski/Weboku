@@ -36,6 +36,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj" />
+    <ProjectReference Include="..\SmartSolver\SmartSolver.csproj" />
   </ItemGroup>
 
 </Project>

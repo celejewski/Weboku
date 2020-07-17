@@ -1,15 +1,24 @@
-﻿using System;
+﻿using Core.Data;
+using SmartSolver.SolvingTechniques;
+using System;
 using System.Collections.Generic;
 
-namespace UI.BlazorWASM.Hints.SolvingTechniques
+namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
 {
-    public abstract class BaseSolvingTechnique : IDisplaySolvingTechniqueOld
+    public abstract class BaseDisplaySolvingTechnique : IDisplaySolvingTechnique
     {
-        protected BaseSolvingTechnique(string locKey)
+        protected BaseDisplaySolvingTechnique(string locKey)
         {
             _locKey = locKey;
         }
 
+        protected BaseDisplaySolvingTechnique(ISolvingTechnique solvingTechnique, string locKey)
+        {
+            _solvingTechnique = solvingTechnique;
+            _locKey = locKey;
+        }
+
+        private readonly ISolvingTechnique _solvingTechnique;
         protected string _locKey;
         protected string TitleKey => $"{_locKey}__title";
         protected string DescriptionKey => $"{_locKey}__description";
@@ -23,8 +32,14 @@ namespace UI.BlazorWASM.Hints.SolvingTechniques
         {
             displayer.SetTitle(TitleKey);
         }
-        public abstract void Execute(Executor executor, Informer informer);
-        public abstract bool CanExecute(Informer informer);
+        public void Execute(IGrid grid)
+        {
+            _solvingTechnique?.Execute(grid);
+        }
+        public bool CanExecute(IGrid grid)
+        {
+            return _solvingTechnique == null || _solvingTechnique.CanExecute(grid);
+        }
 
         protected readonly List<Action<Displayer, Informer>> _explanationSteps = new List<Action<Displayer, Informer>>();
 

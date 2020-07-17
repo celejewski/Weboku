@@ -5,14 +5,24 @@ namespace SmartSolver.SolvingTechniques
 {
     public class FullHouse : ISolvingTechnique
     {
+        public FullHouse(Position position, InputValue value)
+        {
+            Position = position;
+            Value = value;
+        }
+
+        public InputValue Value { get; }
+
+        public Position Position { get; }
+
         public bool CanExecute(IGrid grid)
         {
-            throw new NotImplementedException();
+            return grid.HasCandidate(Position, Value);
         }
 
         public void Execute(IGrid grid)
         {
-            throw new NotImplementedException();
+            grid.SetValue(Position, Value);
         }
     }
 }

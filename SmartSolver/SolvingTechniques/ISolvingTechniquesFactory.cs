@@ -6,18 +6,18 @@ namespace SmartSolver.SolvingTechniques
 {
     public interface ISolvingTechniquesFactory
     {
-        public FullHouse FullHouse(Position pos, InputValue value);
-        public NakedSingle NakedSingle(Position pos, InputValue value);
-        public NakedPair NakedPair(IEnumerable<Position> positions, IEnumerable<InputValue> values);
-        public NakedSubset NakedSubset(IEnumerable<Position> positions, IEnumerable<InputValue> values);
-        public HiddenSingle HiddenSingle(Position pos, InputValue value);
-        public HiddenPair HiddenPair(IEnumerable<Position> positions, IEnumerable<InputValue> values);
-        public HiddenSubset HiddenSubset(IEnumerable<Position> positions, IEnumerable<InputValue> values);
-        public LockedCandidatesPointing LockedCandidatesPointing();
-        public LockedCandidatesClaiming LockedCandidatesClaiming();
-        public XWing XWing();
-        public XYWing XYWing();
-        public Skyscrapper Skyscrapper();
+        public ISolvingTechnique FullHouse(Position pos, InputValue value);
+        public ISolvingTechnique NakedSingle(Position pos, InputValue value);
+        public ISolvingTechnique NakedPair(IEnumerable<Position> positions, IEnumerable<InputValue> values);
+        public ISolvingTechnique NakedSubset(IEnumerable<Position> positions, IEnumerable<InputValue> values);
+        public ISolvingTechnique HiddenSingle(Position pos, InputValue value);
+        public ISolvingTechnique HiddenPair(IEnumerable<Position> positions, IEnumerable<InputValue> values);
+        public ISolvingTechnique HiddenSubset(IEnumerable<Position> positions, IEnumerable<InputValue> values);
+        public ISolvingTechnique LockedCandidatesPointing();
+        public ISolvingTechnique LockedCandidatesClaiming();
+        public ISolvingTechnique XWing();
+        public ISolvingTechnique XYWing();
+        public ISolvingTechnique Skyscrapper();
         
     }
 }

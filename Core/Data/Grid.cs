@@ -27,6 +27,10 @@ namespace Core.Data
         {
             _inputs[pos.x, pos.y] = value;
             _candidates[pos.x, pos.y] = CandidateValue.None;
+            foreach (var seenBy in Position.GetOtherPositionsSeenBy(pos))
+            {
+                RemoveCandidate(seenBy, value);
+            }
         }
 
         public bool HasCandidate(Position pos, InputValue value) => (_candidates[pos.x, pos.y] & value.ToCandidateValue()) == value.ToCandidateValue();

@@ -1,6 +1,6 @@
 ﻿namespace UI.BlazorWASM.Hints.SolvingTechniques
 {
-    public interface ISolvingTechnique
+    public interface IDisplaySolvingTechniqueOld
     {
         void DisplayHint(Displayer displayer, Informer informer);
         void DisplaySolution(Displayer displayer, Informer informer);
