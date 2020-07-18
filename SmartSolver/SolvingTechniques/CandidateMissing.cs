@@ -11,7 +11,7 @@ namespace SmartSolver.SolvingTechniques
 
         public bool CanExecute(IGrid grid)
         {
-            var solution = _solver.SolveGivens(grid);
+            var solution = _solver.Solve(grid) ?? _solver.SolveGivens(grid);
 
             if( solution == null ) return false;
 

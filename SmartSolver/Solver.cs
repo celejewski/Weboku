@@ -4,7 +4,6 @@ using SmartSolver.TechniqueFinders;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Net.Http.Headers;
 
 namespace SmartSolver
 {
@@ -40,18 +39,16 @@ namespace SmartSolver
 
         public ISolvingTechnique NextStep(IGrid grid)
         {
-#if DEBUG
             var stopwatch = Stopwatch.StartNew();
-#endif
+
             var step = AllSteps(grid)
 #if DEBUG
                 .ToList()
-#endif       
+#endif
                 .FirstOrDefault();
 
-#if DEBUG
             System.Console.WriteLine($"{stopwatch.ElapsedMilliseconds}ms elapsed");
-#endif
+
 
             return step;
         }

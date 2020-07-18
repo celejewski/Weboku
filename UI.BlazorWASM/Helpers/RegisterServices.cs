@@ -18,9 +18,7 @@ namespace UI.BlazorWASM.Helpers
         public static void RegisterHints(this IServiceCollection services)
         {
             services.AddScoped<Displayer>();
-            services.AddScoped<Executor>();
             services.AddScoped<Informer>();
-            services.AddScoped<HodokuParser, HodokuParser>();
             services.AddScoped<HintsProvider, HintsProvider>();
             services.AddScoped<ShowHintModalCommand>();
         }

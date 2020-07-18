@@ -2,6 +2,7 @@
 using Core.Solvers;
 using SmartSolver.SolvingTechniques;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace SmartSolver.TechniqueFinders
@@ -18,7 +19,7 @@ namespace SmartSolver.TechniqueFinders
         public override IEnumerable<ISolvingTechnique> FindAll(IGrid grid)
         {
             BruteForceSolver solver = new BruteForceSolver();
-            var solution = solver.SolveGivens(grid);
+            var solution = solver.Solve(grid) ?? solver.SolveGivens(grid);
 
             if( solution == null )
             {

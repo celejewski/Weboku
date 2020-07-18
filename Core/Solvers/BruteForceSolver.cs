@@ -1,15 +1,23 @@
 ﻿using Core.Data;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Core.Solvers
 {
     public class BruteForceSolver : BaseSolver
     {
+        static IDictionary<int, IGrid> _solved = new Dictionary<int, IGrid>();
+
         public override IGrid Solve(IGrid input)
         {
-            var grid = input.Clone();
-            GridHelper.SetAllLegalCandidates(grid);
-            return SolveStep(grid);
+            var hashcode = input.GetGivensHashcode();
+            if (!_solved.ContainsKey(hashcode))
+            {
+                var grid = input.Clone();
+                grid.FillCandidates();
+                _solved[hashcode] = SolveStep(grid);
+            }
+            return _solved[hashcode];
         }
 
         private IGrid SolveStep(IGrid input)
@@ -29,7 +37,6 @@ namespace Core.Solvers
             {
                 var grid = input.Clone();
                 grid.SetValue(pos, value);
-                GridHelper.RemoveCandidatesSeenBy(grid, pos);
 
                 if( SolveStep(grid) is Grid output )
                 {

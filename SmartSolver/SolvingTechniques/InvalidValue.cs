@@ -22,7 +22,6 @@ namespace SmartSolver.SolvingTechniques
             foreach( var pos in _positions )
             {
                 grid.SetValue(pos, InputValue.Empty);
-
             }
         }
     }

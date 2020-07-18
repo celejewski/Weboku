@@ -1,5 +1,6 @@
 ﻿using Core.Helpers;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Core.Data
@@ -28,9 +29,13 @@ namespace Core.Data
         {
             _inputs[pos.x, pos.y] = value;
             _candidates[pos.x, pos.y] = CandidateValue.None;
-            foreach (var seenBy in Position.GetOtherPositionsSeenBy(pos))
+
+            if( value != InputValue.Empty )
             {
-                RemoveCandidate(seenBy, value);
+                foreach( var seenBy in Position.GetOtherPositionsSeenBy(pos) )
+                {
+                    RemoveCandidate(seenBy, value);
+                }
             }
         }
 
@@ -120,6 +125,13 @@ namespace Core.Data
                     yield return value;
                 }
             }
+        }
+
+        public int GetGivensHashcode()
+        {
+            var values = Position.All.Select(pos => GetIsGiven(pos) ? GetValue(pos) : InputValue.Empty);
+            var hashcode = string.Join("", values).GetHashCode();
+            return hashcode;
         }
     }
 }
