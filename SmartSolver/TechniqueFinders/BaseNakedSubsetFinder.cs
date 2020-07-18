@@ -22,10 +22,13 @@ namespace SmartSolver.TechniqueFinders
 
                 if( positionsInHouse.Count() < depth ) continue;
 
-                var result = NakedSubsetStep(grid, new List<Position>(), new HashSet<InputValue>(), positionsInHouse, depth, 0);
-                foreach (var item in result)
+                for( int i = 0; i <= positionsInHouse.Count() - depth; i++ )
                 {
-                    yield return item;
+                    var result = NakedSubsetStep(grid, new List<Position>(), new HashSet<InputValue>(), positionsInHouse, depth, i);
+                    foreach( var item in result )
+                    {
+                        yield return item;
+                    }
                 }
             }
         }
@@ -41,12 +44,11 @@ namespace SmartSolver.TechniqueFinders
             if( values.Count > depth ) yield break;
             if( positions.Count == depth )
             {
-                var positionsSeen = Position.GetOtherPositionsSeenBy(positions);
-                if( values.Any(value => positionsSeen.WithCandidate(grid, value).Any()) ) yield return (positions, values);
-                else yield break;
+                yield return (positions, values);
+                yield break;
             }
 
-            foreach( var pos in house.Skip(index + 1) )
+            foreach( var pos in house.Skip(index) )
             {
                 index += 1;
                 var positionsNew = new List<Position>(positions) { pos };

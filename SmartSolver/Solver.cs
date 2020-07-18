@@ -22,6 +22,7 @@ namespace SmartSolver
                 new HiddenSingleFinder(_factory),
                 new LockedCandidatesPointingFinder(_factory),
                 new LockedCandidatesClaimingFinder(_factory),
+                new NakedPairFinder(_factory),
                 new HiddenPairFinder(_factory),
             };
         }

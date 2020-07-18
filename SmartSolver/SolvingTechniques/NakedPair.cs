@@ -1,22 +1,14 @@
 ﻿using Core.Data;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SmartSolver.SolvingTechniques
 {
-    public class NakedPair : ISolvingTechnique
+    public class NakedPair : NakedSubset
     {
-        public bool CanExecute(IGrid grid)
+        public NakedPair(IEnumerable<Position> positions, IEnumerable<InputValue> values)
+            :base(positions, values)
         {
-            throw new NotImplementedException();
-        }
 
-        public void Execute(IGrid grid)
-        {
-            throw new NotImplementedException();
         }
     }
 }

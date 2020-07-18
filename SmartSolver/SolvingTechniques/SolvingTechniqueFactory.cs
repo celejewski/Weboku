@@ -38,7 +38,7 @@ namespace SmartSolver.SolvingTechniques
 
         public ISolvingTechnique NakedPair(IEnumerable<Position> positions, IEnumerable<InputValue> values)
         {
-            throw new NotImplementedException();
+            return new NakedPair(positions, values);
         }
 
         public ISolvingTechnique NakedSingle(Position pos, InputValue value)
