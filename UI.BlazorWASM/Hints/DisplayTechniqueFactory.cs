@@ -21,6 +21,7 @@ namespace UI.BlazorWASM.Hints
                 (typeof(NakedPair), typeof(NakedPairDisplayer)),
                 (typeof(NakedSubset), typeof(NakedSubsetDisplayer)),
                 (typeof(HiddenPair), typeof(HiddenPairDisplayer)),
+                (typeof(HiddenSubset), typeof(HiddenSubsetDisplayer)),
                 (typeof(LockedCandidatesPointing), typeof(LockedCandidatesPointingDisplayer)),
                 (typeof(LockedCandidatesClaiming), typeof(LockedCandidatesClaimingDisplayer)),
                 (typeof(Skyscrapper), typeof(SkyscrapperDisplayer)),

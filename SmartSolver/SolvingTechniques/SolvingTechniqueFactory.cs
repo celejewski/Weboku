@@ -48,7 +48,7 @@ namespace SmartSolver.SolvingTechniques
 
         public ISolvingTechnique NakedSubset(IEnumerable<Position> positions, IEnumerable<InputValue> values)
         {
-            throw new NotImplementedException();
+            return new NakedSubset(positions, values);
         }
 
         public ISolvingTechnique Skyscrapper(Position base1, Position base2, Position pos1, Position pos2, InputValue value)
