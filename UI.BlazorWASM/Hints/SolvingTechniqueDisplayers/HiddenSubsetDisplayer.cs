@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
 {
-    public class HiddenSubsetDisplayer : BaseDisplaySolvingTechnique
+    public class HiddenSubsetDisplayer : BaseSolvingTechniqueDisplayer
     {
 
         protected Position Position => _positions.First();

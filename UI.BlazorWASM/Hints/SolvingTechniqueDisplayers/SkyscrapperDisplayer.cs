@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
 {
-    public class SkyscrapperDisplayer : BaseDisplaySolvingTechnique
+    public class SkyscrapperDisplayer : BaseSolvingTechniqueDisplayer
     {
         private readonly Position _base1;
         private readonly Position _base2;

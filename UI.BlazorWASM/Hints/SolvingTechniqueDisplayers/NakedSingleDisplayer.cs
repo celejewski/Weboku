@@ -4,7 +4,7 @@ using UI.BlazorWASM.Enums;
 
 namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
 {
-    public class NakedSingleDisplayer : BaseDisplaySolvingTechnique
+    public class NakedSingleDisplayer : BaseSolvingTechniqueDisplayer
     {
         private readonly Position _position;
         private readonly InputValue _value;

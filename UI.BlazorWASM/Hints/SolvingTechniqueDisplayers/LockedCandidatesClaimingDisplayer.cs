@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
 {
-    public class LockedCandidatesClaimingDisplayer : BaseDisplaySolvingTechnique
+    public class LockedCandidatesClaimingDisplayer : BaseSolvingTechniqueDisplayer
     {
 
         private readonly InputValue _inputValue;

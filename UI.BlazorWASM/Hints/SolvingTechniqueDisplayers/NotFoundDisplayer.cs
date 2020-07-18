@@ -1,6 +1,6 @@
 ﻿namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
 {
-    public class NotFoundDisplayer : BaseDisplaySolvingTechnique
+    public class NotFoundDisplayer : BaseSolvingTechniqueDisplayer
     {
         public NotFoundDisplayer() : base("no-hint") { }
     }

@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
 {
-    public class HiddenSingleDisplayer : BaseDisplaySolvingTechnique
+    public class HiddenSingleDisplayer : BaseSolvingTechniqueDisplayer
     {
         private readonly Position _position;
         private readonly InputValue _inputValue;

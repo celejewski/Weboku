@@ -5,14 +5,14 @@ using System.Collections.Generic;
 
 namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
 {
-    public abstract class BaseDisplaySolvingTechnique : IDisplaySolvingTechnique
+    public abstract class BaseSolvingTechniqueDisplayer : IDisplaySolvingTechnique
     {
-        protected BaseDisplaySolvingTechnique(string locKey)
+        protected BaseSolvingTechniqueDisplayer(string locKey)
         {
             _locKey = locKey;
         }
 
-        protected BaseDisplaySolvingTechnique(ISolvingTechnique solvingTechnique, string locKey)
+        protected BaseSolvingTechniqueDisplayer(ISolvingTechnique solvingTechnique, string locKey)
         {
             _solvingTechnique = solvingTechnique;
             _locKey = locKey;
