@@ -2,6 +2,7 @@
 using SmartSolver.SolvingTechniques;
 using SmartSolver.TechniqueFinders;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace SmartSolver
@@ -35,7 +36,20 @@ namespace SmartSolver
 
         public ISolvingTechnique NextStep(IGrid grid)
         {
-            return AllSteps(grid).ToList().FirstOrDefault();
+#if DEBUG
+            var stopwatch = Stopwatch.StartNew();
+#endif
+            var step = AllSteps(grid)
+#if DEBUG
+                .ToList()
+#endif       
+                .FirstOrDefault();
+
+#if DEBUG
+            System.Console.WriteLine($"{stopwatch.ElapsedMilliseconds}ms elapsed");
+#endif
+
+            return step;
         }
 
         public IEnumerable<ISolvingTechnique> AllSteps(IGrid grid)
