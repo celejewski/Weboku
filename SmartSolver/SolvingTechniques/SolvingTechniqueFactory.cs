@@ -51,9 +51,9 @@ namespace SmartSolver.SolvingTechniques
             throw new NotImplementedException();
         }
 
-        public ISolvingTechnique Skyscrapper()
+        public ISolvingTechnique Skyscrapper(Position base1, Position base2, Position pos1, Position pos2, InputValue value)
         {
-            throw new NotImplementedException();
+            return new Skyscrapper(base1, base2, pos1, pos2, value);
         }
 
         public ISolvingTechnique XWing()
