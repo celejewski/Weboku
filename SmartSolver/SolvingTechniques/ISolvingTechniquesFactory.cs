@@ -20,6 +20,7 @@ namespace SmartSolver.SolvingTechniques
 
         public ISolvingTechnique NoSolution();
         public ISolvingTechnique InvalidValue(IEnumerable<Position> positions);
+        public ISolvingTechnique CandidateMissing();
         
     }
 }

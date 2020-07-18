@@ -14,6 +14,7 @@ namespace UI.BlazorWASM.Hints
             var tuples = new[]{
                 (typeof(NoSolution), typeof(NoSolutionDisplayer)),
                 (typeof(InvalidValue), typeof(InvalidValuesDisplayer)),
+                (typeof(CandidateMissing), typeof(CandidateMissingDisplayer)),
                 (typeof(NakedSingle), typeof(NakedSingleDisplayer)),
                 (typeof(FullHouse), typeof(FullHouseDisplayer)),
                 (typeof(HiddenSingle), typeof(HiddenSingleDisplayer)),

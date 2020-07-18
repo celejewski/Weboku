@@ -75,5 +75,10 @@ namespace SmartSolver.SolvingTechniques
         {
             return new InvalidValue(positions);
         }
+
+        public ISolvingTechnique CandidateMissing()
+        {
+            return new CandidateMissing();
+        }
     }
 }

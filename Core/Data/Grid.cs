@@ -1,5 +1,6 @@
 ﻿using Core.Helpers;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Core.Data
 {
@@ -54,14 +55,17 @@ namespace Core.Data
 
         public void FillCandidates()
         {
-            for( int i = 0; i < 9; i++ )
+            foreach( var pos in Position.All.Where(pos => !HasValue(pos)) )
             {
-                for( int j = 0; j < 9; j++ )
+                _candidates[pos.x, pos.y] = CandidateValue.All;
+            }
+
+            foreach( var positionWithValue in Position.All.Where(pos => HasValue(pos)) )
+            {
+                foreach( var pos in Position.GetOtherPositionsSeenBy(positionWithValue) )
                 {
-                    if( _inputs[i, j] == InputValue.Empty )
-                    {
-                        _candidates[i, j] = CandidateValue.All;
-                    }
+                    var value = GetValue(positionWithValue);
+                    RemoveCandidate(pos, value);
                 }
             }
         }
