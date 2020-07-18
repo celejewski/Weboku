@@ -5,9 +5,9 @@ using System.Linq;
 
 namespace Core.Solvers
 {
-    public class SmartSolver : ISolver
+    public class SmartSolver : BaseSolver
     {
-        public IGrid Solve(IGrid input)
+        public override IGrid Solve(IGrid input)
         {
             var grid = input.Clone();
 

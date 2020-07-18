@@ -65,5 +65,15 @@ namespace SmartSolver.SolvingTechniques
         {
             return new XYWing(pivot, pos1, pos2, candidate1, candidate2, positionsToRemove, value);
         }
+
+        public ISolvingTechnique NoSolution()
+        {
+            return new NoSolution();
+        }
+
+        public ISolvingTechnique InvalidValue(IEnumerable<Position> positions)
+        {
+            return new InvalidValue(positions);
+        }
     }
 }

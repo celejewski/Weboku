@@ -17,6 +17,9 @@ namespace SmartSolver.SolvingTechniques
         public ISolvingTechnique XWing();
         public ISolvingTechnique XYWing(Position pivot, Position pos1, Position pos2, InputValue candidate1, InputValue candidate2, IEnumerable<Position> positionsToRemove, InputValue value);
         public ISolvingTechnique Skyscrapper(Position base1, Position base2, Position pos1, Position pos2, InputValue value);
+
+        public ISolvingTechnique NoSolution();
+        public ISolvingTechnique InvalidValue(IEnumerable<Position> positions);
         
     }
 }

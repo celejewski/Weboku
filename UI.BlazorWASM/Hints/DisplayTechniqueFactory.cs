@@ -12,6 +12,8 @@ namespace UI.BlazorWASM.Hints
             if( technique == null ) return new NotFoundDisplayer();
 
             var tuples = new[]{
+                (typeof(NoSolution), typeof(NoSolutionDisplayer)),
+                (typeof(InvalidValue), typeof(InvalidValuesDisplayer)),
                 (typeof(NakedSingle), typeof(NakedSingleDisplayer)),
                 (typeof(FullHouse), typeof(FullHouseDisplayer)),
                 (typeof(HiddenSingle), typeof(HiddenSingleDisplayer)),

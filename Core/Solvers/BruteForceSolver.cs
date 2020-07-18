@@ -3,9 +3,9 @@ using System.Linq;
 
 namespace Core.Solvers
 {
-    public class BruteForceSolver : ISolver
+    public class BruteForceSolver : BaseSolver
     {
-        public IGrid Solve(IGrid input)
+        public override IGrid Solve(IGrid input)
         {
             var grid = input.Clone();
             GridHelper.SetAllLegalCandidates(grid);
