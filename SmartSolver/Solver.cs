@@ -26,6 +26,7 @@ namespace SmartSolver
                 new HiddenPairFinder(_factory),
                 new XWingFinder(_factory),
                 new SkyscrapperFinder(_factory),
+                new XYWingFinder(_factory),
             };
         }
 

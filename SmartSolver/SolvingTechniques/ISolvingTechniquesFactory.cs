@@ -15,7 +15,7 @@ namespace SmartSolver.SolvingTechniques
         public ISolvingTechnique LockedCandidatesPointing(int block, InputValue inputValue, IEnumerable<Position> positionToRemoveFrom);
         public ISolvingTechnique LockedCandidatesClaiming(InputValue inputValue, IEnumerable<Position> positionsToRemoveCandidate, House house);
         public ISolvingTechnique XWing();
-        public ISolvingTechnique XYWing();
+        public ISolvingTechnique XYWing(Position pivot, Position pos1, Position pos2, InputValue candidate1, InputValue candidate2, IEnumerable<Position> positionsToRemove, InputValue value);
         public ISolvingTechnique Skyscrapper(Position base1, Position base2, Position pos1, Position pos2, InputValue value);
         
     }

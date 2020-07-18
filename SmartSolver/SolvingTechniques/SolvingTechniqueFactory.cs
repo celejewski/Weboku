@@ -61,9 +61,9 @@ namespace SmartSolver.SolvingTechniques
             throw new NotImplementedException();
         }
 
-        public ISolvingTechnique XYWing()
+        public ISolvingTechnique XYWing(Position pivot, Position pos1, Position pos2, InputValue candidate1, InputValue candidate2, IEnumerable<Position> positionsToRemove, InputValue value)
         {
-            throw new NotImplementedException();
+            return new XYWing(pivot, pos1, pos2, candidate1, candidate2, positionsToRemove, value);
         }
     }
 }
