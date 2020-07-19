@@ -17,7 +17,7 @@ namespace SmartSolver.SolvingTechniques
 
         public bool CanExecute(IGrid grid)
         {
-            return grid.HasCandidate(Position, Value);
+            return true;
         }
 
         public void Execute(IGrid grid)

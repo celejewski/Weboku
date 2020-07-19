@@ -18,8 +18,9 @@ namespace SmartSolver
             _finders = new ITechniqueFinder[]
             {
                 new InvalidValueFinder(_factory),
-                new CandidateMissingFinder(_factory),
                 new FullHouseFinder(_factory),
+                new HiddenSingleWithoutCandidatesFinder(_factory),
+                new CandidateMissingFinder(_factory),
                 new HiddenSingleFinder(_factory),
                 new NakedSingleFinder(_factory),
                 new LockedCandidatesPointingFinder(_factory),

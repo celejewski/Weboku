@@ -6,7 +6,7 @@ namespace Core.Solvers
 {
     public class BruteForceSolver : BaseSolver
     {
-        static IDictionary<int, IGrid> _solved = new Dictionary<int, IGrid>();
+        static readonly IDictionary<int, IGrid> _solved = new Dictionary<int, IGrid>();
 
         public override IGrid Solve(IGrid input)
         {
