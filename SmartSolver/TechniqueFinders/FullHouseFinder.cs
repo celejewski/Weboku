@@ -29,5 +29,10 @@ namespace SmartSolver.TechniqueFinders
                 }
             }
         }
+
+        public override string ToString()
+        {
+            return nameof(FullHouseFinder);
+        }
     }
 }

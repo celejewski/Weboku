@@ -5,11 +5,12 @@ using System.Linq;
 
 namespace SmartSolver.TechniqueFinders
 {
-    public class HiddenSingleWithoutCandidatesFinder : BaseTechniqueFinder
+    public class HiddenSingleWithoutCandidatesFinderNew : BaseTechniqueFinder
     {
+
         private readonly ISolvingTechniquesFactory _factory;
 
-        public HiddenSingleWithoutCandidatesFinder(ISolvingTechniquesFactory factory)
+        public HiddenSingleWithoutCandidatesFinderNew(ISolvingTechniquesFactory factory)
         {
             _factory = factory;
         }
@@ -20,12 +21,13 @@ namespace SmartSolver.TechniqueFinders
             {
                 foreach( var value in InputValue.NonEmpty )
                 {
-                    var positionsWhereValueCanGo = house
-                        .Where(pos => !grid.HasValue(pos))
-                        .Where(pos1 => GridHelper.GetCoordsWhichCanSee(pos1)
-                            .All(pos2 => grid.GetValue(pos2) != value)); ;
+                    var positionsWithoutValue = house.Where(pos => !grid.HasValue(pos));
 
-                    if (positionsWhereValueCanGo.Count() == 1)
+                    var positionsWhereValueCanGo = positionsWithoutValue
+                        .Where(pos1 => GridHelper.GetCoordsWhichCanSee(pos1)
+                            .All(pos2 => grid.GetValue(pos2) != value));
+
+                    if( positionsWhereValueCanGo.Count() == 1 )
                     {
                         var pos = positionsWhereValueCanGo.First();
                         yield return _factory.HiddenSingle(pos, value);

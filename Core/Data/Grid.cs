@@ -133,5 +133,10 @@ namespace Core.Data
             var hashcode = string.Join("", values).GetHashCode();
             return hashcode;
         }
+
+        public override string ToString()
+        {
+            return "Grid";
+        }
     }
 }
