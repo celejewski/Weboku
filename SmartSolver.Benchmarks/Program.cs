@@ -31,7 +31,7 @@ namespace SmartSolver.Benchmarks
         {
             _factory = new SolvingTechniqueFactory();
             _techniqueFinderOld = new HiddenSingleWithoutCandidatesFinder(_factory);
-            _techniqueFinderNew = new HiddenSingleWithoutCandidatesFinderNew(_factory);
+            _techniqueFinderNew = new HiddenSingleWithoutCandidatesFinder(_factory);
         }
 
         [Benchmark]

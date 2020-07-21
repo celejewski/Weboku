@@ -19,6 +19,7 @@ namespace SmartSolver
             {
                 new InvalidValueFinder(_factory),
                 new FullHouseFinder(_factory),
+                //new HiddenSingleWithoutCandidatesFinder(_factory),
                 new HiddenSingleWithoutCandidatesFinder(_factory),
                 new CandidateMissingFinder(_factory),
                 new HiddenSingleFinder(_factory),

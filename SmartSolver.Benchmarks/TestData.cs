@@ -28,8 +28,6 @@ namespace SmartSolver.Benchmarks
             {
                 grid.FillCandidates();
             }
-        }
-
-        
+        }        
     }
 }

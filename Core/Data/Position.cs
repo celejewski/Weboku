@@ -27,7 +27,7 @@ namespace Core.Data
         }
 
         private static readonly List<Position> _all = new List<Position>();
-        public static IEnumerable<Position> All => _all;
+        public static IReadOnlyList<Position> All => _all;
 
         private static readonly List<List<Position>> _rows = new List<List<Position>>();
         public static IReadOnlyList<IEnumerable<Position>> Rows => _rows;
@@ -39,7 +39,7 @@ namespace Core.Data
         public static IReadOnlyList<IEnumerable<Position>> Blocks => _blocks;
 
         private static readonly List<IEnumerable<Position>> _houses;
-        public static IEnumerable<IEnumerable<Position>> Houses => _houses;
+        public static IReadOnlyList<IEnumerable<Position>> Houses => _houses;
 
         public static IEnumerable<Position> GetOtherPositionsSeenBy(IEnumerable<Position> positions)
         {
