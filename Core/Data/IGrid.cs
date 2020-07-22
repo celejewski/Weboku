@@ -12,7 +12,7 @@ namespace Core.Data
         bool HasValue(Position pos);
 
         bool HasCandidate(Position pos, InputValue value);
-        IReadOnlyList<InputValue> GetCandidates(Position pos);
+        CandidateValue GetCandidates(Position pos);
         int CandidatesCount(Position pos);
 
         void AddCandidate(Position pos, InputValue value);

@@ -1,5 +1,4 @@
-﻿using com.sun.tools.jdi;
-using Core.Helpers;
+﻿using Core.Helpers;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -132,7 +131,7 @@ namespace Core.Data
 
         private readonly static Dictionary<CandidateValue, IReadOnlyList<InputValue>> _candidatesDict
     = new Dictionary<CandidateValue, IReadOnlyList<InputValue>>();
-        public IReadOnlyList<InputValue> GetCandidates(Position pos)
+        public IReadOnlyList<InputValue> GetCandidatesWithCache(Position pos)
         {
             var key = _candidates[pos.x, pos.y];
             if( !_candidatesDict.ContainsKey(key) )
@@ -144,6 +143,8 @@ namespace Core.Data
             }
             return _candidatesDict[key];
         }
+
+        public CandidateValue GetCandidates(Position pos) => _candidates[pos.x, pos.y];
 
         public int GetGivensHashcode()
         {
