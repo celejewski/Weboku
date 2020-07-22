@@ -1,7 +1,8 @@
-﻿using Core.Helpers;
+﻿using com.sun.tools.jdi;
+using Core.Helpers;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace Core.Data
 {
@@ -10,6 +11,7 @@ namespace Core.Data
         private readonly InputValue[,] _inputs;
         private readonly CandidateValue[,] _candidates;
         private readonly bool[,] _isGivens;
+        
         public Grid()
         {
             _inputs = new InputValue[9, 9];
@@ -32,16 +34,23 @@ namespace Core.Data
 
             if( value != InputValue.Empty )
             {
-                foreach( var seenBy in Position.GetOtherPositionsSeenBy(pos) )
+                foreach( var seenBy in GridHelper.GetCoordsWhichCanSee(pos) )
                 {
                     RemoveCandidate(seenBy, value);
                 }
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool HasCandidate(Position pos, InputValue value) => (_candidates[pos.x, pos.y] & value.ToCandidateValue()) == value.ToCandidateValue();
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void ToggleCandidate(Position pos, InputValue value) => _candidates[pos.x, pos.y] ^= value.ToCandidateValue();
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void RemoveCandidate(Position pos, InputValue value) => _candidates[pos.x, pos.y] &= ~value.ToCandidateValue();
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void AddCandidate(Position pos, InputValue value) => _candidates[pos.x, pos.y] |= value.ToCandidateValue();
 
 
@@ -53,6 +62,7 @@ namespace Core.Data
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void ClearCandidates(Position pos)
         {
             _candidates[pos.x, pos.y] = CandidateValue.None;
@@ -75,11 +85,13 @@ namespace Core.Data
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool GetIsGiven(Position pos)
         {
             return _isGivens[pos.x, pos.y];
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SetIsGiven(Position pos, bool value)
         {
             _isGivens[pos.x, pos.y] = value;
@@ -114,17 +126,23 @@ namespace Core.Data
             return result;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool HasValue(Position pos) => GetValue(pos) != InputValue.Empty;
 
-        public IEnumerable<InputValue> GetCandidates(Position pos)
+
+        private readonly static Dictionary<CandidateValue, IReadOnlyList<InputValue>> _candidatesDict
+    = new Dictionary<CandidateValue, IReadOnlyList<InputValue>>();
+        public IReadOnlyList<InputValue> GetCandidates(Position pos)
         {
-            foreach( var value in InputValue.NonEmpty )
+            var key = _candidates[pos.x, pos.y];
+            if( !_candidatesDict.ContainsKey(key) )
             {
-                if (HasCandidate(pos, value))
-                {
-                    yield return value;
-                }
+                _candidatesDict[key] = InputValue.NonEmpty
+                    .Where(value => HasCandidate(pos, value))
+                    .ToList()
+                    .AsReadOnly();
             }
+            return _candidatesDict[key];
         }
 
         public int GetGivensHashcode()
