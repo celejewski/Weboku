@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace Core.Data
 {
-    public class GridHelper
+    public static class GridHelper
     {
         private static readonly IReadOnlyList<Position>[,] _indexesWhichCanSee = new IReadOnlyList<Position>[9, 9];
 
@@ -56,6 +57,51 @@ namespace Core.Data
             {
                 grid.RemoveCandidate(coords, value);
             }
+        }
+
+        public static (int[] cols, int[] rows, int[] blocks)
+            GetCandidatesCount(this IGrid grid, InputValue value)
+        {
+            var cols = new int[9];
+            var rows = new int[9];
+            var blocks = new int[9];
+
+            foreach( var pos in Position.All )
+            {
+                if( grid.HasCandidate(pos, value) )
+                {
+                    cols[pos.x] += 1;
+                    rows[pos.y] += 1;
+                    blocks[pos.block] += 1;
+                }
+            }
+
+            return (cols, rows, blocks);
+        }
+
+        public static (int[] cols, int[] rows, int[] blocks, int[,] blockXcols, int[,] blockXrows)
+            GetCandidatesCountEx(this IGrid grid, InputValue value)
+        {
+            var cols = new int[9];
+            var rows = new int[9];
+            var blocks = new int[9];
+            var blockXcols = new int[9, 9];
+            var blockXrows = new int[9, 9];
+
+            foreach( var pos in Position.All )
+            {
+                if( grid.HasCandidate(pos, value) )
+                {
+                    cols[pos.x] += 1;
+                    rows[pos.y] += 1;
+                    blocks[pos.block] += 1;
+
+                    blockXcols[pos.block, pos.x] += 1;
+                    blockXrows[pos.block, pos.y] += 1;
+                }
+            }
+
+            return (cols, rows, blocks, blockXcols, blockXrows);
         }
     }
 }

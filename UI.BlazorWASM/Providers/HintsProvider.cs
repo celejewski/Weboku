@@ -26,12 +26,12 @@ namespace UI.BlazorWASM.Providers
             OnChanged?.Invoke();
         }
 
+        private Solver _solver = new Solver(new SolvingTechniqueFactory());
         private IEnumerable<IDisplaySolvingTechnique> Techniques
         {
             get
             {
-                var smart = new Solver(new SolvingTechniqueFactory());
-                var technique = smart.NextStep(_gridProvider.Grid) ;
+                var technique = _solver.NextStep(_gridProvider.Grid) ;
                 yield return DisplayTechniqueFactory.GetDisplayer(technique);
             }
         }
