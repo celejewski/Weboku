@@ -13,7 +13,7 @@
     <div class="modal__content">
 
         <div class="modal-new-game__select-diffculty-container">
-            <div class="modal-new-game__select-difficulty-header">Choose difficulty</div>
+            <div class="modal-new-game__select-difficulty-header">@Loc.Keys["new-game__choose-difficulty"]</div>
             <div class="modal-new-game__select-difficulty">
                 @if( IsEasierAvailable )
                 {
@@ -23,7 +23,7 @@
                 {
                     <i></i>
                 }
-                <span class="modal-new-game__selected-difficulty">@SelectedDifficulty</span>
+                <span class="modal-new-game__selected-difficulty">@(Loc.Keys[$"difficulty__{SelectedDifficulty}"])</span>
                 @if( IsHarderAvailable )
                 {
                     <i class="fas fa-chevron-right" @onclick="SelectHarder"></i>
@@ -36,13 +36,13 @@
             </div>
 
             <ModalButtonComponent OnClick="CommandProvider.StartNewGameV2(SelectedDifficulty)">
-                New game
+                @Loc.Keys["new-game__new-game"]
             </ModalButtonComponent>
 
             </div>
 
         <ModalButtonComponent OnClick="ShowCustomSudokuCommand">
-            Custom sudoku
+            @Loc.Keys["new-game__custom-game"]
         </ModalButtonComponent>
     </div>
 

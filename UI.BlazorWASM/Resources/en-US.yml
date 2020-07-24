@@ -8,6 +8,16 @@ menu__candidates-header: Candidates
 menu__find-all: Find all
 menu__remove-all: Remove all
 
+difficulty__easy: "Easy"
+difficulty__medium: "Medium"
+difficulty__hard: "Hard"
+difficulty__extreme: "Extreme"
+difficulty__unfair: "Unfair"
+
+new-game__new-game: "New game"
+new-game__custom-game: "Custom game"
+new-game__choose-difficulty: "Choose Difficulty"
+
 numpad-redo__label: "Redo"
 numpad-undo__label: "Undo"
 numpad-pairs__label: "Pairs"
@@ -88,11 +98,11 @@ how-to-play__p3: |
 
 modal__close: Close
 
-fill-missing-candidates__title: Fill Missing Candidates
-fill-missing-candidates__description: Fill all legal candidates before using hints.
+candidates-missing__title: Fill Missing Candidates
+candidates-missing__description: Fill all legal candidates before using hints.
 
-find-incorrect-solution__title: There are some invalid inputs
-find-incorrect-solution__description: There are some invalid inputs.
+invalid-solution__title: There are some invalid inputs
+invalid-solution__description: There are some invalid inputs.
 
 full-house__title: Full House
 full-house__description: In {0} cell {1} is the last one without value.

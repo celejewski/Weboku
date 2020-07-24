@@ -8,6 +8,16 @@ menu__candidates-header: Kandydaci
 menu__find-all: Wypełnij
 menu__remove-all: Wyczyść
 
+difficulty__easy: "Łatwy"
+difficulty__medium: "Średni"
+difficulty__hard: "Trudny"
+difficulty__extreme: "Ekstremalny"
+difficulty__unfair: "Piekielny"
+
+new-game__new-game: "Nowa gra"
+new-game__custom-game: "Wprowadź własne"
+new-game__choose-difficulty: "Poziom trudności"
+
 numpad-redo__label: "Dalej"
 numpad-undo__label: "Cofnij"
 numpad-pairs__label: "Pary"
@@ -87,11 +97,11 @@ how-to-play__p3: |
 
 modal__close: Zamknij
 
-fill-missing-candidates__title: Wypełnij brakujących kandydatów
-fill-missing-candidates__description: System podpowiedzi wymaga wypełnienia wszystkich kandydatów przed użyciem.
+candidates-missing__title: Wypełnij brakujących kandydatów
+candidates-missing__description: System podpowiedzi wymaga wypisania kandydatów.
 
-find-incorrect-solution__title: Błędne liczby.
-find-incorrect-solution__description: Niektóre wprowadzone liczby są niepoprawne.
+invalid-solution__title: Błędne liczby.
+invalid-solution__description: Niektóre wprowadzone liczby są niepoprawne.
 
 full-house__title: Full House
 full-house__description: W {0} komórka {1} jest ostatnią bez ustalonej wartości.

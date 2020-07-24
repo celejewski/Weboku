@@ -255,7 +255,7 @@ h1, h2, h3 {
   width: 100%;
   margin: auto;
   text-align: center;
-  max-width: 15.6rem;
+  max-width: 18.2rem;
   margin: 0em auto 1.1em auto;
   padding: 0.7em;
   text-transform: uppercase;
@@ -1342,10 +1342,6 @@ h1, h2, h3 {
   margin: 1.1em auto;
   padding: 0.7em;
   font-size: 1.3rem;
-  border: 1px solid #CCC;
-  border-radius: 0.25rem;
-  /*        box-shadow: 0 4px 12px 0 rgba(0,0,0,0.15);*/
-  line-height: 1.5;
   height: 15rem;
   display: grid;
   grid-template-rows: repeat(3, 1fr);
@@ -1355,13 +1351,15 @@ h1, h2, h3 {
   color: #7A7A7A;
   background-color: #FBFBFB;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1fr 3fr 1fr;
   justify-content: center;
   align-items: center;
   text-align: center;
-  border-top: 1px solid #CCC;
-  border-bottom: 1px solid #CCC;
+  border: 1px solid #CCC;
   max-height: 3rem;
+  width: 100%;
+  max-width: 18.2rem;
+  margin: 0 auto;
   border-radius: 0.5rem;
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.15);
 }
@@ -1370,7 +1368,7 @@ h1, h2, h3 {
   font-size: 1.5rem;
   text-transform: uppercase;
   font-weight: 900;
-  margin: 0 auto;
+  margin: auto;
 }
 
 .modal-new-game__start-new-game {
