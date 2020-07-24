@@ -31,6 +31,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
         public virtual void DisplaySolution(Displayer displayer, Informer informer)
         {
             displayer.SetTitle(TitleKey);
+            displayer.SetDescription(DescriptionKey);
         }
         public void Execute(IGrid grid)
         {
