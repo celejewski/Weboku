@@ -10,27 +10,24 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
         private readonly Position _position;
         private readonly InputValue _inputValue;
 
-        private House _house;
+        private readonly House _house;
         private string _houseFormated;
         public HiddenSingleDisplayer(HiddenSingle hiddenSingle)
             : base(hiddenSingle, "hidden-single")
         {
             _position = hiddenSingle.Position;
             _inputValue = hiddenSingle.Value;
+            _house = hiddenSingle.House;
 
             _explanationSteps.AddRange(new Action<Displayer, Informer>[] { Explain1, Explain2, Explain3 });
         }
 
         private void SetupDisplayer(Displayer displayer, Informer informer)
         {
-            _house = HintsHelper.HouseFirstOrDefault(_position,
-                positions => positions.Where(pos => informer.HasCandidate(pos, _inputValue))
-                                      .Count() == 1
-                );
-            _houseFormated = displayer.Format(_house, _position);
-
             displayer.SetTitle(TitleKey);
             displayer.HighlightHouse(_position, _house);
+
+            _houseFormated = displayer.Format(_house, _position);
         }
 
         public override void DisplaySolution(Displayer displayer, Informer informer)
@@ -40,7 +37,8 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
             displayer.SetDescription(DescriptionKey, displayer.Format(_house, _position), _inputValue, _position);
             displayer.SetValueFilter(_inputValue);
 
-            displayer.Mark(Enums.Color.Legal, _position, _inputValue);
+            displayer.MarkCells(Enums.Color.Illegal, HintsHelper.GetPositionsInHouse(_position, _house));
+            displayer.MarkCell(Enums.Color.Legal, _position);
         }
 
         private void Explain1(Displayer displayer, Informer informer)
