@@ -105,7 +105,9 @@ invalid-solution__description: Niektóre wprowadzone liczby są niepoprawne.
 
 full-house__title: Full House
 full-house__description: W {0} komórka {1} jest ostatnią bez ustalonej wartości.
-full-house__explanation-first: "W {0} jest tylko jedna komórka bez ustalonej wartości. Znajdźmy jej ostatnią wartość poprzez zaznaczenie wartości od 1 do 9..."
+full-house__explanation-01: "Przyglądając się łamigłówce możemy dostrzec full house w {0}..."
+full-house__explanation-02: "... w {0} pozostała tylko jedna komórka bez wstawionej wartości..."
+full-house__explanation-03: "... każda wartość od 1 do 9 musi się pojawić dokładnie raz w {0}, więc przejrzyjmy które wartości już są..."
 full-house__explanation-last: "{0} Bingo! Wartość {1:D} jest tą poszukiwaną."
 
 hidden-pair__title: "Hidden Pair"

@@ -106,8 +106,10 @@ invalid-solution__description: There are some invalid inputs.
 
 full-house__title: Full House
 full-house__description: In {0} cell {1} is the last one without value.
-full-house__explanation-first: "In {0} there is only one cell without set value. Let's find out what is the value by listing digits from 1 to 9..."
-full-house__explanation-last: "{0} Bingo! Value {1:D} is the one."
+full-house__explanation-01: "Looking at the grid, we can see full house in {0}..."
+full-house__explanation-02: "... in {0} there is only one cell left without a value inserted..."
+full-house__explanation-03: "... each value from 1 to 9 must appear exactly once in {0}, so let's look at which values are already inserted..."
+full-house__explanation-last: "{0} Bingo! Value {1:D} is the missing one."
 
 hidden-pair__title: "Hidden Pair"
 hidden-pair__description: "In {0} values {1:D} and {2:D} can be placed only in cells {3} and {4}, so we can remove other candidates in this cells."
