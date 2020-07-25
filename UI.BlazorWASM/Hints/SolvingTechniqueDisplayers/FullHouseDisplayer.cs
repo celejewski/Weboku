@@ -11,8 +11,8 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
         private readonly InputValue _value;
 
         private House _house;
-        public FullHouseDisplayer(FullHouse fullHouse)
-            : base(fullHouse, "full-house")
+        public FullHouseDisplayer(Informer informer, Displayer displayer, FullHouse fullHouse)
+            : base(informer, displayer, fullHouse, "full-house")
         {
             _position = fullHouse.Position;
             _value = fullHouse.Value;
@@ -27,54 +27,54 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
             _explanationSteps.Add(ExplainLast);
         }
 
-        private void SetupDisplay(Displayer displayer, Informer informer)
+        private void SetupDisplay()
         {
             _house = HintsHelper.HouseFirstOrDefault(_position,
-                positions => positions.Where(pos => !informer.HasValue(pos))
+                positions => positions.Where(pos => !_informer.HasValue(pos))
                                       .Count() == 1
                 );
 
-            displayer.SetTitle(TitleKey);
-            displayer.HighlightHouse(_position, _house);
+            _displayer.SetTitle(TitleKey);
+            _displayer.HighlightHouse(_position, _house);
         }
-        public override void DisplaySolution(Displayer displayer, Informer informer)
+        public override void DisplaySolution()
         {
-            SetupDisplay(displayer, informer);
+            SetupDisplay();
 
-            displayer.SetDescription(DescriptionKey, displayer.Format(_house, _position), _position);
-            displayer.Mark(Enums.Color.Legal, _position, _value);
-            displayer.SetValueFilter(_value);
-        }
-
-        public void Explain1(Displayer displayer, Informer informer)
-        {
-            SetupDisplay(displayer, informer);
-
-            displayer.SetDescription(ExplanationKey("first"), displayer.Format(_house, _position));
+            _displayer.SetDescription(DescriptionKey, _displayer.Format(_house, _position), _position);
+            _displayer.Mark(Enums.Color.Legal, _position, _value);
+            _displayer.SetValueFilter(_value);
         }
 
-        public Action<Displayer, Informer> ExplainN(InputValue n)
+        public void Explain1()
         {
-            return (displayer, informer) =>
+            SetupDisplay();
+
+            _displayer.SetDescription(ExplanationKey("first"), _displayer.Format(_house, _position));
+        }
+
+        public Action ExplainN(InputValue n)
+        {
+            return () =>
             {
-                SetupDisplay(displayer, informer);
+                SetupDisplay();
                 var positions = HintsHelper.GetPositionsInHouse(_position, _house);
                 var limit = n + 1;
                 for( int i = 0; i < limit; i++ )
                 {
-                    displayer.MarkIfInputEquals(Enums.Color.Illegal, positions, i + 1);
+                    _displayer.MarkIfInputEquals(Enums.Color.Illegal, positions, i + 1);
                 }
                 var digits = Enumerable.Range(0, limit).Select(i => (i + 1).ToString() + "... ");
-                displayer.SetDescription(string.Join(" ", digits));
+                _displayer.SetDescription(string.Join(" ", digits));
             };
         }
 
-        public void ExplainLast(Displayer displayer, Informer informer)
+        public void ExplainLast()
         {
-            SetupDisplay(displayer, informer);
-            ExplainN(_value - 1)(displayer, informer);
-            displayer.Mark(Enums.Color.Legal, _position, _value);
-            displayer.SetDescription(ExplanationKey("last"), displayer.Description, _value);
+            SetupDisplay();
+            ExplainN(_value - 1)();
+            _displayer.Mark(Enums.Color.Legal, _position, _value);
+            _displayer.SetDescription(ExplanationKey("last"), _displayer.Description, _value);
         }
     }
 }

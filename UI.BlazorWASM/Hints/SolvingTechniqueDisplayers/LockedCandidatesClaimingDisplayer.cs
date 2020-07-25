@@ -18,14 +18,14 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
         private string _houseFormatted;
         private string _blockFormatted;
 
-        public LockedCandidatesClaimingDisplayer(LockedCandidatesClaiming lockedCandidatesClaiming)
-            : base(lockedCandidatesClaiming, "locked-candiates-claiming")
+        public LockedCandidatesClaimingDisplayer(Informer informer, Displayer displayer, LockedCandidatesClaiming lockedCandidatesClaiming)
+            : base(informer, displayer, lockedCandidatesClaiming, "locked-candiates-claiming")
         {
             _inputValue = lockedCandidatesClaiming.InputValue;
             _positionsToRemoveCandidate = lockedCandidatesClaiming.PositionsToRemoveCandidate;
             _house = lockedCandidatesClaiming.House;
 
-            _explanationSteps.AddRange(new Action<Displayer, Informer>[]
+            _explanationSteps.AddRange(new Action[]
             {
                 Explain1,
                 Explain2,
@@ -36,79 +36,79 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
                 );
         }
 
-        private void SetupDisplay(Displayer displayer, Informer informer)
+        private void SetupDisplay()
         {
-            displayer.Clear();
-            displayer.SetTitle(TitleKey);
-            var positionsWithCandidate = informer.GetPositionsWithCandidate(House.Block, _positionsToRemoveCandidate.First(), _inputValue);
+            _displayer.Clear();
+            _displayer.SetTitle(TitleKey);
+            var positionsWithCandidate = _informer.GetPositionsWithCandidate(House.Block, _positionsToRemoveCandidate.First(), _inputValue);
             _positionsWithLegalCandidate = positionsWithCandidate.Except(_positionsToRemoveCandidate);
-            _houseFormatted = displayer.Format(_house, Position);
-            _blockFormatted = displayer.Format(House.Block, Position);
-            _positionsWithIllegalCandidate = GetPositiosnWithIllegalCandidate(informer);
+            _houseFormatted = _displayer.Format(_house, Position);
+            _blockFormatted = _displayer.Format(House.Block, Position);
+            _positionsWithIllegalCandidate = GetPositiosnWithIllegalCandidate(_informer);
         }
 
-        public override void DisplaySolution(Displayer displayer, Informer informer)
+        public override void DisplaySolution()
         {
-            SetupDisplay(displayer, informer);
+            SetupDisplay();
 
-            displayer.Mark(Enums.Color.Legal, _positionsWithLegalCandidate, _inputValue);
-            displayer.Mark(Enums.Color.Illegal, _positionsWithIllegalCandidate, _inputValue);
-            displayer.HighlightBlock(Position);
-            displayer.HighlightHouse(Position, _house);
-            displayer.SetValueFilter(_inputValue);
+            _displayer.Mark(Enums.Color.Legal, _positionsWithLegalCandidate, _inputValue);
+            _displayer.Mark(Enums.Color.Illegal, _positionsWithIllegalCandidate, _inputValue);
+            _displayer.HighlightBlock(Position);
+            _displayer.HighlightHouse(Position, _house);
+            _displayer.SetValueFilter(_inputValue);
 
-            displayer.SetDescription(DescriptionKey, _houseFormatted, _inputValue, _blockFormatted, _inputValue, _blockFormatted, _houseFormatted);
+            _displayer.SetDescription(DescriptionKey, _houseFormatted, _inputValue, _blockFormatted, _inputValue, _blockFormatted, _houseFormatted);
         }
 
-        private void Explain1(Displayer displayer, Informer informer)
+        private void Explain1()
         {
-            SetupDisplay(displayer, informer);
+            SetupDisplay();
 
-            displayer.HighlightHouse(Position, _house);
-            displayer.SetValueFilter(InputValue.Empty);
-            displayer.SetDescription(ExplanationKey(1), _houseFormatted);
+            _displayer.HighlightHouse(Position, _house);
+            _displayer.SetValueFilter(InputValue.Empty);
+            _displayer.SetDescription(ExplanationKey(1), _houseFormatted);
         }
-        private void Explain2(Displayer displayer, Informer informer)
+        private void Explain2()
         {
-            SetupDisplay(displayer, informer);
+            SetupDisplay();
 
-            displayer.HighlightHouse(Position, _house);
-            displayer.SetValueFilter(_inputValue);
-            displayer.SetDescription(ExplanationKey(2), _inputValue);
+            _displayer.HighlightHouse(Position, _house);
+            _displayer.SetValueFilter(_inputValue);
+            _displayer.SetDescription(ExplanationKey(2), _inputValue);
         }
-        private void Explain3(Displayer displayer, Informer informer)
+        private void Explain3()
         {
-            SetupDisplay(displayer, informer);
+            SetupDisplay();
 
-            displayer.HighlightHouse(Position, _house);
-            displayer.MarkIfHasCandidate(Enums.Color.Legal, _positionsWithLegalCandidate, _inputValue);
-            displayer.SetValueFilter(_inputValue);
-            displayer.SetDescription(ExplanationKey(3), _inputValue);
+            _displayer.HighlightHouse(Position, _house);
+            _displayer.MarkIfHasCandidate(Enums.Color.Legal, _positionsWithLegalCandidate, _inputValue);
+            _displayer.SetValueFilter(_inputValue);
+            _displayer.SetDescription(ExplanationKey(3), _inputValue);
         }
-        private void Explain4(Displayer displayer, Informer informer)
+        private void Explain4()
         {
-            SetupDisplay(displayer, informer);
+            SetupDisplay();
 
-            displayer.HighlightBlock(Position);
-            displayer.MarkIfHasCandidate(Enums.Color.Legal, _positionsWithLegalCandidate, _inputValue);
-            displayer.SetValueFilter(_inputValue);
-            displayer.SetDescription(ExplanationKey(4), _blockFormatted);
+            _displayer.HighlightBlock(Position);
+            _displayer.MarkIfHasCandidate(Enums.Color.Legal, _positionsWithLegalCandidate, _inputValue);
+            _displayer.SetValueFilter(_inputValue);
+            _displayer.SetDescription(ExplanationKey(4), _blockFormatted);
         }
-        private void Explain5(Displayer displayer, Informer informer)
+        private void Explain5()
         {
-            SetupDisplay(displayer, informer);
+            SetupDisplay();
 
-            displayer.HighlightHouse(Position, _house);
-            displayer.HighlightBlock(Position);
-            displayer.MarkIfHasCandidate(Enums.Color.Legal, _positionsWithLegalCandidate, _inputValue);
-            displayer.MarkIfHasCandidate(Enums.Color.Illegal, _positionsWithIllegalCandidate, _inputValue);
-            displayer.SetValueFilter(_inputValue);
-            displayer.SetDescription(ExplanationKey(5), _inputValue, _blockFormatted);
+            _displayer.HighlightHouse(Position, _house);
+            _displayer.HighlightBlock(Position);
+            _displayer.MarkIfHasCandidate(Enums.Color.Legal, _positionsWithLegalCandidate, _inputValue);
+            _displayer.MarkIfHasCandidate(Enums.Color.Illegal, _positionsWithIllegalCandidate, _inputValue);
+            _displayer.SetValueFilter(_inputValue);
+            _displayer.SetDescription(ExplanationKey(5), _inputValue, _blockFormatted);
         }
 
-        public IEnumerable<Position> GetPositiosnWithIllegalCandidate(Informer informer)
+        public IEnumerable<Position> GetPositiosnWithIllegalCandidate(Informer _informer)
         {
-            return informer.WithCandidate(_positionsToRemoveCandidate, _inputValue);
+            return _informer.WithCandidate(_positionsToRemoveCandidate, _inputValue);
         }
     }
 }

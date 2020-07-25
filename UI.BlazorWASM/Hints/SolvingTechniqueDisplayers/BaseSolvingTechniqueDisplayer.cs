@@ -5,33 +5,40 @@ using System.Collections.Generic;
 
 namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
 {
-    public abstract class BaseSolvingTechniqueDisplayer : IDisplaySolvingTechnique
+    public abstract class BaseSolvingTechniqueDisplayer : ISolvingTechniqueDisplayer
     {
-        protected BaseSolvingTechniqueDisplayer(string locKey)
+        protected BaseSolvingTechniqueDisplayer(Informer informer, Displayer displayer, string locKey)
         {
+            _informer = informer;
+            _displayer = displayer;
             _locKey = locKey;
         }
 
-        protected BaseSolvingTechniqueDisplayer(ISolvingTechnique solvingTechnique, string locKey)
+        protected BaseSolvingTechniqueDisplayer(Informer informer, Displayer displayer, ISolvingTechnique solvingTechnique, string locKey)
         {
+            _informer = informer;
+            _displayer = displayer;
             _solvingTechnique = solvingTechnique;
             _locKey = locKey;
         }
 
         private readonly ISolvingTechnique _solvingTechnique;
+        protected readonly Informer _informer;
+        protected readonly Displayer _displayer;
         protected string _locKey;
         protected string TitleKey => $"{_locKey}__title";
         protected string DescriptionKey => $"{_locKey}__description";
         protected string ExplanationKey(object index) => $"{_locKey}__explanation-{index}";
-        public virtual void DisplayHint(Displayer displayer, Informer informer)
+        
+        public virtual void DisplayHint()
         {
-            displayer.SetTitle(TitleKey);
+            _displayer.SetTitle(TitleKey);
         }
 
-        public virtual void DisplaySolution(Displayer displayer, Informer informer)
+        public virtual void DisplaySolution()
         {
-            displayer.SetTitle(TitleKey);
-            displayer.SetDescription(DescriptionKey);
+            _displayer.SetTitle(TitleKey);
+            _displayer.SetDescription(DescriptionKey);
         }
         public void Execute(IGrid grid)
         {
@@ -42,7 +49,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
             return _solvingTechnique == null || _solvingTechnique.CanExecute(grid);
         }
 
-        protected readonly List<Action<Displayer, Informer>> _explanationSteps = new List<Action<Displayer, Informer>>();
+        protected readonly List<Action> _explanationSteps = new List<Action>();
 
         public bool HasExplanation => _explanationSteps.Count > 0;
 
@@ -51,10 +58,10 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
         public bool HasPreviousExplanation => _index > 0;
         public void NextExplanation() => _index += 1;
         public void PreviousExplanation() => _index -= 1;
-        public void DisplayExplanation(Displayer displayer, Informer informer)
+        public void DisplayExplanation()
         {
-            displayer.Clear();
-            _explanationSteps[_index](displayer, informer);
+            _displayer.Clear();
+            _explanationSteps[_index]();
         }
 
     }

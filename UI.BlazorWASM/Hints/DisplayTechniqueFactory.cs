@@ -7,9 +7,9 @@ namespace UI.BlazorWASM.Hints
 {
     public static class DisplayTechniqueFactory
     {
-        public static IDisplaySolvingTechnique GetDisplayer(ISolvingTechnique technique)
+        public static ISolvingTechniqueDisplayer GetDisplayer(Informer informer, Displayer displayer, ISolvingTechnique technique)
         {
-            if( technique == null ) return new NotFoundDisplayer();
+            if( technique == null ) return new NotFoundDisplayer(informer, displayer);
 
             var tuples = new[]{
                 (typeof(NoSolution), typeof(NoSolutionDisplayer)),
@@ -31,9 +31,9 @@ namespace UI.BlazorWASM.Hints
 
             var tuple = tuples.FirstOrDefault(tuple => technique.GetType() == tuple.Item1);
 
-            if (tuple == default) return new NotFoundDisplayer();
+            if (tuple == default) return new NotFoundDisplayer(informer, displayer);
 
-            return (IDisplaySolvingTechnique) Activator.CreateInstance(tuple.Item2, technique);
+            return (ISolvingTechniqueDisplayer) Activator.CreateInstance(tuple.Item2, informer, displayer, technique);
         }
     }
 }

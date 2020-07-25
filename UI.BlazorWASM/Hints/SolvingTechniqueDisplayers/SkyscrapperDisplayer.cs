@@ -16,8 +16,8 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
         private readonly Position _pos2;
         private readonly InputValue _value;
 
-        public SkyscrapperDisplayer(Skyscrapper skyscrapper) 
-            : base(skyscrapper, "skyscrapper")
+        public SkyscrapperDisplayer(Informer informer, Displayer displayer, Skyscrapper skyscrapper) 
+            : base(informer, displayer, skyscrapper, "skyscrapper")
         {
             _base1 = skyscrapper.Base1;
             _base2 = skyscrapper.Base2;
@@ -26,21 +26,21 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
             _value = skyscrapper.Value;
         }
 
-        public override void DisplaySolution(Displayer displayer, Informer informer)
+        public override void DisplaySolution()
         {
-            base.DisplaySolution(displayer, informer);
+            base.DisplaySolution();
 
-            displayer.Mark(Enums.Color.Legal, _pos1, _value);
-            displayer.Mark(Enums.Color.Legal, _pos2, _value);
-            displayer.Mark(Enums.Color.Legal, _base1, _value);
-            displayer.Mark(Enums.Color.Legal, _base2, _value);
-            displayer.MarkIfHasCandidate(Enums.Color.Illegal, Position.GetOtherPositionsSeenBy(_pos1, _pos2), _value);
+            _displayer.Mark(Enums.Color.Legal, _pos1, _value);
+            _displayer.Mark(Enums.Color.Legal, _pos2, _value);
+            _displayer.Mark(Enums.Color.Legal, _base1, _value);
+            _displayer.Mark(Enums.Color.Legal, _base2, _value);
+            _displayer.MarkIfHasCandidate(Enums.Color.Illegal, Position.GetOtherPositionsSeenBy(_pos1, _pos2), _value);
 
-            displayer.HighlightHouse(_base1, Position.GetHouse(_base1, _base2));
-            displayer.HighlightHouse(_pos1, Position.GetHouse(_pos1, _base1));
-            displayer.HighlightHouse(_pos2, Position.GetHouse(_pos2, _base2));
+            _displayer.HighlightHouse(_base1, Position.GetHouse(_base1, _base2));
+            _displayer.HighlightHouse(_pos1, Position.GetHouse(_pos1, _base1));
+            _displayer.HighlightHouse(_pos2, Position.GetHouse(_pos2, _base2));
 
-            displayer.SetValueFilter(_value);
+            _displayer.SetValueFilter(_value);
         }
 
     }

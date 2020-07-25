@@ -9,8 +9,8 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
 {
     public class NoSolutionDisplayer : BaseSolvingTechniqueDisplayer
     {
-        public NoSolutionDisplayer(ISolvingTechnique noSolution) 
-            : base(noSolution, "no-solution")
+        public NoSolutionDisplayer(Informer informer, Displayer displayer, ISolvingTechnique noSolution) 
+            : base(informer, displayer, noSolution, "no-solution")
         {
         }
     }

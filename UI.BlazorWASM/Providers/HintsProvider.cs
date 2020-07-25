@@ -26,13 +26,13 @@ namespace UI.BlazorWASM.Providers
             OnChanged?.Invoke();
         }
 
-        private Solver _solver = new Solver(new SolvingTechniqueFactory());
-        private IEnumerable<IDisplaySolvingTechnique> Techniques
+        private readonly Solver _solver = new Solver(new SolvingTechniqueFactory());
+        private IEnumerable<ISolvingTechniqueDisplayer> Techniques
         {
             get
             {
                 var technique = _solver.NextStep(_gridProvider.Grid) ;
-                yield return DisplayTechniqueFactory.GetDisplayer(technique);
+                yield return DisplayTechniqueFactory.GetDisplayer(_informer, _displayer, technique);
             }
         }
 
@@ -40,8 +40,8 @@ namespace UI.BlazorWASM.Providers
         public bool HasNextExplanation => _currentTechnique.HasNextExplanation;
         public bool HasPreviousExplanation => _currentTechnique.HasPreviousExplanation;
 
-        private IDisplaySolvingTechnique _currentTechnique;
-        private IDisplaySolvingTechnique NextTechnique => Techniques.First(t => t.CanExecute(_gridProvider.Grid));
+        private ISolvingTechniqueDisplayer _currentTechnique;
+        private ISolvingTechniqueDisplayer NextTechnique => Techniques.First(t => t.CanExecute(_gridProvider.Grid));
 
         public HintsProvider(
             Informer informer, 
@@ -59,7 +59,7 @@ namespace UI.BlazorWASM.Providers
         public void ShowHint()
         {
             _displayer.Clear();
-            NextTechnique.DisplayHint(_displayer, _informer);
+            NextTechnique.DisplayHint();
             _displayer.Show();
             SetState(HintsState.ShowHint);
         }
@@ -68,14 +68,14 @@ namespace UI.BlazorWASM.Providers
         {
             _currentTechnique = NextTechnique;
             _displayer.Clear();
-            _currentTechnique.DisplaySolution(_displayer, _informer);
+            _currentTechnique.DisplaySolution();
             _displayer.Show();
             SetState(HintsState.ShowNextStep);
         }
 
         public void ShowExplanation()
         {
-            _currentTechnique.DisplayExplanation(_displayer, _informer);
+            _currentTechnique.DisplayExplanation();
             SetState(HintsState.ShowExplanation);
         }
 

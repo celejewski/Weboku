@@ -14,8 +14,8 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
         private readonly IEnumerable<Position> _positionsToRemove;
         private readonly InputValue _value;
 
-        public XYWingDisplayer(XYWing xyWing) 
-            : base(xyWing, "xywing")
+        public XYWingDisplayer(Informer informer, Displayer displayer, XYWing xyWing) 
+            : base(informer, displayer, xyWing, "xywing")
         {
             _pivot = xyWing.Pivot;
             _pos1 = xyWing.Pos1;
@@ -26,22 +26,22 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
             _value = xyWing.Value;
         }
 
-        public override void DisplaySolution(Displayer displayer, Informer informer)
+        public override void DisplaySolution()
         {
-            base.DisplaySolution(displayer, informer);
-            displayer.SetDescription(DescriptionKey, _pivot, _pos1, _pos2, _value);
+            base.DisplaySolution();
+            _displayer.SetDescription(DescriptionKey, _pivot, _pos1, _pos2, _value);
 
-            displayer.MarkCandidate(Enums.Color.Third, _pivot, _candidate1);
-            displayer.Mark(Enums.Color.Third, _pos1, _value);
-            displayer.MarkCandidate(Enums.Color.Fourth, _pos1, _candidate1);
+            _displayer.MarkCandidate(Enums.Color.Third, _pivot, _candidate1);
+            _displayer.Mark(Enums.Color.Third, _pos1, _value);
+            _displayer.MarkCandidate(Enums.Color.Fourth, _pos1, _candidate1);
 
-            displayer.MarkCandidate(Enums.Color.Fourth, _pivot, _candidate2);
-            displayer.Mark(Enums.Color.Fourth, _pos2, _value);
-            displayer.MarkCandidate(Enums.Color.Third, _pos2, _candidate2); ;
+            _displayer.MarkCandidate(Enums.Color.Fourth, _pivot, _candidate2);
+            _displayer.Mark(Enums.Color.Fourth, _pos2, _value);
+            _displayer.MarkCandidate(Enums.Color.Third, _pos2, _candidate2); ;
 
-            displayer.MarkCell(Enums.Color.Legal, _pivot);
-            displayer.MarkIfHasCandidate(Enums.Color.Illegal, _positionsToRemove, _value);
-            displayer.SetValueFilter(_value);
+            _displayer.MarkCell(Enums.Color.Legal, _pivot);
+            _displayer.MarkIfHasCandidate(Enums.Color.Illegal, _positionsToRemove, _value);
+            _displayer.SetValueFilter(_value);
         }
     }
 }

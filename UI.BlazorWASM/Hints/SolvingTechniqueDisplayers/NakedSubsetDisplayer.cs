@@ -15,27 +15,27 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
         protected readonly IEnumerable<Position> _positions;
         protected readonly IEnumerable<InputValue> _values;
 
-        public NakedSubsetDisplayer(NakedSubset nakedSubset)
-            : base(nakedSubset, "naked-subset")
+        public NakedSubsetDisplayer(Informer informer, Displayer displayer, NakedSubset nakedSubset)
+            : base(informer, displayer, nakedSubset, "naked-subset")
         {
             _positions = nakedSubset.Positions;
             _values = nakedSubset.Values;
         }
 
-        public override void DisplaySolution(Displayer displayer, Informer informer)
+        public override void DisplaySolution()
         {
-            base.DisplaySolution(displayer, informer);
+            base.DisplaySolution();
             foreach( var value in _values )
             {
-                displayer.MarkIfHasCandidate(Enums.Color.Illegal, GetPositionsToRemove(informer), value);
-                displayer.MarkIfHasCandidate(Enums.Color.Legal, _positions, value);
+                _displayer.MarkIfHasCandidate(Enums.Color.Illegal, GetPositionsToRemove(_informer), value);
+                _displayer.MarkIfHasCandidate(Enums.Color.Legal, _positions, value);
             }
 
             foreach( var house in GetHouses() )
             {
-                displayer.HighlightHouse(Pos, house);
+                _displayer.HighlightHouse(Pos, house);
             }
-            displayer.SetValueFilter(InputValue.Empty);
+            _displayer.SetValueFilter(InputValue.Empty);
         }
 
         private IEnumerable<House> GetHouses()

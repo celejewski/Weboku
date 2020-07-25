@@ -6,8 +6,8 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
 {
     public class HiddenPairDisplayer : HiddenSubsetDisplayer
     {
-        public HiddenPairDisplayer(HiddenPair hiddenSubset) 
-            : base(hiddenSubset)
+        public HiddenPairDisplayer(Informer informer, Displayer displayer, HiddenPair hiddenSubset) 
+            : base(informer, displayer, hiddenSubset)
         {
             _locKey = "hidden-pair";
 
@@ -25,12 +25,12 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
         private readonly InputValue _value1;
         private readonly InputValue _value2;
 
-        public override void DisplaySolution(Displayer displayer, Informer informer)
+        public override void DisplaySolution()
         {
-            base.DisplaySolution(displayer, informer);
+            base.DisplaySolution();
 
-            var houseFormatted = displayer.Format(_house, Position);
-            displayer.SetDescription("hidden-pair__description",
+            var houseFormatted = _displayer.Format(_house, Position);
+            _displayer.SetDescription("hidden-pair__description",
                 houseFormatted, _value1, _value2, _pos1, _pos2);
         }
     }

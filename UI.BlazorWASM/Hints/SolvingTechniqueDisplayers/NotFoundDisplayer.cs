@@ -2,6 +2,6 @@
 {
     public class NotFoundDisplayer : BaseSolvingTechniqueDisplayer
     {
-        public NotFoundDisplayer() : base("no-hint") { }
+        public NotFoundDisplayer(Informer informer, Displayer displayer) : base(informer, displayer, "no-hint") { }
     }
 }

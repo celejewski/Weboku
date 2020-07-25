@@ -1,10 +1,7 @@
 ﻿using Core.Data;
 using SmartSolver.SolvingTechniques;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
 {
@@ -17,8 +14,8 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
         protected readonly House _house;
         private readonly HiddenSubset _hiddenSubset;
 
-        public HiddenSubsetDisplayer(HiddenSubset hiddenSubset)
-            : base(hiddenSubset, "hidden-subset")
+        public HiddenSubsetDisplayer(Informer informer, Displayer displayer, HiddenSubset hiddenSubset)
+            : base(informer, displayer, hiddenSubset, "hidden-subset")
         {
             _positions = hiddenSubset.Positions;
             _values = hiddenSubset.Values;
@@ -27,21 +24,21 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
         }
 
 
-        public override void DisplaySolution(Displayer displayer, Informer informer)
+        public override void DisplaySolution()
         {
-            displayer.SetTitle(TitleKey);
+            _displayer.SetTitle(TitleKey);
             foreach( var value in _hiddenSubset.ValuesToRemove() )
             {
-                displayer.MarkIfHasCandidate(Enums.Color.Illegal, _positions, value);
+                _displayer.MarkIfHasCandidate(Enums.Color.Illegal, _positions, value);
             }
 
             foreach( var value in _values )
             {
-                displayer.MarkIfHasCandidate(Enums.Color.Legal, _positions, value);
+                _displayer.MarkIfHasCandidate(Enums.Color.Legal, _positions, value);
             }
 
-            displayer.HighlightHouse(Position, _house);
-            displayer.SetValueFilter(InputValue.Empty);
+            _displayer.HighlightHouse(Position, _house);
+            _displayer.SetValueFilter(InputValue.Empty);
         }
     }
 }

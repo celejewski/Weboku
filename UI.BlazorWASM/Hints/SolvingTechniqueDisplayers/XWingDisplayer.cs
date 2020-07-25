@@ -12,8 +12,8 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
         private readonly IEnumerable<Position> _positionsToRemove;
         private readonly House _house;
 
-        public XWingDisplayer(XWing xWing)
-            : base(xWing, "xwing")
+        public XWingDisplayer(Informer informer, Displayer displayer, XWing xWing)
+            : base(informer, displayer, xWing, "xwing")
         {
             _value = xWing.Value;
             _positions = xWing.Positions;
@@ -21,29 +21,29 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
             _house = xWing.House;
         }
 
-        public override void DisplaySolution(Displayer displayer, Informer informer)
+        public override void DisplaySolution()
         {
-            base.DisplaySolution(displayer, informer);
+            base.DisplaySolution();
 
             var opositeHouse = _house == House.Col ? House.Row : House.Col;
-            displayer.SetDescription(
+            _displayer.SetDescription(
                 DescriptionKey,
-                displayer.Format(_house, _positions.First()),
-                displayer.Format(_house, _positions.Last()),
+                _displayer.Format(_house, _positions.First()),
+                _displayer.Format(_house, _positions.Last()),
                 _value,
-                displayer.Format(opositeHouse, _positions.First()),
-                displayer.Format(opositeHouse, _positions.Last())
+                _displayer.Format(opositeHouse, _positions.First()),
+                _displayer.Format(opositeHouse, _positions.Last())
                 );
-            displayer.SetValueFilter(_value);
+            _displayer.SetValueFilter(_value);
 
             foreach( var pos in _positions )
             {
-                displayer.HighlightCol(pos);
-                displayer.HighlightRow(pos);
+                _displayer.HighlightCol(pos);
+                _displayer.HighlightRow(pos);
             }
 
-            displayer.MarkCandidates(Enums.Color.Legal, _positions, _value);
-            displayer.MarkCandidates(Enums.Color.Illegal, _positionsToRemove, _value);
+            _displayer.MarkCandidates(Enums.Color.Legal, _positions, _value);
+            _displayer.MarkCandidates(Enums.Color.Illegal, _positionsToRemove, _value);
         }
     }
 }
