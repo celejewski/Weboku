@@ -12,8 +12,7 @@ namespace Core.Helpers
             return (CandidateValue) (1 << inputValue);
         }
 
-
-        private static Dictionary<CandidateValue, IReadOnlyList<InputValue>> _candidatesAsList
+        private static readonly Dictionary<CandidateValue, IReadOnlyList<InputValue>> _candidatesAsList
             = new Dictionary<CandidateValue, IReadOnlyList<InputValue>>();
         public static IReadOnlyList<InputValue> ToList(this CandidateValue candidates)
         {
@@ -30,6 +29,25 @@ namespace Core.Helpers
                 _candidatesAsList[candidates] = result.AsReadOnly();
             }
             return _candidatesAsList[candidates];
+        }
+
+        private static readonly Dictionary<CandidateValue, int> _candidatesCount = new Dictionary<CandidateValue, int>(1024);
+        public static int Count(this CandidateValue candidates)
+        {
+            if( !_candidatesCount.ContainsKey(candidates) )
+            {
+                int count = 0;
+                for( int value = 1; value < 10; value++ )
+                {
+                    var mask = (CandidateValue) (1 << value);
+                    if( (candidates & mask) == mask)
+                    {
+                        count += 1;
+                    }
+                }
+                _candidatesCount[candidates] = count;
+            }
+            return _candidatesCount[candidates];
         }
     }
 }

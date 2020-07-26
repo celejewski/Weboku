@@ -26,7 +26,7 @@ namespace UI.BlazorWASM.Providers
             OnChanged?.Invoke();
         }
 
-        private readonly Solver _solver = new Solver(new SolvingTechniqueFactory());
+        private readonly Solver _solver = new Solver();
         private IEnumerable<ISolvingTechniqueDisplayer> Techniques
         {
             get

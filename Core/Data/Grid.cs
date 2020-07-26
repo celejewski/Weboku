@@ -105,24 +105,9 @@ namespace Core.Data
                 );
         }
 
-        private static readonly Dictionary<CandidateValue, int> _candidatesCount = new Dictionary<CandidateValue, int>(1024);
         public int CandidatesCount(Position pos)
         {
-            var candidates = _candidates[pos.x, pos.y];
-            if( !_candidatesCount.ContainsKey(candidates) )
-            {
-                int count = 0;
-                for( int value = 1; value < 10; value++ )
-                {
-                    if( HasCandidate(pos, value) )
-                    {
-                        count += 1;
-                    }
-                }
-                _candidatesCount[candidates] = count;
-            }
-            var result = _candidatesCount[candidates];
-            return result;
+            return _candidates[pos.x, pos.y].Count(); ;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
