@@ -42,19 +42,19 @@ namespace Core.Data
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool HasCandidate(Position pos, InputValue value)
-            => (_candidates[pos.x, pos.y] & value.ToCandidateValue()) == value.ToCandidateValue();
+            => (_candidates[pos.x, pos.y] & value.AsCandidates()) == value.AsCandidates();
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void ToggleCandidate(Position pos, InputValue value)
-            => _candidates[pos.x, pos.y] ^= value.ToCandidateValue();
+            => _candidates[pos.x, pos.y] ^= value.AsCandidates();
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void RemoveCandidate(Position pos, InputValue value)
-            => _candidates[pos.x, pos.y] &= ~value.ToCandidateValue();
+            => _candidates[pos.x, pos.y] &= ~value.AsCandidates();
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void AddCandidate(Position pos, InputValue value)
-            => _candidates[pos.x, pos.y] |= value.ToCandidateValue();
+            => _candidates[pos.x, pos.y] |= value.AsCandidates();
 
         public void ClearAllCandidates()
         {

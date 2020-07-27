@@ -7,21 +7,21 @@ namespace Core.Helpers
     public static class CandidateValueExtension
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Candidates ToCandidateValue(this InputValue inputValue)
+        public static Candidates AsCandidates(this InputValue inputValue)
         {
             return (Candidates) (1 << inputValue);
         }
 
         private static readonly Dictionary<Candidates, IReadOnlyList<InputValue>> _candidatesAsList
             = new Dictionary<Candidates, IReadOnlyList<InputValue>>();
-        public static IReadOnlyList<InputValue> ToList(this Candidates candidates)
+        public static IReadOnlyList<InputValue> ToReadOnlyList(this Candidates candidates)
         {
             if( !_candidatesAsList.ContainsKey(candidates) )
             {
                 var result = new List<InputValue>();
                 foreach( var value in InputValue.NonEmpty )
                 {
-                    if( (candidates & value.ToCandidateValue()) == value.ToCandidateValue() )
+                    if( (candidates & value.AsCandidates()) == value.AsCandidates() )
                     {
                         result.Add(value);
                     }
@@ -31,7 +31,7 @@ namespace Core.Helpers
             return _candidatesAsList[candidates];
         }
 
-        private static readonly Dictionary<Candidates, int> _candidatesCount = new Dictionary<Candidates, int>(1024);
+        private static readonly Dictionary<Candidates, int> _candidatesCount = new Dictionary<Candidates, int>(512);
         public static int Count(this Candidates candidates)
         {
             if( !_candidatesCount.ContainsKey(candidates) )

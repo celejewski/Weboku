@@ -28,35 +28,6 @@ namespace Core.Data
                 .All(coords => grid.GetValue(coords) != value);
         }
 
-        public static void SetAllLegalCandidates(IGrid grid)
-        {
-            grid.FillAllLegalCandidates();
-            foreach( var pos in Position.All )
-            {
-                foreach( var value in InputValue.NonEmpty )
-                {
-                    if( !IsLegal(pos, value, grid) )
-                    {
-                        grid.RemoveCandidate(pos, value);
-                    }
-                }
-            }
-        }
-
-        public static void RemoveCandidatesSeenBy(IGrid grid, Position pos)
-        {
-            var value = grid.GetValue(pos);
-            if( value == InputValue.None )
-            {
-                return;
-            }
-
-            foreach( var coords in GridHelper.GetCoordsWhichCanSee(pos) )
-            {
-                grid.RemoveCandidate(coords, value);
-            }
-        }
-
         public static (int[] cols, int[] rows, int[] blocks)
             GetCandidatesCount(this IGrid grid, InputValue value)
         {
