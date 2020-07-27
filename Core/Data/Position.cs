@@ -30,16 +30,16 @@ namespace Core.Data
         public static IReadOnlyList<Position> All => _all;
 
         private static readonly List<List<Position>> _rows = new List<List<Position>>();
-        public static IReadOnlyList<IEnumerable<Position>> Rows => _rows;
+        public static IReadOnlyList<List<Position>> Rows => _rows;
 
         private static readonly List<List<Position>> _cols = new List<List<Position>>();
-        public static IReadOnlyList<IEnumerable<Position>> Cols => _cols;
+        public static IReadOnlyList<List<Position>> Cols => _cols;
 
         private static readonly List<List<Position>> _blocks = new List<List<Position>>();
-        public static IReadOnlyList<IEnumerable<Position>> Blocks => _blocks;
+        public static IReadOnlyList<List<Position>> Blocks => _blocks;
 
-        private static readonly List<IEnumerable<Position>> _houses;
-        public static IReadOnlyList<IEnumerable<Position>> Houses => _houses;
+        private static readonly List<List<Position>> _houses;
+        public static IReadOnlyList<List<Position>> Houses => _houses;
 
         public static IEnumerable<Position> GetOtherPositionsSeenBy(IEnumerable<Position> positions)
         {
@@ -129,7 +129,7 @@ namespace Core.Data
                 _blocks[pos.block].Add(pos);
             }
 
-            _houses = new List<IEnumerable<Position>>(
+            _houses = new List<List<Position>>(
                 Blocks
                 .Concat(Cols)
                 .Concat(Rows)
