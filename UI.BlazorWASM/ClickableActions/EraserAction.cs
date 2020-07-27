@@ -14,7 +14,7 @@ namespace UI.BlazorWASM.ClickableActions
             if( _gridProvider.GetIsGiven(pos) ) return;
             _gridHistoryManager.Save();
             _gridProvider.ClearCandidates(pos);
-            _gridProvider.SetValue(pos, InputValue.Empty);
+            _gridProvider.SetValue(pos, InputValue.None);
         }
         public EraserAction(IGridProvider gridProvider, IGridHistoryManager gridHistoryManager)
         {

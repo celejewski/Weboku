@@ -62,7 +62,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
             SetupDisplay();
 
             _displayer.SetDescription(ExplanationKey("01"), _displayer.Format(_house, _position));
-            _displayer.SetValueFilter(InputValue.Empty);
+            _displayer.SetValueFilter(InputValue.None);
         }
 
         public void Explain02()
@@ -71,7 +71,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
 
             _displayer.SetDescription(ExplanationKey("02"), _displayer.Format(_house, _position));
             _displayer.MarkCell(Enums.Color.Legal, _position);
-            _displayer.SetValueFilter(InputValue.Empty);
+            _displayer.SetValueFilter(InputValue.None);
         }
         public void Explain03()
         {
@@ -80,7 +80,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
             _displayer.SetDescription(ExplanationKey("03"), _displayer.Format(_house, _position));
             _displayer.MarkCells(Enums.Color.Illegal, _positionsInHouse);
             _displayer.MarkCell(Enums.Color.Legal, _position);
-            _displayer.SetValueFilter(InputValue.Empty);
+            _displayer.SetValueFilter(InputValue.None);
         }
 
         public Action ExplainN(InputValue n)

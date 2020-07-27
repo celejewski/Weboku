@@ -19,7 +19,7 @@ namespace UI.BlazorWASM.ClickableActions
         {
             if( _gridProvider.GetIsGiven(args.Pos) ) return;
 
-            if( _gridProvider.GetValue(args.Pos) == InputValue.Empty )
+            if( _gridProvider.GetValue(args.Pos) == InputValue.None )
             {
                 _gridHistoryManager.Save();
                 _gridProvider.ToggleCandidate(args.Pos, args.Value);
@@ -30,7 +30,7 @@ namespace UI.BlazorWASM.ClickableActions
         {
             if( _gridProvider.GetIsGiven(args.Pos) ) return;
 
-            if( _gridProvider.GetValue(args.Pos) == InputValue.Empty )
+            if( _gridProvider.GetValue(args.Pos) == InputValue.None )
             {
                 _gridHistoryManager.Save();
                 _gridProvider.SetValue(args.Pos, args.Value);
@@ -38,7 +38,7 @@ namespace UI.BlazorWASM.ClickableActions
             else if( _gridProvider.GetValue(args.Pos) == args.Value )
             {
                 _gridHistoryManager.Save();
-                _gridProvider.SetValue(args.Pos, InputValue.Empty);
+                _gridProvider.SetValue(args.Pos, InputValue.None);
             }
         }
     }

@@ -59,7 +59,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
             SetupDisplay();
 
             _displayer.HighlightBlock(_block);
-            _displayer.SetValueFilter(InputValue.Empty);
+            _displayer.SetValueFilter(InputValue.None);
             var blockFormatted = _displayer.Format(House.Block, Position.FromBlock(_block));
             _displayer.SetDescription(ExplanationKey(1), blockFormatted);
         }

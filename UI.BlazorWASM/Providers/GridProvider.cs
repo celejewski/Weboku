@@ -43,7 +43,7 @@ namespace UI.BlazorWASM.Providers
 
         public void ClearCandidates()
         {
-            _grid.ClearCandidates();
+            _grid.ClearAllCandidates();
             CandidatesChanged();
         }
 
@@ -55,7 +55,7 @@ namespace UI.BlazorWASM.Providers
 
         public void FillCandidates()
         {
-            _grid.FillCandidates();
+            _grid.FillAllLegalCandidates();
             CandidatesChanged();
         }
 
@@ -89,11 +89,11 @@ namespace UI.BlazorWASM.Providers
             if( _sudokuProvider.HasSolution )
             {
                 return GetIsGiven(pos)
-                    || GetValue(pos) == InputValue.Empty
+                    || GetValue(pos) == InputValue.None
                     || GetValue(pos) == _sudokuProvider.GetSolution(pos);
             }
 
-            return GetValue(pos) == InputValue.Empty || _isInputLegal[pos.x, pos.y];
+            return GetValue(pos) == InputValue.None || _isInputLegal[pos.x, pos.y];
         }
 
         public void RemoveCandidate(Position pos, InputValue value)
@@ -104,7 +104,7 @@ namespace UI.BlazorWASM.Providers
 
         public void SetValue(Position pos, InputValue value)
         {
-            if( value != InputValue.Empty )
+            if( value != InputValue.None )
             {
                 _grid.SetValue(pos, value);
                 ClearCandidates(pos);
@@ -131,7 +131,7 @@ namespace UI.BlazorWASM.Providers
 
         public void FillAllLegalCandidates()
         {
-            _grid.FillCandidates();
+            _grid.FillAllLegalCandidates();
             foreach( var pos in Position.All.Where(pos => _grid.HasValue(pos)) )
             {
                 foreach( var coords in GridHelper.GetCoordsWhichCanSee(pos) )

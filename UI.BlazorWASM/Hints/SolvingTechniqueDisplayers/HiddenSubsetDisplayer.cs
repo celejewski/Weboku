@@ -38,7 +38,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
             }
 
             _displayer.HighlightHouse(Position, _house);
-            _displayer.SetValueFilter(InputValue.Empty);
+            _displayer.SetValueFilter(InputValue.None);
         }
     }
 }

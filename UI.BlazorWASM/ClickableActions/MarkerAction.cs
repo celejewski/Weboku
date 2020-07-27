@@ -33,7 +33,7 @@ namespace UI.BlazorWASM.ClickableActions
                 return;
             }
 
-            if( args.Value == InputValue.Empty 
+            if( args.Value == InputValue.None 
                 || !_gridProvider.HasValue(args.Pos))
             {
                 _gridHistoryManager.Save();
@@ -42,7 +42,7 @@ namespace UI.BlazorWASM.ClickableActions
             else if( _gridProvider.GetValue(args.Pos) == args.Value )
             {
                 _gridHistoryManager.Save();
-                _gridProvider.SetValue(args.Pos, InputValue.Empty);
+                _gridProvider.SetValue(args.Pos, InputValue.None);
             }
         }
         public void RightClickAction(ClickableActionArgs args)
@@ -54,7 +54,7 @@ namespace UI.BlazorWASM.ClickableActions
             }
 
             if( _gridProvider.HasValue(args.Pos) 
-                || args.Value == InputValue.Empty )
+                || args.Value == InputValue.None )
             {
                 return;
             }

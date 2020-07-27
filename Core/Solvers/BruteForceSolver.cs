@@ -14,7 +14,7 @@ namespace Core.Solvers
             if( !_solved.ContainsKey(hashcode) )
             {
                 var grid = input.Clone();
-                grid.FillCandidates();
+                grid.FillAllLegalCandidates();
                 _solved[hashcode] = SolveStep(grid);
             }
             return _solved[hashcode];

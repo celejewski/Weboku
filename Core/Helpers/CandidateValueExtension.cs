@@ -7,14 +7,14 @@ namespace Core.Helpers
     public static class CandidateValueExtension
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static CandidateValue ToCandidateValue(this InputValue inputValue)
+        public static Candidates ToCandidateValue(this InputValue inputValue)
         {
-            return (CandidateValue) (1 << inputValue);
+            return (Candidates) (1 << inputValue);
         }
 
-        private static readonly Dictionary<CandidateValue, IReadOnlyList<InputValue>> _candidatesAsList
-            = new Dictionary<CandidateValue, IReadOnlyList<InputValue>>();
-        public static IReadOnlyList<InputValue> ToList(this CandidateValue candidates)
+        private static readonly Dictionary<Candidates, IReadOnlyList<InputValue>> _candidatesAsList
+            = new Dictionary<Candidates, IReadOnlyList<InputValue>>();
+        public static IReadOnlyList<InputValue> ToList(this Candidates candidates)
         {
             if( !_candidatesAsList.ContainsKey(candidates) )
             {
@@ -31,15 +31,15 @@ namespace Core.Helpers
             return _candidatesAsList[candidates];
         }
 
-        private static readonly Dictionary<CandidateValue, int> _candidatesCount = new Dictionary<CandidateValue, int>(1024);
-        public static int Count(this CandidateValue candidates)
+        private static readonly Dictionary<Candidates, int> _candidatesCount = new Dictionary<Candidates, int>(1024);
+        public static int Count(this Candidates candidates)
         {
             if( !_candidatesCount.ContainsKey(candidates) )
             {
                 int count = 0;
                 for( int value = 1; value < 10; value++ )
                 {
-                    var mask = (CandidateValue) (1 << value);
+                    var mask = (Candidates) (1 << value);
                     if( (candidates & mask) == mask )
                     {
                         count += 1;

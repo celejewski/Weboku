@@ -31,7 +31,7 @@ namespace UI.BlazorWASM.Commands
             {
                 if( !_gridProvider.GetIsGiven(pos) )
                 {
-                    _gridProvider.SetValue(pos, InputValue.Empty);
+                    _gridProvider.SetValue(pos, InputValue.None);
                 }
             }
 

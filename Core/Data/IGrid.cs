@@ -10,14 +10,14 @@
         bool HasValue(Position pos);
 
         bool HasCandidate(Position pos, InputValue value);
-        CandidateValue GetCandidates(Position pos);
+        Candidates GetCandidates(Position pos);
         int CandidatesCount(Position pos);
 
         void AddCandidate(Position pos, InputValue value);
         void RemoveCandidate(Position pos, InputValue value);
         void ToggleCandidate(Position pos, InputValue value);
-        void FillCandidates();
-        void ClearCandidates();
+        void FillAllLegalCandidates();
+        void ClearAllCandidates();
         void ClearCandidates(Position pos);
 
         IGrid Clone();

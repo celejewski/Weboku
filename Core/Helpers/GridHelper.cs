@@ -22,7 +22,7 @@ namespace Core.Data
 
         public static bool IsLegal(Position pos, InputValue value, IGrid grid)
         {
-            return value == InputValue.Empty
+            return value == InputValue.None
                 || GetCoordsWhichCanSee(pos)
                 .Where(coords => !pos.Equals(coords))
                 .All(coords => grid.GetValue(coords) != value);
@@ -30,7 +30,7 @@ namespace Core.Data
 
         public static void SetAllLegalCandidates(IGrid grid)
         {
-            grid.FillCandidates();
+            grid.FillAllLegalCandidates();
             foreach( var pos in Position.All )
             {
                 foreach( var value in InputValue.NonEmpty )
@@ -46,7 +46,7 @@ namespace Core.Data
         public static void RemoveCandidatesSeenBy(IGrid grid, Position pos)
         {
             var value = grid.GetValue(pos);
-            if( value == InputValue.Empty )
+            if( value == InputValue.None )
             {
                 return;
             }

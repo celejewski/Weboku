@@ -118,7 +118,7 @@ namespace UI.BlazorWASM.Providers
             {
                 if( sharedFields == SharedFields.Givens && !output.GetIsGiven(pos) )
                 {
-                    output.SetValue(pos, InputValue.Empty);
+                    output.SetValue(pos, InputValue.None);
                 }
                 output.ClearCandidates(pos);
             }

@@ -47,7 +47,7 @@ namespace UI.BlazorWASM.Providers
         private IGrid _solution;
         private string _preferredDifficulty;
 
-        public InputValue GetSolution(Position pos) => _solution?.GetValue(pos) ?? InputValue.Empty;
+        public InputValue GetSolution(Position pos) => _solution?.GetValue(pos) ?? InputValue.None;
         public bool HasSolution => !IsUserCreatingCustomSudoku && _solution != null;
 
         public event Action OnChanged;

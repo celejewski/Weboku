@@ -65,7 +65,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
             SetupDisplay();
 
             _displayer.HighlightHouse(Position, _house);
-            _displayer.SetValueFilter(InputValue.Empty);
+            _displayer.SetValueFilter(InputValue.None);
             _displayer.SetDescription(ExplanationKey(1), _houseFormatted);
         }
         private void Explain2()

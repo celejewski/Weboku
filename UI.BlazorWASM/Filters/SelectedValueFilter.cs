@@ -15,7 +15,7 @@ namespace UI.BlazorWASM.Filters
 
         public FilterOption IsFiltered(IGridProvider gridProvider, Position pos)
         {
-            if( _value == InputValue.Empty )
+            if( _value == InputValue.None )
             {
                 return FilterOption.None;
             }

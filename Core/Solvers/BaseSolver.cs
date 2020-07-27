@@ -12,7 +12,7 @@ namespace Core.Solvers
             var gridWithGivensOnly = input.Clone();
             foreach( var pos in Position.All.Where(pos => !gridWithGivensOnly.GetIsGiven(pos)) )
             {
-                gridWithGivensOnly.SetValue(pos, InputValue.Empty);
+                gridWithGivensOnly.SetValue(pos, InputValue.None);
             }
             return Solve(gridWithGivensOnly);
         }

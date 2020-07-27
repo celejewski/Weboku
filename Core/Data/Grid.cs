@@ -5,20 +5,20 @@ using System.Runtime.CompilerServices;
 
 namespace Core.Data
 {
-    public class Grid : IGrid
+    sealed public class Grid : IGrid
     {
         private readonly InputValue[,] _inputs;
-        private readonly CandidateValue[,] _candidates;
+        private readonly Candidates[,] _candidates;
         private readonly bool[,] _isGivens;
 
         public Grid()
         {
             _inputs = new InputValue[9, 9];
-            _candidates = new CandidateValue[9, 9];
+            _candidates = new Candidates[9, 9];
             _isGivens = new bool[9, 9];
         }
 
-        private Grid(InputValue[,] inputs, CandidateValue[,] candidates, bool[,] isGivens)
+        private Grid(InputValue[,] inputs, Candidates[,] candidates, bool[,] isGivens)
         {
             _inputs = inputs;
             _candidates = candidates;
@@ -29,9 +29,9 @@ namespace Core.Data
         public void SetValue(Position pos, InputValue value)
         {
             _inputs[pos.x, pos.y] = value;
-            _candidates[pos.x, pos.y] = CandidateValue.None;
+            _candidates[pos.x, pos.y] = Candidates.None;
 
-            if( value != InputValue.Empty )
+            if( value != InputValue.None )
             {
                 foreach( var seenBy in GridHelper.GetCoordsWhichCanSee(pos) )
                 {
@@ -41,18 +41,22 @@ namespace Core.Data
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool HasCandidate(Position pos, InputValue value) => (_candidates[pos.x, pos.y] & value.ToCandidateValue()) == value.ToCandidateValue();
+        public bool HasCandidate(Position pos, InputValue value)
+            => (_candidates[pos.x, pos.y] & value.ToCandidateValue()) == value.ToCandidateValue();
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void ToggleCandidate(Position pos, InputValue value) => _candidates[pos.x, pos.y] ^= value.ToCandidateValue();
+        public void ToggleCandidate(Position pos, InputValue value)
+            => _candidates[pos.x, pos.y] ^= value.ToCandidateValue();
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void RemoveCandidate(Position pos, InputValue value) => _candidates[pos.x, pos.y] &= ~value.ToCandidateValue();
+        public void RemoveCandidate(Position pos, InputValue value)
+            => _candidates[pos.x, pos.y] &= ~value.ToCandidateValue();
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void AddCandidate(Position pos, InputValue value) => _candidates[pos.x, pos.y] |= value.ToCandidateValue();
+        public void AddCandidate(Position pos, InputValue value)
+            => _candidates[pos.x, pos.y] |= value.ToCandidateValue();
 
-        public void ClearCandidates()
+        public void ClearAllCandidates()
         {
             foreach( var pos in Position.All )
             {
@@ -63,17 +67,17 @@ namespace Core.Data
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void ClearCandidates(Position pos)
         {
-            _candidates[pos.x, pos.y] = CandidateValue.None;
+            _candidates[pos.x, pos.y] = Candidates.None;
         }
 
-        public void FillCandidates()
+        public void FillAllLegalCandidates()
         {
             foreach( var pos in Position.All.Where(pos => !HasValue(pos)) )
             {
-                _candidates[pos.x, pos.y] = CandidateValue.All;
+                _candidates[pos.x, pos.y] = Candidates.All;
             }
 
-            foreach( var positionWithValue in Position.All.Where(pos => HasValue(pos)) )
+            foreach( var positionWithValue in Position.All.Where(HasValue) )
             {
                 foreach( var pos in Position.GetOtherPositionsSeenBy(positionWithValue) )
                 {
@@ -99,7 +103,7 @@ namespace Core.Data
         {
             return new Grid(
                 (InputValue[,]) _inputs.Clone(),
-                (CandidateValue[,]) _candidates.Clone(),
+                (Candidates[,]) _candidates.Clone(),
                 (bool[,]) _isGivens.Clone()
                 );
         }
@@ -110,10 +114,10 @@ namespace Core.Data
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool HasValue(Position pos) => GetValue(pos) != InputValue.Empty;
+        public bool HasValue(Position pos) => GetValue(pos) != InputValue.None;
 
-        private readonly static Dictionary<CandidateValue, IReadOnlyList<InputValue>> _candidatesDict
-    = new Dictionary<CandidateValue, IReadOnlyList<InputValue>>();
+        private readonly static Dictionary<Candidates, IReadOnlyList<InputValue>> _candidatesDict
+    = new Dictionary<Candidates, IReadOnlyList<InputValue>>();
         public IReadOnlyList<InputValue> GetCandidatesWithCache(Position pos)
         {
             var key = _candidates[pos.x, pos.y];
@@ -127,13 +131,12 @@ namespace Core.Data
             return _candidatesDict[key];
         }
 
-        public CandidateValue GetCandidates(Position pos) => _candidates[pos.x, pos.y];
+        public Candidates GetCandidates(Position pos) => _candidates[pos.x, pos.y];
 
         public int GetGivensHashcode()
         {
-            var values = Position.All.Select(pos => GetIsGiven(pos) ? GetValue(pos) : InputValue.Empty);
-            var hashcode = string.Join("", values).GetHashCode();
-            return hashcode;
+            var values = Position.All.Select(pos => GetIsGiven(pos) ? GetValue(pos) : InputValue.None);
+            return string.Join("", values).GetHashCode();
         }
 
         public override string ToString()

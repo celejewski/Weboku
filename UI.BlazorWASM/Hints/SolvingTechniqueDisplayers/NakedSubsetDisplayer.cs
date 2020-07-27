@@ -35,7 +35,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
             {
                 _displayer.HighlightHouse(Pos, house);
             }
-            _displayer.SetValueFilter(InputValue.Empty);
+            _displayer.SetValueFilter(InputValue.None);
         }
 
         private IEnumerable<House> GetHouses()

@@ -64,7 +64,7 @@ namespace Core.Converters
         private IEnumerable<bool> CellToBools(IGrid grid, Position pos)
         {
             var isGiven = grid.GetIsGiven(pos);
-            var hasInput = grid.GetValue(pos) != InputValue.Empty;
+            var hasInput = grid.GetValue(pos) != InputValue.None;
             var input = grid.GetValue(pos);
             if( isGiven )
             {
@@ -133,7 +133,7 @@ namespace Core.Converters
             else
             {
                 grid.SetIsGiven(pos, false);
-                grid.SetValue(pos, InputValue.Empty);
+                grid.SetValue(pos, InputValue.None);
 
                 foreach( var value in InputValue.NonEmpty )
                 {
