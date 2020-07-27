@@ -1,5 +1,7 @@
 ﻿using Core.Data;
 using UI.BlazorWASM.Providers;
+using System.Linq;
+using Microsoft.Win32.SafeHandles;
 
 namespace UI.BlazorWASM.Component.NumpadMenu
 {
@@ -19,27 +21,13 @@ namespace UI.BlazorWASM.Component.NumpadMenu
         {
             get
             {
-                int count = 0;
-                for( int y = 0; y < 9; y++ )
+                foreach( var row in Position.Rows )
                 {
-                    if( count != y )
-                    {
-                        return false;
-                    }
-
-                    for( int x = 0; x < 9; x++ )
-                    {
-                        if( _gridProvider.GetValue(new Position(x, y)) == _value )
-                        {
-                            if( !_gridProvider.IsValueLegal(new Position(x, y)) )
-                            {
-                                return false;
-                            }
-                            count += 1;
-                        }
-                    }
+                    var isAnyValueIllegal = !row.All(_gridProvider.IsValueLegal);
+                    var legalValuesInRow = row.Count(pos => _gridProvider.GetValue(pos) == _value);
+                    if ( isAnyValueIllegal || legalValuesInRow != 1) return false;
                 }
-                return count == 9;
+                return true;
             }
         }
 
