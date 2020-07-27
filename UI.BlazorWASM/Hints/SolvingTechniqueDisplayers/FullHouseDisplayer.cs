@@ -24,8 +24,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
             _value = fullHouse.Value;
 
             _house = HintsHelper.HouseFirstOrDefault(_position,
-                positions => positions.Where(pos => !_informer.HasValue(pos))
-                                      .Count() == 1
+                positions => positions.Count(pos => !_informer.HasValue(pos)) == 1
                 );
 
             _positionsInHouse = HintsHelper.GetPositionsInHouse(_position, _house);
@@ -43,7 +42,6 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
 
         private void SetupDisplay()
         {
-
             _displayer.SetTitle(TitleKey);
             _displayer.HighlightHouse(_position, _house);
         }

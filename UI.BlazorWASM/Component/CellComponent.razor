@@ -1,7 +1,7 @@
 ﻿@inject IGridProvider GridProvider
 
 <div class="input @(_currentIsGiven ? "input--is-given " : String.Empty)">
-    @(_currentValue != InputValue.Empty ? _currentValue.ToString() : string.Empty)
+    @(_currentValue != InputValue.None ? _currentValue.ToString() : string.Empty)
 </div>
 
 @code {
@@ -20,7 +20,7 @@
 
     protected override bool ShouldRender()
     {
-        return _previousValue != _currentValue 
+        return _previousValue != _currentValue
             || _previousIsGiven != _currentIsGiven;
     }
 
