@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace Core.Data
@@ -43,13 +42,13 @@ namespace Core.Data
 
         public static IEnumerable<Position> GetOtherPositionsSeenBy(IEnumerable<Position> positions)
         {
-            if (!positions.Any())
+            if( !positions.Any() )
             {
                 yield break;
             }
 
             var first = positions.First();
-            if (positions.All(pos => pos.x == first.x))
+            if( positions.All(pos => pos.x == first.x) )
             {
                 foreach( var pos in Cols[first.x].Except(positions) )
                 {
@@ -57,7 +56,7 @@ namespace Core.Data
                 }
             }
 
-            if (positions.All(pos => pos.y == first.y))
+            if( positions.All(pos => pos.y == first.y) )
             {
                 foreach( var pos in Rows[first.y].Except(positions) )
                 {
@@ -65,7 +64,7 @@ namespace Core.Data
                 }
             }
 
-            if (positions.All(pos => pos.block == first.block))
+            if( positions.All(pos => pos.block == first.block) )
             {
                 foreach( var pos in Blocks[first.block].Except(positions) )
                 {
@@ -92,18 +91,18 @@ namespace Core.Data
             {
                 return House.Col;
             }
-            if (positions.All(pos=>pos.y==first.y))
+            if( positions.All(pos => pos.y == first.y) )
             {
                 return House.Row;
             }
-            if(positions.All(pos=>pos.block==first.block))
+            if( positions.All(pos => pos.block == first.block) )
             {
                 return House.Block;
             }
             return House.None;
         }
 
-        public static House GetHouse(params Position[] positions) => GetHouse((IEnumerable<Position>)positions);
+        public static House GetHouse(params Position[] positions) => GetHouse((IEnumerable<Position>) positions);
 
         static Position()
         {
@@ -143,7 +142,7 @@ namespace Core.Data
 
         public override bool Equals(object obj)
         {
-            if (obj is Position pos)
+            if( obj is Position pos )
             {
                 return x == pos.x && y == pos.y;
             }

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Core.Data
+﻿namespace Core.Data
 {
     public interface IGrid
     {

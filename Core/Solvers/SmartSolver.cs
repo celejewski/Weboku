@@ -11,11 +11,11 @@ namespace Core.Solvers
         {
             var grid = input.Clone();
 
-            while (true)
+            while( true )
             {
                 GridHelper.SetAllLegalCandidates(grid);
                 var nextStep = NextStep(grid);
-                if (nextStep == null)
+                if( nextStep == null )
                 {
                     return grid;
                 }
@@ -23,7 +23,7 @@ namespace Core.Solvers
             }
         }
 
-        private static readonly Func<IGrid, IGrid>[] _steps = new Func<IGrid, IGrid>[] { 
+        private static readonly Func<IGrid, IGrid>[] _steps = new Func<IGrid, IGrid>[] {
             FullHouse,
             NakedSingle,
             HiddenSingle,
@@ -33,7 +33,7 @@ namespace Core.Solvers
             foreach( var step in _steps )
             {
                 var output = step(input);
-                if (output != null)
+                if( output != null )
                 {
                     return step;
                 }
@@ -44,7 +44,7 @@ namespace Core.Solvers
         {
             foreach( var indexes in GetIndexesFromAllHouses() )
             {
-                if (indexes.Count(index => input.HasValue(index)) == 8)
+                if( indexes.Count(index => input.HasValue(index)) == 8 )
                 {
                     var output = input.Clone();
                     var value = InputValue.NonEmpty.First(
@@ -61,8 +61,8 @@ namespace Core.Solvers
         {
             foreach( var pos in Position.All )
             {
-                if (!input.HasValue(pos)
-                    && input.CandidatesCount(pos) == 1)
+                if( !input.HasValue(pos)
+                    && input.CandidatesCount(pos) == 1 )
                 {
                     var output = input.Clone();
                     var value = InputValue.NonEmpty.First(value => output.HasCandidate(pos, value));
@@ -72,14 +72,14 @@ namespace Core.Solvers
                 }
             }
             return null;
-        }        
+        }
         private static IGrid HiddenSingle(IGrid input)
         {
             foreach( var indexes in GetIndexesFromAllHouses() )
             {
                 foreach( var value in InputValue.NonEmpty )
                 {
-                    if (indexes.Count(index => input.HasCandidate(index, value)) == 1 )
+                    if( indexes.Count(index => input.HasCandidate(index, value)) == 1 )
                     {
                         var candidate = indexes.First(index => input.HasCandidate(index, value));
                         var output = input.Clone();

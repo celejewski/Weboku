@@ -1,9 +1,4 @@
 ﻿using Core.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Positions = System.Collections.Generic.IEnumerable<Core.Data.Position>;
 
@@ -15,7 +10,7 @@ namespace Core.Helpers
         {
             foreach( var pos in positions )
             {
-                if (grid.HasValue(pos))
+                if( grid.HasValue(pos) )
                 {
                     yield return pos;
                 }
@@ -48,13 +43,11 @@ namespace Core.Helpers
         {
             foreach( var pos in positions )
             {
-                if( grid.HasCandidate(pos, value))
+                if( grid.HasCandidate(pos, value) )
                 {
                     yield return pos;
                 }
             }
         }
-
-
     }
 }

@@ -1,7 +1,6 @@
 ﻿using Core.Data;
 using Core.Generators;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 
 namespace Core.Converters
@@ -42,7 +41,5 @@ namespace Core.Converters
         {
             return string.Concat(Position.All.Select(pos => grid.GetValue(pos)));
         }
-
-
     }
 }

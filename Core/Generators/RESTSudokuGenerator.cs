@@ -22,7 +22,7 @@ namespace Core.Generators
                 var sudoku = await _http.GetFromJsonAsync<Sudoku>($"http://andzej-002-site2.ftempurl.com/sudokugenerator/{difficulty}");
                 return sudoku;
             }
-            catch (Exception ex)
+            catch( Exception ex )
             {
                 Console.WriteLine(ex.ToString());
                 return new Sudoku();

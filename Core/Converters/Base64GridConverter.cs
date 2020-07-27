@@ -50,7 +50,6 @@ namespace Core.Converters
             foreach( var pos in Position.All )
             {
                 sb.Append(grid.GetValue(pos));
-
             }
             var bigInt = BigInteger.Parse(sb.ToString());
             var bytes = bigInt.ToByteArray();

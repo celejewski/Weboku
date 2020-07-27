@@ -16,12 +16,12 @@ namespace Core.Helpers
             = new Dictionary<CandidateValue, IReadOnlyList<InputValue>>();
         public static IReadOnlyList<InputValue> ToList(this CandidateValue candidates)
         {
-            if (!_candidatesAsList.ContainsKey(candidates))
+            if( !_candidatesAsList.ContainsKey(candidates) )
             {
                 var result = new List<InputValue>();
                 foreach( var value in InputValue.NonEmpty )
                 {
-                    if ((candidates & value.ToCandidateValue()) == value.ToCandidateValue())
+                    if( (candidates & value.ToCandidateValue()) == value.ToCandidateValue() )
                     {
                         result.Add(value);
                     }
@@ -40,7 +40,7 @@ namespace Core.Helpers
                 for( int value = 1; value < 10; value++ )
                 {
                     var mask = (CandidateValue) (1 << value);
-                    if( (candidates & mask) == mask)
+                    if( (candidates & mask) == mask )
                     {
                         count += 1;
                     }

@@ -6,12 +6,12 @@ namespace Core.Solvers
 {
     public class BruteForceSolver : BaseSolver
     {
-        static readonly IDictionary<int, IGrid> _solved = new Dictionary<int, IGrid>();
+        private static readonly IDictionary<int, IGrid> _solved = new Dictionary<int, IGrid>();
 
         public override IGrid Solve(IGrid input)
         {
             var hashcode = input.GetGivensHashcode();
-            if (!_solved.ContainsKey(hashcode))
+            if( !_solved.ContainsKey(hashcode) )
             {
                 var grid = input.Clone();
                 grid.FillCandidates();
@@ -60,7 +60,6 @@ namespace Core.Solvers
         {
             return Position.All.Where(pos => !grid.HasValue(pos))
                 .Aggregate((nextPos, pos) => grid.CandidatesCount(pos) < grid.CandidatesCount(nextPos) ? pos : nextPos);
-
         }
     }
 }

@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 
 namespace Core.Data
 {
@@ -48,7 +46,7 @@ namespace Core.Data
         public static void RemoveCandidatesSeenBy(IGrid grid, Position pos)
         {
             var value = grid.GetValue(pos);
-            if (value == InputValue.Empty)
+            if( value == InputValue.Empty )
             {
                 return;
             }

@@ -10,7 +10,7 @@ namespace Core.Data
         private readonly InputValue[,] _inputs;
         private readonly CandidateValue[,] _candidates;
         private readonly bool[,] _isGivens;
-        
+
         public Grid()
         {
             _inputs = new InputValue[9, 9];
@@ -51,7 +51,6 @@ namespace Core.Data
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void AddCandidate(Position pos, InputValue value) => _candidates[pos.x, pos.y] |= value.ToCandidateValue();
-
 
         public void ClearCandidates()
         {
@@ -107,12 +106,11 @@ namespace Core.Data
 
         public int CandidatesCount(Position pos)
         {
-            return _candidates[pos.x, pos.y].Count(); ;
+            return _candidates[pos.x, pos.y].Count();
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool HasValue(Position pos) => GetValue(pos) != InputValue.Empty;
-
 
         private readonly static Dictionary<CandidateValue, IReadOnlyList<InputValue>> _candidatesDict
     = new Dictionary<CandidateValue, IReadOnlyList<InputValue>>();

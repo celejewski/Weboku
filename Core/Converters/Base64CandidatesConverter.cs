@@ -25,7 +25,7 @@ namespace Core.Converters
                 FromText(text);
                 return true;
             }
-            catch (Exception ex)
+            catch( Exception ex )
             {
                 return false;
             }
@@ -63,7 +63,6 @@ namespace Core.Converters
         /// <returns></returns>
         private IEnumerable<bool> CellToBools(IGrid grid, Position pos)
         {
-
             var isGiven = grid.GetIsGiven(pos);
             var hasInput = grid.GetValue(pos) != InputValue.Empty;
             var input = grid.GetValue(pos);
@@ -116,7 +115,7 @@ namespace Core.Converters
             return grid;
         }
 
-        int _counter = 0;
+        private int _counter = 0;
         private void SetValue(Grid grid, BitArray bitArray, Position pos)
         {
             // IsGiven?
@@ -144,7 +143,6 @@ namespace Core.Converters
                     }
                 }
             }
-
         }
 
         private InputValue GetValue(BitArray bitArray)
@@ -155,8 +153,7 @@ namespace Core.Converters
                 sb.Append(bitArray.Get(_counter++) ? "1" : "0");
             }
 
-            var value = (InputValue) (Convert.ToInt32(sb.ToString(), 2) + 1);
-            return value;
+            return Convert.ToInt32(sb.ToString(), 2) + 1;
         }
     }
 }
