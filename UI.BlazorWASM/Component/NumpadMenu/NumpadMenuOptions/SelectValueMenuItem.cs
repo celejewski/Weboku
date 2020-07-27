@@ -1,7 +1,6 @@
 ﻿using Core.Data;
 using UI.BlazorWASM.Providers;
 using System.Linq;
-using Microsoft.Win32.SafeHandles;
 
 namespace UI.BlazorWASM.Component.NumpadMenu
 {

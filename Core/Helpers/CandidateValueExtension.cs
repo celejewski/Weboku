@@ -12,23 +12,24 @@ namespace Core.Helpers
             return (Candidates) (1 << (inputValue-1));
         }
 
-        private static readonly Dictionary<Candidates, IReadOnlyList<InputValue>> _candidatesAsList
-            = new Dictionary<Candidates, IReadOnlyList<InputValue>>();
+        private static readonly IReadOnlyList<InputValue>[] _candidatesAsList
+            = new IReadOnlyList<InputValue>[512];
         public static IReadOnlyList<InputValue> ToInputValues(this Candidates candidates)
         {
-            if( !_candidatesAsList.ContainsKey(candidates) )
+            return _candidatesAsList[(int) candidates] ??= ToInputValuesCalculate(candidates);
+        }
+
+        private static IReadOnlyList<InputValue> ToInputValuesCalculate(Candidates candidates)
+        {
+            var result = new List<InputValue>();
+            foreach( var value in InputValue.NonEmpty )
             {
-                var result = new List<InputValue>();
-                foreach( var value in InputValue.NonEmpty )
+                if( (candidates & value.AsCandidates()) == value.AsCandidates() )
                 {
-                    if( (candidates & value.AsCandidates()) == value.AsCandidates() )
-                    {
-                        result.Add(value);
-                    }
+                    result.Add(value);
                 }
-                _candidatesAsList[candidates] = result.AsReadOnly();
             }
-            return _candidatesAsList[candidates];
+            return result.AsReadOnly();
         }
 
         private static readonly int?[] _candidatesCount = new int?[512];
