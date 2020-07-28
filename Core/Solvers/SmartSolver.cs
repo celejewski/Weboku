@@ -13,7 +13,7 @@ namespace Core.Solvers
 
             while( true )
             {
-                GridHelper.SetAllLegalCandidates(grid);
+                grid.FillAllLegalCandidates();
                 var nextStep = NextStep(grid);
                 if( nextStep == null )
                 {

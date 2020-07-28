@@ -18,7 +18,7 @@ namespace Core.Data
         public static readonly InputValue Eight = new InputValue(8);
         public static readonly InputValue Nine = new InputValue(9);
 
-        public static readonly IEnumerable<InputValue> NonEmpty = new[]
+        public static readonly IReadOnlyCollection<InputValue> NonEmpty = new[]
         {
             One, Two, Three, Four, Five, Six, Seven, Eight, Nine
         };

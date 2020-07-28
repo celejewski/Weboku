@@ -9,7 +9,7 @@ namespace Core.Data
         public readonly int y;
         public readonly int block;
 
-        public Position(int x, int y)
+        private Position(int x, int y)
         {
             this.x = x;
             this.y = y;
@@ -42,10 +42,7 @@ namespace Core.Data
 
         public static IEnumerable<Position> GetOtherPositionsSeenBy(IEnumerable<Position> positions)
         {
-            if( !positions.Any() )
-            {
-                yield break;
-            }
+            if( !positions.Any() ) yield break;
 
             var first = positions.First();
             if( positions.All(pos => pos.x == first.x) )
@@ -75,34 +72,33 @@ namespace Core.Data
 
         public static IEnumerable<Position> GetOtherPositionsSeenBy(params Position[] positions)
         {
-            return Position.All.Where(pos1 => positions.All(pos2 => pos1.IsSharingHouseWith(pos2)));
+            foreach( var pos1 in All )
+            {
+                if( positions.All(pos2 => pos1.IsSharingHouseWith(pos2)) )
+                {
+                    yield return pos1;
+                }
+            }
         }
 
-        public bool IsSharingHouseWith(Position pos) => x == pos.x || y == pos.y || block == pos.block;
-
-        public static House GetHouse(IEnumerable<Position> positions)
+        public bool IsSharingHouseWith(Position pos)
         {
-            if( !positions.Any() )
-            {
-                return House.None;
-            }
+            return x == pos.x
+                || y == pos.y
+                || block == pos.block;
+        }
+
+        public static House GetHouseOf(params Position[] positions) => GetHouseOf((IEnumerable<Position>) positions);
+        public static House GetHouseOf(IEnumerable<Position> positions)
+        {
+            if( !positions.Any() ) return House.None;
+
             var first = positions.First();
-            if( positions.All(pos => pos.x == first.x) )
-            {
-                return House.Col;
-            }
-            if( positions.All(pos => pos.y == first.y) )
-            {
-                return House.Row;
-            }
-            if( positions.All(pos => pos.block == first.block) )
-            {
-                return House.Block;
-            }
+            if( positions.All(pos => pos.x == first.x) ) return House.Col;
+            if( positions.All(pos => pos.y == first.y) ) return House.Row;
+            if( positions.All(pos => pos.block == first.block) ) return House.Block;
             return House.None;
         }
-
-        public static House GetHouse(params Position[] positions) => GetHouse((IEnumerable<Position>) positions);
 
         static Position()
         {
@@ -135,36 +131,22 @@ namespace Core.Data
                 );
         }
 
-        public override int GetHashCode()
-        {
-            return y * 9 + x;
-        }
+        public override int GetHashCode() => y * 9 + x;
 
         public override bool Equals(object obj)
         {
-            if( obj is Position pos )
-            {
-                return x == pos.x && y == pos.y;
-            }
+            if( obj is Position pos ) return Equals(pos);
             return false;
         }
+
+        public bool Equals(Position other) => x == other.x && y == other.y;
 
         public static IEnumerable<House> GetHouses(IEnumerable<Position> positions)
         {
             var first = positions.First();
-
-            if( positions.All(pos => pos.x == first.x) )
-            {
-                yield return House.Col;
-            }
-            if( positions.All(pos => pos.y == first.y) )
-            {
-                yield return House.Row;
-            }
-            if( positions.All(pos => pos.block == first.block) )
-            {
-                yield return House.Block;
-            }
+            if( positions.All(pos => pos.x == first.x) ) yield return House.Col;
+            if( positions.All(pos => pos.y == first.y) ) yield return House.Row;
+            if( positions.All(pos => pos.block == first.block) ) yield return House.Block;
         }
     }
 }

@@ -36,9 +36,9 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
             _displayer.Mark(Enums.Color.Legal, _base2, _value);
             _displayer.MarkIfHasCandidate(Enums.Color.Illegal, Position.GetOtherPositionsSeenBy(_pos1, _pos2), _value);
 
-            _displayer.HighlightHouse(_base1, Position.GetHouse(_base1, _base2));
-            _displayer.HighlightHouse(_pos1, Position.GetHouse(_pos1, _base1));
-            _displayer.HighlightHouse(_pos2, Position.GetHouse(_pos2, _base2));
+            _displayer.HighlightHouse(_base1, Position.GetHouseOf(_base1, _base2));
+            _displayer.HighlightHouse(_pos1, Position.GetHouseOf(_pos1, _base1));
+            _displayer.HighlightHouse(_pos2, Position.GetHouseOf(_pos2, _base2));
 
             _displayer.SetValueFilter(_value);
         }

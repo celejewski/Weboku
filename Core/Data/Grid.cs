@@ -42,19 +42,19 @@ namespace Core.Data
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool HasCandidate(Position pos, InputValue value)
-            => (_candidates[pos.x, pos.y] & value.ToCandidateValue()) == value.ToCandidateValue();
+            => (_candidates[pos.x, pos.y] & value.AsCandidates()) == value.AsCandidates();
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void ToggleCandidate(Position pos, InputValue value)
-            => _candidates[pos.x, pos.y] ^= value.ToCandidateValue();
+            => _candidates[pos.x, pos.y] ^= value.AsCandidates();
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void RemoveCandidate(Position pos, InputValue value)
-            => _candidates[pos.x, pos.y] &= ~value.ToCandidateValue();
+            => _candidates[pos.x, pos.y] &= ~value.AsCandidates();
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void AddCandidate(Position pos, InputValue value)
-            => _candidates[pos.x, pos.y] |= value.ToCandidateValue();
+            => _candidates[pos.x, pos.y] |= value.AsCandidates();
 
         public void ClearAllCandidates()
         {
@@ -72,17 +72,29 @@ namespace Core.Data
 
         public void FillAllLegalCandidates()
         {
-            foreach( var pos in Position.All.Where(pos => !HasValue(pos)) )
+            var cols = new Candidates[9];
+            var rows = new Candidates[9];
+            var blocks = new Candidates[9];
+            for( int x = 0; x < 9; x++ )
             {
-                _candidates[pos.x, pos.y] = Candidates.All;
+                for( int y = 0; y < 9; y++ )
+                {
+                    var block = (x / 3) + (y / 3) * 3;
+                    var candidates = _inputs[x, y].AsCandidates();
+                    cols[x] |= candidates;
+                    rows[y] |= candidates;
+                    blocks[block] |= candidates;
+                }
             }
 
-            foreach( var positionWithValue in Position.All.Where(HasValue) )
+            for( int x = 0; x < 9; x++ )
             {
-                foreach( var pos in Position.GetOtherPositionsSeenBy(positionWithValue) )
+                for( int y = 0; y < 9; y++ )
                 {
-                    var value = GetValue(positionWithValue);
-                    RemoveCandidate(pos, value);
+                    var block = (x / 3) + (y / 3) * 3;
+                    _candidates[x, y] = _inputs[x, y] != InputValue.None
+                        ? Candidates.None
+                        : Candidates.All ^ (cols[x] | rows[y] | blocks[block]);
                 }
             }
         }
@@ -135,8 +147,15 @@ namespace Core.Data
 
         public int GetGivensHashcode()
         {
-            var values = Position.All.Select(pos => GetIsGiven(pos) ? GetValue(pos) : InputValue.None);
-            return string.Join("", values).GetHashCode();
+            int hashcode = 0;
+            for( int i = 0; i < 81; i++ )
+            {
+                var pos = Position.All[i];
+                hashcode ^=_isGivens[pos.x, pos.y]
+                    ? _inputs[pos.x, pos.y] << (i % 25)
+                    : 0;
+            }
+            return hashcode;
         }
 
         public override string ToString()
