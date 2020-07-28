@@ -1,13 +1,20 @@
-﻿<Grid9x9Component>
-    <div class="candidates-grid">
-        @foreach( var value in InputValue.NonEmpty )
-        {
-            <CandidatesComponent Pos="context"
-                                 Value="value" />
-        }
-    </div>
+﻿@inject IGridProvider GridProvider
+
+<Grid9x9Component>
+    @if( !GridProvider.HasValue(context) && GridProvider.CandidatesCount(context) > 0 )
+    {
+        <div class="candidates-grid">
+            @foreach( var value in InputValue.NonEmpty )
+            {
+                <CandidatesComponent Pos="context" Value="value" />
+            }
+        </div>
+    }
 </Grid9x9Component>
 
 @code {
-    protected override bool ShouldRender() => false;
+    protected override void OnInitialized()
+    {
+        GridProvider.OnValueChanged += StateHasChanged;
+    }
 }
