@@ -6,8 +6,12 @@
 </div>
 
 <div class="layer grid-3x3 border-layer">
-    @foreach (var block in Position.Blocks)
-    { 
+    @foreach( var block in Position.Blocks )
+    {
         <div class="border-layer__block"></div>
     }
 </div>
+
+@code {
+    protected override bool ShouldRender() => false;
+}

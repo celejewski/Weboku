@@ -3,11 +3,10 @@ using UI.BlazorWASM.Enums;
 
 namespace UI.BlazorWASM.Converters
 {
-    public class CellColorConverter
+    public static class CellColorConverter
     {
         public static string ToCssClass(Color cellColor)
         {
-
             return cellColor switch
             {
                 Color.Legal => "color-legal",
@@ -18,7 +17,6 @@ namespace UI.BlazorWASM.Converters
                 Color.Third => "color-third",
                 Color.Fourth => "color-fourth",
                 Color.None => string.Empty,
-                _ => throw new NotImplementedException(),
             };
         }
     }

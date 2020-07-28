@@ -4,7 +4,7 @@
     <div class="cell-color @CellColorProvider.GetCssClass(context)"></div>
 </Grid9x9Component>
 
-@code { 
+@code {
     protected override void OnInitialized()
     {
         CellColorProvider.OnChanged += StateHasChanged;
