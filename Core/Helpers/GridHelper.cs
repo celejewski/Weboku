@@ -39,9 +39,9 @@ namespace Core.Data
             {
                 if( grid.HasCandidate(pos, value) )
                 {
-                    cols[pos.x] += 1;
-                    rows[pos.y] += 1;
-                    blocks[pos.block] += 1;
+                    cols[pos.x]++;
+                    rows[pos.y]++;
+                    blocks[pos.block]++;
                 }
             }
 
@@ -61,12 +61,12 @@ namespace Core.Data
             {
                 if( grid.HasCandidate(pos, value) )
                 {
-                    cols[pos.x] += 1;
-                    rows[pos.y] += 1;
-                    blocks[pos.block] += 1;
+                    cols[pos.x]++;
+                    rows[pos.y]++;
+                    blocks[pos.block]++;
 
-                    blockXcols[pos.block, pos.x] += 1;
-                    blockXrows[pos.block, pos.y] += 1;
+                    blockXcols[pos.block, pos.x]++;
+                    blockXrows[pos.block, pos.y]++;
                 }
             }
 

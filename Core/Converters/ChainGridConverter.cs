@@ -20,7 +20,7 @@ namespace Core.Converters
 
         private IGridConverter GetFirstValidOrDefault(string text)
         {
-            return _converters.FirstOrDefault(converter => converter.IsValidText(text));
+            return _converters.Find(converter => converter.IsValidText(text));
         }
 
         public IGrid FromText(string text)

@@ -46,7 +46,7 @@ namespace Core.Helpers
                 var mask = (Candidates) (1 << value);
                 if( (candidates & mask) == mask )
                 {
-                    count += 1;
+                    count++;
                 }
             }
             return count;
