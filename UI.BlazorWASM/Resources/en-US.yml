@@ -43,7 +43,7 @@ main-menu__new-game: New game
 main-menu__how-to-play: How to play
 main-menu__share: Share
 main-menu__paste: Paste
-main-menu__settings: Settings 
+main-menu__settings: Settings
 
 new-game__header: New Game
 
@@ -88,7 +88,7 @@ share__my-format: My format
 share__link: Link
 
 how-to-play__header: How to play
-how-to-play__p1: | 
+how-to-play__p1: |
     Press the left mouse button to insert the value into the grid.
     Press the right mouse button to make a note.
 how-to-play__p2: Use the buttons or keyboard to change the value used.
@@ -161,6 +161,9 @@ skyscrapper__description: ""
 
 xywing__title: "XY-Wing"
 xywing__description: "Cell {0} is pivot and cells {1} and {2} are pincers. Using this technique you can remove value {3} from cells seen by both pincers."
+
+two-string-kite__title: "Two String Kite"
+two-string-kite__description: ""
 
 no-hint__title: "No hint found"
 no-hint__description: "There is no hint avaliable for this sudoku."

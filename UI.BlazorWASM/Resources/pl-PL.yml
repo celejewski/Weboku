@@ -38,7 +38,7 @@ change-color__tooltip: "Wybierz schemat kolorów użyty przez pędzel"
 numpad-clear-colors__tooltip: "(R) Usuń wszystkie wstawione kolorowe obramowania."
 
 main-menu__header: Menu
-main-menu__new-game: Nowa gra 
+main-menu__new-game: Nowa gra
 main-menu__how-to-play: Jak grać
 main-menu__share: Udostępnij
 main-menu__paste: Wklej
@@ -87,7 +87,7 @@ share__my-format: My format
 share__link: Link
 
 how-to-play__header: Jak grać
-how-to-play__p1: | 
+how-to-play__p1: |
     Użyj lewego PRZYCISK MYSZYu myszki żeby wstawić wartość do kratki.
     Użyj prawego PRZYCISK MYSZYu żeby zrobić notkę.
 how-to-play__p2: Możesz skorzystać z menu lub klawiatury żeby zmienić wstawianą wartość.
@@ -160,6 +160,9 @@ skyscrapper__description: ""
 
 xywing__title: "XY-Wing"
 xywing__description: "Komórka {0} jest osią, a komórki {1} i {2} są ramionami. Używając tej techniki możesz usunąć wartość {3} z komórek widzianych przed oba ramiona."
+
+two-string-kite__title: "Two String Kite"
+two-string-kite__description: ""
 
 no-hint__title: "Podpowiedź niedostępna"
 no-hint__description: "Podpowiedź jest niedostępna dla tej łamigłówki."
