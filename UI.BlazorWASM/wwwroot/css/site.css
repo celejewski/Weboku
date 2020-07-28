@@ -1384,6 +1384,39 @@ h1, h2, h3 {
   max-width: 15rem;
 }
 
+:root {
+  --max-size: 700px;
+  --max-width: 700px;
+}
+
+.loading-modal__container {
+  position: relative;
+  width: 16rem;
+  height: 16rem;
+  margin: auto;
+  display: flex;
+  align-content: center;
+  justify-items: center;
+  border-radius: 50%;
+}
+
+.loading-modal__container > span {
+  display: inline-block;
+  margin: auto;
+  font-size: 2rem;
+  color: black;
+}
+
+.loading-modal__spinner {
+  width: 16rem;
+  height: 16rem;
+  position: absolute;
+  border: 0.8rem solid silver;
+  border-top: 0.8rem solid #337AB7;
+  border-radius: 50%;
+  animation: spin 700ms linear infinite;
+}
+
 .with-hr {
   position: relative;
   padding: 3.2px 0;

@@ -15,6 +15,6 @@
 @code {
     protected override void OnInitialized()
     {
-        GridProvider.OnValueChanged += StateHasChanged;
+        GridProvider.OnValueOrCandidatesChanged += StateHasChanged;
     }
 }

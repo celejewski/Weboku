@@ -12,5 +12,6 @@
         Hints,
         Settings,
         CustomSudoku,
+        Loading,
     }
 }

@@ -7,7 +7,7 @@ namespace UI.BlazorWASM.Providers
     public class ModalProvider : IProvider
     {
         private readonly Stack<ModalState> _previousStates = new Stack<ModalState>();
-        public ModalState CurrentState { get; private set; } = ModalState.MainMenu;
+        public ModalState CurrentState { get; private set; } = ModalState.Loading;
 
         public ModalProvider()
         {

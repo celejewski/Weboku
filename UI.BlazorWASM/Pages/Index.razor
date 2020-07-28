@@ -1,4 +1,4 @@
-﻿    @page "/"
+﻿@page "/"
 @page "/paste/{SharedSudoku}"
 @inject IGridGenerator GridGenerator
 @inject HotkeyProvider HotkeyProvider
@@ -19,18 +19,26 @@
          @oncontextmenu:preventDefault="true">
 
         <ModalComponent />
-
         <div class="main__grid">
             <BackgroundLayerComponent />
-            <FilterLayerComponent />
-            <HintsHighlightLayerComponent />
-            <CellColorLayerComponent />
-            <MarkInputLayerComponent />
-            <InputLayerComponent />
-            <CandidatesLayerComponent />
+            @if( _afterSecondRender )
+            {
+                <FilterLayerComponent />
+                <HintsHighlightLayerComponent />
+                <CellColorLayerComponent />
+                <MarkInputLayerComponent />
+            }
+            @if( _afterFirstRender )
+            {
+                <InputLayerComponent />
+                <CandidatesLayerComponent />
+            }
             <BorderLayerComponent />
             <ShadowLayerComponent />
-            <ClickableLayerComponent />
+            @if( _afterSecondRender )
+            {
+                <ClickableLayerComponent />
+            }
         </div>
         <div class="main__game-info">
             <GameInfoComponent />
@@ -49,12 +57,13 @@
     [Parameter]
     public string SharedSudoku { get; set; }
 
+    private bool _afterFirstRender = false;
+    private bool _afterSecondRender = false;
+
     protected override async Task OnInitializedAsync()
     {
         GameStateChecker.OnSolved += OnGameEnd;
         _ = Task.Run(() => GridGenerator.WithGiven("medium"));
-        await PreserveStateProvider.Load();
-        PreserveStateProvider.AutoSave(TimeSpan.FromSeconds(2));
 
         if( !string.IsNullOrEmpty(SharedSudoku) )
         {
@@ -65,6 +74,29 @@
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
+        @if( _afterFirstRender && !_afterSecondRender )
+        {
+            _afterSecondRender = true;
+            Task.Run(() =>
+            {
+                StateHasChanged();
+            });
+
+            Task.Run(async () =>
+            {
+                await PreserveStateProvider.Load();
+                PreserveStateProvider.AutoSave(TimeSpan.FromSeconds(2));
+                ModalProvider.SetModalState(ModalState.MainMenu);
+            });
+        }
+        @if( firstRender )
+        {
+            Task.Run(() => {
+                _afterFirstRender = true;
+                StateHasChanged();
+            });
+        }
+
         await JSRuntime.InvokeVoidAsync("resize");
     }
 

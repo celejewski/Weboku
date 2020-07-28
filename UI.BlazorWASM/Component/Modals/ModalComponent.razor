@@ -34,6 +34,10 @@
         {
             <SettingsModalComponent />
         }
+        else if (ModalProvider.CurrentState == ModalState.Loading)
+        {
+            <LoadingModalComponent />
+        }
     </div>
 
 @code {
@@ -41,9 +45,9 @@
     {
         get
         {
-            return ModalProvider.CurrentState == ModalState.None 
+            return ModalProvider.CurrentState == ModalState.None
                 || ModalProvider.CurrentState == ModalState.CustomSudoku
-                ? "display: none;" 
+                ? "display: none;"
                 : string.Empty;
         }
     }

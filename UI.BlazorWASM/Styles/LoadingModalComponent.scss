@@ -1,0 +1,31 @@
+﻿@import '_Variables.scss';
+
+.loading-modal {
+    &__container {
+        position:relative;
+        width: 16rem;
+        height: 16rem;
+        margin: auto;
+        display: flex;
+        align-content: center;
+        justify-items: center;
+        border-radius: 50%;
+
+        & > span {
+            display: inline-block;
+            margin: auto;
+            font-size: 2rem;
+            color: black;
+        }
+    }
+
+    &__spinner {
+        width: 16rem;
+        height: 16rem;
+        position: absolute;
+        border: 0.8rem solid silver;
+        border-top: 0.8rem solid #337AB7;
+        border-radius: 50%;
+        animation: spin 700ms linear infinite;
+    }
+}
