@@ -139,6 +139,10 @@ namespace Core.Data
             return false;
         }
 
+        public bool Equals((int x, int y) pos)
+        {
+            return pos == (x, y);
+        }
         public bool Equals(Position other) => x == other.x && y == other.y;
 
         public static IEnumerable<House> GetHouses(IEnumerable<Position> positions)
