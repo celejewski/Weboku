@@ -1,6 +1,6 @@
 ﻿@page "/"
 @page "/paste/{SharedSudoku}"
-@inject RESTSudokuGenerator SudokuGenerator
+@inject SudokuProvider SudokuProvider
 @inject HotkeyProvider HotkeyProvider
 @inject IJSRuntime JSRuntime
 @inject CommandProvider CommandProvider
@@ -63,7 +63,7 @@
     protected override async Task OnInitializedAsync()
     {
         GameStateChecker.OnSolved += OnGameEnd;
-        _ = Task.Run(() => SudokuGenerator.Generate("medium"));
+        _ = Task.Run(() => SudokuProvider.Generate("medium"));
 
         if( !string.IsNullOrEmpty(SharedSudoku) )
         {

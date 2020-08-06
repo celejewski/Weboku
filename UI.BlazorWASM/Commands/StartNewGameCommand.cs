@@ -1,5 +1,4 @@
-﻿using Core.Generators;
-using Core.Serializer;
+﻿using Core.Serializer;
 using System.Threading.Tasks;
 using UI.BlazorWASM.Component.Modals;
 using UI.BlazorWASM.Managers;
@@ -10,7 +9,6 @@ namespace UI.BlazorWASM.Commands
     public class StartNewGameCommand : ICommand
     {
         private readonly string _difficulty;
-        private readonly RESTSudokuGenerator _generator;
         private readonly IGridProvider _gridProvider;
         private readonly ModalProvider _modalProvider;
         private readonly CellColorProvider _cellColorProvider;
@@ -21,7 +19,6 @@ namespace UI.BlazorWASM.Commands
 
         public StartNewGameCommand(
             string difficulty,
-            RESTSudokuGenerator generator,
             IGridProvider gridProvider,
             ModalProvider modalProvider,
             CellColorProvider cellColorProvider,
@@ -30,7 +27,6 @@ namespace UI.BlazorWASM.Commands
             SudokuProvider sudokuProvider)
         {
             _difficulty = difficulty;
-            _generator = generator;
             _gridProvider = gridProvider;
             _modalProvider = modalProvider;
             _cellColorProvider = cellColorProvider;
@@ -42,7 +38,7 @@ namespace UI.BlazorWASM.Commands
 
         public async Task Execute()
         {
-            var sudoku = await _generator.Generate(_difficulty);
+            var sudoku = await _sudokuProvider.Generate(_difficulty);
             _gridProvider.Grid = _hodokuGridConverter.Deserialize(sudoku.Given);
             _sudokuProvider.PreferredDifficulty = _difficulty;
             _sudokuProvider.Sudoku = sudoku;

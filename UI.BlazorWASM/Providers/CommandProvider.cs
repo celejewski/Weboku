@@ -1,12 +1,10 @@
-﻿using Core.Generators;
-using UI.BlazorWASM.Commands;
+﻿using UI.BlazorWASM.Commands;
 using UI.BlazorWASM.Managers;
 
 namespace UI.BlazorWASM.Providers
 {
     public class CommandProvider
     {
-        private readonly RESTSudokuGenerator _sudokuGenerator;
         private readonly IGridHistoryManager _gridHistoryManager;
         private readonly GameTimerProvider _gameTimerProvider;
         private readonly FilterProvider _filterProvider;
@@ -18,7 +16,6 @@ namespace UI.BlazorWASM.Providers
         private readonly SettingsProvider _settingsProvider;
 
         public CommandProvider(
-            RESTSudokuGenerator sudokuGenerator,
             IGridHistoryManager gridHistoryManager,
             GameTimerProvider gameTimerProvider,
             FilterProvider filterProvider,
@@ -29,7 +26,6 @@ namespace UI.BlazorWASM.Providers
             SudokuProvider sudokuProvider,
             SettingsProvider settingsProvider)
         {
-            _sudokuGenerator = sudokuGenerator;
             _gridHistoryManager = gridHistoryManager;
             _gameTimerProvider = gameTimerProvider;
             _filterProvider = filterProvider;
@@ -47,7 +43,7 @@ namespace UI.BlazorWASM.Providers
 
         public ICommand StartNewGameV2(string difficulty)
         {
-            return new StartNewGameCommand(difficulty, _sudokuGenerator, _gridProvider, _modalProvider, _cellColorProvider, _gridHistoryManager, _gameTimerProvider, _sudokuProvider);
+            return new StartNewGameCommand(difficulty, _gridProvider, _modalProvider, _cellColorProvider, _gridHistoryManager, _gameTimerProvider, _sudokuProvider);
         }
 
         public ICommand SetLanguage(string name)

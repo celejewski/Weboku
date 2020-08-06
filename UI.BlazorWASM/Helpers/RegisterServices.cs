@@ -1,5 +1,4 @@
 ﻿using AKSoftware.Localization.MultiLanguages;
-using Core.Generators;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using UI.BlazorWASM.ClickableActions;
@@ -67,7 +66,6 @@ namespace UI.BlazorWASM.Helpers
             services.AddScoped<CommandProvider>();
             services.AddScoped<GameTimerProvider>();
             services.AddScoped<GameStateChecker>();
-            services.AddScoped<RESTSudokuGenerator, RESTSudokuGenerator>();
             services.AddScoped<ModalProvider>();
             services.AddScoped<ClickableActionFactory>();
             services.AddScoped<ShareProvider>();
