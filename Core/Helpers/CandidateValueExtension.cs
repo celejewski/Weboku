@@ -1,8 +1,7 @@
-﻿using Core.Data;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
-namespace Core.Helpers
+namespace Core.Data
 {
     public static class CandidateValueExtension
     {

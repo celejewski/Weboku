@@ -21,7 +21,5 @@
         void ClearCandidates(Position pos);
 
         IGrid Clone();
-
-        int GetGivensHashcode();
     }
 }

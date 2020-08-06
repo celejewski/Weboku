@@ -1,5 +1,4 @@
-﻿using Core.Helpers;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
@@ -144,18 +143,5 @@ namespace Core.Data
         }
 
         public Candidates GetCandidates(Position pos) => _candidates[pos.x, pos.y];
-
-        public int GetGivensHashcode()
-        {
-            int hashcode = 0;
-            for( int i = 0; i < 81; i++ )
-            {
-                var pos = Position.All[i];
-                hashcode ^= _isGivens[pos.x, pos.y]
-                    ? _inputs[pos.x, pos.y] << (i % 25)
-                    : 0;
-            }
-            return hashcode;
-        }
     }
 }

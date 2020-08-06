@@ -8,9 +8,22 @@ namespace Core.Solvers
     {
         private static readonly IDictionary<int, IGrid> _solved = new Dictionary<int, IGrid>();
 
+        private int GetGivensHashcode(IGrid grid)
+        {
+            int hashcode = 0;
+            for( int i = 0; i < 81; i++ )
+            {
+                var pos = Position.All[i];
+                hashcode ^= grid.GetIsGiven(pos)
+                    ? grid.GetValue(pos) << (i % 25)
+                    : 0;
+            }
+            return hashcode;
+        }
+
         public override IGrid Solve(IGrid input)
         {
-            var hashcode = input.GetGivensHashcode();
+            var hashcode = GetGivensHashcode(input);
             if( !_solved.ContainsKey(hashcode) )
             {
                 var grid = input.Clone();
