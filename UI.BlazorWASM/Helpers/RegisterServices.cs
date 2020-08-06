@@ -57,8 +57,6 @@ namespace UI.BlazorWASM.Helpers
 
         public static void RegisterProviders(this IServiceCollection services)
         {
-            services.AddScoped<IEmptyGridGenerator, EmptyGridGenerator>();
-            services.AddScoped<IGridGenerator, RESTGridGenerator>();
             services.AddScoped<CellColorProvider>();
             services.AddScoped<IGridHistoryManager, GridHistoryManager>();
             services.AddScoped<FilterProvider>();
@@ -69,7 +67,7 @@ namespace UI.BlazorWASM.Helpers
             services.AddScoped<CommandProvider>();
             services.AddScoped<GameTimerProvider>();
             services.AddScoped<GameStateChecker>();
-            services.AddScoped<ISudokuGenerator, RESTSudokuGenerator>();
+            services.AddScoped<RESTSudokuGenerator, RESTSudokuGenerator>();
             services.AddScoped<ModalProvider>();
             services.AddScoped<ClickableActionFactory>();
             services.AddScoped<ShareProvider>();
@@ -77,7 +75,6 @@ namespace UI.BlazorWASM.Helpers
             services.AddScoped<SudokuProvider>();
             services.AddScoped<IGridProvider, GridProvider>();
             services.AddScoped<CandidatesMarkProvider>();
-            services.AddScoped<RESTGridGenerator>();
             services.AddScoped<MarkInputProvider>();
             services.AddScoped<StorageProvider>();
             services.AddScoped<PreserveStateProvider>();

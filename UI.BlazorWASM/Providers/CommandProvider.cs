@@ -6,7 +6,7 @@ namespace UI.BlazorWASM.Providers
 {
     public class CommandProvider
     {
-        private readonly ISudokuGenerator _sudokuGenerator;
+        private readonly RESTSudokuGenerator _sudokuGenerator;
         private readonly IGridHistoryManager _gridHistoryManager;
         private readonly GameTimerProvider _gameTimerProvider;
         private readonly FilterProvider _filterProvider;
@@ -18,7 +18,7 @@ namespace UI.BlazorWASM.Providers
         private readonly SettingsProvider _settingsProvider;
 
         public CommandProvider(
-            ISudokuGenerator sudokuGenerator,
+            RESTSudokuGenerator sudokuGenerator,
             IGridHistoryManager gridHistoryManager,
             GameTimerProvider gameTimerProvider,
             FilterProvider filterProvider,

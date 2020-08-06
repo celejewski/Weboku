@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Core.Generators
 {
-    public class RESTSudokuGenerator : ISudokuGenerator
+    public class RESTSudokuGenerator
     {
         private readonly HttpClient _http;
 
@@ -19,8 +19,7 @@ namespace Core.Generators
         {
             try
             {
-                var sudoku = await _http.GetFromJsonAsync<Sudoku>($"http://andzej-002-site2.ftempurl.com/sudokugenerator/{difficulty}");
-                return sudoku;
+                return await _http.GetFromJsonAsync<Sudoku>($"http://andzej-002-site2.ftempurl.com/sudokugenerator/{difficulty}");
             }
             catch( Exception ex )
             {

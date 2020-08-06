@@ -10,7 +10,7 @@ namespace UI.BlazorWASM.Commands
     public class StartNewGameCommand : ICommand
     {
         private readonly string _difficulty;
-        private readonly ISudokuGenerator _generator;
+        private readonly RESTSudokuGenerator _generator;
         private readonly IGridProvider _gridProvider;
         private readonly ModalProvider _modalProvider;
         private readonly CellColorProvider _cellColorProvider;
@@ -21,7 +21,7 @@ namespace UI.BlazorWASM.Commands
 
         public StartNewGameCommand(
             string difficulty,
-            ISudokuGenerator generator,
+            RESTSudokuGenerator generator,
             IGridProvider gridProvider,
             ModalProvider modalProvider,
             CellColorProvider cellColorProvider,

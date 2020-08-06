@@ -16,5 +16,7 @@ namespace Core.Factories
         {
             return _converter.Deserialize(text);
         }
+
+        public static IGrid MakeEmpty() => new Grid();
     }
 }
