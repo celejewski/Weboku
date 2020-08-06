@@ -8,12 +8,10 @@ namespace Core.Serializer
     {
         private readonly List<IGridSerializer> _converters = new List<IGridSerializer>();
 
-        public DefaultGridSerializer(
-            HodokuGridSerializer hodokuGridConverter,
-            Base64GridSerializer base64GridConverter)
+        public DefaultGridSerializer()
         {
-            _converters.Add(base64GridConverter);
-            _converters.Add(hodokuGridConverter);
+            _converters.Add(new Base64GridSerializer());
+            _converters.Add(new HodokuGridSerializer());
             _converters.Add(new Base64CandidatesSerializer());
         }
 

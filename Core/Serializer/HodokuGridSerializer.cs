@@ -1,5 +1,4 @@
 ﻿using Core.Data;
-using Core.Generators;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -7,17 +6,10 @@ namespace Core.Serializer
 {
     internal class HodokuGridSerializer : IGridSerializer
     {
-        private readonly IEmptyGridGenerator _generator;
-
-        public HodokuGridSerializer(IEmptyGridGenerator generator)
-        {
-            _generator = generator;
-        }
-
         public IGrid Deserialize(string input)
         {
             var givens = input.Replace('.', '0');
-            var grid = _generator.Empty();
+            var grid = new Grid();
             foreach( var pos in Position.All )
             {
                 var value = int.Parse(givens.Substring(pos.y * 9 + pos.x, 1));

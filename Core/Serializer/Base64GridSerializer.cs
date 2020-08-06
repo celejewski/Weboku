@@ -1,5 +1,4 @@
 ﻿using Core.Data;
-using Core.Generators;
 using Microsoft.AspNetCore.WebUtilities;
 using System;
 using System.Numerics;
@@ -9,12 +8,7 @@ namespace Core.Serializer
 {
     internal class Base64GridSerializer : IGridSerializer
     {
-        private readonly IGridSerializer _innerConverter;
-
-        public Base64GridSerializer(IEmptyGridGenerator emptyGridGenerator)
-        {
-            _innerConverter = new HodokuGridSerializer(emptyGridGenerator);
-        }
+        private readonly IGridSerializer _innerConverter = new HodokuGridSerializer();
 
         public IGrid Deserialize(string text)
         {

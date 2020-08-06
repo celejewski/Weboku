@@ -1,5 +1,4 @@
 ﻿using Core.Data;
-using Core.Generators;
 using Core.Serializer;
 
 namespace Core.Factories
@@ -10,13 +9,10 @@ namespace Core.Factories
 
         static GridFactory()
         {
-            var generator = new EmptyGridGenerator();
-            _converter = new DefaultGridSerializer(
-                new HodokuGridSerializer(generator),
-                new Base64GridSerializer(generator));
+            _converter = new DefaultGridSerializer();
         }
 
-        public static IGrid FromText(string text)
+        public static IGrid Deserialize(string text)
         {
             return _converter.Deserialize(text);
         }
