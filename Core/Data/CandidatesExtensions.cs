@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace Core.Data
 {
-    public static class CandidateValueExtension
+    public static class CandidatesExtensions
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Candidates AsCandidates(this InputValue inputValue)
@@ -51,7 +51,7 @@ namespace Core.Data
             return count;
         }
 
-        static CandidateValueExtension()
+        static CandidatesExtensions()
         {
             for( int i = 0; i < 512; i++ )
             {
