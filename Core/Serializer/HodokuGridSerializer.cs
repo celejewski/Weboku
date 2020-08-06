@@ -1,4 +1,6 @@
 ﻿using Core.Data;
+using Core.Exceptions;
+using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -8,18 +10,25 @@ namespace Core.Serializer
     {
         public IGrid Deserialize(string input)
         {
-            var givens = input.Replace('.', '0');
-            var grid = new Grid();
-            foreach( var pos in Position.All )
+            try
             {
-                var value = int.Parse(givens.Substring(pos.y * 9 + pos.x, 1));
-                if( value != 0 )
+                var givens = input.Replace('.', '0');
+                var grid = new Grid();
+                foreach( var pos in Position.All )
                 {
-                    grid.SetIsGiven(pos, true);
-                    grid.SetValue(pos, value);
+                    var value = int.Parse(givens.Substring(pos.y * 9 + pos.x, 1));
+                    if( value != 0 )
+                    {
+                        grid.SetIsGiven(pos, true);
+                        grid.SetValue(pos, value);
+                    }
                 }
+                return grid;
             }
-            return grid;
+            catch( Exception ex )
+            {
+                throw new GridSerializationException($"Exception in {nameof(HodokuGridSerializer)} occured during {nameof(Deserialize)} with value \"{input}\" ", ex);
+            }
         }
 
         public bool IsValidFormat(string text)

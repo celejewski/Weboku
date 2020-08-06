@@ -1,4 +1,5 @@
 ﻿using Core.Data;
+using Core.Exceptions;
 using Microsoft.AspNetCore.WebUtilities;
 using System;
 using System.Collections;
@@ -12,10 +13,17 @@ namespace Core.Serializer
     {
         public IGrid Deserialize(string text)
         {
-            var bytes = WebEncoders.Base64UrlDecode(text);
-            var bitArray = new BitArray(bytes);
+            try
+            {
+                var bytes = WebEncoders.Base64UrlDecode(text);
+                var bitArray = new BitArray(bytes);
 
-            return BitArrayToGrid(bitArray);
+                return BitArrayToGrid(bitArray);
+            }
+            catch( Exception ex )
+            {
+                throw new GridSerializationException($"Exception in {nameof(Base64CandidatesSerializer)} occured during {nameof(Deserialize)} with value \"{text}\" ", ex);
+            }
         }
 
         public bool IsValidFormat(string text)

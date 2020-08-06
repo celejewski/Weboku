@@ -1,5 +1,5 @@
 ﻿using Core.Data;
-using System;
+using Core.Exceptions;
 using System.Collections.Generic;
 
 namespace Core.Serializer
@@ -25,7 +25,7 @@ namespace Core.Serializer
             var converter = GetFirstValidOrDefault(text);
             if( converter == null )
             {
-                throw new ArgumentException(text);
+                throw new GridSerializationException($"Exception in {nameof(DefaultGridSerializer)} occured during {nameof(Deserialize)} with value \"{text}\"");
             }
             return converter.Deserialize(text);
         }
