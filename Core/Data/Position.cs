@@ -100,6 +100,21 @@ namespace Core.Data
             return House.None;
         }
 
+        private static readonly IReadOnlyList<Position>[,] _indexesWhichCanSee = new IReadOnlyList<Position>[9, 9];
+
+        public static IReadOnlyList<Position> GetCoordsWhichCanSee(Position pos)
+        {
+            return _indexesWhichCanSee[pos.x, pos.y] ??= CalculateIndexesWhichCanSee(pos);
+        }
+
+        private static IReadOnlyList<Position> CalculateIndexesWhichCanSee(Position pos)
+        {
+            return Position.Cols[pos.x]
+                .Concat(Position.Rows[pos.y])
+                .Concat(Position.Blocks[pos.block])
+                .ToArray();
+        }
+
         static Position()
         {
             for( int y = 0; y < 9; y++ )

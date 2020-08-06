@@ -32,11 +32,19 @@ namespace Core.Data
 
             if( value != InputValue.None )
             {
-                foreach( var seenBy in GridHelper.GetCoordsWhichCanSee(pos) )
+                foreach( var seenBy in Position.GetCoordsWhichCanSee(pos) )
                 {
                     RemoveCandidate(seenBy, value);
                 }
             }
+        }
+
+        public bool IsCandidateLegal(Position pos, InputValue value)
+        {
+            return value == InputValue.None
+                || Position.GetCoordsWhichCanSee(pos)
+                .Where(otherPos => !pos.Equals(otherPos))
+                .All(otherPos => GetValue(otherPos) != value);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

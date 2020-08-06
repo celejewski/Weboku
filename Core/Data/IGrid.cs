@@ -16,6 +16,7 @@
         void AddCandidate(Position pos, InputValue value);
         void RemoveCandidate(Position pos, InputValue value);
         void ToggleCandidate(Position pos, InputValue value);
+        bool IsCandidateLegal(Position pos, InputValue value);
         void FillAllLegalCandidates();
         void ClearAllCandidates();
         void ClearCandidates(Position pos);

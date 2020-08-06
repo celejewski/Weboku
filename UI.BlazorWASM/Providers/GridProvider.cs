@@ -37,7 +37,7 @@ namespace UI.BlazorWASM.Providers
         public void AddCandidate(Position pos, InputValue value)
         {
             _grid.AddCandidate(pos, value);
-            _isCandidateLegal[pos.x, pos.y, value] = GridHelper.IsLegal(pos, value, Grid);
+            _isCandidateLegal[pos.x, pos.y, value] = Grid.IsCandidateLegal(pos, value);
             CandidatesChanged();
         }
 
@@ -108,11 +108,11 @@ namespace UI.BlazorWASM.Providers
             {
                 _grid.SetValue(pos, value);
                 ClearCandidates(pos);
-                foreach( var coords in GridHelper.GetCoordsWhichCanSee(pos) )
+                foreach( var coords in Position.GetCoordsWhichCanSee(pos) )
                 {
                     _grid.RemoveCandidate(coords, value);
                 }
-                _isInputLegal[pos.x, pos.y] = GridHelper.IsLegal(pos, value, Grid);
+                _isInputLegal[pos.x, pos.y] = Grid.IsCandidateLegal(pos, value);
                 ValueAndCandidatesChanged();
             }
             else
@@ -124,7 +124,7 @@ namespace UI.BlazorWASM.Providers
 
         public void ToggleCandidate(Position pos, InputValue value)
         {
-            _isCandidateLegal[pos.x, pos.y, value] = GridHelper.IsLegal(pos, value, Grid);
+            _isCandidateLegal[pos.x, pos.y, value] = Grid.IsCandidateLegal(pos, value);
             _grid.ToggleCandidate(pos, value);
             CandidatesChanged();
         }
@@ -134,7 +134,7 @@ namespace UI.BlazorWASM.Providers
             _grid.FillAllLegalCandidates();
             foreach( var pos in Position.All.Where(pos => _grid.HasValue(pos)) )
             {
-                foreach( var coords in GridHelper.GetCoordsWhichCanSee(pos) )
+                foreach( var coords in Position.GetCoordsWhichCanSee(pos) )
                 {
                     _grid.RemoveCandidate(coords, _grid.GetValue(pos));
                 }
@@ -166,7 +166,7 @@ namespace UI.BlazorWASM.Providers
         {
             foreach( var pos in Position.All )
             {
-                _isInputLegal[pos.x, pos.y] = GridHelper.IsLegal(pos, GetValue(pos), Grid);
+                _isInputLegal[pos.x, pos.y] = Grid.IsCandidateLegal(pos, GetValue(pos));
             }
         }
 
@@ -176,7 +176,7 @@ namespace UI.BlazorWASM.Providers
             {
                 foreach( var value in InputValue.NonEmpty.Where(value => HasCandidate(pos, value)) )
                 {
-                    _isCandidateLegal[pos.x, pos.y, value] = GridHelper.IsLegal(pos, value, Grid);
+                    _isCandidateLegal[pos.x, pos.y, value] = Grid.IsCandidateLegal(pos, value);
                 }
             }
         }
