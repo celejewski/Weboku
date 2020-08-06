@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Core.Serializer
 {
-    public class Base64CandidatesSerializer : IGridSerializer
+    internal class Base64CandidatesSerializer : IGridSerializer
     {
         public IGrid Deserialize(string text)
         {

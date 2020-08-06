@@ -1,5 +1,5 @@
-﻿using Core.Serializer;
-using Core.Data;
+﻿using Core.Data;
+using Core.Serializer;
 using Microsoft.AspNetCore.Components;
 using System;
 using UI.BlazorWASM.Enums;
@@ -17,7 +17,7 @@ namespace UI.BlazorWASM.Providers
 
         public event Action OnChanged;
         private readonly IGridProvider _gridProvider;
-        private readonly HodokuGridSerializer _hodokuGridConverter;
+        private readonly IGridSerializer _hodokuGridConverter;
         private string _converted;
         public string Converted
         {
@@ -69,7 +69,6 @@ namespace UI.BlazorWASM.Providers
 
         public ShareProvider(
             IGridProvider gridProvider,
-            HodokuGridSerializer hodokuGridConverter,
             NavigationManager navigationManager,
             ModalProvider modalProvider,
             FilterProvider filterProvider
@@ -77,7 +76,7 @@ namespace UI.BlazorWASM.Providers
         {
             _dirty = true;
             _gridProvider = gridProvider;
-            _hodokuGridConverter = hodokuGridConverter;
+            _hodokuGridConverter = GridSerializerFactory.Make(GridSerializerName.Hodoku);
             _navigationManager = navigationManager;
             _modalProvider = modalProvider;
             _filterProvider = filterProvider;
@@ -131,8 +130,8 @@ namespace UI.BlazorWASM.Providers
             IGridSerializer converter = SharedConverter switch
             {
                 SharedConverter.Hodoku => _hodokuGridConverter,
-                SharedConverter.MyFormat => new Base64CandidatesSerializer(),
-                SharedConverter.MyLink => new Base64CandidatesSerializer(),
+                SharedConverter.MyFormat => GridSerializerFactory.Make(GridSerializerName.Base64),
+                SharedConverter.MyLink => GridSerializerFactory.Make(GridSerializerName.Base64),
                 _ => throw new ArgumentException("incorrect SharedConverter")
             };
             var text = converter.Serialize(_grid);

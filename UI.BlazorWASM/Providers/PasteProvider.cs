@@ -1,5 +1,5 @@
-﻿using Core.Serializer;
-using Core.Data;
+﻿using Core.Data;
+using Core.Serializer;
 using System;
 
 namespace UI.BlazorWASM.Providers
@@ -36,12 +36,11 @@ namespace UI.BlazorWASM.Providers
         public bool IsValid => IsValidText = _converter.IsValidFormat(_pasted);
 
         public PasteProvider(
-            ChainGridSerializer chainGridConverter,
             ModalProvider modalProvider,
             IGridProvider gridProvider,
             PreserveStateProvider preserveStateProvider)
         {
-            _converter = chainGridConverter;
+            _converter = GridSerializerFactory.Make(GridSerializerName.Default);
             _modalProvider = modalProvider;
             _gridProvider = gridProvider;
             _preserveStateProvider = preserveStateProvider;

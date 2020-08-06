@@ -11,7 +11,7 @@ namespace Core.Factories
         static GridFactory()
         {
             var generator = new EmptyGridGenerator();
-            _converter = new ChainGridSerializer(
+            _converter = new DefaultGridSerializer(
                 new HodokuGridSerializer(generator),
                 new Base64GridSerializer(generator));
         }

@@ -1,5 +1,4 @@
-﻿using Core.Serializer;
-using Core.Generators;
+﻿using Core.Generators;
 using UI.BlazorWASM.Commands;
 using UI.BlazorWASM.Managers;
 
@@ -15,7 +14,6 @@ namespace UI.BlazorWASM.Providers
         private readonly IClickableActionProvider _clickableActionProvider;
         private readonly ModalProvider _modalProvider;
         private readonly IGridProvider _gridProvider;
-        private readonly HodokuGridSerializer _hodokuGridConverter;
         private readonly SudokuProvider _sudokuProvider;
         private readonly SettingsProvider _settingsProvider;
 
@@ -28,7 +26,6 @@ namespace UI.BlazorWASM.Providers
             IClickableActionProvider clickableActionProvider,
             ModalProvider modalProvider,
             IGridProvider gridProvider,
-            HodokuGridSerializer hodokuGridConverter,
             SudokuProvider sudokuProvider,
             SettingsProvider settingsProvider)
         {
@@ -40,7 +37,6 @@ namespace UI.BlazorWASM.Providers
             _clickableActionProvider = clickableActionProvider;
             _modalProvider = modalProvider;
             _gridProvider = gridProvider;
-            _hodokuGridConverter = hodokuGridConverter;
             _sudokuProvider = sudokuProvider;
             _settingsProvider = settingsProvider;
         }
@@ -51,7 +47,7 @@ namespace UI.BlazorWASM.Providers
 
         public ICommand StartNewGameV2(string difficulty)
         {
-            return new StartNewGameCommand(difficulty, _sudokuGenerator, _gridProvider, _modalProvider, _cellColorProvider, _gridHistoryManager, _gameTimerProvider, _hodokuGridConverter, _sudokuProvider);
+            return new StartNewGameCommand(difficulty, _sudokuGenerator, _gridProvider, _modalProvider, _cellColorProvider, _gridHistoryManager, _gameTimerProvider, _sudokuProvider);
         }
 
         public ICommand SetLanguage(string name)

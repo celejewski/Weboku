@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Core.Serializer
 {
-    public class Base64GridSerializer : IGridSerializer
+    internal class Base64GridSerializer : IGridSerializer
     {
         private readonly IGridSerializer _innerConverter;
 

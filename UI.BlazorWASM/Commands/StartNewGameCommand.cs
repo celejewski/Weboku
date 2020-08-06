@@ -1,6 +1,5 @@
-﻿using Core.Serializer;
-using Core.Generators;
-using System.Linq;
+﻿using Core.Generators;
+using Core.Serializer;
 using System.Threading.Tasks;
 using UI.BlazorWASM.Component.Modals;
 using UI.BlazorWASM.Managers;
@@ -17,7 +16,7 @@ namespace UI.BlazorWASM.Commands
         private readonly CellColorProvider _cellColorProvider;
         private readonly IGridHistoryManager _gridHistoryManager;
         private readonly GameTimerProvider _gameTimerProvider;
-        private readonly HodokuGridSerializer _hodokuGridConverter;
+        private readonly IGridSerializer _hodokuGridConverter;
         private readonly SudokuProvider _sudokuProvider;
 
         public StartNewGameCommand(
@@ -28,7 +27,6 @@ namespace UI.BlazorWASM.Commands
             CellColorProvider cellColorProvider,
             IGridHistoryManager gridHistoryManager,
             GameTimerProvider gameTimerProvider,
-            HodokuGridSerializer hodokuGridConverter,
             SudokuProvider sudokuProvider)
         {
             _difficulty = difficulty;
@@ -38,7 +36,7 @@ namespace UI.BlazorWASM.Commands
             _cellColorProvider = cellColorProvider;
             _gridHistoryManager = gridHistoryManager;
             _gameTimerProvider = gameTimerProvider;
-            _hodokuGridConverter = hodokuGridConverter;
+            _hodokuGridConverter = GridSerializerFactory.Make(GridSerializerName.Hodoku);
             _sudokuProvider = sudokuProvider;
         }
 

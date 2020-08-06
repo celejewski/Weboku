@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace Core.Serializer
 {
-    public class HodokuGridSerializer : IGridSerializer
+    internal class HodokuGridSerializer : IGridSerializer
     {
         private readonly IEmptyGridGenerator _generator;
 

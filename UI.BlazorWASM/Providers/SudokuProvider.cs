@@ -1,5 +1,5 @@
-﻿using Core.Serializer;
-using Core.Data;
+﻿using Core.Data;
+using Core.Serializer;
 using Core.Solvers;
 using System;
 
@@ -11,9 +11,9 @@ namespace UI.BlazorWASM.Providers
         private readonly ISolver _solver = new BruteForceSolver();
         private readonly IGridSerializer _converter;
 
-        public SudokuProvider(ChainGridSerializer chainGridConverter)
+        public SudokuProvider()
         {
-            _converter = chainGridConverter;
+            _converter = GridSerializerFactory.Make(GridSerializerName.Default);
         }
 
         public Sudoku Sudoku

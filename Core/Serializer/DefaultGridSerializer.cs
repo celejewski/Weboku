@@ -4,11 +4,11 @@ using System.Collections.Generic;
 
 namespace Core.Serializer
 {
-    public class ChainGridSerializer : IGridSerializer
+    internal class DefaultGridSerializer : IGridSerializer
     {
         private readonly List<IGridSerializer> _converters = new List<IGridSerializer>();
 
-        public ChainGridSerializer(
+        public DefaultGridSerializer(
             HodokuGridSerializer hodokuGridConverter,
             Base64GridSerializer base64GridConverter)
         {

@@ -1,5 +1,5 @@
-﻿using Core.Serializer;
-using Core.Data;
+﻿using Core.Data;
+using Core.Serializer;
 using System;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -13,11 +13,11 @@ namespace Core.Generators
         private readonly IEmptyGridGenerator _emptyGridGenerator;
         private readonly IGridSerializer _converter;
 
-        public RESTGridGenerator(HttpClient http, IEmptyGridGenerator emptyGridGenerator, HodokuGridSerializer converter)
+        public RESTGridGenerator(HttpClient http, IEmptyGridGenerator emptyGridGenerator)
         {
             _http = http;
             _emptyGridGenerator = emptyGridGenerator;
-            _converter = converter;
+            _converter = GridSerializerFactory.Make(GridSerializerName.Hodoku);
         }
 
         public IGrid Empty()

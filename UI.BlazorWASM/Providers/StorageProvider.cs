@@ -1,7 +1,6 @@
 ﻿using Blazored.LocalStorage;
-using Core.Serializer;
 using Core.Data;
-using System.Diagnostics.CodeAnalysis;
+using Core.Serializer;
 using System.Threading.Tasks;
 using UI.BlazorWASM.Enums;
 
@@ -10,7 +9,7 @@ namespace UI.BlazorWASM.Providers
     public class StorageProvider
     {
         private readonly ILocalStorageService _localStorageService;
-        private readonly IGridSerializer _converter = new Base64CandidatesSerializer();
+        private readonly IGridSerializer _converter = GridSerializerFactory.Make(GridSerializerName.Base64);
 
         public StorageProvider(ILocalStorageService localStorageService)
         {
@@ -30,7 +29,7 @@ namespace UI.BlazorWASM.Providers
         public async Task<IGrid> LoadGrid()
         {
             var text = await _localStorageService.GetItemAsync<string>(StorageKey.Grid.ToString());
-            if (!_converter.IsValidFormat(text))
+            if( !_converter.IsValidFormat(text) )
             {
                 System.Console.WriteLine("Invalid grid");
                 return new Grid();

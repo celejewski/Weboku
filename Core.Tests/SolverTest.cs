@@ -1,5 +1,4 @@
 ﻿using Core.Serializer;
-using Core.Generators;
 using Core.Solvers;
 using Xunit;
 
@@ -9,7 +8,7 @@ namespace Core.Tests
     public class SolverTest
     {
         private readonly BruteForceSolver _bruteForceSolver = new BruteForceSolver();
-        private readonly IGridSerializer _converter = new HodokuGridSerializer(new EmptyGridGenerator());
+        private readonly IGridSerializer _converter = GridSerializerFactory.Make(GridSerializerName.Hodoku, GridSerializerMode.Everything);
 
         [Fact]
         public void Solution1()
