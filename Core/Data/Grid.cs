@@ -151,16 +151,11 @@ namespace Core.Data
             for( int i = 0; i < 81; i++ )
             {
                 var pos = Position.All[i];
-                hashcode ^=_isGivens[pos.x, pos.y]
+                hashcode ^= _isGivens[pos.x, pos.y]
                     ? _inputs[pos.x, pos.y] << (i % 25)
                     : 0;
             }
             return hashcode;
-        }
-
-        public override string ToString()
-        {
-            return "Grid";
         }
     }
 }

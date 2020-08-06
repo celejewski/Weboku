@@ -9,7 +9,7 @@ namespace Core.Helpers
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Candidates AsCandidates(this InputValue inputValue)
         {
-            return (Candidates) (1 << (inputValue-1));
+            return (Candidates) (1 << (inputValue - 1));
         }
 
         private static readonly IReadOnlyList<InputValue>[] _candidatesAsList
@@ -50,6 +50,16 @@ namespace Core.Helpers
                 }
             }
             return count;
+        }
+
+        static CandidateValueExtension()
+        {
+            for( int i = 0; i < 512; i++ )
+            {
+                var candidates = (Candidates) i;
+                candidates.ToInputValues();
+                candidates.Count();
+            }
         }
     }
 }
