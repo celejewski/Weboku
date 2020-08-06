@@ -109,9 +109,10 @@ namespace Core.Data
 
         private static IReadOnlyList<Position> CalculateIndexesWhichCanSee(Position pos)
         {
-            return Position.Cols[pos.x]
-                .Concat(Position.Rows[pos.y])
-                .Concat(Position.Blocks[pos.block])
+            return Cols[pos.x]
+                .Concat(Rows[pos.y])
+                .Concat(Blocks[pos.block])
+                .Distinct()
                 .ToArray();
         }
 
