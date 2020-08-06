@@ -18,7 +18,7 @@ namespace Core.Factories
 
         public static IGrid FromText(string text)
         {
-            return _converter.FromText(text);
+            return _converter.Deserialize(text);
         }
     }
 }

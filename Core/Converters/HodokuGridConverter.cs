@@ -14,7 +14,7 @@ namespace Core.Converters
             _generator = generator;
         }
 
-        public IGrid FromText(string input)
+        public IGrid Deserialize(string input)
         {
             var givens = input.Replace('.', '0');
             var grid = _generator.Empty();
@@ -30,14 +30,14 @@ namespace Core.Converters
             return grid;
         }
 
-        public bool IsValidText(string text)
+        public bool IsValidFormat(string text)
         {
             return !string.IsNullOrEmpty(text)
                 && text.Length == 81
                 && !Regex.IsMatch(text.Replace('.', '0'), @"[^\d]");
         }
 
-        public string ToText(IGrid grid)
+        public string Serialize(IGrid grid)
         {
             return string.Concat(Position.All.Select(pos => grid.GetValue(pos)));
         }

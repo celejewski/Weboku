@@ -4,8 +4,8 @@ namespace Core.Converters
 {
     public interface IGridConverter
     {
-        string ToText(IGrid grid);
-        IGrid FromText(string text);
-        bool IsValidText(string text);
+        string Serialize(IGrid grid);
+        IGrid Deserialize(string text);
+        bool IsValidFormat(string text);
     }
 }

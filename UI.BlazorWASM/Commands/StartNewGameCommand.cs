@@ -45,7 +45,7 @@ namespace UI.BlazorWASM.Commands
         public async Task Execute()
         {
             var sudoku = await _generator.Generate(_difficulty);
-            _gridProvider.Grid = _hodokuGridConverter.FromText(sudoku.Given);
+            _gridProvider.Grid = _hodokuGridConverter.Deserialize(sudoku.Given);
             _sudokuProvider.PreferredDifficulty = _difficulty;
             _sudokuProvider.Sudoku = sudoku;
             _modalProvider.SetModalState(ModalState.None);

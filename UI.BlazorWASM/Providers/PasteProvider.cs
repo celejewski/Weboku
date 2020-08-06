@@ -23,7 +23,7 @@ namespace UI.BlazorWASM.Providers
                 _pasted = value;
                 if( IsValid )
                 {
-                    Grid = _converter.FromText(_pasted);
+                    Grid = _converter.Deserialize(_pasted);
                     if( _isVisible )
                     {
                         _gridProvider.Grid = Grid;
@@ -33,7 +33,7 @@ namespace UI.BlazorWASM.Providers
             }
         }
 
-        public bool IsValid => IsValidText = _converter.IsValidText(_pasted);
+        public bool IsValid => IsValidText = _converter.IsValidFormat(_pasted);
 
         public PasteProvider(
             ChainGridConverter chainGridConverter,

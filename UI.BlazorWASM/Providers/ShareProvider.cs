@@ -135,7 +135,7 @@ namespace UI.BlazorWASM.Providers
                 SharedConverter.MyLink => new Base64CandidatesConverter(),
                 _ => throw new ArgumentException("incorrect SharedConverter")
             };
-            var text = converter.ToText(_grid);
+            var text = converter.Serialize(_grid);
             if( SharedConverter == SharedConverter.MyLink )
             {
                 _converted = $"{_navigationManager.BaseUri}paste/{text}";

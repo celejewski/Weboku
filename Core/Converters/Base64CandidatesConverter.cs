@@ -10,7 +10,7 @@ namespace Core.Converters
 {
     public class Base64CandidatesConverter : IGridConverter
     {
-        public IGrid FromText(string text)
+        public IGrid Deserialize(string text)
         {
             var bytes = WebEncoders.Base64UrlDecode(text);
             var bitArray = new BitArray(bytes);
@@ -18,11 +18,11 @@ namespace Core.Converters
             return BitArrayToGrid(bitArray);
         }
 
-        public bool IsValidText(string text)
+        public bool IsValidFormat(string text)
         {
             try
             {
-                FromText(text);
+                Deserialize(text);
                 return true;
             }
             catch( Exception ex )
@@ -31,7 +31,7 @@ namespace Core.Converters
             }
         }
 
-        public string ToText(IGrid grid)
+        public string Serialize(IGrid grid)
         {
             var bools = GridToBools(grid);
             var bitArray = new BitArray(bools.ToArray());

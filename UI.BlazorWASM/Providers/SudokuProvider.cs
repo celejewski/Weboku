@@ -22,9 +22,9 @@ namespace UI.BlazorWASM.Providers
             set
             {
                 _sudoku = value;
-                if( _converter.IsValidText(_sudoku.Given) )
+                if( _converter.IsValidFormat(_sudoku.Given) )
                 {
-                    var grid = _converter.FromText(_sudoku.Given);
+                    var grid = _converter.Deserialize(_sudoku.Given);
                     _solution = _solver.Solve(grid);
                 }
                 OnChanged?.Invoke();

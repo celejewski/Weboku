@@ -20,27 +20,27 @@ namespace Core.Converters
 
         private IGridConverter GetFirstValidOrDefault(string text)
         {
-            return _converters.Find(converter => converter.IsValidText(text));
+            return _converters.Find(converter => converter.IsValidFormat(text));
         }
 
-        public IGrid FromText(string text)
+        public IGrid Deserialize(string text)
         {
             var converter = GetFirstValidOrDefault(text);
             if( converter == null )
             {
                 throw new ArgumentException(text);
             }
-            return converter.FromText(text);
+            return converter.Deserialize(text);
         }
 
-        public bool IsValidText(string text)
+        public bool IsValidFormat(string text)
         {
             return GetFirstValidOrDefault(text) != null;
         }
 
-        public string ToText(IGrid grid)
+        public string Serialize(IGrid grid)
         {
-            return _converters[0].ToText(grid);
+            return _converters[0].Serialize(grid);
         }
     }
 }

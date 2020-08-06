@@ -39,10 +39,10 @@ namespace UI.BlazorWASM.Commands
         {
             _sudokuProvider.Sudoku = new Sudoku
             {
-                Given = _hodokuGridConverter.ToText(_gridProvider.Grid),
+                Given = _hodokuGridConverter.Serialize(_gridProvider.Grid),
                 Steps = null,
             };
-            _gridProvider.Grid = _hodokuGridConverter.FromText(_sudokuProvider.Sudoku.Given);
+            _gridProvider.Grid = _hodokuGridConverter.Deserialize(_sudokuProvider.Sudoku.Given);
             _sudokuProvider.IsUserCreatingCustomSudoku = false;
             _modalProvider.SetModalState(Component.Modals.ModalState.None);
             _cellColorProvider.ClearAll();

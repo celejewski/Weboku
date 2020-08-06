@@ -17,9 +17,9 @@ namespace Core.Tests
             const string givens = "..15.6.9.37.19....9.......6...643.1...........4.981...5.......2....25.68.8.4.93..";
             const string expected = "821536794376194285954872136295643817138257649647981523569318472413725968782469351";
 
-            var input = _converter.FromText(givens);
+            var input = _converter.Deserialize(givens);
             var actual = _bruteForceSolver.Solve(input);
-            var actualString = _converter.ToText(actual);
+            var actualString = _converter.Serialize(actual);
 
             Assert.Equal(expected, actualString);
         }
@@ -30,9 +30,9 @@ namespace Core.Tests
             const string givens = "6.481.9..7..3......3..96....4......1..2...3..9......5....67..8......5..6..3.827.4";
             const string expected = "654817923729354618138296475345729861872561349916438257491673582287945136563182794";
 
-            var input = _converter.FromText(givens);
+            var input = _converter.Deserialize(givens);
             var actual = _bruteForceSolver.Solve(input);
-            var actualString = _converter.ToText(actual);
+            var actualString = _converter.Serialize(actual);
 
             Assert.Equal(expected, actualString);
         }
@@ -43,9 +43,9 @@ namespace Core.Tests
             const string givens = "3..5.9...4....8.39..6..31....7.12...5.......4...64.9....98..5..83.2....6...7.4..8";
             const string expected = "318569472452178639976423185647912853591387264283645917729836541834251796165794328";
 
-            var input = _converter.FromText(givens);
+            var input = _converter.Deserialize(givens);
             var actual = _bruteForceSolver.Solve(input);
-            var actualString = _converter.ToText(actual);
+            var actualString = _converter.Serialize(actual);
 
             Assert.Equal(expected, actualString);
         }
@@ -68,9 +68,9 @@ namespace Core.Tests
             "597841263643529718182376459315764982976285134824913576238457691451698327769132845")]
         public void MultipleSudokus(string input, string expected)
         {
-            var grid = _converter.FromText(input);
+            var grid = _converter.Deserialize(input);
             var actual = _bruteForceSolver.Solve(grid);
-            var actualString = _converter.ToText(actual);
+            var actualString = _converter.Serialize(actual);
 
             Assert.Equal(expected, actualString);
         }
@@ -79,7 +79,7 @@ namespace Core.Tests
         public void NoSolution()
         {
             const string givens = ".....9...571..5....9.....83...49.5..82.6.3.74..9.28...63.....1....8..43....9.....";
-            var grid = _converter.FromText(givens);
+            var grid = _converter.Deserialize(givens);
             var actual = _bruteForceSolver.Solve(grid);
 
             Assert.Null(actual);

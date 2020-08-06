@@ -44,7 +44,7 @@ namespace UI.BlazorWASM.Commands
 
             var converter = new HodokuGridConverter(new EmptyGridGenerator());
 
-            var sudoku = new Core.Data.Sudoku{Given = converter.ToText(grid)};
+            var sudoku = new Core.Data.Sudoku{Given = converter.Serialize(grid)};
             _sudokuProvider.Sudoku = sudoku;
 
             _cellColorProvider.ClearAll();

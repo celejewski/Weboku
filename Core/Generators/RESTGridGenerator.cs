@@ -30,7 +30,7 @@ namespace Core.Generators
             try
             {
                 var sudoku = await _http.GetFromJsonAsync<Sudoku>($"http://andzej-002-site2.ftempurl.com/sudokugenerator/{difficulty}");
-                return _converter.IsValidText(sudoku.Given) ? _converter.FromText(sudoku.Given) : Empty();
+                return _converter.IsValidFormat(sudoku.Given) ? _converter.Deserialize(sudoku.Given) : Empty();
             }
             catch( Exception ex )
             {

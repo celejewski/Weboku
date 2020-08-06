@@ -16,7 +16,7 @@ namespace Core.Converters
             _innerConverter = new HodokuGridConverter(emptyGridGenerator);
         }
 
-        public IGrid FromText(string text)
+        public IGrid Deserialize(string text)
         {
             var bytes = WebEncoders.Base64UrlDecode(text);
             var bigInt = new BigInteger(bytes);
@@ -27,14 +27,14 @@ namespace Core.Converters
                 throw new ArgumentException();
             }
 
-            return _innerConverter.FromText(parsed);
+            return _innerConverter.Deserialize(parsed);
         }
 
-        public bool IsValidText(string text)
+        public bool IsValidFormat(string text)
         {
             try
             {
-                FromText(text);
+                Deserialize(text);
                 return true;
             }
             catch
@@ -43,7 +43,7 @@ namespace Core.Converters
             }
         }
 
-        public string ToText(IGrid grid)
+        public string Serialize(IGrid grid)
         {
             var sb = new StringBuilder();
             sb.Append("1");

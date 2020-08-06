@@ -24,18 +24,18 @@ namespace UI.BlazorWASM.Providers
 
         public Task SaveGrid(IGrid grid)
         {
-            var converted = _converter.ToText(grid);
+            var converted = _converter.Serialize(grid);
             return _localStorageService.SetItemAsync<string>(StorageKey.Grid.ToString(), converted);
         }
         public async Task<IGrid> LoadGrid()
         {
             var text = await _localStorageService.GetItemAsync<string>(StorageKey.Grid.ToString());
-            if (!_converter.IsValidText(text))
+            if (!_converter.IsValidFormat(text))
             {
                 System.Console.WriteLine("Invalid grid");
                 return new Grid();
             }
-            return _converter.FromText(text);
+            return _converter.Deserialize(text);
         }
 
         public Task<bool> HasSavedSudoku()
