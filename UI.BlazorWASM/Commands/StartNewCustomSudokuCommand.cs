@@ -1,4 +1,4 @@
-﻿using Core.Converters;
+﻿using Core.Serializer;
 using Core.Data;
 using System;
 using System.Threading.Tasks;
@@ -10,7 +10,7 @@ namespace UI.BlazorWASM.Commands
     public class StartNewCustomSudokuCommand : ICommand
     {
         private readonly SudokuProvider _sudokuProvider;
-        private readonly HodokuGridConverter _hodokuGridConverter;
+        private readonly HodokuGridSerializer _hodokuGridConverter;
         private readonly IGridProvider _gridProvider;
         private readonly ModalProvider _modalProvider;
         private readonly CellColorProvider _cellColorProvider;
@@ -19,7 +19,7 @@ namespace UI.BlazorWASM.Commands
 
         public StartNewCustomSudokuCommand(
             SudokuProvider sudokuProvider,
-            HodokuGridConverter hodokuGridConverter,
+            HodokuGridSerializer hodokuGridConverter,
             IGridProvider gridProvider,
             ModalProvider modalProvider,
             CellColorProvider cellColorProvider,

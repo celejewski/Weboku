@@ -1,5 +1,5 @@
 ﻿using AKSoftware.Localization.MultiLanguages;
-using Core.Converters;
+using Core.Serializer;
 using Core.Generators;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
@@ -59,7 +59,7 @@ namespace UI.BlazorWASM.Helpers
         public static void RegisterProviders(this IServiceCollection services)
         {
             services.AddScoped<IEmptyGridGenerator, EmptyGridGenerator>();
-            services.AddScoped<HodokuGridConverter>();
+            services.AddScoped<HodokuGridSerializer>();
             services.AddScoped<IGridGenerator, RESTGridGenerator>();
             services.AddScoped<CellColorProvider>();
             services.AddScoped<IGridHistoryManager, GridHistoryManager>();
@@ -71,14 +71,14 @@ namespace UI.BlazorWASM.Helpers
             services.AddScoped<CommandProvider>();
             services.AddScoped<GameTimerProvider>();
             services.AddScoped<GameStateChecker>();
-            services.AddScoped<IGridConverter, HodokuGridConverter>();
+            services.AddScoped<IGridSerializer, HodokuGridSerializer>();
             services.AddScoped<ISudokuGenerator, RESTSudokuGenerator>();
             services.AddScoped<ModalProvider>();
             services.AddScoped<ClickableActionFactory>();
             services.AddScoped<ShareProvider>();
             services.AddScoped<PasteProvider>();
-            services.AddScoped<Base64GridConverter>();
-            services.AddScoped<ChainGridConverter>();
+            services.AddScoped<Base64GridSerializer>();
+            services.AddScoped<ChainGridSerializer>();
             services.AddScoped<SudokuProvider>();
             services.AddScoped<IGridProvider, GridProvider>();
             services.AddScoped<CandidatesMarkProvider>();

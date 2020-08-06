@@ -1,4 +1,4 @@
-﻿using Core.Converters;
+﻿using Core.Serializer;
 using Core.Data;
 using System;
 using System.Net.Http;
@@ -11,9 +11,9 @@ namespace Core.Generators
     {
         private readonly HttpClient _http;
         private readonly IEmptyGridGenerator _emptyGridGenerator;
-        private readonly IGridConverter _converter;
+        private readonly IGridSerializer _converter;
 
-        public RESTGridGenerator(HttpClient http, IEmptyGridGenerator emptyGridGenerator, HodokuGridConverter converter)
+        public RESTGridGenerator(HttpClient http, IEmptyGridGenerator emptyGridGenerator, HodokuGridSerializer converter)
         {
             _http = http;
             _emptyGridGenerator = emptyGridGenerator;

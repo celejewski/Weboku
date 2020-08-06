@@ -5,15 +5,15 @@ using System;
 using System.Numerics;
 using System.Text;
 
-namespace Core.Converters
+namespace Core.Serializer
 {
-    public class Base64GridConverter : IGridConverter
+    public class Base64GridSerializer : IGridSerializer
     {
-        private readonly IGridConverter _innerConverter;
+        private readonly IGridSerializer _innerConverter;
 
-        public Base64GridConverter(IEmptyGridGenerator emptyGridGenerator)
+        public Base64GridSerializer(IEmptyGridGenerator emptyGridGenerator)
         {
-            _innerConverter = new HodokuGridConverter(emptyGridGenerator);
+            _innerConverter = new HodokuGridSerializer(emptyGridGenerator);
         }
 
         public IGrid Deserialize(string text)

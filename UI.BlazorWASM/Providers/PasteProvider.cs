@@ -1,4 +1,4 @@
-﻿using Core.Converters;
+﻿using Core.Serializer;
 using Core.Data;
 using System;
 
@@ -6,7 +6,7 @@ namespace UI.BlazorWASM.Providers
 {
     public class PasteProvider : IProvider
     {
-        private readonly IGridConverter _converter;
+        private readonly IGridSerializer _converter;
         private readonly ModalProvider _modalProvider;
         private readonly IGridProvider _gridProvider;
         private readonly PreserveStateProvider _preserveStateProvider;
@@ -36,7 +36,7 @@ namespace UI.BlazorWASM.Providers
         public bool IsValid => IsValidText = _converter.IsValidFormat(_pasted);
 
         public PasteProvider(
-            ChainGridConverter chainGridConverter,
+            ChainGridSerializer chainGridConverter,
             ModalProvider modalProvider,
             IGridProvider gridProvider,
             PreserveStateProvider preserveStateProvider)

@@ -6,9 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Core.Converters
+namespace Core.Serializer
 {
-    public class Base64CandidatesConverter : IGridConverter
+    public class Base64CandidatesSerializer : IGridSerializer
     {
         public IGrid Deserialize(string text)
         {

@@ -1,24 +1,23 @@
 ﻿using Core.Data;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
-namespace Core.Converters
+namespace Core.Serializer
 {
-    public class ChainGridConverter : IGridConverter
+    public class ChainGridSerializer : IGridSerializer
     {
-        private readonly List<IGridConverter> _converters = new List<IGridConverter>();
+        private readonly List<IGridSerializer> _converters = new List<IGridSerializer>();
 
-        public ChainGridConverter(
-            HodokuGridConverter hodokuGridConverter,
-            Base64GridConverter base64GridConverter)
+        public ChainGridSerializer(
+            HodokuGridSerializer hodokuGridConverter,
+            Base64GridSerializer base64GridConverter)
         {
             _converters.Add(base64GridConverter);
             _converters.Add(hodokuGridConverter);
-            _converters.Add(new Base64CandidatesConverter());
+            _converters.Add(new Base64CandidatesSerializer());
         }
 
-        private IGridConverter GetFirstValidOrDefault(string text)
+        private IGridSerializer GetFirstValidOrDefault(string text)
         {
             return _converters.Find(converter => converter.IsValidFormat(text));
         }

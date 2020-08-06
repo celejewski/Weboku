@@ -1,4 +1,4 @@
-﻿using Core.Converters;
+﻿using Core.Serializer;
 using Core.Generators;
 using Core.Solvers;
 using System.Threading.Tasks;
@@ -42,7 +42,7 @@ namespace UI.BlazorWASM.Commands
             var grid = _pasteProvider.Grid.Clone();
             _gridProvider.Grid = grid;
 
-            var converter = new HodokuGridConverter(new EmptyGridGenerator());
+            var converter = new HodokuGridSerializer(new EmptyGridGenerator());
 
             var sudoku = new Core.Data.Sudoku{Given = converter.Serialize(grid)};
             _sudokuProvider.Sudoku = sudoku;

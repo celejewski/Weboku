@@ -3,13 +3,13 @@ using Core.Generators;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace Core.Converters
+namespace Core.Serializer
 {
-    public class HodokuGridConverter : IGridConverter
+    public class HodokuGridSerializer : IGridSerializer
     {
         private readonly IEmptyGridGenerator _generator;
 
-        public HodokuGridConverter(IEmptyGridGenerator generator)
+        public HodokuGridSerializer(IEmptyGridGenerator generator)
         {
             _generator = generator;
         }

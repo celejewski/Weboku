@@ -1,5 +1,5 @@
 ﻿using Blazored.LocalStorage;
-using Core.Converters;
+using Core.Serializer;
 using Core.Data;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
@@ -10,7 +10,7 @@ namespace UI.BlazorWASM.Providers
     public class StorageProvider
     {
         private readonly ILocalStorageService _localStorageService;
-        private readonly IGridConverter _converter = new Base64CandidatesConverter();
+        private readonly IGridSerializer _converter = new Base64CandidatesSerializer();
 
         public StorageProvider(ILocalStorageService localStorageService)
         {

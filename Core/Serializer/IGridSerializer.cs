@@ -1,8 +1,8 @@
 ﻿using Core.Data;
 
-namespace Core.Converters
+namespace Core.Serializer
 {
-    public interface IGridConverter
+    public interface IGridSerializer
     {
         string Serialize(IGrid grid);
         IGrid Deserialize(string text);

@@ -1,4 +1,4 @@
-﻿using Core.Converters;
+﻿using Core.Serializer;
 using Core.Generators;
 using UI.BlazorWASM.Commands;
 using UI.BlazorWASM.Managers;
@@ -15,7 +15,7 @@ namespace UI.BlazorWASM.Providers
         private readonly IClickableActionProvider _clickableActionProvider;
         private readonly ModalProvider _modalProvider;
         private readonly IGridProvider _gridProvider;
-        private readonly HodokuGridConverter _hodokuGridConverter;
+        private readonly HodokuGridSerializer _hodokuGridConverter;
         private readonly SudokuProvider _sudokuProvider;
         private readonly SettingsProvider _settingsProvider;
 
@@ -28,7 +28,7 @@ namespace UI.BlazorWASM.Providers
             IClickableActionProvider clickableActionProvider,
             ModalProvider modalProvider,
             IGridProvider gridProvider,
-            HodokuGridConverter hodokuGridConverter,
+            HodokuGridSerializer hodokuGridConverter,
             SudokuProvider sudokuProvider,
             SettingsProvider settingsProvider)
         {
