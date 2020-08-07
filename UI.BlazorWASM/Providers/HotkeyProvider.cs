@@ -3,7 +3,6 @@ using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
 using UI.BlazorWASM.Commands;
-using UI.BlazorWASM.Enums;
 using UI.BlazorWASM.ViewModels;
 
 namespace UI.BlazorWASM.Providers
@@ -11,9 +10,9 @@ namespace UI.BlazorWASM.Providers
     public class HotkeyProvider
     {
         public event Action OnChanged;
-        public static IList<Hotkey> Hotkeys { get; } = new List<Hotkey>();
+        private static IList<Hotkey> Hotkeys { get; } = new List<Hotkey>();
 
-        public void Register(Hotkey hotkey)
+        private void Register(Hotkey hotkey)
         {
             Hotkeys.Add(hotkey);
             OnChanged?.Invoke();
@@ -43,6 +42,15 @@ namespace UI.BlazorWASM.Providers
             Register(new Hotkey { Command = numpadMenuBuilder.Undo(), Key = "z", Ctrl = true });
             Register(new Hotkey { Command = numpadMenuBuilder.Pairs(), Key = "x" });
             Register(new Hotkey { Command = numpadMenuBuilder.ClearColors(), Key = "r" });
+        }
+
+        private class Hotkey
+        {
+            public string Key { get; set; }
+
+            public bool Ctrl { get; set; } = false;
+            public ICommand Command { get; set; }
+
         }
     }
 }
