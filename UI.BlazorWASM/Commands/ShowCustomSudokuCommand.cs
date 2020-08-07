@@ -1,4 +1,4 @@
-﻿using Core.Factories;
+﻿using Core.Data;
 using System.Threading.Tasks;
 using UI.BlazorWASM.Managers;
 using UI.BlazorWASM.Providers;
@@ -27,7 +27,7 @@ namespace UI.BlazorWASM.Commands
         public Task Execute()
         {
             _gridHistoryManager.Save();
-            _gridProvider.Grid = GridFactory.MakeEmpty();
+            _gridProvider.Grid = new Grid();
             _sudokuProvider.IsUserCreatingCustomSudoku = true;
             _modalProvider.SetModalState(Component.Modals.ModalState.CustomSudoku);
             return Task.CompletedTask;
