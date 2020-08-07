@@ -1,5 +1,5 @@
 ﻿using System;
-using UI.BlazorWASM.Enums;
+using UI.BlazorWASM.Filters;
 
 namespace UI.BlazorWASM.Converters
 {

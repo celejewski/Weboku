@@ -17,7 +17,7 @@ namespace UI.BlazorWASM.Commands
         public Task Execute()
         {
             _modalProvider.SetModalState(Component.Modals.ModalState.Hints);
-            _hintsProvider.SetState(Enums.HintsState.ShowEmpty);
+            _hintsProvider.SetState(Hints.HintsState.ShowEmpty);
             return Task.CompletedTask;
         }
     }

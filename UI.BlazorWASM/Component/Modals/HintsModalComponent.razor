@@ -2,36 +2,37 @@
 @inject CloseModalCommand CloseModalCommand
 @inject UI.BlazorWASM.Hints.Displayer Displayer
 @inject ILanguageContainerService LanguageContainer
+@using Hints
 
 <ModalWithGridTemplateComponent>
     <Content>
         <div class="hints-modal__container">
             <div class="hints-modal__title with-hr">@LanguageContainer.Keys["hints__header"]</div>
             <div class="hints-modal__technique-container">
-                @if( HintsProvider.State != Enums.HintsState.ShowEmpty )
+                @if( HintsProvider.State != HintsState.ShowEmpty )
                 {
                     <div class="hints-modal__technique-name">@Displayer.Title</div>
                 }
 
-                @if( HintsProvider.State == Enums.HintsState.ShowExplanation
-                   || HintsProvider.State == Enums.HintsState.ShowNextStep )
+                @if( HintsProvider.State == HintsState.ShowExplanation
+                   || HintsProvider.State == HintsState.ShowNextStep )
                 {
                     <p class="hints-modal__technique-desc">@Displayer.Description</p>
                 }
             </div>
             <div class="hints-modal__menu">
 
-                @if( HintsProvider.State == Enums.HintsState.ShowEmpty )
+                @if( HintsProvider.State == HintsState.ShowEmpty )
                 {
                     <HintsButtonComponent Action="@ShowHint">@LanguageContainer.Keys["hints__show-hint"]</HintsButtonComponent>
                     <HintsButtonComponent Action="@ShowNextStep">@LanguageContainer.Keys["hints__show-next-step"]</HintsButtonComponent>
                 }
-                else if( HintsProvider.State == Enums.HintsState.ShowHint )
+                else if( HintsProvider.State == HintsState.ShowHint )
                 {
                     <div></div>
                     <HintsButtonComponent Action="@ShowNextStep">@LanguageContainer.Keys["hints__show-next-step"]</HintsButtonComponent>
                 }
-                else if( HintsProvider.State == Enums.HintsState.ShowNextStep )
+                else if( HintsProvider.State == HintsState.ShowNextStep )
                 {
                     if( HintsProvider.HasExplanation )
                     {
@@ -43,7 +44,7 @@
                     }
                     <HintsButtonComponent Action="@Execute">@LanguageContainer.Keys["hints__execute"]</HintsButtonComponent>
                 }
-                else if( HintsProvider.State == Enums.HintsState.ShowExplanation )
+                else if( HintsProvider.State == HintsState.ShowExplanation )
                 {
                     if( HintsProvider.HasPreviousExplanation )
                     {

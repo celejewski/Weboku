@@ -1,4 +1,4 @@
-﻿namespace UI.BlazorWASM.Enums
+﻿namespace UI.BlazorWASM.Filters
 {
     public enum FilterOption
     {

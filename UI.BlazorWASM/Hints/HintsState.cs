@@ -1,4 +1,4 @@
-﻿namespace UI.BlazorWASM.Enums
+﻿namespace UI.BlazorWASM.Hints
 {
     public enum HintsState
     {
