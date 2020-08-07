@@ -1,7 +1,7 @@
 ﻿using Core.Serializer;
 using System.Threading.Tasks;
 using UI.BlazorWASM.Component.Modals;
-using UI.BlazorWASM.Managers;
+using UI.BlazorWASM.Providers;
 using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.Commands
@@ -12,7 +12,7 @@ namespace UI.BlazorWASM.Commands
         private readonly IGridProvider _gridProvider;
         private readonly ModalProvider _modalProvider;
         private readonly CellColorProvider _cellColorProvider;
-        private readonly IGridHistoryManager _gridHistoryManager;
+        private readonly GridHistoryProvider _gridHistoryManager;
         private readonly GameTimerProvider _gameTimerProvider;
         private readonly IGridSerializer _hodokuGridConverter;
         private readonly SudokuProvider _sudokuProvider;
@@ -22,7 +22,7 @@ namespace UI.BlazorWASM.Commands
             IGridProvider gridProvider,
             ModalProvider modalProvider,
             CellColorProvider cellColorProvider,
-            IGridHistoryManager gridHistoryManager,
+            GridHistoryProvider gridHistoryManager,
             GameTimerProvider gameTimerProvider,
             SudokuProvider sudokuProvider)
         {

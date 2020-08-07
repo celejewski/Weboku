@@ -3,7 +3,7 @@ using UI.BlazorWASM.Commands;
 using UI.BlazorWASM.Component.NumpadMenu;
 using UI.BlazorWASM.Component.NumpadMenu.NumpadMenuOptions;
 using UI.BlazorWASM.Enums;
-using UI.BlazorWASM.Managers;
+using UI.BlazorWASM.Providers;
 using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.ViewModels
@@ -11,7 +11,7 @@ namespace UI.BlazorWASM.ViewModels
     public class NumpadMenuBuilder
     {
         private readonly IClickableActionProvider _clickableActionProvider;
-        private readonly IGridHistoryManager _gridHistoryManager;
+        private readonly GridHistoryProvider _gridHistoryManager;
         private readonly NumpadMenuProvider _numpadMenuProvider;
         private readonly CommandProvider _commandProvider;
         private readonly IGridProvider _gridProvider;
@@ -26,7 +26,7 @@ namespace UI.BlazorWASM.ViewModels
 
         public NumpadMenuBuilder(
             IClickableActionProvider clickableActionProvider,
-            IGridHistoryManager gridHistoryManager,
+            GridHistoryProvider gridHistoryManager,
             NumpadMenuProvider numpadMenuProvider,
             CommandProvider commandProvider,
             IGridProvider gridProvider,

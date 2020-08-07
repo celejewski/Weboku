@@ -5,7 +5,7 @@ using System.Linq;
 using UI.BlazorWASM.Enums;
 using UI.BlazorWASM.Hints;
 using UI.BlazorWASM.Hints.SolvingTechniqueDisplayers;
-using UI.BlazorWASM.Managers;
+using UI.BlazorWASM.Providers;
 using SmartSolver.SolvingTechniques;
 
 namespace UI.BlazorWASM.Providers
@@ -14,7 +14,7 @@ namespace UI.BlazorWASM.Providers
     {
         private readonly Informer _informer;
         private readonly Displayer _displayer;
-        private readonly IGridHistoryManager _gridHistoryManager;
+        private readonly GridHistoryProvider _gridHistoryManager;
         private readonly IGridProvider _gridProvider;
 
         public event Action OnChanged;
@@ -46,7 +46,7 @@ namespace UI.BlazorWASM.Providers
         public HintsProvider(
             Informer informer, 
             Displayer displayer,
-            IGridHistoryManager gridHistoryManager,
+            GridHistoryProvider gridHistoryManager,
             IGridProvider gridProvider)
         {
             _informer = informer;

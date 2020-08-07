@@ -1,13 +1,13 @@
 ﻿using System.Threading.Tasks;
-using UI.BlazorWASM.Managers;
+using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.Commands
 {
     public class RedoCommand : ICommand
     {
-        private readonly IGridHistoryManager _gridHistoryManager;
+        private readonly GridHistoryProvider _gridHistoryManager;
 
-        public RedoCommand(IGridHistoryManager gridHistoryManager)
+        public RedoCommand(GridHistoryProvider gridHistoryManager)
         {
             _gridHistoryManager = gridHistoryManager;
         }

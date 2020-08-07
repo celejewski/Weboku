@@ -1,15 +1,14 @@
 ﻿using Core.Data;
 using System;
 using System.Collections.Generic;
-using UI.BlazorWASM.Providers;
 
-namespace UI.BlazorWASM.Managers
+namespace UI.BlazorWASM.Providers
 {
-    public class GridHistoryManager : IGridHistoryManager
+    public class GridHistoryProvider
     {
         private readonly IGridProvider _gridProvider;
 
-        public GridHistoryManager(IGridProvider gridProvider)
+        public GridHistoryProvider(IGridProvider gridProvider)
         {
             _gridProvider = gridProvider;
         }

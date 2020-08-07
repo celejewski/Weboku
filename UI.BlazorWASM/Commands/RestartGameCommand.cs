@@ -1,6 +1,6 @@
 ﻿using Core.Data;
 using System.Threading.Tasks;
-using UI.BlazorWASM.Managers;
+using UI.BlazorWASM.Providers;
 using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.Commands
@@ -8,13 +8,13 @@ namespace UI.BlazorWASM.Commands
     public class RestartGameCommand : ICommand
     {
         private readonly IGridProvider _gridProvider;
-        private readonly IGridHistoryManager _gridHistoryManager;
+        private readonly GridHistoryProvider _gridHistoryManager;
         private readonly GameTimerProvider _gameTimerProvider;
         private readonly CellColorProvider _cellColorProvider;
 
         public RestartGameCommand(
             IGridProvider gridProvider,
-            IGridHistoryManager gridHistoryManager,
+            GridHistoryProvider gridHistoryManager,
             GameTimerProvider gameTimerProvider,
             CellColorProvider cellColorProvider)
         {

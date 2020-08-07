@@ -1,6 +1,5 @@
 ﻿using Core.Data;
 using System.Threading.Tasks;
-using UI.BlazorWASM.Managers;
 using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.Commands
@@ -9,13 +8,13 @@ namespace UI.BlazorWASM.Commands
     {
         private readonly ModalProvider _modalProvider;
         private readonly IGridProvider _gridProvider;
-        private readonly IGridHistoryManager _gridHistoryManager;
+        private readonly GridHistoryProvider _gridHistoryManager;
         private readonly SudokuProvider _sudokuProvider;
 
         public ShowCustomSudokuCommand(
             ModalProvider modalProvider,
             IGridProvider gridProvider,
-            IGridHistoryManager gridHistoryManager,
+            GridHistoryProvider gridHistoryManager,
             SudokuProvider sudokuProvider)
         {
             _modalProvider = modalProvider;

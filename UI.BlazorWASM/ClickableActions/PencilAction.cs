@@ -1,15 +1,14 @@
 ﻿using Core.Data;
-using UI.BlazorWASM.Managers;
 using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.ClickableActions
 {
     public class PencilAction : IClickableAction
     {
-        private readonly IGridHistoryManager _gridHistoryManager;
+        private readonly GridHistoryProvider _gridHistoryManager;
         private readonly IGridProvider _gridProvider;
 
-        public PencilAction(IGridHistoryManager gridHistoryManager, IGridProvider gridProvider)
+        public PencilAction(GridHistoryProvider gridHistoryManager, IGridProvider gridProvider)
         {
             _gridHistoryManager = gridHistoryManager;
             _gridProvider = gridProvider;

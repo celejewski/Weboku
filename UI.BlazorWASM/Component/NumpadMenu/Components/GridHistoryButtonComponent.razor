@@ -1,4 +1,4 @@
-﻿@inject IGridHistoryManager GridHistoryManager
+﻿@inject GridHistoryProvider GridHistoryProvider
 
 <LabelButtonComponent NumpadMenuLabel="NumpadMenuLabel" />
 
@@ -8,6 +8,6 @@
 
     protected override void OnInitialized()
     {
-        GridHistoryManager.OnChanged += StateHasChanged;
+        GridHistoryProvider.OnChanged += StateHasChanged;
     }
 }

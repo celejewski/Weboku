@@ -4,7 +4,7 @@ using System.Reflection;
 using UI.BlazorWASM.ClickableActions;
 using UI.BlazorWASM.Commands;
 using UI.BlazorWASM.Hints;
-using UI.BlazorWASM.Managers;
+using UI.BlazorWASM.Providers;
 using UI.BlazorWASM.Providers;
 using UI.BlazorWASM.ViewModels;
 
@@ -57,7 +57,7 @@ namespace UI.BlazorWASM.Helpers
         public static void RegisterProviders(this IServiceCollection services)
         {
             services.AddScoped<CellColorProvider>();
-            services.AddScoped<IGridHistoryManager, GridHistoryManager>();
+            services.AddScoped<GridHistoryProvider, GridHistoryProvider>();
             services.AddScoped<FilterProvider>();
             services.AddScoped<IClickableActionProvider, ClickableActionProvider>();
             services.AddScoped<NumpadMenuBuilder>();

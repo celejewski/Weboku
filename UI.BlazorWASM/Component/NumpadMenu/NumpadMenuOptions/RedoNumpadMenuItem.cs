@@ -1,13 +1,13 @@
 ﻿using UI.BlazorWASM.Commands;
-using UI.BlazorWASM.Managers;
+using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.Component.NumpadMenu
 {
     public class RedoNumpadMenuItem : BaseMenuOption, INumpadMenuLabel
     {
-        private readonly IGridHistoryManager _gridHistoryManager;
+        private readonly GridHistoryProvider _gridHistoryManager;
 
-        public RedoNumpadMenuItem(RedoCommand command, IGridHistoryManager gridHistoryManager)
+        public RedoNumpadMenuItem(RedoCommand command, GridHistoryProvider gridHistoryManager)
             : base(command)
         {
             _gridHistoryManager = gridHistoryManager;

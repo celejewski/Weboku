@@ -1,17 +1,17 @@
 ﻿using Core.Data;
-using UI.BlazorWASM.Managers;
+using UI.BlazorWASM.Providers;
 using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.ClickableActions
 {
     public class MarkerAction : IClickableAction
     {
-        private readonly IGridHistoryManager _gridHistoryManager;
+        private readonly GridHistoryProvider _gridHistoryManager;
         private readonly CellColorProvider _cellColorProvider;
         private readonly IGridProvider _gridProvider;
 
         public MarkerAction(
-            IGridHistoryManager gridHistoryManager, 
+            GridHistoryProvider gridHistoryManager, 
             CellColorProvider cellColorProvider, 
             IGridProvider gridProvider
             )

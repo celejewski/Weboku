@@ -1,11 +1,11 @@
 ﻿using UI.BlazorWASM.Commands;
-using UI.BlazorWASM.Managers;
+using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.Providers
 {
     public class CommandProvider
     {
-        private readonly IGridHistoryManager _gridHistoryManager;
+        private readonly GridHistoryProvider _gridHistoryManager;
         private readonly GameTimerProvider _gameTimerProvider;
         private readonly FilterProvider _filterProvider;
         private readonly CellColorProvider _cellColorProvider;
@@ -16,7 +16,7 @@ namespace UI.BlazorWASM.Providers
         private readonly SettingsProvider _settingsProvider;
 
         public CommandProvider(
-            IGridHistoryManager gridHistoryManager,
+            GridHistoryProvider gridHistoryManager,
             GameTimerProvider gameTimerProvider,
             FilterProvider filterProvider,
             CellColorProvider cellColorProvider,
