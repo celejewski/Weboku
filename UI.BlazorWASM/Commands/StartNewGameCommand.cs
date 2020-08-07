@@ -1,4 +1,4 @@
-﻿using Core.Serializer;
+﻿using Core.Serializers;
 using System.Threading.Tasks;
 using UI.BlazorWASM.Component.Modals;
 using UI.BlazorWASM.Providers;

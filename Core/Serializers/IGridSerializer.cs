@@ -1,6 +1,6 @@
 ﻿using Core.Data;
 
-namespace Core.Serializer
+namespace Core.Serializers
 {
     public interface IGridSerializer
     {

@@ -1,5 +1,5 @@
 ﻿using Core.Data;
-using Core.Serializer;
+using Core.Serializers;
 using System;
 
 namespace UI.BlazorWASM.Providers

@@ -2,7 +2,7 @@
 using Core.Exceptions;
 using System.Collections.Generic;
 
-namespace Core.Serializer
+namespace Core.Serializers
 {
     internal class DefaultGridSerializer : IGridSerializer
     {

@@ -1,5 +1,5 @@
 ﻿using Core.Data;
-using Core.Serializer;
+using Core.Serializers;
 using Microsoft.AspNetCore.Components;
 using System;
 using UI.BlazorWASM.Enums;

@@ -1,4 +1,4 @@
-﻿using Core.Serializer;
+﻿using Core.Serializers;
 using Core.Solvers;
 using Xunit;
 

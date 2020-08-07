@@ -4,7 +4,7 @@ using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace Core.Serializer
+namespace Core.Serializers
 {
     internal class HodokuGridSerializer : IGridSerializer
     {

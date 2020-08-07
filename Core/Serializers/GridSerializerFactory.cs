@@ -1,4 +1,4 @@
-﻿namespace Core.Serializer
+﻿namespace Core.Serializers
 {
     public static class GridSerializerFactory
     {

@@ -1,6 +1,6 @@
 ﻿using Blazored.LocalStorage;
 using Core.Data;
-using Core.Serializer;
+using Core.Serializers;
 using System.Threading.Tasks;
 using UI.BlazorWASM.Enums;
 

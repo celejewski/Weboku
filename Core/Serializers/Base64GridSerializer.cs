@@ -5,7 +5,7 @@ using System;
 using System.Numerics;
 using System.Text;
 
-namespace Core.Serializer
+namespace Core.Serializers
 {
     internal class Base64GridSerializer : IGridSerializer
     {
