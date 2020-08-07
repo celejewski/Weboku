@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Runtime.CompilerServices;
 
 namespace Core.Data
@@ -127,28 +126,8 @@ namespace Core.Data
                 );
         }
 
-        public int CandidatesCount(Position pos)
-        {
-            return _candidates[pos.x, pos.y].Count();
-        }
-
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool HasValue(Position pos) => GetValue(pos) != InputValue.None;
-
-        private readonly static Dictionary<Candidates, IReadOnlyList<InputValue>> _candidatesDict
-    = new Dictionary<Candidates, IReadOnlyList<InputValue>>();
-        public IReadOnlyList<InputValue> GetCandidatesWithCache(Position pos)
-        {
-            var key = _candidates[pos.x, pos.y];
-            if( !_candidatesDict.ContainsKey(key) )
-            {
-                _candidatesDict[key] = InputValue.NonEmpty
-                    .Where(value => HasCandidate(pos, value))
-                    .ToList()
-                    .AsReadOnly();
-            }
-            return _candidatesDict[key];
-        }
 
         public Candidates GetCandidates(Position pos) => _candidates[pos.x, pos.y];
     }

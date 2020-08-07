@@ -66,13 +66,13 @@ namespace Core.Solvers
 
         private bool CanBeSolved(IGrid grid)
         {
-            return Position.All.All(pos => grid.HasValue(pos) || grid.CandidatesCount(pos) > 0);
+            return Position.All.All(pos => grid.HasValue(pos) || grid.GetCandidates(pos).Count() > 0);
         }
 
         private Position GetNextPosition(IGrid grid)
         {
             return Position.All.Where(pos => !grid.HasValue(pos))
-                .Aggregate((nextPos, pos) => grid.CandidatesCount(pos) < grid.CandidatesCount(nextPos) ? pos : nextPos);
+                .Aggregate((nextPos, pos) => grid.GetCandidates(pos).Count() < grid.GetCandidates(nextPos).Count() ? pos : nextPos);
         }
     }
 }

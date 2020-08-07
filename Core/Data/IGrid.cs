@@ -11,7 +11,6 @@
 
         bool HasCandidate(Position pos, InputValue value);
         Candidates GetCandidates(Position pos);
-        int CandidatesCount(Position pos);
 
         void AddCandidate(Position pos, InputValue value);
         void RemoveCandidate(Position pos, InputValue value);
