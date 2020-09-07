@@ -48,23 +48,5 @@ namespace Core.Hints
 
             return (cols, rows, blocks, blockXcols, blockXrows);
         }
-
-        public static (bool[,] valueXcols, bool[,] valueXrows, bool[,] valueXblocks)
-            GetContainsCandidates(this IGrid grid)
-        {
-            var valueXcols = new bool[10, 9];
-            var valueXrows = new bool[10, 9];
-            var valueXblocks = new bool[10, 9];
-
-            foreach( var pos in Position.All )
-            {
-                var value = grid.GetValue(pos);
-                valueXcols[value, pos.x] = true;
-                valueXrows[value, pos.y] = true;
-                valueXblocks[value, pos.block] = true;
-            }
-
-            return (valueXcols, valueXrows, valueXblocks);
-        }
     }
 }
