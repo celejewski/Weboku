@@ -1,5 +1,5 @@
 ﻿using Core.Data;
-using SmartSolver.SolvingTechniques;
+using Core.Hints.SolvingTechniques;
 using System.Linq;
 
 namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers

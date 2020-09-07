@@ -1,7 +1,7 @@
 ﻿using Core.Data;
 using Microsoft.Extensions.Options;
 using Microsoft.Net.Http.Headers;
-using SmartSolver.SolvingTechniques;
+using Core.Hints.SolvingTechniques;
 using System;
 using System.Collections;
 using System.Collections.Generic;

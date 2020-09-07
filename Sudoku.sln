@@ -11,8 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API.Generator", "API.Genera
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Tests", "Core.Tests\Core.Tests.csproj", "{D86A04F4-8C2A-4335-97A5-459F351873DC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartSolver", "..\SmartSolver\SmartSolver\SmartSolver.csproj", "{702427C7-E1F1-49E1-BA5E-F01F286D89F3}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,10 +33,6 @@ Global
 		{D86A04F4-8C2A-4335-97A5-459F351873DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D86A04F4-8C2A-4335-97A5-459F351873DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D86A04F4-8C2A-4335-97A5-459F351873DC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{702427C7-E1F1-49E1-BA5E-F01F286D89F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{702427C7-E1F1-49E1-BA5E-F01F286D89F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{702427C7-E1F1-49E1-BA5E-F01F286D89F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{702427C7-E1F1-49E1-BA5E-F01F286D89F3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
