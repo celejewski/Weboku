@@ -41,13 +41,6 @@ namespace Core.Hints.SolvingTechniques
         public IEnumerable<InputValue> ValuesToRemove()
         {
             return InputValue.NonEmpty.Except(Values);
-            //foreach( var value in InputValue.NonEmpty )
-            //{
-            //    if( !Values.Contains(value) )
-            //    {
-            //        yield return value;
-            //    }
-            //}
         }
     }
 }
