@@ -1,4 +1,5 @@
-﻿using Core.Serializers;
+﻿using Core.Exceptions;
+using Core.Serializers;
 using Core.Solvers;
 using Xunit;
 
@@ -79,9 +80,7 @@ namespace Core.Tests
         {
             const string givens = ".....9...571..5....9.....83...49.5..82.6.3.74..9.28...63.....1....8..43....9.....";
             var grid = _converter.Deserialize(givens);
-            var actual = _bruteForceSolver.Solve(grid);
-
-            Assert.Null(actual);
+            Assert.Throws(typeof(InvalidGridException), () => _bruteForceSolver.Solve(grid));
         }
     }
 }
