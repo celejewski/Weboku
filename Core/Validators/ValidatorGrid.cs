@@ -13,15 +13,17 @@ namespace Core.Validators
                 throw new InvalidGridException("The grid can not be null.");
             }
 
-            if( !AreAllInputsLegal(grid) )
+            if( !AreAllGivensLegal(grid) )
             {
-                throw new InvalidGridException("The grid has some invalid inputs so grid is unsolvable.");
+                throw new InvalidGridException("The grid has some invalid givens. Sudoku is unsolvable with this givens.");
             }
         }
 
-        public static bool AreAllInputsLegal(IGrid grid)
+        public static bool AreAllGivensLegal(IGrid grid)
         {
-            return Position.All.All(pos => grid.IsCandidateLegal(pos, grid.GetValue(pos)));
+            return Position.All
+                .Where(pos => grid.GetIsGiven(pos))
+                .All(pos => grid.IsCandidateLegal(pos, grid.GetValue(pos)));
         }
     }
 }
