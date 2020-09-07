@@ -1,4 +1,5 @@
 ﻿using Core.Data;
+using Core.Validators;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -23,6 +24,8 @@ namespace Core.Solvers
 
         public override IGrid Solve(IGrid input)
         {
+            ValidatorGrid.EnsureGridIsValid(input);
+
             var hashcode = GetGivensHashcode(input);
             if( !_solved.ContainsKey(hashcode) )
             {

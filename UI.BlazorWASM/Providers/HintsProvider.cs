@@ -1,4 +1,4 @@
-﻿using SmartSolver;
+﻿using Core.Hints;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using UI.BlazorWASM.Enums;
 using UI.BlazorWASM.Hints;
 using UI.BlazorWASM.Hints.SolvingTechniqueDisplayers;
 using UI.BlazorWASM.Providers;
-using SmartSolver.SolvingTechniques;
+using Core.Hints.SolvingTechniques;
 
 namespace UI.BlazorWASM.Providers
 {
@@ -26,12 +26,12 @@ namespace UI.BlazorWASM.Providers
             OnChanged?.Invoke();
         }
 
-        private readonly Solver _solver = new Solver();
+        private readonly Core.Hints.HintsProvider _solver = new Core.Hints.HintsProvider();
         private IEnumerable<ISolvingTechniqueDisplayer> Techniques
         {
             get
             {
-                var technique = _solver.NextStep(_gridProvider.Grid) ;
+                var technique = _solver.GetNextHint(_gridProvider.Grid) ;
                 yield return DisplayTechniqueFactory.GetDisplayer(_informer, _displayer, technique);
             }
         }

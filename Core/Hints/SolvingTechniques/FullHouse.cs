@@ -1,0 +1,27 @@
+﻿using Core.Data;
+
+namespace Core.Hints.SolvingTechniques
+{
+    public class FullHouse : ISolvingTechnique
+    {
+        public FullHouse(Position position, InputValue value)
+        {
+            Position = position;
+            Value = value;
+        }
+
+        public InputValue Value { get; }
+
+        public Position Position { get; }
+
+        public bool CanExecute(IGrid grid)
+        {
+            return true;
+        }
+
+        public void Execute(IGrid grid)
+        {
+            grid.SetValue(Position, Value);
+        }
+    }
+}

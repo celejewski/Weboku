@@ -1,4 +1,4 @@
-﻿using SmartSolver.SolvingTechniques;
+﻿using Core.Hints.SolvingTechniques;
 using System;
 using System.Linq;
 using UI.BlazorWASM.Hints.SolvingTechniqueDisplayers;
