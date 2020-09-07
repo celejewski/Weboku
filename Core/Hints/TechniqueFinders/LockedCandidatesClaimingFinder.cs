@@ -11,24 +11,8 @@ namespace Core.Hints.TechniqueFinders
         {
             foreach( var value in InputValue.NonEmpty )
             {
-                var cols = new int[9];
-                var rows = new int[9];
-                var blocks = new int[9];
-                var blockXcols = new int[9, 9];
-                var blockXrows = new int[9, 9];
-
-                foreach( var pos in Position.All )
-                {
-                    if( grid.HasCandidate(pos, value) )
-                    {
-                        cols[pos.x]++;
-                        rows[pos.y]++;
-                        blocks[pos.block]++;
-
-                        blockXcols[pos.block, pos.x]++;
-                        blockXrows[pos.block, pos.y]++;
-                    }
-                }
+                var (cols, rows, blocks, blockXcols, blockXrows)
+                    = HintsHelper.GetCandidatesCountEx(grid, value);
 
                 for( int block = 0; block < 9; block++ )
                 {

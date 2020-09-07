@@ -2,7 +2,7 @@
 
 namespace Core.Hints
 {
-    public static class SolverHelper
+    public static class HintsHelper
     {
         public static (int[] cols, int[] rows, int[] blocks)
             GetCandidatesCount(this IGrid grid, InputValue value)
