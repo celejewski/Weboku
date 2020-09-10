@@ -1,24 +1,21 @@
-﻿using Core.Data;
-using UI.BlazorWASM.Providers;
+﻿using Core;
+using Core.Data;
 using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.ClickableActions
 {
     public class EraserAction : IClickableAction
     {
-        private readonly IGridProvider _gridProvider;
+        private readonly DomainFacade _domainFacade;
         private readonly GridHistoryProvider _gridHistoryManager;
 
         private void Clear(Position pos)
         {
-            if( _gridProvider.GetIsGiven(pos) ) return;
-            _gridHistoryManager.Save();
-            _gridProvider.ClearCandidates(pos);
-            _gridProvider.SetValue(pos, InputValue.None);
+
         }
-        public EraserAction(IGridProvider gridProvider, GridHistoryProvider gridHistoryManager)
+        public EraserAction(DomainFacade domainFacade, GridHistoryProvider gridHistoryManager)
         {
-            _gridProvider = gridProvider;
+            _domainFacade = domainFacade;
             _gridHistoryManager = gridHistoryManager;
         }
 

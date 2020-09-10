@@ -1,4 +1,5 @@
-﻿using UI.BlazorWASM.Providers;
+﻿using Core;
+using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.ClickableActions
 {
@@ -6,9 +7,9 @@ namespace UI.BlazorWASM.ClickableActions
     {
         private readonly GridHistoryProvider _gridHistoryManager;
         private readonly CellColorProvider _cellColorProvider;
-        private readonly IGridProvider _gridProvider;
+        private readonly DomainFacade _gridProvider;
 
-        public ClickableActionFactory(GridHistoryProvider gridHistoryManager, CellColorProvider cellColorProvider, IGridProvider gridProvider)
+        public ClickableActionFactory(GridHistoryProvider gridHistoryManager, CellColorProvider cellColorProvider, DomainFacade gridProvider)
         {
             _gridHistoryManager = gridHistoryManager;
             _cellColorProvider = cellColorProvider;

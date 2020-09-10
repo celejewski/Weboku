@@ -1,4 +1,5 @@
-﻿using Core.Data;
+﻿using Core;
+using Core.Data;
 using System;
 using System.Collections.Generic;
 
@@ -6,9 +7,9 @@ namespace UI.BlazorWASM.Providers
 {
     public class GridHistoryProvider
     {
-        private readonly IGridProvider _gridProvider;
+        private readonly DomainFacade _gridProvider;
 
-        public GridHistoryProvider(IGridProvider gridProvider)
+        public GridHistoryProvider(DomainFacade gridProvider)
         {
             _gridProvider = gridProvider;
         }

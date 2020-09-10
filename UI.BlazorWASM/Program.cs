@@ -19,7 +19,7 @@ namespace UI.BlazorWASM
             builder.Services.AddSingleton(new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
             builder.Services.AddSingleton<DomainFacade>();
             builder.Services.RegisterProviders();
-            //builder.Services.RegisterCommands();
+            builder.Services.RegisterCommands();
             //builder.Services.RegisterHints();
             builder.Services.AddBlazoredLocalStorage();
             builder.Services.AddCors();

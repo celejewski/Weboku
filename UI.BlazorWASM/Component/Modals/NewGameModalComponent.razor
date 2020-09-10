@@ -3,7 +3,6 @@
 @inject ModalProvider ModalProvider
 @inject ILanguageContainerService Loc
 @inject SettingsProvider SettingsProvider
-@inject SudokuProvider SudokuProvider
 @inject ShowPasteModalCommand ShowPasteModalCommand
 @inject ShowCustomSudokuCommand ShowCustomSudokuCommand
 
@@ -60,8 +59,7 @@
     protected override void OnInitialized()
     {
         SettingsProvider.OnChanged += StateHasChanged;
-        var index = Array.IndexOf(_difficulties, SudokuProvider.PreferredDifficulty);
-        _index = index != -1 ? index : 0;
+        _index = 0;
     }
 
     private int _index = 0;

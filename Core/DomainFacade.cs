@@ -107,5 +107,29 @@ namespace Core
             add { _gridManager.OnValueOrCandidateChanged += value; }
             remove { _gridManager.OnValueOrCandidateChanged -= value; }
         }
+
+        public void ClearAllCandidates()
+        {
+            _gridManager.Grid.ClearAllCandidates();
+        }
+
+        public IGrid Grid
+        {
+            get => _gridManager.Grid;
+            set => _gridManager.Grid = value;
+        }
+
+        public void RestartGrid()
+        {
+            foreach( var pos in Position.All )
+            {
+                if( !_gridManager.Grid.GetIsGiven(pos) )
+                {
+                    _gridManager.Grid.SetValue(pos, InputValue.None);
+                }
+            }
+
+            _gridManager.Grid.ClearAllCandidates();
+        }
     }
 }

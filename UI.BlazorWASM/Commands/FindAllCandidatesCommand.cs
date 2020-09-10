@@ -1,5 +1,5 @@
-﻿using System.Threading.Tasks;
-using UI.BlazorWASM.Providers;
+﻿using Core;
+using System.Threading.Tasks;
 using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.Commands
@@ -7,9 +7,9 @@ namespace UI.BlazorWASM.Commands
     public class FindAllCandidatesCommand : ICommand
     {
         private readonly GridHistoryProvider _gridHistoryManager;
-        private readonly IGridProvider _gridProvider;
+        private readonly DomainFacade _gridProvider;
 
-        public FindAllCandidatesCommand(GridHistoryProvider gridHistoryManager, IGridProvider gridProvider)
+        public FindAllCandidatesCommand(GridHistoryProvider gridHistoryManager, DomainFacade gridProvider)
         {
             _gridHistoryManager = gridHistoryManager;
             _gridProvider = gridProvider;

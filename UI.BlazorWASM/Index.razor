@@ -1,6 +1,7 @@
 ﻿@page "/"
 @page "/paste/{SharedSudoku}"
 @inject IJSRuntime JSRuntime
+@inject ModalProvider ModalProvider
 
 @inject Core.DomainFacade DomainFacade
 @using UI.BlazorWASM.Component.Modals;
@@ -11,7 +12,7 @@
          class="main"
          @oncontextmenu:preventDefault="true">
 
-        @*<ModalComponent />*@
+        <ModalComponent />
         <div class="main__grid">
             <BackgroundLayerComponent />
             @if( _afterSecondRender )
@@ -34,8 +35,8 @@
             }
         </div>
         <div class="main__game-info">
-            @*<GameInfoComponent />
-            <TooltipComponent />*@
+            @*<GameInfoComponent />*@
+            <TooltipComponent />
         </div>
         <div class="main__numpad">
             @*<NumpadMenuComponent />*@
@@ -75,13 +76,12 @@
             {
                 StateHasChanged();
             });
-            //    Task.Run(async () =>
-            //    {
-            //        await PreserveStateProvider.Load();
-            //        PreserveStateProvider.AutoSave(TimeSpan.FromSeconds(2));
-            //        ModalProvider.SetModalState(ModalState.MainMenu);
-            //    });
-            //
+            Task.Run(async () =>
+            {
+                //await PreserveStateProvider.Load();
+                //PreserveStateProvider.AutoSave(TimeSpan.FromSeconds(2));
+                ModalProvider.SetModalState(ModalState.MainMenu);
+            });
         }
 
         if( firstRender )

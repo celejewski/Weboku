@@ -1,19 +1,18 @@
-﻿using Core.Data;
+﻿using Core;
 using System.Threading.Tasks;
-using UI.BlazorWASM.Providers;
 using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.Commands
 {
     public class RestartGameCommand : ICommand
     {
-        private readonly IGridProvider _gridProvider;
+        private readonly DomainFacade _gridProvider;
         private readonly GridHistoryProvider _gridHistoryManager;
         private readonly GameTimerProvider _gameTimerProvider;
         private readonly CellColorProvider _cellColorProvider;
 
         public RestartGameCommand(
-            IGridProvider gridProvider,
+            DomainFacade gridProvider,
             GridHistoryProvider gridHistoryManager,
             GameTimerProvider gameTimerProvider,
             CellColorProvider cellColorProvider)
@@ -26,16 +25,7 @@ namespace UI.BlazorWASM.Commands
         public Task Execute()
         {
             _gridHistoryManager.Save();
-
-            foreach( var pos in Position.All )
-            {
-                if( !_gridProvider.GetIsGiven(pos) )
-                {
-                    _gridProvider.SetValue(pos, InputValue.None);
-                }
-            }
-
-            _gridProvider.ClearCandidates();
+            _gridProvider.RestartGrid();
             _gameTimerProvider.Start();
             _cellColorProvider.ClearAll();
             return Task.CompletedTask;
