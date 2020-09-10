@@ -1,12 +1,11 @@
-﻿using Core.Data;
-using UI.BlazorWASM.Enums;
-using UI.BlazorWASM.Providers;
+﻿using Core;
+using Core.Data;
 
 namespace UI.BlazorWASM.Filters
 {
     public class EraseFilter : IFilter
     {
-        public FilterOption IsFiltered(IGridProvider gridProvider, Position pos)
+        public FilterOption IsFiltered(DomainFacade gridProvider, Position pos)
         {
             return FilterOption.None;
         }

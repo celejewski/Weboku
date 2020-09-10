@@ -25,7 +25,7 @@ namespace UI.BlazorWASM.ClickableActions
         }
         public void RightClickAction(ClickableActionArgs args)
         {
-            _gridProvider.UseMarker(args.Pos, args.Value);
+            _gridProvider.UsePencil(args.Pos, args.Value);
         }
     }
 }

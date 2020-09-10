@@ -16,7 +16,7 @@ namespace UI.BlazorWASM.ClickableActions
 
         public void LeftClickAction(ClickableActionArgs args)
         {
-            _domainFacade.UseMarker(args.Pos, args.Value);
+            _domainFacade.UsePencil(args.Pos, args.Value);
             _gridHistoryManager.Save();
         }
 

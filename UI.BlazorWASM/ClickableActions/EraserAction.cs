@@ -11,7 +11,7 @@ namespace UI.BlazorWASM.ClickableActions
 
         private void Clear(Position pos)
         {
-
+            _domainFacade.UseEraser(pos);
         }
         public EraserAction(DomainFacade domainFacade, GridHistoryProvider gridHistoryManager)
         {

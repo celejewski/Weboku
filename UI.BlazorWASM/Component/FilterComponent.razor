@@ -1,5 +1,5 @@
 ﻿@inject FilterProvider FilterProvider
-@inject IGridProvider GridProvider
+@inject Core.DomainFacade GridProvider
 @using UI.BlazorWASM.Converters;
 @using UI.BlazorWASM.Enums;
 
@@ -28,7 +28,7 @@
     protected override void OnInitialized()
     {
         FilterProvider.OnChanged += StateHasChanged;
-        GridProvider.OnValueOrCandidatesChanged += StateHasChanged;
+        GridProvider.OnValueOrCandidateChanged += StateHasChanged;
     }
 
 

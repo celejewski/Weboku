@@ -1,6 +1,5 @@
-﻿using Core.Data;
-using UI.BlazorWASM.Enums;
-using UI.BlazorWASM.Providers;
+﻿using Core;
+using Core.Data;
 
 namespace UI.BlazorWASM.Filters
 {
@@ -13,14 +12,14 @@ namespace UI.BlazorWASM.Filters
             _value = value;
         }
 
-        public FilterOption IsFiltered(IGridProvider gridProvider, Position pos)
+        public FilterOption IsFiltered(DomainFacade gridProvider, Position pos)
         {
             if( _value == InputValue.None )
             {
                 return FilterOption.None;
             }
 
-            if( gridProvider.GetValue(pos) == _value )
+            if( gridProvider.GetInputValue(pos) == _value )
             {
                 return FilterOption.Primary;
             }
