@@ -1,16 +1,9 @@
 ﻿@page "/"
 @page "/paste/{SharedSudoku}"
-@inject SudokuProvider SudokuProvider
-@inject HotkeyProvider HotkeyProvider
 @inject IJSRuntime JSRuntime
-@inject CommandProvider CommandProvider
-@inject GameStateChecker GameStateChecker
-@inject GameTimerProvider GameTimerProvider
-@inject ModalProvider ModalProvider
-@inject PasteProvider PasteProvider
+
+@inject Core.DomainFacade DomainFacade
 @using UI.BlazorWASM.Component.Modals;
-@inject PreserveStateProvider PreserveStateProvider
-@inject SettingsProvider SettingsProvider
 
 <div id="wrapper"
      class="wrapper">
@@ -18,21 +11,21 @@
          class="main"
          @oncontextmenu:preventDefault="true">
 
-        <ModalComponent />
+        @*<ModalComponent />*@
         <div class="main__grid">
             <BackgroundLayerComponent />
             @if( _afterSecondRender )
-            {
-                <FilterLayerComponent />
-                <HintsHighlightLayerComponent />
-                <CellColorLayerComponent />
-                <MarkInputLayerComponent />
-            }
-            @if( _afterFirstRender )
-            {
-                <InputLayerComponent />
-                <CandidatesLayerComponent />
-            }
+                {
+                    @*<FilterLayerComponent />
+                    <HintsHighlightLayerComponent />*@
+                    <CellColorLayerComponent />
+                    <MarkInputLayerComponent />
+                }
+                @if( _afterFirstRender )
+                {
+                    <InputLayerComponent />
+                    <CandidatesLayerComponent />
+                }
             <BorderLayerComponent />
             <ShadowLayerComponent />
             @if( _afterSecondRender )
@@ -41,14 +34,14 @@
             }
         </div>
         <div class="main__game-info">
-            <GameInfoComponent />
-            <TooltipComponent />
+            @*<GameInfoComponent />
+            <TooltipComponent />*@
         </div>
         <div class="main__numpad">
-            <NumpadMenuComponent />
+            @*<NumpadMenuComponent />*@
         </div>
         <div class="main__menu">
-            <MenuComponent />
+            @*<MenuComponent />*@
         </div>
     </div>
 </div>
@@ -62,36 +55,39 @@
 
     protected override async Task OnInitializedAsync()
     {
-        GameStateChecker.OnSolved += OnGameEnd;
-        _ = Task.Run(() => SudokuProvider.Generate("medium"));
+        DomainFacade.StartNewGame(".6.8912.78..4........6.....2.65..1....1...3....4..75.2.....9........5..93.2716.5.");
+        DomainFacade.FillAllLegalCandidates();
+        //GameStateChecker.OnSolved += OnGameEnd;
+        //_ = Task.Run(() => SudokuProvider.Generate("medium"));
 
-        if( !string.IsNullOrEmpty(SharedSudoku) )
-        {
-            PasteProvider.Pasted = SharedSudoku;
-            ModalProvider.SetModalState(ModalState.Paste);
-        }
+        //if( !string.IsNullOrEmpty(SharedSudoku) )
+        //{
+        //    PasteProvider.Pasted = SharedSudoku;
+        //    ModalProvider.SetModalState(ModalState.Paste);
+        //}
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        @if( _afterFirstRender && !_afterSecondRender )
+        if( _afterFirstRender && !_afterSecondRender )
         {
-            _afterSecondRender = true;
-            Task.Run(() =>
+            _afterSecondRender = true; Task.Run(() =>
             {
                 StateHasChanged();
             });
-
-            Task.Run(async () =>
-            {
-                await PreserveStateProvider.Load();
-                PreserveStateProvider.AutoSave(TimeSpan.FromSeconds(2));
-                ModalProvider.SetModalState(ModalState.MainMenu);
-            });
+            //    Task.Run(async () =>
+            //    {
+            //        await PreserveStateProvider.Load();
+            //        PreserveStateProvider.AutoSave(TimeSpan.FromSeconds(2));
+            //        ModalProvider.SetModalState(ModalState.MainMenu);
+            //    });
+            //
         }
-        @if( firstRender )
+
+        if( firstRender )
         {
-            Task.Run(() => {
+            Task.Run(() =>
+            {
                 _afterFirstRender = true;
                 StateHasChanged();
             });
@@ -102,7 +98,7 @@
 
     private void OnGameEnd()
     {
-        GameTimerProvider.Stop();
-        ModalProvider.SetModalState(ModalState.EndGame);
+        //GameTimerProvider.Stop();
+        //ModalProvider.SetModalState(ModalState.EndGame);
     }
 }

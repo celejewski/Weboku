@@ -1,9 +1,9 @@
-﻿@inject IClickableActionProvider ClickableActionProvider
+﻿@inject Core.DomainFacade DomainFacade
 
 <Grid9x9Component>
     <div class="clickable"
-         @onclick="@((e) => ClickableActionProvider.OnLeftClick(e, context))"
-         @oncontextmenu="@((e) => ClickableActionProvider.OnRightClick(e, context))">
+         @onclick="@((e) => DomainFacade.UseMarker(context, InputValue.One))"
+         @oncontextmenu="@((e) => DomainFacade.UsePencil(context, InputValue.Two))">
     </div>
 </Grid9x9Component>
 

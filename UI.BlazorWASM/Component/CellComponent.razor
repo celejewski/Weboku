@@ -1,4 +1,4 @@
-﻿@inject IGridProvider GridProvider
+﻿@inject Core.DomainFacade DomainFacade
 
 <div class="input @(_currentIsGiven ? "input--is-given " : String.Empty)">
     @(_currentValue != InputValue.None ? _currentValue.ToString() : string.Empty)
@@ -6,16 +6,16 @@
 
 @code {
     private InputValue _previousValue;
-    private InputValue _currentValue => GridProvider.GetValue(Pos);
+    private InputValue _currentValue => DomainFacade.GetInputValue(Pos);
     private bool _previousIsGiven;
-    private bool _currentIsGiven => GridProvider.GetIsGiven(Pos);
+    private bool _currentIsGiven => DomainFacade.IsGiven(Pos);
 
     [Parameter]
     public Position Pos { get; set; }
 
     protected override void OnInitialized()
     {
-        GridProvider.OnValueChanged += StateHasChanged;
+        DomainFacade.OnValueChanged += StateHasChanged;
     }
 
     protected override bool ShouldRender()

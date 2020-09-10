@@ -1,4 +1,5 @@
-﻿using Core.Data;
+﻿using Core;
+using Core.Data;
 using System;
 using UI.BlazorWASM.Enums;
 
@@ -6,14 +7,14 @@ namespace UI.BlazorWASM.Providers
 {
     public class CandidatesMarkProvider : IProvider
     {
-        public CandidatesMarkProvider(IGridProvider gridProvider)
+        public CandidatesMarkProvider(DomainFacade domainFacade)
         {
-            _gridProvider = gridProvider;
-            _gridProvider.OnValueOrCandidatesChanged += () => OnChanged?.Invoke();
+            _domainFacade = domainFacade;
+            domainFacade.OnCandidateChanged += () => OnChanged?.Invoke();
         }
 
         private readonly Color[,,] _colors = new Color[9, 9, 9];
-        private readonly IGridProvider _gridProvider;
+        private readonly DomainFacade _domainFacade;
 
         public void SetColor(int x, int y, int candidate, Color value)
         {
@@ -38,7 +39,7 @@ namespace UI.BlazorWASM.Providers
 
         public Color GetColor(Position pos, InputValue candidate)
         {
-            var isLegal = !_gridProvider.HasCandidate(pos, candidate) || _gridProvider.IsCandidateLegal(pos, candidate);
+            var isLegal = !_domainFacade.HasCandidate(pos, candidate) || _domainFacade.IsCandidateLegal(pos, candidate);
             return isLegal ? _colors[pos.x, pos.y, candidate - 1] : Color.Illegal;
         }
 

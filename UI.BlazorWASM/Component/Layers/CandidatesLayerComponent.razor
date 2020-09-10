@@ -1,7 +1,7 @@
-﻿@inject IGridProvider GridProvider
+﻿@inject Core.DomainFacade DomainFacade
 
 <Grid9x9Component>
-    @if( !GridProvider.HasValue(context) && GridProvider.CandidatesCount(context) > 0 )
+    @if( !DomainFacade.HasValue(context) && DomainFacade.GetCandidatesCount(context) > 0 )
     {
         <div class="candidates-grid">
             @foreach( var value in InputValue.NonEmpty )
@@ -15,6 +15,6 @@
 @code {
     protected override void OnInitialized()
     {
-        GridProvider.OnValueOrCandidatesChanged += StateHasChanged;
+        DomainFacade.OnValueOrCandidateChanged += StateHasChanged;
     }
 }

@@ -1,4 +1,4 @@
-﻿@inject IGridProvider GridProvider
+﻿@inject Core.DomainFacade DomainFacade
 @inject CandidatesMarkProvider CandidatesMarkProvider
 @using UI.BlazorWASM.Converters
 @using UI.BlazorWASM.Enums
@@ -22,7 +22,7 @@
     private int _gridRow;
 
     private string _text;
-    private bool _isVisible => GridProvider.HasCandidate(Pos, Value);
+    private bool _isVisible => DomainFacade.HasCandidate(Pos, Value);
     private bool _wasVisible;
 
     protected override void OnInitialized()
@@ -32,7 +32,7 @@
         _gridRow = z / 3 + 1;
 
         _text = Value.ToString();
-        GridProvider.OnCandidatesChanged += StateHasChanged;
+        DomainFacade.OnCandidateChanged += StateHasChanged;
         CandidatesMarkProvider.OnChanged += StateHasChanged;
     }
 
