@@ -1,4 +1,5 @@
-﻿using UI.BlazorWASM.Commands;
+﻿using Core;
+using UI.BlazorWASM.Commands;
 
 namespace UI.BlazorWASM.Providers
 {
@@ -7,15 +8,32 @@ namespace UI.BlazorWASM.Providers
         private readonly FilterProvider _filterProvider;
         private readonly IClickableActionProvider _clickableActionProvider;
         private readonly SettingsProvider _settingsProvider;
+        private readonly ModalProvider _modalProvider;
+        private readonly CellColorProvider _cellColorProvider;
+        private readonly GridHistoryProvider _gridHistoryProvider;
+        private readonly GameTimerProvider _gameTimerProvider;
+        private readonly DomainFacade _domainFacade;
 
         public CommandProvider(
             FilterProvider filterProvider,
             IClickableActionProvider clickableActionProvider,
-            SettingsProvider settingsProvider)
+            SettingsProvider settingsProvider,
+            ModalProvider modalProvider,
+            CellColorProvider cellColorProvider,
+            GridHistoryProvider gridHistoryProvider,
+            GameTimerProvider gameTimerProvider,
+            DomainFacade domainFacade
+
+            )
         {
             _filterProvider = filterProvider;
             _clickableActionProvider = clickableActionProvider;
             _settingsProvider = settingsProvider;
+            _modalProvider = modalProvider;
+            _cellColorProvider = cellColorProvider;
+            _gridHistoryProvider = gridHistoryProvider;
+            _gameTimerProvider = gameTimerProvider;
+            _domainFacade = domainFacade;
         }
         public ICommand SelectValue(int value)
         {
@@ -24,7 +42,7 @@ namespace UI.BlazorWASM.Providers
 
         public ICommand StartNewGameV2(string difficulty)
         {
-            return new StartNewGameCommand();
+            return new StartNewGameCommand(difficulty, _modalProvider, _cellColorProvider, _gridHistoryProvider, _gameTimerProvider, _domainFacade);
         }
 
         public ICommand SetLanguage(string name)

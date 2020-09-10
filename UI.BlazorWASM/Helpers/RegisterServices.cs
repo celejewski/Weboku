@@ -67,13 +67,13 @@ namespace UI.BlazorWASM.Helpers
             services.AddScoped<ClickableActionFactory>();
 
             services.AddScoped<GridHistoryProvider, GridHistoryProvider>();
+            services.AddScoped<GameTimerProvider>();
 
             //services.AddScoped<SudokuProvider>();
 
             //services.AddScoped<NumpadMenuBuilder>();
             //services.AddScoped<NumpadMenuProvider>();
             //services.AddScoped<HotkeyProvider>();
-            //services.AddScoped<GameTimerProvider>();
             //services.AddScoped<GameStateChecker>();
             //services.AddScoped<ShareProvider>();
             //services.AddScoped<IGridProvider, GridProvider>();
