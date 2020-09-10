@@ -1,15 +1,16 @@
-﻿using Core.Data;
-using UI.BlazorWASM.Providers;
+﻿using Core;
+using Core.Data;
 using System.Linq;
+using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.Component.NumpadMenu
 {
     public class SelectValueMenuItem : BaseMenuOption, INumpadMenuLabel
     {
         private readonly InputValue _value;
-        private readonly IGridProvider _gridProvider;
+        private readonly DomainFacade _gridProvider;
 
-        public SelectValueMenuItem(InputValue value, IGridProvider gridProvider, NumpadMenuProvider numpadMenuProvider, CommandProvider commandProvider)
+        public SelectValueMenuItem(InputValue value, DomainFacade gridProvider, NumpadMenuProvider numpadMenuProvider, CommandProvider commandProvider)
             : base(commandProvider.SelectValue(value), numpadMenuProvider.FilterContainer)
         {
             _value = value;
@@ -23,8 +24,8 @@ namespace UI.BlazorWASM.Component.NumpadMenu
                 foreach( var row in Position.Rows )
                 {
                     var isAnyValueIllegal = !row.All(_gridProvider.IsValueLegal);
-                    var legalValuesInRow = row.Count(pos => _gridProvider.GetValue(pos) == _value);
-                    if ( isAnyValueIllegal || legalValuesInRow != 1) return false;
+                    var legalValuesInRow = row.Count(pos => _gridProvider.GetInputValue(pos) == _value);
+                    if( isAnyValueIllegal || legalValuesInRow != 1 ) return false;
                 }
                 return true;
             }

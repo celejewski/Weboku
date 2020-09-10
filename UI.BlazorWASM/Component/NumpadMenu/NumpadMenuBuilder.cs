@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using Core;
+using System.Collections.Generic;
 using UI.BlazorWASM.Commands;
 using UI.BlazorWASM.Component.NumpadMenu;
 using UI.BlazorWASM.Component.NumpadMenu.NumpadMenuOptions;
 using UI.BlazorWASM.Enums;
-using UI.BlazorWASM.Providers;
 using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.ViewModels
@@ -14,7 +14,7 @@ namespace UI.BlazorWASM.ViewModels
         private readonly GridHistoryProvider _gridHistoryManager;
         private readonly NumpadMenuProvider _numpadMenuProvider;
         private readonly CommandProvider _commandProvider;
-        private readonly IGridProvider _gridProvider;
+        private readonly DomainFacade _gridProvider;
         private readonly RedoCommand _redoCommand;
         private readonly SelectPairsFilterCommand _selectPairsFilterCommand;
         private readonly ClearColorsCommand _clearColorsCommand;
@@ -29,7 +29,7 @@ namespace UI.BlazorWASM.ViewModels
             GridHistoryProvider gridHistoryManager,
             NumpadMenuProvider numpadMenuProvider,
             CommandProvider commandProvider,
-            IGridProvider gridProvider,
+            DomainFacade gridProvider,
             RedoCommand redoCommand,
             SelectPairsFilterCommand selectPairsFilterCommand,
             ClearColorsCommand clearColorsCommand,
@@ -55,7 +55,7 @@ namespace UI.BlazorWASM.ViewModels
             _selectActionBrushCommand = selectColorActionCommand;
         }
 
-        readonly Dictionary<int, SelectValueMenuItem> _dict = new Dictionary<int, SelectValueMenuItem>();
+        private readonly Dictionary<int, SelectValueMenuItem> _dict = new Dictionary<int, SelectValueMenuItem>();
         public SelectValueMenuItem SelectValue(int value)
         {
             if( !_dict.ContainsKey(value) )
@@ -77,7 +77,7 @@ namespace UI.BlazorWASM.ViewModels
             return command;
         }
 
-        PairsFilterMenuItem _pairsNumpadMenuItem;
+        private PairsFilterMenuItem _pairsNumpadMenuItem;
         public PairsFilterMenuItem Pairs()
         {
             return _pairsNumpadMenuItem ??= new PairsFilterMenuItem(_numpadMenuProvider, _selectPairsFilterCommand, _gridProvider);
@@ -100,8 +100,7 @@ namespace UI.BlazorWASM.ViewModels
             return new PlaceHolderMenuItem();
         }
 
-
-        SelectActionEraserMenuItem _eraseMenuItem;
+        private SelectActionEraserMenuItem _eraseMenuItem;
         public SelectActionEraserMenuItem SelectCleanerAction()
         {
             return _eraseMenuItem ??= new SelectActionEraserMenuItem(_numpadMenuProvider, _selectActionEraserCommand);

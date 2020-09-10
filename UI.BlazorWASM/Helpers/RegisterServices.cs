@@ -4,6 +4,7 @@ using System.Reflection;
 using UI.BlazorWASM.ClickableActions;
 using UI.BlazorWASM.Commands;
 using UI.BlazorWASM.Providers;
+using UI.BlazorWASM.ViewModels;
 
 namespace UI.BlazorWASM.Helpers
 {
@@ -69,10 +70,11 @@ namespace UI.BlazorWASM.Helpers
             services.AddScoped<GridHistoryProvider, GridHistoryProvider>();
             services.AddScoped<GameTimerProvider>();
 
+            services.AddScoped<NumpadMenuProvider>();
+            services.AddScoped<NumpadMenuBuilder>();
+
             //services.AddScoped<SudokuProvider>();
 
-            //services.AddScoped<NumpadMenuBuilder>();
-            //services.AddScoped<NumpadMenuProvider>();
             //services.AddScoped<HotkeyProvider>();
             //services.AddScoped<GameStateChecker>();
             //services.AddScoped<ShareProvider>();

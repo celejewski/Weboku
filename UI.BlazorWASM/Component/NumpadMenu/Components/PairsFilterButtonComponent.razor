@@ -1,5 +1,5 @@
-﻿@inject IGridProvider GridProvider
-@inject NumpadMenuProvider NumpadMenuProvider 
+﻿@inject Core.DomainFacade GridProvider
+@inject NumpadMenuProvider NumpadMenuProvider
 
 <LabelButtonComponent NumpadMenuLabel="NumpadMenuLabel" />
 
@@ -10,7 +10,7 @@
 
     protected override void OnInitialized()
     {
-        GridProvider.OnCandidatesChanged += StateHasChanged;
+        GridProvider.OnCandidateChanged += StateHasChanged;
         NumpadMenuProvider.OnChanged += StateHasChanged;
     }
 }
