@@ -20,7 +20,7 @@ namespace UI.BlazorWASM
             builder.Services.AddSingleton<DomainFacade>();
             builder.Services.RegisterProviders();
             builder.Services.RegisterCommands();
-            //builder.Services.RegisterHints();
+            builder.Services.RegisterHints();
             builder.Services.AddBlazoredLocalStorage();
             builder.Services.AddCors();
             builder.Services.RegisterLocalization();

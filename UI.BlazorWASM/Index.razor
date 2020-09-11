@@ -2,6 +2,7 @@
 @page "/paste/{SharedSudoku}"
 @inject IJSRuntime JSRuntime
 @inject ModalProvider ModalProvider
+@inject HotkeyProvider HotkeysProvider
 
 @inject Core.DomainFacade DomainFacade
 @using UI.BlazorWASM.Component.Modals;
@@ -42,7 +43,7 @@
             <NumpadMenuComponent />
         </div>
         <div class="main__menu">
-            @*<MenuComponent />*@
+            <MenuComponent />
         </div>
     </div>
 </div>

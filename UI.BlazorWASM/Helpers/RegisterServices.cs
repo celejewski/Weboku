@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using UI.BlazorWASM.ClickableActions;
 using UI.BlazorWASM.Commands;
+using UI.BlazorWASM.Hints;
 using UI.BlazorWASM.Providers;
 using UI.BlazorWASM.ViewModels;
 
@@ -18,13 +19,13 @@ namespace UI.BlazorWASM.Helpers
             services.AddScoped<SettingsProvider>();
         }
 
-        //public static void RegisterHints(this IServiceCollection services)
-        //{
-        //    services.AddScoped<Displayer>();
-        //    services.AddScoped<Informer>();
-        //    services.AddScoped<HintsProvider, HintsProvider>();
-        //    services.AddScoped<ShowHintModalCommand>();
-        //}
+        public static void RegisterHints(this IServiceCollection services)
+        {
+            services.AddScoped<Displayer>();
+            services.AddScoped<Informer>();
+            services.AddScoped<HintsProvider, HintsProvider>();
+            services.AddScoped<ShowHintModalCommand>();
+        }
 
         public static void RegisterCommands(this IServiceCollection services)
         {

@@ -1,12 +1,9 @@
-﻿using Core.Hints;
+﻿using Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UI.BlazorWASM.Enums;
 using UI.BlazorWASM.Hints;
 using UI.BlazorWASM.Hints.SolvingTechniqueDisplayers;
-using UI.BlazorWASM.Providers;
-using Core.Hints.SolvingTechniques;
 
 namespace UI.BlazorWASM.Providers
 {
@@ -15,7 +12,7 @@ namespace UI.BlazorWASM.Providers
         private readonly Informer _informer;
         private readonly Displayer _displayer;
         private readonly GridHistoryProvider _gridHistoryManager;
-        private readonly IGridProvider _gridProvider;
+        private readonly DomainFacade _gridProvider;
 
         public event Action OnChanged;
 
@@ -31,7 +28,7 @@ namespace UI.BlazorWASM.Providers
         {
             get
             {
-                var technique = _solver.GetNextHint(_gridProvider.Grid) ;
+                var technique = _solver.GetNextHint(_gridProvider.Grid);
                 yield return DisplayTechniqueFactory.GetDisplayer(_informer, _displayer, technique);
             }
         }
@@ -44,10 +41,10 @@ namespace UI.BlazorWASM.Providers
         private ISolvingTechniqueDisplayer NextTechnique => Techniques.First(t => t.CanExecute(_gridProvider.Grid));
 
         public HintsProvider(
-            Informer informer, 
+            Informer informer,
             Displayer displayer,
             GridHistoryProvider gridHistoryManager,
-            IGridProvider gridProvider)
+            DomainFacade gridProvider)
         {
             _informer = informer;
             _displayer = displayer;

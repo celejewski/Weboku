@@ -1,7 +1,7 @@
-﻿using Core.Data;
+﻿using Core;
+using Core.Data;
 using System.Collections.Generic;
 using System.Linq;
-using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.Hints
 {
@@ -10,21 +10,19 @@ namespace UI.BlazorWASM.Hints
     /// </summary>
     public class Informer
     {
-        private readonly IGridProvider _gridProvider;
-        private readonly SudokuProvider _sudokuProvider;
+        private readonly DomainFacade _domainFacade;
 
-        public Informer(IGridProvider gridProvider, SudokuProvider sudokuProvider)
+        public Informer(DomainFacade domainFacade)
         {
-            _gridProvider = gridProvider;
-            _sudokuProvider = sudokuProvider;
+            _domainFacade = domainFacade;
         }
 
-        public InputValue GetValue(Position position) => _gridProvider.GetValue(position);
-        public bool HasValue(Position position) => _gridProvider.HasValue(position);
-        public bool HasCandidate(Position position, InputValue value) => _gridProvider.HasCandidate(position, value);
-        public InputValue GetSolution(Position position) => _sudokuProvider.GetSolution(position);
+        public InputValue GetValue(Position position) => _domainFacade.GetInputValue(position);
+        public bool HasValue(Position position) => _domainFacade.HasValue(position);
+        public bool HasCandidate(Position position, InputValue value) => _domainFacade.HasCandidate(position, value);
+        public InputValue GetSolution(Position position) => InputValue.None;
 
-        public int GetCandidatesCount(Position position) => _gridProvider.CandidatesCount(position);
+        public int GetCandidatesCount(Position position) => _domainFacade.GetCandidatesCount(position);
 
         public IEnumerable<Position> GetPositionsWithCandidate(House house, Position housePosition, InputValue inputValue)
         {
