@@ -23,6 +23,7 @@ namespace UI.BlazorWASM.ViewModels
         private readonly SelectActionMarkerCommand _selectActionMarkerCommand;
         private readonly SelectActionPencilCommand _selectActionPencilCommand;
         private readonly SelectActionBrushCommand _selectActionBrushCommand;
+        private readonly HotkeyProvider _hotkeyProvider;
 
         public NumpadMenuBuilder(
             IClickableActionProvider clickableActionProvider,
@@ -37,7 +38,8 @@ namespace UI.BlazorWASM.ViewModels
             SelectActionEraserCommand selectCleanerAction,
             SelectActionMarkerCommand selectStandardActionCommand,
             SelectActionPencilCommand selectEraserActionCommand,
-            SelectActionBrushCommand selectColorActionCommand
+            SelectActionBrushCommand selectColorActionCommand,
+            HotkeyProvider hotkeyProvider
             )
         {
             _clickableActionProvider = clickableActionProvider;
@@ -53,6 +55,11 @@ namespace UI.BlazorWASM.ViewModels
             _selectActionMarkerCommand = selectStandardActionCommand;
             _selectActionPencilCommand = selectEraserActionCommand;
             _selectActionBrushCommand = selectColorActionCommand;
+            _hotkeyProvider = hotkeyProvider;
+
+
+
+
         }
 
         private readonly Dictionary<int, SelectValueMenuItem> _dict = new Dictionary<int, SelectValueMenuItem>();
@@ -60,7 +67,9 @@ namespace UI.BlazorWASM.ViewModels
         {
             if( !_dict.ContainsKey(value) )
             {
-                _dict[value] = new SelectValueMenuItem(value, _gridProvider, _numpadMenuProvider, _commandProvider);
+                var command = new SelectValueMenuItem(value, _gridProvider, _numpadMenuProvider, _commandProvider);
+                _dict[value] = command;
+                _hotkeyProvider.Register(new Hotkey { Command = command, Key = value.ToString() });
             }
             return _dict[value];
         }
@@ -68,24 +77,29 @@ namespace UI.BlazorWASM.ViewModels
         public RedoNumpadMenuItem Redo()
         {
             var command = new RedoNumpadMenuItem(_redoCommand, _gridHistoryManager);
+            _hotkeyProvider.Register(new Hotkey { Command = command, Key = "y", Ctrl = true });
             return command;
         }
 
         public UndoMenuItem Undo()
         {
             var command = new UndoMenuItem(_gridHistoryManager, _undoCommand);
+            _hotkeyProvider.Register(new Hotkey { Command = command, Key = "z", Ctrl = true });
             return command;
         }
 
         private PairsFilterMenuItem _pairsNumpadMenuItem;
         public PairsFilterMenuItem Pairs()
         {
-            return _pairsNumpadMenuItem ??= new PairsFilterMenuItem(_numpadMenuProvider, _selectPairsFilterCommand, _gridProvider);
+            var command = new PairsFilterMenuItem(_numpadMenuProvider, _selectPairsFilterCommand, _gridProvider);
+            _hotkeyProvider.Register(new Hotkey { Command = command, Key = "x" });
+            return _pairsNumpadMenuItem ??= command;
         }
 
         public ClearColorsMenuItem ClearColors()
         {
             var command = new ClearColorsMenuItem(_clearColorsCommand);
+            _hotkeyProvider.Register(new Hotkey { Command = command, Key = "r" });
             return command;
         }
 
