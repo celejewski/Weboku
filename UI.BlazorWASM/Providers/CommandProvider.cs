@@ -1,4 +1,5 @@
 ﻿using Core;
+using Core.Data;
 using UI.BlazorWASM.Commands;
 
 namespace UI.BlazorWASM.Providers
@@ -13,6 +14,7 @@ namespace UI.BlazorWASM.Providers
         private readonly GridHistoryProvider _gridHistoryProvider;
         private readonly GameTimerProvider _gameTimerProvider;
         private readonly DomainFacade _domainFacade;
+        private readonly StartGameCommand _startGameCommand;
 
         public CommandProvider(
             FilterProvider filterProvider,
@@ -22,7 +24,8 @@ namespace UI.BlazorWASM.Providers
             CellColorProvider cellColorProvider,
             GridHistoryProvider gridHistoryProvider,
             GameTimerProvider gameTimerProvider,
-            DomainFacade domainFacade
+            DomainFacade domainFacade,
+            StartGameCommand startGameCommand
 
             )
         {
@@ -34,15 +37,16 @@ namespace UI.BlazorWASM.Providers
             _gridHistoryProvider = gridHistoryProvider;
             _gameTimerProvider = gameTimerProvider;
             _domainFacade = domainFacade;
+            _startGameCommand = startGameCommand;
         }
         public ICommand SelectValue(int value)
         {
             return new SelectValueCommand(value, _filterProvider, _clickableActionProvider);
         }
 
-        public ICommand StartNewGameV2(string difficulty)
+        public ICommand StartNewGameV2(Difficulty difficulty)
         {
-            return new StartNewGameCommand(difficulty, _modalProvider, _cellColorProvider, _gridHistoryProvider, _gameTimerProvider, _domainFacade);
+            return new StartNewGameCommand(difficulty, _domainFacade, _startGameCommand);
         }
 
         public ICommand SetLanguage(string name)

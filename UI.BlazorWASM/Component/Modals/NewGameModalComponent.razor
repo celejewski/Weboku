@@ -34,7 +34,7 @@
 
             </div>
 
-            <ModalButtonComponent OnClick="CommandProvider.StartNewGameV2(SelectedDifficulty)">
+            <ModalButtonComponent OnClick="CommandProvider.StartNewGameV2((Difficulty)Enum.Parse(typeof(Difficulty), SelectedDifficulty))">
                 @Loc.Keys["new-game__new-game"]
             </ModalButtonComponent>
 

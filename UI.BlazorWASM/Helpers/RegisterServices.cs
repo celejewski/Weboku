@@ -52,6 +52,7 @@ namespace UI.BlazorWASM.Helpers
             services.AddScoped<ShowSettingsModalCommand>();
             services.AddScoped<ShowCustomSudokuCommand>();
             services.AddScoped<StartNewCustomSudokuCommand>();
+            services.AddScoped<StartGameCommand>();
         }
 
         public static void RegisterProviders(this IServiceCollection services)

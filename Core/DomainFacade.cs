@@ -131,5 +131,10 @@ namespace Core
 
             _gridManager.Grid.ClearAllCandidates();
         }
+
+        public void StartNewGame(Difficulty difficulty)
+        {
+            StartNewGame(".5.8...167.6.9.........1..28....6...1..9.4..3...1....49..3.........6.4.553...2.9.");
+        }
     }
 }
