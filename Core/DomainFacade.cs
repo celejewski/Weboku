@@ -55,6 +55,7 @@ namespace Core
         public void StartNewGame(IGrid grid)
         {
             _gridManager.Grid = grid;
+            _gridManager.ValueAndCandidateChanged();
         }
 
         public void StartNewGame(string givens)
