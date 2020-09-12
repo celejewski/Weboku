@@ -3,6 +3,7 @@ using Core.Exceptions;
 using Core.Managers;
 using Core.Serializers;
 using System;
+using System.Threading.Tasks;
 
 namespace Core
 {
@@ -133,9 +134,10 @@ namespace Core
             _gridManager.Grid.ClearAllCandidates();
         }
 
-        public void StartNewGame(Difficulty difficulty)
+        public async Task StartNewGame(Difficulty difficulty)
         {
-            StartNewGame(".5.8...167.6.9.........1..28....6...1..9.4..3...1....49..3.........6.4.553...2.9.");
+            var grid = await GridGenerator.Make(difficulty);
+            StartNewGame(grid);
         }
     }
 }

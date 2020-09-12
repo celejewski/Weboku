@@ -22,7 +22,7 @@ namespace UI.BlazorWASM.Commands
 
         public async Task Execute()
         {
-            _domainFacade.StartNewGame(_difficulty);
+            await _domainFacade.StartNewGame(_difficulty);
             await _startGameCommand.Execute();
         }
     }
