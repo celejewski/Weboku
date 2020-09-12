@@ -88,6 +88,7 @@ namespace Core
         public void FillAllLegalCandidates()
         {
             _gridManager.FillAllLegalCandidates();
+            _gridManager.CandidateChanged();
         }
 
         public event Action OnValueChanged
