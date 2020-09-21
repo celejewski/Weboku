@@ -1,5 +1,4 @@
 ﻿@inject GameTimerProvider GameTimerProvider
-@inject SudokuProvider SudokuProvider
 @inject ShowMainMenuModalCommand ShowMainMenuModalCommand
 @inject ILanguageContainerService LanguageContainer
 
@@ -16,7 +15,7 @@
         </div>
         <div class="modal__result-row">
             <span class="modal__result-label">@LanguageContainer.Keys["end-game__difficulty"]</span>
-            <span class="modal__result-value">@SudokuProvider.Difficulty</span>
+            <span class="modal__result-value"></span>
         </div>
     </div>
 

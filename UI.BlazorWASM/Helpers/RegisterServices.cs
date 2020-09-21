@@ -81,7 +81,7 @@ namespace UI.BlazorWASM.Helpers
 
             //services.AddScoped<SudokuProvider>();
 
-            //services.AddScoped<GameStateChecker>();
+            services.AddScoped<GameStateChecker>();
             //services.AddScoped<ShareProvider>();
             //services.AddScoped<IGridProvider, GridProvider>();
         }
