@@ -77,13 +77,14 @@ namespace UI.BlazorWASM.Helpers
 
             services.AddScoped<HotkeyProvider>();
 
+            services.AddScoped<StorageProvider>();
+            services.AddScoped<PreserveStateProvider>();
+
             //services.AddScoped<SudokuProvider>();
 
             //services.AddScoped<GameStateChecker>();
             //services.AddScoped<ShareProvider>();
             //services.AddScoped<IGridProvider, GridProvider>();
-            //services.AddScoped<StorageProvider>();
-            //services.AddScoped<PreserveStateProvider>();
         }
     }
 }

@@ -2,6 +2,7 @@
 @page "/paste/{SharedSudoku}"
 @inject IJSRuntime JSRuntime
 @inject ModalProvider ModalProvider
+@inject PreserveStateProvider PreserveStateProvider
 
 @inject Core.DomainFacade DomainFacade
 @using UI.BlazorWASM.Component.Modals;
@@ -72,14 +73,16 @@
     {
         if( _afterFirstRender && !_afterSecondRender )
         {
-            _afterSecondRender = true; Task.Run(() =>
+            _afterSecondRender = true;
+
+            Task.Run(() =>
             {
                 StateHasChanged();
             });
             Task.Run(async () =>
             {
-                //await PreserveStateProvider.Load();
-                //PreserveStateProvider.AutoSave(TimeSpan.FromSeconds(2));
+                await PreserveStateProvider.Load();
+                PreserveStateProvider.AutoSave(TimeSpan.FromSeconds(2));
                 ModalProvider.SetModalState(ModalState.MainMenu);
             });
         }
