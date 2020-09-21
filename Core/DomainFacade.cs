@@ -11,11 +11,12 @@ namespace Core
     {
         private readonly GridManager _gridManager;
         private readonly ToolManager _toolManager;
-
+        private readonly GridHistoryManager _gridHistoryManager;
         public DomainFacade()
         {
             _gridManager = new GridManager();
             _toolManager = new ToolManager();
+            _gridHistoryManager = new GridHistoryManager(_gridManager);
         }
         public InputValue GetInputValue(Position pos)
         {
@@ -72,23 +73,27 @@ namespace Core
 
         public void UseMarker(Position pos, InputValue value)
         {
+            _gridHistoryManager.Save();
             _toolManager.UseMarker(_gridManager.Grid, pos, value);
             _gridManager.ValueAndCandidateChanged();
         }
 
         public void UsePencil(Position pos, InputValue value)
         {
+            _gridHistoryManager.Save();
             _toolManager.UsePencil(_gridManager.Grid, pos, value);
             _gridManager.CandidateChanged();
         }
         public void UseEraser(Position pos)
         {
+            _gridHistoryManager.Save();
             _toolManager.UseEraser(_gridManager.Grid, pos);
             _gridManager.ValueAndCandidateChanged();
         }
 
         public void FillAllLegalCandidates()
         {
+            _gridHistoryManager.Save();
             _gridManager.FillAllLegalCandidates();
             _gridManager.CandidateChanged();
         }
@@ -113,6 +118,7 @@ namespace Core
 
         public void ClearAllCandidates()
         {
+            _gridHistoryManager.Save();
             _gridManager.Grid.ClearAllCandidates();
         }
 
@@ -124,6 +130,7 @@ namespace Core
 
         public void RestartGrid()
         {
+            _gridHistoryManager.Save();
             foreach( var pos in Position.All )
             {
                 if( !_gridManager.Grid.GetIsGiven(pos) )
@@ -133,12 +140,37 @@ namespace Core
             }
 
             _gridManager.Grid.ClearAllCandidates();
+            _gridManager.ValueAndCandidateChanged();
         }
 
         public async Task StartNewGame(Difficulty difficulty)
         {
             var grid = await GridGenerator.Make(difficulty);
             StartNewGame(grid);
+        }
+
+        public void Undo()
+        {
+            if( _gridHistoryManager.CanUndo )
+            {
+                _gridHistoryManager.Undo();
+            }
+        }
+
+        public void Redo()
+        {
+            if( _gridHistoryManager.CanRedo )
+            {
+                _gridHistoryManager.Redo();
+            }
+        }
+
+        public bool CanRedo => _gridHistoryManager.CanRedo;
+        public bool CanUndo => _gridHistoryManager.CanUndo;
+        public event Action OnHistoryChanged
+        {
+            add { _gridHistoryManager.OnChanged += value; }
+            remove { _gridHistoryManager.OnChanged -= value; }
         }
     }
 }

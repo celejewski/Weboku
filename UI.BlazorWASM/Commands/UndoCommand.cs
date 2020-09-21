@@ -1,13 +1,13 @@
-﻿using System.Threading.Tasks;
-using UI.BlazorWASM.Providers;
+﻿using Core;
+using System.Threading.Tasks;
 
 namespace UI.BlazorWASM.Commands
 {
     public class UndoCommand : ICommand
     {
-        private readonly GridHistoryProvider _gridHistoryManager;
+        private readonly DomainFacade _gridHistoryManager;
 
-        public UndoCommand(GridHistoryProvider gridHistoryManager)
+        public UndoCommand(DomainFacade gridHistoryManager)
         {
             _gridHistoryManager = gridHistoryManager;
         }

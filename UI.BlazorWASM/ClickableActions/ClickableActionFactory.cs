@@ -5,13 +5,11 @@ namespace UI.BlazorWASM.ClickableActions
 {
     public class ClickableActionFactory
     {
-        private readonly GridHistoryProvider _gridHistoryManager;
         private readonly CellColorProvider _cellColorProvider;
         private readonly DomainFacade _gridProvider;
 
-        public ClickableActionFactory(GridHistoryProvider gridHistoryManager, CellColorProvider cellColorProvider, DomainFacade gridProvider)
+        public ClickableActionFactory(CellColorProvider cellColorProvider, DomainFacade gridProvider)
         {
-            _gridHistoryManager = gridHistoryManager;
             _cellColorProvider = cellColorProvider;
             _gridProvider = gridProvider;
         }
@@ -22,17 +20,17 @@ namespace UI.BlazorWASM.ClickableActions
         }
         public IClickableAction MarkerAction()
         {
-            return new MarkerAction(_gridHistoryManager, _cellColorProvider, _gridProvider);
+            return new MarkerAction(_cellColorProvider, _gridProvider);
         }
 
         public IClickableAction EraserAction()
         {
-            return new EraserAction(_gridProvider, _gridHistoryManager);
+            return new EraserAction(_gridProvider);
         }
 
         public IClickableAction PencilAction()
         {
-            return new PencilAction(_gridHistoryManager, _gridProvider);
+            return new PencilAction(_gridProvider);
         }
     }
 }

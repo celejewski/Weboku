@@ -11,7 +11,7 @@ namespace UI.BlazorWASM.Providers
         private readonly SettingsProvider _settingsProvider;
         private readonly ModalProvider _modalProvider;
         private readonly CellColorProvider _cellColorProvider;
-        private readonly GridHistoryProvider _gridHistoryProvider;
+        private readonly DomainFacade _gridHistoryProvider;
         private readonly GameTimerProvider _gameTimerProvider;
         private readonly DomainFacade _domainFacade;
         private readonly StartGameCommand _startGameCommand;
@@ -22,7 +22,7 @@ namespace UI.BlazorWASM.Providers
             SettingsProvider settingsProvider,
             ModalProvider modalProvider,
             CellColorProvider cellColorProvider,
-            GridHistoryProvider gridHistoryProvider,
+            DomainFacade gridHistoryProvider,
             GameTimerProvider gameTimerProvider,
             DomainFacade domainFacade,
             StartGameCommand startGameCommand

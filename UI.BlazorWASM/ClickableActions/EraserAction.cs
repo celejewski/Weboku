@@ -1,22 +1,19 @@
 ﻿using Core;
 using Core.Data;
-using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.ClickableActions
 {
     public class EraserAction : IClickableAction
     {
         private readonly DomainFacade _domainFacade;
-        private readonly GridHistoryProvider _gridHistoryManager;
 
         private void Clear(Position pos)
         {
             _domainFacade.UseEraser(pos);
         }
-        public EraserAction(DomainFacade domainFacade, GridHistoryProvider gridHistoryManager)
+        public EraserAction(DomainFacade domainFacade)
         {
             _domainFacade = domainFacade;
-            _gridHistoryManager = gridHistoryManager;
         }
 
         public void LeftClickAction(ClickableActionArgs args)

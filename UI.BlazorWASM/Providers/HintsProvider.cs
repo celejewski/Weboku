@@ -11,7 +11,7 @@ namespace UI.BlazorWASM.Providers
     {
         private readonly Informer _informer;
         private readonly Displayer _displayer;
-        private readonly GridHistoryProvider _gridHistoryManager;
+        private readonly DomainFacade _gridHistoryManager;
         private readonly DomainFacade _gridProvider;
 
         public event Action OnChanged;
@@ -43,7 +43,7 @@ namespace UI.BlazorWASM.Providers
         public HintsProvider(
             Informer informer,
             Displayer displayer,
-            GridHistoryProvider gridHistoryManager,
+            DomainFacade gridHistoryManager,
             DomainFacade gridProvider)
         {
             _informer = informer;
@@ -90,7 +90,6 @@ namespace UI.BlazorWASM.Providers
 
         public void Execute()
         {
-            _gridHistoryManager.Save();
             NextTechnique.Execute(_gridProvider.Grid);
             _gridProvider.Grid = _gridProvider.Grid;
             _displayer.Hide();
