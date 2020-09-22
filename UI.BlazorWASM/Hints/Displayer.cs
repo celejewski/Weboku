@@ -113,7 +113,7 @@ namespace UI.BlazorWASM.Hints
             }
         }
 
-        public void MarkCell(Color color, Position position) => _cellColorProvider.SetColor(position.x, position.y, color);
+        public void MarkCell(Color color, Position position) => _cellColorProvider.SetColor(position, color);
         public void MarkCells(Color color, IEnumerable<Position> positions)
         {
             foreach( var position in positions )
