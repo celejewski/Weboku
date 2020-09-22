@@ -1,4 +1,4 @@
-﻿@inject MarkInputProvider MarkInputProvider
+﻿@inject InputMarkProvider InputMarkProvider
 @using UI.BlazorWASM.Converters
 @using UI.BlazorWASM.Enums
 
@@ -6,7 +6,7 @@
 
 @code {
     private Color _previousColor;
-    private Color _currentColor => MarkInputProvider.GetColor(Pos);
+    private Color _currentColor => InputMarkProvider.GetColor(Pos);
     private bool _isDirty = false;
 
     private string GetCurrentClass()
@@ -19,17 +19,15 @@
 
     protected override void OnInitialized()
     {
-        MarkInputProvider.OnChanged += () =>
+        InputMarkProvider.OnChanged += () =>
         {
-            _isDirty = true;
             StateHasChanged();
         };
     }
 
     protected override bool ShouldRender()
     {
-        return _isDirty
-            || _previousColor != _currentColor;
+        return _previousColor != _currentColor;
     }
 
     protected override void OnAfterRender(bool firstRender)

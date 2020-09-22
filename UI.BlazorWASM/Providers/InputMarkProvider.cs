@@ -5,12 +5,12 @@ using UI.BlazorWASM.Enums;
 
 namespace UI.BlazorWASM.Providers
 {
-    public class MarkInputProvider : IProvider
+    public class InputMarkProvider : IProvider
     {
         private readonly Color[,] _colors = new Color[9, 9];
         private readonly DomainFacade _domainFacade;
 
-        public MarkInputProvider(DomainFacade domainFacade)
+        public InputMarkProvider(DomainFacade domainFacade)
         {
             _domainFacade = domainFacade;
             _domainFacade.OnValueChanged += () => OnChanged?.Invoke();

@@ -18,7 +18,7 @@ namespace UI.BlazorWASM.Hints
         private readonly CandidateColorProvider _candidatesMarkProvider;
         private readonly NumpadMenuBuilder _numpadMenuBuilder;
         private readonly Informer _informer;
-        private readonly MarkInputProvider _markInputProvider;
+        private readonly InputMarkProvider _markInputProvider;
 
         public bool IsVisible { get; set; }
         public string Title { get; set; }
@@ -36,7 +36,7 @@ namespace UI.BlazorWASM.Hints
             CandidateColorProvider candidatesMarkProvider,
             NumpadMenuBuilder numpadMenuBuilder,
             Informer informer,
-            MarkInputProvider markInputProvider,
+            InputMarkProvider markInputProvider,
             ILanguageContainerService loc)
         {
             _cellColorProvider = cellColorProvider;
