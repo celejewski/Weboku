@@ -65,7 +65,7 @@ namespace UI.BlazorWASM.Helpers
             services.AddScoped<CommandProvider>();
             services.AddScoped<PasteProvider>();
             services.AddScoped<FilterProvider>();
-            services.AddScoped<IClickableActionProvider, ClickableActionProvider>();
+            services.AddScoped<ClickableActionProvider>();
             services.AddScoped<ClickableActionFactory>();
             services.AddScoped<GameTimerProvider>();
             services.AddScoped<NumpadMenuProvider>();

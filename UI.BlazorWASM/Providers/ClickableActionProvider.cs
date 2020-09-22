@@ -6,7 +6,7 @@ using UI.BlazorWASM.Enums;
 
 namespace UI.BlazorWASM.Providers
 {
-    public class ClickableActionProvider : IClickableActionProvider
+    public class ClickableActionProvider
     {
         public IClickableAction ClickableAction { get; private set; }
 

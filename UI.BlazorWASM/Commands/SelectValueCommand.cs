@@ -1,5 +1,4 @@
-﻿using Core.Data;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using UI.BlazorWASM.Filters;
 using UI.BlazorWASM.Providers;
 
@@ -9,9 +8,9 @@ namespace UI.BlazorWASM.Commands
     {
         private readonly int _value;
         private readonly FilterProvider _filterProvider;
-        private readonly IClickableActionProvider _clickableActionProvider;
+        private readonly ClickableActionProvider _clickableActionProvider;
 
-        public SelectValueCommand(int value, FilterProvider filterProvider, IClickableActionProvider clickableActionProvider)
+        public SelectValueCommand(int value, FilterProvider filterProvider, ClickableActionProvider clickableActionProvider)
         {
             _value = value;
             _filterProvider = filterProvider;

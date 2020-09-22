@@ -10,7 +10,7 @@ namespace UI.BlazorWASM.ViewModels
 {
     public class NumpadMenuBuilder
     {
-        private readonly IClickableActionProvider _clickableActionProvider;
+        private readonly ClickableActionProvider _clickableActionProvider;
         private readonly DomainFacade _gridHistoryManager;
         private readonly NumpadMenuProvider _numpadMenuProvider;
         private readonly CommandProvider _commandProvider;
@@ -26,7 +26,7 @@ namespace UI.BlazorWASM.ViewModels
         private readonly HotkeyProvider _hotkeyProvider;
 
         public NumpadMenuBuilder(
-            IClickableActionProvider clickableActionProvider,
+            ClickableActionProvider clickableActionProvider,
             DomainFacade gridHistoryManager,
             NumpadMenuProvider numpadMenuProvider,
             CommandProvider commandProvider,

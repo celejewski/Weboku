@@ -7,14 +7,14 @@ namespace UI.BlazorWASM.Providers
     public class CommandProvider
     {
         private readonly FilterProvider _filterProvider;
-        private readonly IClickableActionProvider _clickableActionProvider;
+        private readonly ClickableActionProvider _clickableActionProvider;
         private readonly SettingsProvider _settingsProvider;
         private readonly DomainFacade _domainFacade;
         private readonly StartGameCommand _startGameCommand;
 
         public CommandProvider(
             FilterProvider filterProvider,
-            IClickableActionProvider clickableActionProvider,
+            ClickableActionProvider clickableActionProvider,
             SettingsProvider settingsProvider,
             DomainFacade domainFacade,
             StartGameCommand startGameCommand
