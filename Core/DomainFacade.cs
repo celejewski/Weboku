@@ -23,34 +23,34 @@ namespace Core
             return _gridManager.GetInputValue(pos);
         }
 
-        public bool IsGiven(Position pos)
+        public bool IsGiven(Position position)
         {
-            return _gridManager.IsGiven(pos);
+            return _gridManager.IsGiven(position);
         }
 
-        public bool HasCandidate(Position pos, InputValue value)
+        public bool HasCandidate(Position position, InputValue value)
         {
-            return _gridManager.HasCandidate(pos, value);
+            return _gridManager.HasCandidate(position, value);
         }
 
-        public bool HasValue(Position pos)
+        public bool HasValue(Position position)
         {
-            return _gridManager.HasValue(pos);
+            return _gridManager.HasValue(position);
         }
 
-        public bool IsValueLegal(Position pos)
+        public bool IsValueLegal(Position position)
         {
-            return _gridManager.IsValueLegal(pos);
+            return _gridManager.IsValueLegal(position);
         }
 
-        public bool IsCandidateLegal(Position pos, InputValue value)
+        public bool IsCandidateLegal(Position position, InputValue value)
         {
-            return _gridManager.IsCandidateLegal(pos, value);
+            return _gridManager.IsCandidateLegal(position, value);
         }
 
-        public int GetCandidatesCount(Position pos)
+        public int GetCandidatesCount(Position position)
         {
-            return _gridManager.GetCandidatesCount(pos);
+            return _gridManager.GetCandidatesCount(position);
         }
 
         public void StartNewGame(IGrid grid)
@@ -71,23 +71,23 @@ namespace Core
         }
 
 
-        public void UseMarker(Position pos, InputValue value)
+        public void UseMarker(Position position, InputValue value)
         {
             _gridHistoryManager.Save();
-            _toolManager.UseMarker(_gridManager.Grid, pos, value);
+            _toolManager.UseMarker(_gridManager.Grid, position, value);
             _gridManager.ValueAndCandidateChanged();
         }
 
-        public void UsePencil(Position pos, InputValue value)
+        public void UsePencil(Position position, InputValue value)
         {
             _gridHistoryManager.Save();
-            _toolManager.UsePencil(_gridManager.Grid, pos, value);
+            _toolManager.UsePencil(_gridManager.Grid, position, value);
             _gridManager.CandidateChanged();
         }
-        public void UseEraser(Position pos)
+        public void UseEraser(Position position)
         {
             _gridHistoryManager.Save();
-            _toolManager.UseEraser(_gridManager.Grid, pos);
+            _toolManager.UseEraser(_gridManager.Grid, position);
             _gridManager.ValueAndCandidateChanged();
         }
 
@@ -131,11 +131,11 @@ namespace Core
         public void RestartGrid()
         {
             _gridHistoryManager.Save();
-            foreach( var pos in Position.All )
+            foreach( var position in Position.All )
             {
-                if( !_gridManager.Grid.GetIsGiven(pos) )
+                if( !_gridManager.Grid.GetIsGiven(position) )
                 {
-                    _gridManager.Grid.SetValue(pos, InputValue.None);
+                    _gridManager.Grid.SetValue(position, InputValue.None);
                 }
             }
 

@@ -4,33 +4,33 @@ namespace Core.Managers
 {
     public class ToolManager
     {
-        public void UseMarker(IGrid grid, Position pos, InputValue value)
+        public void UseMarker(IGrid grid, Position position, InputValue value)
         {
-            if( grid.GetIsGiven(pos) ) return;
+            if( grid.GetIsGiven(position) ) return;
 
-            if( grid.GetValue(pos) == InputValue.None )
+            if( grid.GetValue(position) == InputValue.None )
             {
-                grid.SetValue(pos, value);
+                grid.SetValue(position, value);
             }
-            else if( grid.GetValue(pos) == value )
+            else if( grid.GetValue(position) == value )
             {
-                grid.SetValue(pos, InputValue.None);
+                grid.SetValue(position, InputValue.None);
             }
         }
 
-        public void UsePencil(IGrid grid, Position pos, InputValue value)
+        public void UsePencil(IGrid grid, Position position, InputValue value)
         {
-            if( grid.HasValue(pos) ) return;
+            if( grid.HasValue(position) ) return;
 
-            grid.ToggleCandidate(pos, value);
+            grid.ToggleCandidate(position, value);
         }
 
-        public void UseEraser(IGrid grid, Position pos)
+        public void UseEraser(IGrid grid, Position position)
         {
-            if( grid.GetIsGiven(pos) ) return;
+            if( grid.GetIsGiven(position) ) return;
 
-            grid.SetValue(pos, InputValue.None);
-            grid.ClearCandidates(pos);
+            grid.SetValue(position, InputValue.None);
+            grid.ClearCandidates(position);
         }
     }
 }

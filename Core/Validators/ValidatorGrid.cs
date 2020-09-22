@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Core.Validators
 {
-    public static class ValidatorGrid
+    internal static class ValidatorGrid
     {
         public static void EnsureGridIsValid(IGrid grid)
         {
@@ -22,8 +22,8 @@ namespace Core.Validators
         public static bool AreAllGivensLegal(IGrid grid)
         {
             return Position.All
-                .Where(pos => grid.GetIsGiven(pos))
-                .All(pos => grid.IsCandidateLegal(pos, grid.GetValue(pos)));
+                .Where(position => grid.GetIsGiven(position))
+                .All(position => grid.IsCandidateLegal(position, grid.GetValue(position)));
         }
     }
 }

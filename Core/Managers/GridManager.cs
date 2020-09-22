@@ -21,23 +21,23 @@ namespace Core.Managers
             }
         }
 
-        public bool IsValueLegal(Position pos)
+        public bool IsValueLegal(Position position)
         {
-            return Grid.IsCandidateLegal(pos, Grid.GetValue(pos));
+            return Grid.IsCandidateLegal(position, Grid.GetValue(position));
         }
-        public InputValue GetInputValue(Position pos)
+        public InputValue GetInputValue(Position position)
         {
-            return Grid.GetValue(pos);
-        }
-
-        public bool HasValue(Position pos)
-        {
-            return Grid.HasValue(pos);
+            return Grid.GetValue(position);
         }
 
-        public bool HasCandidate(Position pos, InputValue value)
+        public bool HasValue(Position position)
         {
-            return Grid.HasCandidate(pos, value);
+            return Grid.HasValue(position);
+        }
+
+        public bool HasCandidate(Position position, InputValue value)
+        {
+            return Grid.HasCandidate(position, value);
         }
 
         public bool IsGiven(Position pos)
@@ -45,9 +45,9 @@ namespace Core.Managers
             return Grid.GetIsGiven(pos);
         }
 
-        public int GetCandidatesCount(Position pos)
+        public int GetCandidatesCount(Position position)
         {
-            return _grid.GetCandidates(pos).Count();
+            return _grid.GetCandidates(position).Count();
         }
 
         public void ValueChanged()
@@ -66,9 +66,9 @@ namespace Core.Managers
             Grid.FillAllLegalCandidates();
         }
 
-        public bool IsCandidateLegal(Position pos, InputValue value)
+        public bool IsCandidateLegal(Position position, InputValue value)
         {
-            return Grid.IsCandidateLegal(pos, value);
+            return Grid.IsCandidateLegal(position, value);
         }
 
         public void ValueAndCandidateChanged()

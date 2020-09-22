@@ -23,57 +23,57 @@ namespace Core.Data
             _isGivens = isGivens;
         }
 
-        public InputValue GetValue(Position pos) => _inputs[pos.x, pos.y];
-        public void SetValue(Position pos, InputValue value)
+        public InputValue GetValue(Position position) => _inputs[position.x, position.y];
+        public void SetValue(Position position, InputValue value)
         {
-            _inputs[pos.x, pos.y] = value;
-            _candidates[pos.x, pos.y] = Candidates.None;
+            _inputs[position.x, position.y] = value;
+            _candidates[position.x, position.y] = Candidates.None;
 
             if( value != InputValue.None )
             {
-                foreach( var seenBy in Position.GetCoordsWhichCanSee(pos) )
+                foreach( var seenBy in Position.GetCoordsWhichCanSee(position) )
                 {
                     RemoveCandidate(seenBy, value);
                 }
             }
         }
 
-        public bool IsCandidateLegal(Position pos, InputValue value)
+        public bool IsCandidateLegal(Position position, InputValue value)
         {
             return value == InputValue.None
-                || Position.GetCoordsWhichCanSee(pos)
-                .Where(otherPos => !pos.Equals(otherPos))
-                .All(otherPos => GetValue(otherPos) != value);
+                || Position.GetCoordsWhichCanSee(position)
+                .Where(otherPosition => !position.Equals(otherPosition))
+                .All(otherPosition => GetValue(otherPosition) != value);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool HasCandidate(Position pos, InputValue value)
-            => (_candidates[pos.x, pos.y] & value.AsCandidates()) == value.AsCandidates();
+        public bool HasCandidate(Position position, InputValue value)
+            => (_candidates[position.x, position.y] & value.AsCandidates()) == value.AsCandidates();
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void ToggleCandidate(Position pos, InputValue value)
-            => _candidates[pos.x, pos.y] ^= value.AsCandidates();
+        public void ToggleCandidate(Position position, InputValue value)
+            => _candidates[position.x, position.y] ^= value.AsCandidates();
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void RemoveCandidate(Position pos, InputValue value)
-            => _candidates[pos.x, pos.y] &= ~value.AsCandidates();
+        public void RemoveCandidate(Position position, InputValue value)
+            => _candidates[position.x, position.y] &= ~value.AsCandidates();
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void AddCandidate(Position pos, InputValue value)
-            => _candidates[pos.x, pos.y] |= value.AsCandidates();
+        public void AddCandidate(Position position, InputValue value)
+            => _candidates[position.x, position.y] |= value.AsCandidates();
 
         public void ClearAllCandidates()
         {
-            foreach( var pos in Position.All )
+            foreach( var position in Position.All )
             {
-                ClearCandidates(pos);
+                ClearCandidates(position);
             }
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void ClearCandidates(Position pos)
+        public void ClearCandidates(Position position)
         {
-            _candidates[pos.x, pos.y] = Candidates.None;
+            _candidates[position.x, position.y] = Candidates.None;
         }
 
         public void FillAllLegalCandidates()
@@ -106,15 +106,15 @@ namespace Core.Data
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool GetIsGiven(Position pos)
+        public bool GetIsGiven(Position position)
         {
-            return _isGivens[pos.x, pos.y];
+            return _isGivens[position.x, position.y];
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void SetIsGiven(Position pos, bool value)
+        public void SetIsGiven(Position position, bool value)
         {
-            _isGivens[pos.x, pos.y] = value;
+            _isGivens[position.x, position.y] = value;
         }
 
         public IGrid Clone()
@@ -129,6 +129,6 @@ namespace Core.Data
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool HasValue(Position pos) => GetValue(pos) != InputValue.None;
 
-        public Candidates GetCandidates(Position pos) => _candidates[pos.x, pos.y];
+        public Candidates GetCandidates(Position position) => _candidates[position.x, position.y];
     }
 }

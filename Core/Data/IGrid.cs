@@ -2,23 +2,23 @@
 {
     public interface IGrid
     {
-        bool GetIsGiven(Position pos);
-        void SetIsGiven(Position pos, bool value);
+        bool GetIsGiven(Position position);
+        void SetIsGiven(Position position, bool value);
 
-        InputValue GetValue(Position pos);
-        void SetValue(Position pos, InputValue value);
-        bool HasValue(Position pos);
+        InputValue GetValue(Position position);
+        void SetValue(Position position, InputValue value);
+        bool HasValue(Position position);
 
-        bool HasCandidate(Position pos, InputValue value);
-        Candidates GetCandidates(Position pos);
+        bool HasCandidate(Position position, InputValue value);
+        Candidates GetCandidates(Position position);
 
-        void AddCandidate(Position pos, InputValue value);
-        void RemoveCandidate(Position pos, InputValue value);
-        void ToggleCandidate(Position pos, InputValue value);
-        bool IsCandidateLegal(Position pos, InputValue value);
+        void AddCandidate(Position position, InputValue value);
+        void RemoveCandidate(Position position, InputValue value);
+        void ToggleCandidate(Position position, InputValue value);
+        bool IsCandidateLegal(Position position, InputValue value);
         void FillAllLegalCandidates();
         void ClearAllCandidates();
-        void ClearCandidates(Position pos);
+        void ClearCandidates(Position position);
 
         IGrid Clone();
     }
