@@ -10,7 +10,7 @@ namespace UI.BlazorWASM.Providers
         private readonly IGridSerializer _converter;
         private readonly ModalProvider _modalProvider;
         private readonly DomainFacade _gridProvider;
-        //private readonly PreserveStateProvider _preserveStateProvider;
+        private readonly PreserveStateProvider _preserveStateProvider;
 
         public bool IsValidText { get; private set; }
         private IGrid _gridBackup;
@@ -39,13 +39,13 @@ namespace UI.BlazorWASM.Providers
         public PasteProvider(
             ModalProvider modalProvider,
             DomainFacade gridProvider
-            //,PreserveStateProvider preserveStateProvider
+            , PreserveStateProvider preserveStateProvider
             )
         {
             _converter = GridSerializerFactory.Make(GridSerializerName.Default);
             _modalProvider = modalProvider;
             _gridProvider = gridProvider;
-            //_preserveStateProvider = preserveStateProvider;
+            _preserveStateProvider = preserveStateProvider;
             Pasted = new string('0', 81);
 
             _modalProvider.OnChanged += OnModalChange;
@@ -70,7 +70,7 @@ namespace UI.BlazorWASM.Providers
 
         public void OnShow()
         {
-            //_preserveStateProvider.PauseAutoSave();
+            _preserveStateProvider.PauseAutoSave();
             _gridBackup = _gridProvider.Grid;
             _gridProvider.Grid = Grid;
         }
@@ -78,7 +78,7 @@ namespace UI.BlazorWASM.Providers
         public void OnHide()
         {
             _gridProvider.Grid = _gridBackup;
-            //_preserveStateProvider.ResumeAutoSave();
+            _preserveStateProvider.ResumeAutoSave();
         }
 
         public void RestartBackup()
