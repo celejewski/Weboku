@@ -62,28 +62,19 @@ namespace UI.BlazorWASM.Helpers
             services.AddScoped<InputMarkProvider>();
             services.AddScoped<TooltipProvider>();
             services.AddScoped<ModalProvider>();
-
             services.AddScoped<CommandProvider>();
             services.AddScoped<PasteProvider>();
             services.AddScoped<FilterProvider>();
             services.AddScoped<IClickableActionProvider, ClickableActionProvider>();
             services.AddScoped<ClickableActionFactory>();
-
             services.AddScoped<GameTimerProvider>();
-
             services.AddScoped<NumpadMenuProvider>();
             services.AddScoped<NumpadMenuBuilder>();
-
             services.AddScoped<HotkeyProvider>();
-
             services.AddScoped<StorageProvider>();
             services.AddScoped<PreserveStateProvider>();
-
-            //services.AddScoped<SudokuProvider>();
-
             services.AddScoped<GameStateChecker>();
             services.AddScoped<ShareProvider>();
-            //services.AddScoped<IGridProvider, GridProvider>();
         }
     }
 }
