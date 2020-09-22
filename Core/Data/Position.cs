@@ -26,7 +26,7 @@ namespace Core.Data
         }
 
         private static readonly List<Position> _all = new List<Position>();
-        public static IReadOnlyList<Position> All => _all;
+        public static IReadOnlyList<Position> Positions => _all;
 
         private static readonly List<List<Position>> _rows = new List<List<Position>>();
         public static IReadOnlyList<List<Position>> Rows => _rows;
@@ -72,7 +72,7 @@ namespace Core.Data
 
         public static IEnumerable<Position> GetOtherPositionsSeenBy(params Position[] positions)
         {
-            foreach( var position1 in All )
+            foreach( var position1 in Positions )
             {
                 if( positions.All(position2 => position1.IsSharingHouseWith(position2)) )
                 {
@@ -133,7 +133,7 @@ namespace Core.Data
                 _blocks.Add(new List<Position>());
             }
 
-            foreach( var position in All )
+            foreach( var position in Positions )
             {
                 _rows[position.y].Add(position);
                 _cols[position.x].Add(position);

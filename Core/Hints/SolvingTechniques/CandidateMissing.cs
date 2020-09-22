@@ -14,7 +14,7 @@ namespace Core.Hints.SolvingTechniques
 
             if( solution == null ) return false;
 
-            return Position.All.Any(pos => !grid.HasValue(pos)
+            return Position.Positions.Any(pos => !grid.HasValue(pos)
             && !grid.HasCandidate(pos, solution.GetValue(pos)));
         }
 

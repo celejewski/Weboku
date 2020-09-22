@@ -131,7 +131,7 @@ namespace Core
         public void RestartGrid()
         {
             _gridHistoryManager.Save();
-            foreach( var position in Position.All )
+            foreach( var position in Position.Positions )
             {
                 if( !_gridManager.Grid.GetIsGiven(position) )
                 {

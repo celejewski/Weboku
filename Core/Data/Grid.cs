@@ -64,7 +64,7 @@ namespace Core.Data
 
         public void ClearAllCandidates()
         {
-            foreach( var position in Position.All )
+            foreach( var position in Position.Positions )
             {
                 ClearCandidates(position);
             }

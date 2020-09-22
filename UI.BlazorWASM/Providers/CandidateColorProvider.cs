@@ -28,7 +28,7 @@ namespace UI.BlazorWASM.Providers
 
         public void ClearColors()
         {
-            foreach( var position in Position.All )
+            foreach( var position in Position.Positions )
             {
                 foreach( var value in Value.All )
                 {

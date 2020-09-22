@@ -10,7 +10,7 @@ namespace Core.Hints.TechniqueFinders
     {
         public override IEnumerable<ISolvingTechnique> FindAll(IGrid grid)
         {
-            var pairPositions = Position.All.Where(pos => grid.GetCandidates(pos).Count() == 2);
+            var pairPositions = Position.Positions.Where(pos => grid.GetCandidates(pos).Count() == 2);
 
             foreach( var pivot in pairPositions )
             {

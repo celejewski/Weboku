@@ -114,7 +114,7 @@ namespace UI.BlazorWASM.Providers
                 return output;
             }
 
-            foreach( var pos in Position.All )
+            foreach( var pos in Position.Positions )
             {
                 if( sharedFields == SharedFields.Givens && !output.GetIsGiven(pos) )
                 {

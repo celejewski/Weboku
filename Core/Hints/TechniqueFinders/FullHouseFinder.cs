@@ -14,7 +14,7 @@ namespace Core.Hints.TechniqueFinders
             var blocks = new byte[9];
             for( int i = 0; i < 81; i++ )
             {
-                var pos = Position.All[i];
+                var pos = Position.Positions[i];
                 if( grid.HasValue(pos) )
                 {
                     cols[pos.x]++;

@@ -14,7 +14,7 @@ namespace Core.Solvers
             int hashcode = 0;
             for( int i = 0; i < 81; i++ )
             {
-                var pos = Position.All[i];
+                var pos = Position.Positions[i];
                 hashcode ^= grid.GetIsGiven(pos)
                     ? grid.GetValue(pos) << (i % 25)
                     : 0;
@@ -64,17 +64,17 @@ namespace Core.Solvers
 
         private bool IsSolved(IGrid grid)
         {
-            return Position.All.All(pos => grid.HasValue(pos));
+            return Position.Positions.All(pos => grid.HasValue(pos));
         }
 
         private bool CanBeSolved(IGrid grid)
         {
-            return Position.All.All(pos => grid.HasValue(pos) || grid.GetCandidates(pos).Count() > 0);
+            return Position.Positions.All(pos => grid.HasValue(pos) || grid.GetCandidates(pos).Count() > 0);
         }
 
         private Position GetNextPosition(IGrid grid)
         {
-            return Position.All.Where(pos => !grid.HasValue(pos))
+            return Position.Positions.Where(pos => !grid.HasValue(pos))
                 .Aggregate((nextPos, pos) => grid.GetCandidates(pos).Count() < grid.GetCandidates(nextPos).Count() ? pos : nextPos);
         }
     }

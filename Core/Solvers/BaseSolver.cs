@@ -10,7 +10,7 @@ namespace Core.Solvers
         public IGrid SolveGivens(IGrid input)
         {
             var gridWithGivensOnly = input.Clone();
-            foreach( var pos in Position.All.Where(pos => !gridWithGivensOnly.GetIsGiven(pos)) )
+            foreach( var pos in Position.Positions.Where(pos => !gridWithGivensOnly.GetIsGiven(pos)) )
             {
                 gridWithGivensOnly.SetValue(pos, Value.None);
             }

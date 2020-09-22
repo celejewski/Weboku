@@ -7,19 +7,19 @@ namespace UI.BlazorWASM.Providers
 {
     public class GameStateChecker
     {
-        private readonly DomainFacade _gridProvider;
+        private readonly DomainFacade _domainFacade;
 
         public event Action OnSolved;
 
-        public GameStateChecker(DomainFacade gridProvider)
+        public GameStateChecker(DomainFacade domainFacade)
         {
-            _gridProvider = gridProvider;
-            _gridProvider.OnValueChanged += Check;
+            _domainFacade = domainFacade;
+            _domainFacade.OnValueChanged += RaiseEventIfSudokuIsSolved;
         }
 
-        private void Check()
+        private void RaiseEventIfSudokuIsSolved()
         {
-            if( Position.All.All(pos => _gridProvider.HasValue(pos) && _gridProvider.IsValueLegal(pos)) )
+            if( Position.Positions.All(position => _domainFacade.HasValue(position) && _domainFacade.IsValueLegal(position)) )
             {
                 OnSolved?.Invoke();
             }

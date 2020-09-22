@@ -50,7 +50,7 @@ namespace Core.Serializers
         {
             var sb = new StringBuilder();
             sb.Append("1");
-            foreach( var pos in Position.All )
+            foreach( var pos in Position.Positions )
             {
                 sb.Append(grid.GetValue(pos));
             }

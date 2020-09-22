@@ -51,7 +51,7 @@ namespace Core.Serializers
 
         private IEnumerable<bool> GridToBools(IGrid grid)
         {
-            foreach( var pos in Position.All )
+            foreach( var pos in Position.Positions )
             {
                 foreach( var bit in CellToBools(grid, pos) )
                 {
@@ -116,7 +116,7 @@ namespace Core.Serializers
             _counter = 0;
             var grid = new Grid();
 
-            foreach( var pos in Position.All )
+            foreach( var pos in Position.Positions )
             {
                 SetValue(grid, bitArray, pos);
             }

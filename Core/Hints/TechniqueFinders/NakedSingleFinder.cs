@@ -9,9 +9,9 @@ namespace Core.Hints.TechniqueFinders
     {
         public override IEnumerable<ISolvingTechnique> FindAll(IGrid grid)
         {
-            for( int i = 0; i < Position.All.Count; i++ )
+            for( int i = 0; i < Position.Positions.Count; i++ )
             {
-                var position = Position.All[i];
+                var position = Position.Positions[i];
                 if( grid.GetCandidates(position).Count() != 1 ) continue;
 
                 var value = grid

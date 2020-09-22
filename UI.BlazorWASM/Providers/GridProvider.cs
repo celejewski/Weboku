@@ -132,7 +132,7 @@ namespace UI.BlazorWASM.Providers
         public void FillAllLegalCandidates()
         {
             _grid.FillAllLegalCandidates();
-            foreach( var pos in Position.All.Where(pos => _grid.HasValue(pos)) )
+            foreach( var pos in Position.Positions.Where(pos => _grid.HasValue(pos)) )
             {
                 foreach( var coords in Position.GetCoordsWhichCanSee(pos) )
                 {
@@ -145,7 +145,7 @@ namespace UI.BlazorWASM.Providers
 
         private void ResetIsCandidateLegal()
         {
-            foreach( var pos in Position.All )
+            foreach( var pos in Position.Positions )
             {
                 foreach( var value in Value.NonEmpty )
                 {
@@ -156,7 +156,7 @@ namespace UI.BlazorWASM.Providers
 
         private void ResetIsInputLegal()
         {
-            foreach( var pos in Position.All )
+            foreach( var pos in Position.Positions )
             {
                 _isInputLegal[pos.x, pos.y] = true;
             }
@@ -164,7 +164,7 @@ namespace UI.BlazorWASM.Providers
 
         private void CalcIsInputLegal()
         {
-            foreach( var pos in Position.All )
+            foreach( var pos in Position.Positions )
             {
                 _isInputLegal[pos.x, pos.y] = Grid.IsCandidateLegal(pos, GetValue(pos));
             }
@@ -172,7 +172,7 @@ namespace UI.BlazorWASM.Providers
 
         private void CalcIsCandidateLegal()
         {
-            foreach( var pos in Position.All.Where(pos => !HasValue(pos)) )
+            foreach( var pos in Position.Positions.Where(pos => !HasValue(pos)) )
             {
                 foreach( var value in Value.NonEmpty.Where(value => HasCandidate(pos, value)) )
                 {

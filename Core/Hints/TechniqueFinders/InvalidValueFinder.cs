@@ -19,7 +19,7 @@ namespace Core.Hints.TechniqueFinders
                 yield break;
             }
 
-            var invalidSolutions = Position.All.Where(pos => grid.HasValue(pos)
+            var invalidSolutions = Position.Positions.Where(pos => grid.HasValue(pos)
                 && grid.GetValue(pos) != solution.GetValue(pos));
 
             if( invalidSolutions.Any() )

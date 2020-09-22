@@ -23,7 +23,7 @@ namespace Core.Hints.TechniqueFinders
 
             for( int i = 0; i < 81; i++ )
             {
-                var pos = Position.All[i];
+                var pos = Position.Positions[i];
                 var candidates = grid.GetCandidates(pos);
 
                 colsLeft[pos.x] &= ~(colsFoundAlready[pos.x] & candidates);

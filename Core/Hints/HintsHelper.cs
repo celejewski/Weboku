@@ -11,7 +11,7 @@ namespace Core.Hints
             var rows = new int[9];
             var blocks = new int[9];
 
-            foreach( var pos in Position.All )
+            foreach( var pos in Position.Positions )
             {
                 if( grid.HasCandidate(pos, value) )
                 {
@@ -33,7 +33,7 @@ namespace Core.Hints
             var blockXcols = new int[9, 9];
             var blockXrows = new int[9, 9];
 
-            foreach( var pos in Position.All )
+            foreach( var pos in Position.Positions )
             {
                 if( grid.HasCandidate(pos, value) )
                 {
