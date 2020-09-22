@@ -1,4 +1,5 @@
-﻿using Core.Data;
+﻿using Core;
+using Core.Data;
 using Core.Serializers;
 using Microsoft.AspNetCore.Components;
 using System;
@@ -16,7 +17,7 @@ namespace UI.BlazorWASM.Providers
         private readonly FilterProvider _filterProvider;
 
         public event Action OnChanged;
-        private readonly IGridProvider _gridProvider;
+        private readonly DomainFacade _gridProvider;
         private readonly IGridSerializer _hodokuGridConverter;
         private string _converted;
         public string Converted
@@ -68,7 +69,7 @@ namespace UI.BlazorWASM.Providers
         }
 
         public ShareProvider(
-            IGridProvider gridProvider,
+            DomainFacade gridProvider,
             NavigationManager navigationManager,
             ModalProvider modalProvider,
             FilterProvider filterProvider
@@ -80,7 +81,7 @@ namespace UI.BlazorWASM.Providers
             _navigationManager = navigationManager;
             _modalProvider = modalProvider;
             _filterProvider = filterProvider;
-            gridProvider.OnValueOrCandidatesChanged += () => _dirty = true;
+            gridProvider.OnValueOrCandidateChanged += () => _dirty = true;
             modalProvider.OnChanged += () => CheckVisibility();
             CheckVisibility();
         }
