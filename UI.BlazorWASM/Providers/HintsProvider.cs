@@ -11,8 +11,7 @@ namespace UI.BlazorWASM.Providers
     {
         private readonly Informer _informer;
         private readonly Displayer _displayer;
-        private readonly DomainFacade _gridHistoryManager;
-        private readonly DomainFacade _gridProvider;
+        private readonly DomainFacade _domainFacade;
 
         public event Action OnChanged;
 
@@ -28,7 +27,7 @@ namespace UI.BlazorWASM.Providers
         {
             get
             {
-                var technique = _solver.GetNextHint(_gridProvider.Grid);
+                var technique = _solver.GetNextHint(_domainFacade.Grid);
                 yield return DisplayTechniqueFactory.GetDisplayer(_informer, _displayer, technique);
             }
         }
@@ -38,18 +37,13 @@ namespace UI.BlazorWASM.Providers
         public bool HasPreviousExplanation => _currentTechnique.HasPreviousExplanation;
 
         private ISolvingTechniqueDisplayer _currentTechnique;
-        private ISolvingTechniqueDisplayer NextTechnique => Techniques.First(t => t.CanExecute(_gridProvider.Grid));
+        private ISolvingTechniqueDisplayer NextTechnique => Techniques.First(t => t.CanExecute(_domainFacade.Grid));
 
-        public HintsProvider(
-            Informer informer,
-            Displayer displayer,
-            DomainFacade gridHistoryManager,
-            DomainFacade gridProvider)
+        public HintsProvider(Informer informer, Displayer displayer, DomainFacade domainFacade)
         {
             _informer = informer;
             _displayer = displayer;
-            _gridHistoryManager = gridHistoryManager;
-            _gridProvider = gridProvider;
+            _domainFacade = domainFacade;
         }
 
 
@@ -90,8 +84,8 @@ namespace UI.BlazorWASM.Providers
 
         public void Execute()
         {
-            NextTechnique.Execute(_gridProvider.Grid);
-            _gridProvider.Grid = _gridProvider.Grid;
+            NextTechnique.Execute(_domainFacade.Grid);
+            _domainFacade.Grid = _domainFacade.Grid;
             _displayer.Hide();
             SetState(HintsState.ShowEmpty);
         }
