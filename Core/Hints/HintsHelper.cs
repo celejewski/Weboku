@@ -5,7 +5,7 @@ namespace Core.Hints
     public static class HintsHelper
     {
         public static (int[] cols, int[] rows, int[] blocks)
-            GetCandidatesCount(this IGrid grid, InputValue value)
+            GetCandidatesCount(this IGrid grid, Value value)
         {
             var cols = new int[9];
             var rows = new int[9];
@@ -25,7 +25,7 @@ namespace Core.Hints
         }
 
         public static (int[] cols, int[] rows, int[] blocks, int[,] blockXcols, int[,] blockXrows)
-            GetCandidatesCountEx(this IGrid grid, InputValue value)
+            GetCandidatesCountEx(this IGrid grid, Value value)
         {
             var cols = new int[9];
             var rows = new int[9];

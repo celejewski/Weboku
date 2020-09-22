@@ -49,7 +49,7 @@ namespace Core.Solvers
             }
 
             var pos = GetNextPosition(input);
-            foreach( var value in InputValue.NonEmpty.Where(value => input.HasCandidate(pos, value)) )
+            foreach( var value in Value.NonEmpty.Where(value => input.HasCandidate(pos, value)) )
             {
                 var grid = input.Clone();
                 grid.SetValue(pos, value);

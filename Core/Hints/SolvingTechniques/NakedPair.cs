@@ -5,7 +5,7 @@ namespace Core.Hints.SolvingTechniques
 {
     public class NakedPair : NakedSubset
     {
-        public NakedPair(IEnumerable<Position> positions, IEnumerable<InputValue> values)
+        public NakedPair(IEnumerable<Position> positions, IEnumerable<Value> values)
             : base(positions, values)
         {
         }

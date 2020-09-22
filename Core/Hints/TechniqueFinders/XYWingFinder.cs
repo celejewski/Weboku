@@ -32,7 +32,7 @@ namespace Core.Hints.TechniqueFinders
                         var candidates1 = grid.GetCandidates(pos1);
                         var candidates2 = grid.GetCandidates(pos2);
                         var sharedValue = candidates1.ToInputValues().FirstOrDefault(value => candidates2.ToInputValues().Contains(value));
-                        if( sharedValue == InputValue.None ) continue;
+                        if( sharedValue == Value.None ) continue;
 
                         var positionsToRemoveFrom = Position.GetOtherPositionsSeenBy(pos1, pos2)
                             .Where(pos => grid.HasCandidate(pos, sharedValue));

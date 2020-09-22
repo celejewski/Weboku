@@ -23,7 +23,7 @@ namespace Tests.TechniqueFinders
             Assert.Single(result);
 
             var first = result[0];
-            Assert.Equal(InputValue.Four, first.Value);
+            Assert.Equal(Value.Four, first.Value);
             Assert.Equal(House.Row, first.House);
 
             var points = new[]

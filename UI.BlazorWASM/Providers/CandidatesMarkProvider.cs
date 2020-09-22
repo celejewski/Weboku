@@ -37,7 +37,7 @@ namespace UI.BlazorWASM.Providers
             OnChanged?.Invoke();
         }
 
-        public Color GetColor(Position pos, InputValue candidate)
+        public Color GetColor(Position pos, Value candidate)
         {
             var isLegal = !_domainFacade.HasCandidate(pos, candidate) || _domainFacade.IsCandidateLegal(pos, candidate);
             return isLegal ? _colors[pos.x, pos.y, candidate - 1] : Color.Illegal;

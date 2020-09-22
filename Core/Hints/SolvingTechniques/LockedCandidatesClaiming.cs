@@ -6,7 +6,7 @@ namespace Core.Hints.SolvingTechniques
 {
     public class LockedCandidatesClaiming : ISolvingTechnique
     {
-        public LockedCandidatesClaiming(InputValue inputValue, IEnumerable<Position> positionsToRemoveCandidate, House house)
+        public LockedCandidatesClaiming(Value inputValue, IEnumerable<Position> positionsToRemoveCandidate, House house)
         {
             InputValue = inputValue;
             PositionsToRemoveCandidate = positionsToRemoveCandidate;
@@ -17,7 +17,7 @@ namespace Core.Hints.SolvingTechniques
 
         public House House { get; }
 
-        public InputValue InputValue { get; }
+        public Value InputValue { get; }
 
         public bool CanExecute(IGrid grid)
         {

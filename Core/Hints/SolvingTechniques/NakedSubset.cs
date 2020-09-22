@@ -6,7 +6,7 @@ namespace Core.Hints.SolvingTechniques
 {
     public class NakedSubset : ISolvingTechnique
     {
-        public NakedSubset(IEnumerable<Position> positions, IEnumerable<InputValue> values)
+        public NakedSubset(IEnumerable<Position> positions, IEnumerable<Value> values)
         {
             Positions = positions;
             Values = values;
@@ -14,7 +14,7 @@ namespace Core.Hints.SolvingTechniques
 
         public IEnumerable<Position> Positions { get; }
 
-        public IEnumerable<InputValue> Values { get; }
+        public IEnumerable<Value> Values { get; }
 
         public bool CanExecute(IGrid grid)
         {

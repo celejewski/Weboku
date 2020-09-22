@@ -9,10 +9,10 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
         private readonly Position _pivot;
         private readonly Position _pos1;
         private readonly Position _pos2;
-        private readonly InputValue _candidate1;
-        private readonly InputValue _candidate2;
+        private readonly Value _candidate1;
+        private readonly Value _candidate2;
         private readonly IEnumerable<Position> _positionsToRemove;
-        private readonly InputValue _value;
+        private readonly Value _value;
 
         public XYWingDisplayer(Informer informer, Displayer displayer, XYWing xyWing) 
             : base(informer, displayer, xyWing, "xywing")

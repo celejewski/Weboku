@@ -14,7 +14,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
         private readonly Position _base2;
         private readonly Position _pos1;
         private readonly Position _pos2;
-        private readonly InputValue _value;
+        private readonly Value _value;
 
         public SkyscrapperDisplayer(Informer informer, Displayer displayer, Skyscrapper skyscrapper) 
             : base(informer, displayer, skyscrapper, "skyscrapper")

@@ -5,31 +5,31 @@ namespace Core.Data
 {
     sealed public class Grid : IGrid
     {
-        private readonly InputValue[,] _inputs;
+        private readonly Value[,] _inputs;
         private readonly Candidates[,] _candidates;
         private readonly bool[,] _isGivens;
 
         public Grid()
         {
-            _inputs = new InputValue[9, 9];
+            _inputs = new Value[9, 9];
             _candidates = new Candidates[9, 9];
             _isGivens = new bool[9, 9];
         }
 
-        private Grid(InputValue[,] inputs, Candidates[,] candidates, bool[,] isGivens)
+        private Grid(Value[,] inputs, Candidates[,] candidates, bool[,] isGivens)
         {
             _inputs = inputs;
             _candidates = candidates;
             _isGivens = isGivens;
         }
 
-        public InputValue GetValue(Position position) => _inputs[position.x, position.y];
-        public void SetValue(Position position, InputValue value)
+        public Value GetValue(Position position) => _inputs[position.x, position.y];
+        public void SetValue(Position position, Value value)
         {
             _inputs[position.x, position.y] = value;
             _candidates[position.x, position.y] = Candidates.None;
 
-            if( value != InputValue.None )
+            if( value != Value.None )
             {
                 foreach( var seenBy in Position.GetCoordsWhichCanSee(position) )
                 {
@@ -38,28 +38,28 @@ namespace Core.Data
             }
         }
 
-        public bool IsCandidateLegal(Position position, InputValue value)
+        public bool IsCandidateLegal(Position position, Value value)
         {
-            return value == InputValue.None
+            return value == Value.None
                 || Position.GetCoordsWhichCanSee(position)
                 .Where(otherPosition => !position.Equals(otherPosition))
                 .All(otherPosition => GetValue(otherPosition) != value);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool HasCandidate(Position position, InputValue value)
+        public bool HasCandidate(Position position, Value value)
             => (_candidates[position.x, position.y] & value.AsCandidates()) == value.AsCandidates();
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void ToggleCandidate(Position position, InputValue value)
+        public void ToggleCandidate(Position position, Value value)
             => _candidates[position.x, position.y] ^= value.AsCandidates();
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void RemoveCandidate(Position position, InputValue value)
+        public void RemoveCandidate(Position position, Value value)
             => _candidates[position.x, position.y] &= ~value.AsCandidates();
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void AddCandidate(Position position, InputValue value)
+        public void AddCandidate(Position position, Value value)
             => _candidates[position.x, position.y] |= value.AsCandidates();
 
         public void ClearAllCandidates()
@@ -98,7 +98,7 @@ namespace Core.Data
                 for( int y = 0; y < 9; y++ )
                 {
                     var block = (x / 3) + (y / 3) * 3;
-                    _candidates[x, y] = _inputs[x, y] != InputValue.None
+                    _candidates[x, y] = _inputs[x, y] != Value.None
                         ? Candidates.None
                         : Candidates.All ^ (cols[x] | rows[y] | blocks[block]);
                 }
@@ -120,14 +120,14 @@ namespace Core.Data
         public IGrid Clone()
         {
             return new Grid(
-                (InputValue[,]) _inputs.Clone(),
+                (Value[,]) _inputs.Clone(),
                 (Candidates[,]) _candidates.Clone(),
                 (bool[,]) _isGivens.Clone()
                 );
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool HasValue(Position pos) => GetValue(pos) != InputValue.None;
+        public bool HasValue(Position pos) => GetValue(pos) != Value.None;
 
         public Candidates GetCandidates(Position position) => _candidates[position.x, position.y];
     }

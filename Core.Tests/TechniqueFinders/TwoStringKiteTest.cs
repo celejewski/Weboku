@@ -20,7 +20,7 @@ namespace Tests.TechniqueFinders
             var results = _finder.FindAll(grid).OfType<TwoStringKite>().ToList();
             Assert.Single(results);
             var result = results[0];
-            Assert.Equal(InputValue.Five, result.Value);
+            Assert.Equal(Value.Five, result.Value);
 
             var expectedLegalPositions = new (int x, int y)[] { (5, 5), (1, 6) };
             var expectedInfoPositions = new (int x, int y)[] { (3, 6), (5, 8) };

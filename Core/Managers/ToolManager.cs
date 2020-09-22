@@ -4,21 +4,21 @@ namespace Core.Managers
 {
     public class ToolManager
     {
-        public void UseMarker(IGrid grid, Position position, InputValue value)
+        public void UseMarker(IGrid grid, Position position, Value value)
         {
             if( grid.GetIsGiven(position) ) return;
 
-            if( grid.GetValue(position) == InputValue.None )
+            if( grid.GetValue(position) == Value.None )
             {
                 grid.SetValue(position, value);
             }
             else if( grid.GetValue(position) == value )
             {
-                grid.SetValue(position, InputValue.None);
+                grid.SetValue(position, Value.None);
             }
         }
 
-        public void UsePencil(IGrid grid, Position position, InputValue value)
+        public void UsePencil(IGrid grid, Position position, Value value)
         {
             if( grid.HasValue(position) ) return;
 
@@ -29,7 +29,7 @@ namespace Core.Managers
         {
             if( grid.GetIsGiven(position) ) return;
 
-            grid.SetValue(position, InputValue.None);
+            grid.SetValue(position, Value.None);
             grid.ClearCandidates(position);
         }
     }

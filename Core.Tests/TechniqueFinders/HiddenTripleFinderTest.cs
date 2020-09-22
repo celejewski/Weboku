@@ -22,7 +22,7 @@ namespace Tests.TechniqueFinders
             var results = finder.FindAll(grid).OfType<HiddenSubset>().ToList();
             Assert.Equal(2, results.Count);
 
-            var values = new InputValue[] { 1, 3, 4 };
+            var values = new Value[] { 1, 3, 4 };
             Assert.Contains(results, result => values.All(value => result.Values.Contains(value)));
         }
     }

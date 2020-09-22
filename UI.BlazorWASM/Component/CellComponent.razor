@@ -1,12 +1,12 @@
 ﻿@inject Core.DomainFacade DomainFacade
 
 <div class="input @(_currentIsGiven ? "input--is-given " : String.Empty)">
-    @(_currentValue != InputValue.None ? _currentValue.ToString() : string.Empty)
+    @(_currentValue != Value.None ? _currentValue.ToString() : string.Empty)
 </div>
 
 @code {
-    private InputValue _previousValue;
-    private InputValue _currentValue => DomainFacade.GetInputValue(Pos);
+    private Value _previousValue;
+    private Value _currentValue => DomainFacade.GetInputValue(Pos);
     private bool _previousIsGiven;
     private bool _currentIsGiven => DomainFacade.IsGiven(Pos);
 

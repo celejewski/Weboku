@@ -25,7 +25,7 @@ namespace Core.Managers
         {
             return Grid.IsCandidateLegal(position, Grid.GetValue(position));
         }
-        public InputValue GetInputValue(Position position)
+        public Value GetInputValue(Position position)
         {
             return Grid.GetValue(position);
         }
@@ -35,7 +35,7 @@ namespace Core.Managers
             return Grid.HasValue(position);
         }
 
-        public bool HasCandidate(Position position, InputValue value)
+        public bool HasCandidate(Position position, Value value)
         {
             return Grid.HasCandidate(position, value);
         }
@@ -66,7 +66,7 @@ namespace Core.Managers
             Grid.FillAllLegalCandidates();
         }
 
-        public bool IsCandidateLegal(Position position, InputValue value)
+        public bool IsCandidateLegal(Position position, Value value)
         {
             return Grid.IsCandidateLegal(position, value);
         }

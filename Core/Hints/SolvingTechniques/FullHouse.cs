@@ -4,13 +4,13 @@ namespace Core.Hints.SolvingTechniques
 {
     public class FullHouse : ISolvingTechnique
     {
-        public FullHouse(Position position, InputValue value)
+        public FullHouse(Position position, Value value)
         {
             Position = position;
             Value = value;
         }
 
-        public InputValue Value { get; }
+        public Value Value { get; }
 
         public Position Position { get; }
 

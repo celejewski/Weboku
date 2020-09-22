@@ -22,14 +22,14 @@ namespace Core.Tests
         public void ToReadOnlyListIsValid()
         {
             Assert.Single(Candidates.One.ToInputValues());
-            Assert.Contains(InputValue.One, Candidates.One.ToInputValues());
+            Assert.Contains(Value.One, Candidates.One.ToInputValues());
 
             var oneAndTwo = (Candidates.Two | Candidates.One).ToInputValues();
             Assert.Equal(2, oneAndTwo.Count);
-            Assert.Contains(InputValue.One, oneAndTwo);
-            Assert.Contains(InputValue.Two, oneAndTwo);
-            Assert.DoesNotContain(InputValue.Three, oneAndTwo);
-            Assert.DoesNotContain(InputValue.Nine, oneAndTwo);
+            Assert.Contains(Value.One, oneAndTwo);
+            Assert.Contains(Value.Two, oneAndTwo);
+            Assert.DoesNotContain(Value.Three, oneAndTwo);
+            Assert.DoesNotContain(Value.Nine, oneAndTwo);
         }
     }
 }

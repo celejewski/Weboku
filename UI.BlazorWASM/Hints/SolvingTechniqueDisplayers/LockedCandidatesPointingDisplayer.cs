@@ -11,7 +11,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
 
         private readonly int _block;
         private string _rowOrColFormated;
-        private readonly InputValue _inputValue;
+        private readonly Value _inputValue;
         private readonly IEnumerable<Position> _positionsToRemoveFrom;
 
         public LockedCandidatesPointingDisplayer(Informer informer, Displayer displayer, LockedCandidatesPointing lockedCandidatesPointing)
@@ -59,7 +59,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
             SetupDisplay();
 
             _displayer.HighlightBlock(_block);
-            _displayer.SetValueFilter(InputValue.None);
+            _displayer.SetValueFilter(Value.None);
             var blockFormatted = _displayer.Format(House.Block, Position.FromBlock(_block));
             _displayer.SetDescription(ExplanationKey(1), blockFormatted);
         }

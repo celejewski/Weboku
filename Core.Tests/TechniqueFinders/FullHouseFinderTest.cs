@@ -20,7 +20,7 @@ namespace Tests.TechniqueFinders
             var results = _finder.FindAll(grid).OfType<FullHouse>().ToList();
             Assert.Single(results);
             var result = results[0];
-            Assert.Equal(InputValue.Nine, result.Value);
+            Assert.Equal(Value.Nine, result.Value);
             Assert.True((6, 4) == (result.Position.x, result.Position.y));
         }
 
@@ -33,7 +33,7 @@ namespace Tests.TechniqueFinders
             var results = _finder.FindAll(grid).OfType<FullHouse>().ToList();
             Assert.Single(results);
             var result = results[0];
-            Assert.Equal(InputValue.Nine, result.Value);
+            Assert.Equal(Value.Nine, result.Value);
             Assert.True(result.Position.Equals((8, 1)));
         }
     }

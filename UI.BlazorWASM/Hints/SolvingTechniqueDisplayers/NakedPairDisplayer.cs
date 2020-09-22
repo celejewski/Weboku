@@ -10,8 +10,8 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
     {
         private readonly Position _pos1;
         private readonly Position _pos2;
-        private readonly InputValue _value1;
-        private readonly InputValue _value2;
+        private readonly Value _value1;
+        private readonly Value _value2;
 
         private readonly IEnumerable<House> _houses;
         private readonly List<Position> _positionsInHouses;

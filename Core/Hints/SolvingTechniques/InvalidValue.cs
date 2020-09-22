@@ -21,7 +21,7 @@ namespace Core.Hints.SolvingTechniques
         {
             foreach( var pos in _positions )
             {
-                grid.SetValue(pos, InputValue.None);
+                grid.SetValue(pos, Value.None);
             }
         }
     }

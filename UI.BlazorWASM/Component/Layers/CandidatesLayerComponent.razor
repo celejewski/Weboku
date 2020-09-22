@@ -4,7 +4,7 @@
     @if( !DomainFacade.HasValue(context) && DomainFacade.GetCandidatesCount(context) > 0 )
     {
         <div class="candidates-grid">
-            @foreach( var value in InputValue.NonEmpty )
+            @foreach( var value in Value.NonEmpty )
             {
                 <CandidatesComponent Pos="context" Value="value" />
             }

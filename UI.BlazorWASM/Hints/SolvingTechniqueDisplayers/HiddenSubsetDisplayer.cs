@@ -10,7 +10,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
 
         protected Position Position => _positions.First();
         protected readonly IEnumerable<Position> _positions;
-        protected readonly IEnumerable<InputValue> _values;
+        protected readonly IEnumerable<Value> _values;
         protected readonly House _house;
         private readonly HiddenSubset _hiddenSubset;
 
@@ -38,7 +38,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
             }
 
             _displayer.HighlightHouse(Position, _house);
-            _displayer.SetValueFilter(InputValue.None);
+            _displayer.SetValueFilter(Value.None);
         }
     }
 }

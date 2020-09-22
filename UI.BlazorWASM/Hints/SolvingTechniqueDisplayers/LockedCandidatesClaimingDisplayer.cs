@@ -9,7 +9,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
     public class LockedCandidatesClaimingDisplayer : BaseSolvingTechniqueDisplayer
     {
 
-        private readonly InputValue _inputValue;
+        private readonly Value _inputValue;
         private readonly IEnumerable<Position> _positionsToRemoveCandidate;
         private IEnumerable<Position> _positionsWithLegalCandidate;
         private IEnumerable<Position> _positionsWithIllegalCandidate;
@@ -65,7 +65,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
             SetupDisplay();
 
             _displayer.HighlightHouse(Position, _house);
-            _displayer.SetValueFilter(InputValue.None);
+            _displayer.SetValueFilter(Value.None);
             _displayer.SetDescription(ExplanationKey(1), _houseFormatted);
         }
         private void Explain2()

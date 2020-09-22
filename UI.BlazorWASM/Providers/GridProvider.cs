@@ -34,7 +34,7 @@ namespace UI.BlazorWASM.Providers
             _sudokuProvider = sudokuProvider;
         }
 
-        public void AddCandidate(Position pos, InputValue value)
+        public void AddCandidate(Position pos, Value value)
         {
             _grid.AddCandidate(pos, value);
             _isCandidateLegal[pos.x, pos.y, value] = Grid.IsCandidateLegal(pos, value);
@@ -64,17 +64,17 @@ namespace UI.BlazorWASM.Providers
             return _grid.GetCandidates(pos).Count();
         }
 
-        public InputValue GetValue(Position pos)
+        public Value GetValue(Position pos)
         {
             return _grid.GetValue(pos);
         }
 
-        public bool HasCandidate(Position pos, InputValue value)
+        public bool HasCandidate(Position pos, Value value)
         {
             return _grid.HasCandidate(pos, value);
         }
 
-        public bool IsCandidateLegal(Position pos, InputValue value)
+        public bool IsCandidateLegal(Position pos, Value value)
         {
             return _isCandidateLegal[pos.x, pos.y, value];
         }
@@ -89,22 +89,22 @@ namespace UI.BlazorWASM.Providers
             if( _sudokuProvider.HasSolution )
             {
                 return GetIsGiven(pos)
-                    || GetValue(pos) == InputValue.None
+                    || GetValue(pos) == Value.None
                     || GetValue(pos) == _sudokuProvider.GetSolution(pos);
             }
 
-            return GetValue(pos) == InputValue.None || _isInputLegal[pos.x, pos.y];
+            return GetValue(pos) == Value.None || _isInputLegal[pos.x, pos.y];
         }
 
-        public void RemoveCandidate(Position pos, InputValue value)
+        public void RemoveCandidate(Position pos, Value value)
         {
             _grid.RemoveCandidate(pos, value);
             CandidatesChanged();
         }
 
-        public void SetValue(Position pos, InputValue value)
+        public void SetValue(Position pos, Value value)
         {
-            if( value != InputValue.None )
+            if( value != Value.None )
             {
                 _grid.SetValue(pos, value);
                 ClearCandidates(pos);
@@ -122,7 +122,7 @@ namespace UI.BlazorWASM.Providers
             }
         }
 
-        public void ToggleCandidate(Position pos, InputValue value)
+        public void ToggleCandidate(Position pos, Value value)
         {
             _isCandidateLegal[pos.x, pos.y, value] = Grid.IsCandidateLegal(pos, value);
             _grid.ToggleCandidate(pos, value);
@@ -147,7 +147,7 @@ namespace UI.BlazorWASM.Providers
         {
             foreach( var pos in Position.All )
             {
-                foreach( var value in InputValue.NonEmpty )
+                foreach( var value in Value.NonEmpty )
                 {
                     _isCandidateLegal[pos.x, pos.y, value] = true;
                 }
@@ -174,7 +174,7 @@ namespace UI.BlazorWASM.Providers
         {
             foreach( var pos in Position.All.Where(pos => !HasValue(pos)) )
             {
-                foreach( var value in InputValue.NonEmpty.Where(value => HasCandidate(pos, value)) )
+                foreach( var value in Value.NonEmpty.Where(value => HasCandidate(pos, value)) )
                 {
                     _isCandidateLegal[pos.x, pos.y, value] = Grid.IsCandidateLegal(pos, value);
                 }

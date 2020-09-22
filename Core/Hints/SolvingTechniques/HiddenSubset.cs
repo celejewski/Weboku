@@ -10,11 +10,11 @@ namespace Core.Hints.SolvingTechniques
 
         public IEnumerable<Position> Positions { get; }
 
-        public IEnumerable<InputValue> Values { get; }
+        public IEnumerable<Value> Values { get; }
 
         public House House { get; }
 
-        public HiddenSubset(IEnumerable<Position> positions, IEnumerable<InputValue> values)
+        public HiddenSubset(IEnumerable<Position> positions, IEnumerable<Value> values)
         {
             Positions = positions;
             Values = values;
@@ -38,9 +38,9 @@ namespace Core.Hints.SolvingTechniques
             }
         }
 
-        public IEnumerable<InputValue> ValuesToRemove()
+        public IEnumerable<Value> ValuesToRemove()
         {
-            return InputValue.NonEmpty.Except(Values);
+            return Value.NonEmpty.Except(Values);
         }
     }
 }

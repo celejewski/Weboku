@@ -7,10 +7,10 @@ namespace Core.Hints.SolvingTechniques
     public class LockedCandidatesPointing : ISolvingTechnique
     {
         public int Block { get; }
-        public InputValue InputValue { get; }
+        public Value InputValue { get; }
         public IEnumerable<Position> PositionsToRemoveFrom { get; }
 
-        public LockedCandidatesPointing(int block, InputValue inputValue, IEnumerable<Position> positionsToRemoveFrom)
+        public LockedCandidatesPointing(int block, Value inputValue, IEnumerable<Position> positionsToRemoveFrom)
         {
             Block = block;
             InputValue = inputValue;

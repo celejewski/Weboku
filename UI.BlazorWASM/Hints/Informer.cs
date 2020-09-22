@@ -17,20 +17,20 @@ namespace UI.BlazorWASM.Hints
             _domainFacade = domainFacade;
         }
 
-        public InputValue GetValue(Position position) => _domainFacade.GetInputValue(position);
+        public Value GetValue(Position position) => _domainFacade.GetInputValue(position);
         public bool HasValue(Position position) => _domainFacade.HasValue(position);
-        public bool HasCandidate(Position position, InputValue value) => _domainFacade.HasCandidate(position, value);
-        public InputValue GetSolution(Position position) => InputValue.None;
+        public bool HasCandidate(Position position, Value value) => _domainFacade.HasCandidate(position, value);
+        public Value GetSolution(Position position) => Value.None;
 
         public int GetCandidatesCount(Position position) => _domainFacade.GetCandidatesCount(position);
 
-        public IEnumerable<Position> GetPositionsWithCandidate(House house, Position housePosition, InputValue inputValue)
+        public IEnumerable<Position> GetPositionsWithCandidate(House house, Position housePosition, Value inputValue)
         {
             return HintsHelper.GetPositionsInHouse(housePosition, house)
                 .Where(pos => HasCandidate(pos, inputValue));
         }
 
-        public IEnumerable<Position> WithCandidate(IEnumerable<Position> positions, InputValue inputValue)
+        public IEnumerable<Position> WithCandidate(IEnumerable<Position> positions, Value inputValue)
         {
             return positions.Where(pos => HasCandidate(pos, inputValue));
         }

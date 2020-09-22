@@ -7,10 +7,10 @@ namespace UI.BlazorWASM.Component.NumpadMenu
 {
     public class SelectValueMenuItem : BaseMenuOption, INumpadMenuLabel
     {
-        private readonly InputValue _value;
+        private readonly Value _value;
         private readonly DomainFacade _gridProvider;
 
-        public SelectValueMenuItem(InputValue value, DomainFacade gridProvider, NumpadMenuProvider numpadMenuProvider, CommandProvider commandProvider)
+        public SelectValueMenuItem(Value value, DomainFacade gridProvider, NumpadMenuProvider numpadMenuProvider, CommandProvider commandProvider)
             : base(commandProvider.SelectValue(value), numpadMenuProvider.FilterContainer)
         {
             _value = value;

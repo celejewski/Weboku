@@ -13,12 +13,12 @@ namespace UI.BlazorWASM.Providers
         /// <summary>
         /// Returns value of cell.
         /// </summary>
-        InputValue GetValue(Position pos);
+        Value GetValue(Position pos);
 
         /// <summary>
         /// Sets value of cell and removes candidate from seen cells.
         /// </summary>
-        void SetValue(Position pos, InputValue value);
+        void SetValue(Position pos, Value value);
 
         /// <summary>
         /// Returns true if has not empty value.
@@ -28,22 +28,22 @@ namespace UI.BlazorWASM.Providers
         /// <summary>
         /// Returns true if candidate is in cell.
         /// </summary>
-        bool HasCandidate(Position pos, InputValue value);
+        bool HasCandidate(Position pos, Value value);
 
         /// <summary>
         /// Adds candidate to cell.
         /// </summary>
-        void AddCandidate(Position pos, InputValue value);
+        void AddCandidate(Position pos, Value value);
 
         /// <summary>
         /// Removes candidate from cell.
         /// </summary>
-        void RemoveCandidate(Position pos, InputValue value);
+        void RemoveCandidate(Position pos, Value value);
 
         /// <summary>
         /// Toggles candidate in cell.
         /// </summary>
-        void ToggleCandidate(Position pos, InputValue value);
+        void ToggleCandidate(Position pos, Value value);
 
         /// <summary>
         /// Removes all candidates in grid.
@@ -63,7 +63,7 @@ namespace UI.BlazorWASM.Providers
         /// <summary>
         /// Returns true if the candidate in the cell is legal.
         /// </summary>
-        bool IsCandidateLegal(Position pos, InputValue value);
+        bool IsCandidateLegal(Position pos, Value value);
 
         /// <summary>
         /// Return true if cell is given.

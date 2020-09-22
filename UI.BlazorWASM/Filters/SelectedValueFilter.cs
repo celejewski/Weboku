@@ -5,16 +5,16 @@ namespace UI.BlazorWASM.Filters
 {
     public class SelectedValueFilter : IFilter
     {
-        private readonly InputValue _value;
+        private readonly Value _value;
 
-        public SelectedValueFilter(InputValue value)
+        public SelectedValueFilter(Value value)
         {
             _value = value;
         }
 
         public FilterOption IsFiltered(DomainFacade gridProvider, Position pos)
         {
-            if( _value == InputValue.None )
+            if( _value == Value.None )
             {
                 return FilterOption.None;
             }

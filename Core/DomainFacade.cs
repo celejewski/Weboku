@@ -18,7 +18,7 @@ namespace Core
             _toolManager = new ToolManager();
             _gridHistoryManager = new GridHistoryManager(_gridManager);
         }
-        public InputValue GetInputValue(Position pos)
+        public Value GetInputValue(Position pos)
         {
             return _gridManager.GetInputValue(pos);
         }
@@ -28,7 +28,7 @@ namespace Core
             return _gridManager.IsGiven(position);
         }
 
-        public bool HasCandidate(Position position, InputValue value)
+        public bool HasCandidate(Position position, Value value)
         {
             return _gridManager.HasCandidate(position, value);
         }
@@ -43,7 +43,7 @@ namespace Core
             return _gridManager.IsValueLegal(position);
         }
 
-        public bool IsCandidateLegal(Position position, InputValue value)
+        public bool IsCandidateLegal(Position position, Value value)
         {
             return _gridManager.IsCandidateLegal(position, value);
         }
@@ -71,14 +71,14 @@ namespace Core
         }
 
 
-        public void UseMarker(Position position, InputValue value)
+        public void UseMarker(Position position, Value value)
         {
             _gridHistoryManager.Save();
             _toolManager.UseMarker(_gridManager.Grid, position, value);
             _gridManager.ValueAndCandidateChanged();
         }
 
-        public void UsePencil(Position position, InputValue value)
+        public void UsePencil(Position position, Value value)
         {
             _gridHistoryManager.Save();
             _toolManager.UsePencil(_gridManager.Grid, position, value);
@@ -135,7 +135,7 @@ namespace Core
             {
                 if( !_gridManager.Grid.GetIsGiven(position) )
                 {
-                    _gridManager.Grid.SetValue(position, InputValue.None);
+                    _gridManager.Grid.SetValue(position, Value.None);
                 }
             }
 

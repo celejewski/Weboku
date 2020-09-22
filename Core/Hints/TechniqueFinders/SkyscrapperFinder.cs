@@ -9,7 +9,7 @@ namespace Core.Hints.TechniqueFinders
     {
         public override IEnumerable<ISolvingTechnique> FindAll(IGrid grid)
         {
-            foreach( var value in InputValue.NonEmpty )
+            foreach( var value in Value.NonEmpty )
             {
                 foreach( var houses in new[] { Position.Rows, Position.Cols } )
                 {

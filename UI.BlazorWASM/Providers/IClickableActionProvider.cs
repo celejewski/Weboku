@@ -7,7 +7,7 @@ namespace UI.BlazorWASM.Providers
 {
     public interface IClickableActionProvider : IProvider
     {
-        InputValue Value { get; set; }
+        Value Value { get; set; }
         Color Color1 { get; set; }
         Color Color2 { get; set; }
         void SetClickableAction(IClickableAction clickableAction);

@@ -8,7 +8,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
     public class HiddenSingleDisplayer : BaseSolvingTechniqueDisplayer
     {
         private readonly Position _position;
-        private readonly InputValue _inputValue;
+        private readonly Value _inputValue;
 
         private readonly House _house;
         private string _houseFormated;
@@ -44,7 +44,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
         private void Explain1()
         {
             SetupDisplayer();
-            _displayer.SetValueFilter(InputValue.None);
+            _displayer.SetValueFilter(Value.None);
             _displayer.SetDescription(ExplanationKey(1), _houseFormated);
         }
 

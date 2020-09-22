@@ -21,7 +21,7 @@ namespace Tests.TechniqueFinders
             Assert.Equal(2, results.Count);
 
             var result = results[0];
-            Assert.Equal(InputValue.Seven, result.Value);
+            Assert.Equal(Value.Seven, result.Value);
             Assert.True(result.House == House.Block || result.House == House.Col);
             Assert.True((1, 2) == (result.Position.x, result.Position.y));
         }

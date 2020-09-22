@@ -6,7 +6,7 @@ namespace Core.Hints.SolvingTechniques
 {
     public class XYWing : ISolvingTechnique
     {
-        public XYWing(Position pivot, Position pos1, Position pos2, InputValue candidate1, InputValue candidate2, IEnumerable<Position> positionsToRemove, InputValue value)
+        public XYWing(Position pivot, Position pos1, Position pos2, Value candidate1, Value candidate2, IEnumerable<Position> positionsToRemove, Value value)
         {
             Pivot = pivot;
             Pos1 = pos1;
@@ -20,10 +20,10 @@ namespace Core.Hints.SolvingTechniques
         public Position Pivot { get; }
         public Position Pos1 { get; }
         public Position Pos2 { get; }
-        public InputValue Candidate1 { get; }
-        public InputValue Candidate2 { get; }
+        public Value Candidate1 { get; }
+        public Value Candidate2 { get; }
         public IEnumerable<Position> PositionsToRemove { get; }
-        public InputValue Value { get; }
+        public Value Value { get; }
 
         public bool CanExecute(IGrid grid)
         {
