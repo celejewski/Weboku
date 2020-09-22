@@ -10,18 +10,24 @@ namespace UI.BlazorWASM.Providers
 
         public GameTimerProvider(ModalProvider modalProvider)
         {
-            _timer = new Timer(1000);
-            _timer.Elapsed += (o, e) =>
+            _modalProvider = modalProvider;
+            _timer = MakeTimer();
+            Start();
+        }
+
+        private Timer MakeTimer()
+        {
+            var timer = new Timer(1000);
+            timer.Elapsed += (o, e) =>
             {
                 bool isPaused = _modalProvider.CurrentState != Component.Modals.ModalState.None;
                 if( !isPaused )
                 {
                     Elapsed += TimeSpan.FromSeconds(1);
+                    OnChanged?.Invoke();
                 }
-                OnChanged?.Invoke();
             };
-            _modalProvider = modalProvider;
-            Start();
+            return timer;
         }
 
         public TimeSpan Elapsed { get; private set; }
