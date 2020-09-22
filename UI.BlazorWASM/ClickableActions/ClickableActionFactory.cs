@@ -1,4 +1,5 @@
 ﻿using Core;
+using System;
 using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.ClickableActions
@@ -14,23 +15,16 @@ namespace UI.BlazorWASM.ClickableActions
             _domainFacade = domainFacade;
         }
 
-        public IClickableAction MakeBrushAction()
+        public IClickableAction MakeClickableAction(ClickableAction clickableAction)
         {
-            return new BrushAction(_cellColorProvider);
-        }
-        public IClickableAction MakeMarkerAction()
-        {
-            return new MarkerAction(_domainFacade);
-        }
-
-        public IClickableAction MakeEraserAction()
-        {
-            return new EraserAction(_domainFacade);
-        }
-
-        public IClickableAction MakePencilAction()
-        {
-            return new PencilAction(_domainFacade);
+            return clickableAction switch
+            {
+                ClickableAction.Brush => new BrushAction(_cellColorProvider),
+                ClickableAction.Eraser => new EraserAction(_domainFacade),
+                ClickableAction.Marker => new MarkerAction(_domainFacade),
+                ClickableAction.Pencil => new PencilAction(_domainFacade),
+                _ => throw new ArgumentException("Invalid action"),
+            };
         }
     }
 }

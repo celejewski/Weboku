@@ -7,17 +7,15 @@ namespace UI.BlazorWASM.Commands
     public class SelectActionMarkerCommand : ICommand
     {
         private readonly ClickableActionProvider _clickableActionProvider;
-        private readonly ClickableActionFactory _clickableActionFactory;
 
-        public SelectActionMarkerCommand(ClickableActionProvider clickableActionProvider, ClickableActionFactory clickableActionFactory)
+        public SelectActionMarkerCommand(ClickableActionProvider clickableActionProvider)
         {
             _clickableActionProvider = clickableActionProvider;
-            _clickableActionFactory = clickableActionFactory;
         }
 
         public Task Execute()
         {
-            _clickableActionProvider.SetClickableAction(_clickableActionFactory.MakeMarkerAction());
+            _clickableActionProvider.SelectClickableAction(ClickableAction.Marker);
             return Task.CompletedTask;
         }
     }

@@ -8,11 +8,12 @@ namespace UI.BlazorWASM.Providers
 {
     public class ClickableActionProvider
     {
-        public IClickableAction ClickableAction { get; private set; }
+        private IClickableAction _clickableAction;
 
         private Value _value;
         private Color _color1;
         private Color _color2;
+        private readonly ClickableActionFactory _clickableActionFactory;
 
         public Value Value
         {
@@ -45,18 +46,19 @@ namespace UI.BlazorWASM.Providers
         }
 
         public event Action OnChanged;
-        public void SetClickableAction(IClickableAction clickableAction)
+        public void SelectClickableAction(ClickableAction clickableAction)
         {
-            ClickableAction = clickableAction;
+            _clickableAction = _clickableActionFactory.MakeClickableAction(clickableAction);
             OnChanged?.Invoke();
         }
 
         public ClickableActionProvider(ClickableActionFactory clickableActionFactory)
         {
-            ClickableAction = clickableActionFactory.MakeMarkerAction();
+            _clickableAction = clickableActionFactory.MakeClickableAction(ClickableAction.Marker);
             Value = Value.One;
             Color1 = Color.First;
             Color2 = Color.Second;
+            _clickableActionFactory = clickableActionFactory;
         }
         private ClickableActionArgs CreateArgs(MouseEventArgs e, Position pos)
         {
@@ -72,12 +74,12 @@ namespace UI.BlazorWASM.Providers
 
         public void OnLeftClick(MouseEventArgs e, Position pos)
         {
-            ClickableAction.LeftClickAction(CreateArgs(e, pos));
+            _clickableAction.LeftClickAction(CreateArgs(e, pos));
         }
 
         public void OnRightClick(MouseEventArgs e, Position pos)
         {
-            ClickableAction.RightClickAction(CreateArgs(e, pos));
+            _clickableAction.RightClickAction(CreateArgs(e, pos));
         }
     }
 }

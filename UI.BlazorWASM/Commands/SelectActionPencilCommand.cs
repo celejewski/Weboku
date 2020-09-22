@@ -7,16 +7,13 @@ namespace UI.BlazorWASM.Commands
     public class SelectActionPencilCommand : ICommand
     {
         private readonly ClickableActionProvider _clickableActionProvider;
-        private readonly ClickableActionFactory _clickableActionFactory;
-
-        public SelectActionPencilCommand(ClickableActionProvider clickableActionProvider, ClickableActionFactory clickableActionFactory)
+        public SelectActionPencilCommand(ClickableActionProvider clickableActionProvider)
         {
             _clickableActionProvider = clickableActionProvider;
-            _clickableActionFactory = clickableActionFactory;
         }
         public Task Execute()
         {
-            _clickableActionProvider.SetClickableAction(_clickableActionFactory.MakePencilAction());
+            _clickableActionProvider.SelectClickableAction(ClickableAction.Pencil);
             return Task.CompletedTask;
         }
     }
