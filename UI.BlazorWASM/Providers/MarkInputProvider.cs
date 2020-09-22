@@ -1,4 +1,5 @@
-﻿using Core.Data;
+﻿using Core;
+using Core.Data;
 using System;
 using UI.BlazorWASM.Enums;
 
@@ -7,28 +8,33 @@ namespace UI.BlazorWASM.Providers
     public class MarkInputProvider : IProvider
     {
         private readonly Color[,] _colors = new Color[9, 9];
+        private readonly DomainFacade _domainFacade;
+
+        public MarkInputProvider(DomainFacade domainFacade)
+        {
+            _domainFacade = domainFacade;
+            _domainFacade.OnValueChanged += () => OnChanged?.Invoke();
+        }
 
         public void SetColor(Position position, Color color)
         {
-            SetColor(position.x, position.y, color);
-        }
-
-        public void SetColor(int x, int y, Color color)
-        {
-            _colors[x, y] = color;
+            _colors[position.x, position.y] = color;
             OnChanged?.Invoke();
         }
 
-        public Color GetColor(Position pos) => _colors[pos.x, pos.y];
+
+        public Color GetColor(Position position)
+        {
+            return _domainFacade.IsValueLegal(position)
+                ? _colors[position.x, position.y]
+                : Color.Illegal;
+        }
 
         public void ClearColors()
         {
-            for( int x = 0; x < 9; x++ )
+            foreach( var position in Position.Positions )
             {
-                for( int y = 0; y < 9; y++ )
-                {
-                    _colors[x, y] = Color.None;
-                }
+                _colors[position.x, position.y] = Color.None;
             }
             OnChanged?.Invoke();
         }
