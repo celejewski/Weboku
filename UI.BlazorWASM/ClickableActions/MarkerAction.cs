@@ -1,28 +1,22 @@
 ﻿using Core;
-using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.ClickableActions
 {
     public class MarkerAction : IClickableAction
     {
-        private readonly CellColorProvider _cellColorProvider;
-        private readonly DomainFacade _gridProvider;
+        private readonly DomainFacade _domainFacade;
 
-        public MarkerAction(
-            CellColorProvider cellColorProvider,
-            DomainFacade gridProvider
-            )
+        public MarkerAction(DomainFacade domainFacade)
         {
-            _cellColorProvider = cellColorProvider;
-            _gridProvider = gridProvider;
+            _domainFacade = domainFacade;
         }
         public void LeftClickAction(ClickableActionArgs args)
         {
-            _gridProvider.UseMarker(args.Pos, args.Value);
+            _domainFacade.UseMarker(args.Position, args.Value);
         }
         public void RightClickAction(ClickableActionArgs args)
         {
-            _gridProvider.UsePencil(args.Pos, args.Value);
+            _domainFacade.UsePencil(args.Position, args.Value);
         }
     }
 }

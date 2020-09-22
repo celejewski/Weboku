@@ -53,7 +53,7 @@ namespace UI.BlazorWASM.Providers
 
         public ClickableActionProvider(ClickableActionFactory clickableActionFactory)
         {
-            ClickableAction = clickableActionFactory.MarkerAction();
+            ClickableAction = clickableActionFactory.MakeMarkerAction();
             Value = Value.One;
             Color1 = Color.First;
             Color2 = Color.Second;
@@ -63,7 +63,7 @@ namespace UI.BlazorWASM.Providers
             return new ClickableActionArgs
             {
                 MouseEventArgs = e,
-                Pos = pos,
+                Position = pos,
                 Value = Value,
                 Color1 = Color1,
                 Color2 = Color2

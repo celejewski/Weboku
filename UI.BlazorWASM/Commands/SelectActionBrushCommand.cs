@@ -16,7 +16,7 @@ namespace UI.BlazorWASM.Commands
         }
         public Task Execute()
         {
-            _clickableActionProvider.SetClickableAction(_clickableActionFactory.BrushAction());
+            _clickableActionProvider.SetClickableAction(_clickableActionFactory.MakeBrushAction());
             return Task.CompletedTask;
         }
     }

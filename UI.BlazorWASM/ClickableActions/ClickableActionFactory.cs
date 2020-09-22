@@ -6,31 +6,31 @@ namespace UI.BlazorWASM.ClickableActions
     public class ClickableActionFactory
     {
         private readonly CellColorProvider _cellColorProvider;
-        private readonly DomainFacade _gridProvider;
+        private readonly DomainFacade _domainFacade;
 
-        public ClickableActionFactory(CellColorProvider cellColorProvider, DomainFacade gridProvider)
+        public ClickableActionFactory(CellColorProvider cellColorProvider, DomainFacade domainFacade)
         {
             _cellColorProvider = cellColorProvider;
-            _gridProvider = gridProvider;
+            _domainFacade = domainFacade;
         }
 
-        public IClickableAction BrushAction()
+        public IClickableAction MakeBrushAction()
         {
             return new BrushAction(_cellColorProvider);
         }
-        public IClickableAction MarkerAction()
+        public IClickableAction MakeMarkerAction()
         {
-            return new MarkerAction(_cellColorProvider, _gridProvider);
+            return new MarkerAction(_domainFacade);
         }
 
-        public IClickableAction EraserAction()
+        public IClickableAction MakeEraserAction()
         {
-            return new EraserAction(_gridProvider);
+            return new EraserAction(_domainFacade);
         }
 
-        public IClickableAction PencilAction()
+        public IClickableAction MakePencilAction()
         {
-            return new PencilAction(_gridProvider);
+            return new PencilAction(_domainFacade);
         }
     }
 }

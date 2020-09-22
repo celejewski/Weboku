@@ -13,13 +13,12 @@ namespace UI.BlazorWASM.ClickableActions
 
         public void LeftClickAction(ClickableActionArgs args)
         {
-            _domainFacade.UsePencil(args.Pos, args.Value);
+            _domainFacade.UsePencil(args.Position, args.Value);
         }
 
         public void RightClickAction(ClickableActionArgs args)
         {
-
-            _domainFacade.UseMarker(args.Pos, args.Value);
+            _domainFacade.UseMarker(args.Position, args.Value);
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Core;
-using Core.Data;
 
 namespace UI.BlazorWASM.ClickableActions
 {
@@ -7,10 +6,6 @@ namespace UI.BlazorWASM.ClickableActions
     {
         private readonly DomainFacade _domainFacade;
 
-        private void Clear(Position pos)
-        {
-            _domainFacade.UseEraser(pos);
-        }
         public EraserAction(DomainFacade domainFacade)
         {
             _domainFacade = domainFacade;
@@ -18,12 +13,12 @@ namespace UI.BlazorWASM.ClickableActions
 
         public void LeftClickAction(ClickableActionArgs args)
         {
-            Clear(args.Pos);
+            _domainFacade.UseEraser(args.Position);
         }
 
         public void RightClickAction(ClickableActionArgs args)
         {
-            Clear(args.Pos);
+            _domainFacade.UseEraser(args.Position);
         }
     }
 }
