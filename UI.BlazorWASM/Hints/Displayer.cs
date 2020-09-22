@@ -15,7 +15,7 @@ namespace UI.BlazorWASM.Hints
     public class Displayer : IProvider
     {
         private readonly CellColorProvider _cellColorProvider;
-        private readonly CandidatesMarkProvider _candidatesMarkProvider;
+        private readonly CandidateColorProvider _candidatesMarkProvider;
         private readonly NumpadMenuBuilder _numpadMenuBuilder;
         private readonly Informer _informer;
         private readonly MarkInputProvider _markInputProvider;
@@ -33,7 +33,7 @@ namespace UI.BlazorWASM.Hints
 
         public Displayer(
             CellColorProvider cellColorProvider,
-            CandidatesMarkProvider candidatesMarkProvider,
+            CandidateColorProvider candidatesMarkProvider,
             NumpadMenuBuilder numpadMenuBuilder,
             Informer informer,
             MarkInputProvider markInputProvider,
@@ -123,7 +123,7 @@ namespace UI.BlazorWASM.Hints
         }
         public void MarkCandidate(Color color, Position position, Value value)
         {
-            _candidatesMarkProvider.SetColor(position.x, position.y, value, color);
+            _candidatesMarkProvider.SetColor(position, value, color);
         }
 
         public void MarkCandidates(Color color, IEnumerable<Position> positions, Value value)

@@ -58,7 +58,7 @@ namespace UI.BlazorWASM.Helpers
         public static void RegisterProviders(this IServiceCollection services)
         {
             services.AddScoped<CellColorProvider>();
-            services.AddScoped<CandidatesMarkProvider>();
+            services.AddScoped<CandidateColorProvider>();
             services.AddScoped<MarkInputProvider>();
             services.AddScoped<TooltipProvider>();
             services.AddScoped<ModalProvider>();
