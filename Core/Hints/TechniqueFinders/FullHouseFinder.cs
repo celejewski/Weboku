@@ -42,7 +42,7 @@ namespace Core.Hints.TechniqueFinders
                 if( !grid.HasValue(pos) ) position = pos;
                 candidates ^= grid.GetValue(pos).AsCandidates();
             }
-            return new FullHouse(position, candidates.ToInputValues().Single());
+            return new FullHouse(position, candidates.ToValues().Single());
         }
     }
 }

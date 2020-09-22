@@ -18,9 +18,9 @@ namespace Core
             _toolManager = new ToolManager();
             _gridHistoryManager = new GridHistoryManager(_gridManager);
         }
-        public Value GetInputValue(Position pos)
+        public Value GetValue(Position pos)
         {
-            return _gridManager.GetInputValue(pos);
+            return _gridManager.GetValue(pos);
         }
 
         public bool IsGiven(Position position)

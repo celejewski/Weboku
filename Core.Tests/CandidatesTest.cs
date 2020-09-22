@@ -21,10 +21,10 @@ namespace Core.Tests
         [Fact]
         public void ToReadOnlyListIsValid()
         {
-            Assert.Single(Candidates.One.ToInputValues());
-            Assert.Contains(Value.One, Candidates.One.ToInputValues());
+            Assert.Single(Candidates.One.ToValues());
+            Assert.Contains(Value.One, Candidates.One.ToValues());
 
-            var oneAndTwo = (Candidates.Two | Candidates.One).ToInputValues();
+            var oneAndTwo = (Candidates.Two | Candidates.One).ToValues();
             Assert.Equal(2, oneAndTwo.Count);
             Assert.Contains(Value.One, oneAndTwo);
             Assert.Contains(Value.Two, oneAndTwo);

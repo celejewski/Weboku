@@ -25,7 +25,7 @@ namespace Core.Managers
         {
             return Grid.IsCandidateLegal(position, Grid.GetValue(position));
         }
-        public Value GetInputValue(Position position)
+        public Value GetValue(Position position)
         {
             return Grid.GetValue(position);
         }

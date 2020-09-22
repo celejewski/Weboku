@@ -16,7 +16,7 @@ namespace Core.Hints.TechniqueFinders
 
                 var value = grid
                     .GetCandidates(position)
-                    .ToInputValues()
+                    .ToValues()
                     .Single();
 
                 yield return new NakedSingle(position, value);

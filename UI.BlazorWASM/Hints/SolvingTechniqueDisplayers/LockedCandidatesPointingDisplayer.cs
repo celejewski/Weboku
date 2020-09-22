@@ -11,14 +11,14 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
 
         private readonly int _block;
         private string _rowOrColFormated;
-        private readonly Value _inputValue;
+        private readonly Value _value;
         private readonly IEnumerable<Position> _positionsToRemoveFrom;
 
         public LockedCandidatesPointingDisplayer(Informer informer, Displayer displayer, LockedCandidatesPointing lockedCandidatesPointing)
             : base(informer, displayer, lockedCandidatesPointing, "locked-candiates-pointing")
         {
             _block = lockedCandidatesPointing.Block;
-            _inputValue = lockedCandidatesPointing.InputValue;
+            _value = lockedCandidatesPointing.Value;
             _positionsToRemoveFrom = lockedCandidatesPointing.PositionsToRemoveFrom;
 
             _explanationSteps.AddRange(new Action[]
@@ -44,14 +44,14 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
             SetupDisplay();
             var positions = PositionsWithCandidate(_informer);
 
-            _displayer.Mark(Enums.Color.Legal, positions, _inputValue);
-            _displayer.MarkIfHasCandidate(Enums.Color.Illegal, _positionsToRemoveFrom, _inputValue);
+            _displayer.Mark(Enums.Color.Legal, positions, _value);
+            _displayer.MarkIfHasCandidate(Enums.Color.Illegal, _positionsToRemoveFrom, _value);
             _displayer.HighlightBlock(_block);
             _displayer.HighlightHouse(_positionsToRemoveFrom.First(), RowOrCol(_informer));
-            _displayer.SetValueFilter(_inputValue);
+            _displayer.SetValueFilter(_value);
 
             var blockFormatted = _displayer.Format(House.Block, Position.FromBlock(_block));
-            _displayer.SetDescription(DescriptionKey, blockFormatted, _inputValue, _rowOrColFormated, _inputValue, _rowOrColFormated, blockFormatted);
+            _displayer.SetDescription(DescriptionKey, blockFormatted, _value, _rowOrColFormated, _value, _rowOrColFormated, blockFormatted);
         }
 
         public void Explain1()
@@ -69,25 +69,25 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
             SetupDisplay();
 
             _displayer.HighlightBlock(_block);
-            _displayer.SetValueFilter(_inputValue);
-            _displayer.SetDescription(ExplanationKey(2), _inputValue);
+            _displayer.SetValueFilter(_value);
+            _displayer.SetDescription(ExplanationKey(2), _value);
         }
 
         public void Explain3()
         {
             SetupDisplay();
             _displayer.HighlightBlock(_block);
-            _displayer.SetValueFilter(_inputValue);
-            _displayer.Mark(Enums.Color.Legal, PositionWithLegalCandidates(_informer), _inputValue);
-            _displayer.SetDescription(ExplanationKey(3), _inputValue);
+            _displayer.SetValueFilter(_value);
+            _displayer.Mark(Enums.Color.Legal, PositionWithLegalCandidates(_informer), _value);
+            _displayer.SetDescription(ExplanationKey(3), _value);
         }
         public void Explain4()
         {
             SetupDisplay();
             //_displayer.HighlightBlock(_block);
             _displayer.HighlightHouse(_positionsToRemoveFrom.First(), RowOrCol(_informer));
-            _displayer.SetValueFilter(_inputValue);
-            _displayer.Mark(Enums.Color.Legal, PositionWithLegalCandidates(_informer), _inputValue);
+            _displayer.SetValueFilter(_value);
+            _displayer.Mark(Enums.Color.Legal, PositionWithLegalCandidates(_informer), _value);
             _displayer.SetDescription(ExplanationKey(4), _rowOrColFormated);
         }
         public void Explain5()
@@ -95,15 +95,15 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
             SetupDisplay();
             _displayer.HighlightBlock(_block);
             _displayer.HighlightHouse(_positionsToRemoveFrom.First(), RowOrCol(_informer));
-            _displayer.SetValueFilter(_inputValue);
-            _displayer.Mark(Enums.Color.Illegal, _positionsToRemoveFrom, _inputValue);
-            _displayer.Mark(Enums.Color.Legal, PositionWithLegalCandidates(_informer), _inputValue);
-            _displayer.SetDescription(ExplanationKey(5), _inputValue, _rowOrColFormated);
+            _displayer.SetValueFilter(_value);
+            _displayer.Mark(Enums.Color.Illegal, _positionsToRemoveFrom, _value);
+            _displayer.Mark(Enums.Color.Legal, PositionWithLegalCandidates(_informer), _value);
+            _displayer.SetDescription(ExplanationKey(5), _value, _rowOrColFormated);
         }
 
         public IEnumerable<Position> PositionsWithCandidate(Informer _informer)
         {
-            return _informer.GetPositionsWithCandidate(RowOrCol(_informer), _positionsToRemoveFrom.First(), _inputValue);
+            return _informer.GetPositionsWithCandidate(RowOrCol(_informer), _positionsToRemoveFrom.First(), _value);
         }
 
         public IEnumerable<Position> PositionWithLegalCandidates(Informer _informer)
@@ -114,7 +114,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
         private House RowOrCol(Informer _informer)
         {
             var positionsInBlock = Position.Blocks[_block];
-            var positionsWithCandidate = positionsInBlock.Where(pos => _informer.HasCandidate(pos, _inputValue));
+            var positionsWithCandidate = positionsInBlock.Where(pos => _informer.HasCandidate(pos, _value));
             return positionsWithCandidate.First().x == positionsWithCandidate.Last().x ? House.Col : House.Row;
         }
     }

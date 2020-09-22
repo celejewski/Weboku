@@ -46,7 +46,7 @@ namespace Core.Hints.TechniqueFinders
 
         private void CheckResult(IGrid grid, List<ISolvingTechnique> results, House house, List<Position> pos, Candidates candidates)
         {
-            foreach( var value in candidates.ToInputValues() )
+            foreach( var value in candidates.ToValues() )
             {
                 var position = pos.Find(pos => grid.HasCandidate(pos, value));
                 results.Add(new HiddenSingle(position, value, house));

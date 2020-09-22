@@ -21,8 +21,8 @@ namespace Tests.TechniqueFinders
             var results = _finder.FindAll(grid).OfType<LockedCandidatesClaiming>().ToList();
 
             Assert.Equal(2, results.Count);
-            Assert.Contains(results, result => result.InputValue == 4);
-            Assert.Contains(results, result => result.InputValue == 9);
+            Assert.Contains(results, result => result.Value == 4);
+            Assert.Contains(results, result => result.Value == 9);
 
             (int r, int c)[] expectedPositions = new[]
             {
@@ -33,7 +33,7 @@ namespace Tests.TechniqueFinders
                 (6, 6),
             };
 
-            var result = results.First(result => result.InputValue == 4);
+            var result = results.First(result => result.Value == 4);
 
             foreach( var (r, c) in expectedPositions )
             {

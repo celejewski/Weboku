@@ -43,7 +43,7 @@ namespace Core.Hints.TechniqueFinders
                     var candidates = grid.GetCandidates(pos);
                     if( (candidates & values) != Candidates.None )
                     {
-                        yield return (new List<Position>(positions), values.ToInputValues());
+                        yield return (new List<Position>(positions), values.ToValues());
                         break;
                     }
                 }

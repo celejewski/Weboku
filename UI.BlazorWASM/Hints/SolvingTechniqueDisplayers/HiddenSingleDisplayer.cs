@@ -1,14 +1,13 @@
 ﻿using Core.Data;
 using Core.Hints.SolvingTechniques;
 using System;
-using System.Linq;
 
 namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
 {
     public class HiddenSingleDisplayer : BaseSolvingTechniqueDisplayer
     {
         private readonly Position _position;
-        private readonly Value _inputValue;
+        private readonly Value _value;
 
         private readonly House _house;
         private string _houseFormated;
@@ -16,7 +15,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
             : base(informer, displayer, hiddenSingle, "hidden-single")
         {
             _position = hiddenSingle.Position;
-            _inputValue = hiddenSingle.Value;
+            _value = hiddenSingle.Value;
             _house = hiddenSingle.House;
 
             _explanationSteps.AddRange(new Action[] { Explain1, Explain2, Explain3 });
@@ -34,8 +33,8 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
         {
             SetupDisplayer();
 
-            _displayer.SetDescription(DescriptionKey, _displayer.Format(_house, _position), _inputValue, _position);
-            _displayer.SetValueFilter(_inputValue);
+            _displayer.SetDescription(DescriptionKey, _displayer.Format(_house, _position), _value, _position);
+            _displayer.SetValueFilter(_value);
 
             _displayer.MarkCells(Enums.Color.Illegal, HintsHelper.GetPositionsInHouse(_position, _house));
             _displayer.MarkCell(Enums.Color.Legal, _position);
@@ -51,17 +50,17 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
         private void Explain2()
         {
             SetupDisplayer();
-            _displayer.SetValueFilter(_inputValue);
-            _displayer.SetDescription(ExplanationKey(2), _inputValue, _houseFormated, _position);
+            _displayer.SetValueFilter(_value);
+            _displayer.SetDescription(ExplanationKey(2), _value, _houseFormated, _position);
         }
         private void Explain3()
         {
             SetupDisplayer();
             var posInHouse = HintsHelper.GetPositionsInHouse(_position, _house);
-            _displayer.MarkInputOrCandidate(Enums.Color.Illegal, posInHouse, _inputValue);
+            _displayer.MarkInputOrCandidate(Enums.Color.Illegal, posInHouse, _value);
             _displayer.MarkCells(Enums.Color.Illegal, posInHouse);
-            _displayer.Mark(Enums.Color.Legal, _position, _inputValue);
-            _displayer.SetDescription(ExplanationKey(3), _inputValue, _inputValue, _houseFormated, _position);
+            _displayer.Mark(Enums.Color.Legal, _position, _value);
+            _displayer.SetDescription(ExplanationKey(3), _value, _value, _houseFormated, _position);
         }
     }
 }

@@ -47,7 +47,7 @@ namespace Core.Hints.TechniqueFinders
             {
                 if( positions.Keys.Any(pos => (input.GetCandidates(pos) & ~values) != 0) )
                 {
-                    yield return (positions.Keys.ToList(), values.ToInputValues());
+                    yield return (positions.Keys.ToList(), values.ToValues());
                 }
                 yield break;
             }

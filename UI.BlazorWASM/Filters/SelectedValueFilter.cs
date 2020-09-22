@@ -19,7 +19,7 @@ namespace UI.BlazorWASM.Filters
                 return FilterOption.None;
             }
 
-            if( gridProvider.GetInputValue(pos) == _value )
+            if( gridProvider.GetValue(pos) == _value )
             {
                 return FilterOption.Primary;
             }

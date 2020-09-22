@@ -17,8 +17,8 @@ namespace Core.Hints.TechniqueFinders
                 var seenBy = Position.GetCoordsWhichCanSee(pivot)
                     .Where(pos => grid.GetCandidates(pos).Count() == 2);
 
-                var candidate1 = grid.GetCandidates(pivot).ToInputValues()[0];
-                var candidate2 = grid.GetCandidates(pivot).ToInputValues()[1];
+                var candidate1 = grid.GetCandidates(pivot).ToValues()[0];
+                var candidate2 = grid.GetCandidates(pivot).ToValues()[1];
 
                 var seenWithCandidate1 = seenBy.Where(pos => grid.HasCandidate(pos, candidate1) && !grid.HasCandidate(pos, candidate2));
                 var seenWithCandidate2 = seenBy.Where(pos => grid.HasCandidate(pos, candidate2) && !grid.HasCandidate(pos, candidate1));
@@ -31,7 +31,7 @@ namespace Core.Hints.TechniqueFinders
 
                         var candidates1 = grid.GetCandidates(pos1);
                         var candidates2 = grid.GetCandidates(pos2);
-                        var sharedValue = candidates1.ToInputValues().FirstOrDefault(value => candidates2.ToInputValues().Contains(value));
+                        var sharedValue = candidates1.ToValues().FirstOrDefault(value => candidates2.ToValues().Contains(value));
                         if( sharedValue == Value.None ) continue;
 
                         var positionsToRemoveFrom = Position.GetOtherPositionsSeenBy(pos1, pos2)

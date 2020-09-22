@@ -6,7 +6,7 @@
 
 @code {
     private Value _previousValue;
-    private Value _currentValue => DomainFacade.GetInputValue(Pos);
+    private Value _currentValue => DomainFacade.GetValue(Pos);
     private bool _previousIsGiven;
     private bool _currentIsGiven => DomainFacade.IsGiven(Pos);
 

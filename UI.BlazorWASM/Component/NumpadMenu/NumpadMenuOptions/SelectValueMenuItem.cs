@@ -24,7 +24,7 @@ namespace UI.BlazorWASM.Component.NumpadMenu
                 foreach( var row in Position.Rows )
                 {
                     var isAnyValueIllegal = !row.All(_gridProvider.IsValueLegal);
-                    var legalValuesInRow = row.Count(pos => _gridProvider.GetInputValue(pos) == _value);
+                    var legalValuesInRow = row.Count(pos => _gridProvider.GetValue(pos) == _value);
                     if( isAnyValueIllegal || legalValuesInRow != 1 ) return false;
                 }
                 return true;

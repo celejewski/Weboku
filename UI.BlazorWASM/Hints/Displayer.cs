@@ -123,14 +123,14 @@ namespace UI.BlazorWASM.Hints
         }
         public void MarkCandidate(Color color, Position position, Value value)
         {
-            _candidatesMarkProvider.SetColor(position.x, position.y, (int) value, color);
+            _candidatesMarkProvider.SetColor(position.x, position.y, value, color);
         }
 
-        public void MarkCandidates(Color color, IEnumerable<Position> positions, Value inputValue)
+        public void MarkCandidates(Color color, IEnumerable<Position> positions, Value value)
         {
             foreach( var position in positions )
             {
-                MarkCandidate(color, position, inputValue);
+                MarkCandidate(color, position, value);
             }
         }
 
@@ -198,7 +198,7 @@ namespace UI.BlazorWASM.Hints
 
         public void SetValueFilter(Value input)
         {
-            _ = _numpadMenuBuilder.SelectValue((int) input).Execute();
+            _ = _numpadMenuBuilder.SelectValue(input).Execute();
         }
         public string Format(House house)
         {

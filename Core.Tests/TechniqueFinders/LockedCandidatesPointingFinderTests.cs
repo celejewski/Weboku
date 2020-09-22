@@ -23,7 +23,7 @@ namespace Tests.TechniqueFinders
             Assert.Equal(3, results.Count);
 
             var expectedValues = new[] { 3, 5, 8 };
-            Assert.True(expectedValues.All(value => results.Any(t => t.InputValue == value)));
+            Assert.True(expectedValues.All(value => results.Any(t => t.Value == value)));
         }
     }
 }
