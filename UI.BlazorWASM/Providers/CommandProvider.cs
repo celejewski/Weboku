@@ -9,10 +9,6 @@ namespace UI.BlazorWASM.Providers
         private readonly FilterProvider _filterProvider;
         private readonly IClickableActionProvider _clickableActionProvider;
         private readonly SettingsProvider _settingsProvider;
-        private readonly ModalProvider _modalProvider;
-        private readonly CellColorProvider _cellColorProvider;
-        private readonly DomainFacade _gridHistoryProvider;
-        private readonly GameTimerProvider _gameTimerProvider;
         private readonly DomainFacade _domainFacade;
         private readonly StartGameCommand _startGameCommand;
 
@@ -20,10 +16,6 @@ namespace UI.BlazorWASM.Providers
             FilterProvider filterProvider,
             IClickableActionProvider clickableActionProvider,
             SettingsProvider settingsProvider,
-            ModalProvider modalProvider,
-            CellColorProvider cellColorProvider,
-            DomainFacade gridHistoryProvider,
-            GameTimerProvider gameTimerProvider,
             DomainFacade domainFacade,
             StartGameCommand startGameCommand
 
@@ -32,10 +24,6 @@ namespace UI.BlazorWASM.Providers
             _filterProvider = filterProvider;
             _clickableActionProvider = clickableActionProvider;
             _settingsProvider = settingsProvider;
-            _modalProvider = modalProvider;
-            _cellColorProvider = cellColorProvider;
-            _gridHistoryProvider = gridHistoryProvider;
-            _gameTimerProvider = gameTimerProvider;
             _domainFacade = domainFacade;
             _startGameCommand = startGameCommand;
         }
