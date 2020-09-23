@@ -21,6 +21,8 @@ namespace Core.Managers
             }
         }
 
+        public Difficulty Difficulty { get; set; }
+
         public bool IsValueLegal(Position position)
         {
             return Grid.IsCandidateLegal(position, Grid.GetValue(position));

@@ -53,10 +53,17 @@ namespace Core
             return _gridManager.GetCandidatesCount(position);
         }
 
-        public void StartNewGame(IGrid grid)
+        public void StartNewGame(IGrid grid, Difficulty difficulty = Difficulty.Unknown)
         {
             _gridManager.Grid = grid;
+            _gridManager.Difficulty = difficulty;
             _gridManager.ValueAndCandidateChanged();
+        }
+
+        public Difficulty Difficulty
+        {
+            get => _gridManager.Difficulty;
+            set => _gridManager.Difficulty = value;
         }
 
         public void StartNewGame(string givens)
@@ -70,6 +77,11 @@ namespace Core
             StartNewGame(grid);
         }
 
+        public async Task StartNewGame(Difficulty difficulty)
+        {
+            var grid = await GridGenerator.Make(difficulty).ConfigureAwait(true);
+            StartNewGame(grid, difficulty);
+        }
 
         public void UseMarker(Position position, Value value)
         {
@@ -141,12 +153,6 @@ namespace Core
 
             _gridManager.Grid.ClearAllCandidates();
             _gridManager.ValueAndCandidateChanged();
-        }
-
-        public async Task StartNewGame(Difficulty difficulty)
-        {
-            var grid = await GridGenerator.Make(difficulty);
-            StartNewGame(grid);
         }
 
         public void Undo()
