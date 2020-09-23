@@ -5,15 +5,15 @@ namespace UI.BlazorWASM.Commands
 {
     public class FindAllCandidatesCommand : ICommand
     {
-        private readonly DomainFacade _gridProvider;
+        private readonly DomainFacade _domainFacade;
 
-        public FindAllCandidatesCommand(DomainFacade gridProvider)
+        public FindAllCandidatesCommand(DomainFacade domainFacade)
         {
-            _gridProvider = gridProvider;
+            _domainFacade = domainFacade;
         }
         public Task Execute()
         {
-            _gridProvider.FillAllLegalCandidates();
+            _domainFacade.FillAllLegalCandidates();
             return Task.CompletedTask;
         }
     }

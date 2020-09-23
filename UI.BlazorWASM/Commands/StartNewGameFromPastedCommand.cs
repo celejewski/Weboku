@@ -6,17 +6,17 @@ namespace UI.BlazorWASM.Commands
 {
     public class StartNewGameFromPastedCommand : ICommand
     {
-        private readonly PasteProvider _pasteProvider;
         private readonly DomainFacade _domainFacade;
+        private readonly PasteProvider _pasteProvider;
         private readonly StartGameCommand _startGameCommand;
 
         public StartNewGameFromPastedCommand(
-            PasteProvider pasteProvider,
             DomainFacade domainFacade,
+            PasteProvider pasteProvider,
             StartGameCommand startGameCommand)
         {
-            _pasteProvider = pasteProvider;
             _domainFacade = domainFacade;
+            _pasteProvider = pasteProvider;
             _startGameCommand = startGameCommand;
         }
 

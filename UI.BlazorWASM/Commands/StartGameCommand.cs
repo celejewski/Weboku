@@ -6,7 +6,6 @@ namespace UI.BlazorWASM.Commands
 {
     public class StartGameCommand
     {
-
         private readonly ModalProvider _modalProvider;
         private readonly CellColorProvider _cellColorProvider;
         private readonly GameTimerProvider _gameTimerProvider;
@@ -21,11 +20,12 @@ namespace UI.BlazorWASM.Commands
             _gameTimerProvider = gameTimerProvider;
         }
 
-        public async Task Execute()
+        public Task Execute()
         {
             _modalProvider.SetModalState(ModalState.None);
             _cellColorProvider.ClearAll();
             _gameTimerProvider.Start();
+            return Task.CompletedTask;
         }
 
     }

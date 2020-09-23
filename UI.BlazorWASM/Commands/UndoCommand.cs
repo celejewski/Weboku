@@ -5,15 +5,15 @@ namespace UI.BlazorWASM.Commands
 {
     public class UndoCommand : ICommand
     {
-        private readonly DomainFacade _gridHistoryManager;
+        private readonly DomainFacade _domainFacade;
 
-        public UndoCommand(DomainFacade gridHistoryManager)
+        public UndoCommand(DomainFacade domainFacade)
         {
-            _gridHistoryManager = gridHistoryManager;
+            _domainFacade = domainFacade;
         }
         public Task Execute()
         {
-            _gridHistoryManager.Undo();
+            _domainFacade.Undo();
             return Task.CompletedTask;
         }
     }

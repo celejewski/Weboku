@@ -5,16 +5,16 @@ namespace UI.BlazorWASM.Commands
 {
     public class RedoCommand : ICommand
     {
-        private readonly DomainFacade _gridHistoryManager;
+        private readonly DomainFacade _domainFacade;
 
-        public RedoCommand(DomainFacade gridHistoryManager)
+        public RedoCommand(DomainFacade domainFacade)
         {
-            _gridHistoryManager = gridHistoryManager;
+            _domainFacade = domainFacade;
         }
 
         public Task Execute()
         {
-            _gridHistoryManager.Redo();
+            _domainFacade.Redo();
             return Task.CompletedTask;
         }
     }
