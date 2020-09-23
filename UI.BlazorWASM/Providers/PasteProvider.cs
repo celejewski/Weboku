@@ -52,7 +52,6 @@ namespace UI.BlazorWASM.Providers
             OnModalChange();
         }
 
-
         private bool _isVisible;
         public void OnModalChange()
         {

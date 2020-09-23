@@ -1,7 +1,9 @@
 ﻿@inject Core.DomainFacade DomainFacade
+@inject ModalProvider ModalProvider
+@inject ShareProvider ShareProvider
 
 <Grid9x9Component>
-    @if( !DomainFacade.HasValue(context) && DomainFacade.GetCandidatesCount(context) > 0 )
+    @if( AreCandidatesVisible(context) )
     {
         <div class="candidates-grid">
             @foreach( var value in Value.NonEmpty )
@@ -13,8 +15,21 @@
 </Grid9x9Component>
 
 @code {
+    private bool AreCandidatesVisible(Position position)
+    {
+        if( ModalProvider.CurrentState == Modals.ModalState.Share
+            && ShareProvider.SharedFields != Enums.SharedFields.Everything )
+        {
+            return false;
+        }
+
+        return !DomainFacade.HasValue(position) && DomainFacade.GetCandidatesCount(position) > 0;
+
+    }
+
     protected override void OnInitialized()
     {
         DomainFacade.OnValueOrCandidateChanged += StateHasChanged;
+        ShareProvider.OnChanged += StateHasChanged;
     }
 }

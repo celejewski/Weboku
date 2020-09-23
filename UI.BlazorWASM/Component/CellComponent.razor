@@ -1,4 +1,6 @@
 ﻿@inject Core.DomainFacade DomainFacade
+@inject ModalProvider ModalProvider
+@inject ShareProvider ShareProvider
 
 <div class="input @(_currentIsGiven ? "input--is-given " : String.Empty)">
     @(_currentValue != Value.None ? _currentValue.ToString() : string.Empty)
@@ -6,7 +8,19 @@
 
 @code {
     private Value _previousValue;
-    private Value _currentValue => DomainFacade.GetValue(Pos);
+    private Value _currentValue
+    {
+        get
+        {
+            if (ModalProvider.CurrentState == Modals.ModalState.Share
+                && ShareProvider.SharedFields == Enums.SharedFields.Givens
+                && !_currentIsGiven)
+            {
+                return Value.None;
+            }
+            return DomainFacade.GetValue(Pos);
+        }
+    }
     private bool _previousIsGiven;
     private bool _currentIsGiven => DomainFacade.IsGiven(Pos);
 
@@ -16,6 +30,7 @@
     protected override void OnInitialized()
     {
         DomainFacade.OnValueChanged += StateHasChanged;
+        ShareProvider.OnChanged += StateHasChanged;
     }
 
     protected override bool ShouldRender()

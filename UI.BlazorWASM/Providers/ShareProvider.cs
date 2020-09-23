@@ -17,8 +17,7 @@ namespace UI.BlazorWASM.Providers
         private readonly FilterProvider _filterProvider;
 
         public event Action OnChanged;
-        private readonly DomainFacade _gridProvider;
-        private readonly IGridSerializer _hodokuGridConverter;
+        private readonly DomainFacade _domainFacade;
         private string _converted;
         public string Converted
         {
@@ -54,59 +53,43 @@ namespace UI.BlazorWASM.Providers
             }
         }
 
-
-        private IGrid _grid = new Grid();
-        public IGrid Grid
-        {
-            get
-            {
-                if( _dirty )
-                {
-                    Update();
-                }
-                return _grid;
-            }
-        }
-
         public ShareProvider(
-            DomainFacade gridProvider,
+            DomainFacade domainFacade,
             NavigationManager navigationManager,
             ModalProvider modalProvider,
             FilterProvider filterProvider
             )
         {
             _dirty = true;
-            _gridProvider = gridProvider;
-            _hodokuGridConverter = GridSerializerFactory.Make(GridSerializerName.Hodoku);
+            _domainFacade = domainFacade;
             _navigationManager = navigationManager;
             _modalProvider = modalProvider;
             _filterProvider = filterProvider;
-            gridProvider.OnValueOrCandidateChanged += () => _dirty = true;
-            modalProvider.OnChanged += () => CheckVisibility();
+            domainFacade.OnValueOrCandidateChanged += () => _dirty = true;
+            modalProvider.OnChanged += CheckVisibility;
             CheckVisibility();
         }
 
-        private bool _isOpened = false;
-        private IFilter _previousFilter = null;
-        public void CheckVisibility()
+        private bool _isOpened;
+        private IFilter _previousFilter;
+        private void CheckVisibility()
         {
-            Console.WriteLine("Check visibilty");
             if( !_isOpened && _modalProvider.CurrentState == Component.Modals.ModalState.Share )
             {
-                Console.WriteLine("Share is opening");
                 _isOpened = true;
                 _previousFilter = _filterProvider.Filter;
-                _filterProvider.SetFilter(new SharedFilter(this));
+                Update();
+                OnChanged?.Invoke();
             }
             else if( _isOpened && _modalProvider.CurrentState != Component.Modals.ModalState.Share )
             {
-                Console.WriteLine("Share is closing");
                 _isOpened = false;
                 _filterProvider.SetFilter(_previousFilter);
+                OnChanged?.Invoke();
             }
         }
 
-        private static IGrid TransformGrid(IGrid input, SharedFields sharedFields)
+        public static IGrid TransformGrid(IGrid input, SharedFields sharedFields)
         {
             var output = input.Clone();
             if( sharedFields == SharedFields.Everything )
@@ -120,30 +103,31 @@ namespace UI.BlazorWASM.Providers
                 {
                     output.SetValue(pos, Value.None);
                 }
-                output.ClearCandidates(pos);
             }
+            output.ClearAllCandidates();
             return output;
+        }
+
+        private static string SerializeGridToShareableFormat(IGrid grid, SharedConverter sharedConverter, NavigationManager navigationManager)
+        {
+            var serializer = sharedConverter switch
+            {
+                SharedConverter.Hodoku => GridSerializerFactory.Make(GridSerializerName.Hodoku),
+                SharedConverter.MyFormat => GridSerializerFactory.Make(GridSerializerName.Base64),
+                SharedConverter.MyLink => GridSerializerFactory.Make(GridSerializerName.Base64),
+                _ => throw new ArgumentException($"Incorrect option: {nameof(sharedConverter)} = {sharedConverter}")
+            };
+
+            var serialized = serializer.Serialize(grid);
+            return sharedConverter == SharedConverter.MyLink
+                ? $"{navigationManager.BaseUri}paste/{serialized}"
+                : serialized;
         }
 
         private void Update()
         {
-            _grid = TransformGrid(_gridProvider.Grid, _sharedFields);
-            IGridSerializer converter = SharedConverter switch
-            {
-                SharedConverter.Hodoku => _hodokuGridConverter,
-                SharedConverter.MyFormat => GridSerializerFactory.Make(GridSerializerName.Base64),
-                SharedConverter.MyLink => GridSerializerFactory.Make(GridSerializerName.Base64),
-                _ => throw new ArgumentException("incorrect SharedConverter")
-            };
-            var text = converter.Serialize(_grid);
-            if( SharedConverter == SharedConverter.MyLink )
-            {
-                _converted = $"{_navigationManager.BaseUri}paste/{text}";
-            }
-            else
-            {
-                _converted = text;
-            }
+            var grid = TransformGrid(_domainFacade.Grid, _sharedFields);
+            _converted = SerializeGridToShareableFormat(grid, SharedConverter, _navigationManager);
             _dirty = false;
 
             _filterProvider.SetFilter(new SharedFilter(this));
