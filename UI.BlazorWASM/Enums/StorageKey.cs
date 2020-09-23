@@ -3,7 +3,7 @@
     public enum StorageKey
     {
         Grid,
-        Sudoku,
+        Difficulty,
         PreferredDifficulty,
     }
 }

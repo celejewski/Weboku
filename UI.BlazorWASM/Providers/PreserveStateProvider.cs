@@ -1,25 +1,28 @@
 ﻿using Core;
+using Core.Data;
+using Core.Serializers;
 using System;
-using System.Threading.Tasks;
 using System.Timers;
+using UI.BlazorWASM.Enums;
 
 namespace UI.BlazorWASM.Providers
 {
     public class PreserveStateProvider
     {
         private bool _isDirty = false;
-        private readonly DomainFacade _gridProvider;
+        private readonly DomainFacade _domainFacade;
         private readonly StorageProvider _storageProvider;
         private readonly Timer _timer;
+        private readonly IGridSerializer _serializer = GridSerializerFactory.Make(GridSerializerName.Base64);
         public PreserveStateProvider(DomainFacade gridProvider, StorageProvider storageProvider)
         {
-            _gridProvider = gridProvider;
+            _domainFacade = gridProvider;
             _storageProvider = storageProvider;
 
-            _gridProvider.OnValueOrCandidateChanged += () => _isDirty = true;
+            _domainFacade.OnValueOrCandidateChanged += () => _isDirty = true;
 
             _timer = new Timer();
-            _timer.Elapsed += (o, e) => _ = Save();
+            _timer.Elapsed += (o, e) => Save();
         }
 
         public void PauseAutoSave()
@@ -32,20 +35,25 @@ namespace UI.BlazorWASM.Providers
             _timer.Start();
         }
 
-        public async Task Save()
+        public void Save()
         {
             if( _isDirty )
             {
-                await _storageProvider.SaveGrid(_gridProvider.Grid);
+                _storageProvider.Save(StorageKey.Grid, _serializer.Serialize(_domainFacade.Grid));
+                _storageProvider.Save(StorageKey.Difficulty, _domainFacade.Difficulty);
                 _isDirty = false;
             }
         }
 
-        public async Task Load()
+        public void Load()
         {
-            if( await _storageProvider.HasSavedGrid() )
+            if( _storageProvider.HasSaved(StorageKey.Grid) )
             {
-                _gridProvider.Grid = await _storageProvider.LoadGrid();
+                _domainFacade.Grid = _serializer.Deserialize(_storageProvider.Load<string>(StorageKey.Grid));
+            }
+            if( _storageProvider.HasSaved(StorageKey.Difficulty) )
+            {
+                _domainFacade.Difficulty = _storageProvider.Load<Difficulty>(StorageKey.Difficulty);
             }
         }
 

@@ -72,7 +72,7 @@
             _afterSecondRender = true;
             await Task.Run(async () =>
             {
-                await PreserveStateProvider.Load();
+                PreserveStateProvider.Load();
                 PreserveStateProvider.AutoSave(TimeSpan.FromSeconds(2));
 
 
