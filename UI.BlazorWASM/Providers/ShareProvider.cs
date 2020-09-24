@@ -3,6 +3,7 @@ using Core.Data;
 using Core.Serializers;
 using Microsoft.AspNetCore.Components;
 using System;
+using System.Linq;
 using UI.BlazorWASM.Enums;
 using UI.BlazorWASM.Filters;
 
@@ -89,22 +90,18 @@ namespace UI.BlazorWASM.Providers
             }
         }
 
-        public static IGrid TransformGrid(IGrid input, SharedFields sharedFields)
+        private static IGrid TransformGrid(IGrid input, SharedFields sharedFields)
         {
             var output = input.Clone();
-            if( sharedFields == SharedFields.Everything )
-            {
-                return output;
-            }
+            if( sharedFields == SharedFields.Everything ) return output;
 
-            foreach( var pos in Position.Positions )
-            {
-                if( sharedFields == SharedFields.Givens && !output.GetIsGiven(pos) )
-                {
-                    output.SetValue(pos, Value.None);
-                }
-            }
             output.ClearAllCandidates();
+            if( sharedFields == SharedFields.GivensAndInputs ) return output;
+
+            foreach( var position in Position.Positions.Where(position => !output.GetIsGiven(position)) )
+            {
+                output.SetValue(position, Value.None);
+            }
             return output;
         }
 
