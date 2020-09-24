@@ -47,13 +47,20 @@ namespace UI.BlazorWASM.Providers
 
         public void Load()
         {
-            if( _storageProvider.HasSaved(StorageKey.Grid) )
+            try
             {
-                _domainFacade.Grid = _serializer.Deserialize(_storageProvider.Load<string>(StorageKey.Grid));
+                if( _storageProvider.HasSaved(StorageKey.Grid) )
+                {
+                    _domainFacade.Grid = _serializer.Deserialize(_storageProvider.Load<string>(StorageKey.Grid));
+                }
+                if( _storageProvider.HasSaved(StorageKey.Difficulty) )
+                {
+                    _domainFacade.Difficulty = _storageProvider.Load<Difficulty>(StorageKey.Difficulty);
+                }
             }
-            if( _storageProvider.HasSaved(StorageKey.Difficulty) )
+            catch( Exception e )
             {
-                _domainFacade.Difficulty = _storageProvider.Load<Difficulty>(StorageKey.Difficulty);
+                Console.WriteLine(e);
             }
         }
 
