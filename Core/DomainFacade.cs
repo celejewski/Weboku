@@ -1,5 +1,7 @@
 ﻿using Core.Data;
 using Core.Exceptions;
+using Core.Hints;
+using Core.Hints.SolvingTechniques;
 using Core.Managers;
 using Core.Serializers;
 using System;
@@ -12,11 +14,14 @@ namespace Core
         private readonly GridManager _gridManager;
         private readonly ToolManager _toolManager;
         private readonly GridHistoryManager _gridHistoryManager;
+        private readonly HintsProvider _hintsProvider;
+
         public DomainFacade()
         {
             _gridManager = new GridManager();
             _toolManager = new ToolManager();
             _gridHistoryManager = new GridHistoryManager(_gridManager);
+            _hintsProvider = new HintsProvider();
         }
         public Value GetValue(Position pos)
         {
@@ -177,6 +182,18 @@ namespace Core
         {
             add { _gridHistoryManager.OnChanged += value; }
             remove { _gridHistoryManager.OnChanged -= value; }
+        }
+
+        public ISolvingTechnique GetNextHint()
+        {
+            return _hintsProvider.GetNextHint(_gridManager.Grid);
+        }
+
+        public void ExecuteNextHint()
+        {
+            var nextHint = _hintsProvider.GetNextHint(_gridManager.Grid);
+            nextHint.Execute(_gridManager.Grid);
+            _gridManager.ValueAndCandidateChanged();
         }
     }
 }

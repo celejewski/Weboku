@@ -1,6 +1,7 @@
 ﻿using Core.Data;
 using Core.Hints.SolvingTechniques;
 using Core.Hints.TechniqueFinders;
+using Core.Validators;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -13,7 +14,6 @@ namespace Core.Hints
         {
             _finders = new ITechniqueFinder[]
             {
-                new InvalidValueFinder(),
                 new FullHouseFinder(),
                 new HiddenSingleWithoutCandidatesFinder(),
                 new CandidateMissingFinder(),
@@ -39,6 +39,14 @@ namespace Core.Hints
         {
             var stopwatch = Stopwatch.StartNew();
 
+            if( !ValidatorGrid.AreAllGivensLegal(grid) )
+            {
+                var positionsWithInvalidValues = Position.Positions
+                    .Where(position => !grid.GetIsGiven(position)
+                        && !grid.IsCandidateLegal(position, grid.GetValue(position)));
+                return new InvalidValue(positionsWithInvalidValues.ToList());
+            }
+
             var step = GetAllHints(grid)
 #if DEBUG
                 .ToList()
@@ -49,10 +57,10 @@ namespace Core.Hints
             System.Console.WriteLine($"{stopwatch.ElapsedMilliseconds}ms - total");
 #endif
 
-            return step;
+            return step ?? new HintNotFound();
         }
 
-        public IEnumerable<ISolvingTechnique> GetAllHints(IGrid grid)
+        private IEnumerable<ISolvingTechnique> GetAllHints(IGrid grid)
         {
             foreach( var finder in _finders )
             {
@@ -78,7 +86,7 @@ namespace Core.Hints
 
 #if DEBUG
                 stopwatchCanExecute.Stop();
-                if (techniques.Any()) System.Console.WriteLine($"{stopwatchCanExecute.ElapsedMilliseconds}ms - CanExecute");
+                if( techniques.Any() ) System.Console.WriteLine($"{stopwatchCanExecute.ElapsedMilliseconds}ms - CanExecute");
 #endif
             }
         }
