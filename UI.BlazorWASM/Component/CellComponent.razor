@@ -1,5 +1,4 @@
 ﻿@inject Core.DomainFacade DomainFacade
-@inject ModalProvider ModalProvider
 @inject ShareProvider ShareProvider
 
 <div class="input @(_currentIsGiven ? "input--is-given " : String.Empty)">
@@ -12,7 +11,7 @@
     {
         get
         {
-            if (ModalProvider.CurrentState == Modals.ModalState.Share
+            if (ShareProvider.IsOpened
                 && ShareProvider.SharedFields == Enums.SharedFields.Givens
                 && !_currentIsGiven)
             {

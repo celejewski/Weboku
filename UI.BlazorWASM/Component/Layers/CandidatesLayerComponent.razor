@@ -1,5 +1,4 @@
 ﻿@inject Core.DomainFacade DomainFacade
-@inject ModalProvider ModalProvider
 @inject ShareProvider ShareProvider
 
 <Grid9x9Component>
@@ -17,7 +16,7 @@
 @code {
     private bool AreCandidatesVisible(Position position)
     {
-        if( ModalProvider.CurrentState == Modals.ModalState.Share
+        if( ShareProvider.IsOpened
             && ShareProvider.SharedFields != Enums.SharedFields.Everything )
         {
             return false;

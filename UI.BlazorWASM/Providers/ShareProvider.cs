@@ -11,27 +11,13 @@ namespace UI.BlazorWASM.Providers
 {
     public class ShareProvider : IProvider
     {
-        private bool _dirty;
-
         private readonly NavigationManager _navigationManager;
         private readonly ModalProvider _modalProvider;
         private readonly FilterProvider _filterProvider;
 
         public event Action OnChanged;
         private readonly DomainFacade _domainFacade;
-        private string _converted;
-        public string Converted
-        {
-            get
-            {
-                if( _dirty )
-                {
-                    Update();
-                }
-                return _converted;
-            }
-            private set => _converted = value;
-        }
+        public string Converted { get; private set; }
 
         private SharedConverter _sharedConverter = SharedConverter.MyLink;
         public SharedConverter SharedConverter
@@ -54,6 +40,8 @@ namespace UI.BlazorWASM.Providers
             }
         }
 
+        public bool IsOpened { get; set; }
+
         public ShareProvider(
             DomainFacade domainFacade,
             NavigationManager navigationManager,
@@ -61,30 +49,27 @@ namespace UI.BlazorWASM.Providers
             FilterProvider filterProvider
             )
         {
-            _dirty = true;
             _domainFacade = domainFacade;
             _navigationManager = navigationManager;
             _modalProvider = modalProvider;
             _filterProvider = filterProvider;
-            domainFacade.OnValueOrCandidateChanged += () => _dirty = true;
             modalProvider.OnChanged += CheckVisibility;
             CheckVisibility();
         }
 
-        private bool _isOpened;
         private IFilter _previousFilter;
         private void CheckVisibility()
         {
-            if( !_isOpened && _modalProvider.CurrentState == Component.Modals.ModalState.Share )
+            if( !IsOpened && _modalProvider.CurrentState == Component.Modals.ModalState.Share )
             {
-                _isOpened = true;
+                IsOpened = true;
                 _previousFilter = _filterProvider.Filter;
                 Update();
                 OnChanged?.Invoke();
             }
-            else if( _isOpened && _modalProvider.CurrentState != Component.Modals.ModalState.Share )
+            else if( IsOpened && _modalProvider.CurrentState != Component.Modals.ModalState.Share )
             {
-                _isOpened = false;
+                IsOpened = false;
                 _filterProvider.SetFilter(_previousFilter);
                 OnChanged?.Invoke();
             }
@@ -107,7 +92,7 @@ namespace UI.BlazorWASM.Providers
 
         private static string SerializeGridToShareableFormat(IGrid grid, SharedConverter sharedConverter, NavigationManager navigationManager)
         {
-            var serializer = sharedConverter switch
+            var gridSerializer = sharedConverter switch
             {
                 SharedConverter.Hodoku => GridSerializerFactory.Make(GridSerializerName.Hodoku),
                 SharedConverter.MyFormat => GridSerializerFactory.Make(GridSerializerName.Base64),
@@ -115,7 +100,7 @@ namespace UI.BlazorWASM.Providers
                 _ => throw new ArgumentException($"Incorrect option: {nameof(sharedConverter)} = {sharedConverter}")
             };
 
-            var serialized = serializer.Serialize(grid);
+            var serialized = gridSerializer.Serialize(grid);
             return sharedConverter == SharedConverter.MyLink
                 ? $"{navigationManager.BaseUri}paste/{serialized}"
                 : serialized;
@@ -124,8 +109,7 @@ namespace UI.BlazorWASM.Providers
         private void Update()
         {
             var grid = TransformGrid(_domainFacade.Grid, _sharedFields);
-            _converted = SerializeGridToShareableFormat(grid, SharedConverter, _navigationManager);
-            _dirty = false;
+            Converted = SerializeGridToShareableFormat(grid, SharedConverter, _navigationManager);
 
             _filterProvider.SetFilter(new SharedFilter(this));
             OnChanged?.Invoke();
