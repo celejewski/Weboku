@@ -191,6 +191,7 @@ namespace Core
 
         public void ExecuteNextHint()
         {
+            _gridHistoryManager.Save();
             var nextHint = _hintsProvider.GetNextHint(_gridManager.Grid);
             nextHint.Execute(_gridManager.Grid);
             _gridManager.ValueAndCandidateChanged();
