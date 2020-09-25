@@ -1,0 +1,29 @@
+﻿@inject Core.DomainFacade DomainFacade
+@inject ShareProvider ShareProvider
+
+<Grid9x9Component>
+    <ValueComponent IsGiven="DomainFacade.IsGiven(context)"
+                   Value="GetValue(context)" />
+</Grid9x9Component>
+
+
+@code {
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        DomainFacade.OnValueChanged += StateHasChanged;
+        ShareProvider.OnChanged += StateHasChanged;
+    }
+
+    private Value GetValue(Position position)
+    {
+
+        if( ShareProvider.IsOpened
+            && ShareProvider.SharedFields == Enums.SharedFields.Givens
+            && !DomainFacade.IsGiven(position) )
+        {
+            return Value.None;
+        }
+        return DomainFacade.GetValue(position);
+    }
+}

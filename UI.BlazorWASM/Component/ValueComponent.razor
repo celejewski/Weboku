@@ -1,0 +1,27 @@
+﻿<div class="input @(IsGiven ? "input--is-given " : String.Empty)">
+    @(Value != Value.None ? Value.ToString() : string.Empty)
+</div>
+
+@code {
+    private Value _previousValue;
+    [Parameter]
+    public Value Value { get; set; }
+
+    private bool _previousIsGiven;
+    [Parameter]
+    public bool IsGiven { get; set; }
+
+    protected override bool ShouldRender()
+    {
+        var shouldRender= _previousValue != Value
+            || _previousIsGiven != IsGiven;
+        return shouldRender;
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+        _previousIsGiven = IsGiven;
+        _previousValue = Value;
+    }
+}
