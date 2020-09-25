@@ -1,9 +1,11 @@
 ﻿@inject Core.DomainFacade DomainFacade
 @inject ShareProvider ShareProvider
+@inject InputMarkProvider InputMarkProvider
 
 <Grid9x9Component>
     <ValueComponent IsGiven="DomainFacade.IsGiven(context)"
-                   Value="GetValue(context)" />
+                    Value="GetValue(context)"
+                    MarkColor="InputMarkProvider.GetColor(context)" />
 </Grid9x9Component>
 
 
@@ -13,6 +15,7 @@
         base.OnInitialized();
         DomainFacade.OnValueChanged += StateHasChanged;
         ShareProvider.OnChanged += StateHasChanged;
+        InputMarkProvider.OnChanged += StateHasChanged;
     }
 
     private Value GetValue(Position position)

@@ -1,20 +1,5 @@
 ﻿@import '_Variables.scss';
 
-.mark__cell {
-    width: 80%;
-    height: 80%;
-    border-width: 3px;
-    border-radius: 50%;
-    border-style: solid;
-    border-color: var(--color, transparent);
-    /*background: currentColor;*/
-    margin: 10%;
-
-    &--danger {
-        border-color: $color-danger;
-    }
-}
-
 .mark__candidate {
     display: flex;
     justify-content: center;
