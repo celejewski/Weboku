@@ -1,6 +1,6 @@
 ﻿using Application;
+using Application.Data;
 using Core.Data;
-using UI.BlazorWASM.Enums;
 using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.Filters

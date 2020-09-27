@@ -127,7 +127,23 @@ namespace Application
             OnCandidateChanged();
         }
 
-        public IGrid Grid;
+        private IGrid _grid;
+        private IGrid _gridToShare;
+        public IGrid Grid
+        {
+            get
+            {
+                if( ModalState == ModalState.Share )
+                {
+                    return _gridToShare;
+                }
+                return _grid;
+            }
+            set
+            {
+                _grid = value;
+            }
+        }
         public void RestartGrid()
         {
             _gridHistoryManager.Save(Grid);
@@ -168,6 +184,10 @@ namespace Application
             set
             {
                 _modalState = value;
+                if( _modalState == ModalState.Share )
+                {
+                    _gridToShare = TransformGrid();
+                }
                 ValueAndCandidateChanged();
             }
         }
@@ -195,13 +215,13 @@ namespace Application
 
         public void Save()
         {
-            _storageManager.Save(new StorageDto(Grid, Difficulty));
+            _storageManager.Save(new StorageDto(_grid, Difficulty));
         }
 
         public void Load()
         {
             var storageDto = _storageManager.Load();
-            Grid = storageDto.Grid;
+            _grid = storageDto.Grid;
             Difficulty = storageDto.Difficulty;
             ValueChanged();
         }
@@ -222,5 +242,38 @@ namespace Application
             OnValueChanged?.Invoke();
             OnValueOrCandidateChanged?.Invoke();
         }
+
+        public IGrid TransformGrid()
+        {
+            return ShareManager.TransformGrid(_grid, SharedFields);
+        }
+
+        public string SharedOutput => ShareManager.SerializeGridToShareableFormat(Grid, SharedConverter, BaseUri);
+
+        private SharedConverter _sharedConverter = SharedConverter.MyLink;
+        public SharedConverter SharedConverter
+        {
+            get => _sharedConverter;
+            set
+            {
+                _sharedConverter = value;
+                _gridToShare = TransformGrid();
+                ValueAndCandidateChanged();
+            }
+        }
+
+        private SharedFields _sharedFields = SharedFields.Everything;
+        public SharedFields SharedFields
+        {
+            get => _sharedFields;
+            set
+            {
+                _sharedFields = value;
+                _gridToShare = TransformGrid();
+                ValueAndCandidateChanged();
+            }
+        }
+
+        private string BaseUri { get; set; }
     }
 }

@@ -1,5 +1,4 @@
 ﻿@inject DomainFacade DomainFacade
-@inject ShareProvider ShareProvider
 @inject InputMarkProvider InputMarkProvider
 
 <Grid9x9Component>
@@ -14,19 +13,11 @@
     {
         base.OnInitialized();
         DomainFacade.OnValueChanged += StateHasChanged;
-        ShareProvider.OnChanged += StateHasChanged;
         InputMarkProvider.OnChanged += StateHasChanged;
     }
 
     private Value GetValue(Position position)
     {
-
-        if( ShareProvider.IsOpened
-            && ShareProvider.SharedFields == Enums.SharedFields.Givens
-            && !DomainFacade.IsGiven(position) )
-        {
-            return Value.None;
-        }
         return DomainFacade.GetValue(position);
     }
 }

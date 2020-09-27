@@ -1,5 +1,4 @@
 ﻿@inject DomainFacade DomainFacade
-@inject ShareProvider ShareProvider
 
 <Grid9x9Component>
     @if( AreCandidatesVisible(context) )
@@ -16,12 +15,6 @@
 @code {
     private bool AreCandidatesVisible(Position position)
     {
-        if( ShareProvider.IsOpened
-            && ShareProvider.SharedFields != Enums.SharedFields.Everything )
-        {
-            return false;
-        }
-
         return !DomainFacade.HasValue(position) && DomainFacade.GetCandidatesCount(position) > 0;
 
     }
@@ -29,6 +22,5 @@
     protected override void OnInitialized()
     {
         DomainFacade.OnValueOrCandidateChanged += StateHasChanged;
-        ShareProvider.OnChanged += StateHasChanged;
     }
 }

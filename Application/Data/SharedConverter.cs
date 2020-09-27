@@ -1,4 +1,4 @@
-﻿namespace UI.BlazorWASM.Enums
+﻿namespace Application.Data
 {
     public enum SharedConverter
     {

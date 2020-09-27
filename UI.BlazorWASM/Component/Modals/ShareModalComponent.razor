@@ -3,28 +3,29 @@
 @inject ShareProvider ShareProvider
 @inject NavigationManager NavigationManager
 @inject ILanguageContainerService Loc
+@using Application.Data
 
 <ModalWithGridTemplateComponent>
     <Content>
         <h1 class="share__header with-hr">@Loc.Keys["share__header"]</h1>
         <div class="share__radio">
             <span class="share__label">@Loc.Keys["share__fields-header"]</span>
-            <div class="share__option @FieldClass(Enums.SharedFields.Givens)"
-                 @onclick="@(() => ShareProvider.SharedFields = Enums.SharedFields.Givens)">@Loc.Keys["share__givens-only"]</div>
-            <div class="share__option @FieldClass(Enums.SharedFields.GivensAndInputs)"
-                 @onclick="@(() => ShareProvider.SharedFields = Enums.SharedFields.GivensAndInputs)">@Loc.Keys["share__givens-and-inputs"]</div>
-            <div class="share__option @FieldClass(Enums.SharedFields.Everything)"
-                 @onclick="@(() => ShareProvider.SharedFields = Enums.SharedFields.Everything)">@Loc.Keys["share__everything"]</div>
+            <div class="share__option @FieldClass(SharedFields.Givens)"
+                 @onclick="@(() => ShareProvider.SharedFields = SharedFields.Givens)">@Loc.Keys["share__givens-only"]</div>
+            <div class="share__option @FieldClass(SharedFields.GivensAndInputs)"
+                 @onclick="@(() => ShareProvider.SharedFields = SharedFields.GivensAndInputs)">@Loc.Keys["share__givens-and-inputs"]</div>
+            <div class="share__option @FieldClass(SharedFields.Everything)"
+                 @onclick="@(() => ShareProvider.SharedFields = SharedFields.Everything)">@Loc.Keys["share__everything"]</div>
         </div>
 
         <div class="share__radio">
             <span class="share__label">@Loc.Keys["share__format-header"]</span>
-            <div class="share__option @FormatClass(Enums.SharedConverter.Hodoku)"
-                 @onclick="@(() => ShareProvider.SharedConverter = Enums.SharedConverter.Hodoku)">@Loc.Keys["share__hodoku"]</div>
-            <div class="share__option @FormatClass(Enums.SharedConverter.MyFormat)"
-                 @onclick="@(() => ShareProvider.SharedConverter = Enums.SharedConverter.MyFormat)">@Loc.Keys["share__my-format"]</div>
-            <div class="share__option @FormatClass(Enums.SharedConverter.MyLink)"
-                 @onclick="@(() => ShareProvider.SharedConverter = Enums.SharedConverter.MyLink)">@Loc.Keys["share__link"]</div>
+            <div class="share__option @FormatClass(SharedConverter.Hodoku)"
+                 @onclick="@(() => ShareProvider.SharedConverter = SharedConverter.Hodoku)">@Loc.Keys["share__hodoku"]</div>
+            <div class="share__option @FormatClass(SharedConverter.MyFormat)"
+                 @onclick="@(() => ShareProvider.SharedConverter = SharedConverter.MyFormat)">@Loc.Keys["share__my-format"]</div>
+            <div class="share__option @FormatClass(SharedConverter.MyLink)"
+                 @onclick="@(() => ShareProvider.SharedConverter = SharedConverter.MyLink)">@Loc.Keys["share__link"]</div>
         </div>
 
         <input type="text"
@@ -41,12 +42,12 @@
 @code {
     private string _onlyGivenClass
     {
-        get => ShareProvider.SharedFields == Enums.SharedFields.Givens ? _selectedClass : string.Empty;
+        get => ShareProvider.SharedFields == SharedFields.Givens ? _selectedClass : string.Empty;
     }
 
     private string _givensAndUserInputsClass
     {
-        get => ShareProvider.SharedFields == Enums.SharedFields.GivensAndInputs ? _selectedClass : string.Empty;
+        get => ShareProvider.SharedFields == SharedFields.GivensAndInputs ? _selectedClass : string.Empty;
     }
     private string _selectedClass { get => "share__button--selected"; }
 
@@ -66,12 +67,12 @@
         await JSRuntime.InvokeVoidAsync("select", "share__output");
     }
 
-    private string FormatClass(Enums.SharedConverter sharedConverter)
+    private string FormatClass(SharedConverter sharedConverter)
     {
         return ShareProvider.SharedConverter == sharedConverter ? "share__option--selected" : string.Empty;
     }
 
-    private string FieldClass(Enums.SharedFields sharedFields)
+    private string FieldClass(SharedFields sharedFields)
     {
         return ShareProvider.SharedFields == sharedFields ? "share__option--selected" : string.Empty;
     }
