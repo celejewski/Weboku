@@ -1,4 +1,4 @@
-﻿using Core;
+﻿using Application;
 using Core.Data;
 
 namespace UI.BlazorWASM.Filters

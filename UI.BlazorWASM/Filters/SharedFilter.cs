@@ -1,4 +1,4 @@
-﻿using Core;
+﻿using Application;
 using Core.Data;
 using UI.BlazorWASM.Enums;
 using UI.BlazorWASM.Providers;

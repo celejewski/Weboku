@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 
-namespace Core.Managers
+namespace Application.Managers
 {
     internal static class GridGenerator
     {
@@ -21,7 +21,7 @@ namespace Core.Managers
             try
             {
                 var sudoku = await _httpClient.GetFromJsonAsync<Sudoku>($"http://andzej-002-site2.ftempurl.com/sudokugenerator/{difficulty}");
-                var serializer = new HodokuGridSerializer();
+                var serializer = GridSerializerFactory.Make(GridSerializerName.Hodoku);
                 return serializer.Deserialize(sudoku.Given);
             }
             catch( Exception ex )

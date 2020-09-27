@@ -1,4 +1,5 @@
-﻿using Core.Data;
+﻿using Application;
+using Core.Data;
 using Xunit;
 
 namespace Core.Tests

@@ -1,7 +1,7 @@
 ﻿using Core.Data;
 using System;
 
-namespace Core.Managers
+namespace Application.Managers
 {
     internal sealed class GridManager
     {

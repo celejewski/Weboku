@@ -1,4 +1,4 @@
-﻿using Core;
+﻿using Application;
 using UI.BlazorWASM.Commands;
 
 namespace UI.BlazorWASM.Component.NumpadMenu

@@ -1,6 +1,6 @@
 ﻿using Core.Data;
 
-namespace Core.Managers
+namespace Application.Managers
 {
     public class ToolManager
     {

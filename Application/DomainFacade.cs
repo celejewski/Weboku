@@ -1,13 +1,13 @@
-﻿using Core.Data;
+﻿using Application.Managers;
+using Core.Data;
 using Core.Exceptions;
 using Core.Hints;
 using Core.Hints.SolvingTechniques;
-using Core.Managers;
 using Core.Serializers;
 using System;
 using System.Threading.Tasks;
 
-namespace Core
+namespace Application
 {
     public class DomainFacade
     {

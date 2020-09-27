@@ -1,4 +1,4 @@
-﻿using Core;
+﻿using Application;
 using System.Threading.Tasks;
 
 namespace UI.BlazorWASM.Commands

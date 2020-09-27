@@ -1,4 +1,4 @@
-﻿using Core;
+﻿using Application;
 using Core.Data;
 using System.Linq;
 using UI.BlazorWASM.Providers;

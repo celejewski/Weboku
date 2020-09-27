@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Core.Managers
+namespace Application.Managers
 {
     internal sealed class GridHistoryManager
     {

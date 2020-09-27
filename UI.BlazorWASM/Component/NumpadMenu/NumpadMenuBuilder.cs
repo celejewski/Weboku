@@ -1,4 +1,4 @@
-﻿using Core;
+﻿using Application;
 using System.Collections.Generic;
 using UI.BlazorWASM.Commands;
 using UI.BlazorWASM.Component.NumpadMenu;

@@ -1,5 +1,5 @@
+using Application;
 using Blazored.LocalStorage;
-using Core;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using System;

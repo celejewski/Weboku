@@ -1,4 +1,4 @@
-﻿using Core;
+﻿using Application;
 using System;
 using UI.BlazorWASM.Hints;
 using UI.BlazorWASM.Hints.SolvingTechniqueDisplayers;

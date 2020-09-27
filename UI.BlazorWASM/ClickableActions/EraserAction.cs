@@ -1,4 +1,4 @@
-﻿using Core;
+﻿using Application;
 
 namespace UI.BlazorWASM.ClickableActions
 {
