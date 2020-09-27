@@ -1,9 +1,9 @@
-﻿using Blazored.LocalStorage;
-using UI.BlazorWASM.Enums;
+﻿using Application.Interfaces;
+using Blazored.LocalStorage;
 
 namespace UI.BlazorWASM.Providers
 {
-    public class StorageProvider
+    public class StorageProvider : IStorageProvider
     {
         private readonly ISyncLocalStorageService _syncLocalStorageService;
 
@@ -12,19 +12,19 @@ namespace UI.BlazorWASM.Providers
             _syncLocalStorageService = syncLocalStorageService;
         }
 
-        public T Load<T>(StorageKey storageKey)
+        public T Load<T>(string key)
         {
-            return _syncLocalStorageService.GetItem<T>(storageKey.ToString());
+            return _syncLocalStorageService.GetItem<T>(key);
         }
 
-        public void Save<T>(StorageKey storageKey, T data)
+        public void Save<T>(string key, T data)
         {
-            _syncLocalStorageService.SetItem(storageKey.ToString(), data);
+            _syncLocalStorageService.SetItem(key, data);
         }
 
-        public bool HasSaved(StorageKey storageKey)
+        public bool HasKey(string key)
         {
-            return _syncLocalStorageService.ContainKey(storageKey.ToString());
+            return _syncLocalStorageService.ContainKey(key);
         }
     }
 }

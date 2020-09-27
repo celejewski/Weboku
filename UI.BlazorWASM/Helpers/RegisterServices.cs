@@ -71,7 +71,6 @@ namespace UI.BlazorWASM.Helpers
             services.AddScoped<NumpadMenuProvider>();
             services.AddScoped<NumpadMenuBuilder>();
             services.AddScoped<HotkeyProvider>();
-            services.AddScoped<StorageProvider>();
             services.AddScoped<PreserveStateProvider>();
             services.AddScoped<GameStateChecker>();
             services.AddScoped<ShareProvider>();

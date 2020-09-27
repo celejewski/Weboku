@@ -1,4 +1,6 @@
-﻿using Application.Managers;
+﻿using Application.Data;
+using Application.Interfaces;
+using Application.Managers;
 using Core.Data;
 using Core.Exceptions;
 using Core.Hints;
@@ -15,13 +17,15 @@ namespace Application
         private readonly ToolManager _toolManager;
         private readonly GridHistoryManager _gridHistoryManager;
         private readonly HintsProvider _hintsProvider;
+        private readonly StorageManager _storageManager;
 
-        public DomainFacade()
+        public DomainFacade(IStorageProvider storageProvider)
         {
             _gridManager = new GridManager();
             _toolManager = new ToolManager();
             _gridHistoryManager = new GridHistoryManager(_gridManager);
             _hintsProvider = new HintsProvider();
+            _storageManager = new StorageManager(storageProvider);
         }
         public Value GetValue(Position pos)
         {
@@ -195,6 +199,18 @@ namespace Application
             var nextHint = _hintsProvider.GetNextHint(_gridManager.Grid);
             nextHint.Execute(_gridManager.Grid);
             _gridManager.ValueAndCandidateChanged();
+        }
+
+        public void Save()
+        {
+            _storageManager.Save(new StorageDto(_gridManager.Grid, Difficulty));
+        }
+
+        public void Load()
+        {
+            var storageDto = _storageManager.Load();
+            _gridManager.Grid = storageDto.Grid;
+            Difficulty = storageDto.Difficulty;
         }
     }
 }
