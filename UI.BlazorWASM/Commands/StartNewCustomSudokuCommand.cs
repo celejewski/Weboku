@@ -38,7 +38,7 @@ namespace UI.BlazorWASM.Commands
             //};
             //_gridProvider.Grid = _hodokuGridConverter.Deserialize(_sudokuProvider.Sudoku.Given);
             //_sudokuProvider.IsUserCreatingCustomSudoku = false;
-            //_modalProvider.SetModalState(Component.Modals.ModalState.None);
+            //_modalProvider.SetModalState(Application.Enums.ModalState.None);
             //_cellColorProvider.ClearAll();
             //_gridHistoryManager.ClearUndo();
             //_gameTimerProvider.Start();

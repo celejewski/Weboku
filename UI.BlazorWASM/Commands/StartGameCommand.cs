@@ -1,5 +1,5 @@
-﻿using System.Threading.Tasks;
-using UI.BlazorWASM.Component.Modals;
+﻿using Application.Enums;
+using System.Threading.Tasks;
 using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.Commands

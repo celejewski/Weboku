@@ -1,4 +1,5 @@
 ﻿using Application.Data;
+using Application.Enums;
 using Application.Interfaces;
 using Application.Managers;
 using Core.Data;
@@ -13,7 +14,6 @@ namespace Application
 {
     public class DomainFacade
     {
-        private readonly GridManager _gridManager;
         private readonly ToolManager _toolManager;
         private readonly GridHistoryManager _gridHistoryManager;
         private readonly HintsProvider _hintsProvider;
@@ -21,59 +21,55 @@ namespace Application
 
         public DomainFacade(IStorageProvider storageProvider)
         {
-            _gridManager = new GridManager();
+            Grid = new Grid();
             _toolManager = new ToolManager();
-            _gridHistoryManager = new GridHistoryManager(_gridManager);
+            _gridHistoryManager = new GridHistoryManager();
             _hintsProvider = new HintsProvider();
             _storageManager = new StorageManager(storageProvider);
         }
         public Value GetValue(Position pos)
         {
-            return _gridManager.GetValue(pos);
+            return Grid.GetValue(pos);
         }
 
         public bool IsGiven(Position position)
         {
-            return _gridManager.IsGiven(position);
+            return Grid.GetIsGiven(position);
         }
 
         public bool HasCandidate(Position position, Value value)
         {
-            return _gridManager.HasCandidate(position, value);
+            return Grid.HasCandidate(position, value);
         }
 
         public bool HasValue(Position position)
         {
-            return _gridManager.HasValue(position);
+            return Grid.HasValue(position);
         }
 
         public bool IsValueLegal(Position position)
         {
-            return _gridManager.IsValueLegal(position);
+            return Grid.IsCandidateLegal(position, Grid.GetValue(position));
         }
 
         public bool IsCandidateLegal(Position position, Value value)
         {
-            return _gridManager.IsCandidateLegal(position, value);
+            return Grid.IsCandidateLegal(position, value);
         }
 
         public int GetCandidatesCount(Position position)
         {
-            return _gridManager.GetCandidatesCount(position);
+            return Grid.GetCandidates(position).Count();
         }
 
         public void StartNewGame(IGrid grid, Difficulty difficulty = Difficulty.Unknown)
         {
-            _gridManager.Grid = grid;
-            _gridManager.Difficulty = difficulty;
-            _gridManager.ValueAndCandidateChanged();
+            Grid = grid;
+            Difficulty = difficulty;
+            ValueAndCandidateChanged();
         }
 
-        public Difficulty Difficulty
-        {
-            get => _gridManager.Difficulty;
-            set => _gridManager.Difficulty = value;
-        }
+        public Difficulty Difficulty;
 
         public void StartNewGame(string givens)
         {
@@ -83,7 +79,7 @@ namespace Application
                 throw new SudokuCoreException($"Game can not start. Givens can not be deserialized to valid grid. Passed givens = {givens}");
             }
             var grid = serializer.Deserialize(givens);
-            StartNewGame(grid);
+            StartNewGame(grid, Difficulty.Unknown);
         }
 
         public async Task StartNewGame(Difficulty difficulty)
@@ -94,81 +90,65 @@ namespace Application
 
         public void UseMarker(Position position, Value value)
         {
-            _gridHistoryManager.Save();
-            _toolManager.UseMarker(_gridManager.Grid, position, value);
-            _gridManager.ValueAndCandidateChanged();
+            _gridHistoryManager.Save(Grid);
+            _toolManager.UseMarker(Grid, position, value);
+            ValueAndCandidateChanged();
         }
 
         public void UsePencil(Position position, Value value)
         {
-            _gridHistoryManager.Save();
-            _toolManager.UsePencil(_gridManager.Grid, position, value);
-            _gridManager.CandidateChanged();
+            _gridHistoryManager.Save(Grid);
+            _toolManager.UsePencil(Grid, position, value);
+            CandidateChanged();
         }
         public void UseEraser(Position position)
         {
-            _gridHistoryManager.Save();
-            _toolManager.UseEraser(_gridManager.Grid, position);
-            _gridManager.ValueAndCandidateChanged();
+            _gridHistoryManager.Save(Grid);
+            _toolManager.UseEraser(Grid, position);
+            ValueAndCandidateChanged();
         }
 
         public void FillAllLegalCandidates()
         {
-            _gridHistoryManager.Save();
-            _gridManager.FillAllLegalCandidates();
-            _gridManager.CandidateChanged();
+            _gridHistoryManager.Save(Grid);
+            Grid.FillAllLegalCandidates();
+            CandidateChanged();
         }
 
-        public event Action OnValueChanged
-        {
-            add { _gridManager.OnValueChanged += value; }
-            remove { _gridManager.OnValueChanged -= value; }
-        }
+        public event Action OnValueChanged;
 
-        public event Action OnCandidateChanged
-        {
-            add { _gridManager.OnCandidateChanged += value; }
-            remove { _gridManager.OnCandidateChanged -= value; }
-        }
-
-        public event Action OnValueOrCandidateChanged
-        {
-            add { _gridManager.OnValueOrCandidateChanged += value; }
-            remove { _gridManager.OnValueOrCandidateChanged -= value; }
-        }
+        public event Action OnCandidateChanged;
+        public event Action OnValueOrCandidateChanged;
 
         public void ClearAllCandidates()
         {
-            _gridHistoryManager.Save();
-            _gridManager.Grid.ClearAllCandidates();
+            _gridHistoryManager.Save(Grid);
+            Grid.ClearAllCandidates();
+            OnCandidateChanged();
         }
 
-        public IGrid Grid
-        {
-            get => _gridManager.Grid;
-            set => _gridManager.Grid = value;
-        }
-
+        public IGrid Grid;
         public void RestartGrid()
         {
-            _gridHistoryManager.Save();
+            _gridHistoryManager.Save(Grid);
             foreach( var position in Position.Positions )
             {
-                if( !_gridManager.Grid.GetIsGiven(position) )
+                if( !Grid.GetIsGiven(position) )
                 {
-                    _gridManager.Grid.SetValue(position, Value.None);
+                    Grid.SetValue(position, Value.None);
                 }
             }
 
-            _gridManager.Grid.ClearAllCandidates();
-            _gridManager.ValueAndCandidateChanged();
+            Grid.ClearAllCandidates();
+            ValueAndCandidateChanged();
         }
 
         public void Undo()
         {
             if( _gridHistoryManager.CanUndo )
             {
-                _gridHistoryManager.Undo();
+                Grid = _gridHistoryManager.Undo(Grid);
+                ValueAndCandidateChanged();
             }
         }
 
@@ -176,7 +156,19 @@ namespace Application
         {
             if( _gridHistoryManager.CanRedo )
             {
-                _gridHistoryManager.Redo();
+                Grid = _gridHistoryManager.Redo(Grid);
+                ValueAndCandidateChanged();
+            }
+        }
+
+        private ModalState _modalState;
+        public ModalState ModalState
+        {
+            get => _modalState;
+            set
+            {
+                _modalState = value;
+                ValueAndCandidateChanged();
             }
         }
 
@@ -190,27 +182,45 @@ namespace Application
 
         public ISolvingTechnique GetNextHint()
         {
-            return _hintsProvider.GetNextHint(_gridManager.Grid);
+            return _hintsProvider.GetNextHint(Grid);
         }
 
         public void ExecuteNextHint()
         {
-            _gridHistoryManager.Save();
-            var nextHint = _hintsProvider.GetNextHint(_gridManager.Grid);
-            nextHint.Execute(_gridManager.Grid);
-            _gridManager.ValueAndCandidateChanged();
+            _gridHistoryManager.Save(Grid);
+            var nextHint = _hintsProvider.GetNextHint(Grid);
+            nextHint.Execute(Grid);
+            ValueAndCandidateChanged();
         }
 
         public void Save()
         {
-            _storageManager.Save(new StorageDto(_gridManager.Grid, Difficulty));
+            _storageManager.Save(new StorageDto(Grid, Difficulty));
         }
 
         public void Load()
         {
             var storageDto = _storageManager.Load();
-            _gridManager.Grid = storageDto.Grid;
+            Grid = storageDto.Grid;
             Difficulty = storageDto.Difficulty;
+            ValueChanged();
+        }
+        private void ValueChanged()
+        {
+            OnValueChanged?.Invoke();
+            OnValueOrCandidateChanged?.Invoke();
+        }
+
+        private void CandidateChanged()
+        {
+            OnCandidateChanged?.Invoke();
+            OnValueOrCandidateChanged?.Invoke();
+        }
+        private void ValueAndCandidateChanged()
+        {
+            OnCandidateChanged?.Invoke();
+            OnValueChanged?.Invoke();
+            OnValueOrCandidateChanged?.Invoke();
         }
     }
 }

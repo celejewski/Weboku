@@ -20,7 +20,7 @@ namespace UI.BlazorWASM.Providers
             var timer = new Timer(1000);
             timer.Elapsed += (o, e) =>
             {
-                bool isPaused = _modalProvider.CurrentState != Component.Modals.ModalState.None;
+                bool isPaused = _modalProvider.CurrentState != Application.Enums.ModalState.None;
                 if( !isPaused )
                 {
                     Elapsed += TimeSpan.FromSeconds(1);

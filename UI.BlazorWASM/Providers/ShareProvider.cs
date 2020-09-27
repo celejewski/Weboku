@@ -60,14 +60,14 @@ namespace UI.BlazorWASM.Providers
         private IFilter _previousFilter;
         private void CheckVisibility()
         {
-            if( !IsOpened && _modalProvider.CurrentState == Component.Modals.ModalState.Share )
+            if( !IsOpened && _modalProvider.CurrentState == Application.Enums.ModalState.Share )
             {
                 IsOpened = true;
                 _previousFilter = _filterProvider.Filter;
                 Update();
                 OnChanged?.Invoke();
             }
-            else if( IsOpened && _modalProvider.CurrentState != Component.Modals.ModalState.Share )
+            else if( IsOpened && _modalProvider.CurrentState != Application.Enums.ModalState.Share )
             {
                 IsOpened = false;
                 _filterProvider.SetFilter(_previousFilter);

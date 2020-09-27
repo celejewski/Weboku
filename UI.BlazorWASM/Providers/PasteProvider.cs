@@ -55,12 +55,12 @@ namespace UI.BlazorWASM.Providers
         private bool _isVisible;
         public void OnModalChange()
         {
-            if( !_isVisible && _modalProvider.CurrentState == Component.Modals.ModalState.Paste )
+            if( !_isVisible && _modalProvider.CurrentState == Application.Enums.ModalState.Paste )
             {
                 _isVisible = true;
                 OnShow();
             }
-            else if( _isVisible && _modalProvider.CurrentState != Component.Modals.ModalState.Paste )
+            else if( _isVisible && _modalProvider.CurrentState != Application.Enums.ModalState.Paste )
             {
                 _isVisible = false;
                 OnHide();

@@ -1,4 +1,4 @@
-﻿namespace UI.BlazorWASM.Component.Modals
+﻿namespace Application.Enums
 {
     public enum ModalState
     {

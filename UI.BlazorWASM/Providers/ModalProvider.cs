@@ -1,17 +1,26 @@
-﻿using System;
+﻿using Application;
+using Application.Enums;
+using System;
 using System.Collections.Generic;
-using UI.BlazorWASM.Component.Modals;
 
 namespace UI.BlazorWASM.Providers
 {
     public class ModalProvider : IProvider
     {
         private readonly Stack<ModalState> _previousStates = new Stack<ModalState>();
-        public ModalState CurrentState { get; private set; } = ModalState.Loading;
+        private readonly DomainFacade _domainFacade;
 
-        public ModalProvider()
+        public ModalState CurrentState
+        {
+            get => _domainFacade.ModalState;
+            private set => _domainFacade.ModalState = value;
+        }
+
+        public ModalProvider(DomainFacade domainFacade)
         {
             _previousStates.Push(ModalState.None);
+            _domainFacade = domainFacade;
+            _domainFacade.ModalState = ModalState.Loading;
         }
 
         public void SetModalState(ModalState state)
