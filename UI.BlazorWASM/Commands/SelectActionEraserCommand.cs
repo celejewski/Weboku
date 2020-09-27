@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using Application.Filters;
+using System.Threading.Tasks;
 using UI.BlazorWASM.ClickableActions;
-using UI.BlazorWASM.Filters;
 using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.Commands

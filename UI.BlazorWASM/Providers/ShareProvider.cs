@@ -1,7 +1,7 @@
 ﻿using Application;
 using Application.Data;
+using Application.Filters;
 using System;
-using UI.BlazorWASM.Filters;
 
 namespace UI.BlazorWASM.Providers
 {
@@ -68,7 +68,7 @@ namespace UI.BlazorWASM.Providers
 
         private void Update()
         {
-            _filterProvider.SetFilter(new SharedFilter(this));
+            _filterProvider.SetFilter(new SharedFilter());
             OnChanged?.Invoke();
         }
     }

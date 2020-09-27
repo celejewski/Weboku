@@ -1,7 +1,6 @@
-﻿using Application;
-using Core.Data;
+﻿using Core.Data;
 
-namespace UI.BlazorWASM.Filters
+namespace Application.Filters
 {
     public class SelectedValueFilter : IFilter
     {
@@ -12,19 +11,19 @@ namespace UI.BlazorWASM.Filters
             _value = value;
         }
 
-        public FilterOption IsFiltered(DomainFacade gridProvider, Position pos)
+        public FilterOption IsFiltered(DomainFacade domainFacade, Position pos)
         {
             if( _value == Value.None )
             {
                 return FilterOption.None;
             }
 
-            if( gridProvider.GetValue(pos) == _value )
+            if( domainFacade.GetValue(pos) == _value )
             {
                 return FilterOption.Primary;
             }
 
-            if( gridProvider.HasCandidate(pos, _value) )
+            if( domainFacade.HasCandidate(pos, _value) )
             {
                 return FilterOption.Secondary;
             }

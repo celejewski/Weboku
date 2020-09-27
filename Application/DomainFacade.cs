@@ -1,5 +1,6 @@
 ﻿using Application.Data;
 using Application.Enums;
+using Application.Filters;
 using Application.Interfaces;
 using Application.Managers;
 using Core.Data;
@@ -275,5 +276,12 @@ namespace Application
         }
 
         private string BaseUri { get; set; }
+
+        private IFilter _filter = new SelectedValueFilter(1);
+        public IFilter Filter
+        {
+            get => _filter;
+            set => _filter = value;
+        }
     }
 }

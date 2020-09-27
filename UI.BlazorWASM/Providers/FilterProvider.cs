@@ -1,17 +1,25 @@
-﻿using System;
-using UI.BlazorWASM.Filters;
+﻿using Application;
+using Application.Filters;
+using System;
 
 namespace UI.BlazorWASM.Providers
 {
     public class FilterProvider
     {
-        public IFilter Filter { get; private set; } = new SelectedValueFilter(1);
+        private readonly DomainFacade _domainFacade;
+
+        public IFilter Filter { get => _domainFacade.Filter; }
+
+        public FilterProvider(DomainFacade domainFacade)
+        {
+            _domainFacade = domainFacade;
+        }
 
         public event Action OnChanged;
 
         public void SetFilter(IFilter filter)
         {
-            Filter = filter;
+            _domainFacade.Filter = filter;
             OnChanged?.Invoke();
         }
     }

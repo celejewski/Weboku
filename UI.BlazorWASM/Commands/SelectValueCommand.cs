@@ -1,5 +1,5 @@
-﻿using System.Threading.Tasks;
-using UI.BlazorWASM.Filters;
+﻿using Application.Filters;
+using System.Threading.Tasks;
 using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.Commands
