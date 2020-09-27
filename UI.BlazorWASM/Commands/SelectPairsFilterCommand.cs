@@ -1,21 +1,21 @@
-﻿using Application.Filters;
+﻿using Application;
+using Application.Filters;
 using System.Threading.Tasks;
-using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.Commands
 {
     public class SelectPairsFilterCommand : ICommand
     {
-        private readonly FilterProvider _filterProvider;
+        private readonly DomainFacade _domainFacade;
 
-        public SelectPairsFilterCommand(FilterProvider filterProvider)
+        public SelectPairsFilterCommand(DomainFacade filterProvider)
         {
-            _filterProvider = filterProvider;
+            _domainFacade = filterProvider;
         }
 
         public Task Execute()
         {
-            _filterProvider.SetFilter(new PairFilter());
+            _domainFacade.SetFilter(new PairFilter());
             return Task.CompletedTask;
         }
     }

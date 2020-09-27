@@ -1,5 +1,4 @@
-﻿@inject FilterProvider FilterProvider
-@inject DomainFacade GridProvider
+﻿@inject DomainFacade DomainFacade
 @using UI.BlazorWASM.Converters;
 @using Application.Filters;
 
@@ -9,7 +8,7 @@
 @code {
     private string _currentClass => FilterOptionToCssConverter.ToCssClass(_currentFilterOption);
     private FilterOption _previousFilterOption;
-    private FilterOption _currentFilterOption => FilterProvider.Filter.IsFiltered(GridProvider, Pos);
+    private FilterOption _currentFilterOption => DomainFacade.Filter.IsFiltered(DomainFacade, Pos);
 
     [Parameter]
     public Position Pos { get; set; }
@@ -27,8 +26,8 @@
 
     protected override void OnInitialized()
     {
-        FilterProvider.OnChanged += StateHasChanged;
-        GridProvider.OnValueOrCandidateChanged += StateHasChanged;
+        DomainFacade.OnFilterChanged += StateHasChanged;
+        DomainFacade.OnValueOrCandidateChanged += StateHasChanged;
     }
 
 

@@ -288,7 +288,14 @@ namespace Application
                 }
                 return _filter;
             }
-            set => _filter = value;
+            set
+            {
+                _filter = value;
+                OnFilterChanged?.Invoke();
+            }
         }
+
+        public void SetFilter(IFilter filter) => Filter = filter;
+        public event Action OnFilterChanged;
     }
 }

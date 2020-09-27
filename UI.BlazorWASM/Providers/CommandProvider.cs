@@ -6,14 +6,12 @@ namespace UI.BlazorWASM.Providers
 {
     public class CommandProvider
     {
-        private readonly FilterProvider _filterProvider;
         private readonly ClickableActionProvider _clickableActionProvider;
         private readonly SettingsProvider _settingsProvider;
         private readonly DomainFacade _domainFacade;
         private readonly StartGameCommand _startGameCommand;
 
         public CommandProvider(
-            FilterProvider filterProvider,
             ClickableActionProvider clickableActionProvider,
             SettingsProvider settingsProvider,
             DomainFacade domainFacade,
@@ -21,7 +19,6 @@ namespace UI.BlazorWASM.Providers
 
             )
         {
-            _filterProvider = filterProvider;
             _clickableActionProvider = clickableActionProvider;
             _settingsProvider = settingsProvider;
             _domainFacade = domainFacade;
@@ -29,7 +26,7 @@ namespace UI.BlazorWASM.Providers
         }
         public ICommand SelectValue(int value)
         {
-            return new SelectValueCommand(value, _filterProvider, _clickableActionProvider);
+            return new SelectValueCommand(value, _domainFacade, _clickableActionProvider);
         }
 
         public ICommand StartNewGameV2(Difficulty difficulty)
