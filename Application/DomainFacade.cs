@@ -280,7 +280,14 @@ namespace Application
         private IFilter _filter = new SelectedValueFilter(1);
         public IFilter Filter
         {
-            get => _filter;
+            get
+            {
+                if( ModalState == ModalState.Share )
+                {
+                    return new SharedFilter();
+                }
+                return _filter;
+            }
             set => _filter = value;
         }
     }

@@ -1,6 +1,6 @@
 ﻿@inject IJSRuntime JSRuntime
 @inject ShowPreviousModalCommand ShowPreviousModalCommand
-@inject ShareProvider ShareProvider
+@inject DomainFacade DomainFacade
 @inject NavigationManager NavigationManager
 @inject ILanguageContainerService Loc
 @using Application.Data
@@ -11,25 +11,25 @@
         <div class="share__radio">
             <span class="share__label">@Loc.Keys["share__fields-header"]</span>
             <div class="share__option @FieldClass(SharedFields.Givens)"
-                 @onclick="@(() => ShareProvider.SharedFields = SharedFields.Givens)">@Loc.Keys["share__givens-only"]</div>
+                 @onclick="@(() => DomainFacade.SharedFields = SharedFields.Givens)">@Loc.Keys["share__givens-only"]</div>
             <div class="share__option @FieldClass(SharedFields.GivensAndInputs)"
-                 @onclick="@(() => ShareProvider.SharedFields = SharedFields.GivensAndInputs)">@Loc.Keys["share__givens-and-inputs"]</div>
+                 @onclick="@(() => DomainFacade.SharedFields = SharedFields.GivensAndInputs)">@Loc.Keys["share__givens-and-inputs"]</div>
             <div class="share__option @FieldClass(SharedFields.Everything)"
-                 @onclick="@(() => ShareProvider.SharedFields = SharedFields.Everything)">@Loc.Keys["share__everything"]</div>
+                 @onclick="@(() => DomainFacade.SharedFields = SharedFields.Everything)">@Loc.Keys["share__everything"]</div>
         </div>
 
         <div class="share__radio">
             <span class="share__label">@Loc.Keys["share__format-header"]</span>
             <div class="share__option @FormatClass(SharedConverter.Hodoku)"
-                 @onclick="@(() => ShareProvider.SharedConverter = SharedConverter.Hodoku)">@Loc.Keys["share__hodoku"]</div>
+                 @onclick="@(() => DomainFacade.SharedConverter = SharedConverter.Hodoku)">@Loc.Keys["share__hodoku"]</div>
             <div class="share__option @FormatClass(SharedConverter.MyFormat)"
-                 @onclick="@(() => ShareProvider.SharedConverter = SharedConverter.MyFormat)">@Loc.Keys["share__my-format"]</div>
+                 @onclick="@(() => DomainFacade.SharedConverter = SharedConverter.MyFormat)">@Loc.Keys["share__my-format"]</div>
             <div class="share__option @FormatClass(SharedConverter.MyLink)"
-                 @onclick="@(() => ShareProvider.SharedConverter = SharedConverter.MyLink)">@Loc.Keys["share__link"]</div>
+                 @onclick="@(() => DomainFacade.SharedConverter = SharedConverter.MyLink)">@Loc.Keys["share__link"]</div>
         </div>
 
         <input type="text"
-               value="@ShareProvider.Converted"
+               value="@DomainFacade.SharedOutput"
                id="share__output"
                class="share__output" />
         <div class="share__row">
@@ -42,18 +42,17 @@
 @code {
     private string _onlyGivenClass
     {
-        get => ShareProvider.SharedFields == SharedFields.Givens ? _selectedClass : string.Empty;
+        get => DomainFacade.SharedFields == SharedFields.Givens ? _selectedClass : string.Empty;
     }
 
     private string _givensAndUserInputsClass
     {
-        get => ShareProvider.SharedFields == SharedFields.GivensAndInputs ? _selectedClass : string.Empty;
+        get => DomainFacade.SharedFields == SharedFields.GivensAndInputs ? _selectedClass : string.Empty;
     }
     private string _selectedClass { get => "share__button--selected"; }
 
     protected override void OnInitialized()
     {
-        ShareProvider.OnChanged += Update;
     }
 
     private void Update()
@@ -69,11 +68,11 @@
 
     private string FormatClass(SharedConverter sharedConverter)
     {
-        return ShareProvider.SharedConverter == sharedConverter ? "share__option--selected" : string.Empty;
+        return DomainFacade.SharedConverter == sharedConverter ? "share__option--selected" : string.Empty;
     }
 
     private string FieldClass(SharedFields sharedFields)
     {
-        return ShareProvider.SharedFields == sharedFields ? "share__option--selected" : string.Empty;
+        return DomainFacade.SharedFields == sharedFields ? "share__option--selected" : string.Empty;
     }
 }

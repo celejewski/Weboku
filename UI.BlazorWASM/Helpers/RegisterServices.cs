@@ -73,7 +73,6 @@ namespace UI.BlazorWASM.Helpers
             services.AddScoped<HotkeyProvider>();
             services.AddScoped<PreserveStateProvider>();
             services.AddScoped<GameStateChecker>();
-            services.AddScoped<ShareProvider>();
         }
     }
 }
