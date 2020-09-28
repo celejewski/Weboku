@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Application.Managers
 {
-    internal sealed class GridHistoryManager
+    internal sealed class HistoryManager
     {
         private readonly Stack<IGrid> _previousStates = new Stack<IGrid>();
         private readonly Stack<IGrid> _nextStates = new Stack<IGrid>();

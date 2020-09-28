@@ -13,65 +13,33 @@ using System.Threading.Tasks;
 
 namespace Application
 {
-    public class DomainFacade
+    public sealed partial class DomainFacade
     {
         private readonly ToolManager _toolManager;
-        private readonly GridHistoryManager _gridHistoryManager;
+        private readonly HistoryManager _historyManager;
         private readonly HintsProvider _hintsProvider;
         private readonly StorageManager _storageManager;
 
+        public Difficulty Difficulty;
+
+        public event Action OnValueChanged;
+        public event Action OnCandidateChanged;
+        public event Action OnValueOrCandidateChanged;
 
         public DomainFacade(IStorageProvider storageProvider)
         {
             Grid = new Grid();
             _toolManager = new ToolManager();
-            _gridHistoryManager = new GridHistoryManager();
+            _historyManager = new HistoryManager();
             _hintsProvider = new HintsProvider();
             _storageManager = new StorageManager(storageProvider);
         }
-        public Value GetValue(Position pos)
-        {
-            return Grid.GetValue(pos);
-        }
-
-        public bool IsGiven(Position position)
-        {
-            return Grid.GetIsGiven(position);
-        }
-
-        public bool HasCandidate(Position position, Value value)
-        {
-            return Grid.HasCandidate(position, value);
-        }
-
-        public bool HasValue(Position position)
-        {
-            return Grid.HasValue(position);
-        }
-
-        public bool IsValueLegal(Position position)
-        {
-            return Grid.IsCandidateLegal(position, Grid.GetValue(position));
-        }
-
-        public bool IsCandidateLegal(Position position, Value value)
-        {
-            return Grid.IsCandidateLegal(position, value);
-        }
-
-        public int GetCandidatesCount(Position position)
-        {
-            return Grid.GetCandidates(position).Count();
-        }
-
         public void StartNewGame(IGrid grid, Difficulty difficulty = Difficulty.Unknown)
         {
             Grid = grid;
             Difficulty = difficulty;
             ValueAndCandidateChanged();
         }
-
-        public Difficulty Difficulty;
 
         public void StartNewGame(string givens)
         {
@@ -90,44 +58,6 @@ namespace Application
             StartNewGame(grid, difficulty);
         }
 
-        public void UseMarker(Position position, Value value)
-        {
-            _gridHistoryManager.Save(Grid);
-            _toolManager.UseMarker(Grid, position, value);
-            ValueAndCandidateChanged();
-        }
-
-        public void UsePencil(Position position, Value value)
-        {
-            _gridHistoryManager.Save(Grid);
-            _toolManager.UsePencil(Grid, position, value);
-            CandidateChanged();
-        }
-        public void UseEraser(Position position)
-        {
-            _gridHistoryManager.Save(Grid);
-            _toolManager.UseEraser(Grid, position);
-            ValueAndCandidateChanged();
-        }
-
-        public void FillAllLegalCandidates()
-        {
-            _gridHistoryManager.Save(Grid);
-            Grid.FillAllLegalCandidates();
-            CandidateChanged();
-        }
-
-        public event Action OnValueChanged;
-
-        public event Action OnCandidateChanged;
-        public event Action OnValueOrCandidateChanged;
-
-        public void ClearAllCandidates()
-        {
-            _gridHistoryManager.Save(Grid);
-            Grid.ClearAllCandidates();
-            OnCandidateChanged();
-        }
 
         private IGrid _grid;
         private IGrid _gridToShare;
@@ -150,38 +80,7 @@ namespace Application
                 _grid = value;
             }
         }
-        public void RestartGrid()
-        {
-            _gridHistoryManager.Save(Grid);
-            foreach( var position in Position.Positions )
-            {
-                if( !Grid.GetIsGiven(position) )
-                {
-                    Grid.SetValue(position, Value.None);
-                }
-            }
 
-            Grid.ClearAllCandidates();
-            ValueAndCandidateChanged();
-        }
-
-        public void Undo()
-        {
-            if( _gridHistoryManager.CanUndo )
-            {
-                Grid = _gridHistoryManager.Undo(Grid);
-                ValueAndCandidateChanged();
-            }
-        }
-
-        public void Redo()
-        {
-            if( _gridHistoryManager.CanRedo )
-            {
-                Grid = _gridHistoryManager.Redo(Grid);
-                ValueAndCandidateChanged();
-            }
-        }
 
         private ModalState _modalState;
         public ModalState ModalState
@@ -198,14 +97,6 @@ namespace Application
             }
         }
 
-        public bool CanRedo => _gridHistoryManager.CanRedo;
-        public bool CanUndo => _gridHistoryManager.CanUndo;
-        public event Action OnHistoryChanged
-        {
-            add { _gridHistoryManager.OnChanged += value; }
-            remove { _gridHistoryManager.OnChanged -= value; }
-        }
-
         public ISolvingTechnique GetNextHint()
         {
             return _hintsProvider.GetNextHint(Grid);
@@ -213,23 +104,10 @@ namespace Application
 
         public void ExecuteNextHint()
         {
-            _gridHistoryManager.Save(Grid);
+            _historyManager.Save(Grid);
             var nextHint = _hintsProvider.GetNextHint(Grid);
             nextHint.Execute(Grid);
             ValueAndCandidateChanged();
-        }
-
-        public void Save()
-        {
-            _storageManager.Save(new StorageDto(_grid, Difficulty));
-        }
-
-        public void Load()
-        {
-            var storageDto = _storageManager.Load();
-            _grid = storageDto.Grid;
-            Difficulty = storageDto.Difficulty;
-            ValueChanged();
         }
         private void ValueChanged()
         {
