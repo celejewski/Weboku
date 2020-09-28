@@ -20,6 +20,7 @@ namespace Application
         private readonly HintsProvider _hintsProvider;
         private readonly StorageManager _storageManager;
 
+
         public DomainFacade(IStorageProvider storageProvider)
         {
             Grid = new Grid();
@@ -137,6 +138,10 @@ namespace Application
                 if( ModalState == ModalState.Share )
                 {
                     return _gridToShare;
+                }
+                if( ModalState == ModalState.Paste )
+                {
+                    return _pastedGrid;
                 }
                 return _grid;
             }
@@ -297,5 +302,28 @@ namespace Application
 
         public void SetFilter(IFilter filter) => Filter = filter;
         public event Action OnFilterChanged;
+
+        private string _pasted = new string('0', 81);
+        public string Pasted
+        {
+            get => _pasted;
+            set
+            {
+                _pasted = value;
+                PastedIsValid = _defaultSerializer.IsValidFormat(_pasted);
+                _pastedGrid = PastedIsValid ? _defaultSerializer.Deserialize(Pasted) : new Grid();
+                ValueAndCandidateChanged();
+            }
+        }
+
+        public bool PastedIsValid;
+        private IGrid _pastedGrid = new Grid();
+
+        private readonly IGridSerializer _defaultSerializer = GridSerializerFactory.Make(GridSerializerName.Default);
+        public void StartNewGameFromPasted()
+        {
+            if( !PastedIsValid ) throw new ApplicationException($"Can not start game from invalid pasted = {Pasted}.");
+            StartNewGame(_pastedGrid);
+        }
     }
 }

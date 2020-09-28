@@ -5,7 +5,6 @@
 @inject PreserveStateProvider PreserveStateProvider
 @inject GameTimerProvider GameTimerProvider
 @inject GameStateChecker GameStateChecker
-@inject PasteProvider PasteProvider
 
 @inject DomainFacade DomainFacade
 @using UI.BlazorWASM.Component.Modals;
@@ -77,7 +76,7 @@
 
                 if( !string.IsNullOrEmpty(SharedSudoku) )
                 {
-                    PasteProvider.Pasted = SharedSudoku;
+                    DomainFacade.Pasted = SharedSudoku;
                     ModalProvider.SetModalState(ModalState.Paste);
                 }
                 else

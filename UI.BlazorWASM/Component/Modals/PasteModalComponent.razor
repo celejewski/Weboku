@@ -1,14 +1,14 @@
 ﻿@inject IJSRuntime JSRuntime
-@inject PasteProvider PasteProvider
 @inject StartNewGameFromPastedCommand StartNewGameFromPastedCommand
 @inject ShowPreviousModalCommand ShowPreviousModalCommand
 @inject ILanguageContainerService LanguageContainer
+@inject DomainFacade DomainFacade
 
 <ModalWithGridTemplateComponent>
     <Content>
         <h1 class="paste__header with-hr">@LanguageContainer.Keys["paste__header"]</h1>
         <textarea class="paste__input @_validClass"
-                  @bind="@PasteProvider.Pasted" @bind:event="oninput"></textarea>
+                  @bind="@DomainFacade.Pasted" @bind:event="oninput"></textarea>
 
         <div class="paste__row">
             <div class="paste__close"
@@ -23,5 +23,5 @@
 </ModalWithGridTemplateComponent>
 
 @code {
-    private string _validClass => PasteProvider.IsValid ? String.Empty : "paste__input--is-invalid";
+    private string _validClass => DomainFacade.PastedIsValid ? String.Empty : "paste__input--is-invalid";
 }
