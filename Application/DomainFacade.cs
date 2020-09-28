@@ -72,6 +72,7 @@ namespace Application
 
         public void StartNewCustomGame()
         {
+            if( !IsCustomGridValid ) throw new ApplicationException($"Can not start game because some inputs are invalid.");
             foreach( var position in Position.Positions )
             {
                 if( _customGrid.HasValue(position) )

@@ -11,7 +11,7 @@
                   @bind="@DomainFacade.Pasted" @bind:event="oninput"></textarea>
 
         <div class="paste__row">
-            <div class="paste__close"
+            <div class="paste__close @_canStart"
                  @onclick="StartNewGameFromPastedCommand.Execute">@LanguageContainer.Keys["paste__start-game"]</div>
         </div>
 
@@ -24,4 +24,5 @@
 
 @code {
     private string _validClass => DomainFacade.PastedIsValid ? String.Empty : "paste__input--is-invalid";
+    private string _canStart => DomainFacade.PastedIsValid ? String.Empty : "paste__close--disabled";
 }

@@ -16,8 +16,11 @@ namespace UI.BlazorWASM.Commands
 
         public async Task Execute()
         {
-            _domainFacade.StartNewCustomGame();
-            await _startGameCommand.Execute();
+            if( _domainFacade.IsCustomGridValid )
+            {
+                _domainFacade.StartNewCustomGame();
+                await _startGameCommand.Execute();
+            }
         }
     }
 }

@@ -18,8 +18,11 @@ namespace UI.BlazorWASM.Commands
 
         public async Task Execute()
         {
-            _domainFacade.StartNewGameFromPasted();
-            await _startGameCommand.Execute();
+            if( _domainFacade.PastedIsValid )
+            {
+                _domainFacade.StartNewGameFromPasted();
+                await _startGameCommand.Execute();
+            }
         }
     }
 }

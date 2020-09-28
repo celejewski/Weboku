@@ -25,5 +25,11 @@ namespace Core.Validators
                 .Where(position => grid.GetIsGiven(position))
                 .All(position => grid.IsCandidateLegal(position, grid.GetValue(position)));
         }
+
+        public static bool AreAllValueslegal(Grid grid)
+        {
+            return Position.Positions
+                .All(position => grid.IsValueLegal(position));
+        }
     }
 }

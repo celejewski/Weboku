@@ -11,6 +11,7 @@
 @inject ModalProvider ModalProvider
 @inject StartNewCustomSudokuCommand StartNewCustomSudokuCommand
 @inject ShowPreviousModalCommand ShowPreviousModalCommand
+@inject CloseModalCommand CloseModalCommand
 
 <div class="menu">
     <div class="menu__item">
@@ -40,6 +41,7 @@
     <div class="menu__item">
         @if( ModalProvider.CurrentState == ModalState.CustomSudoku )
         {
+            <MenuLinkComponent OnMouseDown="CloseModalCommand">Close</MenuLinkComponent>
         }
         else
         {

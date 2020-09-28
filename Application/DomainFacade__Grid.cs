@@ -1,5 +1,6 @@
 ﻿using Application.Enums;
 using Core.Data;
+using Core.Validators;
 
 namespace Application
 {
@@ -80,5 +81,7 @@ namespace Application
             _grid.Restart();
             GridChanged();
         }
+
+        public bool IsCustomGridValid => ValidatorGrid.AreAllValueslegal(_customGrid);
     }
 }

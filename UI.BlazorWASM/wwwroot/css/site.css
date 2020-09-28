@@ -1153,6 +1153,14 @@ h1, h2, h3 {
   border: 1px solid black;
 }
 
+.paste__close--disabled {
+  background: #DEDEDE;
+}
+
+.paste__close--disabled:hover {
+  background: #DEDEDE;
+}
+
 .paste__input {
   grid-row: span 2;
   grid-column: span 2;

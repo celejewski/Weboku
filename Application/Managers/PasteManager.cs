@@ -1,5 +1,6 @@
 ﻿using Core.Data;
 using Core.Serializers;
+using Core.Validators;
 
 namespace Application.Managers
 {
@@ -18,10 +19,11 @@ namespace Application.Managers
             set
             {
                 _pasted = value;
-                IsValid = _gridSerializer.IsValidFormat(_pasted);
-                Grid = IsValid
+                var isValidFormat = _gridSerializer.IsValidFormat(_pasted);
+                Grid = isValidFormat
                     ? _gridSerializer.Deserialize(Pasted)
                     : new Grid();
+                IsValid = isValidFormat && ValidatorGrid.AreAllGivensLegal(Grid);
             }
         }
 
