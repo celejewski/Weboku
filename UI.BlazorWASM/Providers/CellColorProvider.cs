@@ -7,36 +7,27 @@ namespace UI.BlazorWASM.Providers
 {
     public class CellColorProvider
     {
-        private readonly Color[,] _cellColors = new Color[9, 9];
+        private readonly Color[,] _cellColors = new Color[Position.Cols.Count, Position.Rows.Count];
 
         public event Action OnChanged;
 
-        public Color GetColor(int x, int y) => _cellColors[x, y];
+        public Color GetColor(Position position) => _cellColors[position.x, position.y];
 
-        public string GetCssClass(Position pos)
+        public string GetCssClass(Position position)
         {
-            return CellColorConverter.ToCssClass(_cellColors[pos.x, pos.y]);
+            return CellColorConverter.ToCssClass(_cellColors[position.x, position.y]);
         }
-        public void SetColor(int x, int y, Color color)
+        public void SetColor(Position position, Color color)
         {
-            _cellColors[x, y] = color;
-            OnChanged?.Invoke();
-        }
-
-        public void ToggleColor(Position pos, Color color)
-        {
-            _cellColors[pos.x, pos.y] = _cellColors[pos.x, pos.y] == color ? Color.None : color;
+            _cellColors[position.x, position.y] = color;
             OnChanged?.Invoke();
         }
 
         public void ClearAll()
         {
-            for( int y = 0; y < 9; y++ )
+            foreach( var position in Position.Positions )
             {
-                for( int x = 0; x < 9; x++ )
-                {
-                    _cellColors[x, y] = Color.None;
-                }
+                _cellColors[position.x, position.y] = Color.None;
             }
             OnChanged?.Invoke();
         }

@@ -1,7 +1,7 @@
-﻿using Core.Data;
+﻿using Application;
+using Core.Data;
 using System.Collections.Generic;
 using System.Linq;
-using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.Hints
 {
@@ -10,31 +10,29 @@ namespace UI.BlazorWASM.Hints
     /// </summary>
     public class Informer
     {
-        private readonly IGridProvider _gridProvider;
-        private readonly SudokuProvider _sudokuProvider;
+        private readonly DomainFacade _domainFacade;
 
-        public Informer(IGridProvider gridProvider, SudokuProvider sudokuProvider)
+        public Informer(DomainFacade domainFacade)
         {
-            _gridProvider = gridProvider;
-            _sudokuProvider = sudokuProvider;
+            _domainFacade = domainFacade;
         }
 
-        public InputValue GetValue(Position position) => _gridProvider.GetValue(position);
-        public bool HasValue(Position position) => _gridProvider.HasValue(position);
-        public bool HasCandidate(Position position, InputValue value) => _gridProvider.HasCandidate(position, value);
-        public InputValue GetSolution(Position position) => _sudokuProvider.GetSolution(position);
+        public Value GetValue(Position position) => _domainFacade.GetValue(position);
+        public bool HasValue(Position position) => _domainFacade.HasValue(position);
+        public bool HasCandidate(Position position, Value value) => _domainFacade.HasCandidate(position, value);
+        public Value GetSolution(Position position) => Value.None;
 
-        public int GetCandidatesCount(Position position) => _gridProvider.CandidatesCount(position);
+        public int GetCandidatesCount(Position position) => _domainFacade.GetCandidatesCount(position);
 
-        public IEnumerable<Position> GetPositionsWithCandidate(House house, Position housePosition, InputValue inputValue)
+        public IEnumerable<Position> GetPositionsWithCandidate(House house, Position housePosition, Value value)
         {
             return HintsHelper.GetPositionsInHouse(housePosition, house)
-                .Where(pos => HasCandidate(pos, inputValue));
+                .Where(pos => HasCandidate(pos, value));
         }
 
-        public IEnumerable<Position> WithCandidate(IEnumerable<Position> positions, InputValue inputValue)
+        public IEnumerable<Position> WithCandidate(IEnumerable<Position> positions, Value value)
         {
-            return positions.Where(pos => HasCandidate(pos, inputValue));
+            return positions.Where(pos => HasCandidate(pos, value));
         }
     }
 }

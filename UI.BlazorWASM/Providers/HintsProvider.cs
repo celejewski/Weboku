@@ -1,12 +1,7 @@
-﻿using Core.Hints;
+﻿using Application;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using UI.BlazorWASM.Enums;
 using UI.BlazorWASM.Hints;
 using UI.BlazorWASM.Hints.SolvingTechniqueDisplayers;
-using UI.BlazorWASM.Providers;
-using Core.Hints.SolvingTechniques;
 
 namespace UI.BlazorWASM.Providers
 {
@@ -14,8 +9,7 @@ namespace UI.BlazorWASM.Providers
     {
         private readonly Informer _informer;
         private readonly Displayer _displayer;
-        private readonly GridHistoryProvider _gridHistoryManager;
-        private readonly IGridProvider _gridProvider;
+        private readonly DomainFacade _domainFacade;
 
         public event Action OnChanged;
 
@@ -26,47 +20,35 @@ namespace UI.BlazorWASM.Providers
             OnChanged?.Invoke();
         }
 
-        private readonly Core.Hints.HintsProvider _solver = new Core.Hints.HintsProvider();
-        private IEnumerable<ISolvingTechniqueDisplayer> Techniques
-        {
-            get
-            {
-                var technique = _solver.GetNextHint(_gridProvider.Grid) ;
-                yield return DisplayTechniqueFactory.GetDisplayer(_informer, _displayer, technique);
-            }
-        }
-
         public bool HasExplanation => _currentTechnique.HasExplanation;
         public bool HasNextExplanation => _currentTechnique.HasNextExplanation;
         public bool HasPreviousExplanation => _currentTechnique.HasPreviousExplanation;
 
         private ISolvingTechniqueDisplayer _currentTechnique;
-        private ISolvingTechniqueDisplayer NextTechnique => Techniques.First(t => t.CanExecute(_gridProvider.Grid));
+        private ISolvingTechniqueDisplayer GetNextTechnique()
+        {
+            return DisplayTechniqueFactory.MakeDisplayer(_informer, _displayer, _domainFacade.GetNextHint());
+        }
 
-        public HintsProvider(
-            Informer informer, 
-            Displayer displayer,
-            GridHistoryProvider gridHistoryManager,
-            IGridProvider gridProvider)
+        public HintsProvider(Informer informer, Displayer displayer, DomainFacade domainFacade)
         {
             _informer = informer;
             _displayer = displayer;
-            _gridHistoryManager = gridHistoryManager;
-            _gridProvider = gridProvider;
+            _domainFacade = domainFacade;
         }
 
 
         public void ShowHint()
         {
             _displayer.Clear();
-            NextTechnique.DisplayHint();
+            GetNextTechnique().DisplayHint();
             _displayer.Show();
             SetState(HintsState.ShowHint);
         }
 
         public void ShowNextStep()
         {
-            _currentTechnique = NextTechnique;
+            _currentTechnique = GetNextTechnique();
             _displayer.Clear();
             _currentTechnique.DisplaySolution();
             _displayer.Show();
@@ -93,9 +75,7 @@ namespace UI.BlazorWASM.Providers
 
         public void Execute()
         {
-            _gridHistoryManager.Save();
-            NextTechnique.Execute(_gridProvider.Grid);
-            _gridProvider.Grid = _gridProvider.Grid;
+            _domainFacade.ExecuteNextHint();
             _displayer.Hide();
             SetState(HintsState.ShowEmpty);
         }

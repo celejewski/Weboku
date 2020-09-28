@@ -6,7 +6,7 @@ namespace Core.Hints.TechniqueFinders
 {
     public class HiddenSingleFinder : TechniqueFinderBase
     {
-        public override IEnumerable<ISolvingTechnique> FindAll(IGrid grid)
+        public override IEnumerable<ISolvingTechnique> FindAll(Grid grid)
         {
             var rowsFoundAlready = new Candidates[9];
             var colsFoundAlready = new Candidates[9];
@@ -23,7 +23,7 @@ namespace Core.Hints.TechniqueFinders
 
             for( int i = 0; i < 81; i++ )
             {
-                var pos = Position.All[i];
+                var pos = Position.Positions[i];
                 var candidates = grid.GetCandidates(pos);
 
                 colsLeft[pos.x] &= ~(colsFoundAlready[pos.x] & candidates);
@@ -44,9 +44,9 @@ namespace Core.Hints.TechniqueFinders
             return results;
         }
 
-        private void CheckResult(IGrid grid, List<ISolvingTechnique> results, House house, List<Position> pos, Candidates candidates)
+        private void CheckResult(Grid grid, List<ISolvingTechnique> results, House house, List<Position> pos, Candidates candidates)
         {
-            foreach( var value in candidates.ToInputValues() )
+            foreach( var value in candidates.ToValues() )
             {
                 var position = pos.Find(pos => grid.HasCandidate(pos, value));
                 results.Add(new HiddenSingle(position, value, house));

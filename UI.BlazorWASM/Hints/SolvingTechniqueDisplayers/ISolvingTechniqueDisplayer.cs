@@ -8,8 +8,8 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
         void DisplaySolution();
         void DisplayExplanation();
 
-        bool CanExecute(IGrid grid);
-        void Execute(IGrid grid);
+        bool CanExecute(Grid grid);
+        void Execute(Grid grid);
 
         bool HasExplanation { get; }
         public bool HasNextExplanation { get; }

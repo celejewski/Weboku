@@ -9,7 +9,7 @@ namespace Core.Hints.SolvingTechniques
 {
     public class TwoStringKite : ISolvingTechnique
     {
-        public TwoStringKite(InputValue value, IEnumerable<Position> legalPositions, IEnumerable<Position> infoPositions, Position positionToRemove )
+        public TwoStringKite(Value value, IEnumerable<Position> legalPositions, IEnumerable<Position> infoPositions, Position positionToRemove )
         {
             Value = value;
             LegalPositions = legalPositions;
@@ -17,17 +17,17 @@ namespace Core.Hints.SolvingTechniques
             PositionToRemove = positionToRemove;
         }
 
-        public InputValue Value { get; }
+        public Value Value { get; }
         public IEnumerable<Position> LegalPositions { get; }
         public IEnumerable<Position> InfoPositions { get; }
         public Position PositionToRemove { get; }
 
-        public bool CanExecute(IGrid grid)
+        public bool CanExecute(Grid grid)
         {
             return grid.HasCandidate(PositionToRemove, Value);
         }
 
-        public void Execute(IGrid grid)
+        public void Execute(Grid grid)
         {
             grid.RemoveCandidate(PositionToRemove, Value);
         }

@@ -1,6 +1,6 @@
-﻿using Core.Data;
+﻿using Application;
+using Application.Filters;
 using System.Threading.Tasks;
-using UI.BlazorWASM.Filters;
 using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.Commands
@@ -8,19 +8,19 @@ namespace UI.BlazorWASM.Commands
     public class SelectValueCommand : ICommand
     {
         private readonly int _value;
-        private readonly FilterProvider _filterProvider;
-        private readonly IClickableActionProvider _clickableActionProvider;
+        private readonly DomainFacade _domainFacade;
+        private readonly ClickableActionProvider _clickableActionProvider;
 
-        public SelectValueCommand(int value, FilterProvider filterProvider, IClickableActionProvider clickableActionProvider)
+        public SelectValueCommand(int value, DomainFacade filterProvider, ClickableActionProvider clickableActionProvider)
         {
             _value = value;
-            _filterProvider = filterProvider;
+            _domainFacade = filterProvider;
             _clickableActionProvider = clickableActionProvider;
         }
 
         public Task Execute()
         {
-            _filterProvider.SetFilter(new SelectedValueFilter(_value));
+            _domainFacade.SetFilter(new SelectedValueFilter(_value));
             _clickableActionProvider.Value = _value;
             return Task.CompletedTask;
 

@@ -1,19 +1,15 @@
 ﻿using Core.Data;
-using Microsoft.Extensions.Options;
-using Microsoft.Net.Http.Headers;
 using Core.Hints.SolvingTechniques;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using YamlDotNet.Core.Tokens;
 
 namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
 {
     public class FullHouseDisplayer : BaseSolvingTechniqueDisplayer
     {
         private readonly Position _position;
-        private readonly InputValue _value;
+        private readonly Value _value;
 
         private readonly House _house;
         private readonly IEnumerable<Position> _positionsInHouse;
@@ -60,7 +56,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
             SetupDisplay();
 
             _displayer.SetDescription(ExplanationKey("01"), _displayer.Format(_house, _position));
-            _displayer.SetValueFilter(InputValue.None);
+            _displayer.SetValueFilter(Value.None);
         }
 
         public void Explain02()
@@ -69,7 +65,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
 
             _displayer.SetDescription(ExplanationKey("02"), _displayer.Format(_house, _position));
             _displayer.MarkCell(Enums.Color.Legal, _position);
-            _displayer.SetValueFilter(InputValue.None);
+            _displayer.SetValueFilter(Value.None);
         }
         public void Explain03()
         {
@@ -78,10 +74,10 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
             _displayer.SetDescription(ExplanationKey("03"), _displayer.Format(_house, _position));
             _displayer.MarkCells(Enums.Color.Illegal, _positionsInHouse);
             _displayer.MarkCell(Enums.Color.Legal, _position);
-            _displayer.SetValueFilter(InputValue.None);
+            _displayer.SetValueFilter(Value.None);
         }
 
-        public Action ExplainN(InputValue n)
+        public Action ExplainN(Value n)
         {
             return () =>
             {

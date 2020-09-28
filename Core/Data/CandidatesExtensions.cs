@@ -6,22 +6,22 @@ namespace Core.Data
     public static class CandidatesExtensions
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Candidates AsCandidates(this InputValue inputValue)
+        public static Candidates AsCandidates(this Value value)
         {
-            return (Candidates) (1 << (inputValue - 1));
+            return (Candidates) (1 << (value - 1));
         }
 
-        private static readonly IReadOnlyList<InputValue>[] _candidatesAsList
-            = new IReadOnlyList<InputValue>[512];
-        public static IReadOnlyList<InputValue> ToInputValues(this Candidates candidates)
+        private static readonly IReadOnlyList<Value>[] _candidatesAsList
+            = new IReadOnlyList<Value>[512];
+        public static IReadOnlyList<Value> ToValues(this Candidates candidates)
         {
-            return _candidatesAsList[(int) candidates] ??= ToInputValuesCalculate(candidates);
+            return _candidatesAsList[(int) candidates] ??= ToValuesCalculate(candidates);
         }
 
-        private static IReadOnlyList<InputValue> ToInputValuesCalculate(Candidates candidates)
+        private static IReadOnlyList<Value> ToValuesCalculate(Candidates candidates)
         {
-            var result = new List<InputValue>();
-            foreach( var value in InputValue.NonEmpty )
+            var result = new List<Value>();
+            foreach( var value in Value.NonEmpty )
             {
                 if( (candidates & value.AsCandidates()) == value.AsCandidates() )
                 {
@@ -56,7 +56,7 @@ namespace Core.Data
             for( int i = 0; i < 512; i++ )
             {
                 var candidates = (Candidates) i;
-                candidates.ToInputValues();
+                candidates.ToValues();
                 candidates.Count();
             }
         }

@@ -1,5 +1,5 @@
-﻿@inject IGridProvider GridProvider
-@inject CandidatesMarkProvider CandidatesMarkProvider
+﻿@inject DomainFacade DomainFacade
+@inject CandidateColorProvider CandidateColorProvider
 @using UI.BlazorWASM.Converters
 @using UI.BlazorWASM.Enums
 
@@ -16,13 +16,13 @@
     [Parameter]
     public Position Pos { get; set; }
     [Parameter]
-    public InputValue Value { get; set; }
+    public Value Value { get; set; }
 
     private int _gridColumn;
     private int _gridRow;
 
     private string _text;
-    private bool _isVisible => GridProvider.HasCandidate(Pos, Value);
+    private bool _isVisible => DomainFacade.HasCandidate(Pos, Value);
     private bool _wasVisible;
 
     protected override void OnInitialized()
@@ -32,8 +32,8 @@
         _gridRow = z / 3 + 1;
 
         _text = Value.ToString();
-        GridProvider.OnCandidatesChanged += StateHasChanged;
-        CandidatesMarkProvider.OnChanged += StateHasChanged;
+        DomainFacade.OnGridChanged += StateHasChanged;
+        CandidateColorProvider.OnChanged += StateHasChanged;
     }
 
     protected override bool ShouldRender()
@@ -56,7 +56,7 @@
     {
         get
         {
-            return CandidatesMarkProvider.GetColor(Pos, Value);
+            return CandidateColorProvider.GetColor(Pos, Value);
         }
     }
 }

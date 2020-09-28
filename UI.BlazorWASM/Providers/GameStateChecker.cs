@@ -1,4 +1,5 @@
-﻿using Core.Data;
+﻿using Application;
+using Core.Data;
 using System;
 using System.Linq;
 
@@ -6,19 +7,19 @@ namespace UI.BlazorWASM.Providers
 {
     public class GameStateChecker
     {
-        private readonly IGridProvider _gridProvider;
+        private readonly DomainFacade _domainFacade;
 
         public event Action OnSolved;
 
-        public GameStateChecker(IGridProvider gridProvider)
+        public GameStateChecker(DomainFacade domainFacade)
         {
-            _gridProvider = gridProvider;
-            _gridProvider.OnValueChanged += Check;
+            _domainFacade = domainFacade;
+            _domainFacade.OnGridChanged += RaiseEventIfSudokuIsSolved;
         }
 
-        private void Check()
+        private void RaiseEventIfSudokuIsSolved()
         {
-            if( Position.All.All(pos => _gridProvider.HasValue(pos) && _gridProvider.IsValueLegal(pos)) )
+            if( Position.Positions.All(position => _domainFacade.HasValue(position) && _domainFacade.IsValueLegal(position)) )
             {
                 OnSolved?.Invoke();
             }

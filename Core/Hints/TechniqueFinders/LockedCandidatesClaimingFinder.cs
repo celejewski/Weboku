@@ -7,9 +7,9 @@ namespace Core.Hints.TechniqueFinders
 {
     public class LockedCandidatesClaimingFinder : TechniqueFinderBase
     {
-        public override IEnumerable<ISolvingTechnique> FindAll(IGrid grid)
+        public override IEnumerable<ISolvingTechnique> FindAll(Grid grid)
         {
-            foreach( var value in InputValue.NonEmpty )
+            foreach( var value in Value.NonEmpty )
             {
                 var (cols, rows, blocks, blockXcols, blockXrows)
                     = HintsHelper.GetCandidatesCountEx(grid, value);

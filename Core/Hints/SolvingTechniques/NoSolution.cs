@@ -7,12 +7,12 @@ namespace Core.Hints.SolvingTechniques
     {
         private readonly ISolver _solver = new BruteForceSolver();
 
-        public bool CanExecute(IGrid grid)
+        public bool CanExecute(Grid grid)
         {
             return _solver.Solve(grid) == null;
         }
 
-        public void Execute(IGrid grid)
+        public void Execute(Grid grid)
         {
         }
     }

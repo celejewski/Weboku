@@ -5,14 +5,14 @@ namespace Core.Solvers
 {
     public abstract class BaseSolver : ISolver
     {
-        public abstract IGrid Solve(IGrid input);
+        public abstract Grid Solve(Grid input);
 
-        public IGrid SolveGivens(IGrid input)
+        public Grid SolveGivens(Grid input)
         {
             var gridWithGivensOnly = input.Clone();
-            foreach( var pos in Position.All.Where(pos => !gridWithGivensOnly.GetIsGiven(pos)) )
+            foreach( var pos in Position.Positions.Where(pos => !gridWithGivensOnly.GetIsGiven(pos)) )
             {
-                gridWithGivensOnly.SetValue(pos, InputValue.None);
+                gridWithGivensOnly.SetValue(pos, Value.None);
             }
             return Solve(gridWithGivensOnly);
         }

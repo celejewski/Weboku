@@ -1,4 +1,6 @@
-﻿using UI.BlazorWASM.Providers;
+﻿using Core.Data;
+using UI.BlazorWASM.Enums;
+using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.ClickableActions
 {
@@ -13,12 +15,16 @@ namespace UI.BlazorWASM.ClickableActions
 
         public void LeftClickAction(ClickableActionArgs args)
         {
-            _cellColorProvider.ToggleColor(args.Pos, args.Color1);
+            ToggleColor(args.Position, args.Color1);
         }
-
         public void RightClickAction(ClickableActionArgs args)
         {
-            _cellColorProvider.ToggleColor(args.Pos, args.Color2);
+            ToggleColor(args.Position, args.Color2);
+        }
+        private void ToggleColor(Position position, Color color)
+        {
+            var colorToSet = _cellColorProvider.GetColor(position) == color ? Color.None : color;
+            _cellColorProvider.SetColor(position, colorToSet);
         }
     }
 }

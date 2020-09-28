@@ -1,13 +1,13 @@
-﻿using UI.BlazorWASM.Commands;
-using UI.BlazorWASM.Providers;
+﻿using Application;
+using UI.BlazorWASM.Commands;
 
 namespace UI.BlazorWASM.Component.NumpadMenu
 {
     public class RedoNumpadMenuItem : BaseMenuOption, INumpadMenuLabel
     {
-        private readonly GridHistoryProvider _gridHistoryManager;
+        private readonly DomainFacade _gridHistoryManager;
 
-        public RedoNumpadMenuItem(RedoCommand command, GridHistoryProvider gridHistoryManager)
+        public RedoNumpadMenuItem(RedoCommand command, DomainFacade gridHistoryManager)
             : base(command)
         {
             _gridHistoryManager = gridHistoryManager;
@@ -17,6 +17,6 @@ namespace UI.BlazorWASM.Component.NumpadMenu
         public override bool IsSelectable => false;
 
         public string Label => "numpad-redo__label";
-        public override string Tooltip => "numpad-redo__tooltip"; 
+        public override string Tooltip => "numpad-redo__tooltip";
     }
 }

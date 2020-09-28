@@ -7,7 +7,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
 {
     public class XWingDisplayer : BaseSolvingTechniqueDisplayer
     {
-        private readonly InputValue _value;
+        private readonly Value _value;
         private readonly IEnumerable<Position> _positions;
         private readonly IEnumerable<Position> _positionsToRemove;
         private readonly House _house;

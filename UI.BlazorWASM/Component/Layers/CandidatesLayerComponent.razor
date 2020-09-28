@@ -1,10 +1,10 @@
-﻿@inject IGridProvider GridProvider
+﻿@inject DomainFacade DomainFacade
 
 <Grid9x9Component>
-    @if( !GridProvider.HasValue(context) && GridProvider.CandidatesCount(context) > 0 )
+    @if( AreCandidatesVisible(context) )
     {
         <div class="candidates-grid">
-            @foreach( var value in InputValue.NonEmpty )
+            @foreach( var value in Value.NonEmpty )
             {
                 <CandidatesComponent Pos="context" Value="value" />
             }
@@ -13,8 +13,14 @@
 </Grid9x9Component>
 
 @code {
+    private bool AreCandidatesVisible(Position position)
+    {
+        return !DomainFacade.HasValue(position) && DomainFacade.GetCandidatesCount(position) > 0;
+
+    }
+
     protected override void OnInitialized()
     {
-        GridProvider.OnValueOrCandidatesChanged += StateHasChanged;
+        DomainFacade.OnGridChanged += StateHasChanged;
     }
 }

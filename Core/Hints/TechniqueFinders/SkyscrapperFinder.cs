@@ -7,9 +7,9 @@ namespace Core.Hints.TechniqueFinders
 {
     public class SkyscrapperFinder : TechniqueFinderBase
     {
-        public override IEnumerable<ISolvingTechnique> FindAll(IGrid grid)
+        public override IEnumerable<ISolvingTechnique> FindAll(Grid grid)
         {
-            foreach( var value in InputValue.NonEmpty )
+            foreach( var value in Value.NonEmpty )
             {
                 foreach( var houses in new[] { Position.Rows, Position.Cols } )
                 {

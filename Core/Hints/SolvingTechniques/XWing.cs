@@ -6,7 +6,7 @@ namespace Core.Hints.SolvingTechniques
 {
     public class XWing : ISolvingTechnique
     {
-        public XWing(InputValue value, IEnumerable<Position> positions, IEnumerable<Position> positionsToRemove, House house)
+        public XWing(Value value, IEnumerable<Position> positions, IEnumerable<Position> positionsToRemove, House house)
         {
             Value = value;
             Positions = positions;
@@ -14,17 +14,17 @@ namespace Core.Hints.SolvingTechniques
             House = house;
         }
 
-        public InputValue Value { get; }
+        public Value Value { get; }
         public IEnumerable<Position> Positions { get; }
         public IEnumerable<Position> PositionsToRemove { get; }
         public House House { get; }
 
-        public bool CanExecute(IGrid grid)
+        public bool CanExecute(Grid grid)
         {
             return PositionsToRemove.Any(pos => grid.HasCandidate(pos, Value));
         }
 
-        public void Execute(IGrid grid)
+        public void Execute(Grid grid)
         {
             foreach( var pos in PositionsToRemove )
             {

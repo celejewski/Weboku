@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using Application.Enums;
+using System.Threading.Tasks;
 using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.Commands
@@ -14,7 +15,7 @@ namespace UI.BlazorWASM.Commands
 
         public Task Execute()
         {
-            _modalProvider.SetModalState(Component.Modals.ModalState.None);
+            _modalProvider.SetModalState(ModalState.None);
             return Task.CompletedTask;
         }
     }

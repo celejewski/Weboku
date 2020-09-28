@@ -1,23 +1,19 @@
-﻿using System.Threading.Tasks;
-using UI.BlazorWASM.Providers;
-using UI.BlazorWASM.Providers;
+﻿using Application;
+using System.Threading.Tasks;
 
 namespace UI.BlazorWASM.Commands
 {
     public class FindAllCandidatesCommand : ICommand
     {
-        private readonly GridHistoryProvider _gridHistoryManager;
-        private readonly IGridProvider _gridProvider;
+        private readonly DomainFacade _domainFacade;
 
-        public FindAllCandidatesCommand(GridHistoryProvider gridHistoryManager, IGridProvider gridProvider)
+        public FindAllCandidatesCommand(DomainFacade domainFacade)
         {
-            _gridHistoryManager = gridHistoryManager;
-            _gridProvider = gridProvider;
+            _domainFacade = domainFacade;
         }
         public Task Execute()
         {
-            _gridHistoryManager.Save();
-            _gridProvider.FillAllLegalCandidates();
+            _domainFacade.FillAllLegalCandidates();
             return Task.CompletedTask;
         }
     }

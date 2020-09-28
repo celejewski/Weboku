@@ -1,16 +1,13 @@
 ﻿@page "/"
 @page "/paste/{SharedSudoku}"
-@inject SudokuProvider SudokuProvider
-@inject HotkeyProvider HotkeyProvider
 @inject IJSRuntime JSRuntime
-@inject CommandProvider CommandProvider
-@inject GameStateChecker GameStateChecker
-@inject GameTimerProvider GameTimerProvider
 @inject ModalProvider ModalProvider
-@inject PasteProvider PasteProvider
-@using UI.BlazorWASM.Component.Modals;
 @inject PreserveStateProvider PreserveStateProvider
-@inject SettingsProvider SettingsProvider
+@inject GameTimerProvider GameTimerProvider
+@inject GameStateChecker GameStateChecker
+
+@inject DomainFacade DomainFacade
+@using UI.BlazorWASM.Component.Modals;
 
 <div id="wrapper"
      class="wrapper">
@@ -22,17 +19,16 @@
         <div class="main__grid">
             <BackgroundLayerComponent />
             @if( _afterSecondRender )
-            {
-                <FilterLayerComponent />
-                <HintsHighlightLayerComponent />
-                <CellColorLayerComponent />
-                <MarkInputLayerComponent />
-            }
-            @if( _afterFirstRender )
-            {
-                <InputLayerComponent />
-                <CandidatesLayerComponent />
-            }
+                {
+                    <FilterLayerComponent />
+                    <HintsHighlightLayerComponent />
+                    <CellColorLayerComponent />
+                }
+                @if( _afterFirstRender )
+                {
+                    <ValueLayerComponent />
+                    <CandidatesLayerComponent />
+                }
             <BorderLayerComponent />
             <ShadowLayerComponent />
             @if( _afterSecondRender )
@@ -54,8 +50,8 @@
 </div>
 
 @code {
-    [Parameter]
-    public string SharedSudoku { get; set; }
+        [Parameter]
+        public string SharedSudoku { get; set; }
 
     private bool _afterFirstRender = false;
     private bool _afterSecondRender = false;
@@ -63,46 +59,50 @@
     protected override async Task OnInitializedAsync()
     {
         GameStateChecker.OnSolved += OnGameEnd;
-        _ = Task.Run(() => SudokuProvider.Generate("medium"));
-
-        if( !string.IsNullOrEmpty(SharedSudoku) )
-        {
-            PasteProvider.Pasted = SharedSudoku;
-            ModalProvider.SetModalState(ModalState.Paste);
-        }
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        @if( _afterFirstRender && !_afterSecondRender )
+
+        await JSRuntime.InvokeVoidAsync("resize");
+        if( _afterFirstRender && !_afterSecondRender )
         {
             _afterSecondRender = true;
-            Task.Run(() =>
+            await Task.Run(async () =>
             {
+                PreserveStateProvider.Load();
+                PreserveStateProvider.AutoSave(TimeSpan.FromSeconds(2));
+
+
+                if( !string.IsNullOrEmpty(SharedSudoku) )
+                {
+                    DomainFacade.Pasted = SharedSudoku;
+                    ModalProvider.SetModalState(ModalState.Paste);
+                }
+                else
+                {
+                    ModalProvider.SetModalState(ModalState.MainMenu);
+                }
                 StateHasChanged();
             });
-
-            Task.Run(async () =>
-            {
-                await PreserveStateProvider.Load();
-                PreserveStateProvider.AutoSave(TimeSpan.FromSeconds(2));
-                ModalProvider.SetModalState(ModalState.MainMenu);
-            });
         }
-        @if( firstRender )
+
+        if( firstRender )
         {
-            Task.Run(() => {
+            await Task.Run(() =>
+            {
                 _afterFirstRender = true;
                 StateHasChanged();
             });
         }
-
-        await JSRuntime.InvokeVoidAsync("resize");
     }
 
     private void OnGameEnd()
     {
         GameTimerProvider.Stop();
-        ModalProvider.SetModalState(ModalState.EndGame);
+        if( ModalProvider.CurrentState == ModalState.None )
+        {
+            ModalProvider.SetModalState(ModalState.EndGame);
+        }
     }
 }

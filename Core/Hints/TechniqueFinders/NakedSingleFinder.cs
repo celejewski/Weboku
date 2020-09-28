@@ -7,16 +7,16 @@ namespace Core.Hints.TechniqueFinders
 {
     public class NakedSingleFinder : TechniqueFinderBase
     {
-        public override IEnumerable<ISolvingTechnique> FindAll(IGrid grid)
+        public override IEnumerable<ISolvingTechnique> FindAll(Grid grid)
         {
-            for( int i = 0; i < Position.All.Count; i++ )
+            for( int i = 0; i < Position.Positions.Count; i++ )
             {
-                var position = Position.All[i];
+                var position = Position.Positions[i];
                 if( grid.GetCandidates(position).Count() != 1 ) continue;
 
                 var value = grid
                     .GetCandidates(position)
-                    .ToInputValues()
+                    .ToValues()
                     .Single();
 
                 yield return new NakedSingle(position, value);

@@ -1,44 +1,24 @@
-﻿using Core.Data;
-using UI.BlazorWASM.Providers;
+﻿using Application;
 
 namespace UI.BlazorWASM.ClickableActions
 {
     public class PencilAction : IClickableAction
     {
-        private readonly GridHistoryProvider _gridHistoryManager;
-        private readonly IGridProvider _gridProvider;
+        private readonly DomainFacade _domainFacade;
 
-        public PencilAction(GridHistoryProvider gridHistoryManager, IGridProvider gridProvider)
+        public PencilAction(DomainFacade domainFacade)
         {
-            _gridHistoryManager = gridHistoryManager;
-            _gridProvider = gridProvider;
+            _domainFacade = domainFacade;
         }
 
         public void LeftClickAction(ClickableActionArgs args)
         {
-            if( _gridProvider.GetIsGiven(args.Pos) ) return;
-
-            if( _gridProvider.GetValue(args.Pos) == InputValue.None )
-            {
-                _gridHistoryManager.Save();
-                _gridProvider.ToggleCandidate(args.Pos, args.Value);
-            }
+            _domainFacade.UsePencil(args.Position, args.Value);
         }
 
         public void RightClickAction(ClickableActionArgs args)
         {
-            if( _gridProvider.GetIsGiven(args.Pos) ) return;
-
-            if( _gridProvider.GetValue(args.Pos) == InputValue.None )
-            {
-                _gridHistoryManager.Save();
-                _gridProvider.SetValue(args.Pos, args.Value);
-            }
-            else if( _gridProvider.GetValue(args.Pos) == args.Value )
-            {
-                _gridHistoryManager.Save();
-                _gridProvider.SetValue(args.Pos, InputValue.None);
-            }
+            _domainFacade.UseMarker(args.Position, args.Value);
         }
     }
 }

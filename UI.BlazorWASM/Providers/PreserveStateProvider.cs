@@ -1,64 +1,41 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using Application;
+using System;
 using System.Timers;
-using UI.BlazorWASM.Enums;
 
 namespace UI.BlazorWASM.Providers
 {
     public class PreserveStateProvider
     {
-        private bool _isDirty = false;
-        private readonly SudokuProvider _sudokuProvider;
-        private readonly IGridProvider _gridProvider;
-        private readonly StorageProvider _storageProvider;
+        private bool _isDirty;
+        private readonly DomainFacade _domainFacade;
         private readonly Timer _timer;
-        public PreserveStateProvider(SudokuProvider sudokuProvider, IGridProvider gridProvider, StorageProvider storageProvider)
+        public PreserveStateProvider(DomainFacade gridProvider)
         {
-            _sudokuProvider = sudokuProvider;
-            _gridProvider = gridProvider;
-            _storageProvider = storageProvider;
+            _domainFacade = gridProvider;
 
-            _sudokuProvider.OnChanged += () => _isDirty = true;
-            _gridProvider.OnValueOrCandidatesChanged += () => _isDirty = true;
+            _domainFacade.OnGridChanged += () => _isDirty = true;
 
             _timer = new Timer();
-            _timer.Elapsed += (o, e) => _ = Save();
+            _timer.Elapsed += (o, e) => Save();
         }
 
-        public void PauseAutoSave()
-        {
-            _timer.Stop();
-        }
-
-        public void ResumeAutoSave()
-        {
-            _timer.Start();
-        }
-
-        public async Task Save()
+        public void Save()
         {
             if( _isDirty )
             {
-                await _storageProvider.SaveGrid(_gridProvider.Grid);
-                await _storageProvider.SaveSudoku(_sudokuProvider.Sudoku);
-                await _storageProvider.SavePreferredDifficulty(_sudokuProvider.PreferredDifficulty);
-                _isDirty = false;
+                _domainFacade.Save();
             }
         }
 
-        public async Task Load()
+        public void Load()
         {
-            if( await _storageProvider.HasSavedGrid() )
+            try
             {
-                _gridProvider.Grid = await _storageProvider.LoadGrid();
+                _domainFacade.Load();
             }
-            if( await _storageProvider.HasSavedSudoku() )
+            catch( Exception e )
             {
-                _sudokuProvider.Sudoku = await _storageProvider.LoadSudoku();
-            }
-            if (await _storageProvider.HasSaved(StorageKey.PreferredDifficulty))
-            {
-                _sudokuProvider.PreferredDifficulty = await _storageProvider.LoadPreferredDifficulty();
+                Console.WriteLine(e);
             }
         }
 

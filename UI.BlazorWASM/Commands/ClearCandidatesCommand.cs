@@ -1,23 +1,20 @@
-﻿using System.Threading.Tasks;
-using UI.BlazorWASM.Providers;
+﻿using Application;
+using System.Threading.Tasks;
 
 namespace UI.BlazorWASM.Commands
 {
     public class ClearCandidatesCommand : ICommand
     {
-        private readonly IGridProvider _gridProvider;
-        private readonly GridHistoryProvider _gridHistoryManager;
+        private readonly DomainFacade _domainFacade;
 
-        public ClearCandidatesCommand(IGridProvider gridProvider, GridHistoryProvider gridHistoryManager)
+        public ClearCandidatesCommand(DomainFacade domainFacade)
         {
-            _gridProvider = gridProvider;
-            _gridHistoryManager = gridHistoryManager;
+            _domainFacade = domainFacade;
         }
 
         public Task Execute()
         {
-            _gridHistoryManager.Save();
-            _gridProvider.ClearCandidates();
+            _domainFacade.ClearAllCandidates();
             return Task.CompletedTask;
         }
     }

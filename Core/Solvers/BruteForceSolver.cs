@@ -7,14 +7,14 @@ namespace Core.Solvers
 {
     public class BruteForceSolver : BaseSolver
     {
-        private static readonly IDictionary<int, IGrid> _solved = new Dictionary<int, IGrid>();
+        private static readonly IDictionary<int, Grid> _solved = new Dictionary<int, Grid>();
 
-        private int GetGivensHashcode(IGrid grid)
+        private int GetGivensHashcode(Grid grid)
         {
             int hashcode = 0;
             for( int i = 0; i < 81; i++ )
             {
-                var pos = Position.All[i];
+                var pos = Position.Positions[i];
                 hashcode ^= grid.GetIsGiven(pos)
                     ? grid.GetValue(pos) << (i % 25)
                     : 0;
@@ -22,7 +22,7 @@ namespace Core.Solvers
             return hashcode;
         }
 
-        public override IGrid Solve(IGrid input)
+        public override Grid Solve(Grid input)
         {
             ValidatorGrid.EnsureGridIsValid(input);
 
@@ -36,7 +36,7 @@ namespace Core.Solvers
             return _solved[hashcode];
         }
 
-        private IGrid SolveStep(IGrid input)
+        private Grid SolveStep(Grid input)
         {
             if( IsSolved(input) )
             {
@@ -49,7 +49,7 @@ namespace Core.Solvers
             }
 
             var pos = GetNextPosition(input);
-            foreach( var value in InputValue.NonEmpty.Where(value => input.HasCandidate(pos, value)) )
+            foreach( var value in Value.NonEmpty.Where(value => input.HasCandidate(pos, value)) )
             {
                 var grid = input.Clone();
                 grid.SetValue(pos, value);
@@ -62,19 +62,19 @@ namespace Core.Solvers
             return null;
         }
 
-        private bool IsSolved(IGrid grid)
+        private bool IsSolved(Grid grid)
         {
-            return Position.All.All(pos => grid.HasValue(pos));
+            return Position.Positions.All(pos => grid.HasValue(pos));
         }
 
-        private bool CanBeSolved(IGrid grid)
+        private bool CanBeSolved(Grid grid)
         {
-            return Position.All.All(pos => grid.HasValue(pos) || grid.GetCandidates(pos).Count() > 0);
+            return Position.Positions.All(pos => grid.HasValue(pos) || grid.GetCandidates(pos).Count() > 0);
         }
 
-        private Position GetNextPosition(IGrid grid)
+        private Position GetNextPosition(Grid grid)
         {
-            return Position.All.Where(pos => !grid.HasValue(pos))
+            return Position.Positions.Where(pos => !grid.HasValue(pos))
                 .Aggregate((nextPos, pos) => grid.GetCandidates(pos).Count() < grid.GetCandidates(nextPos).Count() ? pos : nextPos);
         }
     }

@@ -1,37 +1,30 @@
-﻿using UI.BlazorWASM.Providers;
+﻿using Application;
+using System;
+using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.ClickableActions
 {
     public class ClickableActionFactory
     {
-        private readonly GridHistoryProvider _gridHistoryManager;
         private readonly CellColorProvider _cellColorProvider;
-        private readonly IGridProvider _gridProvider;
+        private readonly DomainFacade _domainFacade;
 
-        public ClickableActionFactory(GridHistoryProvider gridHistoryManager, CellColorProvider cellColorProvider, IGridProvider gridProvider)
+        public ClickableActionFactory(CellColorProvider cellColorProvider, DomainFacade domainFacade)
         {
-            _gridHistoryManager = gridHistoryManager;
             _cellColorProvider = cellColorProvider;
-            _gridProvider = gridProvider;
+            _domainFacade = domainFacade;
         }
 
-        public IClickableAction BrushAction()
+        public IClickableAction MakeClickableAction(ClickableAction clickableAction)
         {
-            return new BrushAction(_cellColorProvider);
-        }
-        public IClickableAction MarkerAction()
-        {
-            return new MarkerAction(_gridHistoryManager, _cellColorProvider, _gridProvider);
-        }
-
-        public IClickableAction EraserAction()
-        {
-            return new EraserAction(_gridProvider, _gridHistoryManager);
-        }
-
-        public IClickableAction PencilAction()
-        {
-            return new PencilAction(_gridHistoryManager, _gridProvider);
+            return clickableAction switch
+            {
+                ClickableAction.Brush => new BrushAction(_cellColorProvider),
+                ClickableAction.Eraser => new EraserAction(_domainFacade),
+                ClickableAction.Marker => new MarkerAction(_domainFacade),
+                ClickableAction.Pencil => new PencilAction(_domainFacade),
+                _ => throw new ArgumentException("Invalid action"),
+            };
         }
     }
 }

@@ -7,7 +7,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
     public class NakedSingleDisplayer : BaseSolvingTechniqueDisplayer
     {
         private readonly Position _position;
-        private readonly InputValue _value;
+        private readonly Value _value;
 
         public NakedSingleDisplayer(Informer informer, Displayer displayer, NakedSingle nakedSingle) 
             : base(informer, displayer, nakedSingle, "naked-single")

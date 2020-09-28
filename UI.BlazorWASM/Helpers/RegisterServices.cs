@@ -5,7 +5,6 @@ using UI.BlazorWASM.ClickableActions;
 using UI.BlazorWASM.Commands;
 using UI.BlazorWASM.Hints;
 using UI.BlazorWASM.Providers;
-using UI.BlazorWASM.Providers;
 using UI.BlazorWASM.ViewModels;
 
 namespace UI.BlazorWASM.Helpers
@@ -13,18 +12,19 @@ namespace UI.BlazorWASM.Helpers
     public static class RegisterServices
     {
 
+
+        public static void RegisterLocalization(this IServiceCollection services)
+        {
+            services.AddLangaugeContainer(Assembly.GetExecutingAssembly());
+            services.AddScoped<SettingsProvider>();
+        }
+
         public static void RegisterHints(this IServiceCollection services)
         {
             services.AddScoped<Displayer>();
             services.AddScoped<Informer>();
             services.AddScoped<HintsProvider, HintsProvider>();
             services.AddScoped<ShowHintModalCommand>();
-        }
-
-        public static void RegisterLocalization(this IServiceCollection services)
-        {
-            services.AddLangaugeContainer(Assembly.GetExecutingAssembly());
-            services.AddScoped<SettingsProvider>();
         }
 
         public static void RegisterCommands(this IServiceCollection services)
@@ -52,31 +52,25 @@ namespace UI.BlazorWASM.Helpers
             services.AddScoped<ShowSettingsModalCommand>();
             services.AddScoped<ShowCustomSudokuCommand>();
             services.AddScoped<StartNewCustomSudokuCommand>();
+            services.AddScoped<StartGameCommand>();
         }
 
         public static void RegisterProviders(this IServiceCollection services)
         {
             services.AddScoped<CellColorProvider>();
-            services.AddScoped<GridHistoryProvider, GridHistoryProvider>();
-            services.AddScoped<FilterProvider>();
-            services.AddScoped<IClickableActionProvider, ClickableActionProvider>();
-            services.AddScoped<NumpadMenuBuilder>();
-            services.AddScoped<NumpadMenuProvider>();
-            services.AddScoped<HotkeyProvider>();
-            services.AddScoped<CommandProvider>();
-            services.AddScoped<GameTimerProvider>();
-            services.AddScoped<GameStateChecker>();
-            services.AddScoped<ModalProvider>();
-            services.AddScoped<ClickableActionFactory>();
-            services.AddScoped<ShareProvider>();
-            services.AddScoped<PasteProvider>();
-            services.AddScoped<SudokuProvider>();
-            services.AddScoped<IGridProvider, GridProvider>();
-            services.AddScoped<CandidatesMarkProvider>();
-            services.AddScoped<MarkInputProvider>();
-            services.AddScoped<StorageProvider>();
-            services.AddScoped<PreserveStateProvider>();
+            services.AddScoped<CandidateColorProvider>();
+            services.AddScoped<InputMarkProvider>();
             services.AddScoped<TooltipProvider>();
+            services.AddScoped<ModalProvider>();
+            services.AddScoped<CommandProvider>();
+            services.AddScoped<ClickableActionProvider>();
+            services.AddScoped<ClickableActionFactory>();
+            services.AddScoped<GameTimerProvider>();
+            services.AddScoped<NumpadMenuProvider>();
+            services.AddScoped<NumpadMenuBuilder>();
+            services.AddScoped<HotkeyProvider>();
+            services.AddScoped<PreserveStateProvider>();
+            services.AddScoped<GameStateChecker>();
         }
     }
 }

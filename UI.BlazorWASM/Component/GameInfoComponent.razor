@@ -1,13 +1,13 @@
 ﻿@inject GameTimerProvider GameTimerProvider
-@inject SudokuProvider SudokuProvider
+@inject DomainFacade DomainFacade
 
 <div class="game-info">
     <div class="game-info__time-elapsed">@GameTimerProvider.Elapsed.ToString("mm\\:ss")</div>
-    <div class="game-info__difficulty">@SudokuProvider.Difficulty</div>
+    <div class="game-info__difficulty">@DomainFacade.Difficulty</div>
 </div>
 
-@code {        
-    
+@code {
+
     protected override void OnInitialized()
     {
         GameTimerProvider.OnChanged += StateHasChanged;

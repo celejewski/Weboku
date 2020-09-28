@@ -8,13 +8,14 @@
 @inject ClearCandidatesCommand ClearCandidatesCommand
 @inject ILanguageContainerService Loc
 @inject SettingsProvider SettingsProvider
-@inject ModalProvider ModalProvider 
+@inject ModalProvider ModalProvider
 @inject StartNewCustomSudokuCommand StartNewCustomSudokuCommand
 @inject ShowPreviousModalCommand ShowPreviousModalCommand
+@inject CloseModalCommand CloseModalCommand
 
 <div class="menu">
     <div class="menu__item">
-        @if( ModalProvider.CurrentState == Modals.ModalState.CustomSudoku )
+        @if( ModalProvider.CurrentState == ModalState.CustomSudoku )
         {
             <MenuLinkComponent OnMouseDown="StartNewCustomSudokuCommand">Start game</MenuLinkComponent>
         }
@@ -38,8 +39,9 @@
         <TooltipTogglerComponent />
     </div>
     <div class="menu__item">
-        @if( ModalProvider.CurrentState == Modals.ModalState.CustomSudoku )
+        @if( ModalProvider.CurrentState == ModalState.CustomSudoku )
         {
+            <MenuLinkComponent OnMouseDown="CloseModalCommand">Close</MenuLinkComponent>
         }
         else
         {

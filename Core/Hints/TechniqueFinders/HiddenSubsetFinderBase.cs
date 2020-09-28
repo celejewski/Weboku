@@ -6,12 +6,12 @@ namespace Core.Hints.TechniqueFinders
 {
     public abstract class HiddenSubsetFinderBase : TechniqueFinderBase
     {
-        protected IEnumerable<(IEnumerable<Position> positions, IEnumerable<InputValue> values)> HiddenSubset(IGrid input, int depth)
+        protected IEnumerable<(IEnumerable<Position> positions, IEnumerable<Value> values)> HiddenSubset(Grid input, int depth)
         {
             foreach( var house in Position.Houses )
             {
-                var candidatePositions = new Dictionary<InputValue, IEnumerable<Position>>();
-                foreach( var value in InputValue.NonEmpty )
+                var candidatePositions = new Dictionary<Value, IEnumerable<Position>>();
+                foreach( var value in Value.NonEmpty )
                 {
                     var positionsWithCandidate = house.Where(pos => input.HasCandidate(pos, value)).ToList();
                     if( positionsWithCandidate.Count > 0
@@ -29,9 +29,9 @@ namespace Core.Hints.TechniqueFinders
             }
         }
 
-        private IEnumerable<(IEnumerable<Position> positions, IEnumerable<InputValue> values)> HiddenSubsetStep(
-            IGrid input,
-            Dictionary<InputValue, IEnumerable<Position>> house,
+        private IEnumerable<(IEnumerable<Position> positions, IEnumerable<Value> values)> HiddenSubsetStep(
+            Grid input,
+            Dictionary<Value, IEnumerable<Position>> house,
             Dictionary<Position, int> positions,
             Candidates values,
             int startingIndex,
@@ -47,7 +47,7 @@ namespace Core.Hints.TechniqueFinders
             {
                 if( positions.Keys.Any(pos => (input.GetCandidates(pos) & ~values) != 0) )
                 {
-                    yield return (positions.Keys.ToList(), values.ToInputValues());
+                    yield return (positions.Keys.ToList(), values.ToValues());
                 }
                 yield break;
             }

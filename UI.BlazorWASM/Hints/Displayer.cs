@@ -15,10 +15,10 @@ namespace UI.BlazorWASM.Hints
     public class Displayer : IProvider
     {
         private readonly CellColorProvider _cellColorProvider;
-        private readonly CandidatesMarkProvider _candidatesMarkProvider;
+        private readonly CandidateColorProvider _candidatesMarkProvider;
         private readonly NumpadMenuBuilder _numpadMenuBuilder;
         private readonly Informer _informer;
-        private readonly MarkInputProvider _markInputProvider;
+        private readonly InputMarkProvider _markInputProvider;
 
         public bool IsVisible { get; set; }
         public string Title { get; set; }
@@ -33,10 +33,10 @@ namespace UI.BlazorWASM.Hints
 
         public Displayer(
             CellColorProvider cellColorProvider,
-            CandidatesMarkProvider candidatesMarkProvider,
+            CandidateColorProvider candidatesMarkProvider,
             NumpadMenuBuilder numpadMenuBuilder,
             Informer informer,
-            MarkInputProvider markInputProvider,
+            InputMarkProvider markInputProvider,
             ILanguageContainerService loc)
         {
             _cellColorProvider = cellColorProvider;
@@ -113,7 +113,7 @@ namespace UI.BlazorWASM.Hints
             }
         }
 
-        public void MarkCell(Color color, Position position) => _cellColorProvider.SetColor(position.x, position.y, color);
+        public void MarkCell(Color color, Position position) => _cellColorProvider.SetColor(position, color);
         public void MarkCells(Color color, IEnumerable<Position> positions)
         {
             foreach( var position in positions )
@@ -121,35 +121,35 @@ namespace UI.BlazorWASM.Hints
                 MarkCell(color, position);
             }
         }
-        public void MarkCandidate(Color color, Position position, InputValue value)
+        public void MarkCandidate(Color color, Position position, Value value)
         {
-            _candidatesMarkProvider.SetColor(position.x, position.y, (int) value, color);
+            _candidatesMarkProvider.SetColor(position, value, color);
         }
 
-        public void MarkCandidates(Color color, IEnumerable<Position> positions, InputValue inputValue)
+        public void MarkCandidates(Color color, IEnumerable<Position> positions, Value value)
         {
             foreach( var position in positions )
             {
-                MarkCandidate(color, position, inputValue);
+                MarkCandidate(color, position, value);
             }
         }
 
         public void MarkInput(Color color, Position position) => _markInputProvider.SetColor(position, color);
 
 
-        public void Mark(Color color, Position position, InputValue value)
+        public void Mark(Color color, Position position, Value value)
         {
             MarkCell(color, position);
             MarkCandidate(color, position, value);
         }
 
-        public void Mark(Color color, IEnumerable<Position> positions, InputValue value)
+        public void Mark(Color color, IEnumerable<Position> positions, Value value)
         {
             MarkCells(color, positions);
             MarkCandidates(color, positions, value);
         }
 
-        public void Mark(Color color, IEnumerable<Position> positions, IEnumerable<InputValue> values)
+        public void Mark(Color color, IEnumerable<Position> positions, IEnumerable<Value> values)
         {
             foreach( var value in values )
             {
@@ -157,12 +157,12 @@ namespace UI.BlazorWASM.Hints
             }
         }
 
-        public void MarkIfHasCandidate(Color color, IEnumerable<Position> positions, InputValue value)
+        public void MarkIfHasCandidate(Color color, IEnumerable<Position> positions, Value value)
         {
             Mark(color, positions.Where(pos => _informer.HasCandidate(pos, value)), value);
         }
 
-        public void MarkIfHasCandidates(Color color, IEnumerable<Position> positions, IEnumerable<InputValue> values)
+        public void MarkIfHasCandidates(Color color, IEnumerable<Position> positions, IEnumerable<Value> values)
         {
             foreach( var value in values )
             {
@@ -170,7 +170,7 @@ namespace UI.BlazorWASM.Hints
             }
         }
 
-        public void MarkIfInputEquals(Color color, IEnumerable<Position> positions, InputValue value)
+        public void MarkIfInputEquals(Color color, IEnumerable<Position> positions, Value value)
         {
             foreach( var position in positions )
             {
@@ -181,7 +181,7 @@ namespace UI.BlazorWASM.Hints
             }
         }
 
-        public void MarkInputOrCandidate(Color color, IEnumerable<Position> positions, InputValue candidate)
+        public void MarkInputOrCandidate(Color color, IEnumerable<Position> positions, Value candidate)
         {
             foreach( var pos in positions )
             {
@@ -196,9 +196,9 @@ namespace UI.BlazorWASM.Hints
             }
         }
 
-        public void SetValueFilter(InputValue input)
+        public void SetValueFilter(Value input)
         {
-            _ = _numpadMenuBuilder.SelectValue((int) input).Execute();
+            _ = _numpadMenuBuilder.SelectValue(input).Execute();
         }
         public string Format(House house)
         {

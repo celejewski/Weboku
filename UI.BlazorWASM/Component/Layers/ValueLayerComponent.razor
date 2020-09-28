@@ -1,0 +1,23 @@
+﻿@inject DomainFacade DomainFacade
+@inject InputMarkProvider InputMarkProvider
+
+<Grid9x9Component>
+    <ValueComponent IsGiven="DomainFacade.IsGiven(context)"
+                    Value="GetValue(context)"
+                    MarkColor="InputMarkProvider.GetColor(context)" />
+</Grid9x9Component>
+
+
+@code {
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        DomainFacade.OnGridChanged += StateHasChanged;
+        InputMarkProvider.OnChanged += StateHasChanged;
+    }
+
+    private Value GetValue(Position position)
+    {
+        return DomainFacade.GetValue(position);
+    }
+}

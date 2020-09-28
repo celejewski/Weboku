@@ -1,32 +1,30 @@
-﻿using System.Threading.Tasks;
+﻿using Application;
+using Application.Filters;
+using System.Threading.Tasks;
 using UI.BlazorWASM.ClickableActions;
-using UI.BlazorWASM.Filters;
 using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.Commands
 {
     public class SelectActionEraserCommand : ICommand
     {
-        private readonly IClickableActionProvider _clickableActionProvider;
-        private readonly ClickableActionFactory _clickableActionFactory;
-        private readonly FilterProvider _filterProvider;
+        private readonly ClickableActionProvider _clickableActionProvider;
+        private readonly DomainFacade _domainFacade;
         private readonly NumpadMenuProvider _numpadMenuProvider;
 
         public SelectActionEraserCommand(
-            IClickableActionProvider clickableActionProvider,
-            ClickableActionFactory clickableActionFactory,
-            FilterProvider filterProvider,
+            ClickableActionProvider clickableActionProvider,
+            DomainFacade filterProvider,
             NumpadMenuProvider numpadMenuProvider)
         {
             _clickableActionProvider = clickableActionProvider;
-            _clickableActionFactory = clickableActionFactory;
-            _filterProvider = filterProvider;
+            _domainFacade = filterProvider;
             _numpadMenuProvider = numpadMenuProvider;
         }
         public Task Execute()
         {
-            _clickableActionProvider.SetClickableAction(_clickableActionFactory.EraserAction());
-            _filterProvider.SetFilter(new EraseFilter());
+            _clickableActionProvider.SelectClickableAction(ClickableAction.Eraser);
+            _domainFacade.SetFilter(new EraseFilter());
             _numpadMenuProvider.FilterContainer.DeselectItem();
             return Task.CompletedTask;
         }

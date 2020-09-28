@@ -13,7 +13,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
 
         private Position Pos => _positions.First();
         protected readonly IEnumerable<Position> _positions;
-        protected readonly IEnumerable<InputValue> _values;
+        protected readonly IEnumerable<Value> _values;
 
         public NakedSubsetDisplayer(Informer informer, Displayer displayer, NakedSubset nakedSubset)
             : base(informer, displayer, nakedSubset, "naked-subset")
@@ -35,7 +35,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
             {
                 _displayer.HighlightHouse(Pos, house);
             }
-            _displayer.SetValueFilter(InputValue.None);
+            _displayer.SetValueFilter(Value.None);
         }
 
         private IEnumerable<House> GetHouses()

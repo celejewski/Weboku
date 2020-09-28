@@ -8,7 +8,7 @@ namespace Core.Hints.TechniqueFinders
 {
     public class InvalidValueFinder : TechniqueFinderBase
     {
-        public override IEnumerable<ISolvingTechnique> FindAll(IGrid grid)
+        public override IEnumerable<ISolvingTechnique> FindAll(Grid grid)
         {
             BruteForceSolver solver = new BruteForceSolver();
             var solution = solver.Solve(grid) ?? solver.SolveGivens(grid);
@@ -19,7 +19,7 @@ namespace Core.Hints.TechniqueFinders
                 yield break;
             }
 
-            var invalidSolutions = Position.All.Where(pos => grid.HasValue(pos)
+            var invalidSolutions = Position.Positions.Where(pos => grid.HasValue(pos)
                 && grid.GetValue(pos) != solution.GetValue(pos));
 
             if( invalidSolutions.Any() )

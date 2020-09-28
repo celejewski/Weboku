@@ -1,4 +1,5 @@
-﻿using Core.Data;
+﻿using Application;
+using Core.Data;
 using UI.BlazorWASM.Commands;
 using UI.BlazorWASM.Providers;
 
@@ -6,9 +7,9 @@ namespace UI.BlazorWASM.Component.NumpadMenu
 {
     public class PairsFilterMenuItem : BaseMenuOption, INumpadMenuLabel
     {
-        private readonly IGridProvider _gridProvider;
+        private readonly DomainFacade _gridProvider;
 
-        public PairsFilterMenuItem(NumpadMenuProvider numpadMenuProvider, SelectPairsFilterCommand command, IGridProvider gridProvider)
+        public PairsFilterMenuItem(NumpadMenuProvider numpadMenuProvider, SelectPairsFilterCommand command, DomainFacade gridProvider)
             : base(command, numpadMenuProvider.FilterContainer)
         {
             _gridProvider = gridProvider;
@@ -18,9 +19,9 @@ namespace UI.BlazorWASM.Component.NumpadMenu
         {
             get
             {
-                foreach( var pos in Position.All )
+                foreach( var pos in Position.Positions )
                 {
-                    if( _gridProvider.CandidatesCount(pos) == 2 )
+                    if( _gridProvider.GetCandidatesCount(pos) == 2 )
                     {
                         return false;
                     }

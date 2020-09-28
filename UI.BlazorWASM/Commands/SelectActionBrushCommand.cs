@@ -6,17 +6,15 @@ namespace UI.BlazorWASM.Commands
 {
     public class SelectActionBrushCommand : ICommand
     {
-        private readonly IClickableActionProvider _clickableActionProvider;
-        private readonly ClickableActionFactory _clickableActionFactory;
+        private readonly ClickableActionProvider _clickableActionProvider;
 
-        public SelectActionBrushCommand(IClickableActionProvider clickableActionProvider, ClickableActionFactory clickableActionFactory)
+        public SelectActionBrushCommand(ClickableActionProvider clickableActionProvider)
         {
             _clickableActionProvider = clickableActionProvider;
-            _clickableActionFactory = clickableActionFactory;
         }
         public Task Execute()
         {
-            _clickableActionProvider.SetClickableAction(_clickableActionFactory.BrushAction());
+            _clickableActionProvider.SelectClickableAction(ClickableAction.Brush);
             return Task.CompletedTask;
         }
     }

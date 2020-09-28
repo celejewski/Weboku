@@ -13,7 +13,7 @@ namespace UI.BlazorWASM.Commands
         }
         public Task Execute()
         {
-            _modalProvider.SetModalState(Component.Modals.ModalState.MainMenu);
+            _modalProvider.SetModalState(Application.Enums.ModalState.MainMenu);
             return Task.CompletedTask;
         }
     }

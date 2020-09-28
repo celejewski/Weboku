@@ -1,20 +1,20 @@
-﻿using System.Threading.Tasks;
-using UI.BlazorWASM.Providers;
+﻿using Application;
+using System.Threading.Tasks;
 
 namespace UI.BlazorWASM.Commands
 {
     public class RedoCommand : ICommand
     {
-        private readonly GridHistoryProvider _gridHistoryManager;
+        private readonly DomainFacade _domainFacade;
 
-        public RedoCommand(GridHistoryProvider gridHistoryManager)
+        public RedoCommand(DomainFacade domainFacade)
         {
-            _gridHistoryManager = gridHistoryManager;
+            _domainFacade = domainFacade;
         }
 
         public Task Execute()
         {
-            _gridHistoryManager.Redo();
+            _domainFacade.Redo();
             return Task.CompletedTask;
         }
     }

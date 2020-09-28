@@ -5,7 +5,7 @@ namespace Core.Hints.SolvingTechniques
 {
     public class Skyscrapper : ISolvingTechnique
     {
-        public Skyscrapper(Position base1, Position base2, Position pos1, Position pos2, InputValue value)
+        public Skyscrapper(Position base1, Position base2, Position pos1, Position pos2, Value value)
         {
             Base1 = base1;
             Base2 = base2;
@@ -18,15 +18,15 @@ namespace Core.Hints.SolvingTechniques
         public Position Base2 { get; }
         public Position Pos1 { get; }
         public Position Pos2 { get; }
-        public InputValue Value { get; }
+        public Value Value { get; }
 
-        public bool CanExecute(IGrid grid)
+        public bool CanExecute(Grid grid)
         {
             return Position.GetOtherPositionsSeenBy(Pos1, Pos2)
                   .Any(pos => grid.HasCandidate(pos, Value));
         }
 
-        public void Execute(IGrid grid)
+        public void Execute(Grid grid)
         {
             foreach( var pos in Position.GetOtherPositionsSeenBy(Pos1, Pos2) )
             {

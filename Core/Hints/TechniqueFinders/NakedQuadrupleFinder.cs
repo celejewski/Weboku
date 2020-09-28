@@ -6,7 +6,7 @@ namespace Core.Hints.TechniqueFinders
 {
     public class NakedQuadrupleFinder : NakedSubsetFinderBase
     {
-        public override IEnumerable<ISolvingTechnique> FindAll(IGrid grid)
+        public override IEnumerable<ISolvingTechnique> FindAll(Grid grid)
         {
             foreach( var (positions, values) in NakedSubset(grid, 4) )
             {

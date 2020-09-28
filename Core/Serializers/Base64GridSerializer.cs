@@ -11,7 +11,7 @@ namespace Core.Serializers
     {
         private readonly IGridSerializer _innerConverter = new HodokuGridSerializer();
 
-        public IGrid Deserialize(string text)
+        public Grid Deserialize(string text)
         {
             try
             {
@@ -46,11 +46,11 @@ namespace Core.Serializers
             }
         }
 
-        public string Serialize(IGrid grid)
+        public string Serialize(Grid grid)
         {
             var sb = new StringBuilder();
             sb.Append("1");
-            foreach( var pos in Position.All )
+            foreach( var pos in Position.Positions )
             {
                 sb.Append(grid.GetValue(pos));
             }

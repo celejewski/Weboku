@@ -1,70 +1,30 @@
-﻿using Blazored.LocalStorage;
-using Core.Data;
-using Core.Serializers;
-using System.Threading.Tasks;
-using UI.BlazorWASM.Enums;
+﻿using Application.Interfaces;
+using Blazored.LocalStorage;
 
 namespace UI.BlazorWASM.Providers
 {
-    public class StorageProvider
+    public class StorageProvider : IStorageProvider
     {
-        private readonly ILocalStorageService _localStorageService;
-        private readonly IGridSerializer _converter = GridSerializerFactory.Make(GridSerializerName.Base64);
+        private readonly ISyncLocalStorageService _syncLocalStorageService;
 
-        public StorageProvider(ILocalStorageService localStorageService)
+        public StorageProvider(ISyncLocalStorageService syncLocalStorageService)
         {
-            _localStorageService = localStorageService;
-        }
-
-        public Task<bool> HasSavedGrid()
-        {
-            return _localStorageService.ContainKeyAsync(StorageKey.Grid.ToString());
+            _syncLocalStorageService = syncLocalStorageService;
         }
 
-        public Task SaveGrid(IGrid grid)
+        public T Load<T>(string key)
         {
-            var converted = _converter.Serialize(grid);
-            return _localStorageService.SetItemAsync<string>(StorageKey.Grid.ToString(), converted);
-        }
-        public async Task<IGrid> LoadGrid()
-        {
-            var text = await _localStorageService.GetItemAsync<string>(StorageKey.Grid.ToString());
-            if( !_converter.IsValidFormat(text) )
-            {
-                System.Console.WriteLine("Invalid grid");
-                return new Grid();
-            }
-            return _converter.Deserialize(text);
+            return _syncLocalStorageService.GetItem<T>(key);
         }
 
-        public Task<bool> HasSavedSudoku()
+        public void Save<T>(string key, T data)
         {
-            return _localStorageService.ContainKeyAsync(StorageKey.Sudoku.ToString());
+            _syncLocalStorageService.SetItem(key, data);
         }
 
-        public Task SaveSudoku(Sudoku sudoku)
+        public bool HasKey(string key)
         {
-            return _localStorageService.SetItemAsync<Sudoku>(StorageKey.Sudoku.ToString(), sudoku);
-        }
-        public async Task<Sudoku> LoadSudoku()
-        {
-            return await _localStorageService.GetItemAsync<Sudoku>(StorageKey.Sudoku.ToString());
-        }
-
-        public Task Save<T>(StorageKey key, T value)
-        {
-            return _localStorageService.SetItemAsync<T>(key.ToString(), value);
-        }
-
-        public Task<bool> HasSaved(StorageKey key)
-        {
-            return _localStorageService.ContainKeyAsync(key.ToString());
-        }
-
-        public Task SavePreferredDifficulty(string preferredDifficulty) => Save(StorageKey.PreferredDifficulty, preferredDifficulty);
-        public Task<string> LoadPreferredDifficulty()
-        {
-            return _localStorageService.GetItemAsync<string>(StorageKey.PreferredDifficulty.ToString());
+            return _syncLocalStorageService.ContainKey(key);
         }
     }
 }

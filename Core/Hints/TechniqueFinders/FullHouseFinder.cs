@@ -7,14 +7,14 @@ namespace Core.Hints.TechniqueFinders
 {
     public class FullHouseFinder : TechniqueFinderBase
     {
-        public override IEnumerable<ISolvingTechnique> FindAll(IGrid grid)
+        public override IEnumerable<ISolvingTechnique> FindAll(Grid grid)
         {
             var cols = new byte[9];
             var rows = new byte[9];
             var blocks = new byte[9];
             for( int i = 0; i < 81; i++ )
             {
-                var pos = Position.All[i];
+                var pos = Position.Positions[i];
                 if( grid.HasValue(pos) )
                 {
                     cols[pos.x]++;
@@ -33,7 +33,7 @@ namespace Core.Hints.TechniqueFinders
             return items;
         }
 
-        private FullHouse FindMissingValue(IGrid grid, IReadOnlyList<Position> positions)
+        private FullHouse FindMissingValue(Grid grid, IReadOnlyList<Position> positions)
         {
             var candidates = Candidates.All;
             Position position = default;
@@ -42,7 +42,7 @@ namespace Core.Hints.TechniqueFinders
                 if( !grid.HasValue(pos) ) position = pos;
                 candidates ^= grid.GetValue(pos).AsCandidates();
             }
-            return new FullHouse(position, candidates.ToInputValues().Single());
+            return new FullHouse(position, candidates.ToValues().Single());
         }
     }
 }

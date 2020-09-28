@@ -1,20 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using Application;
+using System.Collections.Generic;
 using UI.BlazorWASM.Commands;
 using UI.BlazorWASM.Component.NumpadMenu;
 using UI.BlazorWASM.Component.NumpadMenu.NumpadMenuOptions;
 using UI.BlazorWASM.Enums;
-using UI.BlazorWASM.Providers;
 using UI.BlazorWASM.Providers;
 
 namespace UI.BlazorWASM.ViewModels
 {
     public class NumpadMenuBuilder
     {
-        private readonly IClickableActionProvider _clickableActionProvider;
-        private readonly GridHistoryProvider _gridHistoryManager;
+        private readonly ClickableActionProvider _clickableActionProvider;
+        private readonly DomainFacade _gridHistoryManager;
         private readonly NumpadMenuProvider _numpadMenuProvider;
         private readonly CommandProvider _commandProvider;
-        private readonly IGridProvider _gridProvider;
+        private readonly DomainFacade _gridProvider;
         private readonly RedoCommand _redoCommand;
         private readonly SelectPairsFilterCommand _selectPairsFilterCommand;
         private readonly ClearColorsCommand _clearColorsCommand;
@@ -23,13 +23,14 @@ namespace UI.BlazorWASM.ViewModels
         private readonly SelectActionMarkerCommand _selectActionMarkerCommand;
         private readonly SelectActionPencilCommand _selectActionPencilCommand;
         private readonly SelectActionBrushCommand _selectActionBrushCommand;
+        private readonly HotkeyProvider _hotkeyProvider;
 
         public NumpadMenuBuilder(
-            IClickableActionProvider clickableActionProvider,
-            GridHistoryProvider gridHistoryManager,
+            ClickableActionProvider clickableActionProvider,
+            DomainFacade gridHistoryManager,
             NumpadMenuProvider numpadMenuProvider,
             CommandProvider commandProvider,
-            IGridProvider gridProvider,
+            DomainFacade gridProvider,
             RedoCommand redoCommand,
             SelectPairsFilterCommand selectPairsFilterCommand,
             ClearColorsCommand clearColorsCommand,
@@ -37,7 +38,8 @@ namespace UI.BlazorWASM.ViewModels
             SelectActionEraserCommand selectCleanerAction,
             SelectActionMarkerCommand selectStandardActionCommand,
             SelectActionPencilCommand selectEraserActionCommand,
-            SelectActionBrushCommand selectColorActionCommand
+            SelectActionBrushCommand selectColorActionCommand,
+            HotkeyProvider hotkeyProvider
             )
         {
             _clickableActionProvider = clickableActionProvider;
@@ -53,14 +55,21 @@ namespace UI.BlazorWASM.ViewModels
             _selectActionMarkerCommand = selectStandardActionCommand;
             _selectActionPencilCommand = selectEraserActionCommand;
             _selectActionBrushCommand = selectColorActionCommand;
+            _hotkeyProvider = hotkeyProvider;
+
+
+
+
         }
 
-        readonly Dictionary<int, SelectValueMenuItem> _dict = new Dictionary<int, SelectValueMenuItem>();
+        private readonly Dictionary<int, SelectValueMenuItem> _dict = new Dictionary<int, SelectValueMenuItem>();
         public SelectValueMenuItem SelectValue(int value)
         {
             if( !_dict.ContainsKey(value) )
             {
-                _dict[value] = new SelectValueMenuItem(value, _gridProvider, _numpadMenuProvider, _commandProvider);
+                var command = new SelectValueMenuItem(value, _gridProvider, _numpadMenuProvider, _commandProvider);
+                _dict[value] = command;
+                _hotkeyProvider.Register(new Hotkey { Command = command, Key = value.ToString() });
             }
             return _dict[value];
         }
@@ -68,24 +77,29 @@ namespace UI.BlazorWASM.ViewModels
         public RedoNumpadMenuItem Redo()
         {
             var command = new RedoNumpadMenuItem(_redoCommand, _gridHistoryManager);
+            _hotkeyProvider.Register(new Hotkey { Command = command, Key = "y", Ctrl = true });
             return command;
         }
 
         public UndoMenuItem Undo()
         {
             var command = new UndoMenuItem(_gridHistoryManager, _undoCommand);
+            _hotkeyProvider.Register(new Hotkey { Command = command, Key = "z", Ctrl = true });
             return command;
         }
 
-        PairsFilterMenuItem _pairsNumpadMenuItem;
+        private PairsFilterMenuItem _pairsNumpadMenuItem;
         public PairsFilterMenuItem Pairs()
         {
-            return _pairsNumpadMenuItem ??= new PairsFilterMenuItem(_numpadMenuProvider, _selectPairsFilterCommand, _gridProvider);
+            var command = new PairsFilterMenuItem(_numpadMenuProvider, _selectPairsFilterCommand, _gridProvider);
+            _hotkeyProvider.Register(new Hotkey { Command = command, Key = "x" });
+            return _pairsNumpadMenuItem ??= command;
         }
 
         public ClearColorsMenuItem ClearColors()
         {
             var command = new ClearColorsMenuItem(_clearColorsCommand);
+            _hotkeyProvider.Register(new Hotkey { Command = command, Key = "r" });
             return command;
         }
 
@@ -100,8 +114,7 @@ namespace UI.BlazorWASM.ViewModels
             return new PlaceHolderMenuItem();
         }
 
-
-        SelectActionEraserMenuItem _eraseMenuItem;
+        private SelectActionEraserMenuItem _eraseMenuItem;
         public SelectActionEraserMenuItem SelectCleanerAction()
         {
             return _eraseMenuItem ??= new SelectActionEraserMenuItem(_numpadMenuProvider, _selectActionEraserCommand);

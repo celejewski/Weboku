@@ -11,7 +11,7 @@ namespace Core.Serializers
 {
     internal class Base64CandidatesSerializer : IGridSerializer
     {
-        public IGrid Deserialize(string text)
+        public Grid Deserialize(string text)
         {
             try
             {
@@ -39,7 +39,7 @@ namespace Core.Serializers
             }
         }
 
-        public string Serialize(IGrid grid)
+        public string Serialize(Grid grid)
         {
             var bools = GridToBools(grid);
             var bitArray = new BitArray(bools.ToArray());
@@ -49,9 +49,9 @@ namespace Core.Serializers
             return WebEncoders.Base64UrlEncode(bytes);
         }
 
-        private IEnumerable<bool> GridToBools(IGrid grid)
+        private IEnumerable<bool> GridToBools(Grid grid)
         {
-            foreach( var pos in Position.All )
+            foreach( var pos in Position.Positions )
             {
                 foreach( var bit in CellToBools(grid, pos) )
                 {
@@ -69,10 +69,10 @@ namespace Core.Serializers
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <returns></returns>
-        private IEnumerable<bool> CellToBools(IGrid grid, Position pos)
+        private IEnumerable<bool> CellToBools(Grid grid, Position pos)
         {
             var isGiven = grid.GetIsGiven(pos);
-            var hasInput = grid.GetValue(pos) != InputValue.None;
+            var hasInput = grid.GetValue(pos) != Value.None;
             var input = grid.GetValue(pos);
             if( isGiven )
             {
@@ -96,13 +96,13 @@ namespace Core.Serializers
                 yield return false;
                 yield return false;
 
-                foreach( var value in InputValue.NonEmpty )
+                foreach( var value in Value.NonEmpty )
                 {
                     yield return grid.HasCandidate(pos, value);
                 }
             }
         }
-        private IEnumerable<bool> ValueToBools(InputValue input)
+        private IEnumerable<bool> ValueToBools(Value input)
         {
             var binary = Convert.ToString(input - 1, 2).PadLeft(4, '0');
             foreach( var digit in binary )
@@ -116,7 +116,7 @@ namespace Core.Serializers
             _counter = 0;
             var grid = new Grid();
 
-            foreach( var pos in Position.All )
+            foreach( var pos in Position.Positions )
             {
                 SetValue(grid, bitArray, pos);
             }
@@ -141,9 +141,9 @@ namespace Core.Serializers
             else
             {
                 grid.SetIsGiven(pos, false);
-                grid.SetValue(pos, InputValue.None);
+                grid.SetValue(pos, Value.None);
 
-                foreach( var value in InputValue.NonEmpty )
+                foreach( var value in Value.NonEmpty )
                 {
                     if( bitArray.Get(_counter++) )
                     {
@@ -153,7 +153,7 @@ namespace Core.Serializers
             }
         }
 
-        private InputValue GetValue(BitArray bitArray)
+        private Value GetValue(BitArray bitArray)
         {
             var sb = new StringBuilder();
             for( int i = 0; i < 4; i++ )

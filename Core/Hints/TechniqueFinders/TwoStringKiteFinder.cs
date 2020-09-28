@@ -8,9 +8,9 @@ namespace Core.Hints.TechniqueFinders
 {
     public class TwoStringKiteFinder : TechniqueFinderBase
     {
-        public override IEnumerable<ISolvingTechnique> FindAll(IGrid grid)
+        public override IEnumerable<ISolvingTechnique> FindAll(Grid grid)
         {
-            foreach( var value in InputValue.NonEmpty )
+            foreach( var value in Value.NonEmpty )
             {
                 var count = grid.GetCandidatesCount(value);
 
@@ -47,7 +47,7 @@ namespace Core.Hints.TechniqueFinders
             }
         }
 
-        public TwoStringKite MakeTwoStringKiteOrDefault(IGrid grid, InputValue value, Position posInCol, Position posInRow)
+        public TwoStringKite MakeTwoStringKiteOrDefault(Grid grid, Value value, Position posInCol, Position posInRow)
         {
             var legalInCol = Position.Cols[posInCol.x]
                 .Where(pos => grid.HasCandidate(pos, value))

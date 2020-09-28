@@ -1,49 +1,37 @@
-﻿using UI.BlazorWASM.Commands;
-using UI.BlazorWASM.Providers;
+﻿using Application;
+using Core.Data;
+using UI.BlazorWASM.Commands;
 
 namespace UI.BlazorWASM.Providers
 {
     public class CommandProvider
     {
-        private readonly GridHistoryProvider _gridHistoryManager;
-        private readonly GameTimerProvider _gameTimerProvider;
-        private readonly FilterProvider _filterProvider;
-        private readonly CellColorProvider _cellColorProvider;
-        private readonly IClickableActionProvider _clickableActionProvider;
-        private readonly ModalProvider _modalProvider;
-        private readonly IGridProvider _gridProvider;
-        private readonly SudokuProvider _sudokuProvider;
+        private readonly ClickableActionProvider _clickableActionProvider;
         private readonly SettingsProvider _settingsProvider;
+        private readonly DomainFacade _domainFacade;
+        private readonly StartGameCommand _startGameCommand;
 
         public CommandProvider(
-            GridHistoryProvider gridHistoryManager,
-            GameTimerProvider gameTimerProvider,
-            FilterProvider filterProvider,
-            CellColorProvider cellColorProvider,
-            IClickableActionProvider clickableActionProvider,
-            ModalProvider modalProvider,
-            IGridProvider gridProvider,
-            SudokuProvider sudokuProvider,
-            SettingsProvider settingsProvider)
+            ClickableActionProvider clickableActionProvider,
+            SettingsProvider settingsProvider,
+            DomainFacade domainFacade,
+            StartGameCommand startGameCommand
+
+            )
         {
-            _gridHistoryManager = gridHistoryManager;
-            _gameTimerProvider = gameTimerProvider;
-            _filterProvider = filterProvider;
-            _cellColorProvider = cellColorProvider;
             _clickableActionProvider = clickableActionProvider;
-            _modalProvider = modalProvider;
-            _gridProvider = gridProvider;
-            _sudokuProvider = sudokuProvider;
             _settingsProvider = settingsProvider;
+            _domainFacade = domainFacade;
+            _startGameCommand = startGameCommand;
         }
         public ICommand SelectValue(int value)
         {
-            return new SelectValueCommand(value, _filterProvider, _clickableActionProvider);
+            return new SelectValueCommand(value, _domainFacade, _clickableActionProvider);
         }
 
-        public ICommand StartNewGameV2(string difficulty)
+        public ICommand StartNewGameV2(Difficulty difficulty)
         {
-            return new StartNewGameCommand(difficulty, _gridProvider, _modalProvider, _cellColorProvider, _gridHistoryManager, _gameTimerProvider, _sudokuProvider);
+            return new StartNewGameCommand(difficulty, _domainFacade, _startGameCommand);
         }
 
         public ICommand SetLanguage(string name)

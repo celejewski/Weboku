@@ -7,26 +7,26 @@ namespace Core.Hints.SolvingTechniques
     public class LockedCandidatesPointing : ISolvingTechnique
     {
         public int Block { get; }
-        public InputValue InputValue { get; }
+        public Value Value { get; }
         public IEnumerable<Position> PositionsToRemoveFrom { get; }
 
-        public LockedCandidatesPointing(int block, InputValue inputValue, IEnumerable<Position> positionsToRemoveFrom)
+        public LockedCandidatesPointing(int block, Value value, IEnumerable<Position> positionsToRemoveFrom)
         {
             Block = block;
-            InputValue = inputValue;
+            Value = value;
             PositionsToRemoveFrom = positionsToRemoveFrom;
         }
 
-        public bool CanExecute(IGrid grid)
+        public bool CanExecute(Grid grid)
         {
-            return PositionsToRemoveFrom.Any(pos => grid.HasCandidate(pos, InputValue));
+            return PositionsToRemoveFrom.Any(pos => grid.HasCandidate(pos, Value));
         }
 
-        public void Execute(IGrid grid)
+        public void Execute(Grid grid)
         {
             foreach( var pos in PositionsToRemoveFrom )
             {
-                grid.RemoveCandidate(pos, InputValue);
+                grid.RemoveCandidate(pos, Value);
             }
         }
     }

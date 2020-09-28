@@ -6,15 +6,16 @@ using UI.BlazorWASM.Enums;
 
 namespace UI.BlazorWASM.Providers
 {
-    public class ClickableActionProvider : IClickableActionProvider
+    public class ClickableActionProvider
     {
-        public IClickableAction ClickableAction { get; private set; }
+        private IClickableAction _clickableAction;
 
-        private InputValue _value;
+        private Value _value;
         private Color _color1;
         private Color _color2;
+        private readonly ClickableActionFactory _clickableActionFactory;
 
-        public InputValue Value
+        public Value Value
         {
             get => _value;
             set
@@ -45,39 +46,40 @@ namespace UI.BlazorWASM.Providers
         }
 
         public event Action OnChanged;
-        public void SetClickableAction(IClickableAction clickableAction)
+        public void SelectClickableAction(ClickableAction clickableAction)
         {
-            ClickableAction = clickableAction;
+            _clickableAction = _clickableActionFactory.MakeClickableAction(clickableAction);
             OnChanged?.Invoke();
         }
 
         public ClickableActionProvider(ClickableActionFactory clickableActionFactory)
         {
-            ClickableAction = clickableActionFactory.MarkerAction();
-            Value = InputValue.One;
+            _clickableAction = clickableActionFactory.MakeClickableAction(ClickableAction.Marker);
+            Value = Value.One;
             Color1 = Color.First;
             Color2 = Color.Second;
+            _clickableActionFactory = clickableActionFactory;
         }
-        private ClickableActionArgs CreateArgs(MouseEventArgs e, Position pos)
+        private ClickableActionArgs CreateArgs(MouseEventArgs e, Position position)
         {
             return new ClickableActionArgs
             {
                 MouseEventArgs = e,
-                Pos = pos,
+                Position = position,
                 Value = Value,
                 Color1 = Color1,
                 Color2 = Color2
             };
         }
 
-        public void OnLeftClick(MouseEventArgs e, Position pos)
+        public void OnLeftClick(MouseEventArgs e, Position position)
         {
-            ClickableAction.LeftClickAction(CreateArgs(e, pos));
+            _clickableAction.LeftClickAction(CreateArgs(e, position));
         }
 
-        public void OnRightClick(MouseEventArgs e, Position pos)
+        public void OnRightClick(MouseEventArgs e, Position position)
         {
-            ClickableAction.RightClickAction(CreateArgs(e, pos));
+            _clickableAction.RightClickAction(CreateArgs(e, position));
         }
     }
 }

@@ -17,7 +17,7 @@ namespace Tests.TechniqueFinders
             grid.FillAllLegalCandidates();
 
             (int x, int y) expectedPositions = (3, 2);
-            InputValue expectedValue = 1;
+            Value expectedValue = 1;
 
             var finder = new NakedSingleFinder();
             var results = finder.FindAll(grid).OfType<NakedSingle>();

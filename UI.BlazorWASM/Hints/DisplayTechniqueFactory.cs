@@ -7,7 +7,7 @@ namespace UI.BlazorWASM.Hints
 {
     public static class DisplayTechniqueFactory
     {
-        public static ISolvingTechniqueDisplayer GetDisplayer(Informer informer, Displayer displayer, ISolvingTechnique technique)
+        public static ISolvingTechniqueDisplayer MakeDisplayer(Informer informer, Displayer displayer, ISolvingTechnique technique)
         {
             if( technique == null ) return new NotFoundDisplayer(informer, displayer);
 
@@ -27,12 +27,12 @@ namespace UI.BlazorWASM.Hints
                 (typeof(Skyscrapper), typeof(SkyscrapperDisplayer)),
                 (typeof(XWing), typeof(XWingDisplayer)),
                 (typeof(XYWing), typeof(XYWingDisplayer)),
-                (typeof(TwoStringKite), typeof(TwoStringKiteDisplayer))
+                (typeof(TwoStringKite), typeof(TwoStringKiteDisplayer)),
             };
 
             var tuple = tuples.FirstOrDefault(tuple => technique.GetType() == tuple.Item1);
 
-            if (tuple == default) return new NotFoundDisplayer(informer, displayer);
+            if( tuple == default ) return new NotFoundDisplayer(informer, displayer);
 
             return (ISolvingTechniqueDisplayer) Activator.CreateInstance(tuple.Item2, informer, displayer, technique);
         }
