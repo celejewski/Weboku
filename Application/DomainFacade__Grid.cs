@@ -1,9 +1,23 @@
-﻿using Core.Data;
+﻿using Application.Enums;
+using Core.Data;
 
 namespace Application
 {
     public sealed partial class DomainFacade
     {
+        private IGrid _grid;
+        private IGrid Grid
+        {
+            get
+            {
+                return ModalState switch
+                {
+                    ModalState.Share => _shareManager.Grid,
+                    ModalState.Paste => _pastedGrid,
+                    _ => _grid
+                };
+            }
+        }
 
         public Value GetValue(Position pos)
         {

@@ -25,7 +25,6 @@ namespace Application
         public event Action OnValueChanged;
         public event Action OnCandidateChanged;
         public event Action OnValueOrCandidateChanged;
-
         public DomainFacade(IStorageProvider storageProvider, string baseUri)
         {
             _grid = new Grid();
@@ -57,21 +56,6 @@ namespace Application
         {
             var grid = await GridGenerator.Make(difficulty).ConfigureAwait(true);
             StartNewGame(grid, difficulty);
-        }
-
-
-        private IGrid _grid;
-        public IGrid Grid
-        {
-            get
-            {
-                return ModalState switch
-                {
-                    ModalState.Share => _shareManager.Grid,
-                    ModalState.Paste => _pastedGrid,
-                    _ => _grid
-                };
-            }
         }
 
 
