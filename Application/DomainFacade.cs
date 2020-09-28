@@ -1,5 +1,4 @@
-﻿using Application.Data;
-using Application.Enums;
+﻿using Application.Enums;
 using Application.Filters;
 using Application.Interfaces;
 using Application.Managers;
@@ -19,6 +18,7 @@ namespace Application
         private readonly HistoryManager _historyManager;
         private readonly HintsProvider _hintsProvider;
         private readonly StorageManager _storageManager;
+        private readonly ShareManager _shareManager;
 
         public Difficulty Difficulty;
 
@@ -26,13 +26,14 @@ namespace Application
         public event Action OnCandidateChanged;
         public event Action OnValueOrCandidateChanged;
 
-        public DomainFacade(IStorageProvider storageProvider)
+        public DomainFacade(IStorageProvider storageProvider, string baseUri)
         {
             Grid = new Grid();
             _toolManager = new ToolManager();
             _historyManager = new HistoryManager();
             _hintsProvider = new HintsProvider();
             _storageManager = new StorageManager(storageProvider);
+            _shareManager = new ShareManager(baseUri);
         }
         public void StartNewGame(IGrid grid, Difficulty difficulty = Difficulty.Unknown)
         {
@@ -60,20 +61,16 @@ namespace Application
 
 
         private IGrid _grid;
-        private IGrid _gridToShare;
         public IGrid Grid
         {
             get
             {
-                if( ModalState == ModalState.Share )
+                return ModalState switch
                 {
-                    return _gridToShare;
-                }
-                if( ModalState == ModalState.Paste )
-                {
-                    return _pastedGrid;
-                }
-                return _grid;
+                    ModalState.Share => _shareManager.Grid,
+                    ModalState.Paste => _pastedGrid,
+                    _ => _grid
+                };
             }
             set
             {
@@ -91,7 +88,7 @@ namespace Application
                 _modalState = value;
                 if( _modalState == ModalState.Share )
                 {
-                    _gridToShare = TransformGrid();
+                    _shareManager.UpdateGrid(_grid);
                 }
                 ValueAndCandidateChanged();
             }
@@ -127,39 +124,6 @@ namespace Application
             OnValueOrCandidateChanged?.Invoke();
         }
 
-        public IGrid TransformGrid()
-        {
-            return ShareManager.TransformGrid(_grid, SharedFields);
-        }
-
-        public string SharedOutput => ShareManager.SerializeGridToShareableFormat(Grid, SharedConverter, BaseUri);
-
-        private SharedConverter _sharedConverter = SharedConverter.MyLink;
-        public SharedConverter SharedConverter
-        {
-            get => _sharedConverter;
-            set
-            {
-                _sharedConverter = value;
-                _gridToShare = TransformGrid();
-                ValueAndCandidateChanged();
-            }
-        }
-
-        private SharedFields _sharedFields = SharedFields.Everything;
-        public SharedFields SharedFields
-        {
-            get => _sharedFields;
-            set
-            {
-                _sharedFields = value;
-                _gridToShare = TransformGrid();
-                ValueAndCandidateChanged();
-            }
-        }
-
-        private string BaseUri { get; set; }
-
         private IFilter _filter = new SelectedValueFilter(1);
         public IFilter Filter
         {
@@ -167,7 +131,7 @@ namespace Application
             {
                 if( ModalState == ModalState.Share )
                 {
-                    return new SharedFilter();
+                    return _shareManager.Filter;
                 }
                 return _filter;
             }

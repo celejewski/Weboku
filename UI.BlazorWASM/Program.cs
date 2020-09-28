@@ -1,6 +1,7 @@
 using Application;
 using Application.Interfaces;
 using Blazored.LocalStorage;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -21,7 +22,14 @@ namespace UI.BlazorWASM
             builder.Services.AddSingleton(new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
             builder.Services.AddBlazoredLocalStorage();
             builder.Services.AddScoped<IStorageProvider, StorageProvider>();
-            builder.Services.AddScoped<DomainFacade>();
+            builder.Services.AddScoped(serviceProvider =>
+            {
+                var navigationManager = serviceProvider.GetRequiredService<NavigationManager>();
+                return new DomainFacade(
+                    serviceProvider.GetRequiredService<IStorageProvider>(),
+                    navigationManager.BaseUri
+                    );
+            });
             builder.Services.RegisterProviders();
             builder.Services.RegisterCommands();
             builder.Services.RegisterHints();
