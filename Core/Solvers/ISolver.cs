@@ -4,7 +4,7 @@ namespace Core.Solvers
 {
     public interface ISolver
     {
-        IGrid Solve(IGrid input);
-        IGrid SolveGivens(IGrid input);
+        Grid Solve(Grid input);
+        Grid SolveGivens(Grid input);
     }
 }

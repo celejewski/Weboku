@@ -35,7 +35,7 @@ namespace Core.Hints
 
         private readonly IEnumerable<ITechniqueFinder> _finders;
 
-        public ISolvingTechnique GetNextHint(IGrid grid)
+        public ISolvingTechnique GetNextHint(Grid grid)
         {
             var stopwatch = Stopwatch.StartNew();
 
@@ -60,7 +60,7 @@ namespace Core.Hints
             return step ?? new HintNotFound();
         }
 
-        private IEnumerable<ISolvingTechnique> GetAllHints(IGrid grid)
+        private IEnumerable<ISolvingTechnique> GetAllHints(Grid grid)
         {
             foreach( var finder in _finders )
             {

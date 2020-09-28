@@ -40,11 +40,11 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
             _displayer.SetTitle(TitleKey);
             _displayer.SetDescription(DescriptionKey);
         }
-        public void Execute(IGrid grid)
+        public void Execute(Grid grid)
         {
             _solvingTechnique?.Execute(grid);
         }
-        public bool CanExecute(IGrid grid)
+        public bool CanExecute(Grid grid)
         {
             return _solvingTechnique == null || _solvingTechnique.CanExecute(grid);
         }

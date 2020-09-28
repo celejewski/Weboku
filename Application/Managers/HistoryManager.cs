@@ -7,8 +7,8 @@ namespace Application.Managers
 {
     internal sealed class HistoryManager
     {
-        private readonly Stack<IGrid> _previousStates = new Stack<IGrid>();
-        private readonly Stack<IGrid> _nextStates = new Stack<IGrid>();
+        private readonly Stack<Grid> _previousStates = new Stack<Grid>();
+        private readonly Stack<Grid> _nextStates = new Stack<Grid>();
         public bool CanUndo => _previousStates.Count > 0;
 
         public bool CanRedo => _nextStates.Count > 0;
@@ -29,7 +29,7 @@ namespace Application.Managers
             Changed();
         }
 
-        public IGrid Redo(IGrid currentGrid)
+        public Grid Redo(Grid currentGrid)
         {
             if( CanRedo )
             {
@@ -40,14 +40,14 @@ namespace Application.Managers
             throw new HistoryManagerInvalidOperation($"Can not {nameof(Redo)}. There are no known next states.");
         }
 
-        public void Save(IGrid grid)
+        public void Save(Grid grid)
         {
             _previousStates.Push(grid.Clone());
             ClearRedo();
             Changed();
         }
 
-        public IGrid Undo(IGrid currentGrid)
+        public Grid Undo(Grid currentGrid)
         {
             if( CanUndo )
             {

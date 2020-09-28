@@ -7,7 +7,7 @@ namespace Core.Hints.TechniqueFinders
 {
     public class NakedSingleFinder : TechniqueFinderBase
     {
-        public override IEnumerable<ISolvingTechnique> FindAll(IGrid grid)
+        public override IEnumerable<ISolvingTechnique> FindAll(Grid grid)
         {
             for( int i = 0; i < Position.Positions.Count; i++ )
             {

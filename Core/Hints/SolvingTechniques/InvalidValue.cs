@@ -12,12 +12,12 @@ namespace Core.Hints.SolvingTechniques
             _positions = positions;
         }
 
-        public bool CanExecute(IGrid grid)
+        public bool CanExecute(Grid grid)
         {
             return true;
         }
 
-        public void Execute(IGrid grid)
+        public void Execute(Grid grid)
         {
             foreach( var pos in _positions )
             {

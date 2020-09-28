@@ -7,11 +7,11 @@ namespace Core.Hints.TechniqueFinders
 {
     public abstract class TechniqueFinderBase : ITechniqueFinder
     {
-        public ISolvingTechnique Find(IGrid grid)
+        public ISolvingTechnique Find(Grid grid)
         {
             return FindAll(grid).First();
         }
 
-        public abstract IEnumerable<ISolvingTechnique> FindAll(IGrid grid);
+        public abstract IEnumerable<ISolvingTechnique> FindAll(Grid grid);
     }
 }

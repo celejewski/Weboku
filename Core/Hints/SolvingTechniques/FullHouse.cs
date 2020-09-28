@@ -14,12 +14,12 @@ namespace Core.Hints.SolvingTechniques
 
         public Position Position { get; }
 
-        public bool CanExecute(IGrid grid)
+        public bool CanExecute(Grid grid)
         {
             return true;
         }
 
-        public void Execute(IGrid grid)
+        public void Execute(Grid grid)
         {
             grid.SetValue(Position, Value);
         }

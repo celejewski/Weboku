@@ -5,9 +5,9 @@ namespace Application
 {
     public sealed partial class DomainFacade
     {
-        private IGrid _grid;
-        private IGrid _customGrid = new Grid();
-        private IGrid Grid
+        private Grid _grid;
+        private Grid _customGrid = new Grid();
+        private Grid Grid
         {
             get
             {

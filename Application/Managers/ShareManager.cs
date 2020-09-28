@@ -9,8 +9,8 @@ namespace Application.Managers
 {
     public class ShareManager
     {
-        private IGrid _sourceGrid;
-        private IGrid _transformedGrid;
+        private Grid _sourceGrid;
+        private Grid _transformedGrid;
         private bool _isDirty = true;
         private SharedFields _sharedFields = SharedFields.Everything;
         private readonly string _baseUri;
@@ -19,7 +19,7 @@ namespace Application.Managers
         {
             _baseUri = baseUri;
         }
-        public IGrid Grid
+        public Grid Grid
         {
             get
             {
@@ -31,7 +31,7 @@ namespace Application.Managers
                 return _transformedGrid;
             }
         }
-        public void UpdateGrid(IGrid grid)
+        public void UpdateGrid(Grid grid)
         {
             _sourceGrid = grid;
             _isDirty = true;
@@ -55,7 +55,7 @@ namespace Application.Managers
             get => SerializeGridToShareableFormat(Grid, SharedConverter, _baseUri);
         }
 
-        private static IGrid TransformGrid(IGrid input, SharedFields sharedFields)
+        private static Grid TransformGrid(Grid input, SharedFields sharedFields)
         {
             var output = input.Clone();
             if( sharedFields == SharedFields.Everything ) return output;
@@ -70,7 +70,7 @@ namespace Application.Managers
             return output;
         }
 
-        private static string SerializeGridToShareableFormat(IGrid grid, SharedConverter sharedConverter, string baseUri)
+        private static string SerializeGridToShareableFormat(Grid grid, SharedConverter sharedConverter, string baseUri)
         {
             var gridSerializer = sharedConverter switch
             {

@@ -6,7 +6,7 @@ namespace Core.Hints.TechniqueFinders
 {
     public class HiddenPairFinder : HiddenSubsetFinderBase
     {
-        public override IEnumerable<ISolvingTechnique> FindAll(IGrid grid)
+        public override IEnumerable<ISolvingTechnique> FindAll(Grid grid)
         {
             foreach( var (positions, values) in HiddenSubset(grid, 2) )
             {

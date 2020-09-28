@@ -21,13 +21,13 @@ namespace Core.Hints.SolvingTechniques
             House = Position.GetHouses(positions).First();
         }
 
-        public bool CanExecute(IGrid grid)
+        public bool CanExecute(Grid grid)
         {
             return ValuesToRemove()
                 .Any(value => Positions.Any(pos => grid.HasCandidate(pos, value)));
         }
 
-        public void Execute(IGrid grid)
+        public void Execute(Grid grid)
         {
             foreach( var value in ValuesToRemove() )
             {

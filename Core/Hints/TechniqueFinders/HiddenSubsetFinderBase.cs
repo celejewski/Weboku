@@ -6,7 +6,7 @@ namespace Core.Hints.TechniqueFinders
 {
     public abstract class HiddenSubsetFinderBase : TechniqueFinderBase
     {
-        protected IEnumerable<(IEnumerable<Position> positions, IEnumerable<Value> values)> HiddenSubset(IGrid input, int depth)
+        protected IEnumerable<(IEnumerable<Position> positions, IEnumerable<Value> values)> HiddenSubset(Grid input, int depth)
         {
             foreach( var house in Position.Houses )
             {
@@ -30,7 +30,7 @@ namespace Core.Hints.TechniqueFinders
         }
 
         private IEnumerable<(IEnumerable<Position> positions, IEnumerable<Value> values)> HiddenSubsetStep(
-            IGrid input,
+            Grid input,
             Dictionary<Value, IEnumerable<Position>> house,
             Dictionary<Position, int> positions,
             Candidates values,

@@ -6,7 +6,7 @@ namespace Core.Hints.TechniqueFinders
 {
     public abstract class NakedSubsetFinderBase : TechniqueFinderBase
     {
-        protected IEnumerable<(IEnumerable<Position> positions, IEnumerable<Value> values)> NakedSubset(IGrid grid, int depth)
+        protected IEnumerable<(IEnumerable<Position> positions, IEnumerable<Value> values)> NakedSubset(Grid grid, int depth)
         {
             foreach( var house in Position.Houses )
             {
@@ -28,7 +28,7 @@ namespace Core.Hints.TechniqueFinders
         }
 
         private IEnumerable<(IEnumerable<Position> positions, IEnumerable<Value> values)> NakedSubsetStep(
-            IGrid grid,
+            Grid grid,
             List<Position> positions,
             Candidates values,
             List<Position> house,

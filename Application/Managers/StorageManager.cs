@@ -28,7 +28,7 @@ namespace Application.Managers
         {
             try
             {
-                IGrid grid = null;
+                Grid grid = null;
                 var difficulty = Difficulty.Unknown;
                 if( _storageProvider.HasKey(nameof(StorageDto.Grid)) )
                 {

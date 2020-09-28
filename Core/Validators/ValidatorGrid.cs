@@ -6,7 +6,7 @@ namespace Core.Validators
 {
     public static class ValidatorGrid
     {
-        public static void EnsureGridIsValid(IGrid grid)
+        public static void EnsureGridIsValid(Grid grid)
         {
             if( grid == null )
             {
@@ -19,7 +19,7 @@ namespace Core.Validators
             }
         }
 
-        public static bool AreAllGivensLegal(IGrid grid)
+        public static bool AreAllGivensLegal(Grid grid)
         {
             return Position.Positions
                 .Where(position => grid.GetIsGiven(position))

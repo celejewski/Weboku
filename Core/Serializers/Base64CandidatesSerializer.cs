@@ -11,7 +11,7 @@ namespace Core.Serializers
 {
     internal class Base64CandidatesSerializer : IGridSerializer
     {
-        public IGrid Deserialize(string text)
+        public Grid Deserialize(string text)
         {
             try
             {
@@ -39,7 +39,7 @@ namespace Core.Serializers
             }
         }
 
-        public string Serialize(IGrid grid)
+        public string Serialize(Grid grid)
         {
             var bools = GridToBools(grid);
             var bitArray = new BitArray(bools.ToArray());
@@ -49,7 +49,7 @@ namespace Core.Serializers
             return WebEncoders.Base64UrlEncode(bytes);
         }
 
-        private IEnumerable<bool> GridToBools(IGrid grid)
+        private IEnumerable<bool> GridToBools(Grid grid)
         {
             foreach( var pos in Position.Positions )
             {
@@ -69,7 +69,7 @@ namespace Core.Serializers
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <returns></returns>
-        private IEnumerable<bool> CellToBools(IGrid grid, Position pos)
+        private IEnumerable<bool> CellToBools(Grid grid, Position pos)
         {
             var isGiven = grid.GetIsGiven(pos);
             var hasInput = grid.GetValue(pos) != Value.None;

@@ -6,7 +6,7 @@ namespace Core.Hints.TechniqueFinders
 {
     public class CandidateMissingFinder : TechniqueFinderBase
     {
-        public override IEnumerable<ISolvingTechnique> FindAll(IGrid grid)
+        public override IEnumerable<ISolvingTechnique> FindAll(Grid grid)
         {
             var candidateMissing = new CandidateMissing();
             if( candidateMissing.CanExecute(grid) )

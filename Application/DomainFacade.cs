@@ -33,7 +33,7 @@ namespace Application
             _shareManager = new ShareManager(baseUri);
             _pasteManager = new PasteManager();
         }
-        public void StartNewGame(IGrid grid, Difficulty difficulty = Difficulty.Unknown)
+        public void StartNewGame(Grid grid, Difficulty difficulty = Difficulty.Unknown)
         {
             ValidatorGrid.EnsureGridIsValid(grid);
             _grid = grid.Clone();

@@ -20,13 +20,13 @@ namespace Core.Hints.SolvingTechniques
         public Position Pos2 { get; }
         public Value Value { get; }
 
-        public bool CanExecute(IGrid grid)
+        public bool CanExecute(Grid grid)
         {
             return Position.GetOtherPositionsSeenBy(Pos1, Pos2)
                   .Any(pos => grid.HasCandidate(pos, Value));
         }
 
-        public void Execute(IGrid grid)
+        public void Execute(Grid grid)
         {
             foreach( var pos in Position.GetOtherPositionsSeenBy(Pos1, Pos2) )
             {

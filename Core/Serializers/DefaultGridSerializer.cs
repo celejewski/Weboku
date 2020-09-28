@@ -20,7 +20,7 @@ namespace Core.Serializers
             return _converters.Find(converter => converter.IsValidFormat(text));
         }
 
-        public IGrid Deserialize(string text)
+        public Grid Deserialize(string text)
         {
             var converter = GetFirstValidOrDefault(text);
             if( converter == null )
@@ -35,7 +35,7 @@ namespace Core.Serializers
             return GetFirstValidOrDefault(text) != null;
         }
 
-        public string Serialize(IGrid grid)
+        public string Serialize(Grid grid)
         {
             return _converters[0].Serialize(grid);
         }

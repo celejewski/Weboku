@@ -4,7 +4,7 @@ namespace Application.Managers
 {
     public class ToolManager
     {
-        public void UseMarker(IGrid grid, Position position, Value value)
+        public void UseMarker(Grid grid, Position position, Value value)
         {
             if( grid.GetIsGiven(position) ) return;
 
@@ -18,14 +18,14 @@ namespace Application.Managers
             }
         }
 
-        public void UsePencil(IGrid grid, Position position, Value value)
+        public void UsePencil(Grid grid, Position position, Value value)
         {
             if( grid.HasValue(position) ) return;
 
             grid.ToggleCandidate(position, value);
         }
 
-        public void UseEraser(IGrid grid, Position position)
+        public void UseEraser(Grid grid, Position position)
         {
             if( grid.GetIsGiven(position) ) return;
 

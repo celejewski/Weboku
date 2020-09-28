@@ -19,12 +19,12 @@ namespace Core.Hints.SolvingTechniques
 
         public Value Value { get; }
 
-        public bool CanExecute(IGrid grid)
+        public bool CanExecute(Grid grid)
         {
             return PositionsToRemoveCandidate.Any(pos => grid.HasCandidate(pos, Value));
         }
 
-        public void Execute(IGrid grid)
+        public void Execute(Grid grid)
         {
             foreach( var pos in PositionsToRemoveCandidate )
             {

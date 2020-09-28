@@ -6,7 +6,7 @@ namespace Core.Hints.TechniqueFinders
 {
     public interface ITechniqueFinder
     {
-        public ISolvingTechnique Find(IGrid grid);
-        public IEnumerable<ISolvingTechnique> FindAll(IGrid grid);
+        public ISolvingTechnique Find(Grid grid);
+        public IEnumerable<ISolvingTechnique> FindAll(Grid grid);
     }
 }

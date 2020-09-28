@@ -8,7 +8,7 @@ namespace Core.Hints.TechniqueFinders
 {
     public class XYWingFinder : TechniqueFinderBase
     {
-        public override IEnumerable<ISolvingTechnique> FindAll(IGrid grid)
+        public override IEnumerable<ISolvingTechnique> FindAll(Grid grid)
         {
             var pairPositions = Position.Positions.Where(pos => grid.GetCandidates(pos).Count() == 2);
 

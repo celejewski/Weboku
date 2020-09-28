@@ -8,7 +8,7 @@ namespace Core.Serializers
 {
     internal class HodokuGridSerializer : IGridSerializer
     {
-        public IGrid Deserialize(string input)
+        public Grid Deserialize(string input)
         {
             try
             {
@@ -38,7 +38,7 @@ namespace Core.Serializers
                 && !Regex.IsMatch(text.Replace('.', '0'), @"[^\d]");
         }
 
-        public string Serialize(IGrid grid)
+        public string Serialize(Grid grid)
         {
             return string.Concat(Position.Positions.Select(pos => grid.GetValue(pos)));
         }

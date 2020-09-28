@@ -10,7 +10,7 @@ namespace Application.Managers
 {
     internal static class GridGenerator
     {
-        public static async Task<IGrid> Make(Difficulty difficulty)
+        public static async Task<Grid> Make(Difficulty difficulty)
         {
             if( difficulty == Difficulty.Unknown )
             {

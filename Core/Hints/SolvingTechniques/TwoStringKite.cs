@@ -22,12 +22,12 @@ namespace Core.Hints.SolvingTechniques
         public IEnumerable<Position> InfoPositions { get; }
         public Position PositionToRemove { get; }
 
-        public bool CanExecute(IGrid grid)
+        public bool CanExecute(Grid grid)
         {
             return grid.HasCandidate(PositionToRemove, Value);
         }
 
-        public void Execute(IGrid grid)
+        public void Execute(Grid grid)
         {
             grid.RemoveCandidate(PositionToRemove, Value);
         }

@@ -8,7 +8,7 @@ namespace Core.Hints.TechniqueFinders
 {
     public class HiddenSingleWithoutCandidatesFinder : HiddenSingleFinder
     {
-        public override IEnumerable<ISolvingTechnique> FindAll(IGrid input)
+        public override IEnumerable<ISolvingTechnique> FindAll(Grid input)
         {
             var grid = input.Clone();
             grid.FillAllLegalCandidates();

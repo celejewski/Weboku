@@ -26,6 +26,6 @@ namespace Application.Managers
         }
 
         public bool IsValid { get; private set; }
-        public IGrid Grid { get; private set; }
+        public Grid Grid { get; private set; }
     }
 }

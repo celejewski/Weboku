@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace Core.Data
 {
-    sealed public class Grid : IGrid
+    sealed public class Grid
     {
         private readonly Value[,] _values;
         private readonly Candidates[,] _candidates;
@@ -117,7 +117,7 @@ namespace Core.Data
             _isGivens[position.x, position.y] = value;
         }
 
-        public IGrid Clone()
+        public Grid Clone()
         {
             return new Grid(
                 (Value[,]) _values.Clone(),
