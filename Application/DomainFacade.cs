@@ -6,6 +6,7 @@ using Core.Exceptions;
 using Core.Hints;
 using Core.Hints.SolvingTechniques;
 using Core.Serializers;
+using Core.Solvers;
 using Core.Validators;
 using System;
 using System.Threading.Tasks;
@@ -20,6 +21,7 @@ namespace Application
         private readonly StorageManager _storageManager;
         private readonly ShareManager _shareManager;
         private readonly PasteManager _pasteManager;
+        private readonly ISolver _solver;
 
         public Difficulty Difficulty;
         public event Action OnGridChanged;
@@ -32,13 +34,17 @@ namespace Application
             _storageManager = new StorageManager(storageProvider);
             _shareManager = new ShareManager(baseUri);
             _pasteManager = new PasteManager();
+            _solver = new BruteForceSolver();
         }
         public void StartNewGame(Grid grid, Difficulty difficulty = Difficulty.Unknown)
         {
             ValidatorGrid.EnsureGridIsValid(grid);
             _grid = grid.Clone();
+            _solutionGrid = _solver.SolveGivens(_grid);
             Difficulty = difficulty;
             GridChanged();
+            _historyManager.ClearRedo();
+            _historyManager.ClearUndo();
         }
 
         public void StartNewGame(string givens)

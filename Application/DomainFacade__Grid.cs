@@ -6,6 +6,7 @@ namespace Application
     public sealed partial class DomainFacade
     {
         private Grid _grid;
+        private Grid _solutionGrid = new Grid();
         private Grid _customGrid = new Grid();
         private Grid Grid
         {
@@ -43,6 +44,11 @@ namespace Application
 
         public bool IsValueLegal(Position position)
         {
+            if( Grid == _grid )
+            {
+                return !Grid.HasValue(position)
+                    || Grid.GetValue(position) == _solutionGrid.GetValue(position);
+            }
             return Grid.IsValueLegal(position);
         }
 

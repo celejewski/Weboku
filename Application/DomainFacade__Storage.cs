@@ -12,9 +12,7 @@ namespace Application
         public void Load()
         {
             var storageDto = _storageManager.Load();
-            _grid = storageDto.Grid;
-            Difficulty = storageDto.Difficulty;
-            GridChanged();
+            StartNewGame(storageDto.Grid, storageDto.Difficulty);
         }
     }
 }
