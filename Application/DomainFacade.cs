@@ -1,5 +1,4 @@
 ﻿using Application.Enums;
-using Application.Filters;
 using Application.Interfaces;
 using Application.Managers;
 using Core.Data;
@@ -21,7 +20,6 @@ namespace Application
         private readonly ShareManager _shareManager;
 
         public Difficulty Difficulty;
-
         public event Action OnValueChanged;
         public event Action OnCandidateChanged;
         public event Action OnValueOrCandidateChanged;
@@ -58,6 +56,11 @@ namespace Application
             StartNewGame(grid, difficulty);
         }
 
+        public void StartNewGameFromPasted()
+        {
+            if( !PastedIsValid ) throw new ApplicationException($"Can not start game from invalid pasted = {Pasted}.");
+            StartNewGame(_pastedGrid);
+        }
 
         private ModalState _modalState;
         public ModalState ModalState
@@ -102,50 +105,6 @@ namespace Application
             OnCandidateChanged?.Invoke();
             OnValueChanged?.Invoke();
             OnValueOrCandidateChanged?.Invoke();
-        }
-
-        private IFilter _filter = new SelectedValueFilter(1);
-        public IFilter Filter
-        {
-            get
-            {
-                if( ModalState == ModalState.Share )
-                {
-                    return _shareManager.Filter;
-                }
-                return _filter;
-            }
-            set
-            {
-                _filter = value;
-                OnFilterChanged?.Invoke();
-            }
-        }
-
-        public void SetFilter(IFilter filter) => Filter = filter;
-        public event Action OnFilterChanged;
-
-        private string _pasted = new string('0', 81);
-        public string Pasted
-        {
-            get => _pasted;
-            set
-            {
-                _pasted = value;
-                PastedIsValid = _defaultSerializer.IsValidFormat(_pasted);
-                _pastedGrid = PastedIsValid ? _defaultSerializer.Deserialize(Pasted) : new Grid();
-                ValueAndCandidateChanged();
-            }
-        }
-
-        public bool PastedIsValid;
-        private IGrid _pastedGrid = new Grid();
-
-        private readonly IGridSerializer _defaultSerializer = GridSerializerFactory.Make(GridSerializerName.Default);
-        public void StartNewGameFromPasted()
-        {
-            if( !PastedIsValid ) throw new ApplicationException($"Can not start game from invalid pasted = {Pasted}.");
-            StartNewGame(_pastedGrid);
         }
     }
 }
