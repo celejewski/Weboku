@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Core.Validators
 {
-    internal static class ValidatorGrid
+    public static class ValidatorGrid
     {
         public static void EnsureGridIsValid(IGrid grid)
         {

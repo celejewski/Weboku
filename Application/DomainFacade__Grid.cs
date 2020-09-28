@@ -6,6 +6,7 @@ namespace Application
     public sealed partial class DomainFacade
     {
         private IGrid _grid;
+        private IGrid _customGrid = new Grid();
         private IGrid Grid
         {
             get
@@ -14,6 +15,7 @@ namespace Application
                 {
                     ModalState.Share => _shareManager.Grid,
                     ModalState.Paste => _pastedGrid,
+                    ModalState.CustomSudoku => _customGrid,
                     _ => _grid
                 };
             }

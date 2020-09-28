@@ -6,6 +6,7 @@ using Core.Exceptions;
 using Core.Hints;
 using Core.Hints.SolvingTechniques;
 using Core.Serializers;
+using Core.Validators;
 using System;
 using System.Threading.Tasks;
 
@@ -32,7 +33,8 @@ namespace Application
         }
         public void StartNewGame(IGrid grid, Difficulty difficulty = Difficulty.Unknown)
         {
-            _grid = grid;
+            ValidatorGrid.EnsureGridIsValid(grid);
+            _grid = grid.Clone();
             Difficulty = difficulty;
             GridChanged();
         }
@@ -58,6 +60,19 @@ namespace Application
         {
             if( !PastedIsValid ) throw new ApplicationException($"Can not start game from invalid pasted = {Pasted}.");
             StartNewGame(_pastedGrid);
+        }
+
+        public void StartNewCustomGame()
+        {
+            foreach( var position in Position.Positions )
+            {
+                if( _customGrid.HasValue(position) )
+                {
+                    _customGrid.SetIsGiven(position, true);
+                }
+            }
+            StartNewGame(_customGrid);
+            _customGrid = new Grid();
         }
 
         private ModalState _modalState;
