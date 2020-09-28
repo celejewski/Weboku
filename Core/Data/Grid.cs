@@ -130,5 +130,19 @@ namespace Core.Data
         public bool HasValue(Position pos) => GetValue(pos) != Value.None;
 
         public Candidates GetCandidates(Position position) => _candidates[position.x, position.y];
+
+        public void Restart()
+        {
+            foreach( var position in Position.Positions )
+            {
+                if( !GetIsGiven(position) )
+                {
+                    SetValue(position, Value.None);
+                }
+            }
+            ClearAllCandidates();
+        }
+
+        public bool IsValueLegal(Position position) => IsCandidateLegal(position, GetValue(position));
     }
 }

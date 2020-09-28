@@ -1,4 +1,4 @@
-﻿using Application.Data;
+﻿using Application.Enums;
 
 namespace Application
 {

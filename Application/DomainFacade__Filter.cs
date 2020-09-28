@@ -11,13 +11,10 @@ namespace Application
         {
             get
             {
-                if( ModalState == ModalState.Share )
-                {
-                    return _shareManager.Filter;
-                }
+                if( ModalState == ModalState.Share ) return _shareManager.Filter;
                 return _filter;
             }
-            set
+            private set
             {
                 _filter = value;
                 OnFilterChanged?.Invoke();

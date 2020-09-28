@@ -21,5 +21,7 @@
         void ClearCandidates(Position position);
 
         IGrid Clone();
+        void Restart();
+        bool IsValueLegal(Position position);
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace Application.Data
+﻿namespace Application.Enums
 {
     public enum SharedConverter
     {

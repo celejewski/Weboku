@@ -14,7 +14,7 @@ namespace Application
                 return ModalState switch
                 {
                     ModalState.Share => _shareManager.Grid,
-                    ModalState.Paste => _pastedGrid,
+                    ModalState.Paste => _pasteManager.Grid,
                     ModalState.CustomSudoku => _customGrid,
                     _ => _grid
                 };
@@ -43,7 +43,7 @@ namespace Application
 
         public bool IsValueLegal(Position position)
         {
-            return Grid.IsCandidateLegal(position, Grid.GetValue(position));
+            return Grid.IsValueLegal(position);
         }
 
         public bool IsCandidateLegal(Position position, Value value)
@@ -71,15 +71,7 @@ namespace Application
         public void RestartGrid()
         {
             _historyManager.Save(Grid);
-            foreach( var position in Position.Positions )
-            {
-                if( !Grid.GetIsGiven(position) )
-                {
-                    Grid.SetValue(position, Value.None);
-                }
-            }
-
-            Grid.ClearAllCandidates();
+            _grid.Restart();
             GridChanged();
         }
     }

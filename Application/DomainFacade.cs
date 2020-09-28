@@ -19,6 +19,7 @@ namespace Application
         private readonly HintsProvider _hintsProvider;
         private readonly StorageManager _storageManager;
         private readonly ShareManager _shareManager;
+        private readonly PasteManager _pasteManager;
 
         public Difficulty Difficulty;
         public event Action OnGridChanged;
@@ -30,6 +31,7 @@ namespace Application
             _hintsProvider = new HintsProvider();
             _storageManager = new StorageManager(storageProvider);
             _shareManager = new ShareManager(baseUri);
+            _pasteManager = new PasteManager();
         }
         public void StartNewGame(IGrid grid, Difficulty difficulty = Difficulty.Unknown)
         {
@@ -59,7 +61,7 @@ namespace Application
         public void StartNewGameFromPasted()
         {
             if( !PastedIsValid ) throw new ApplicationException($"Can not start game from invalid pasted = {Pasted}.");
-            StartNewGame(_pastedGrid);
+            StartNewGame(_pasteManager.Pasted);
         }
 
         public void StartNewCustomGame()
