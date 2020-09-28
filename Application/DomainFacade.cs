@@ -28,7 +28,7 @@ namespace Application
 
         public DomainFacade(IStorageProvider storageProvider, string baseUri)
         {
-            Grid = new Grid();
+            _grid = new Grid();
             _toolManager = new ToolManager();
             _historyManager = new HistoryManager();
             _hintsProvider = new HintsProvider();
@@ -37,7 +37,7 @@ namespace Application
         }
         public void StartNewGame(IGrid grid, Difficulty difficulty = Difficulty.Unknown)
         {
-            Grid = grid;
+            _grid = grid;
             Difficulty = difficulty;
             ValueAndCandidateChanged();
         }
@@ -71,10 +71,6 @@ namespace Application
                     ModalState.Paste => _pastedGrid,
                     _ => _grid
                 };
-            }
-            set
-            {
-                _grid = value;
             }
         }
 
