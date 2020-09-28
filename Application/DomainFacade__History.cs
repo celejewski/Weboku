@@ -17,7 +17,7 @@ namespace Application
             if( _historyManager.CanUndo )
             {
                 _grid = _historyManager.Undo(Grid);
-                ValueAndCandidateChanged();
+                GridChanged();
             }
         }
 
@@ -26,7 +26,7 @@ namespace Application
             if( _historyManager.CanRedo )
             {
                 _grid = _historyManager.Redo(Grid);
-                ValueAndCandidateChanged();
+                GridChanged();
             }
         }
     }

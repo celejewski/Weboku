@@ -27,7 +27,7 @@
     protected override void OnInitialized()
     {
         DomainFacade.OnFilterChanged += StateHasChanged;
-        DomainFacade.OnValueOrCandidateChanged += StateHasChanged;
+        DomainFacade.OnGridChanged += StateHasChanged;
     }
 
 

@@ -12,7 +12,7 @@
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        DomainFacade.OnValueChanged += StateHasChanged;
+        DomainFacade.OnGridChanged += StateHasChanged;
         InputMarkProvider.OnChanged += StateHasChanged;
     }
 

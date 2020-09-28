@@ -15,7 +15,7 @@ namespace Application
                 _pasted = value;
                 PastedIsValid = _defaultSerializer.IsValidFormat(_pasted);
                 _pastedGrid = PastedIsValid ? _defaultSerializer.Deserialize(Pasted) : new Grid();
-                ValueAndCandidateChanged();
+                GridChanged();
             }
         }
 

@@ -13,7 +13,7 @@ namespace UI.BlazorWASM.Providers
         {
             _domainFacade = gridProvider;
 
-            _domainFacade.OnValueOrCandidateChanged += () => _isDirty = true;
+            _domainFacade.OnGridChanged += () => _isDirty = true;
 
             _timer = new Timer();
             _timer.Elapsed += (o, e) => Save();

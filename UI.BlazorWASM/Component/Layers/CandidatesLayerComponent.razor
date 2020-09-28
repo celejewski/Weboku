@@ -21,6 +21,6 @@
 
     protected override void OnInitialized()
     {
-        DomainFacade.OnValueOrCandidateChanged += StateHasChanged;
+        DomainFacade.OnGridChanged += StateHasChanged;
     }
 }

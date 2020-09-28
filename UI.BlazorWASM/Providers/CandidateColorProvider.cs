@@ -13,7 +13,7 @@ namespace UI.BlazorWASM.Providers
                 Position.Cols.Count,
                 Position.Rows.Count,
                 Value.All.Count];
-            domainFacade.OnCandidateChanged += () => OnChanged?.Invoke();
+            domainFacade.OnGridChanged += () => OnChanged?.Invoke();
             _domainFacade = domainFacade;
         }
 

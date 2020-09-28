@@ -18,7 +18,7 @@ namespace Application
             set
             {
                 _shareManager.SharedFields = value;
-                ValueAndCandidateChanged();
+                GridChanged();
             }
         }
     }

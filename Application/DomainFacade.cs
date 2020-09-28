@@ -20,9 +20,7 @@ namespace Application
         private readonly ShareManager _shareManager;
 
         public Difficulty Difficulty;
-        public event Action OnValueChanged;
-        public event Action OnCandidateChanged;
-        public event Action OnValueOrCandidateChanged;
+        public event Action OnGridChanged;
         public DomainFacade(IStorageProvider storageProvider, string baseUri)
         {
             _grid = new Grid();
@@ -36,7 +34,7 @@ namespace Application
         {
             _grid = grid;
             Difficulty = difficulty;
-            ValueAndCandidateChanged();
+            GridChanged();
         }
 
         public void StartNewGame(string givens)
@@ -68,12 +66,13 @@ namespace Application
             get => _modalState;
             set
             {
+                if( _modalState == value ) return;
                 _modalState = value;
                 if( _modalState == ModalState.Share )
                 {
                     _shareManager.UpdateGrid(_grid);
                 }
-                ValueAndCandidateChanged();
+                GridChanged();
             }
         }
 
@@ -87,24 +86,12 @@ namespace Application
             _historyManager.Save(Grid);
             var nextHint = _hintsProvider.GetNextHint(Grid);
             nextHint.Execute(Grid);
-            ValueAndCandidateChanged();
-        }
-        private void ValueChanged()
-        {
-            OnValueChanged?.Invoke();
-            OnValueOrCandidateChanged?.Invoke();
+            GridChanged();
         }
 
-        private void CandidateChanged()
+        private void GridChanged()
         {
-            OnCandidateChanged?.Invoke();
-            OnValueOrCandidateChanged?.Invoke();
-        }
-        private void ValueAndCandidateChanged()
-        {
-            OnCandidateChanged?.Invoke();
-            OnValueChanged?.Invoke();
-            OnValueOrCandidateChanged?.Invoke();
+            OnGridChanged?.Invoke();
         }
     }
 }

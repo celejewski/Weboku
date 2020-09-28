@@ -8,20 +8,20 @@ namespace Application
         {
             _historyManager.Save(Grid);
             _toolManager.UseMarker(Grid, position, value);
-            ValueAndCandidateChanged();
+            GridChanged();
         }
 
         public void UsePencil(Position position, Value value)
         {
             _historyManager.Save(Grid);
             _toolManager.UsePencil(Grid, position, value);
-            CandidateChanged();
+            GridChanged();
         }
         public void UseEraser(Position position)
         {
             _historyManager.Save(Grid);
             _toolManager.UseEraser(Grid, position);
-            ValueAndCandidateChanged();
+            GridChanged();
         }
     }
 }

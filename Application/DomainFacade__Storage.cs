@@ -14,7 +14,7 @@ namespace Application
             var storageDto = _storageManager.Load();
             _grid = storageDto.Grid;
             Difficulty = storageDto.Difficulty;
-            ValueChanged();
+            GridChanged();
         }
     }
 }

@@ -9,7 +9,7 @@
 
     protected override void OnInitialized()
     {
-        GridProvider.OnValueChanged += StateHasChanged;
+        GridProvider.OnGridChanged += StateHasChanged;
         NumpadMenuProvider.OnChanged += StateHasChanged;
     }
 }

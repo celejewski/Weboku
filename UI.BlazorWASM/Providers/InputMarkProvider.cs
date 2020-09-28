@@ -13,7 +13,7 @@ namespace UI.BlazorWASM.Providers
         public InputMarkProvider(DomainFacade domainFacade)
         {
             _domainFacade = domainFacade;
-            _domainFacade.OnValueChanged += () => OnChanged?.Invoke();
+            _domainFacade.OnGridChanged += () => OnChanged?.Invoke();
         }
 
         public void SetColor(Position position, Color color)

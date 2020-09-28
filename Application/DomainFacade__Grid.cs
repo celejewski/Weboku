@@ -58,13 +58,13 @@ namespace Application
         {
             _historyManager.Save(Grid);
             Grid.FillAllLegalCandidates();
-            CandidateChanged();
+            GridChanged();
         }
         public void ClearAllCandidates()
         {
             _historyManager.Save(Grid);
             Grid.ClearAllCandidates();
-            OnCandidateChanged();
+            OnGridChanged();
         }
         public void RestartGrid()
         {
@@ -78,7 +78,7 @@ namespace Application
             }
 
             Grid.ClearAllCandidates();
-            ValueAndCandidateChanged();
+            GridChanged();
         }
     }
 }

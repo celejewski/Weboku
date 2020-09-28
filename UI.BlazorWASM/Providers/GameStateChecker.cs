@@ -14,7 +14,7 @@ namespace UI.BlazorWASM.Providers
         public GameStateChecker(DomainFacade domainFacade)
         {
             _domainFacade = domainFacade;
-            _domainFacade.OnValueChanged += RaiseEventIfSudokuIsSolved;
+            _domainFacade.OnGridChanged += RaiseEventIfSudokuIsSolved;
         }
 
         private void RaiseEventIfSudokuIsSolved()

@@ -32,7 +32,7 @@
         _gridRow = z / 3 + 1;
 
         _text = Value.ToString();
-        DomainFacade.OnCandidateChanged += StateHasChanged;
+        DomainFacade.OnGridChanged += StateHasChanged;
         CandidateColorProvider.OnChanged += StateHasChanged;
     }
 
