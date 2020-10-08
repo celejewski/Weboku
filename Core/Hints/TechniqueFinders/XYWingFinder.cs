@@ -14,7 +14,7 @@ namespace Core.Hints.TechniqueFinders
 
             foreach( var pivot in pairPositions )
             {
-                var seenBy = Position.GetCoordsWhichCanSee(pivot)
+                var seenBy = Position.GetCoordsWhichCanSeePosition(pivot)
                     .Where(pos => grid.GetCandidates(pos).Count() == 2);
 
                 var candidate1 = grid.GetCandidates(pivot).ToValues()[0];

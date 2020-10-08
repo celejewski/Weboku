@@ -2,13 +2,13 @@
 
 namespace Application.Managers
 {
-    public class ToolManager
+    internal sealed class ToolManager
     {
         public void UseMarker(Grid grid, Position position, Value value)
         {
             if( grid.GetIsGiven(position) ) return;
 
-            if( grid.GetValue(position) == Value.None )
+            if( grid.HasValue(position) )
             {
                 grid.SetValue(position, value);
             }

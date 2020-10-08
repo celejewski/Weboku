@@ -2,7 +2,7 @@
 
 namespace Application.Data
 {
-    public class StorageDto
+    internal sealed class StorageDto
     {
         public StorageDto(Grid grid, Difficulty difficulty)
         {

@@ -7,7 +7,7 @@ using System;
 
 namespace Application.Managers
 {
-    internal class StorageManager
+    internal sealed class StorageManager
     {
         private readonly IGridSerializer _gridSerializer;
         private readonly IStorageProvider _storageProvider;

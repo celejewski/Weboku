@@ -23,15 +23,13 @@ namespace Core.Data
             One, Two, Three, Four, Five, Six, Seven, Eight, Nine
         };
 
-        private static readonly IReadOnlyList<Value> _values = new[]
+        public static IReadOnlyList<Value> All { get; } = new[]
         {
             None, One, Two, Three, Four, Five, Six, Seven, Eight, Nine
         };
 
-        public static IReadOnlyList<Value> All => _values;
-
         public static implicit operator int(Value value) => value._value;
-        public static implicit operator Value(int index) => _values[index];
+        public static implicit operator Value(int index) => All[index];
 
         public override int GetHashCode() => _value;
 

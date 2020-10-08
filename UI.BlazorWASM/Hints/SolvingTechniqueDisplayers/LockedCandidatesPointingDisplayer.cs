@@ -50,7 +50,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
             _displayer.HighlightHouse(_positionsToRemoveFrom.First(), RowOrCol(_informer));
             _displayer.SetValueFilter(_value);
 
-            var blockFormatted = _displayer.Format(House.Block, Position.FromBlock(_block));
+            var blockFormatted = _displayer.Format(House.Block, Position.TopLeftCornerOfBlock(_block));
             _displayer.SetDescription(DescriptionKey, blockFormatted, _value, _rowOrColFormated, _value, _rowOrColFormated, blockFormatted);
         }
 
@@ -60,7 +60,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
 
             _displayer.HighlightBlock(_block);
             _displayer.SetValueFilter(Value.None);
-            var blockFormatted = _displayer.Format(House.Block, Position.FromBlock(_block));
+            var blockFormatted = _displayer.Format(House.Block, Position.TopLeftCornerOfBlock(_block));
             _displayer.SetDescription(ExplanationKey(1), blockFormatted);
         }
 

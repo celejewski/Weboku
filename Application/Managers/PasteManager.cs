@@ -4,7 +4,7 @@ using Core.Validators;
 
 namespace Application.Managers
 {
-    public class PasteManager
+    internal sealed class PasteManager
     {
         public PasteManager()
         {

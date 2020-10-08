@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Application.Managers
 {
-    public class ShareManager
+    internal sealed class ShareManager
     {
         private Grid _sourceGrid;
         private Grid _transformedGrid;

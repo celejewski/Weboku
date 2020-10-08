@@ -18,7 +18,7 @@ namespace Core.Hints.SolvingTechniques
         {
             Positions = positions;
             Values = values;
-            House = Position.GetHouses(positions).First();
+            House = Position.GetHouseOf(positions);
         }
 
         public bool CanExecute(Grid grid)

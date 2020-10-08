@@ -1,6 +1,7 @@
 ﻿using Core.Data;
 using Core.Hints.SolvingTechniques;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Core.Hints.TechniqueFinders
 {
@@ -44,11 +45,11 @@ namespace Core.Hints.TechniqueFinders
             return results;
         }
 
-        private void CheckResult(Grid grid, List<ISolvingTechnique> results, House house, List<Position> pos, Candidates candidates)
+        private void CheckResult(Grid grid, List<ISolvingTechnique> results, House house, IReadOnlyList<Position> pos, Candidates candidates)
         {
             foreach( var value in candidates.ToValues() )
             {
-                var position = pos.Find(pos => grid.HasCandidate(pos, value));
+                var position = pos.First(pos => grid.HasCandidate(pos, value));
                 results.Add(new HiddenSingle(position, value, house));
             }
         }

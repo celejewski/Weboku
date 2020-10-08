@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Core.Exceptions;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Core.Data
@@ -17,7 +18,7 @@ namespace Core.Data
         }
         public override string ToString() => $"r{y + 1}c{x + 1}";
 
-        public static Position FromBlock(int block)
+        public static Position TopLeftCornerOfBlock(int block)
         {
             var x = block % 3 * 3;
             var y = block / 3 * 3;
@@ -25,52 +26,13 @@ namespace Core.Data
             return new Position(x, y);
         }
 
-        private static readonly List<Position> _all = new List<Position>();
-        public static IReadOnlyList<Position> Positions => _all;
-
-        private static readonly List<List<Position>> _rows = new List<List<Position>>();
-        public static IReadOnlyList<List<Position>> Rows => _rows;
-
-        private static readonly List<List<Position>> _cols = new List<List<Position>>();
-        public static IReadOnlyList<List<Position>> Cols => _cols;
-
-        private static readonly List<List<Position>> _blocks = new List<List<Position>>();
-        public static IReadOnlyList<List<Position>> Blocks => _blocks;
-
-        private static readonly List<List<Position>> _houses;
-        public static IReadOnlyList<List<Position>> Houses => _houses;
+        public static IReadOnlyList<Position> Positions { get; }
+        public static IReadOnlyList<IReadOnlyList<Position>> Rows { get; }
+        public static IReadOnlyList<IReadOnlyList<Position>> Cols { get; }
+        public static IReadOnlyList<IReadOnlyList<Position>> Blocks { get; }
+        public static IReadOnlyList<IReadOnlyList<Position>> Houses { get; }
 
         public static IEnumerable<Position> GetOtherPositionsSeenBy(IEnumerable<Position> positions)
-        {
-            if( !positions.Any() ) yield break;
-
-            var first = positions.First();
-            if( positions.All(position => position.x == first.x) )
-            {
-                foreach( var posposition in Cols[first.x].Except(positions) )
-                {
-                    yield return posposition;
-                }
-            }
-
-            if( positions.All(position => position.y == first.y) )
-            {
-                foreach( var position in Rows[first.y].Except(positions) )
-                {
-                    yield return position;
-                }
-            }
-
-            if( positions.All(position => position.block == first.block) )
-            {
-                foreach( var position in Blocks[first.block].Except(positions) )
-                {
-                    yield return position;
-                }
-            }
-        }
-
-        public static IEnumerable<Position> GetOtherPositionsSeenBy(params Position[] positions)
         {
             foreach( var position1 in Positions )
             {
@@ -81,6 +43,9 @@ namespace Core.Data
             }
         }
 
+        public static IEnumerable<Position> GetOtherPositionsSeenBy(params Position[] positions)
+            => GetOtherPositionsSeenBy((IEnumerable<Position>) positions);
+
         public bool IsSharingHouseWith(Position position)
         {
             return x == position.x
@@ -88,10 +53,16 @@ namespace Core.Data
                 || block == position.block;
         }
 
-        public static House GetHouseOf(params Position[] positions) => GetHouseOf((IEnumerable<Position>) positions);
+        public static House GetHouseOf(params Position[] positions)
+            => GetHouseOf((IEnumerable<Position>) positions);
+
+
         public static House GetHouseOf(IEnumerable<Position> positions)
         {
-            if( !positions.Any() ) return House.None;
+            if( !positions.Any() )
+            {
+                throw new SudokuCoreException($"Can not use {nameof(GetHouseOf)} with empty {nameof(positions)}.");
+            }
 
             var first = positions.First();
             if( positions.All(position => position.x == first.x) ) return House.Col;
@@ -100,14 +71,14 @@ namespace Core.Data
             return House.None;
         }
 
-        private static readonly IReadOnlyList<Position>[,] _indexesWhichCanSee = new IReadOnlyList<Position>[9, 9];
+        private static readonly IReadOnlyList<Position>[,] _indexesWhichCanSeePosition = new IReadOnlyList<Position>[9, 9];
 
-        public static IReadOnlyList<Position> GetCoordsWhichCanSee(Position position)
+        public static IReadOnlyList<Position> GetCoordsWhichCanSeePosition(Position position)
         {
-            return _indexesWhichCanSee[position.x, position.y] ??= CalculateIndexesWhichCanSee(position);
+            return _indexesWhichCanSeePosition[position.x, position.y] ??= CalculateIndexesWhichCanSeePosition(position);
         }
 
-        private static IReadOnlyList<Position> CalculateIndexesWhichCanSee(Position position)
+        private static IReadOnlyList<Position> CalculateIndexesWhichCanSeePosition(Position position)
         {
             return Cols[position.x]
                 .Concat(Rows[position.y])
@@ -118,33 +89,40 @@ namespace Core.Data
 
         static Position()
         {
+            var positions = new List<Position>();
             for( int y = 0; y < 9; y++ )
             {
                 for( int x = 0; x < 9; x++ )
                 {
-                    _all.Add(new Position(x, y));
+                    positions.Add(new Position(x, y));
                 }
             }
+            Positions = positions;
 
+            var rows = new List<List<Position>>();
+            var cols = new List<List<Position>>();
+            var blocks = new List<List<Position>>();
             for( int i = 0; i < 9; i++ )
             {
-                _rows.Add(new List<Position>());
-                _cols.Add(new List<Position>());
-                _blocks.Add(new List<Position>());
+                rows.Add(new List<Position>());
+                cols.Add(new List<Position>());
+                blocks.Add(new List<Position>());
             }
 
             foreach( var position in Positions )
             {
-                _rows[position.y].Add(position);
-                _cols[position.x].Add(position);
-                _blocks[position.block].Add(position);
+                cols[position.x].Add(position);
+                rows[position.y].Add(position);
+                blocks[position.block].Add(position);
             }
+            Rows = rows;
+            Cols = cols;
+            Blocks = blocks;
 
-            _houses = new List<List<Position>>(
-                Blocks
+            Houses = Blocks
                 .Concat(Cols)
                 .Concat(Rows)
-                );
+                .ToList();
         }
 
         public override int GetHashCode() => y * 9 + x;

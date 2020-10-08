@@ -31,7 +31,7 @@ namespace Core.Data
 
             if( value != Value.None )
             {
-                foreach( var seenBy in Position.GetCoordsWhichCanSee(position) )
+                foreach( var seenBy in Position.GetCoordsWhichCanSeePosition(position) )
                 {
                     RemoveCandidate(seenBy, value);
                 }
@@ -41,7 +41,7 @@ namespace Core.Data
         public bool IsCandidateLegal(Position position, Value value)
         {
             return value == Value.None
-                || Position.GetCoordsWhichCanSee(position)
+                || Position.GetCoordsWhichCanSeePosition(position)
                 .Where(otherPosition => !position.Equals(otherPosition))
                 .All(otherPosition => GetValue(otherPosition) != value);
         }
