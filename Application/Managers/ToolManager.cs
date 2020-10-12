@@ -8,7 +8,7 @@ namespace Application.Managers
         {
             if( grid.GetIsGiven(position) ) return;
 
-            if( grid.HasValue(position) )
+            if( !grid.HasValue(position) )
             {
                 grid.SetValue(position, value);
             }

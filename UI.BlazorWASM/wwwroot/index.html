@@ -83,18 +83,20 @@
         window.addEventListener('resize', resize)
 
         function onkeydown(e) {
-            const serializedKeyboardEvent = {
-                altKey: e.altKey,
-                code: e.code,
-                ctrlKey: e.ctrlKey,
-                key: e.key,
-                location: e.location,
-                metaKey: e.metaKey,
-                repeat: e.repeat,
-                shiftKey: e.shiftKey,
-                type: e.type
+            if (DotNet) {
+                const serializedKeyboardEvent = {
+                    altKey: e.altKey,
+                    code: e.code,
+                    ctrlKey: e.ctrlKey,
+                    key: e.key,
+                    location: e.location,
+                    metaKey: e.metaKey,
+                    repeat: e.repeat,
+                    shiftKey: e.shiftKey,
+                    type: e.type
+                }
+                DotNet.invokeMethod('UI.BlazorWASM', 'OnKeyDown', serializedKeyboardEvent)
             }
-            DotNet.invokeMethod('UI.BlazorWASM', 'OnKeyDown', serializedKeyboardEvent)
         }
         document.onkeydown = onkeydown
 
