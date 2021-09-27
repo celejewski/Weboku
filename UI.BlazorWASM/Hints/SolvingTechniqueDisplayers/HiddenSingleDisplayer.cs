@@ -1,4 +1,5 @@
 ﻿using System;
+using Weboku.Application.Enums;
 using Weboku.Core.Data;
 using Weboku.Core.Hints.SolvingTechniques;
 
@@ -37,8 +38,8 @@ namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
             _displayer.SetDescription(DescriptionKey, _displayer.Format(_house, _position), _value, _position);
             _displayer.SetValueFilter(_value);
 
-            _displayer.MarkCells(Enums.Color.Illegal, HintsHelper.GetPositionsInHouse(_position, _house));
-            _displayer.MarkCell(Enums.Color.Legal, _position);
+            _displayer.MarkCells(Color.Illegal, HintsHelper.GetPositionsInHouse(_position, _house));
+            _displayer.MarkCell(Color.Legal, _position);
         }
 
         private void Explain1()
@@ -59,9 +60,9 @@ namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
         {
             SetupDisplayer();
             var posInHouse = HintsHelper.GetPositionsInHouse(_position, _house);
-            _displayer.MarkInputOrCandidate(Enums.Color.Illegal, posInHouse, _value);
-            _displayer.MarkCells(Enums.Color.Illegal, posInHouse);
-            _displayer.Mark(Enums.Color.Legal, _position, _value);
+            _displayer.MarkInputOrCandidate(Color.Illegal, posInHouse, _value);
+            _displayer.MarkCells(Color.Illegal, posInHouse);
+            _displayer.Mark(Color.Legal, _position, _value);
             _displayer.SetDescription(ExplanationKey(3), _value, _value, _houseFormated, _position);
         }
     }

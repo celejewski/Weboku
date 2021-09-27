@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Weboku.Application.Enums;
 using Weboku.Core.Data;
 using Weboku.Core.Hints.SolvingTechniques;
 
@@ -42,8 +43,8 @@ namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
             SetupDisplay();
             var positions = PositionsWithCandidate(_informer);
 
-            _displayer.Mark(Enums.Color.Legal, positions, _value);
-            _displayer.MarkIfHasCandidate(Enums.Color.Illegal, _positionsToRemoveFrom, _value);
+            _displayer.Mark(Color.Legal, positions, _value);
+            _displayer.MarkIfHasCandidate(Color.Illegal, _positionsToRemoveFrom, _value);
             _displayer.HighlightBlock(_block);
             _displayer.HighlightHouse(_positionsToRemoveFrom.First(), RowOrCol(_informer));
             _displayer.SetValueFilter(_value);
@@ -76,7 +77,7 @@ namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
             SetupDisplay();
             _displayer.HighlightBlock(_block);
             _displayer.SetValueFilter(_value);
-            _displayer.Mark(Enums.Color.Legal, PositionWithLegalCandidates(_informer), _value);
+            _displayer.Mark(Color.Legal, PositionWithLegalCandidates(_informer), _value);
             _displayer.SetDescription(ExplanationKey(3), _value);
         }
 
@@ -86,7 +87,7 @@ namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
             //_displayer.HighlightBlock(_block);
             _displayer.HighlightHouse(_positionsToRemoveFrom.First(), RowOrCol(_informer));
             _displayer.SetValueFilter(_value);
-            _displayer.Mark(Enums.Color.Legal, PositionWithLegalCandidates(_informer), _value);
+            _displayer.Mark(Color.Legal, PositionWithLegalCandidates(_informer), _value);
             _displayer.SetDescription(ExplanationKey(4), _rowOrColFormated);
         }
 
@@ -96,8 +97,8 @@ namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
             _displayer.HighlightBlock(_block);
             _displayer.HighlightHouse(_positionsToRemoveFrom.First(), RowOrCol(_informer));
             _displayer.SetValueFilter(_value);
-            _displayer.Mark(Enums.Color.Illegal, _positionsToRemoveFrom, _value);
-            _displayer.Mark(Enums.Color.Legal, PositionWithLegalCandidates(_informer), _value);
+            _displayer.Mark(Color.Illegal, _positionsToRemoveFrom, _value);
+            _displayer.Mark(Color.Legal, PositionWithLegalCandidates(_informer), _value);
             _displayer.SetDescription(ExplanationKey(5), _value, _rowOrColFormated);
         }
 

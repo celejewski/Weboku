@@ -1,4 +1,4 @@
-﻿using Weboku.UserInterface.Enums;
+﻿using Weboku.Application.Enums;
 
 namespace Weboku.UserInterface.Converters
 {

@@ -1,4 +1,5 @@
-﻿using Weboku.Core.Data;
+﻿using Weboku.Application.Enums;
+using Weboku.Core.Data;
 using Weboku.Core.Hints.SolvingTechniques;
 
 namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
@@ -25,11 +26,11 @@ namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
         {
             base.DisplaySolution();
 
-            _displayer.Mark(Enums.Color.Legal, _pos1, _value);
-            _displayer.Mark(Enums.Color.Legal, _pos2, _value);
-            _displayer.Mark(Enums.Color.Legal, _base1, _value);
-            _displayer.Mark(Enums.Color.Legal, _base2, _value);
-            _displayer.MarkIfHasCandidate(Enums.Color.Illegal, Position.GetOtherPositionsSeenBy(_pos1, _pos2), _value);
+            _displayer.Mark(Color.Legal, _pos1, _value);
+            _displayer.Mark(Color.Legal, _pos2, _value);
+            _displayer.Mark(Color.Legal, _base1, _value);
+            _displayer.Mark(Color.Legal, _base2, _value);
+            _displayer.MarkIfHasCandidate(Color.Illegal, Position.GetOtherPositionsSeenBy(_pos1, _pos2), _value);
 
             _displayer.HighlightHouse(_base1, Position.GetHouseOf(_base1, _base2));
             _displayer.HighlightHouse(_pos1, Position.GetHouseOf(_pos1, _base1));

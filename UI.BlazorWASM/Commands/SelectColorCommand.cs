@@ -1,24 +1,24 @@
 ﻿using System.Threading.Tasks;
-using Weboku.UserInterface.Enums;
-using Weboku.UserInterface.Providers;
+using Weboku.Application;
+using Weboku.Application.Enums;
 
 namespace Weboku.UserInterface.Commands
 {
     public class SelectColorCommand : ICommand
     {
         private readonly Color _color;
-        private readonly ClickableActionProvider _clickableActionProvider;
+        private readonly DomainFacade _domainFacade;
 
-        public SelectColorCommand(Color color, ClickableActionProvider clickableActionProvider)
+        public SelectColorCommand(Color color, DomainFacade domainFacade)
         {
             _color = color;
-            _clickableActionProvider = clickableActionProvider;
+            _domainFacade = domainFacade;
         }
 
         public Task Execute()
         {
-            _clickableActionProvider.Color1 = _color;
-            _clickableActionProvider.Color2 = _color;
+            _domainFacade.SelectPrimaryColor(_color);
+            _domainFacade.SelectSecondaryColor(_color);
             return Task.CompletedTask;
         }
     }

@@ -1,6 +1,6 @@
-﻿@using Weboku.UserInterface.Enums
-@using Weboku.UserInterface.Converters
+﻿@using Weboku.UserInterface.Converters
 @using Weboku.Core.Data
+@using Weboku.Application.Enums
 <div class="input @(IsGiven ? "input--is-given " : String.Empty)
      @CellColorConverter.ToCssClass(MarkColor)">
     @(Value != Value.None ? Value.ToString() : string.Empty)

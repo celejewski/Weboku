@@ -2,6 +2,7 @@
 @inject NumpadMenuProvider NumpadMenuProvider
 @using Weboku.UserInterface.Component.NumpadMenu.Components
 @using Weboku.UserInterface.Providers
+@using Weboku.Application.Enums
 
 
     <div class="numpad">
@@ -27,8 +28,8 @@
 
         <ClearColorsButtonComponent />
         <ColorButtonComponent @ref="_initialColor"
-                              SelectColorMenuItem="NumpadMenuBuilder.SelectColor(Enums.Color.First, Enums.Color.Second)" />
-        <ColorButtonComponent SelectColorMenuItem="NumpadMenuBuilder.SelectColor(Enums.Color.Third, Enums.Color.Fourth)" />
+                              SelectColorMenuItem="NumpadMenuBuilder.SelectColor(Color.First, Color.Second)" />
+        <ColorButtonComponent SelectColorMenuItem="NumpadMenuBuilder.SelectColor(Color.Third, Color.Fourth)" />
         <IconButtonComponent NumpadMenuLabel="NumpadMenuBuilder.SelectColorAction()" />
     </div>
 

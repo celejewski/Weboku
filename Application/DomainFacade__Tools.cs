@@ -12,6 +12,9 @@ namespace Weboku.Application
         private Value _selectedValue = Value.One;
         public event EventHandler<Value> OnValueChanged;
 
+        private Color PrimaryColor { get; set; } = Color.First;
+        private Color SecondaryColor { get; set; } = Color.Second;
+
         public void UsePrimaryTool(Position position)
         {
             _historyManager.Save(Grid);
@@ -26,6 +29,9 @@ namespace Weboku.Application
                     break;
                 case Tool.Eraser:
                     _toolManager.UseEraser(Grid, position);
+                    break;
+                case Tool.Brush:
+                    _toolManager.UseBrush(_colorManager, position, PrimaryColor);
                     break;
                 default:
                     throw new InvalidOperationException();
@@ -49,6 +55,9 @@ namespace Weboku.Application
                 case Tool.Eraser:
                     _toolManager.UseEraser(Grid, position);
                     break;
+                case Tool.Brush:
+                    _toolManager.UseBrush(_colorManager, position, SecondaryColor);
+                    break;
                 default:
                     throw new InvalidOperationException();
             }
@@ -68,6 +77,16 @@ namespace Weboku.Application
         {
             _tool = tool;
             OnToolChanged?.Invoke(this, tool);
+        }
+
+        public void SelectPrimaryColor(Color color)
+        {
+            PrimaryColor = color;
+        }
+
+        public void SelectSecondaryColor(Color color)
+        {
+            SecondaryColor = color;
         }
     }
 }

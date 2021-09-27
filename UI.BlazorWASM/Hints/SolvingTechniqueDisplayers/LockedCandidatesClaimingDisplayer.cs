@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Weboku.Application.Enums;
 using Weboku.Core.Data;
 using Weboku.Core.Hints.SolvingTechniques;
 
@@ -50,8 +51,8 @@ namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
         {
             SetupDisplay();
 
-            _displayer.Mark(Enums.Color.Legal, _positionsWithLegalCandidate, _value);
-            _displayer.Mark(Enums.Color.Illegal, _positionsWithIllegalCandidate, _value);
+            _displayer.Mark(Color.Legal, _positionsWithLegalCandidate, _value);
+            _displayer.Mark(Color.Illegal, _positionsWithIllegalCandidate, _value);
             _displayer.HighlightBlock(Position);
             _displayer.HighlightHouse(Position, _house);
             _displayer.SetValueFilter(_value);
@@ -82,7 +83,7 @@ namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
             SetupDisplay();
 
             _displayer.HighlightHouse(Position, _house);
-            _displayer.MarkIfHasCandidate(Enums.Color.Legal, _positionsWithLegalCandidate, _value);
+            _displayer.MarkIfHasCandidate(Color.Legal, _positionsWithLegalCandidate, _value);
             _displayer.SetValueFilter(_value);
             _displayer.SetDescription(ExplanationKey(3), _value);
         }
@@ -92,7 +93,7 @@ namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
             SetupDisplay();
 
             _displayer.HighlightBlock(Position);
-            _displayer.MarkIfHasCandidate(Enums.Color.Legal, _positionsWithLegalCandidate, _value);
+            _displayer.MarkIfHasCandidate(Color.Legal, _positionsWithLegalCandidate, _value);
             _displayer.SetValueFilter(_value);
             _displayer.SetDescription(ExplanationKey(4), _blockFormatted);
         }
@@ -103,8 +104,8 @@ namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
 
             _displayer.HighlightHouse(Position, _house);
             _displayer.HighlightBlock(Position);
-            _displayer.MarkIfHasCandidate(Enums.Color.Legal, _positionsWithLegalCandidate, _value);
-            _displayer.MarkIfHasCandidate(Enums.Color.Illegal, _positionsWithIllegalCandidate, _value);
+            _displayer.MarkIfHasCandidate(Color.Legal, _positionsWithLegalCandidate, _value);
+            _displayer.MarkIfHasCandidate(Color.Illegal, _positionsWithIllegalCandidate, _value);
             _displayer.SetValueFilter(_value);
             _displayer.SetDescription(ExplanationKey(5), _value, _blockFormatted);
         }

@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Weboku.UserInterface.Enums;
+using Weboku.Application.Enums;
 
 namespace Weboku.UserInterface.Component.NumpadMenu.NumpadMenuOptions
 {

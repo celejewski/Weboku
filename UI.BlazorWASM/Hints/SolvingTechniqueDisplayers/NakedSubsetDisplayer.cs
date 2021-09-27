@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Weboku.Application.Enums;
 using Weboku.Core.Data;
 using Weboku.Core.Hints.SolvingTechniques;
 
@@ -23,8 +24,8 @@ namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
             base.DisplaySolution();
             foreach (var value in _values)
             {
-                _displayer.MarkIfHasCandidate(Enums.Color.Illegal, GetPositionsToRemove(_informer), value);
-                _displayer.MarkIfHasCandidate(Enums.Color.Legal, _positions, value);
+                _displayer.MarkIfHasCandidate(Color.Illegal, GetPositionsToRemove(_informer), value);
+                _displayer.MarkIfHasCandidate(Color.Legal, _positions, value);
             }
 
             foreach (var house in GetHouses())

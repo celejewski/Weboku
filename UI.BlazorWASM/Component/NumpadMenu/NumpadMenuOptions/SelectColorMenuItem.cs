@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
-using Weboku.UserInterface.Enums;
+using Weboku.Application;
+using Weboku.Application.Enums;
 using Weboku.UserInterface.Providers;
 
 namespace Weboku.UserInterface.Component.NumpadMenu.NumpadMenuOptions
@@ -8,18 +9,18 @@ namespace Weboku.UserInterface.Component.NumpadMenu.NumpadMenuOptions
     {
         public Color Color1 { get; }
         public Color Color2 { get; }
-        private readonly ClickableActionProvider _clickableActionProvider;
+        private readonly DomainFacade _domainFacade;
         private readonly NumpadMenuProvider _numpadMenuProvider;
 
         public SelectColorMenuItem(
             Color color1,
             Color color2,
-            ClickableActionProvider clickableActionProvider,
+            DomainFacade domainFacade,
             NumpadMenuProvider numpadMenuProvider)
         {
             Color1 = color1;
             Color2 = color2;
-            _clickableActionProvider = clickableActionProvider;
+            _domainFacade = domainFacade;
             _numpadMenuProvider = numpadMenuProvider;
         }
 
@@ -31,8 +32,8 @@ namespace Weboku.UserInterface.Component.NumpadMenu.NumpadMenuOptions
         public Task Execute()
         {
             _numpadMenuProvider.ColorContainer.SelectItem(this);
-            _clickableActionProvider.Color1 = Color1;
-            _clickableActionProvider.Color2 = Color2;
+            _domainFacade.SelectPrimaryColor(Color1);
+            _domainFacade.SelectSecondaryColor(Color2);
             return Task.CompletedTask;
         }
     }

@@ -1,20 +1,20 @@
 ﻿using System.Threading.Tasks;
-using Weboku.UserInterface.Providers;
+using Weboku.Application;
 
 namespace Weboku.UserInterface.Commands
 {
     public class ClearColorsCommand : ICommand
     {
-        private readonly CellColorProvider _cellColorProvider;
+        private readonly DomainFacade _domainFacade;
 
-        public ClearColorsCommand(CellColorProvider cellColorProvider)
+        public ClearColorsCommand(DomainFacade domainFacade)
         {
-            _cellColorProvider = cellColorProvider;
+            _domainFacade = domainFacade;
         }
 
         public Task Execute()
         {
-            _cellColorProvider.ClearAll();
+            _domainFacade.ClearAllColors();
             return Task.CompletedTask;
         }
     }

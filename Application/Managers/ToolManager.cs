@@ -1,4 +1,5 @@
-﻿using Weboku.Core.Data;
+﻿using Weboku.Application.Enums;
+using Weboku.Core.Data;
 
 namespace Weboku.Application.Managers
 {
@@ -31,6 +32,15 @@ namespace Weboku.Application.Managers
 
             grid.SetValue(position, Value.None);
             grid.ClearCandidates(position);
+        }
+
+        public void UseBrush(ColorManager colorManager, Position position, Color color)
+        {
+            var colorToSet = colorManager.GetColor(position) == color
+                ? Color.None
+                : color;
+
+            colorManager.SetColor(position, colorToSet);
         }
     }
 }

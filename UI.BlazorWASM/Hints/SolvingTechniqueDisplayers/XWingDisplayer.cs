@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Weboku.Application.Enums;
 using Weboku.Core.Data;
 using Weboku.Core.Hints.SolvingTechniques;
 
@@ -42,8 +43,8 @@ namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
                 _displayer.HighlightRow(pos);
             }
 
-            _displayer.MarkCandidates(Enums.Color.Legal, _positions, _value);
-            _displayer.MarkCandidates(Enums.Color.Illegal, _positionsToRemove, _value);
+            _displayer.MarkCandidates(Color.Legal, _positions, _value);
+            _displayer.MarkCandidates(Color.Illegal, _positionsToRemove, _value);
         }
     }
 }

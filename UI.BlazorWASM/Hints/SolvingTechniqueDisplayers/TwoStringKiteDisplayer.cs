@@ -1,4 +1,5 @@
-﻿using Weboku.Core.Hints.SolvingTechniques;
+﻿using Weboku.Application.Enums;
+using Weboku.Core.Hints.SolvingTechniques;
 
 namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
 {
@@ -19,9 +20,9 @@ namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
         public override void DisplaySolution()
         {
             base.DisplaySolution();
-            _displayer.Mark(Enums.Color.Legal, _twoStringKite.LegalPositions, _twoStringKite.Value);
-            _displayer.Mark(Enums.Color.Info, _twoStringKite.InfoPositions, _twoStringKite.Value);
-            _displayer.Mark(Enums.Color.Illegal, _twoStringKite.PositionToRemove, _twoStringKite.Value);
+            _displayer.Mark(Color.Legal, _twoStringKite.LegalPositions, _twoStringKite.Value);
+            _displayer.Mark(Color.Info, _twoStringKite.InfoPositions, _twoStringKite.Value);
+            _displayer.Mark(Color.Illegal, _twoStringKite.PositionToRemove, _twoStringKite.Value);
             _displayer.SetValueFilter(_twoStringKite.Value);
         }
     }

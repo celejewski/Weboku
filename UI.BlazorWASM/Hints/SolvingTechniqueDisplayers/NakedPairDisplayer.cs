@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Weboku.Application.Enums;
 using Weboku.Core.Data;
 using Weboku.Core.Hints.SolvingTechniques;
 
@@ -61,33 +62,33 @@ namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
         private void Explain1()
         {
             SetupDisplayer();
-            _displayer.Mark(Enums.Color.Legal, _positions, _values);
+            _displayer.Mark(Color.Legal, _positions, _values);
             _displayer.SetDescription(ExplanationKey(1), _pos1, _pos2, _value1, _value2);
         }
 
         private void Explain2()
         {
             SetupDisplayer();
-            _displayer.MarkIfHasCandidate(Enums.Color.Illegal, _positionsInHouses, _value1);
-            _displayer.Mark(Enums.Color.Legal, _pos1, _value1);
+            _displayer.MarkIfHasCandidate(Color.Illegal, _positionsInHouses, _value1);
+            _displayer.Mark(Color.Legal, _pos1, _value1);
             _displayer.SetDescription(ExplanationKey(2), _value1, _pos1);
         }
 
         private void Explain3()
         {
             SetupDisplayer();
-            _displayer.MarkIfHasCandidates(Enums.Color.Illegal, _positionsInHouses, _values);
-            _displayer.Mark(Enums.Color.Legal, _pos1, _value1);
-            _displayer.Mark(Enums.Color.Legal, _pos2, _value2);
+            _displayer.MarkIfHasCandidates(Color.Illegal, _positionsInHouses, _values);
+            _displayer.Mark(Color.Legal, _pos1, _value1);
+            _displayer.Mark(Color.Legal, _pos2, _value2);
             _displayer.SetDescription(ExplanationKey(3), _value2, _pos2);
         }
 
         private void Explain4()
         {
             SetupDisplayer();
-            _displayer.MarkIfHasCandidates(Enums.Color.Illegal, _positionsInHouses, _values);
-            _displayer.Mark(Enums.Color.Legal, _pos1, _value2);
-            _displayer.Mark(Enums.Color.Legal, _pos2, _value1);
+            _displayer.MarkIfHasCandidates(Color.Illegal, _positionsInHouses, _values);
+            _displayer.Mark(Color.Legal, _pos1, _value2);
+            _displayer.Mark(Color.Legal, _pos2, _value1);
             _displayer.SetDescription(ExplanationKey(4), _value2, _pos1, _value1, _pos2);
         }
 
@@ -95,8 +96,8 @@ namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
         {
             var _housesFormated = _displayer.Format(_houses, _pos1);
             SetupDisplayer();
-            _displayer.MarkIfHasCandidates(Enums.Color.Illegal, _positionsInHouses, _values);
-            _displayer.Mark(Enums.Color.Legal, _positions, _values);
+            _displayer.MarkIfHasCandidates(Color.Illegal, _positionsInHouses, _values);
+            _displayer.Mark(Color.Legal, _positions, _values);
             _displayer.SetDescription(ExplanationKey(5), _value1, _value2, _housesFormated);
         }
     }

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using Weboku.Application;
+using Weboku.Application.Enums;
 using Weboku.UserInterface.Commands;
 using Weboku.UserInterface.Component.NumpadMenu.NumpadMenuOptions;
-using Weboku.UserInterface.Enums;
 using Weboku.UserInterface.Providers;
 
 namespace Weboku.UserInterface.Component.NumpadMenu
@@ -13,7 +13,7 @@ namespace Weboku.UserInterface.Component.NumpadMenu
         private readonly DomainFacade _gridHistoryManager;
         private readonly NumpadMenuProvider _numpadMenuProvider;
         private readonly CommandProvider _commandProvider;
-        private readonly DomainFacade _gridProvider;
+        private readonly DomainFacade _domainFacade;
         private readonly RedoCommand _redoCommand;
         private readonly SelectPairsFilterCommand _selectPairsFilterCommand;
         private readonly ClearColorsCommand _clearColorsCommand;
@@ -29,7 +29,7 @@ namespace Weboku.UserInterface.Component.NumpadMenu
             DomainFacade gridHistoryManager,
             NumpadMenuProvider numpadMenuProvider,
             CommandProvider commandProvider,
-            DomainFacade gridProvider,
+            DomainFacade domainFacade,
             RedoCommand redoCommand,
             SelectPairsFilterCommand selectPairsFilterCommand,
             ClearColorsCommand clearColorsCommand,
@@ -45,7 +45,7 @@ namespace Weboku.UserInterface.Component.NumpadMenu
             _gridHistoryManager = gridHistoryManager;
             _numpadMenuProvider = numpadMenuProvider;
             _commandProvider = commandProvider;
-            _gridProvider = gridProvider;
+            _domainFacade = domainFacade;
             _redoCommand = redoCommand;
             _selectPairsFilterCommand = selectPairsFilterCommand;
             _clearColorsCommand = clearColorsCommand;
@@ -63,7 +63,7 @@ namespace Weboku.UserInterface.Component.NumpadMenu
         {
             if (!_dict.ContainsKey(value))
             {
-                var command = new SelectValueMenuItem(value, _gridProvider, _numpadMenuProvider, _commandProvider);
+                var command = new SelectValueMenuItem(value, _domainFacade, _numpadMenuProvider, _commandProvider);
                 _dict[value] = command;
                 _hotkeyProvider.Register(new Hotkey {Command = command, Key = value.ToString()});
             }
@@ -89,7 +89,7 @@ namespace Weboku.UserInterface.Component.NumpadMenu
 
         public PairsFilterMenuItem Pairs()
         {
-            var command = new PairsFilterMenuItem(_numpadMenuProvider, _selectPairsFilterCommand, _gridProvider);
+            var command = new PairsFilterMenuItem(_numpadMenuProvider, _selectPairsFilterCommand, _domainFacade);
             _hotkeyProvider.Register(new Hotkey {Command = command, Key = "x"});
             return _pairsNumpadMenuItem ??= command;
         }
@@ -103,7 +103,7 @@ namespace Weboku.UserInterface.Component.NumpadMenu
 
         public SelectColorMenuItem SelectColor(Color color1, Color color2)
         {
-            var command = new SelectColorMenuItem(color1, color2, _clickableActionProvider, _numpadMenuProvider);
+            var command = new SelectColorMenuItem(color1, color2, _domainFacade, _numpadMenuProvider);
             return command;
         }
 

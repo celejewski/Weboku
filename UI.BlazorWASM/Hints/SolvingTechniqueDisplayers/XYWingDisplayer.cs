@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Weboku.Application.Enums;
 using Weboku.Core.Data;
 using Weboku.Core.Hints.SolvingTechniques;
 
@@ -31,17 +32,17 @@ namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
             base.DisplaySolution();
             _displayer.SetDescription(DescriptionKey, _pivot, _pos1, _pos2, _value);
 
-            _displayer.MarkCandidate(Enums.Color.Third, _pivot, _candidate1);
-            _displayer.Mark(Enums.Color.Third, _pos1, _value);
-            _displayer.MarkCandidate(Enums.Color.Fourth, _pos1, _candidate1);
+            _displayer.MarkCandidate(Color.Third, _pivot, _candidate1);
+            _displayer.Mark(Color.Third, _pos1, _value);
+            _displayer.MarkCandidate(Color.Fourth, _pos1, _candidate1);
 
-            _displayer.MarkCandidate(Enums.Color.Fourth, _pivot, _candidate2);
-            _displayer.Mark(Enums.Color.Fourth, _pos2, _value);
-            _displayer.MarkCandidate(Enums.Color.Third, _pos2, _candidate2);
+            _displayer.MarkCandidate(Color.Fourth, _pivot, _candidate2);
+            _displayer.Mark(Color.Fourth, _pos2, _value);
+            _displayer.MarkCandidate(Color.Third, _pos2, _candidate2);
             ;
 
-            _displayer.MarkCell(Enums.Color.Legal, _pivot);
-            _displayer.MarkIfHasCandidate(Enums.Color.Illegal, _positionsToRemove, _value);
+            _displayer.MarkCell(Color.Legal, _pivot);
+            _displayer.MarkIfHasCandidate(Color.Illegal, _positionsToRemove, _value);
             _displayer.SetValueFilter(_value);
         }
     }

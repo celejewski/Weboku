@@ -1,4 +1,6 @@
 ﻿@using Weboku.UserInterface.Providers
+@using Weboku.Application
+@inject DomainFacade DomainFacade
 @inject CellColorProvider CellColorProvider
 
 <Grid9x9Component>
@@ -8,6 +10,6 @@
 @code {
     protected override void OnInitialized()
     {
-        CellColorProvider.OnChanged += StateHasChanged;
+        DomainFacade.OnColorChanged += (_, _) => StateHasChanged();
     }
 }

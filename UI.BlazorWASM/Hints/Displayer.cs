@@ -1,10 +1,11 @@
-﻿using System;
+﻿using AKSoftware.Localization.MultiLanguages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using AKSoftware.Localization.MultiLanguages;
+using Weboku.Application;
+using Weboku.Application.Enums;
 using Weboku.Core.Data;
 using Weboku.UserInterface.Component.NumpadMenu;
-using Weboku.UserInterface.Enums;
 using Weboku.UserInterface.Providers;
 
 namespace Weboku.UserInterface.Hints
@@ -14,7 +15,7 @@ namespace Weboku.UserInterface.Hints
     /// </summary>
     public class Displayer : IProvider
     {
-        private readonly CellColorProvider _cellColorProvider;
+        private readonly DomainFacade _domainFacade;
         private readonly CandidateColorProvider _candidatesMarkProvider;
         private readonly NumpadMenuBuilder _numpadMenuBuilder;
         private readonly Informer _informer;
@@ -32,14 +33,14 @@ namespace Weboku.UserInterface.Hints
         public event Action OnChanged;
 
         public Displayer(
-            CellColorProvider cellColorProvider,
+            DomainFacade domainFacade,
             CandidateColorProvider candidatesMarkProvider,
             NumpadMenuBuilder numpadMenuBuilder,
             Informer informer,
             InputMarkProvider markInputProvider,
             ILanguageContainerService loc)
         {
-            _cellColorProvider = cellColorProvider;
+            _domainFacade = domainFacade;
             _candidatesMarkProvider = candidatesMarkProvider;
             _numpadMenuBuilder = numpadMenuBuilder;
             _informer = informer;
@@ -59,7 +60,7 @@ namespace Weboku.UserInterface.Hints
             }
 
             _markInputProvider.ClearColors();
-            _cellColorProvider.ClearAll();
+            _domainFacade.ClearAllColors();
             _candidatesMarkProvider.ClearColors();
             OnChanged?.Invoke();
         }
@@ -116,7 +117,7 @@ namespace Weboku.UserInterface.Hints
             }
         }
 
-        public void MarkCell(Color color, Position position) => _cellColorProvider.SetColor(position, color);
+        public void MarkCell(Color color, Position position) => _domainFacade.SetColor(position, color);
 
         public void MarkCells(Color color, IEnumerable<Position> positions)
         {
