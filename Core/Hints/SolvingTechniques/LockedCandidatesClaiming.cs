@@ -1,8 +1,8 @@
-﻿using Core.Data;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Weboku.Core.Data;
 
-namespace Core.Hints.SolvingTechniques
+namespace Weboku.Core.Hints.SolvingTechniques
 {
     public class LockedCandidatesClaiming : ISolvingTechnique
     {
@@ -26,7 +26,7 @@ namespace Core.Hints.SolvingTechniques
 
         public void Execute(Grid grid)
         {
-            foreach( var pos in PositionsToRemoveCandidate )
+            foreach (var pos in PositionsToRemoveCandidate)
             {
                 grid.RemoveCandidate(pos, Value);
             }

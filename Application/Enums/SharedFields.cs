@@ -1,4 +1,4 @@
-﻿namespace Application.Enums
+﻿namespace Weboku.Application.Enums
 {
     public enum SharedFields
     {

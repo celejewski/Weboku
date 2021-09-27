@@ -1,5 +1,5 @@
-﻿using Core.Data;
-using Core.Hints.SolvingTechniques;
+﻿using Weboku.Core.Data;
+using Weboku.Core.Hints.SolvingTechniques;
 using Weboku.UserInterface.Enums;
 
 namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers

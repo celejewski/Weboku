@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Data;
+using Weboku.Core.Data;
 
 namespace Weboku.UserInterface.Hints
 {

@@ -1,6 +1,6 @@
-﻿using Core.Data;
+﻿using Weboku.Core.Data;
 
-namespace Core.Hints.SolvingTechniques
+namespace Weboku.Core.Hints.SolvingTechniques
 {
     public interface ISolvingTechnique
     {

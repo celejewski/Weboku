@@ -1,7 +1,7 @@
-﻿using Application.Enums;
-using Core.Data;
+﻿using Weboku.Application.Enums;
+using Weboku.Core.Data;
 
-namespace Application.Filters
+namespace Weboku.Application.Filters
 {
     public class SharedFilter : IFilter
     {

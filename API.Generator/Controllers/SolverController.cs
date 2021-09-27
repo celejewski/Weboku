@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Core.Serializers;
-using Core.Solvers;
 using Microsoft.AspNetCore.Mvc;
+using Weboku.Core.Serializers;
+using Weboku.Core.Solvers;
 
-namespace API.Generator.Controllers
+namespace Weboku.Generator.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]

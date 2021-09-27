@@ -1,8 +1,8 @@
-﻿using API.Generator.Generator;
-using Core.Data;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Weboku.Core.Data;
+using Weboku.Generator.Api.Generator;
 
-namespace API.Generator.Controllers
+namespace Weboku.Generator.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]

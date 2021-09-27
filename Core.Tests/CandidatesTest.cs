@@ -1,8 +1,7 @@
-﻿using Core.Data;
-using System.Linq;
+﻿using Weboku.Core.Data;
 using Xunit;
 
-namespace Core.Tests
+namespace Weboku.Core.Tests
 {
     public class CandidatesTest
     {

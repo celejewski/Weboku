@@ -1,4 +1,4 @@
-﻿namespace Application.Interfaces
+﻿namespace Weboku.Application.Interfaces
 {
     public interface IStorageProvider
     {

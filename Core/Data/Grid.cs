@@ -1,7 +1,6 @@
 ﻿using System.Linq;
-using System.Runtime.CompilerServices;
 
-namespace Core.Data
+namespace Weboku.Core.Data
 {
     public sealed class Grid
     {

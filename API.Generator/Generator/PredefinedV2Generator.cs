@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
-using Core.Data;
+using Weboku.Core.Data;
 
-namespace API.Generator.Generator
+namespace Weboku.Generator.Api.Generator
 {
     public class PredefinedGeneratorV2 : ISudokuGenerator
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Core.Data
+namespace Weboku.Core.Data
 {
     [Flags]
     public enum Candidates : short

@@ -1,15 +1,11 @@
-﻿using Core.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using Weboku.Core.Data;
 
-namespace Core.Hints.SolvingTechniques
+namespace Weboku.Core.Hints.SolvingTechniques
 {
     public class TwoStringKite : ISolvingTechnique
     {
-        public TwoStringKite(Value value, IEnumerable<Position> legalPositions, IEnumerable<Position> infoPositions, Position positionToRemove )
+        public TwoStringKite(Value value, IEnumerable<Position> legalPositions, IEnumerable<Position> infoPositions, Position positionToRemove)
         {
             Value = value;
             LegalPositions = legalPositions;

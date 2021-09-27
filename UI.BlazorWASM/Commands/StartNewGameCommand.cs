@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
-using Application;
-using Core.Data;
+using Weboku.Application;
+using Weboku.Core.Data;
 
 namespace Weboku.UserInterface.Commands
 {

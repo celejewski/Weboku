@@ -1,17 +1,17 @@
-﻿using Application.Enums;
-using Application.Interfaces;
-using Application.Managers;
-using Core.Data;
-using Core.Exceptions;
-using Core.Hints;
-using Core.Hints.SolvingTechniques;
-using Core.Serializers;
-using Core.Solvers;
-using Core.Validators;
-using System;
+﻿using System;
 using System.Threading.Tasks;
+using Weboku.Application.Enums;
+using Weboku.Application.Interfaces;
+using Weboku.Application.Managers;
+using Weboku.Core.Data;
+using Weboku.Core.Exceptions;
+using Weboku.Core.Hints;
+using Weboku.Core.Hints.SolvingTechniques;
+using Weboku.Core.Serializers;
+using Weboku.Core.Solvers;
+using Weboku.Core.Validators;
 
-namespace Application
+namespace Weboku.Application
 {
     public sealed partial class DomainFacade
     {
@@ -25,6 +25,7 @@ namespace Application
 
         public Difficulty Difficulty;
         public event Action OnGridChanged;
+
         public DomainFacade(IStorageProvider storageProvider, string baseUri)
         {
             _grid = new Grid();
@@ -36,6 +37,7 @@ namespace Application
             _pasteManager = new PasteManager();
             _solver = new BruteForceSolver();
         }
+
         public void StartNewGame(Grid grid, Difficulty difficulty = Difficulty.Unknown)
         {
             ValidatorGrid.EnsureGridIsValid(grid);
@@ -50,10 +52,11 @@ namespace Application
         public void StartNewGame(string givens)
         {
             var serializer = GridSerializerFactory.Make(GridSerializerName.Default);
-            if( !serializer.IsValidFormat(givens) )
+            if (!serializer.IsValidFormat(givens))
             {
                 throw new SudokuCoreException($"Game can not start. Givens can not be deserialized to valid grid. Passed givens = {givens}");
             }
+
             var grid = serializer.Deserialize(givens);
             StartNewGame(grid, Difficulty.Unknown);
         }
@@ -66,36 +69,39 @@ namespace Application
 
         public void StartNewGameFromPasted()
         {
-            if( !PastedIsValid ) throw new ApplicationException($"Can not start game from invalid pasted = {Pasted}.");
+            if (!PastedIsValid) throw new ApplicationException($"Can not start game from invalid pasted = {Pasted}.");
             StartNewGame(_pasteManager.Pasted);
         }
 
         public void StartNewCustomGame()
         {
-            if( !IsCustomGridValid ) throw new ApplicationException($"Can not start game because some inputs are invalid.");
-            foreach( var position in Position.Positions )
+            if (!IsCustomGridValid) throw new ApplicationException($"Can not start game because some inputs are invalid.");
+            foreach (var position in Position.Positions)
             {
-                if( _customGrid.HasValue(position) )
+                if (_customGrid.HasValue(position))
                 {
                     _customGrid.SetIsGiven(position, true);
                 }
             }
+
             StartNewGame(_customGrid);
             _customGrid = new Grid();
         }
 
         private ModalState _modalState;
+
         public ModalState ModalState
         {
             get => _modalState;
             set
             {
-                if( _modalState == value ) return;
+                if (_modalState == value) return;
                 _modalState = value;
-                if( _modalState == ModalState.Share )
+                if (_modalState == ModalState.Share)
                 {
                     _shareManager.UpdateGrid(_grid);
                 }
+
                 GridChanged();
             }
         }

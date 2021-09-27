@@ -1,4 +1,4 @@
-﻿namespace Core.Serializers
+﻿namespace Weboku.Core.Serializers
 {
     public enum GridSerializerMode
     {

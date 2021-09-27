@@ -1,8 +1,8 @@
-﻿using Core.Data;
-using Core.Exceptions;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Weboku.Core.Data;
+using Weboku.Core.Exceptions;
 
-namespace Core.Serializers
+namespace Weboku.Core.Serializers
 {
     internal class DefaultGridSerializer : IGridSerializer
     {
@@ -23,10 +23,11 @@ namespace Core.Serializers
         public Grid Deserialize(string text)
         {
             var converter = GetFirstValidOrDefault(text);
-            if( converter == null )
+            if (converter == null)
             {
                 throw new GridSerializationException($"Exception in {nameof(DefaultGridSerializer)} occured during {nameof(Deserialize)} with value \"{text}\"");
             }
+
             return converter.Deserialize(text);
         }
 

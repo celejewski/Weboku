@@ -1,18 +1,18 @@
-﻿using Core.Data;
-using Core.Exceptions;
-using Core.Serializers;
-using System;
+﻿using System;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
+using Weboku.Core.Data;
+using Weboku.Core.Exceptions;
+using Weboku.Core.Serializers;
 
-namespace Application.Managers
+namespace Weboku.Application.Managers
 {
     internal static class GridGenerator
     {
         public static async Task<Grid> Make(Difficulty difficulty)
         {
-            if( difficulty == Difficulty.Unknown )
+            if (difficulty == Difficulty.Unknown)
             {
                 throw new SudokuCoreException($"Can not use difficulty = {difficulty} to create make new grid.");
             }
@@ -24,7 +24,7 @@ namespace Application.Managers
                 var serializer = GridSerializerFactory.Make(GridSerializerName.Hodoku);
                 return serializer.Deserialize(sudoku.Given);
             }
-            catch( Exception ex )
+            catch (Exception ex)
             {
                 throw new SudokuCoreException($"Failed to make grid with difficulty = {difficulty}.", ex);
             }

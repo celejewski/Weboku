@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace API.Generator
+namespace Weboku.Generator.Api
 {
     public class Program
     {

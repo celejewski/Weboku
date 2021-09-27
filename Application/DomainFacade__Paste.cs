@@ -1,4 +1,4 @@
-﻿namespace Application
+﻿namespace Weboku.Application
 {
     public sealed partial class DomainFacade
     {

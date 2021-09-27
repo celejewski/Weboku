@@ -1,5 +1,5 @@
-﻿using Core.Data;
-using Microsoft.AspNetCore.Components.Web;
+﻿using Microsoft.AspNetCore.Components.Web;
+using Weboku.Core.Data;
 using Weboku.UserInterface.Enums;
 
 namespace Weboku.UserInterface.ClickableActions

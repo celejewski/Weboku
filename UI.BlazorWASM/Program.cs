@@ -1,5 +1,3 @@
-using Application;
-using Application.Interfaces;
 using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -7,6 +5,8 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Weboku.Application;
+using Weboku.Application.Interfaces;
 using Weboku.UserInterface.Helpers;
 using Weboku.UserInterface.Providers;
 

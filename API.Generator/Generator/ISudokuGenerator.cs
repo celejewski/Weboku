@@ -1,6 +1,6 @@
-﻿using Core.Data;
+﻿using Weboku.Core.Data;
 
-namespace API.Generator.Generator
+namespace Weboku.Generator.Api.Generator
 {
     public interface ISudokuGenerator
     {

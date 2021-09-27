@@ -1,14 +1,14 @@
-﻿using Core.Data;
-using Core.Hints.SolvingTechniques;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Weboku.Core.Data;
+using Weboku.Core.Hints.SolvingTechniques;
 
-namespace Core.Hints.TechniqueFinders
+namespace Weboku.Core.Hints.TechniqueFinders
 {
     public class HiddenTripleFinder : HiddenSubsetFinderBase
     {
         public override IEnumerable<ISolvingTechnique> FindAll(Grid grid)
         {
-            foreach( var (positions, values) in HiddenSubset(grid, 3) )
+            foreach (var (positions, values) in HiddenSubset(grid, 3))
             {
                 yield return new HiddenSubset(positions, values);
             }

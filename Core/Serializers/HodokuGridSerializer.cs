@@ -1,10 +1,10 @@
-﻿using Core.Data;
-using Core.Exceptions;
-using System;
+﻿using System;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Weboku.Core.Data;
+using Weboku.Core.Exceptions;
 
-namespace Core.Serializers
+namespace Weboku.Core.Serializers
 {
     internal class HodokuGridSerializer : IGridSerializer
     {
@@ -14,18 +14,19 @@ namespace Core.Serializers
             {
                 var givens = input.Replace('.', '0');
                 var grid = new Grid();
-                foreach( var pos in Position.Positions )
+                foreach (var pos in Position.Positions)
                 {
                     var value = int.Parse(givens.Substring(pos.y * 9 + pos.x, 1));
-                    if( value != 0 )
+                    if (value != 0)
                     {
                         grid.SetIsGiven(pos, true);
                         grid.SetValue(pos, value);
                     }
                 }
+
                 return grid;
             }
-            catch( Exception ex )
+            catch (Exception ex)
             {
                 throw new GridSerializationException($"Exception in {nameof(HodokuGridSerializer)} occured during {nameof(Deserialize)} with value \"{input}\" ", ex);
             }
@@ -34,8 +35,8 @@ namespace Core.Serializers
         public bool IsValidFormat(string text)
         {
             return !string.IsNullOrEmpty(text)
-                && text.Length == 81
-                && !Regex.IsMatch(text.Replace('.', '0'), @"[^\d]");
+                   && text.Length == 81
+                   && !Regex.IsMatch(text.Replace('.', '0'), @"[^\d]");
         }
 
         public string Serialize(Grid grid)

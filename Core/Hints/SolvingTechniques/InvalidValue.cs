@@ -1,7 +1,7 @@
-﻿using Core.Data;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Weboku.Core.Data;
 
-namespace Core.Hints.SolvingTechniques
+namespace Weboku.Core.Hints.SolvingTechniques
 {
     public class InvalidValue : ISolvingTechnique
     {
@@ -19,7 +19,7 @@ namespace Core.Hints.SolvingTechniques
 
         public void Execute(Grid grid)
         {
-            foreach( var pos in _positions )
+            foreach (var pos in _positions)
             {
                 grid.SetValue(pos, Value.None);
             }

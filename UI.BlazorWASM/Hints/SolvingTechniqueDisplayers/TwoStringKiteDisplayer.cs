@@ -1,4 +1,4 @@
-﻿using Core.Hints.SolvingTechniques;
+﻿using Weboku.Core.Hints.SolvingTechniques;
 
 namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
 {

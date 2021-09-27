@@ -1,6 +1,6 @@
-﻿using Core.Data;
+﻿using Weboku.Core.Data;
 
-namespace Core.Serializers
+namespace Weboku.Core.Serializers
 {
     public interface IGridSerializer
     {

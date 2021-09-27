@@ -1,8 +1,8 @@
-﻿using Core.Data;
-using Core.Solvers;
-using System.Linq;
+﻿using System.Linq;
+using Weboku.Core.Data;
+using Weboku.Core.Solvers;
 
-namespace Core.Hints.SolvingTechniques
+namespace Weboku.Core.Hints.SolvingTechniques
 {
     public class CandidateMissing : ISolvingTechnique
     {
@@ -12,10 +12,10 @@ namespace Core.Hints.SolvingTechniques
         {
             var solution = _solver.Solve(grid) ?? _solver.SolveGivens(grid);
 
-            if( solution == null ) return false;
+            if (solution == null) return false;
 
             return Position.Positions.Any(pos => !grid.HasValue(pos)
-            && !grid.HasCandidate(pos, solution.GetValue(pos)));
+                                                 && !grid.HasCandidate(pos, solution.GetValue(pos)));
         }
 
         public void Execute(Grid grid)

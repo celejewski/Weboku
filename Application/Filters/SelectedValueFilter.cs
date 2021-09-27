@@ -1,6 +1,6 @@
-﻿using Core.Data;
+﻿using Weboku.Core.Data;
 
-namespace Application.Filters
+namespace Weboku.Application.Filters
 {
     public class SelectedValueFilter : IFilter
     {
@@ -13,17 +13,17 @@ namespace Application.Filters
 
         public FilterOption IsFiltered(DomainFacade domainFacade, Position pos)
         {
-            if( _value == Value.None )
+            if (_value == Value.None)
             {
                 return FilterOption.None;
             }
 
-            if( domainFacade.GetValue(pos) == _value )
+            if (domainFacade.GetValue(pos) == _value)
             {
                 return FilterOption.Primary;
             }
 
-            if( domainFacade.HasCandidate(pos, _value) )
+            if (domainFacade.HasCandidate(pos, _value))
             {
                 return FilterOption.Secondary;
             }

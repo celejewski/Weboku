@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Core.Hints.SolvingTechniques;
+using Weboku.Core.Hints.SolvingTechniques;
 using Weboku.UserInterface.Hints.SolvingTechniqueDisplayers;
 
 namespace Weboku.UserInterface.Hints

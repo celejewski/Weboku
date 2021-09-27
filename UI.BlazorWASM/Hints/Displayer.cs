@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using AKSoftware.Localization.MultiLanguages;
-using Core.Data;
+using Weboku.Core.Data;
 using Weboku.UserInterface.Component.NumpadMenu;
 using Weboku.UserInterface.Enums;
 using Weboku.UserInterface.Providers;

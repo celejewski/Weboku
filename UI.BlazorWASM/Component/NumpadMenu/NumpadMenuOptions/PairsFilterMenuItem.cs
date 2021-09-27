@@ -1,5 +1,5 @@
-﻿using Application;
-using Core.Data;
+﻿using Weboku.Application;
+using Weboku.Core.Data;
 using Weboku.UserInterface.Commands;
 using Weboku.UserInterface.Providers;
 

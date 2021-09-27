@@ -1,9 +1,9 @@
-﻿using Application.Exceptions;
-using Core.Data;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Weboku.Application.Exceptions;
+using Weboku.Core.Data;
 
-namespace Application.Managers
+namespace Weboku.Application.Managers
 {
     internal sealed class HistoryManager
     {
@@ -31,12 +31,13 @@ namespace Application.Managers
 
         public Grid Redo(Grid currentGrid)
         {
-            if( CanRedo )
+            if (CanRedo)
             {
                 _previousStates.Push(currentGrid.Clone());
                 Changed();
                 return _nextStates.Pop();
             }
+
             throw new HistoryManagerInvalidOperation($"Can not {nameof(Redo)}. There are no known next states.");
         }
 
@@ -49,12 +50,13 @@ namespace Application.Managers
 
         public Grid Undo(Grid currentGrid)
         {
-            if( CanUndo )
+            if (CanUndo)
             {
                 _nextStates.Push(currentGrid.Clone());
                 Changed();
                 return _previousStates.Pop();
             }
+
             throw new HistoryManagerInvalidOperation($"Can not {nameof(Undo)}. There are no known previous states.");
         }
     }

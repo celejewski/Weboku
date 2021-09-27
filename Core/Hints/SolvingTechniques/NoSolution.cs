@@ -1,7 +1,7 @@
-﻿using Core.Data;
-using Core.Solvers;
+﻿using Weboku.Core.Data;
+using Weboku.Core.Solvers;
 
-namespace Core.Hints.SolvingTechniques
+namespace Weboku.Core.Hints.SolvingTechniques
 {
     public class NoSolution : ISolvingTechnique
     {

@@ -1,11 +1,12 @@
 ﻿using System;
 
-namespace Application
+namespace Weboku.Application
 {
     public sealed partial class DomainFacade
     {
         public bool CanRedo => _historyManager.CanRedo;
         public bool CanUndo => _historyManager.CanUndo;
+
         public event Action OnHistoryChanged
         {
             add { _historyManager.OnChanged += value; }
@@ -14,7 +15,7 @@ namespace Application
 
         public void Undo()
         {
-            if( _historyManager.CanUndo )
+            if (_historyManager.CanUndo)
             {
                 _grid = _historyManager.Undo(Grid);
                 GridChanged();
@@ -23,7 +24,7 @@ namespace Application
 
         public void Redo()
         {
-            if( _historyManager.CanRedo )
+            if (_historyManager.CanRedo)
             {
                 _grid = _historyManager.Redo(Grid);
                 GridChanged();

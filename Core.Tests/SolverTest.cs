@@ -1,9 +1,9 @@
-﻿using Core.Exceptions;
-using Core.Serializers;
-using Core.Solvers;
+﻿using Weboku.Core.Exceptions;
+using Weboku.Core.Serializers;
+using Weboku.Core.Solvers;
 using Xunit;
 
-namespace Core.Tests
+namespace Weboku.Core.Tests
 {
     public class SolverTest
     {

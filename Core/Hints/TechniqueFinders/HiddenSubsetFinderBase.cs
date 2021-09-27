@@ -1,28 +1,28 @@
-﻿using Core.Data;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Weboku.Core.Data;
 
-namespace Core.Hints.TechniqueFinders
+namespace Weboku.Core.Hints.TechniqueFinders
 {
     public abstract class HiddenSubsetFinderBase : TechniqueFinderBase
     {
         protected IEnumerable<(IEnumerable<Position> positions, IEnumerable<Value> values)> HiddenSubset(Grid input, int depth)
         {
-            foreach( var house in Position.Houses )
+            foreach (var house in Position.Houses)
             {
                 var candidatePositions = new Dictionary<Value, IEnumerable<Position>>();
-                foreach( var value in Value.NonEmpty )
+                foreach (var value in Value.NonEmpty)
                 {
                     var positionsWithCandidate = house.Where(pos => input.HasCandidate(pos, value)).ToList();
-                    if( positionsWithCandidate.Count > 0
-                        && depth >= positionsWithCandidate.Count )
+                    if (positionsWithCandidate.Count > 0
+                        && depth >= positionsWithCandidate.Count)
                     {
                         candidatePositions[value] = positionsWithCandidate;
                     }
                 }
 
                 var result = HiddenSubsetStep(input, candidatePositions, new Dictionary<Position, int>(), Candidates.None, 0, depth);
-                foreach( var item in result )
+                foreach (var item in result)
                 {
                     yield return item;
                 }
@@ -37,41 +37,44 @@ namespace Core.Hints.TechniqueFinders
             int startingIndex,
             int depth)
         {
-            if( positions.Count > depth
+            if (positions.Count > depth
                 || values.Count() + house.Count - startingIndex <= depth
-                || positions.Keys.Any(pos => (input.GetCandidates(pos) & values) == 0) )
+                || positions.Keys.Any(pos => (input.GetCandidates(pos) & values) == 0))
             {
                 yield break;
             }
-            if( values.Count() == depth )
+
+            if (values.Count() == depth)
             {
-                if( positions.Keys.Any(pos => (input.GetCandidates(pos) & ~values) != 0) )
+                if (positions.Keys.Any(pos => (input.GetCandidates(pos) & ~values) != 0))
                 {
                     yield return (positions.Keys.ToList(), values.ToValues());
                 }
+
                 yield break;
             }
 
-            for( int i = startingIndex; i < house.Keys.Count; i++ )
+            for (int i = startingIndex; i < house.Keys.Count; i++)
             {
                 var value = house.Keys.ElementAt(i);
 
-                foreach( var pos in house[value] )
+                foreach (var pos in house[value])
                 {
-                    if( !positions.ContainsKey(pos) )
+                    if (!positions.ContainsKey(pos))
                     {
                         positions[pos] = i;
                     }
                 }
+
                 var valuesNew = values | value.AsCandidates();
-                foreach( var item in HiddenSubsetStep(input, house, positions, valuesNew, i + 1, depth) )
+                foreach (var item in HiddenSubsetStep(input, house, positions, valuesNew, i + 1, depth))
                 {
                     yield return item;
                 }
 
-                foreach( var pos in house[value] )
+                foreach (var pos in house[value])
                 {
-                    if( positions[pos] == i )
+                    if (positions[pos] == i)
                     {
                         positions.Remove(pos);
                     }

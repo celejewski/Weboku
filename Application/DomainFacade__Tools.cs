@@ -1,6 +1,6 @@
-﻿using Core.Data;
+﻿using Weboku.Core.Data;
 
-namespace Application
+namespace Weboku.Application
 {
     public sealed partial class DomainFacade
     {
@@ -17,6 +17,7 @@ namespace Application
             _toolManager.UsePencil(Grid, position, value);
             GridChanged();
         }
+
         public void UseEraser(Position position)
         {
             _historyManager.Save(Grid);

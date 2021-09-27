@@ -1,9 +1,9 @@
-﻿using Core.Data;
-using Core.Hints.SolvingTechniques;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Weboku.Core.Data;
+using Weboku.Core.Hints.SolvingTechniques;
 
-namespace Core.Hints.TechniqueFinders
+namespace Weboku.Core.Hints.TechniqueFinders
 {
     public class FullHouseFinder : TechniqueFinderBase
     {
@@ -12,10 +12,10 @@ namespace Core.Hints.TechniqueFinders
             var cols = new byte[9];
             var rows = new byte[9];
             var blocks = new byte[9];
-            for( int i = 0; i < 81; i++ )
+            for (int i = 0; i < 81; i++)
             {
                 var pos = Position.Positions[i];
-                if( grid.HasValue(pos) )
+                if (grid.HasValue(pos))
                 {
                     cols[pos.x]++;
                     rows[pos.y]++;
@@ -24,12 +24,13 @@ namespace Core.Hints.TechniqueFinders
             }
 
             var items = new List<ISolvingTechnique>();
-            for( int i = 0; i < 9; i++ )
+            for (int i = 0; i < 9; i++)
             {
-                if( blocks[i] == 8 ) items.Add(FindMissingValue(grid, Position.Blocks[i]));
-                if( cols[i] == 8 ) items.Add(FindMissingValue(grid, Position.Cols[i]));
-                if( rows[i] == 8 ) items.Add(FindMissingValue(grid, Position.Rows[i]));
+                if (blocks[i] == 8) items.Add(FindMissingValue(grid, Position.Blocks[i]));
+                if (cols[i] == 8) items.Add(FindMissingValue(grid, Position.Cols[i]));
+                if (rows[i] == 8) items.Add(FindMissingValue(grid, Position.Rows[i]));
             }
+
             return items;
         }
 
@@ -37,11 +38,12 @@ namespace Core.Hints.TechniqueFinders
         {
             var candidates = Candidates.All;
             Position position = default;
-            foreach( var pos in positions )
+            foreach (var pos in positions)
             {
-                if( !grid.HasValue(pos) ) position = pos;
+                if (!grid.HasValue(pos)) position = pos;
                 candidates ^= grid.GetValue(pos).AsCandidates();
             }
+
             return new FullHouse(position, candidates.ToValues().Single());
         }
     }

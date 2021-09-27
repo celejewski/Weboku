@@ -1,11 +1,11 @@
-﻿using Core.Data;
-using Core.Exceptions;
-using Microsoft.AspNetCore.WebUtilities;
-using System;
+﻿using System;
 using System.Numerics;
 using System.Text;
+using Microsoft.AspNetCore.WebUtilities;
+using Weboku.Core.Data;
+using Weboku.Core.Exceptions;
 
-namespace Core.Serializers
+namespace Weboku.Core.Serializers
 {
     internal class Base64GridSerializer : IGridSerializer
     {

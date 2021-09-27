@@ -1,12 +1,12 @@
-﻿using Core.Data;
-using Core.Hints.SolvingTechniques;
-using Core.Hints.TechniqueFinders;
-using Core.Validators;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using Weboku.Core.Data;
+using Weboku.Core.Hints.SolvingTechniques;
+using Weboku.Core.Hints.TechniqueFinders;
+using Weboku.Core.Validators;
 
-namespace Core.Hints
+namespace Weboku.Core.Hints
 {
     public class HintsProvider
     {
@@ -39,11 +39,11 @@ namespace Core.Hints
         {
             var stopwatch = Stopwatch.StartNew();
 
-            if( !ValidatorGrid.AreAllGivensLegal(grid) )
+            if (!ValidatorGrid.AreAllGivensLegal(grid))
             {
                 var positionsWithInvalidValues = Position.Positions
                     .Where(position => !grid.GetIsGiven(position)
-                        && !grid.IsCandidateLegal(position, grid.GetValue(position)));
+                                       && !grid.IsCandidateLegal(position, grid.GetValue(position)));
                 return new InvalidValue(positionsWithInvalidValues.ToList());
             }
 
@@ -62,7 +62,7 @@ namespace Core.Hints
 
         private IEnumerable<ISolvingTechnique> GetAllHints(Grid grid)
         {
-            foreach( var finder in _finders )
+            foreach (var finder in _finders)
             {
                 var techniques = finder.FindAll(grid);
 #if DEBUG
@@ -73,9 +73,9 @@ namespace Core.Hints
                 var stopwatchCanExecute = Stopwatch.StartNew();
 #endif
 
-                foreach( var technique in techniques )
+                foreach (var technique in techniques)
                 {
-                    if( technique.CanExecute(grid) )
+                    if (technique.CanExecute(grid))
                     {
 #if DEBUG
                         System.Console.WriteLine(technique);
@@ -86,7 +86,7 @@ namespace Core.Hints
 
 #if DEBUG
                 stopwatchCanExecute.Stop();
-                if( techniques.Any() ) System.Console.WriteLine($"{stopwatchCanExecute.ElapsedMilliseconds}ms - CanExecute");
+                if (techniques.Any()) System.Console.WriteLine($"{stopwatchCanExecute.ElapsedMilliseconds}ms - CanExecute");
 #endif
             }
         }

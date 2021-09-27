@@ -1,6 +1,6 @@
-﻿using Application.Data;
+﻿using Weboku.Application.Data;
 
-namespace Application
+namespace Weboku.Application
 {
     public sealed partial class DomainFacade
     {

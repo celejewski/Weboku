@@ -1,6 +1,6 @@
 ﻿using System;
-using Application;
-using Core.Data;
+using Weboku.Application;
+using Weboku.Core.Data;
 using Weboku.UserInterface.Enums;
 
 namespace Weboku.UserInterface.Providers

@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Application.Enums;
+using Weboku.Application.Enums;
 using Weboku.UserInterface.Providers;
 
 namespace Weboku.UserInterface.Commands

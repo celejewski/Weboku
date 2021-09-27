@@ -1,6 +1,6 @@
-﻿using Core.Data;
+﻿using Weboku.Core.Data;
 
-namespace Core.Hints
+namespace Weboku.Core.Hints
 {
     public static class HintsHelper
     {
@@ -11,9 +11,9 @@ namespace Core.Hints
             var rows = new int[9];
             var blocks = new int[9];
 
-            foreach( var pos in Position.Positions )
+            foreach (var pos in Position.Positions)
             {
-                if( grid.HasCandidate(pos, value) )
+                if (grid.HasCandidate(pos, value))
                 {
                     cols[pos.x]++;
                     rows[pos.y]++;
@@ -33,9 +33,9 @@ namespace Core.Hints
             var blockXcols = new int[9, 9];
             var blockXrows = new int[9, 9];
 
-            foreach( var pos in Position.Positions )
+            foreach (var pos in Position.Positions)
             {
-                if( grid.HasCandidate(pos, value) )
+                if (grid.HasCandidate(pos, value))
                 {
                     cols[pos.x]++;
                     rows[pos.y]++;

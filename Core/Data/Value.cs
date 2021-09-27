@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Core.Data
+namespace Weboku.Core.Data
 {
     public readonly struct Value
     {

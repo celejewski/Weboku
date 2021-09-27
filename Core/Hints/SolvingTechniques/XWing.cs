@@ -1,8 +1,8 @@
-﻿using Core.Data;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Weboku.Core.Data;
 
-namespace Core.Hints.SolvingTechniques
+namespace Weboku.Core.Hints.SolvingTechniques
 {
     public class XWing : ISolvingTechnique
     {
@@ -26,7 +26,7 @@ namespace Core.Hints.SolvingTechniques
 
         public void Execute(Grid grid)
         {
-            foreach( var pos in PositionsToRemove )
+            foreach (var pos in PositionsToRemove)
             {
                 grid.RemoveCandidate(pos, Value);
             }

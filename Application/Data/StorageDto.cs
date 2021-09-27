@@ -1,6 +1,6 @@
-﻿using Core.Data;
+﻿using Weboku.Core.Data;
 
-namespace Application.Data
+namespace Weboku.Application.Data
 {
     internal sealed class StorageDto
     {

@@ -1,10 +1,10 @@
-﻿using Core.Data;
-using Core.Solvers;
-using Core.Hints.SolvingTechniques;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Weboku.Core.Data;
+using Weboku.Core.Hints.SolvingTechniques;
+using Weboku.Core.Solvers;
 
-namespace Core.Hints.TechniqueFinders
+namespace Weboku.Core.Hints.TechniqueFinders
 {
     public class InvalidValueFinder : TechniqueFinderBase
     {
@@ -13,16 +13,16 @@ namespace Core.Hints.TechniqueFinders
             BruteForceSolver solver = new BruteForceSolver();
             var solution = solver.Solve(grid) ?? solver.SolveGivens(grid);
 
-            if( solution == null )
+            if (solution == null)
             {
                 yield return new NoSolution();
                 yield break;
             }
 
             var invalidSolutions = Position.Positions.Where(pos => grid.HasValue(pos)
-                && grid.GetValue(pos) != solution.GetValue(pos));
+                                                                   && grid.GetValue(pos) != solution.GetValue(pos));
 
-            if( invalidSolutions.Any() )
+            if (invalidSolutions.Any())
             {
                 yield return new InvalidValue(invalidSolutions);
             }

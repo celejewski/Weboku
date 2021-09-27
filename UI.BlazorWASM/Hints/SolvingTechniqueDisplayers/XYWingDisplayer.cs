@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using Core.Data;
-using Core.Hints.SolvingTechniques;
+using Weboku.Core.Data;
+using Weboku.Core.Hints.SolvingTechniques;
 
 namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
 {

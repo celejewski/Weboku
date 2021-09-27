@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Application;
-using Application.Enums;
+using Weboku.Application;
+using Weboku.Application.Enums;
 
 namespace Weboku.UserInterface.Providers
 {

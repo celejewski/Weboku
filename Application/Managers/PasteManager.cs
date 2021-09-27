@@ -1,8 +1,8 @@
-﻿using Core.Data;
-using Core.Serializers;
-using Core.Validators;
+﻿using Weboku.Core.Data;
+using Weboku.Core.Serializers;
+using Weboku.Core.Validators;
 
-namespace Application.Managers
+namespace Weboku.Application.Managers
 {
     internal sealed class PasteManager
     {
@@ -13,6 +13,7 @@ namespace Application.Managers
 
         private readonly IGridSerializer _gridSerializer = GridSerializerFactory.Make(GridSerializerName.Default);
         private string _pasted;
+
         public string Pasted
         {
             get => _pasted;

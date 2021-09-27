@@ -1,4 +1,4 @@
-﻿namespace Application.Filters
+﻿namespace Weboku.Application.Filters
 {
     public enum FilterOption
     {

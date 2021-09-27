@@ -1,6 +1,6 @@
-﻿using Core.Data;
+﻿using Weboku.Core.Data;
 
-namespace Core.Solvers
+namespace Weboku.Core.Solvers
 {
     public interface ISolver
     {

@@ -1,6 +1,6 @@
 ﻿using System.Linq;
-using Application;
-using Core.Data;
+using Weboku.Application;
+using Weboku.Core.Data;
 using Weboku.UserInterface.Providers;
 
 namespace Weboku.UserInterface.Component.NumpadMenu.NumpadMenuOptions

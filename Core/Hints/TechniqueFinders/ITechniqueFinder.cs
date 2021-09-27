@@ -1,8 +1,8 @@
-﻿using Core.Data;
-using Core.Hints.SolvingTechniques;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Weboku.Core.Data;
+using Weboku.Core.Hints.SolvingTechniques;
 
-namespace Core.Hints.TechniqueFinders
+namespace Weboku.Core.Hints.TechniqueFinders
 {
     public interface ITechniqueFinder
     {

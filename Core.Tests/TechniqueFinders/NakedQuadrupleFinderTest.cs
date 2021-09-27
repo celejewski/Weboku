@@ -1,10 +1,10 @@
 ﻿using System.Linq;
-using Core.Hints.SolvingTechniques;
-using Core.Hints.TechniqueFinders;
-using Core.Serializers;
+using Weboku.Core.Hints.SolvingTechniques;
+using Weboku.Core.Hints.TechniqueFinders;
+using Weboku.Core.Serializers;
 using Xunit;
 
-namespace Core.Tests.TechniqueFinders
+namespace Weboku.Core.Tests.TechniqueFinders
 {
     public class NakedQuadrupleFinderTest
     {

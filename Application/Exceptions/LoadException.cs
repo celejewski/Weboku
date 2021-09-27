@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Application.Exceptions
+namespace Weboku.Application.Exceptions
 {
     public class LoadException : ApplicationException
     {

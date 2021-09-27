@@ -1,11 +1,11 @@
-﻿using Application.Data;
-using Application.Exceptions;
-using Application.Interfaces;
-using Core.Data;
-using Core.Serializers;
-using System;
+﻿using System;
+using Weboku.Application.Data;
+using Weboku.Application.Exceptions;
+using Weboku.Application.Interfaces;
+using Weboku.Core.Data;
+using Weboku.Core.Serializers;
 
-namespace Application.Managers
+namespace Weboku.Application.Managers
 {
     internal sealed class StorageManager
     {
@@ -30,17 +30,19 @@ namespace Application.Managers
             {
                 Grid grid = null;
                 var difficulty = Difficulty.Unknown;
-                if( _storageProvider.HasKey(nameof(StorageDto.Grid)) )
+                if (_storageProvider.HasKey(nameof(StorageDto.Grid)))
                 {
                     grid = _gridSerializer.Deserialize(_storageProvider.Load<string>(nameof(StorageDto.Grid)));
                 }
-                if( _storageProvider.HasKey(nameof(StorageDto.Difficulty)) )
+
+                if (_storageProvider.HasKey(nameof(StorageDto.Difficulty)))
                 {
                     difficulty = _storageProvider.Load<Difficulty>(nameof(StorageDto.Difficulty));
                 }
+
                 return new StorageDto(grid ?? new Grid(), difficulty);
             }
-            catch( Exception e )
+            catch (Exception e)
             {
                 throw new LoadException("Load failed.", e);
             }

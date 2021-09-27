@@ -1,6 +1,6 @@
-﻿using Application.Enums;
+﻿using Weboku.Application.Enums;
 
-namespace Application
+namespace Weboku.Application
 {
     public sealed partial class DomainFacade
     {

@@ -1,4 +1,4 @@
-﻿using Core.Data;
+﻿using Weboku.Core.Data;
 using Weboku.UserInterface.Enums;
 using Weboku.UserInterface.Providers;
 

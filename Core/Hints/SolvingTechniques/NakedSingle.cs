@@ -1,6 +1,6 @@
-﻿using Core.Data;
+﻿using Weboku.Core.Data;
 
-namespace Core.Hints.SolvingTechniques
+namespace Weboku.Core.Hints.SolvingTechniques
 {
     public class NakedSingle : ISolvingTechnique
     {
@@ -9,6 +9,7 @@ namespace Core.Hints.SolvingTechniques
             Position = position;
             Value = value;
         }
+
         public Position Position { get; }
         public Value Value { get; }
 

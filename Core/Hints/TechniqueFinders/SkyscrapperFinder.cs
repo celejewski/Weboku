@@ -1,17 +1,17 @@
-﻿using Core.Data;
-using Core.Hints.SolvingTechniques;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Weboku.Core.Data;
+using Weboku.Core.Hints.SolvingTechniques;
 
-namespace Core.Hints.TechniqueFinders
+namespace Weboku.Core.Hints.TechniqueFinders
 {
     public class SkyscrapperFinder : TechniqueFinderBase
     {
         public override IEnumerable<ISolvingTechnique> FindAll(Grid grid)
         {
-            foreach( var value in Value.NonEmpty )
+            foreach (var value in Value.NonEmpty)
             {
-                foreach( var houses in new[] { Position.Rows, Position.Cols } )
+                foreach (var houses in new[] {Position.Rows, Position.Cols})
                 {
                     var housesWithCandidate = houses.Select(house => house.Where(pos => grid.HasCandidate(pos, value)));
                     var housesWithTwoCells = housesWithCandidate.Where(house => house.Count() == 2);
@@ -21,12 +21,12 @@ namespace Core.Hints.TechniqueFinders
 
                     var possibleSkyscrappers = housesPaired
                         .Where(houses =>
-                        houses.house1.Any(pos1 => houses.house2.Any(pos2 => pos1.x == pos2.x || pos1.y == pos2.y))
-                        && houses.house1.Any(pos1 => houses.house2.All(pos2 => !pos1.IsSharingHouseWith(pos2)))
-                        && houses.house1.Concat(houses.house2).Select(pos => pos.block).Distinct().Count() == 4
+                            houses.house1.Any(pos1 => houses.house2.Any(pos2 => pos1.x == pos2.x || pos1.y == pos2.y))
+                            && houses.house1.Any(pos1 => houses.house2.All(pos2 => !pos1.IsSharingHouseWith(pos2)))
+                            && houses.house1.Concat(houses.house2).Select(pos => pos.block).Distinct().Count() == 4
                         );
 
-                    foreach( var (house1, house2) in possibleSkyscrappers )
+                    foreach (var (house1, house2) in possibleSkyscrappers)
                     {
                         var pos1 = house1.First(pos1 => house2.All(pos2 => !pos1.IsSharingHouseWith(pos2)));
                         var pos2 = house2.First(pos2 => house1.All(pos1 => !pos2.IsSharingHouseWith(pos1)));

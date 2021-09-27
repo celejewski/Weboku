@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Timers;
-using Application;
+using Weboku.Application;
 
 namespace Weboku.UserInterface.Providers
 {

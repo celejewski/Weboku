@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Core.Exceptions
+namespace Weboku.Core.Exceptions
 {
     public class InvalidGridException : SudokuCoreException
     {

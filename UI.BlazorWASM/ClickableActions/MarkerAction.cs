@@ -1,4 +1,4 @@
-﻿using Application;
+﻿using Weboku.Application;
 
 namespace Weboku.UserInterface.ClickableActions
 {

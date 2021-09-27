@@ -1,6 +1,6 @@
-﻿using Core.Data;
+﻿using Weboku.Core.Data;
 
-namespace Application.Filters
+namespace Weboku.Application.Filters
 {
     public class EraseFilter : IFilter
     {

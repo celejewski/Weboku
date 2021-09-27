@@ -1,6 +1,6 @@
 ﻿using System;
-using Core.Data;
 using Microsoft.AspNetCore.Components.Web;
+using Weboku.Core.Data;
 using Weboku.UserInterface.ClickableActions;
 using Weboku.UserInterface.Enums;
 

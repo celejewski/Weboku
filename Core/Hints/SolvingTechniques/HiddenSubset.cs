@@ -1,8 +1,8 @@
-﻿using Core.Data;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Weboku.Core.Data;
 
-namespace Core.Hints.SolvingTechniques
+namespace Weboku.Core.Hints.SolvingTechniques
 {
     public class HiddenSubset : ISolvingTechnique
     {
@@ -29,9 +29,9 @@ namespace Core.Hints.SolvingTechniques
 
         public void Execute(Grid grid)
         {
-            foreach( var value in ValuesToRemove() )
+            foreach (var value in ValuesToRemove())
             {
-                foreach( var pos in Positions )
+                foreach (var pos in Positions)
                 {
                     grid.RemoveCandidate(pos, value);
                 }

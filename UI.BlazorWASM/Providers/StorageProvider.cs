@@ -1,5 +1,5 @@
-﻿using Application.Interfaces;
-using Blazored.LocalStorage;
+﻿using Blazored.LocalStorage;
+using Weboku.Application.Interfaces;
 
 namespace Weboku.UserInterface.Providers
 {

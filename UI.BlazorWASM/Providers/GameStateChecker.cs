@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
-using Application;
-using Core.Data;
+using Weboku.Application;
+using Weboku.Core.Data;
 
 namespace Weboku.UserInterface.Providers
 {

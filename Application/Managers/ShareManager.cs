@@ -1,11 +1,11 @@
-﻿using Application.Enums;
-using Application.Filters;
-using Core.Data;
-using Core.Serializers;
-using System;
+﻿using System;
 using System.Linq;
+using Weboku.Application.Enums;
+using Weboku.Application.Filters;
+using Weboku.Core.Data;
+using Weboku.Core.Serializers;
 
-namespace Application.Managers
+namespace Weboku.Application.Managers
 {
     internal sealed class ShareManager
     {
@@ -19,18 +19,21 @@ namespace Application.Managers
         {
             _baseUri = baseUri;
         }
+
         public Grid Grid
         {
             get
             {
-                if( _isDirty )
+                if (_isDirty)
                 {
                     _transformedGrid = TransformGrid(_sourceGrid, SharedFields);
                     _isDirty = false;
                 }
+
                 return _transformedGrid;
             }
         }
+
         public void UpdateGrid(Grid grid)
         {
             _sourceGrid = grid;
@@ -40,6 +43,7 @@ namespace Application.Managers
         public readonly IFilter Filter = new SharedFilter();
 
         public SharedConverter SharedConverter { get; set; } = SharedConverter.MyLink;
+
         public SharedFields SharedFields
         {
             get { return _sharedFields; }
@@ -58,15 +62,16 @@ namespace Application.Managers
         private static Grid TransformGrid(Grid input, SharedFields sharedFields)
         {
             var output = input.Clone();
-            if( sharedFields == SharedFields.Everything ) return output;
+            if (sharedFields == SharedFields.Everything) return output;
 
             output.ClearAllCandidates();
-            if( sharedFields == SharedFields.GivensAndInputs ) return output;
+            if (sharedFields == SharedFields.GivensAndInputs) return output;
 
-            foreach( var position in Position.Positions.Where(position => !output.GetIsGiven(position)) )
+            foreach (var position in Position.Positions.Where(position => !output.GetIsGiven(position)))
             {
                 output.SetValue(position, Value.None);
             }
+
             return output;
         }
 

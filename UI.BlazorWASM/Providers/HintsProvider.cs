@@ -1,5 +1,5 @@
 ﻿using System;
-using Application;
+using Weboku.Application;
 using Weboku.UserInterface.Hints;
 using Weboku.UserInterface.Hints.SolvingTechniqueDisplayers;
 

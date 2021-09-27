@@ -1,8 +1,8 @@
-﻿using Core.Exceptions;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Weboku.Core.Exceptions;
 
-namespace Core.Data
+namespace Weboku.Core.Data
 {
     public readonly struct Position
     {
@@ -16,6 +16,7 @@ namespace Core.Data
             this.y = y;
             block = (y / 3) * 3 + (x / 3);
         }
+
         public override string ToString() => $"r{y + 1}c{x + 1}";
 
         public static Position TopLeftCornerOfBlock(int block)
@@ -34,9 +35,9 @@ namespace Core.Data
 
         public static IEnumerable<Position> GetOtherPositionsSeenBy(IEnumerable<Position> positions)
         {
-            foreach( var position1 in Positions )
+            foreach (var position1 in Positions)
             {
-                if( positions.All(position2 => position1.IsSharingHouseWith(position2)) )
+                if (positions.All(position2 => position1.IsSharingHouseWith(position2)))
                 {
                     yield return position1;
                 }
@@ -49,8 +50,8 @@ namespace Core.Data
         public bool IsSharingHouseWith(Position position)
         {
             return x == position.x
-                || y == position.y
-                || block == position.block;
+                   || y == position.y
+                   || block == position.block;
         }
 
         public static House GetHouseOf(params Position[] positions)
@@ -59,15 +60,15 @@ namespace Core.Data
 
         public static House GetHouseOf(IEnumerable<Position> positions)
         {
-            if( !positions.Any() )
+            if (!positions.Any())
             {
                 throw new SudokuCoreException($"Can not use {nameof(GetHouseOf)} with empty {nameof(positions)}.");
             }
 
             var first = positions.First();
-            if( positions.All(position => position.x == first.x) ) return House.Col;
-            if( positions.All(position => position.y == first.y) ) return House.Row;
-            if( positions.All(position => position.block == first.block) ) return House.Block;
+            if (positions.All(position => position.x == first.x)) return House.Col;
+            if (positions.All(position => position.y == first.y)) return House.Row;
+            if (positions.All(position => position.block == first.block)) return House.Block;
             return House.None;
         }
 
@@ -90,31 +91,33 @@ namespace Core.Data
         static Position()
         {
             var positions = new List<Position>();
-            for( int y = 0; y < 9; y++ )
+            for (int y = 0; y < 9; y++)
             {
-                for( int x = 0; x < 9; x++ )
+                for (int x = 0; x < 9; x++)
                 {
                     positions.Add(new Position(x, y));
                 }
             }
+
             Positions = positions;
 
             var rows = new List<List<Position>>();
             var cols = new List<List<Position>>();
             var blocks = new List<List<Position>>();
-            for( int i = 0; i < 9; i++ )
+            for (int i = 0; i < 9; i++)
             {
                 rows.Add(new List<Position>());
                 cols.Add(new List<Position>());
                 blocks.Add(new List<Position>());
             }
 
-            foreach( var position in Positions )
+            foreach (var position in Positions)
             {
                 cols[position.x].Add(position);
                 rows[position.y].Add(position);
                 blocks[position.block].Add(position);
             }
+
             Rows = rows;
             Cols = cols;
             Blocks = blocks;
@@ -129,7 +132,7 @@ namespace Core.Data
 
         public override bool Equals(object obj)
         {
-            if( obj is Position pos ) return Equals(pos);
+            if (obj is Position pos) return Equals(pos);
             return false;
         }
 
@@ -137,14 +140,15 @@ namespace Core.Data
         {
             return position == (x, y);
         }
+
         public bool Equals(Position other) => x == other.x && y == other.y;
 
         public static IEnumerable<House> GetHouses(IEnumerable<Position> positions)
         {
             var first = positions.First();
-            if( positions.All(position => position.x == first.x) ) yield return House.Col;
-            if( positions.All(position => position.y == first.y) ) yield return House.Row;
-            if( positions.All(position => position.block == first.block) ) yield return House.Block;
+            if (positions.All(position => position.x == first.x)) yield return House.Col;
+            if (positions.All(position => position.y == first.y)) yield return House.Row;
+            if (positions.All(position => position.block == first.block)) yield return House.Block;
         }
     }
 }

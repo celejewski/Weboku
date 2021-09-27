@@ -1,4 +1,4 @@
-﻿namespace Core.Data
+﻿namespace Weboku.Core.Data
 {
     public enum House
     {

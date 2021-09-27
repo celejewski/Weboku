@@ -1,18 +1,18 @@
-﻿using Core.Data;
+﻿using Weboku.Core.Data;
 
-namespace Application.Managers
+namespace Weboku.Application.Managers
 {
     internal sealed class ToolManager
     {
         public void UseMarker(Grid grid, Position position, Value value)
         {
-            if( grid.GetIsGiven(position) ) return;
+            if (grid.GetIsGiven(position)) return;
 
-            if( !grid.HasValue(position) )
+            if (!grid.HasValue(position))
             {
                 grid.SetValue(position, value);
             }
-            else if( grid.GetValue(position) == value )
+            else if (grid.GetValue(position) == value)
             {
                 grid.SetValue(position, Value.None);
             }
@@ -20,14 +20,14 @@ namespace Application.Managers
 
         public void UsePencil(Grid grid, Position position, Value value)
         {
-            if( grid.HasValue(position) ) return;
+            if (grid.HasValue(position)) return;
 
             grid.ToggleCandidate(position, value);
         }
 
         public void UseEraser(Grid grid, Position position)
         {
-            if( grid.GetIsGiven(position) ) return;
+            if (grid.GetIsGiven(position)) return;
 
             grid.SetValue(position, Value.None);
             grid.ClearCandidates(position);
