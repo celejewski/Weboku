@@ -9,19 +9,17 @@ namespace Weboku.UserInterface.Commands
     {
         private readonly int _value;
         private readonly DomainFacade _domainFacade;
-        private readonly ClickableActionProvider _clickableActionProvider;
 
-        public SelectValueCommand(int value, DomainFacade filterProvider, ClickableActionProvider clickableActionProvider)
+        public SelectValueCommand(int value, DomainFacade domainFacade)
         {
             _value = value;
-            _domainFacade = filterProvider;
-            _clickableActionProvider = clickableActionProvider;
+            _domainFacade = domainFacade;
         }
 
         public Task Execute()
         {
             _domainFacade.SetFilter(new SelectedValueFilter(_value));
-            _clickableActionProvider.SetValue(_value);
+            _domainFacade.SelectValue(_value);
             return Task.CompletedTask;
         }
     }

@@ -9,7 +9,6 @@ namespace Weboku.UserInterface.Component.NumpadMenu
 {
     public class NumpadMenuBuilder
     {
-        private readonly ClickableActionProvider _clickableActionProvider;
         private readonly DomainFacade _gridHistoryManager;
         private readonly NumpadMenuProvider _numpadMenuProvider;
         private readonly CommandProvider _commandProvider;
@@ -25,7 +24,6 @@ namespace Weboku.UserInterface.Component.NumpadMenu
         private readonly HotkeyProvider _hotkeyProvider;
 
         public NumpadMenuBuilder(
-            ClickableActionProvider clickableActionProvider,
             DomainFacade gridHistoryManager,
             NumpadMenuProvider numpadMenuProvider,
             CommandProvider commandProvider,
@@ -41,7 +39,6 @@ namespace Weboku.UserInterface.Component.NumpadMenu
             HotkeyProvider hotkeyProvider
         )
         {
-            _clickableActionProvider = clickableActionProvider;
             _gridHistoryManager = gridHistoryManager;
             _numpadMenuProvider = numpadMenuProvider;
             _commandProvider = commandProvider;

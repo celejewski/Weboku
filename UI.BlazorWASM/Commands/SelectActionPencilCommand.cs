@@ -1,22 +1,21 @@
 ﻿using System.Threading.Tasks;
+using Weboku.Application;
 using Weboku.Application.Enums;
-using Weboku.UserInterface.ClickableActions;
-using Weboku.UserInterface.Providers;
 
 namespace Weboku.UserInterface.Commands
 {
     public class SelectActionPencilCommand : ICommand
     {
-        private readonly ClickableActionProvider _clickableActionProvider;
+        private readonly DomainFacade _domainFacade;
 
-        public SelectActionPencilCommand(ClickableActionProvider clickableActionProvider)
+        public SelectActionPencilCommand(DomainFacade domainFacade)
         {
-            _clickableActionProvider = clickableActionProvider;
+            _domainFacade = domainFacade;
         }
 
         public Task Execute()
         {
-            _clickableActionProvider.SelectClickableAction(Tool.Pencil);
+            _domainFacade.SelectTool(Tool.Pencil);
             return Task.CompletedTask;
         }
     }

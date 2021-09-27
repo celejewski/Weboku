@@ -1,12 +1,10 @@
-﻿@using Weboku.UserInterface.Providers
-@using Weboku.Application
+﻿@using Weboku.Application
 @inject DomainFacade DomainFacade
-@inject ClickableActionProvider ClickableActionProvider
 
 <Grid9x9Component>
     <div class="clickable"
-         @onclick="@((e) => ClickableActionProvider.OnLeftClick(e, context))"
-         @oncontextmenu="@((e) => ClickableActionProvider.OnRightClick(e, context))">
+         @onclick="@(_ => DomainFacade.UsePrimaryTool(context))"
+         @oncontextmenu="@(_ => DomainFacade.UseSecondaryTool(context))">
     </div>
 </Grid9x9Component>
 

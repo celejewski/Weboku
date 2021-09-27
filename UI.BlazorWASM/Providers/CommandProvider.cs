@@ -6,19 +6,16 @@ namespace Weboku.UserInterface.Providers
 {
     public class CommandProvider
     {
-        private readonly ClickableActionProvider _clickableActionProvider;
         private readonly SettingsProvider _settingsProvider;
         private readonly DomainFacade _domainFacade;
         private readonly StartGameCommand _startGameCommand;
 
         public CommandProvider(
-            ClickableActionProvider clickableActionProvider,
             SettingsProvider settingsProvider,
             DomainFacade domainFacade,
             StartGameCommand startGameCommand
         )
         {
-            _clickableActionProvider = clickableActionProvider;
             _settingsProvider = settingsProvider;
             _domainFacade = domainFacade;
             _startGameCommand = startGameCommand;
@@ -26,7 +23,7 @@ namespace Weboku.UserInterface.Providers
 
         public ICommand SelectValue(int value)
         {
-            return new SelectValueCommand(value, _domainFacade, _clickableActionProvider);
+            return new SelectValueCommand(value, _domainFacade);
         }
 
         public ICommand StartNewGameV2(Difficulty difficulty)

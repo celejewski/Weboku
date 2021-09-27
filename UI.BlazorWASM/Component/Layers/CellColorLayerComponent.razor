@@ -1,15 +1,23 @@
 ﻿@using Weboku.UserInterface.Providers
 @using Weboku.Application
+@using Weboku.Core.Data
+@using Weboku.UserInterface.Converters
 @inject DomainFacade DomainFacade
-@inject CellColorProvider CellColorProvider
 
 <Grid9x9Component>
-    <div class="cell-color @CellColorProvider.GetCssClass(context)"></div>
+    <div class="cell-color @GetCssClass(context)"></div>
 </Grid9x9Component>
 
 @code {
     protected override void OnInitialized()
     {
         DomainFacade.OnColorChanged += (_, _) => StateHasChanged();
+    }
+
+    private string GetCssClass(Position position)
+    {
+        var cellColor = DomainFacade.GetColor(position);
+        var cssClass = CellColorConverter.ToCssClass(cellColor);
+        return cssClass;
     }
 }

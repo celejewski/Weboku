@@ -1,21 +1,21 @@
 ﻿using System.Threading.Tasks;
+using Weboku.Application;
 using Weboku.Application.Enums;
-using Weboku.UserInterface.Providers;
 
 namespace Weboku.UserInterface.Commands
 {
     public class SelectActionMarkerCommand : ICommand
     {
-        private readonly ClickableActionProvider _clickableActionProvider;
+        private readonly DomainFacade _domainFacade;
 
-        public SelectActionMarkerCommand(ClickableActionProvider clickableActionProvider)
+        public SelectActionMarkerCommand(DomainFacade domainFacade)
         {
-            _clickableActionProvider = clickableActionProvider;
+            _domainFacade = domainFacade;
         }
 
         public Task Execute()
         {
-            _clickableActionProvider.SelectClickableAction(Tool.Marker);
+            _domainFacade.SelectTool(Tool.Marker);
             return Task.CompletedTask;
         }
     }
