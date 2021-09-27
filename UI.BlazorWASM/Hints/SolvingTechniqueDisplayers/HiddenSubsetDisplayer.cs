@@ -1,13 +1,12 @@
-﻿using Core.Data;
-using Core.Hints.SolvingTechniques;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Core.Data;
+using Core.Hints.SolvingTechniques;
 
-namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
+namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
 {
     public class HiddenSubsetDisplayer : BaseSolvingTechniqueDisplayer
     {
-
         protected Position Position => _positions.First();
         protected readonly IEnumerable<Position> _positions;
         protected readonly IEnumerable<Value> _values;
@@ -27,12 +26,12 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
         public override void DisplaySolution()
         {
             _displayer.SetTitle(TitleKey);
-            foreach( var value in _hiddenSubset.ValuesToRemove() )
+            foreach (var value in _hiddenSubset.ValuesToRemove())
             {
                 _displayer.MarkIfHasCandidate(Enums.Color.Illegal, _positions, value);
             }
 
-            foreach( var value in _values )
+            foreach (var value in _values)
             {
                 _displayer.MarkIfHasCandidate(Enums.Color.Legal, _positions, value);
             }

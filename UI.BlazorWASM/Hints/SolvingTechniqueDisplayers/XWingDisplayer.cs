@@ -1,9 +1,9 @@
-﻿using Core.Data;
-using Core.Hints.SolvingTechniques;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Core.Data;
+using Core.Hints.SolvingTechniques;
 
-namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
+namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
 {
     public class XWingDisplayer : BaseSolvingTechniqueDisplayer
     {
@@ -33,10 +33,10 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
                 _value,
                 _displayer.Format(opositeHouse, _positions.First()),
                 _displayer.Format(opositeHouse, _positions.Last())
-                );
+            );
             _displayer.SetValueFilter(_value);
 
-            foreach( var pos in _positions )
+            foreach (var pos in _positions)
             {
                 _displayer.HighlightCol(pos);
                 _displayer.HighlightRow(pos);

@@ -1,9 +1,9 @@
-﻿using Application;
+﻿using System;
+using Application;
 using Core.Data;
-using System;
-using UI.BlazorWASM.Enums;
+using Weboku.UserInterface.Enums;
 
-namespace UI.BlazorWASM.Providers
+namespace Weboku.UserInterface.Providers
 {
     public class CandidateColorProvider : IProvider
     {
@@ -28,20 +28,21 @@ namespace UI.BlazorWASM.Providers
 
         public void ClearColors()
         {
-            foreach( var position in Position.Positions )
+            foreach (var position in Position.Positions)
             {
-                foreach( var value in Value.All )
+                foreach (var value in Value.All)
                 {
                     _colors[position.x, position.y, value] = Color.None;
                 }
             }
+
             OnChanged?.Invoke();
         }
 
         public Color GetColor(Position position, Value value)
         {
             var isCandidateLegal = !_domainFacade.HasCandidate(position, value)
-                || _domainFacade.IsCandidateLegal(position, value);
+                                   || _domainFacade.IsCandidateLegal(position, value);
 
             return isCandidateLegal
                 ? _colors[position.x, position.y, value]

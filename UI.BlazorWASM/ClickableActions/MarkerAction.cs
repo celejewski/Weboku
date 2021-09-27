@@ -1,6 +1,6 @@
 ﻿using Application;
 
-namespace UI.BlazorWASM.ClickableActions
+namespace Weboku.UserInterface.ClickableActions
 {
     public class MarkerAction : IClickableAction
     {
@@ -10,10 +10,12 @@ namespace UI.BlazorWASM.ClickableActions
         {
             _domainFacade = domainFacade;
         }
+
         public void LeftClickAction(ClickableActionArgs args)
         {
             _domainFacade.UseMarker(args.Position, args.Value);
         }
+
         public void RightClickAction(ClickableActionArgs args)
         {
             _domainFacade.UsePencil(args.Position, args.Value);

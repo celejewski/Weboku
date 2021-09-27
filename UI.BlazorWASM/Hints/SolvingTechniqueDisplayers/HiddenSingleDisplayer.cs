@@ -1,8 +1,8 @@
-﻿using Core.Data;
+﻿using System;
+using Core.Data;
 using Core.Hints.SolvingTechniques;
-using System;
 
-namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
+namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
 {
     public class HiddenSingleDisplayer : BaseSolvingTechniqueDisplayer
     {
@@ -11,6 +11,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
 
         private readonly House _house;
         private string _houseFormated;
+
         public HiddenSingleDisplayer(Informer informer, Displayer displayer, HiddenSingle hiddenSingle)
             : base(informer, displayer, hiddenSingle, "hidden-single")
         {
@@ -18,7 +19,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
             _value = hiddenSingle.Value;
             _house = hiddenSingle.House;
 
-            _explanationSteps.AddRange(new Action[] { Explain1, Explain2, Explain3 });
+            _explanationSteps.AddRange(new Action[] {Explain1, Explain2, Explain3});
         }
 
         private void SetupDisplayer()
@@ -53,6 +54,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
             _displayer.SetValueFilter(_value);
             _displayer.SetDescription(ExplanationKey(2), _value, _houseFormated, _position);
         }
+
         private void Explain3()
         {
             SetupDisplayer();

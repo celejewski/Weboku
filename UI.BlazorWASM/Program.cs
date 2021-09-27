@@ -7,10 +7,10 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using UI.BlazorWASM.Helpers;
-using UI.BlazorWASM.Providers;
+using Weboku.UserInterface.Helpers;
+using Weboku.UserInterface.Providers;
 
-namespace UI.BlazorWASM
+namespace Weboku.UserInterface
 {
     public class Program
     {
@@ -19,7 +19,7 @@ namespace UI.BlazorWASM
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("app");
 
-            builder.Services.AddSingleton(new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+            builder.Services.AddSingleton(new HttpClient {BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)});
             builder.Services.AddBlazoredLocalStorage();
             builder.Services.AddScoped<IStorageProvider, StorageProvider>();
             builder.Services.AddScoped(serviceProvider =>
@@ -28,7 +28,7 @@ namespace UI.BlazorWASM
                 return new DomainFacade(
                     serviceProvider.GetRequiredService<IStorageProvider>(),
                     navigationManager.BaseUri
-                    );
+                );
             });
             builder.Services.RegisterProviders();
             builder.Services.RegisterCommands();

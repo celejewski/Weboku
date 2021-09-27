@@ -1,9 +1,9 @@
-﻿using Core.Data;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Data;
 
-namespace UI.BlazorWASM.Hints
+namespace Weboku.UserInterface.Hints
 {
     public static class HintsHelper
     {
@@ -19,12 +19,13 @@ namespace UI.BlazorWASM.Hints
             };
         }
 
-        private static readonly IEnumerable<House> _houses = new[] { House.Block, House.Row, House.Col };
+        private static readonly IEnumerable<House> _houses = new[] {House.Block, House.Row, House.Col};
+
         public static House HouseFirstOrDefault(Position pos, Predicate<IEnumerable<Position>> predicate)
         {
             return _houses.FirstOrDefault(
                 house => predicate(GetPositionsInHouse(pos, house))
-                );
+            );
         }
 
         public static House RowOrCol(params Position[] positions)
@@ -36,15 +37,17 @@ namespace UI.BlazorWASM.Hints
         {
             var first = positions.First();
 
-            if( positions.All(pos => pos.x == first.x) )
+            if (positions.All(pos => pos.x == first.x))
             {
                 yield return House.Col;
             }
-            if( positions.All(pos => pos.y == first.y) )
+
+            if (positions.All(pos => pos.y == first.y))
             {
                 yield return House.Row;
             }
-            if( positions.All(pos => pos.block == first.block) )
+
+            if (positions.All(pos => pos.block == first.block))
             {
                 yield return House.Block;
             }

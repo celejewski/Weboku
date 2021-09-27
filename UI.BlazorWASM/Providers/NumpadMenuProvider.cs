@@ -1,7 +1,8 @@
 ﻿using System;
-using UI.BlazorWASM.Component.NumpadMenu;
+using Weboku.UserInterface.Component.NumpadMenu;
+using Weboku.UserInterface.Component.NumpadMenu.NumpadMenuOptions;
 
-namespace UI.BlazorWASM.Providers
+namespace Weboku.UserInterface.Providers
 {
     public class NumpadMenuProvider : IProvider
     {
@@ -16,8 +17,8 @@ namespace UI.BlazorWASM.Providers
         public bool IsSelected(INumpadMenuItem selectableMenuItemContainer)
         {
             return ActionContainer.SelectedItem == selectableMenuItemContainer
-                || FilterContainer.SelectedItem == selectableMenuItemContainer
-                || ColorContainer.SelectedItem == selectableMenuItemContainer;
+                   || FilterContainer.SelectedItem == selectableMenuItemContainer
+                   || ColorContainer.SelectedItem == selectableMenuItemContainer;
         }
 
         public void SelectItem(INumpadMenuItem selected)
@@ -31,7 +32,6 @@ namespace UI.BlazorWASM.Providers
             ActionContainer.OnChanged += () => OnChanged();
             FilterContainer.OnChanged += () => OnChanged();
             ColorContainer.OnChanged += () => OnChanged();
-
         }
     }
 }

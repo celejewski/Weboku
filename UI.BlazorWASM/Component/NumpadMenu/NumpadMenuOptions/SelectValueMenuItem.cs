@@ -1,9 +1,9 @@
-﻿using Application;
+﻿using System.Linq;
+using Application;
 using Core.Data;
-using System.Linq;
-using UI.BlazorWASM.Providers;
+using Weboku.UserInterface.Providers;
 
-namespace UI.BlazorWASM.Component.NumpadMenu
+namespace Weboku.UserInterface.Component.NumpadMenu.NumpadMenuOptions
 {
     public class SelectValueMenuItem : BaseMenuOption, INumpadMenuLabel
     {
@@ -21,12 +21,13 @@ namespace UI.BlazorWASM.Component.NumpadMenu
         {
             get
             {
-                foreach( var row in Position.Rows )
+                foreach (var row in Position.Rows)
                 {
                     var isAnyValueIllegal = !row.All(_gridProvider.IsValueLegal);
                     var legalValuesInRow = row.Count(pos => _gridProvider.GetValue(pos) == _value);
-                    if( isAnyValueIllegal || legalValuesInRow != 1 ) return false;
+                    if (isAnyValueIllegal || legalValuesInRow != 1) return false;
                 }
+
                 return true;
             }
         }

@@ -1,8 +1,8 @@
 ﻿using Application;
 using Core.Data;
-using UI.BlazorWASM.Commands;
+using Weboku.UserInterface.Commands;
 
-namespace UI.BlazorWASM.Providers
+namespace Weboku.UserInterface.Providers
 {
     public class CommandProvider
     {
@@ -16,14 +16,14 @@ namespace UI.BlazorWASM.Providers
             SettingsProvider settingsProvider,
             DomainFacade domainFacade,
             StartGameCommand startGameCommand
-
-            )
+        )
         {
             _clickableActionProvider = clickableActionProvider;
             _settingsProvider = settingsProvider;
             _domainFacade = domainFacade;
             _startGameCommand = startGameCommand;
         }
+
         public ICommand SelectValue(int value)
         {
             return new SelectValueCommand(value, _domainFacade, _clickableActionProvider);

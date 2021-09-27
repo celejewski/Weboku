@@ -1,10 +1,10 @@
-﻿using Core.Data;
-using Core.Hints.SolvingTechniques;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Data;
+using Core.Hints.SolvingTechniques;
 
-namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
+namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
 {
     public class FullHouseDisplayer : BaseSolvingTechniqueDisplayer
     {
@@ -13,6 +13,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
 
         private readonly House _house;
         private readonly IEnumerable<Position> _positionsInHouse;
+
         public FullHouseDisplayer(Informer informer, Displayer displayer, FullHouse fullHouse)
             : base(informer, displayer, fullHouse, "full-house")
         {
@@ -21,18 +22,19 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
 
             _house = HintsHelper.HouseFirstOrDefault(_position,
                 positions => positions.Count(pos => !_informer.HasValue(pos)) == 1
-                );
+            );
 
             _positionsInHouse = HintsHelper.GetPositionsInHouse(_position, _house);
 
             _explanationSteps.Add(Explain01);
             _explanationSteps.Add(Explain02);
             _explanationSteps.Add(Explain03);
-            for( int i = 0; i < _value - 1; i++ )
+            for (int i = 0; i < _value - 1; i++)
             {
                 var explain = ExplainN(i);
                 _explanationSteps.Add(explain);
             }
+
             _explanationSteps.Add(ExplainLast);
         }
 
@@ -41,6 +43,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
             _displayer.SetTitle(TitleKey);
             _displayer.HighlightHouse(_position, _house);
         }
+
         public override void DisplaySolution()
         {
             SetupDisplay();
@@ -67,6 +70,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
             _displayer.MarkCell(Enums.Color.Legal, _position);
             _displayer.SetValueFilter(Value.None);
         }
+
         public void Explain03()
         {
             SetupDisplay();
@@ -83,14 +87,15 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
             {
                 SetupDisplay();
                 var limit = n + 1;
-                for( int i = 0; i < limit; i++ )
+                for (int i = 0; i < limit; i++)
                 {
                     var value = i + 1;
                     var pos = value != _value
-                    ? _positionsInHouse.First(pos => _informer.GetValue(pos) == value)
-                    : _position;
+                        ? _positionsInHouse.First(pos => _informer.GetValue(pos) == value)
+                        : _position;
                     _displayer.MarkCell(Enums.Color.Illegal, pos);
                 }
+
                 var digits = Enumerable.Range(0, limit).Select(i => (i + 1).ToString() + "... ");
                 _displayer.SetDescription(string.Join(" ", digits));
                 _displayer.SetValueFilter(limit);

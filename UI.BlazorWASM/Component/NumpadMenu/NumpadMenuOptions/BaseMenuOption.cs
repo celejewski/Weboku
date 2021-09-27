@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using UI.BlazorWASM.Commands;
+using Weboku.UserInterface.Commands;
 
-namespace UI.BlazorWASM.Component.NumpadMenu
+namespace Weboku.UserInterface.Component.NumpadMenu.NumpadMenuOptions
 {
     public abstract class BaseMenuOption : INumpadMenuItem, ICommand
     {
@@ -21,7 +21,7 @@ namespace UI.BlazorWASM.Component.NumpadMenu
 
         public async Task Execute()
         {
-            if( IsSelectable )
+            if (IsSelectable)
             {
                 _selectableMenuItemContainer?.SelectItem(this);
             }

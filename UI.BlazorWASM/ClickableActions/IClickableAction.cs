@@ -1,4 +1,4 @@
-﻿namespace UI.BlazorWASM.ClickableActions
+﻿namespace Weboku.UserInterface.ClickableActions
 {
     public interface IClickableAction
     {

@@ -1,6 +1,8 @@
-﻿@inject NumpadMenuProvider NumpadMenuProvider
+﻿@using Weboku.UserInterface.Providers
+@using Weboku.UserInterface.Component.NumpadMenu.NumpadMenuOptions
+@using Weboku.UserInterface.Converters
+@inject NumpadMenuProvider NumpadMenuProvider
 @inject TooltipProvider TooltipProvider
-@using BlazorWASM.Converters
 
 <div @onclick="OnClick"
      class="numpad__button">
@@ -13,7 +15,7 @@
 
 @code {
     [Parameter]
-    public ISelectColorMenuItem SelectColorMenuItem { get; set; }
+    public Weboku.UserInterface.Component.NumpadMenu.NumpadMenuOptions.ISelectColorMenuItem SelectColorMenuItem { get; set; }
 
     private bool IsSelected { get => NumpadMenuProvider.ColorContainer.SelectedItem == SelectColorMenuItem; }
 

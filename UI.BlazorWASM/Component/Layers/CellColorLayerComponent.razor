@@ -1,4 +1,5 @@
-﻿@inject CellColorProvider CellColorProvider
+﻿@using Weboku.UserInterface.Providers
+@inject CellColorProvider CellColorProvider
 
 <Grid9x9Component>
     <div class="cell-color @CellColorProvider.GetCssClass(context)"></div>

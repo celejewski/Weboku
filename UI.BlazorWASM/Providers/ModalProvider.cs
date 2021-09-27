@@ -1,9 +1,9 @@
-﻿using Application;
-using Application.Enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Application;
+using Application.Enums;
 
-namespace UI.BlazorWASM.Providers
+namespace Weboku.UserInterface.Providers
 {
     public class ModalProvider : IProvider
     {
@@ -32,7 +32,7 @@ namespace UI.BlazorWASM.Providers
 
         public void GoToPreviousState()
         {
-            if( HasPreviousState )
+            if (HasPreviousState)
             {
                 CurrentState = _previousStates.Pop();
                 OnChanged?.Invoke();

@@ -1,9 +1,9 @@
-﻿using Application;
+﻿using System.Threading.Tasks;
+using Application;
 using Application.Filters;
-using System.Threading.Tasks;
-using UI.BlazorWASM.Providers;
+using Weboku.UserInterface.Providers;
 
-namespace UI.BlazorWASM.Commands
+namespace Weboku.UserInterface.Commands
 {
     public class SelectValueCommand : ICommand
     {
@@ -23,7 +23,6 @@ namespace UI.BlazorWASM.Commands
             _domainFacade.SetFilter(new SelectedValueFilter(_value));
             _clickableActionProvider.Value = _value;
             return Task.CompletedTask;
-
         }
     }
 }

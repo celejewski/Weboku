@@ -1,9 +1,9 @@
-﻿using Application;
-using Core.Data;
-using System;
+﻿using System;
 using System.Linq;
+using Application;
+using Core.Data;
 
-namespace UI.BlazorWASM.Providers
+namespace Weboku.UserInterface.Providers
 {
     public class GameStateChecker
     {
@@ -19,7 +19,7 @@ namespace UI.BlazorWASM.Providers
 
         private void RaiseEventIfSudokuIsSolved()
         {
-            if( Position.Positions.All(position => _domainFacade.HasValue(position) && _domainFacade.IsValueLegal(position)) )
+            if (Position.Positions.All(position => _domainFacade.HasValue(position) && _domainFacade.IsValueLegal(position)))
             {
                 OnSolved?.Invoke();
             }

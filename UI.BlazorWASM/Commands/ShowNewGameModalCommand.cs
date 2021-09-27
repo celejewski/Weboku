@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using UI.BlazorWASM.Providers;
+using Weboku.UserInterface.Providers;
 
-namespace UI.BlazorWASM.Commands
+namespace Weboku.UserInterface.Commands
 {
     public class ShowNewGameModalCommand : ICommand
     {
@@ -11,6 +11,7 @@ namespace UI.BlazorWASM.Commands
         {
             _modalProvider = modalProvider;
         }
+
         public Task Execute()
         {
             _modalProvider.SetModalState(Application.Enums.ModalState.NewGame);

@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
-using UI.BlazorWASM.ClickableActions;
-using UI.BlazorWASM.Providers;
+using Weboku.UserInterface.ClickableActions;
+using Weboku.UserInterface.Providers;
 
-namespace UI.BlazorWASM.Commands
+namespace Weboku.UserInterface.Commands
 {
     public class SelectActionMarkerCommand : ICommand
     {

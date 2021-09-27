@@ -1,6 +1,6 @@
 ﻿using Application;
 
-namespace UI.BlazorWASM.ClickableActions
+namespace Weboku.UserInterface.ClickableActions
 {
     public class EraserAction : IClickableAction
     {

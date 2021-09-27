@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
-using UI.BlazorWASM.ClickableActions;
-using UI.BlazorWASM.Providers;
+using Weboku.UserInterface.ClickableActions;
+using Weboku.UserInterface.Providers;
 
-namespace UI.BlazorWASM.Commands
+namespace Weboku.UserInterface.Commands
 {
     public class SelectActionBrushCommand : ICommand
     {
@@ -12,6 +12,7 @@ namespace UI.BlazorWASM.Commands
         {
             _clickableActionProvider = clickableActionProvider;
         }
+
         public Task Execute()
         {
             _clickableActionProvider.SelectClickableAction(ClickableAction.Brush);

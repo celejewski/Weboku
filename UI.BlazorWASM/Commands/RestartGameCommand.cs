@@ -1,8 +1,8 @@
-﻿using Application;
-using System.Threading.Tasks;
-using UI.BlazorWASM.Providers;
+﻿using System.Threading.Tasks;
+using Application;
+using Weboku.UserInterface.Providers;
 
-namespace UI.BlazorWASM.Commands
+namespace Weboku.UserInterface.Commands
 {
     public class RestartGameCommand : ICommand
     {
@@ -19,6 +19,7 @@ namespace UI.BlazorWASM.Commands
             _cellColorProvider = cellColorProvider;
             _gameTimerProvider = gameTimerProvider;
         }
+
         public Task Execute()
         {
             _domainFacade.RestartGrid();

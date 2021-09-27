@@ -1,9 +1,9 @@
-﻿using Application;
+﻿using System;
+using Application;
 using Core.Data;
-using System;
-using UI.BlazorWASM.Enums;
+using Weboku.UserInterface.Enums;
 
-namespace UI.BlazorWASM.Providers
+namespace Weboku.UserInterface.Providers
 {
     public class InputMarkProvider : IProvider
     {
@@ -32,10 +32,11 @@ namespace UI.BlazorWASM.Providers
 
         public void ClearColors()
         {
-            foreach( var position in Position.Positions )
+            foreach (var position in Position.Positions)
             {
                 _colors[position.x, position.y] = Color.None;
             }
+
             OnChanged?.Invoke();
         }
 

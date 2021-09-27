@@ -1,9 +1,9 @@
-﻿using AKSoftware.Localization.MultiLanguages;
-using Blazored.LocalStorage;
-using System;
+﻿using System;
 using System.Globalization;
+using AKSoftware.Localization.MultiLanguages;
+using Blazored.LocalStorage;
 
-namespace UI.BlazorWASM.Providers
+namespace Weboku.UserInterface.Providers
 {
     public class SettingsProvider : IProvider
     {
@@ -14,22 +14,19 @@ namespace UI.BlazorWASM.Providers
         {
             _localStorageService = localStorageService;
             _languageContainerService = languageContainerService;
-            if( !localStorageService.ContainKey("LanguageName") )
+            if (!localStorageService.ContainKey("LanguageName"))
             {
                 return;
             }
+
             var name = localStorageService.GetItem<string>("LanguageName");
-            if( !string.IsNullOrEmpty(name) )
+            if (!string.IsNullOrEmpty(name))
             {
                 SetLanguage(name);
             }
         }
 
-        public CultureInfo CultureInfo
-        {
-            get;
-            private set;
-        }
+        public CultureInfo CultureInfo { get; private set; }
 
         public event Action OnChanged;
 
@@ -40,6 +37,5 @@ namespace UI.BlazorWASM.Providers
             _languageContainerService.SetLanguage(CultureInfo);
             OnChanged?.Invoke();
         }
-
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
+using Weboku.UserInterface.Component.NumpadMenu.NumpadMenuOptions;
 
-namespace UI.BlazorWASM.Component.NumpadMenu
+namespace Weboku.UserInterface.Component.NumpadMenu
 {
     public class SelectableMenuItemContainer
     {

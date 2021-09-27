@@ -1,20 +1,21 @@
 ﻿using Core.Data;
 using Core.Hints.SolvingTechniques;
-using UI.BlazorWASM.Enums;
+using Weboku.UserInterface.Enums;
 
-namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
+namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
 {
     public class NakedSingleDisplayer : BaseSolvingTechniqueDisplayer
     {
         private readonly Position _position;
         private readonly Value _value;
 
-        public NakedSingleDisplayer(Informer informer, Displayer displayer, NakedSingle nakedSingle) 
+        public NakedSingleDisplayer(Informer informer, Displayer displayer, NakedSingle nakedSingle)
             : base(informer, displayer, nakedSingle, "naked-single")
         {
             _position = nakedSingle.Position;
             _value = nakedSingle.Value;
         }
+
         public override void DisplaySolution()
         {
             _displayer.SetTitle(TitleKey);

@@ -1,6 +1,7 @@
 ﻿@inject NumpadMenuBuilder NumpadMenuBuilder
 @inject NumpadMenuProvider NumpadMenuProvider
-@using UI.BlazorWASM.Component.NumpadMenu.Components
+@using Weboku.UserInterface.Component.NumpadMenu.Components
+@using Weboku.UserInterface.Providers
 
 
     <div class="numpad">
@@ -33,7 +34,7 @@
 
 @code {
     private SelectValueButtonComponent _initialFilter;
-    private IconButtonComponent _initialAction;
+    private Weboku.UserInterface.Component.NumpadMenu.Components.IconButtonComponent _initialAction;
     private ColorButtonComponent _initialColor;
 
     protected override void OnAfterRender(bool firstRender)

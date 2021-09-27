@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace UI.BlazorWASM.Providers
+namespace Weboku.UserInterface.Providers
 {
     public interface IProvider
     {

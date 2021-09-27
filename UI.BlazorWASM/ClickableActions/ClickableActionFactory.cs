@@ -1,8 +1,8 @@
-﻿using Application;
-using System;
-using UI.BlazorWASM.Providers;
+﻿using System;
+using Application;
+using Weboku.UserInterface.Providers;
 
-namespace UI.BlazorWASM.ClickableActions
+namespace Weboku.UserInterface.ClickableActions
 {
     public class ClickableActionFactory
     {

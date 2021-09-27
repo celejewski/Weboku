@@ -1,9 +1,9 @@
 ﻿using Application;
 using Core.Data;
-using UI.BlazorWASM.Commands;
-using UI.BlazorWASM.Providers;
+using Weboku.UserInterface.Commands;
+using Weboku.UserInterface.Providers;
 
-namespace UI.BlazorWASM.Component.NumpadMenu
+namespace Weboku.UserInterface.Component.NumpadMenu.NumpadMenuOptions
 {
     public class PairsFilterMenuItem : BaseMenuOption, INumpadMenuLabel
     {
@@ -19,13 +19,14 @@ namespace UI.BlazorWASM.Component.NumpadMenu
         {
             get
             {
-                foreach( var pos in Position.Positions )
+                foreach (var pos in Position.Positions)
                 {
-                    if( _gridProvider.GetCandidatesCount(pos) == 2 )
+                    if (_gridProvider.GetCandidatesCount(pos) == 2)
                     {
                         return false;
                     }
                 }
+
                 return true;
             }
         }

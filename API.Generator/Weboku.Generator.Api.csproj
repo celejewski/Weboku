@@ -3,10 +3,12 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <UserSecretsId>c5ad8092-1a13-458a-a47c-13d540df422c</UserSecretsId>
+    <AssemblyName>Weboku.Generator.Api</AssemblyName>
+    <RootNamespace>Weboku.Generator.Api</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Core\Core.csproj" />
+    <ProjectReference Include="..\Core\Weboku.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>

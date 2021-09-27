@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
-using UI.BlazorWASM.Enums;
-using UI.BlazorWASM.Providers;
+using Weboku.UserInterface.Enums;
+using Weboku.UserInterface.Providers;
 
-namespace UI.BlazorWASM.Component.NumpadMenu
+namespace Weboku.UserInterface.Component.NumpadMenu.NumpadMenuOptions
 {
     public class SelectColorMenuItem : ISelectColorMenuItem
     {

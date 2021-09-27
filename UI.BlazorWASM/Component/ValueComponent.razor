@@ -1,6 +1,5 @@
-﻿@using UI.BlazorWASM.Enums
-@using UI.BlazorWASM.Converters
-
+﻿@using Weboku.UserInterface.Enums
+@using Weboku.UserInterface.Converters
 <div class="input @(IsGiven ? "input--is-given " : String.Empty)
      @CellColorConverter.ToCssClass(MarkColor)">
     @(Value != Value.None ? Value.ToString() : string.Empty)

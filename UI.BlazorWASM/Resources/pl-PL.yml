@@ -8,11 +8,11 @@ menu__candidates-header: Kandydaci
 menu__find-all: Wypełnij
 menu__remove-all: Wyczyść
 
-difficulty__easy: "Łatwy"
-difficulty__medium: "Średni"
-difficulty__hard: "Trudny"
-difficulty__extreme: "Ekstremalny"
-difficulty__unfair: "Piekielny"
+difficulty__Easy: "Łatwy"
+difficulty__Medium: "Średni"
+difficulty__Hard: "Trudny"
+difficulty__Extreme: "Ekstremalny"
+difficulty__Unfair: "Piekielny"
 
 new-game__new-game: "Nowa gra"
 new-game__custom-game: "Wprowadź własne"

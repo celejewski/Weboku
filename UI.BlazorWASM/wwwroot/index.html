@@ -95,7 +95,7 @@
                     shiftKey: e.shiftKey,
                     type: e.type
                 }
-                DotNet.invokeMethod('UI.BlazorWASM', 'OnKeyDown', serializedKeyboardEvent)
+                DotNet.invokeMethod('Weboku.UserInterface', 'OnKeyDown', serializedKeyboardEvent)
             }
         }
         document.onkeydown = onkeydown

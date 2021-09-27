@@ -1,8 +1,8 @@
-﻿using Application.Enums;
-using System.Threading.Tasks;
-using UI.BlazorWASM.Providers;
+﻿using System.Threading.Tasks;
+using Application.Enums;
+using Weboku.UserInterface.Providers;
 
-namespace UI.BlazorWASM.Commands
+namespace Weboku.UserInterface.Commands
 {
     public class StartGameCommand
     {
@@ -27,6 +27,5 @@ namespace UI.BlazorWASM.Commands
             _gameTimerProvider.Start();
             return Task.CompletedTask;
         }
-
     }
 }

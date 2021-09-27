@@ -1,12 +1,7 @@
 ﻿using Core.Data;
 using Core.Hints.SolvingTechniques;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
+namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
 {
     public class SkyscrapperDisplayer : BaseSolvingTechniqueDisplayer
     {
@@ -16,7 +11,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
         private readonly Position _pos2;
         private readonly Value _value;
 
-        public SkyscrapperDisplayer(Informer informer, Displayer displayer, Skyscrapper skyscrapper) 
+        public SkyscrapperDisplayer(Informer informer, Displayer displayer, Skyscrapper skyscrapper)
             : base(informer, displayer, skyscrapper, "skyscrapper")
         {
             _base1 = skyscrapper.Base1;
@@ -42,6 +37,5 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
 
             _displayer.SetValueFilter(_value);
         }
-
     }
 }

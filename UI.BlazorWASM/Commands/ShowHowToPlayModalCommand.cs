@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using UI.BlazorWASM.Providers;
+using Weboku.UserInterface.Providers;
 
-namespace UI.BlazorWASM.Commands
+namespace Weboku.UserInterface.Commands
 {
     public class ShowHowToPlayModalCommand : ICommand
     {

@@ -1,8 +1,8 @@
-﻿using Core.Data;
+﻿using System.Collections.Generic;
+using Core.Data;
 using Core.Hints.SolvingTechniques;
-using System.Collections.Generic;
 
-namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
+namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
 {
     public class XYWingDisplayer : BaseSolvingTechniqueDisplayer
     {
@@ -14,7 +14,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
         private readonly IEnumerable<Position> _positionsToRemove;
         private readonly Value _value;
 
-        public XYWingDisplayer(Informer informer, Displayer displayer, XYWing xyWing) 
+        public XYWingDisplayer(Informer informer, Displayer displayer, XYWing xyWing)
             : base(informer, displayer, xyWing, "xywing")
         {
             _pivot = xyWing.Pivot;
@@ -37,7 +37,8 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
 
             _displayer.MarkCandidate(Enums.Color.Fourth, _pivot, _candidate2);
             _displayer.Mark(Enums.Color.Fourth, _pos2, _value);
-            _displayer.MarkCandidate(Enums.Color.Third, _pos2, _candidate2); ;
+            _displayer.MarkCandidate(Enums.Color.Third, _pos2, _candidate2);
+            ;
 
             _displayer.MarkCell(Enums.Color.Legal, _pivot);
             _displayer.MarkIfHasCandidate(Enums.Color.Illegal, _positionsToRemove, _value);

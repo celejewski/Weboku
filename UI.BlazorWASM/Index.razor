@@ -1,5 +1,7 @@
 ﻿@page "/"
 @page "/paste/{SharedSudoku}"
+@using Weboku.UserInterface.Providers
+@using Weboku.UserInterface.Component.NumpadMenu
 @inject IJSRuntime JSRuntime
 @inject ModalProvider ModalProvider
 @inject PreserveStateProvider PreserveStateProvider
@@ -7,7 +9,6 @@
 @inject GameStateChecker GameStateChecker
 
 @inject DomainFacade DomainFacade
-@using UI.BlazorWASM.Component.Modals;
 
 <div id="wrapper"
      class="wrapper">

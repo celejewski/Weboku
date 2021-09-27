@@ -1,8 +1,8 @@
-﻿using Application;
+﻿using System.Threading.Tasks;
+using Application;
 using Core.Data;
-using System.Threading.Tasks;
 
-namespace UI.BlazorWASM.Commands
+namespace Weboku.UserInterface.Commands
 {
     public class StartNewGameCommand : ICommand
     {

@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
-using UI.BlazorWASM.Enums;
-using UI.BlazorWASM.Providers;
+using Weboku.UserInterface.Enums;
+using Weboku.UserInterface.Providers;
 
-namespace UI.BlazorWASM.Commands
+namespace Weboku.UserInterface.Commands
 {
     public class SelectColorCommand : ICommand
     {
@@ -14,6 +14,7 @@ namespace UI.BlazorWASM.Commands
             _color = color;
             _clickableActionProvider = clickableActionProvider;
         }
+
         public Task Execute()
         {
             _clickableActionProvider.Color1 = _color;

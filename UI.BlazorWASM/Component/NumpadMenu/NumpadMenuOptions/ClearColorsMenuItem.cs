@@ -1,6 +1,6 @@
-﻿using UI.BlazorWASM.Commands;
+﻿using Weboku.UserInterface.Commands;
 
-namespace UI.BlazorWASM.Component.NumpadMenu
+namespace Weboku.UserInterface.Component.NumpadMenu.NumpadMenuOptions
 {
     public class ClearColorsMenuItem : BaseMenuOption, INumpadMenuLabel
     {
@@ -8,6 +8,7 @@ namespace UI.BlazorWASM.Component.NumpadMenu
             : base(command)
         {
         }
+
         public override bool IsDimmed => false;
 
         public override bool IsSelectable => false;

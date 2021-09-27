@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Timers;
 
-namespace UI.BlazorWASM.Providers
+namespace Weboku.UserInterface.Providers
 {
     public class GameTimerProvider
     {
@@ -21,7 +21,7 @@ namespace UI.BlazorWASM.Providers
             timer.Elapsed += (o, e) =>
             {
                 bool isPaused = _modalProvider.CurrentState != Application.Enums.ModalState.None;
-                if( !isPaused )
+                if (!isPaused)
                 {
                     Elapsed += TimeSpan.FromSeconds(1);
                     OnChanged?.Invoke();

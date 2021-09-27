@@ -1,6 +1,6 @@
-﻿using UI.BlazorWASM.Commands;
+﻿using Weboku.UserInterface.Commands;
 
-namespace UI.BlazorWASM.Providers
+namespace Weboku.UserInterface.Providers
 {
     public class Hotkey
     {

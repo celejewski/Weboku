@@ -1,6 +1,6 @@
 ﻿using Core.Data;
 
-namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
+namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
 {
     public interface ISolvingTechniqueDisplayer
     {

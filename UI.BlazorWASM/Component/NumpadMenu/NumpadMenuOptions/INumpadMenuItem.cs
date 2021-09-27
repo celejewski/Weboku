@@ -1,6 +1,6 @@
-﻿using UI.BlazorWASM.Commands;
+﻿using Weboku.UserInterface.Commands;
 
-namespace UI.BlazorWASM.Component.NumpadMenu
+namespace Weboku.UserInterface.Component.NumpadMenu.NumpadMenuOptions
 {
     public interface INumpadMenuItem : ICommand
     {

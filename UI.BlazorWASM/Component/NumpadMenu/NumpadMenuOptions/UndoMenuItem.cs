@@ -1,7 +1,7 @@
 ﻿using Application;
-using UI.BlazorWASM.Commands;
+using Weboku.UserInterface.Commands;
 
-namespace UI.BlazorWASM.Component.NumpadMenu
+namespace Weboku.UserInterface.Component.NumpadMenu.NumpadMenuOptions
 {
     public class UndoMenuItem : BaseMenuOption, INumpadMenuLabel
     {
@@ -12,6 +12,7 @@ namespace UI.BlazorWASM.Component.NumpadMenu
         {
             _gridHistoryManager = gridHistoryManager;
         }
+
         public override bool IsDimmed => !_gridHistoryManager.CanUndo;
 
         public override bool IsSelectable => false;

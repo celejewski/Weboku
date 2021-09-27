@@ -1,14 +1,13 @@
-﻿using Core.Data;
-using Core.Hints.SolvingTechniques;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Data;
+using Core.Hints.SolvingTechniques;
 
-namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
+namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
 {
     public class LockedCandidatesPointingDisplayer : BaseSolvingTechniqueDisplayer
     {
-
         private readonly int _block;
         private string _rowOrColFormated;
         private readonly Value _value;
@@ -36,7 +35,6 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
             _displayer.Clear();
             _displayer.SetTitle(TitleKey);
             _rowOrColFormated = _displayer.Format(RowOrCol(_informer), _positionsToRemoveFrom.First());
-
         }
 
         public override void DisplaySolution()
@@ -81,6 +79,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
             _displayer.Mark(Enums.Color.Legal, PositionWithLegalCandidates(_informer), _value);
             _displayer.SetDescription(ExplanationKey(3), _value);
         }
+
         public void Explain4()
         {
             SetupDisplay();
@@ -90,6 +89,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
             _displayer.Mark(Enums.Color.Legal, PositionWithLegalCandidates(_informer), _value);
             _displayer.SetDescription(ExplanationKey(4), _rowOrColFormated);
         }
+
         public void Explain5()
         {
             SetupDisplay();

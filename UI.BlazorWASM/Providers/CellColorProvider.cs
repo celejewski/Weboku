@@ -1,9 +1,9 @@
-﻿using Core.Data;
-using System;
-using UI.BlazorWASM.Converters;
-using UI.BlazorWASM.Enums;
+﻿using System;
+using Core.Data;
+using Weboku.UserInterface.Converters;
+using Weboku.UserInterface.Enums;
 
-namespace UI.BlazorWASM.Providers
+namespace Weboku.UserInterface.Providers
 {
     public class CellColorProvider
     {
@@ -17,6 +17,7 @@ namespace UI.BlazorWASM.Providers
         {
             return CellColorConverter.ToCssClass(_cellColors[position.x, position.y]);
         }
+
         public void SetColor(Position position, Color color)
         {
             _cellColors[position.x, position.y] = color;
@@ -25,12 +26,12 @@ namespace UI.BlazorWASM.Providers
 
         public void ClearAll()
         {
-            foreach( var position in Position.Positions )
+            foreach (var position in Position.Positions)
             {
                 _cellColors[position.x, position.y] = Color.None;
             }
+
             OnChanged?.Invoke();
         }
-
     }
 }

@@ -1,4 +1,5 @@
-﻿<a @onclick="@(() => OnClick?.Execute())"
+﻿@using Weboku.UserInterface.Commands
+<a @onclick="@(() => OnClick?.Execute())"
    class="modal__button @_modalClass">@ChildContent</a>
 
 @code {

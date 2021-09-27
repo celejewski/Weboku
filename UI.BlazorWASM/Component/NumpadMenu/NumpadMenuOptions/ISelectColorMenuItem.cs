@@ -1,6 +1,6 @@
-﻿using UI.BlazorWASM.Enums;
+﻿using Weboku.UserInterface.Enums;
 
-namespace UI.BlazorWASM.Component.NumpadMenu
+namespace Weboku.UserInterface.Component.NumpadMenu.NumpadMenuOptions
 {
     public interface ISelectColorMenuItem : INumpadMenuItem
     {

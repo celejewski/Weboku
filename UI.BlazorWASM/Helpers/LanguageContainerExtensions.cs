@@ -1,6 +1,6 @@
 ﻿using AKSoftware.Localization.MultiLanguages;
 
-namespace UI.BlazorWASM.Helpers
+namespace Weboku.UserInterface.Helpers
 {
     public static class LanguageContainerExtensions
     {

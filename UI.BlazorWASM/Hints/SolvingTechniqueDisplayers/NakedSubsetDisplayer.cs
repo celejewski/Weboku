@@ -1,16 +1,12 @@
-﻿using Core.Data;
-using Core.Hints.SolvingTechniques;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Core.Data;
+using Core.Hints.SolvingTechniques;
 
-namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
+namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
 {
     public class NakedSubsetDisplayer : BaseSolvingTechniqueDisplayer
     {
-
         private Position Pos => _positions.First();
         protected readonly IEnumerable<Position> _positions;
         protected readonly IEnumerable<Value> _values;
@@ -25,16 +21,17 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
         public override void DisplaySolution()
         {
             base.DisplaySolution();
-            foreach( var value in _values )
+            foreach (var value in _values)
             {
                 _displayer.MarkIfHasCandidate(Enums.Color.Illegal, GetPositionsToRemove(_informer), value);
                 _displayer.MarkIfHasCandidate(Enums.Color.Legal, _positions, value);
             }
 
-            foreach( var house in GetHouses() )
+            foreach (var house in GetHouses())
             {
                 _displayer.HighlightHouse(Pos, house);
             }
+
             _displayer.SetValueFilter(Value.None);
         }
 

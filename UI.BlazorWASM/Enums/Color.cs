@@ -1,4 +1,4 @@
-﻿namespace UI.BlazorWASM.Enums
+﻿namespace Weboku.UserInterface.Enums
 {
     public enum Color
     {

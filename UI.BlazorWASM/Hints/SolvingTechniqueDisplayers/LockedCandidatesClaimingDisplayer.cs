@@ -1,14 +1,13 @@
-﻿using Core.Data;
-using Core.Hints.SolvingTechniques;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Data;
+using Core.Hints.SolvingTechniques;
 
-namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
+namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
 {
     public class LockedCandidatesClaimingDisplayer : BaseSolvingTechniqueDisplayer
     {
-
         private readonly Value _value;
         private readonly IEnumerable<Position> _positionsToRemoveCandidate;
         private IEnumerable<Position> _positionsWithLegalCandidate;
@@ -26,14 +25,14 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
             _house = lockedCandidatesClaiming.House;
 
             _explanationSteps.AddRange(new Action[]
-            {
-                Explain1,
-                Explain2,
-                Explain3,
-                Explain4,
-                Explain5,
-            }
-                );
+                {
+                    Explain1,
+                    Explain2,
+                    Explain3,
+                    Explain4,
+                    Explain5,
+                }
+            );
         }
 
         private void SetupDisplay()
@@ -68,6 +67,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
             _displayer.SetValueFilter(Value.None);
             _displayer.SetDescription(ExplanationKey(1), _houseFormatted);
         }
+
         private void Explain2()
         {
             SetupDisplay();
@@ -76,6 +76,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
             _displayer.SetValueFilter(_value);
             _displayer.SetDescription(ExplanationKey(2), _value);
         }
+
         private void Explain3()
         {
             SetupDisplay();
@@ -85,6 +86,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
             _displayer.SetValueFilter(_value);
             _displayer.SetDescription(ExplanationKey(3), _value);
         }
+
         private void Explain4()
         {
             SetupDisplay();
@@ -94,6 +96,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
             _displayer.SetValueFilter(_value);
             _displayer.SetDescription(ExplanationKey(4), _blockFormatted);
         }
+
         private void Explain5()
         {
             SetupDisplay();

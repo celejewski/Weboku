@@ -1,4 +1,4 @@
-﻿namespace UI.BlazorWASM.Hints
+﻿namespace Weboku.UserInterface.Hints
 {
     public enum HintsState
     {

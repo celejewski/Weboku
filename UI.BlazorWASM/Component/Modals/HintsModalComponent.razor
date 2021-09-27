@@ -1,8 +1,10 @@
-﻿@inject HintsProvider HintsProvider
+﻿@using Weboku.UserInterface.Providers
+@using Weboku.UserInterface.Commands
+@using Weboku.UserInterface.Hints
+@inject HintsProvider HintsProvider
 @inject CloseModalCommand CloseModalCommand
-@inject UI.BlazorWASM.Hints.Displayer Displayer
+@inject Displayer Displayer
 @inject ILanguageContainerService LanguageContainer
-@using Hints
 
 <ModalWithGridTemplateComponent>
     <Content>

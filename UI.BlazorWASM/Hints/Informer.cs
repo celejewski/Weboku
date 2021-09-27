@@ -1,9 +1,9 @@
-﻿using Application;
-using Core.Data;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Application;
+using Core.Data;
 
-namespace UI.BlazorWASM.Hints
+namespace Weboku.UserInterface.Hints
 {
     /// <summary>
     /// Passes user readonly data to determine if ISolvingTechnique can execute.

@@ -1,9 +1,9 @@
-﻿using Core.Data;
-using Core.Hints.SolvingTechniques;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Core.Data;
+using Core.Hints.SolvingTechniques;
 
-namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
+namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
 {
     public abstract class BaseSolvingTechniqueDisplayer : ISolvingTechniqueDisplayer
     {
@@ -29,7 +29,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
         protected string TitleKey => $"{_locKey}__title";
         protected string DescriptionKey => $"{_locKey}__description";
         protected string ExplanationKey(object index) => $"{_locKey}__explanation-{index}";
-        
+
         public virtual void DisplayHint()
         {
             _displayer.SetTitle(TitleKey);
@@ -40,10 +40,12 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
             _displayer.SetTitle(TitleKey);
             _displayer.SetDescription(DescriptionKey);
         }
+
         public void Execute(Grid grid)
         {
             _solvingTechnique?.Execute(grid);
         }
+
         public bool CanExecute(Grid grid)
         {
             return _solvingTechnique == null || _solvingTechnique.CanExecute(grid);
@@ -58,11 +60,11 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
         public bool HasPreviousExplanation => _index > 0;
         public void NextExplanation() => _index += 1;
         public void PreviousExplanation() => _index -= 1;
+
         public void DisplayExplanation()
         {
             _displayer.Clear();
             _explanationSteps[_index]();
         }
-
     }
 }

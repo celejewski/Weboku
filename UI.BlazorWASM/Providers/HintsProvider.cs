@@ -1,9 +1,9 @@
-﻿using Application;
-using System;
-using UI.BlazorWASM.Hints;
-using UI.BlazorWASM.Hints.SolvingTechniqueDisplayers;
+﻿using System;
+using Application;
+using Weboku.UserInterface.Hints;
+using Weboku.UserInterface.Hints.SolvingTechniqueDisplayers;
 
-namespace UI.BlazorWASM.Providers
+namespace Weboku.UserInterface.Providers
 {
     public class HintsProvider : IProvider
     {
@@ -14,6 +14,7 @@ namespace UI.BlazorWASM.Providers
         public event Action OnChanged;
 
         public HintsState State { get; private set; }
+
         public void SetState(HintsState value)
         {
             State = value;
@@ -25,6 +26,7 @@ namespace UI.BlazorWASM.Providers
         public bool HasPreviousExplanation => _currentTechnique.HasPreviousExplanation;
 
         private ISolvingTechniqueDisplayer _currentTechnique;
+
         private ISolvingTechniqueDisplayer GetNextTechnique()
         {
             return DisplayTechniqueFactory.MakeDisplayer(_informer, _displayer, _domainFacade.GetNextHint());
@@ -86,6 +88,5 @@ namespace UI.BlazorWASM.Providers
             _displayer.Hide();
             SetState(HintsState.Hide);
         }
-
     }
 }

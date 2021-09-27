@@ -1,7 +1,8 @@
-﻿@inject DomainFacade DomainFacade
+﻿@using Weboku.UserInterface.Providers
+@using Weboku.UserInterface.Enums
+@using Weboku.UserInterface.Converters
+@inject DomainFacade DomainFacade
 @inject CandidateColorProvider CandidateColorProvider
-@using UI.BlazorWASM.Converters
-@using UI.BlazorWASM.Enums
 
 <div class="mark__candidate @_currentClass"
         style="grid-column: @_gridColumn; grid-row: @_gridRow;">

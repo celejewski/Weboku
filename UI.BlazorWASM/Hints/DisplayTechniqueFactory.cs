@@ -1,17 +1,18 @@
-﻿using Core.Hints.SolvingTechniques;
-using System;
+﻿using System;
 using System.Linq;
-using UI.BlazorWASM.Hints.SolvingTechniqueDisplayers;
+using Core.Hints.SolvingTechniques;
+using Weboku.UserInterface.Hints.SolvingTechniqueDisplayers;
 
-namespace UI.BlazorWASM.Hints
+namespace Weboku.UserInterface.Hints
 {
     public static class DisplayTechniqueFactory
     {
         public static ISolvingTechniqueDisplayer MakeDisplayer(Informer informer, Displayer displayer, ISolvingTechnique technique)
         {
-            if( technique == null ) return new NotFoundDisplayer(informer, displayer);
+            if (technique == null) return new NotFoundDisplayer(informer, displayer);
 
-            var tuples = new[]{
+            var tuples = new[]
+            {
                 (typeof(NoSolution), typeof(NoSolutionDisplayer)),
                 (typeof(InvalidValue), typeof(InvalidValuesDisplayer)),
                 (typeof(CandidateMissing), typeof(CandidateMissingDisplayer)),
@@ -32,7 +33,7 @@ namespace UI.BlazorWASM.Hints
 
             var tuple = tuples.FirstOrDefault(tuple => technique.GetType() == tuple.Item1);
 
-            if( tuple == default ) return new NotFoundDisplayer(informer, displayer);
+            if (tuple == default) return new NotFoundDisplayer(informer, displayer);
 
             return (ISolvingTechniqueDisplayer) Activator.CreateInstance(tuple.Item2, informer, displayer, technique);
         }

@@ -1,8 +1,8 @@
 ﻿using Core.Data;
 using Microsoft.AspNetCore.Components.Web;
-using UI.BlazorWASM.Enums;
+using Weboku.UserInterface.Enums;
 
-namespace UI.BlazorWASM.ClickableActions
+namespace Weboku.UserInterface.ClickableActions
 {
     public class ClickableActionArgs
     {

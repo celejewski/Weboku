@@ -8,11 +8,11 @@ menu__candidates-header: Candidates
 menu__find-all: Find all
 menu__remove-all: Remove all
 
-difficulty__easy: "Easy"
-difficulty__medium: "Medium"
-difficulty__hard: "Hard"
-difficulty__extreme: "Extreme"
-difficulty__unfair: "Unfair"
+difficulty__Easy: "Easy"
+difficulty__Medium: "Medium"
+difficulty__Hard: "Hard"
+difficulty__Extreme: "Extreme"
+difficulty__Unfair: "Unfair"
 
 new-game__new-game: "New game"
 new-game__custom-game: "Custom game"

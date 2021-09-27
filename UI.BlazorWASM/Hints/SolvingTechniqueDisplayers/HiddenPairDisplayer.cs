@@ -1,12 +1,12 @@
-﻿using Core.Data;
+﻿using System.Linq;
+using Core.Data;
 using Core.Hints.SolvingTechniques;
-using System.Linq;
 
-namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
+namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
 {
     public class HiddenPairDisplayer : HiddenSubsetDisplayer
     {
-        public HiddenPairDisplayer(Informer informer, Displayer displayer, HiddenPair hiddenSubset) 
+        public HiddenPairDisplayer(Informer informer, Displayer displayer, HiddenPair hiddenSubset)
             : base(informer, displayer, hiddenSubset)
         {
             _locKey = "hidden-pair";

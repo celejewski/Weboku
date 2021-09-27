@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Components.Web;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
-using System.Collections.Generic;
 
-namespace UI.BlazorWASM.Providers
+namespace Weboku.UserInterface.Providers
 {
     public class HotkeyProvider
     {
@@ -16,10 +16,10 @@ namespace UI.BlazorWASM.Providers
         [JSInvokable]
         public static void OnKeyDown(KeyboardEventArgs e)
         {
-            foreach( var item in Hotkeys )
+            foreach (var item in Hotkeys)
             {
-                if( item.Key == e.Key
-                    && item.Ctrl == e.CtrlKey )
+                if (item.Key == e.Key
+                    && item.Ctrl == e.CtrlKey)
                 {
                     _ = item.Command.Execute();
                 }

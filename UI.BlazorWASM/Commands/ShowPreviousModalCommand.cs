@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using UI.BlazorWASM.Providers;
+using Weboku.UserInterface.Providers;
 
-namespace UI.BlazorWASM.Commands
+namespace Weboku.UserInterface.Commands
 {
     public class ShowPreviousModalCommand : ICommand
     {
@@ -14,10 +14,11 @@ namespace UI.BlazorWASM.Commands
 
         public Task Execute()
         {
-            if( _modalProvider.HasPreviousState )
+            if (_modalProvider.HasPreviousState)
             {
                 _modalProvider.GoToPreviousState();
             }
+
             return Task.CompletedTask;
         }
     }

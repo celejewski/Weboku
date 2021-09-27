@@ -1,14 +1,15 @@
-﻿using Application;
-using System;
+﻿using System;
 using System.Timers;
+using Application;
 
-namespace UI.BlazorWASM.Providers
+namespace Weboku.UserInterface.Providers
 {
     public class PreserveStateProvider
     {
         private bool _isDirty;
         private readonly DomainFacade _domainFacade;
         private readonly Timer _timer;
+
         public PreserveStateProvider(DomainFacade gridProvider)
         {
             _domainFacade = gridProvider;
@@ -21,7 +22,7 @@ namespace UI.BlazorWASM.Providers
 
         public void Save()
         {
-            if( _isDirty )
+            if (_isDirty)
             {
                 _domainFacade.Save();
             }
@@ -33,7 +34,7 @@ namespace UI.BlazorWASM.Providers
             {
                 _domainFacade.Load();
             }
-            catch( Exception e )
+            catch (Exception e)
             {
                 Console.WriteLine(e);
             }

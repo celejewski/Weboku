@@ -1,21 +1,19 @@
 ﻿using AKSoftware.Localization.MultiLanguages;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
-using UI.BlazorWASM.ClickableActions;
-using UI.BlazorWASM.Commands;
-using UI.BlazorWASM.Hints;
-using UI.BlazorWASM.Providers;
-using UI.BlazorWASM.ViewModels;
+using Weboku.UserInterface.ClickableActions;
+using Weboku.UserInterface.Commands;
+using Weboku.UserInterface.Component.NumpadMenu;
+using Weboku.UserInterface.Hints;
+using Weboku.UserInterface.Providers;
 
-namespace UI.BlazorWASM.Helpers
+namespace Weboku.UserInterface.Helpers
 {
     public static class RegisterServices
     {
-
-
         public static void RegisterLocalization(this IServiceCollection services)
         {
-            services.AddLangaugeContainer(Assembly.GetExecutingAssembly());
+            services.AddLanguageContainer(Assembly.GetExecutingAssembly());
             services.AddScoped<SettingsProvider>();
         }
 

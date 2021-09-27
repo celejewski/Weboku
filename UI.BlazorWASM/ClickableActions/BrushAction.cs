@@ -1,8 +1,8 @@
 ﻿using Core.Data;
-using UI.BlazorWASM.Enums;
-using UI.BlazorWASM.Providers;
+using Weboku.UserInterface.Enums;
+using Weboku.UserInterface.Providers;
 
-namespace UI.BlazorWASM.ClickableActions
+namespace Weboku.UserInterface.ClickableActions
 {
     public class BrushAction : IClickableAction
     {
@@ -17,10 +17,12 @@ namespace UI.BlazorWASM.ClickableActions
         {
             ToggleColor(args.Position, args.Color1);
         }
+
         public void RightClickAction(ClickableActionArgs args)
         {
             ToggleColor(args.Position, args.Color2);
         }
+
         private void ToggleColor(Position position, Color color)
         {
             var colorToSet = _cellColorProvider.GetColor(position) == color ? Color.None : color;

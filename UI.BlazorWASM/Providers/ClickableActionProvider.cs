@@ -1,10 +1,10 @@
-﻿using Core.Data;
+﻿using System;
+using Core.Data;
 using Microsoft.AspNetCore.Components.Web;
-using System;
-using UI.BlazorWASM.ClickableActions;
-using UI.BlazorWASM.Enums;
+using Weboku.UserInterface.ClickableActions;
+using Weboku.UserInterface.Enums;
 
-namespace UI.BlazorWASM.Providers
+namespace Weboku.UserInterface.Providers
 {
     public class ClickableActionProvider
     {
@@ -46,6 +46,7 @@ namespace UI.BlazorWASM.Providers
         }
 
         public event Action OnChanged;
+
         public void SelectClickableAction(ClickableAction clickableAction)
         {
             _clickableAction = _clickableActionFactory.MakeClickableAction(clickableAction);
@@ -60,6 +61,7 @@ namespace UI.BlazorWASM.Providers
             Color2 = Color.Second;
             _clickableActionFactory = clickableActionFactory;
         }
+
         private ClickableActionArgs CreateArgs(MouseEventArgs e, Position position)
         {
             return new ClickableActionArgs

@@ -1,7 +1,6 @@
-﻿using System;
-using UI.BlazorWASM.Enums;
+﻿using Weboku.UserInterface.Enums;
 
-namespace UI.BlazorWASM.Converters
+namespace Weboku.UserInterface.Converters
 {
     public static class CellColorConverter
     {

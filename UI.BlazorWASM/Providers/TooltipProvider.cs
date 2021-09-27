@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace UI.BlazorWASM.Providers
+namespace Weboku.UserInterface.Providers
 {
     public class TooltipProvider : IProvider
     {
@@ -9,13 +9,14 @@ namespace UI.BlazorWASM.Providers
 
         public string Text
         {
-            get => _text; set
+            get => _text;
+            set
             {
-
                 _text = value;
                 OnChanged?.Invoke();
             }
         }
+
         public bool IsVisible
         {
             get => _isVisible;

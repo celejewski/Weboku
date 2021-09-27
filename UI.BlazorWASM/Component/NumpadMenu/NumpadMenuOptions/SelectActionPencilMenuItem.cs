@@ -1,15 +1,15 @@
-﻿using UI.BlazorWASM.Commands;
-using UI.BlazorWASM.Providers;
+﻿using Weboku.UserInterface.Commands;
+using Weboku.UserInterface.Providers;
 
-namespace UI.BlazorWASM.Component.NumpadMenu.NumpadMenuOptions
+namespace Weboku.UserInterface.Component.NumpadMenu.NumpadMenuOptions
 {
     public class SelectActionPencilMenuItem : BaseMenuOption, INumpadMenuLabel
     {
         public SelectActionPencilMenuItem(NumpadMenuProvider numpadMenuProvider, SelectActionPencilCommand command)
             : base(command, numpadMenuProvider.ActionContainer)
         {
-
         }
+
         public string Label => "fas fa-pencil-alt";
         public override string Tooltip => "select-action-pencil__tooltip";
 

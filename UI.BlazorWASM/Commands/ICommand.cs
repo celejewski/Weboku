@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace UI.BlazorWASM.Commands
+namespace Weboku.UserInterface.Commands
 {
     public interface ICommand
     {

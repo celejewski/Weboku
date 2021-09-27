@@ -1,7 +1,7 @@
-﻿using Application.Filters;
-using System;
+﻿using System;
+using Application.Filters;
 
-namespace UI.BlazorWASM.Converters
+namespace Weboku.UserInterface.Converters
 {
     public class FilterOptionToCssConverter
     {

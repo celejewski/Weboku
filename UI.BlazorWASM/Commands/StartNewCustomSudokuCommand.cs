@@ -1,7 +1,7 @@
-﻿using Application;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Application;
 
-namespace UI.BlazorWASM.Commands
+namespace Weboku.UserInterface.Commands
 {
     public class StartNewCustomSudokuCommand : ICommand
     {
@@ -16,7 +16,7 @@ namespace UI.BlazorWASM.Commands
 
         public async Task Execute()
         {
-            if( _domainFacade.IsCustomGridValid )
+            if (_domainFacade.IsCustomGridValid)
             {
                 _domainFacade.StartNewCustomGame();
                 await _startGameCommand.Execute();

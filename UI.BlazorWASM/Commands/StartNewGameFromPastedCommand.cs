@@ -1,7 +1,7 @@
-﻿using Application;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Application;
 
-namespace UI.BlazorWASM.Commands
+namespace Weboku.UserInterface.Commands
 {
     public class StartNewGameFromPastedCommand : ICommand
     {
@@ -18,7 +18,7 @@ namespace UI.BlazorWASM.Commands
 
         public async Task Execute()
         {
-            if( _domainFacade.PastedIsValid )
+            if (_domainFacade.PastedIsValid)
             {
                 _domainFacade.StartNewGameFromPasted();
                 await _startGameCommand.Execute();

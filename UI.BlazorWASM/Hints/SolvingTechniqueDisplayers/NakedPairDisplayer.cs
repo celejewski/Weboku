@@ -1,10 +1,10 @@
-﻿using Core.Data;
-using Core.Hints.SolvingTechniques;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Data;
+using Core.Hints.SolvingTechniques;
 
-namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
+namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
 {
     public class NakedPairDisplayer : NakedSubsetDisplayer
     {
@@ -29,12 +29,13 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
 
 
             _positionsInHouses = new List<Position>();
-            foreach( var house in _houses )
+            foreach (var house in _houses)
             {
                 _positionsInHouses.AddRange(HintsHelper.GetPositionsInHouse(_pos1, house));
             }
 
-            _explanationSteps.AddRange(new Action[]{
+            _explanationSteps.AddRange(new Action[]
+            {
                 Explain1,
                 Explain2,
                 Explain3,
@@ -48,6 +49,7 @@ namespace UI.BlazorWASM.Hints.SolvingTechniqueDisplayers
             _displayer.SetTitle(TitleKey);
             _displayer.HighlightHouses(_pos1, _houses);
         }
+
         public override void DisplaySolution()
         {
             var _housesFormated = _displayer.Format(_houses, _pos1);

@@ -1,10 +1,10 @@
-﻿using Application;
+﻿using System.Threading.Tasks;
+using Application;
 using Application.Filters;
-using System.Threading.Tasks;
-using UI.BlazorWASM.ClickableActions;
-using UI.BlazorWASM.Providers;
+using Weboku.UserInterface.ClickableActions;
+using Weboku.UserInterface.Providers;
 
-namespace UI.BlazorWASM.Commands
+namespace Weboku.UserInterface.Commands
 {
     public class SelectActionEraserCommand : ICommand
     {
@@ -21,6 +21,7 @@ namespace UI.BlazorWASM.Commands
             _domainFacade = filterProvider;
             _numpadMenuProvider = numpadMenuProvider;
         }
+
         public Task Execute()
         {
             _clickableActionProvider.SelectClickableAction(ClickableAction.Eraser);
