@@ -1,11 +1,11 @@
-﻿using Core.Data;
+﻿using System.Linq;
+using Core.Data;
 using Core.Hints.SolvingTechniques;
 using Core.Hints.TechniqueFinders;
 using Core.Serializers;
-using System.Linq;
 using Xunit;
 
-namespace Tests.TechniqueFinders
+namespace Core.Tests.TechniqueFinders
 {
     public class TwoStringKiteTest
     {
@@ -22,8 +22,8 @@ namespace Tests.TechniqueFinders
             var result = results[0];
             Assert.Equal(Value.Five, result.Value);
 
-            var expectedLegalPositions = new (int x, int y)[] { (5, 5), (1, 6) };
-            var expectedInfoPositions = new (int x, int y)[] { (3, 6), (5, 8) };
+            var expectedLegalPositions = new (int x, int y)[] {(5, 5), (1, 6)};
+            var expectedInfoPositions = new (int x, int y)[] {(3, 6), (5, 8)};
             (int x, int y) expectedPositionToRemove = (1, 5);
             Assert.All(result.LegalPositions,
                 pos1 => expectedLegalPositions.Any(pos2 => (pos1.x, pos1.y) == (pos2.x, pos2.y)));

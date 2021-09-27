@@ -1,16 +1,17 @@
-﻿using Core.Data;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
+using Core.Data;
 
-namespace Core.Generator
+namespace API.Generator.Generator
 {
     public class PredefinedGeneratorV2 : ISudokuGenerator
     {
         private static Dictionary<string, List<Sudoku>> _dict;
         private static readonly Random _random = new Random();
+
         public PredefinedGeneratorV2()
         {
             var file = File.ReadAllText("combinedv2.txt");
@@ -19,7 +20,7 @@ namespace Core.Generator
 
         public Sudoku Generate(string difficulty)
         {
-            if( _dict.ContainsKey(difficulty) )
+            if (_dict.ContainsKey(difficulty))
             {
                 var list = _dict[difficulty];
                 var index = _random.Next() % list.Count;

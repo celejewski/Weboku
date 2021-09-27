@@ -1,10 +1,10 @@
-﻿using Core.Hints.SolvingTechniques;
+﻿using System.Linq;
+using Core.Hints.SolvingTechniques;
 using Core.Hints.TechniqueFinders;
 using Core.Serializers;
-using System.Linq;
 using Xunit;
 
-namespace Tests.TechniqueFinders
+namespace Core.Tests.TechniqueFinders
 {
     public class LockedCandidatesClaimingFinderTest
     {
@@ -35,7 +35,7 @@ namespace Tests.TechniqueFinders
 
             var result = results.First(result => result.Value == 4);
 
-            foreach( var (r, c) in expectedPositions )
+            foreach (var (r, c) in expectedPositions)
             {
                 var x = c - 1;
                 var y = r - 1;

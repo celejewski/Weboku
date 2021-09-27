@@ -17,9 +17,9 @@ namespace Core.Serializers
             {
                 var bytes = WebEncoders.Base64UrlDecode(text);
                 var bigInt = new BigInteger(bytes);
-                var parsed = bigInt.ToString().Substring(1);
+                var parsed = bigInt.ToString()[1..];
 
-                if( parsed.Length != 81 )
+                if (parsed.Length != 81)
                 {
                     throw new ArgumentException();
                 }
@@ -27,7 +27,7 @@ namespace Core.Serializers
                 return _innerConverter.Deserialize(parsed);
             }
 
-            catch( Exception ex )
+            catch (Exception ex)
             {
                 throw new GridSerializationException($"Exception in {nameof(Base64GridSerializer)} occured during {nameof(Deserialize)} with value \"{text}\" ", ex);
             }
@@ -50,10 +50,11 @@ namespace Core.Serializers
         {
             var sb = new StringBuilder();
             sb.Append("1");
-            foreach( var pos in Position.Positions )
+            foreach (var pos in Position.Positions)
             {
                 sb.Append(grid.GetValue(pos));
             }
+
             var bigInt = BigInteger.Parse(sb.ToString());
             var bytes = bigInt.ToByteArray();
             return WebEncoders.Base64UrlEncode(bytes);

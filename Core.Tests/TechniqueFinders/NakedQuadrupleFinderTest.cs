@@ -1,11 +1,10 @@
-﻿using Core.Hints.SolvingTechniques;
+﻿using System.Linq;
+using Core.Hints.SolvingTechniques;
 using Core.Hints.TechniqueFinders;
 using Core.Serializers;
-using System;
-using System.Linq;
 using Xunit;
 
-namespace Tests.TechniqueFinders
+namespace Core.Tests.TechniqueFinders
 {
     public class NakedQuadrupleFinderTest
     {
@@ -23,7 +22,7 @@ namespace Tests.TechniqueFinders
 
             var result = results[0];
 
-            var expectedValues = new[] { 4, 5, 6, 9 };
+            var expectedValues = new[] {4, 5, 6, 9};
             var expectedPositions = new (int x, int y)[]
             {
                 (3, 0),
@@ -38,7 +37,7 @@ namespace Tests.TechniqueFinders
             Assert.All(expectedPositions, expectedPos => result.Positions
                 .Any(actualPos => (expectedPos.x, expectedPos.y) == (actualPos.x, actualPos.y)));
             Assert.All(result.Positions, actualPos => expectedPositions
-                            .Any(expectedPos => (actualPos.x, actualPos.y) == (expectedPos.x, expectedPos.y)));
+                .Any(expectedPos => (actualPos.x, actualPos.y) == (expectedPos.x, expectedPos.y)));
         }
     }
 }

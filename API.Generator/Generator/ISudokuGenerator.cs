@@ -1,6 +1,6 @@
 ﻿using Core.Data;
 
-namespace Core.Generator
+namespace API.Generator.Generator
 {
     public interface ISudokuGenerator
     {

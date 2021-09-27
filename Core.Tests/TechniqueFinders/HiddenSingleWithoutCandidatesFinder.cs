@@ -1,11 +1,10 @@
-﻿using Core.Data;
+﻿using System.Linq;
 using Core.Hints.SolvingTechniques;
 using Core.Hints.TechniqueFinders;
 using Core.Serializers;
-using System.Linq;
 using Xunit;
 
-namespace SmartSolver.Tests.TechniqueFinders
+namespace Core.Tests.TechniqueFinders
 {
     public class HiddenSingleWithoutCandidatesFinderTest
     {
@@ -20,7 +19,8 @@ namespace SmartSolver.Tests.TechniqueFinders
 
             var techniques = _finder.FindAll(grid).OfType<HiddenSingle>().ToList();
 
-            (int r, int c, int value)[] expected = new[]{
+            (int r, int c, int value)[] expected = new[]
+            {
                 (7, 9, 8),
                 (8, 4, 2),
                 (7, 6, 1),
@@ -29,7 +29,7 @@ namespace SmartSolver.Tests.TechniqueFinders
             };
 
             int count = 0;
-            foreach( var (row, col, value) in expected )
+            foreach (var (row, col, value) in expected)
             {
                 var x = col - 1;
                 var y = row - 1;
@@ -37,6 +37,7 @@ namespace SmartSolver.Tests.TechniqueFinders
                 Assert.True(found > 0);
                 count += found;
             }
+
             Assert.Equal(count, techniques.Count);
         }
 

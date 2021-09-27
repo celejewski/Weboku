@@ -1,10 +1,10 @@
-﻿using Core.Serializers;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Core.Serializers;
 using Core.Solvers;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Linq;
 
-namespace API.Solver.Controllers
+namespace API.Generator.Controllers
 {
     [ApiController]
     [Route("[controller]")]
@@ -34,7 +34,7 @@ namespace API.Solver.Controllers
         [Produces("text/plain")]
         public ActionResult<string> Get(string serializedGrid)
         {
-            if( !IsValidFormat(serializedGrid) ) return BadRequest();
+            if (!IsValidFormat(serializedGrid)) return BadRequest();
 
             var serializer = SelectSerializer(serializedGrid);
             var grid = serializer.Deserialize(serializedGrid);

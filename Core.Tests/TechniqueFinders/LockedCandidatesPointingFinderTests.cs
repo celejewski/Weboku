@@ -1,10 +1,10 @@
-﻿using Core.Hints.SolvingTechniques;
+﻿using System.Linq;
+using Core.Hints.SolvingTechniques;
 using Core.Hints.TechniqueFinders;
 using Core.Serializers;
-using System.Linq;
 using Xunit;
 
-namespace Tests.TechniqueFinders
+namespace Core.Tests.TechniqueFinders
 {
     public class LockedCandidatesPointingFinderTests
     {
@@ -22,7 +22,7 @@ namespace Tests.TechniqueFinders
 
             Assert.Equal(3, results.Count);
 
-            var expectedValues = new[] { 3, 5, 8 };
+            var expectedValues = new[] {3, 5, 8};
             Assert.True(expectedValues.All(value => results.Any(t => t.Value == value)));
         }
     }

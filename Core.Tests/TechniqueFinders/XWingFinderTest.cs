@@ -1,11 +1,11 @@
-﻿using Core.Data;
+﻿using System.Linq;
+using Core.Data;
 using Core.Hints.SolvingTechniques;
 using Core.Hints.TechniqueFinders;
 using Core.Serializers;
-using System.Linq;
 using Xunit;
 
-namespace Tests.TechniqueFinders
+namespace Core.Tests.TechniqueFinders
 {
     public class XWingFinderTest
     {

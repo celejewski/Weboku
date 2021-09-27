@@ -1,15 +1,16 @@
-﻿using Core.Data;
+﻿using System.Linq;
+using Core.Data;
 using Core.Hints.SolvingTechniques;
 using Core.Hints.TechniqueFinders;
 using Core.Serializers;
-using System.Linq;
 using Xunit;
 
-namespace Tests.TechniqueFinders
+namespace Core.Tests.TechniqueFinders
 {
     public class HiddenSingleFinderTest
     {
         private readonly HiddenSingleFinder _finder = new HiddenSingleFinder();
+
         [Fact]
         public void FindsOne()
         {
@@ -42,7 +43,7 @@ namespace Tests.TechniqueFinders
         public void NoExceptions()
         {
             var givens = new string[]
-                {
+            {
                 ".....58...4.........7428.6.71..64..5....1....9..38..76.2.1536.........4...52.....",
                 "............8.1247..426.1...619.....9.7...5.2.....596...2.978..7356.2............",
                 "52...8....6..235....15.......5.1..797...8...534..9.1.......28....285..9....4...23",
@@ -50,7 +51,7 @@ namespace Tests.TechniqueFinders
                 "62...47......1.....456...2.8.....4...6.9.3.5...1.....7.7...184.....9......65...71",
             };
 
-            foreach( var given in givens )
+            foreach (var given in givens)
             {
                 var grid = GridSerializerFactory.Make(GridSerializerName.Hodoku).Deserialize(given);
                 grid.FillAllLegalCandidates();

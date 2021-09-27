@@ -1,12 +1,11 @@
-﻿using Core.Data;
+﻿using System.Linq;
+using Core.Data;
 using Core.Hints.SolvingTechniques;
 using Core.Hints.TechniqueFinders;
 using Core.Serializers;
-using System;
-using System.Linq;
 using Xunit;
 
-namespace Tests.TechniqueFinders
+namespace Core.Tests.TechniqueFinders
 {
     public class HiddenTripleFinderTest
     {
@@ -22,7 +21,7 @@ namespace Tests.TechniqueFinders
             var results = finder.FindAll(grid).OfType<HiddenSubset>().ToList();
             Assert.Equal(2, results.Count);
 
-            var values = new Value[] { 1, 3, 4 };
+            var values = new Value[] {1, 3, 4};
             Assert.Contains(results, result => values.All(value => result.Values.Contains(value)));
         }
     }

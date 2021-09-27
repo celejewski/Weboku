@@ -1,5 +1,5 @@
-﻿using Core.Data;
-using Core.Generator;
+﻿using API.Generator.Generator;
+using Core.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Generator.Controllers

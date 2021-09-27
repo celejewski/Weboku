@@ -5,7 +5,6 @@ using Xunit;
 
 namespace Core.Tests
 {
-
     public class SolverTest
     {
         private readonly BruteForceSolver _bruteForceSolver = new BruteForceSolver();
@@ -80,7 +79,7 @@ namespace Core.Tests
         {
             const string givens = ".....9...571..5....9.....83...49.5..82.6.3.74..9.28...63.....1....8..43....9.....";
             var grid = _converter.Deserialize(givens);
-            Assert.Throws(typeof(InvalidGridException), () => _bruteForceSolver.Solve(grid));
+            Assert.Throws<InvalidGridException>(() => _bruteForceSolver.Solve(grid));
         }
     }
 }
