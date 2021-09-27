@@ -20,7 +20,7 @@ namespace Weboku.Generator.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddSingleton<ISudokuGenerator, PredefinedGeneratorV2>();
+            services.AddSingleton<ISudokuGenerator, PredefinedGenerator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -6,7 +6,7 @@ using Weboku.Core.Exceptions;
 
 namespace Weboku.Core.Serializers
 {
-    internal class HodokuGridSerializer : IGridSerializer
+    public class HodokuGridSerializer : IGridSerializer
     {
         public Grid Deserialize(string input)
         {

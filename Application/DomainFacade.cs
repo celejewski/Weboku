@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Weboku.Application.Enums;
 using Weboku.Application.Interfaces;
 using Weboku.Application.Managers;
+using Weboku.Application.Managers.GridGenerators;
 using Weboku.Core.Data;
 using Weboku.Core.Exceptions;
 using Weboku.Core.Hints;
@@ -22,9 +23,11 @@ namespace Weboku.Application
         private readonly ShareManager _shareManager;
         private readonly PasteManager _pasteManager;
         private readonly ISolver _solver;
+        private readonly IGridGenerator _gridGenerator;
 
         public Difficulty Difficulty;
         public event Action OnGridChanged;
+
 
         public DomainFacade(IStorageProvider storageProvider, string baseUri)
         {
@@ -36,6 +39,7 @@ namespace Weboku.Application
             _shareManager = new ShareManager(baseUri);
             _pasteManager = new PasteManager();
             _solver = new BruteForceSolver();
+            _gridGenerator = new PredefinedGridGenerator();
         }
 
         public void StartNewGame(Grid grid, Difficulty difficulty = Difficulty.Unknown)
@@ -63,7 +67,7 @@ namespace Weboku.Application
 
         public async Task StartNewGame(Difficulty difficulty)
         {
-            var grid = await GridGenerator.Make(difficulty).ConfigureAwait(true);
+            var grid = await _gridGenerator.Make(difficulty).ConfigureAwait(true);
             StartNewGame(grid, difficulty);
         }
 

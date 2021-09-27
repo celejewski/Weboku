@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.Json;
 using Weboku.Core.Data;
 
@@ -13,7 +14,7 @@ namespace Weboku.Generator.Api.Generator
 
         public PredefinedGenerator()
         {
-            var file = File.ReadAllText("combined.txt");
+            var file = File.ReadAllText("combinedv2.txt");
             _dict = JsonSerializer.Deserialize<Dictionary<string, List<Sudoku>>>(file);
         }
 
@@ -23,7 +24,9 @@ namespace Weboku.Generator.Api.Generator
             {
                 var list = _dict[difficulty];
                 var index = _random.Next() % list.Count;
-                return list[index];
+                var sudoku = list[index];
+                sudoku.Steps = Enumerable.Empty<string>();
+                return sudoku;
             }
             else
             {
