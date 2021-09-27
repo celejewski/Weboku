@@ -6,6 +6,5 @@ namespace Weboku.Core.Data
     {
         public string Given { get; set; }
         public IEnumerable<string> Steps { get; set; } = new List<string>();
-        public string Difficulty { get; set; }
     }
 }

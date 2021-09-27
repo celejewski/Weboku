@@ -29,21 +29,21 @@ namespace Weboku.Core.Data
             _values[position.x, position.y] = value;
             _candidates[position.x, position.y] = Candidates.None;
 
-            if (value != Value.None)
+            if (value == Value.None) return;
+
+            foreach (var seenBy in Position.GetCoordsWhichCanSeePosition(position))
             {
-                foreach (var seenBy in Position.GetCoordsWhichCanSeePosition(position))
-                {
-                    RemoveCandidate(seenBy, value);
-                }
+                RemoveCandidate(seenBy, value);
             }
         }
 
         public bool IsCandidateLegal(Position position, Value value)
         {
-            return value == Value.None
-                   || Position.GetCoordsWhichCanSeePosition(position)
-                       .Where(otherPosition => !position.Equals(otherPosition))
-                       .All(otherPosition => GetValue(otherPosition) != value);
+            if (value == Value.None) return true;
+
+            return Position.GetCoordsWhichCanSeePosition(position)
+                .Where(otherPosition => !position.Equals(otherPosition))
+                .All(otherPosition => GetValue(otherPosition) != value);
         }
 
         public bool HasCandidate(Position position, Value value)
