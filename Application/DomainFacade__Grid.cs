@@ -7,8 +7,8 @@ namespace Weboku.Application
     public sealed partial class DomainFacade
     {
         private Grid _grid;
-        private Grid _solutionGrid = new Grid();
-        private Grid _customGrid = new Grid();
+        private Grid _solutionGrid = new();
+        private Grid _customGrid = new();
 
         private Grid Grid
         {

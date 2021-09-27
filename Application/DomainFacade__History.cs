@@ -9,8 +9,8 @@ namespace Weboku.Application
 
         public event Action OnHistoryChanged
         {
-            add { _historyManager.OnChanged += value; }
-            remove { _historyManager.OnChanged -= value; }
+            add => _historyManager.OnChanged += value;
+            remove => _historyManager.OnChanged -= value;
         }
 
         public void Undo()
