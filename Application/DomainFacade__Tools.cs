@@ -1,28 +1,73 @@
-﻿using Weboku.Core.Data;
+﻿using System;
+using Weboku.Application.Enums;
+using Weboku.Core.Data;
 
 namespace Weboku.Application
 {
     public sealed partial class DomainFacade
     {
-        public void UseMarker(Position position, Value value)
+        private Tool _tool = Tool.Marker;
+        public event EventHandler<Tool> OnToolChanged;
+
+        private Value _selectedValue = Value.One;
+        public event EventHandler<Value> OnValueChanged;
+
+        public void UsePrimaryTool(Position position)
         {
             _historyManager.Save(Grid);
-            _toolManager.UseMarker(Grid, position, value);
+
+            switch (_tool)
+            {
+                case Tool.Marker:
+                    _toolManager.UseMarker(Grid, position, _selectedValue);
+                    break;
+                case Tool.Pencil:
+                    _toolManager.UsePencil(Grid, position, _selectedValue);
+                    break;
+                case Tool.Eraser:
+                    _toolManager.UseEraser(Grid, position);
+                    break;
+                default:
+                    throw new InvalidOperationException();
+            }
+
             GridChanged();
         }
 
-        public void UsePencil(Position position, Value value)
+        public void UseSecondaryTool(Position position)
         {
             _historyManager.Save(Grid);
-            _toolManager.UsePencil(Grid, position, value);
+
+            switch (_tool)
+            {
+                case Tool.Marker:
+                    _toolManager.UsePencil(Grid, position, _selectedValue);
+                    break;
+                case Tool.Pencil:
+                    _toolManager.UseMarker(Grid, position, _selectedValue);
+                    break;
+                case Tool.Eraser:
+                    _toolManager.UseEraser(Grid, position);
+                    break;
+                default:
+                    throw new InvalidOperationException();
+            }
+
             GridChanged();
         }
 
-        public void UseEraser(Position position)
+        public void SelectValue(Value value)
         {
-            _historyManager.Save(Grid);
-            _toolManager.UseEraser(Grid, position);
-            GridChanged();
+            if (value == Value.None) throw new ArgumentException(nameof(value));
+
+            _selectedValue = value;
+            OnValueChanged?.Invoke(this, value);
+        }
+
+        public void SelectTool(Tool tool)
+        {
+            _tool = tool;
+            OnToolChanged?.Invoke(this, tool);
         }
     }
 }

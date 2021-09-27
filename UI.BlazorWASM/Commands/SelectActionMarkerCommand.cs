@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Weboku.UserInterface.ClickableActions;
+using Weboku.Application.Enums;
 using Weboku.UserInterface.Providers;
 
 namespace Weboku.UserInterface.Commands
@@ -15,7 +15,7 @@ namespace Weboku.UserInterface.Commands
 
         public Task Execute()
         {
-            _clickableActionProvider.SelectClickableAction(ClickableAction.Marker);
+            _clickableActionProvider.SelectClickableAction(Tool.Marker);
             return Task.CompletedTask;
         }
     }

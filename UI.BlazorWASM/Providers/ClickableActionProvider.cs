@@ -1,5 +1,7 @@
-﻿using System;
-using Microsoft.AspNetCore.Components.Web;
+﻿using Microsoft.AspNetCore.Components.Web;
+using System;
+using Weboku.Application;
+using Weboku.Application.Enums;
 using Weboku.Core.Data;
 using Weboku.UserInterface.ClickableActions;
 using Weboku.UserInterface.Enums;
@@ -8,67 +10,31 @@ namespace Weboku.UserInterface.Providers
 {
     public class ClickableActionProvider
     {
+        private readonly DomainFacade _domainFacade;
         private IClickableAction _clickableAction;
 
-        private Value _value;
-        private Color _color1;
-        private Color _color2;
-        private readonly ClickableActionFactory _clickableActionFactory;
-
-        public Value Value
+        public ClickableActionProvider(DomainFacade domainFacade)
         {
-            get => _value;
-            set
-            {
-                _value = value;
-                OnChanged?.Invoke();
-            }
+            _domainFacade = domainFacade;
         }
 
-        public Color Color1
+        public void SetValue(Value value) => _domainFacade.SelectValue(value);
+
+        public Color Color1 { get; set; }
+        public Color Color2 { get; set; }
+
+        public void SelectClickableAction(Tool tool)
         {
-            get => _color1;
-            set
-            {
-                _color1 = value;
-                OnChanged?.Invoke();
-            }
+            _domainFacade.SelectTool(tool);
         }
 
-        public Color Color2
-        {
-            get => _color2;
-            set
-            {
-                _color2 = value;
-                OnChanged?.Invoke();
-            }
-        }
-
-        public event Action OnChanged;
-
-        public void SelectClickableAction(ClickableAction clickableAction)
-        {
-            _clickableAction = _clickableActionFactory.MakeClickableAction(clickableAction);
-            OnChanged?.Invoke();
-        }
-
-        public ClickableActionProvider(ClickableActionFactory clickableActionFactory)
-        {
-            _clickableAction = clickableActionFactory.MakeClickableAction(ClickableAction.Marker);
-            Value = Value.One;
-            Color1 = Color.First;
-            Color2 = Color.Second;
-            _clickableActionFactory = clickableActionFactory;
-        }
 
         private ClickableActionArgs CreateArgs(MouseEventArgs e, Position position)
         {
-            return new ClickableActionArgs
+            return new()
             {
                 MouseEventArgs = e,
                 Position = position,
-                Value = Value,
                 Color1 = Color1,
                 Color2 = Color2
             };
@@ -76,12 +42,14 @@ namespace Weboku.UserInterface.Providers
 
         public void OnLeftClick(MouseEventArgs e, Position position)
         {
-            _clickableAction.LeftClickAction(CreateArgs(e, position));
+            var clickableActionArgs = CreateArgs(e, position);
+            _domainFacade.UsePrimaryTool(clickableActionArgs.Position);
         }
 
         public void OnRightClick(MouseEventArgs e, Position position)
         {
-            _clickableAction.RightClickAction(CreateArgs(e, position));
+            var clickableActionArgs = CreateArgs(e, position);
+            _domainFacade.UseSecondaryTool(clickableActionArgs.Position);
         }
     }
 }

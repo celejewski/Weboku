@@ -18,43 +18,44 @@
          class="main"
          @oncontextmenu:preventDefault="true">
 
-        <ModalComponent />
+        <ModalComponent/>
         <div class="main__grid">
-            <BackgroundLayerComponent />
-            @if( _afterSecondRender )
-                {
-                    <FilterLayerComponent />
-                    <HintsHighlightLayerComponent />
-                    <CellColorLayerComponent />
-                }
-                @if( _afterFirstRender )
-                {
-                    <ValueLayerComponent />
-                    <CandidatesLayerComponent />
-                }
-            <BorderLayerComponent />
-            <ShadowLayerComponent />
-            @if( _afterSecondRender )
+            <BackgroundLayerComponent/>
+            @if (_afterSecondRender)
             {
-                <ClickableLayerComponent />
+                <FilterLayerComponent/>
+                <HintsHighlightLayerComponent/>
+                <CellColorLayerComponent/>
+            }
+            @if (_afterFirstRender)
+            {
+                <ValueLayerComponent/>
+                <CandidatesLayerComponent/>
+            }
+            <BorderLayerComponent/>
+            <ShadowLayerComponent/>
+            @if (_afterSecondRender)
+            {
+                <ClickableLayerComponent/>
             }
         </div>
         <div class="main__game-info">
-            <GameInfoComponent />
-            <TooltipComponent />
+            <GameInfoComponent/>
+            <TooltipComponent/>
         </div>
         <div class="main__numpad">
-            <NumpadMenuComponent />
+            <NumpadMenuComponent/>
         </div>
         <div class="main__menu">
-            <MenuComponent />
+            <MenuComponent/>
         </div>
     </div>
 </div>
 
 @code {
-        [Parameter]
-        public string SharedSudoku { get; set; }
+
+    [Parameter]
+    public string SharedSudoku { get; set; }
 
     private bool _afterFirstRender = false;
     private bool _afterSecondRender = false;
@@ -66,9 +67,8 @@
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-
         await JSRuntime.InvokeVoidAsync("resize");
-        if( _afterFirstRender && !_afterSecondRender )
+        if (_afterFirstRender && !_afterSecondRender)
         {
             _afterSecondRender = true;
             await Task.Run(async () =>
@@ -77,7 +77,7 @@
                 PreserveStateProvider.AutoSave(TimeSpan.FromSeconds(2));
 
 
-                if( !string.IsNullOrEmpty(SharedSudoku) )
+                if (!string.IsNullOrEmpty(SharedSudoku))
                 {
                     DomainFacade.Pasted = SharedSudoku;
                     ModalProvider.SetModalState(ModalState.Paste);
@@ -90,7 +90,7 @@
             });
         }
 
-        if( firstRender )
+        if (firstRender)
         {
             await Task.Run(() =>
             {
@@ -103,9 +103,10 @@
     private void OnGameEnd()
     {
         GameTimerProvider.Stop();
-        if( ModalProvider.CurrentState == ModalState.None )
+        if (ModalProvider.CurrentState == ModalState.None)
         {
             ModalProvider.SetModalState(ModalState.EndGame);
         }
     }
+
 }

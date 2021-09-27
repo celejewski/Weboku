@@ -21,7 +21,7 @@ namespace Weboku.UserInterface.Commands
         public Task Execute()
         {
             _domainFacade.SetFilter(new SelectedValueFilter(_value));
-            _clickableActionProvider.Value = _value;
+            _clickableActionProvider.SetValue(_value);
             return Task.CompletedTask;
         }
     }

@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Weboku.Application;
+using Weboku.Application.Enums;
 using Weboku.Application.Filters;
-using Weboku.UserInterface.ClickableActions;
 using Weboku.UserInterface.Providers;
 
 namespace Weboku.UserInterface.Commands
@@ -24,7 +24,7 @@ namespace Weboku.UserInterface.Commands
 
         public Task Execute()
         {
-            _clickableActionProvider.SelectClickableAction(ClickableAction.Eraser);
+            _clickableActionProvider.SelectClickableAction(Tool.Eraser);
             _domainFacade.SetFilter(new EraseFilter());
             _numpadMenuProvider.FilterContainer.DeselectItem();
             return Task.CompletedTask;

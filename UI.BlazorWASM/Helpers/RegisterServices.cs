@@ -62,7 +62,6 @@ namespace Weboku.UserInterface.Helpers
             services.AddScoped<ModalProvider>();
             services.AddScoped<CommandProvider>();
             services.AddScoped<ClickableActionProvider>();
-            services.AddScoped<ClickableActionFactory>();
             services.AddScoped<GameTimerProvider>();
             services.AddScoped<NumpadMenuProvider>();
             services.AddScoped<NumpadMenuBuilder>();
