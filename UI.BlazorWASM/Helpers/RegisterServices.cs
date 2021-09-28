@@ -1,7 +1,6 @@
 ﻿using AKSoftware.Localization.MultiLanguages;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
-using Weboku.UserInterface.ClickableActions;
 using Weboku.UserInterface.Commands;
 using Weboku.UserInterface.Component.NumpadMenu;
 using Weboku.UserInterface.Hints;
