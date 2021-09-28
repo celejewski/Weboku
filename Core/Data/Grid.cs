@@ -137,5 +137,10 @@ namespace Weboku.Core.Data
         }
 
         public bool IsValueLegal(Position position) => IsCandidateLegal(position, GetValue(position));
+
+        public bool IsSudokuSolved()
+        {
+            return Position.Positions.All(position => HasValue(position) && IsValueLegal(position));
+        }
     }
 }

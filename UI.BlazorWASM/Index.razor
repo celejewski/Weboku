@@ -8,8 +8,6 @@
 @inject ModalProvider ModalProvider
 @inject PreserveStateProvider PreserveStateProvider
 @inject GameTimerProvider GameTimerProvider
-@inject GameStateChecker GameStateChecker
-
 @inject DomainFacade DomainFacade
 
 <div id="wrapper"
@@ -62,7 +60,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        GameStateChecker.OnSolved += OnGameEnd;
+        DomainFacade.OnSolved += OnGameEnd;
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)

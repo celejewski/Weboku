@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Weboku.Application.Enums;
 using Weboku.Application.Interfaces;
@@ -28,6 +29,7 @@ namespace Weboku.Application
 
         public Difficulty Difficulty;
         public event Action OnGridChanged;
+        public event Action OnSolved;
 
 
         public DomainFacade(IStorageProvider storageProvider, string baseUri)
@@ -129,6 +131,11 @@ namespace Weboku.Application
         private void GridChanged()
         {
             OnGridChanged?.Invoke();
+
+            if (_grid.IsSudokuSolved())
+            {
+                OnSolved?.Invoke();
+            }
         }
     }
 }

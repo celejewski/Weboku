@@ -65,7 +65,6 @@ namespace Weboku.UserInterface.Helpers
             services.AddScoped<NumpadMenuBuilder>();
             services.AddScoped<HotkeyProvider>();
             services.AddScoped<PreserveStateProvider>();
-            services.AddScoped<GameStateChecker>();
         }
     }
 }
