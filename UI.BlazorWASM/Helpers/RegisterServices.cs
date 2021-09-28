@@ -60,7 +60,6 @@ namespace Weboku.UserInterface.Helpers
             services.AddScoped<TooltipProvider>();
             services.AddScoped<ModalProvider>();
             services.AddScoped<CommandProvider>();
-            services.AddScoped<GameTimerProvider>();
             services.AddScoped<NumpadMenuProvider>();
             services.AddScoped<NumpadMenuBuilder>();
             services.AddScoped<HotkeyProvider>();

@@ -9,23 +9,20 @@ namespace Weboku.UserInterface.Commands
     {
         private readonly ModalProvider _modalProvider;
         private readonly DomainFacade _domainFacade;
-        private readonly GameTimerProvider _gameTimerProvider;
 
         public StartGameCommand(
             ModalProvider modalProvider,
-            DomainFacade domainFacade,
-            GameTimerProvider gameTimerProvider)
+            DomainFacade domainFacade)
         {
             _modalProvider = modalProvider;
             _domainFacade = domainFacade;
-            _gameTimerProvider = gameTimerProvider;
         }
 
         public Task Execute()
         {
             _modalProvider.SetModalState(ModalState.None);
             _domainFacade.ClearAllColors();
-            _gameTimerProvider.Start();
+            _domainFacade.StartTimer();
             return Task.CompletedTask;
         }
     }

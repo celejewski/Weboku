@@ -7,7 +7,6 @@
 @inject IJSRuntime JSRuntime
 @inject ModalProvider ModalProvider
 @inject PreserveStateProvider PreserveStateProvider
-@inject GameTimerProvider GameTimerProvider
 @inject DomainFacade DomainFacade
 
 <div id="wrapper"
@@ -100,7 +99,7 @@
 
     private void OnGameEnd()
     {
-        GameTimerProvider.Stop();
+        DomainFacade.StopTimer();
         if (ModalProvider.CurrentState == ModalState.None)
         {
             ModalProvider.SetModalState(ModalState.EndGame);

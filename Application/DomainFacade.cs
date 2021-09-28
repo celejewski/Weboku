@@ -45,6 +45,7 @@ namespace Weboku.Application
             _gridGenerator = new PredefinedGridGenerator();
             _colorManager = new ColorManager();
             _colorManager.OnChanged += () => OnColorChanged?.Invoke();
+            _timer = MakeTimer();
         }
 
         public void StartNewGame(Grid grid, Difficulty difficulty = Difficulty.Unknown)
@@ -132,7 +133,7 @@ namespace Weboku.Application
         {
             OnGridChanged?.Invoke();
 
-            if (_grid.IsSudokuSolved())
+            if (_grid is not null && _grid.IsSudokuSolved())
             {
                 OnSolved?.Invoke();
             }

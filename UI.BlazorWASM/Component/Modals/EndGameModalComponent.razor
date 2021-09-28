@@ -1,7 +1,5 @@
-﻿@using Weboku.UserInterface.Providers
-@using Weboku.UserInterface.Commands
+﻿@using Weboku.UserInterface.Commands
 @using Weboku.Application
-@inject GameTimerProvider GameTimerProvider
 @inject ShowMainMenuModalCommand ShowMainMenuModalCommand
 @inject ILanguageContainerService LanguageContainer
 @inject DomainFacade DomainFacade
@@ -15,7 +13,7 @@
     <div class="modal__content">
         <div class="modal__result-row">
             <span class="modal__result-label">@LanguageContainer.Keys["end-game__time"]</span>
-            <span class="modal__result-value">@GameTimerProvider.Elapsed.ToString("mm\\:ss")</span>
+            <span class="modal__result-value">@DomainFacade.Elapsed.ToString("mm\\:ss")</span>
         </div>
         <div class="modal__result-row">
             <span class="modal__result-label">@LanguageContainer.Keys["end-game__difficulty"]</span>

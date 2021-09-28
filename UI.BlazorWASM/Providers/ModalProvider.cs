@@ -27,7 +27,15 @@ namespace Weboku.UserInterface.Providers
         {
             _previousStates.Push(CurrentState);
             CurrentState = state;
+            ModalStateChanged();
+        }
+
+        private void ModalStateChanged()
+        {
             OnChanged?.Invoke();
+
+            if (CurrentState == ModalState.None) _domainFacade.Unpause();
+            else _domainFacade.Pause();
         }
 
         public void GoToPreviousState()
@@ -35,7 +43,7 @@ namespace Weboku.UserInterface.Providers
             if (HasPreviousState)
             {
                 CurrentState = _previousStates.Pop();
-                OnChanged?.Invoke();
+                ModalStateChanged();
             }
         }
 

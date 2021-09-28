@@ -1,10 +1,9 @@
 ﻿@using Weboku.UserInterface.Providers
 @using Weboku.Application
-@inject GameTimerProvider GameTimerProvider
 @inject DomainFacade DomainFacade
 
 <div class="game-info">
-    <div class="game-info__time-elapsed">@GameTimerProvider.Elapsed.ToString("mm\\:ss")</div>
+    <div class="game-info__time-elapsed">@DomainFacade.Elapsed.ToString("mm\\:ss")</div>
     <div class="game-info__difficulty">@DomainFacade.Difficulty</div>
 </div>
 
@@ -12,6 +11,6 @@
 
     protected override void OnInitialized()
     {
-        GameTimerProvider.OnChanged += StateHasChanged;
+        DomainFacade.OnTimerChanged += StateHasChanged;
     }
 }
