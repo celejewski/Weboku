@@ -5,7 +5,7 @@ namespace Weboku.UserInterface.Component.NumpadMenu.NumpadMenuOptions
 {
     public class SelectActionEraserMenuItem : BaseMenuOption, INumpadMenuLabel
     {
-        public SelectActionEraserMenuItem(NumpadMenuProvider numpadMenuProvider, SelectActionEraserCommand command)
+        public SelectActionEraserMenuItem(NumpadMenuProvider numpadMenuProvider, ICommand command)
             : base(command, numpadMenuProvider.ActionContainer)
         {
         }

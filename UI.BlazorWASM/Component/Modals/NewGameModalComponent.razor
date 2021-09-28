@@ -1,12 +1,12 @@
 ﻿@using Weboku.UserInterface.Commands
 @using Weboku.UserInterface.Providers
 @using Weboku.Core.Data
+@using Weboku.Application.Enums
 @inject ShowPreviousModalCommand ShowPreviousModalCommand
 @inject CommandProvider CommandProvider
 @inject ModalProvider ModalProvider
 @inject ILanguageContainerService Loc
 @inject SettingsProvider SettingsProvider
-@inject ShowCustomSudokuCommand ShowCustomSudokuCommand
 
 <ModalTemplateComponent>
     <h1 class="modal__title with-hr">@Loc.Keys["new-game__header"]</h1>
@@ -16,16 +16,16 @@
         <div class="modal-new-game__select-diffculty-container">
             <div class="modal-new-game__select-difficulty-header">@Loc.Keys["new-game__choose-difficulty"]</div>
             <div class="modal-new-game__select-difficulty">
-                @if( IsEasierAvailable )
+                @if (IsEasierAvailable)
                 {
-                    <i class="fas fa-chevron-left" @onclick="SelectEasier" ></i>
+                    <i class="fas fa-chevron-left" @onclick="SelectEasier"></i>
                 }
                 else
                 {
                     <i></i>
                 }
                 <span class="modal-new-game__selected-difficulty">@(Loc.Keys[$"difficulty__{SelectedDifficulty}"])</span>
-                @if( IsHarderAvailable )
+                @if (IsHarderAvailable)
                 {
                     <i class="fas fa-chevron-right" @onclick="SelectHarder"></i>
                 }
@@ -36,28 +36,24 @@
 
             </div>
 
-            <ModalButtonComponent Command="CommandProvider.StartNewGameV2((Difficulty)Enum.Parse(typeof(Difficulty), SelectedDifficulty))">
+            <ModalButtonComponent Command="CommandProvider.StartNewGameV2((Difficulty) Enum.Parse(typeof(Difficulty), SelectedDifficulty))">
                 @Loc.Keys["new-game__new-game"]
             </ModalButtonComponent>
 
-            </div>
+        </div>
 
-        <ModalButtonComponent Command="ShowCustomSudokuCommand">
-            @Loc.Keys["new-game__custom-game"]
-        </ModalButtonComponent>
+        <ModalButtonComponent Action="() => ModalProvider.SetModalState(ModalState.CustomSudoku)"> @Loc.Keys["new-game__custom-game"] </ModalButtonComponent>
     </div>
 
     <div class="modal__footer with-hr">
-        <ModalButtonComponent Command="ShowPreviousModalCommand"
-                              IsSecondary="true">
-            @Loc.Keys["modal__close"]
-        </ModalButtonComponent>
+        <ModalButtonComponent Command="ShowPreviousModalCommand" IsSecondary="true">@Loc.Keys["modal__close"]</ModalButtonComponent>
     </div>
 </ModalTemplateComponent>
 
 @code {
 
-    private string[] _difficulties = new[] { "Easy", "Medium", "Hard", "Extreme", "Unfair" };
+    private string[] _difficulties = new[] {"Easy", "Medium", "Hard", "Extreme", "Unfair"};
+
     protected override void OnInitialized()
     {
         SettingsProvider.OnChanged += StateHasChanged;

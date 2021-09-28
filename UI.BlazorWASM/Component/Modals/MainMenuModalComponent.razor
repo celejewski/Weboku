@@ -1,14 +1,12 @@
-﻿@using Weboku.UserInterface.Commands
-@using Weboku.UserInterface.Providers
+﻿@using Weboku.UserInterface.Providers
 @using Weboku.Application.Enums
 @inject ModalProvider ModalProvider
 @inject ILanguageContainerService LanguageContainer
-@inject ShowNewGameModalCommand ShowNewGameModalCommand
 <ModalTemplateComponent>
     <h1 class="modal__title with-hr">@LanguageContainer.Keys["main-menu__header"]</h1>
 
     <div class="modal__content">
-        <ModalButtonComponent Command="ShowNewGameModalCommand">@LanguageContainer.Keys["main-menu__new-game"]</ModalButtonComponent>
+        <ModalButtonComponent Action="() => ModalProvider.SetModalState(ModalState.NewGame)">@LanguageContainer.Keys["main-menu__new-game"]</ModalButtonComponent>
         <ModalButtonComponent Action="() => ModalProvider.SetModalState(ModalState.HowToPlay)">@LanguageContainer.Keys["main-menu__how-to-play"]</ModalButtonComponent>
         <ModalButtonComponent Action="() => ModalProvider.SetModalState(ModalState.Share)">@LanguageContainer.Keys["main-menu__share"]</ModalButtonComponent>
         <ModalButtonComponent Action="() => ModalProvider.SetModalState(ModalState.Paste)">@LanguageContainer.Keys["main-menu__paste"]</ModalButtonComponent>

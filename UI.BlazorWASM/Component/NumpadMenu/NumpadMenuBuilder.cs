@@ -17,10 +17,6 @@ namespace Weboku.UserInterface.Component.NumpadMenu
         private readonly SelectPairsFilterCommand _selectPairsFilterCommand;
         private readonly ClearColorsCommand _clearColorsCommand;
         private readonly UndoCommand _undoCommand;
-        private readonly SelectActionEraserCommand _selectActionEraserCommand;
-        private readonly SelectActionMarkerCommand _selectActionMarkerCommand;
-        private readonly SelectActionPencilCommand _selectActionPencilCommand;
-        private readonly SelectActionBrushCommand _selectActionBrushCommand;
         private readonly HotkeyProvider _hotkeyProvider;
 
         public NumpadMenuBuilder(
@@ -32,10 +28,6 @@ namespace Weboku.UserInterface.Component.NumpadMenu
             SelectPairsFilterCommand selectPairsFilterCommand,
             ClearColorsCommand clearColorsCommand,
             UndoCommand undoCommand,
-            SelectActionEraserCommand selectCleanerAction,
-            SelectActionMarkerCommand selectStandardActionCommand,
-            SelectActionPencilCommand selectEraserActionCommand,
-            SelectActionBrushCommand selectColorActionCommand,
             HotkeyProvider hotkeyProvider
         )
         {
@@ -47,10 +39,6 @@ namespace Weboku.UserInterface.Component.NumpadMenu
             _selectPairsFilterCommand = selectPairsFilterCommand;
             _clearColorsCommand = clearColorsCommand;
             _undoCommand = undoCommand;
-            _selectActionEraserCommand = selectCleanerAction;
-            _selectActionMarkerCommand = selectStandardActionCommand;
-            _selectActionPencilCommand = selectEraserActionCommand;
-            _selectActionBrushCommand = selectColorActionCommand;
             _hotkeyProvider = hotkeyProvider;
         }
 
@@ -111,24 +99,35 @@ namespace Weboku.UserInterface.Component.NumpadMenu
 
         private SelectActionEraserMenuItem _eraseMenuItem;
 
+
+        private RelayCommand MakeSelectToolRelayCommand(Tool tool)
+        {
+            var relayCommand = new RelayCommand(() => _domainFacade.SelectTool(tool));
+            return relayCommand;
+        }
+
         public SelectActionEraserMenuItem SelectCleanerAction()
         {
-            return _eraseMenuItem ??= new SelectActionEraserMenuItem(_numpadMenuProvider, _selectActionEraserCommand);
+            var relayCommand = MakeSelectToolRelayCommand(Tool.Eraser);
+            return _eraseMenuItem ??= new SelectActionEraserMenuItem(_numpadMenuProvider, relayCommand);
         }
 
         public SelectActionMarkerMenuItem SelectStandardAction()
         {
-            return new SelectActionMarkerMenuItem(_numpadMenuProvider, _selectActionMarkerCommand);
+            var relayCommand = MakeSelectToolRelayCommand(Tool.Marker);
+            return new SelectActionMarkerMenuItem(_numpadMenuProvider, relayCommand);
         }
 
         public SelectActionPencilMenuItem SelectEraserAction()
         {
-            return new SelectActionPencilMenuItem(_numpadMenuProvider, _selectActionPencilCommand);
+            var relayCommand = MakeSelectToolRelayCommand(Tool.Pencil);
+            return new SelectActionPencilMenuItem(_numpadMenuProvider, relayCommand);
         }
 
         public SelectActionBrushMenuItem SelectColorAction()
         {
-            return new SelectActionBrushMenuItem(_numpadMenuProvider, _selectActionBrushCommand);
+            var relayCommand = MakeSelectToolRelayCommand(Tool.Brush);
+            return new SelectActionBrushMenuItem(_numpadMenuProvider, relayCommand);
         }
     }
 }

@@ -28,19 +28,12 @@ namespace Weboku.UserInterface.Helpers
         {
             services.AddScoped<RestartGameCommand>();
             services.AddScoped<SelectPairsFilterCommand>();
-            services.AddScoped<SelectActionEraserCommand>();
             services.AddScoped<ClearColorsCommand>();
             services.AddScoped<RedoCommand>();
             services.AddScoped<UndoCommand>();
-            services.AddScoped<ShowNewGameModalCommand>();
             services.AddScoped<CloseModalCommand>();
-            services.AddScoped<SelectActionMarkerCommand>();
-            services.AddScoped<SelectActionPencilCommand>();
-            services.AddScoped<SelectActionBrushCommand>();
-            services.AddScoped<SelectActionBrushCommand>();
             services.AddScoped<StartNewGameFromPastedCommand>();
             services.AddScoped<ShowPreviousModalCommand>();
-            services.AddScoped<ShowCustomSudokuCommand>();
             services.AddScoped<StartNewCustomSudokuCommand>();
             services.AddScoped<StartGameCommand>();
         }

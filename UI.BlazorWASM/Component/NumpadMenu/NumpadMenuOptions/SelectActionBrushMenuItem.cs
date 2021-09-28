@@ -5,7 +5,7 @@ namespace Weboku.UserInterface.Component.NumpadMenu.NumpadMenuOptions
 {
     public class SelectActionBrushMenuItem : BaseMenuOption, INumpadMenuLabel
     {
-        public SelectActionBrushMenuItem(NumpadMenuProvider numpadMenuProvider, SelectActionBrushCommand command)
+        public SelectActionBrushMenuItem(NumpadMenuProvider numpadMenuProvider, ICommand command)
             : base(command, numpadMenuProvider.ActionContainer)
         {
         }
