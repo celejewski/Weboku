@@ -1,32 +1,24 @@
 ﻿@using Weboku.UserInterface.Commands
 @using Weboku.UserInterface.Providers
-@inject CloseModalCommand CloseModalCommand
-@inject ShowShareModalCommand ShowShareModalCommand
-@inject ShowHowToPlayModalCommand ShowHowToPlayModalCommand
-@inject ShowPasteModalCommand ShowPasteModalCommand
-@inject ShowNewGameModalCommand ShowNewGameModalCommand
-@inject ShowSettingsModalCommand ShowSettingsModalCommand 
+@using Weboku.Application.Enums
 @inject ModalProvider ModalProvider
 @inject ILanguageContainerService LanguageContainer
-
+@inject ShowNewGameModalCommand ShowNewGameModalCommand
 <ModalTemplateComponent>
     <h1 class="modal__title with-hr">@LanguageContainer.Keys["main-menu__header"]</h1>
 
     <div class="modal__content">
-        <ModalButtonComponent OnClick="ShowNewGameModalCommand">@LanguageContainer.Keys["main-menu__new-game"]</ModalButtonComponent>
-        <ModalButtonComponent OnClick="ShowHowToPlayModalCommand">@LanguageContainer.Keys["main-menu__how-to-play"]</ModalButtonComponent>
-        <ModalButtonComponent OnClick="ShowShareModalCommand">@LanguageContainer.Keys["main-menu__share"]</ModalButtonComponent>
-        <ModalButtonComponent OnClick="ShowPasteModalCommand">@LanguageContainer.Keys["main-menu__paste"]</ModalButtonComponent>
-        <ModalButtonComponent OnClick="ShowSettingsModalCommand">@LanguageContainer.Keys["main-menu__settings"]</ModalButtonComponent>
+        <ModalButtonComponent Command="ShowNewGameModalCommand">@LanguageContainer.Keys["main-menu__new-game"]</ModalButtonComponent>
+        <ModalButtonComponent Action="() => ModalProvider.SetModalState(ModalState.HowToPlay)">@LanguageContainer.Keys["main-menu__how-to-play"]</ModalButtonComponent>
+        <ModalButtonComponent Action="() => ModalProvider.SetModalState(ModalState.Share)">@LanguageContainer.Keys["main-menu__share"]</ModalButtonComponent>
+        <ModalButtonComponent Action="() => ModalProvider.SetModalState(ModalState.Paste)">@LanguageContainer.Keys["main-menu__paste"]</ModalButtonComponent>
+        <ModalButtonComponent Action="() => ModalProvider.SetModalState(ModalState.Settings)">@LanguageContainer.Keys["main-menu__settings"]</ModalButtonComponent>
     </div>
 
     <div class="modal__footer with-hr">
         @if( ModalProvider.HasPreviousState )
         {
-        <ModalButtonComponent OnClick="CloseModalCommand"
-                              IsSecondary="true">
-            @LanguageContainer.Keys["modal__close"]
-        </ModalButtonComponent>
+            <ModalButtonComponent Action="() => ModalProvider.SetModalState(ModalState.None)" IsSecondary="true">@LanguageContainer.Keys["modal__close"]</ModalButtonComponent>
         }
     </div>
 </ModalTemplateComponent>

@@ -6,7 +6,6 @@
 @inject ModalProvider ModalProvider
 @inject ILanguageContainerService Loc
 @inject SettingsProvider SettingsProvider
-@inject ShowPasteModalCommand ShowPasteModalCommand
 @inject ShowCustomSudokuCommand ShowCustomSudokuCommand
 
 <ModalTemplateComponent>
@@ -37,19 +36,19 @@
 
             </div>
 
-            <ModalButtonComponent OnClick="CommandProvider.StartNewGameV2((Difficulty)Enum.Parse(typeof(Difficulty), SelectedDifficulty))">
+            <ModalButtonComponent Command="CommandProvider.StartNewGameV2((Difficulty)Enum.Parse(typeof(Difficulty), SelectedDifficulty))">
                 @Loc.Keys["new-game__new-game"]
             </ModalButtonComponent>
 
             </div>
 
-        <ModalButtonComponent OnClick="ShowCustomSudokuCommand">
+        <ModalButtonComponent Command="ShowCustomSudokuCommand">
             @Loc.Keys["new-game__custom-game"]
         </ModalButtonComponent>
     </div>
 
     <div class="modal__footer with-hr">
-        <ModalButtonComponent OnClick="ShowPreviousModalCommand"
+        <ModalButtonComponent Command="ShowPreviousModalCommand"
                               IsSecondary="true">
             @Loc.Keys["modal__close"]
         </ModalButtonComponent>

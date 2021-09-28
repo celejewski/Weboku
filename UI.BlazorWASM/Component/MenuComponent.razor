@@ -1,26 +1,20 @@
 ﻿@using Weboku.UserInterface.Providers
 @using Weboku.UserInterface.Commands
 @using Weboku.Application.Enums
-@inject CommandProvider CommandProvider
-@inject ShowMainMenuModalCommand ShowMainMenuModalCommand
-@inject ShowShareModalCommand ShowShareModalCommand
-@inject RestartGameCommand RestartGameCommand
-@inject ShowHowToPlayModalCommand ShowHowToPlayModalCommand
-@inject ShowHintModalCommand ShowHintModalCommand
-@inject FindAllCandidatesCommand FindAllCandidatesCommand
-@inject ClearCandidatesCommand ClearCandidatesCommand
+@using Weboku.Application
 @inject ILanguageContainerService Loc
-@inject SettingsProvider SettingsProvider
+@inject DomainFacade DomainFacade
 @inject ModalProvider ModalProvider
+@inject SettingsProvider SettingsProvider
+@inject RestartGameCommand RestartGameCommand
+@inject ShowHintModalCommand ShowHintModalCommand
 @inject StartNewCustomSudokuCommand StartNewCustomSudokuCommand
-@inject ShowPreviousModalCommand ShowPreviousModalCommand
-@inject CloseModalCommand CloseModalCommand
 
 <div class="menu">
     <div class="menu__item">
         @if( ModalProvider.CurrentState == ModalState.CustomSudoku )
         {
-            <MenuLinkComponent OnMouseDown="StartNewCustomSudokuCommand">Start game</MenuLinkComponent>
+            <MenuLinkComponent Command="StartNewCustomSudokuCommand">Start game</MenuLinkComponent>
         }
         else
         {
@@ -29,11 +23,11 @@
                     <MenuLabelComponent>@Loc.Keys["menu__menu-header"]</MenuLabelComponent>
                 </Header>
                 <Content>
-                    <MenuLinkComponent OnMouseDown="ShowMainMenuModalCommand">@Loc.Keys["menu__main-menu"]</MenuLinkComponent>
-                    <MenuLinkComponent OnMouseDown="ShowShareModalCommand">@Loc.Keys["menu__share"]</MenuLinkComponent>
-                    <MenuLinkComponent OnMouseDown="RestartGameCommand">@Loc.Keys["menu__restart-game"]</MenuLinkComponent>
-                    <MenuLinkComponent OnMouseDown="ShowHowToPlayModalCommand">@Loc.Keys["menu__how-to-play"]</MenuLinkComponent>
-                    <MenuLinkComponent OnMouseDown="ShowHintModalCommand">@Loc.Keys["menu__show-hint"]</MenuLinkComponent>
+                    <MenuLinkComponent Action="() => ModalProvider.SetModalState(ModalState.MainMenu)">@Loc.Keys["menu__main-menu"]</MenuLinkComponent>
+                    <MenuLinkComponent Action="() => ModalProvider.SetModalState(ModalState.Share)">@Loc.Keys["menu__share"]</MenuLinkComponent>
+                    <MenuLinkComponent Command="RestartGameCommand">@Loc.Keys["menu__restart-game"]</MenuLinkComponent>
+                    <MenuLinkComponent Action="() => ModalProvider.SetModalState(ModalState.HowToPlay)">@Loc.Keys["menu__how-to-play"]</MenuLinkComponent>
+                    <MenuLinkComponent Command="ShowHintModalCommand">@Loc.Keys["menu__show-hint"]</MenuLinkComponent>
                 </Content>
             </DropdownMenuComponent>
         }
@@ -44,7 +38,7 @@
     <div class="menu__item">
         @if( ModalProvider.CurrentState == ModalState.CustomSudoku )
         {
-            <MenuLinkComponent OnMouseDown="CloseModalCommand">Close</MenuLinkComponent>
+            <MenuLinkComponent Action="() => ModalProvider.SetModalState(ModalState.None)">Close</MenuLinkComponent>
         }
         else
         {
@@ -53,8 +47,8 @@
                     <MenuLabelComponent>@Loc.Keys["menu__candidates-header"]</MenuLabelComponent>
                 </Header>
                 <Content>
-                    <MenuLinkComponent OnMouseDown="FindAllCandidatesCommand">@Loc.Keys["menu__find-all"]</MenuLinkComponent>
-                    <MenuLinkComponent OnMouseDown="ClearCandidatesCommand">@Loc.Keys["menu__remove-all"]</MenuLinkComponent>
+                    <MenuLinkComponent Action="DomainFacade.FillAllLegalCandidates">@Loc.Keys["menu__find-all"]</MenuLinkComponent>
+                    <MenuLinkComponent Action="DomainFacade.ClearAllCandidates">@Loc.Keys["menu__remove-all"]</MenuLinkComponent>
                 </Content>
             </DropdownMenuComponent>
         }

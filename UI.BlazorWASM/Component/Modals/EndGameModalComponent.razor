@@ -1,8 +1,9 @@
-﻿@using Weboku.UserInterface.Commands
-@using Weboku.Application
-@inject ShowMainMenuModalCommand ShowMainMenuModalCommand
+﻿@using Weboku.Application
+@using Weboku.Application.Enums
+@using Weboku.UserInterface.Providers
 @inject ILanguageContainerService LanguageContainer
 @inject DomainFacade DomainFacade
+@inject ModalProvider ModalProvider
 
 <ModalTemplateComponent>
     <div class="text-center">
@@ -22,9 +23,7 @@
     </div>
 
     <div class="modal__footer with-hr">
-        <ModalButtonComponent OnClick="ShowMainMenuModalCommand"
-                              IsSecondary="true">
-            @LanguageContainer.Keys["modal__close"]
+        <ModalButtonComponent Action="() => ModalProvider.SetModalState(ModalState.MainMenu)" IsSecondary="true">@LanguageContainer.Keys["modal__close"]
         </ModalButtonComponent>
     </div>
 </ModalTemplateComponent>

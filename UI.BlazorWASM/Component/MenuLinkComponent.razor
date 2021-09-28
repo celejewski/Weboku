@@ -1,6 +1,6 @@
 ﻿@using Weboku.UserInterface.Commands
-<a class="dropdown__item dropdown__link" 
-   @onmousedown="@OnMouseDown.Execute">
+<a class="dropdown__item dropdown__link"
+   @onmousedown="@OnMouseDown">
     @ChildContent
 </a>
 
@@ -9,5 +9,18 @@
     public RenderFragment ChildContent { get; set; }
 
     [Parameter]
-    public ICommand OnMouseDown { get; set; }
+    public ICommand Command { get; set; }
+    [Parameter]
+    public Action Action { get; set; }
+
+    public Task OnMouseDown()
+    {
+        if (Command is not null)
+        {
+            return Command.Execute();
+        }
+
+        Action?.Invoke();
+        return Task.CompletedTask;
+    }
 }

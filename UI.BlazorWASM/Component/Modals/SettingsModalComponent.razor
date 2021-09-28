@@ -3,23 +3,23 @@
 @inject ShowPreviousModalCommand ShowPreviousModalCommand
 @inject ILanguageContainerService Loc
 @inject CommandProvider CommandProvider
-@inject SettingsProvider SettingsProvider 
+@inject SettingsProvider SettingsProvider
 
 <ModalTemplateComponent>
     <h1 class="modal__title with-hr">@Loc.Keys["settings__header"]</h1>
 
     <div class="modal__content">
         <h1 class="text-center">@Loc.Keys["settings__select-language"]</h1>
-        <ModalButtonComponent OnClick=@(CommandProvider.SetLanguage("en-US"))>
+        <ModalButtonComponent Command=@(CommandProvider.SetLanguage("en-US"))>
             English
         </ModalButtonComponent>
-        <ModalButtonComponent OnClick=@(CommandProvider.SetLanguage("pl-PL"))>
+        <ModalButtonComponent Command=@(CommandProvider.SetLanguage("pl-PL"))>
             Polski
         </ModalButtonComponent>
     </div>
 
     <div class="modal__footer with-hr">
-        <ModalButtonComponent OnClick="ShowPreviousModalCommand"IsSecondary="true">
+        <ModalButtonComponent Command="ShowPreviousModalCommand"IsSecondary="true">
             @Loc.Keys["modal__close"]
         </ModalButtonComponent>
     </div>

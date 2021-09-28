@@ -1,16 +1,30 @@
 ﻿@using Weboku.UserInterface.Commands
-<a @onclick="@(() => OnClick?.Execute())"
-   class="modal__button @_modalClass">@ChildContent</a>
+<a @onclick="() => OnClick()" class="modal__button @_modalClass">@ChildContent</a>
 
 @code {
-    [Parameter]
-    public ICommand OnClick { get; set; }
+
+    public Task OnClick()
+    {
+        if (Command is not null)
+        {
+            return Command.Execute();
+        }
+
+        Action?.Invoke();
+        return Task.CompletedTask;
+    }
 
     [Parameter]
     public RenderFragment ChildContent { get; set; }
 
     [Parameter]
     public bool IsSecondary { get; set; } = false;
+
+    [Parameter]
+    public ICommand Command { get; set; }
+
+    [Parameter]
+    public Action Action { get; set; }
 
     private string _modalClass { get => IsSecondary ? "modal__button--secondary" : "modal__button--primary"; }
 }

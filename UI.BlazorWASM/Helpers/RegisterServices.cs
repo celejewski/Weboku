@@ -26,7 +26,6 @@ namespace Weboku.UserInterface.Helpers
 
         public static void RegisterCommands(this IServiceCollection services)
         {
-            services.AddScoped<FindAllCandidatesCommand>();
             services.AddScoped<RestartGameCommand>();
             services.AddScoped<SelectPairsFilterCommand>();
             services.AddScoped<SelectActionEraserCommand>();
@@ -34,19 +33,13 @@ namespace Weboku.UserInterface.Helpers
             services.AddScoped<RedoCommand>();
             services.AddScoped<UndoCommand>();
             services.AddScoped<ShowNewGameModalCommand>();
-            services.AddScoped<ShowHowToPlayModalCommand>();
-            services.AddScoped<ShowMainMenuModalCommand>();
             services.AddScoped<CloseModalCommand>();
             services.AddScoped<SelectActionMarkerCommand>();
             services.AddScoped<SelectActionPencilCommand>();
             services.AddScoped<SelectActionBrushCommand>();
-            services.AddScoped<ClearCandidatesCommand>();
-            services.AddScoped<ShowShareModalCommand>();
-            services.AddScoped<ShowPasteModalCommand>();
             services.AddScoped<SelectActionBrushCommand>();
             services.AddScoped<StartNewGameFromPastedCommand>();
             services.AddScoped<ShowPreviousModalCommand>();
-            services.AddScoped<ShowSettingsModalCommand>();
             services.AddScoped<ShowCustomSudokuCommand>();
             services.AddScoped<StartNewCustomSudokuCommand>();
             services.AddScoped<StartGameCommand>();
