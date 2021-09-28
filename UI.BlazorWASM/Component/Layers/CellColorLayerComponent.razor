@@ -11,7 +11,7 @@
 @code {
     protected override void OnInitialized()
     {
-        DomainFacade.OnColorChanged += (_, _) => StateHasChanged();
+        DomainFacade.OnColorChanged += StateHasChanged;
     }
 
     private string GetCssClass(Position position)

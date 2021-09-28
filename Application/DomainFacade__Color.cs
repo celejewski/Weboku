@@ -21,6 +21,6 @@ namespace Weboku.Application
             _colorManager.ClearAll();
         }
 
-        public event EventHandler OnColorChanged;
+        public event Action OnColorChanged;
     }
 }

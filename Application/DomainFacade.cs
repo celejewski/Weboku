@@ -44,7 +44,7 @@ namespace Weboku.Application
             _solver = new BruteForceSolver();
             _gridGenerator = new PredefinedGridGenerator();
             _colorManager = new ColorManager();
-            _colorManager.OnChanged += () => { OnColorChanged?.Invoke(this, EventArgs.Empty); };
+            _colorManager.OnChanged += () => OnColorChanged?.Invoke();
         }
 
         public void StartNewGame(Grid grid, Difficulty difficulty = Difficulty.Unknown)
