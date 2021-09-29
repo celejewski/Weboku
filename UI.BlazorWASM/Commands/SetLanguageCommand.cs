@@ -19,5 +19,10 @@ namespace Weboku.UserInterface.Commands
             _settingsProvider.SetLanguage(_language);
             return Task.CompletedTask;
         }
+
+        public bool CanExecute()
+        {
+            return true;
+        }
     }
 }

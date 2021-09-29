@@ -1,7 +1,12 @@
 ﻿namespace Weboku.UserInterface.Component.NumpadMenu.NumpadMenuOptions
 {
-    public interface INumpadMenuLabel : INumpadMenuItem
+    public class NumpadMenuLabel : BaseMenuOption
     {
-        string Label { get; }
+        public string Label { get; init; }
+
+        public NumpadMenuLabel(MenuOptionSettings menuOptionSettings) : base(menuOptionSettings)
+        {
+            Label = menuOptionSettings.Label;
+        }
     }
 }

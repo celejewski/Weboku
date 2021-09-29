@@ -2,11 +2,11 @@
 @using Weboku.UserInterface.Component.NumpadMenu.NumpadMenuOptions
 @inject NumpadMenuProvider NumpadMenuProvider
 
-<LabelButtonComponent NumpadMenuLabel="NumpadMenuLabel" /> 
+<LabelButtonComponent NumpadMenuLabel="NumpadMenuLabel" />
 
 @code {
     [Parameter]
-    public INumpadMenuLabel NumpadMenuLabel { get; set; }
+    public NumpadMenuLabel NumpadMenuLabel { get; set; }
 
     protected override void OnAfterRender(bool firstRender)
     {

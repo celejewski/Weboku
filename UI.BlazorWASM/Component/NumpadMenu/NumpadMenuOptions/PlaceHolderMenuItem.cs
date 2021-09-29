@@ -3,7 +3,7 @@ using Weboku.Application.Enums;
 
 namespace Weboku.UserInterface.Component.NumpadMenu.NumpadMenuOptions
 {
-    public class PlaceHolderMenuItem : INumpadMenuLabel, ISelectColorMenuItem
+    public class PlaceHolderMenuItem : NumpadMenuLabel, ISelectColorMenuItem
     {
         public string Label => string.Empty;
 
@@ -18,5 +18,10 @@ namespace Weboku.UserInterface.Component.NumpadMenu.NumpadMenuOptions
         public string Tooltip => "";
 
         public Task Execute() => Task.CompletedTask;
+        public bool CanExecute() => true;
+
+        public PlaceHolderMenuItem(MenuOptionSettings menuOptionSettings) : base(menuOptionSettings)
+        {
+        }
     }
 }

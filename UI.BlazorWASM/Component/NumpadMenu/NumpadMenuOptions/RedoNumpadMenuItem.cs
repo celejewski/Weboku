@@ -3,12 +3,12 @@ using Weboku.UserInterface.Commands;
 
 namespace Weboku.UserInterface.Component.NumpadMenu.NumpadMenuOptions
 {
-    public class RedoNumpadMenuItem : BaseMenuOption, INumpadMenuLabel
+    public class RedoNumpadMenuItem : NumpadMenuLabel
     {
         private readonly DomainFacade _gridHistoryManager;
 
-        public RedoNumpadMenuItem(ICommand command, DomainFacade gridHistoryManager)
-            : base(command)
+        public RedoNumpadMenuItem(MenuOptionSettings menuOptionSettings, DomainFacade gridHistoryManager)
+            : base(menuOptionSettings)
         {
             _gridHistoryManager = gridHistoryManager;
         }

@@ -22,5 +22,10 @@ namespace Weboku.UserInterface.Commands
                 await _startGameCommand.Execute();
             }
         }
+
+        public bool CanExecute()
+        {
+            return true;
+        }
     }
 }

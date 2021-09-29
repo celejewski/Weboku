@@ -7,17 +7,21 @@ namespace Weboku.UserInterface.Component.NumpadMenu.NumpadMenuOptions
     {
         private readonly ICommand _command;
         private readonly SelectableMenuItemContainer _selectableMenuItemContainer;
+        private readonly bool _isSelectable;
+        private readonly string _tooltip;
 
-        protected BaseMenuOption(ICommand command, SelectableMenuItemContainer selectableMenuItemContainer = null)
+        protected BaseMenuOption(MenuOptionSettings menuOptionSettings)
         {
-            _command = command;
-            _selectableMenuItemContainer = selectableMenuItemContainer;
+            _command = menuOptionSettings.Command;
+            _selectableMenuItemContainer = menuOptionSettings.SelectableMenuItemContainer;
+            _isSelectable = menuOptionSettings.IsSelectable;
+            _tooltip = menuOptionSettings.Tooltip;
         }
 
-        public abstract bool IsDimmed { get; }
-        public abstract bool IsSelectable { get; }
+        public virtual bool IsDimmed => !_command.CanExecute();
+        public virtual bool IsSelectable => _isSelectable;
 
-        public virtual string Tooltip => "tooltip__not-found";
+        public virtual string Tooltip => _tooltip;
 
         public async Task Execute()
         {
@@ -27,6 +31,11 @@ namespace Weboku.UserInterface.Component.NumpadMenu.NumpadMenuOptions
             }
 
             await _command.Execute();
+        }
+
+        public bool CanExecute()
+        {
+            return _command?.CanExecute() ?? true;
         }
     }
 }

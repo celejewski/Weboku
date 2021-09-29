@@ -21,5 +21,10 @@ namespace Weboku.UserInterface.Commands
 
             return Task.CompletedTask;
         }
+
+        public bool CanExecute()
+        {
+            return true;
+        }
     }
 }

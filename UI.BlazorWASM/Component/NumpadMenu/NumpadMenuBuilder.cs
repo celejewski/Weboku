@@ -37,7 +37,12 @@ namespace Weboku.UserInterface.Component.NumpadMenu
         {
             if (!_dict.ContainsKey(value))
             {
-                var command = new SelectValueMenuItem(value, _domainFacade, _numpadMenuProvider, _commandProvider);
+                var menuOptionSettings = new MenuOptionSettings
+                {
+                    Command = _commandProvider.SelectValue(value),
+                    SelectableMenuItemContainer = _numpadMenuProvider.FilterContainer
+                };
+                var command = new SelectValueMenuItem(value, _domainFacade, menuOptionSettings);
                 _dict[value] = command;
                 _hotkeyProvider.Register(new Hotkey {Command = command, Key = value.ToString()});
             }
@@ -48,7 +53,8 @@ namespace Weboku.UserInterface.Component.NumpadMenu
         public RedoNumpadMenuItem Redo()
         {
             var relayCommand = new RelayCommand(() => _domainFacade.Redo());
-            var command = new RedoNumpadMenuItem(relayCommand, _gridHistoryManager);
+            var menuOptionSettings = new MenuOptionSettings {Command = relayCommand};
+            var command = new RedoNumpadMenuItem(menuOptionSettings, _gridHistoryManager);
             _hotkeyProvider.Register(new Hotkey {Command = command, Key = "y", Ctrl = true});
             return command;
         }
@@ -56,7 +62,8 @@ namespace Weboku.UserInterface.Component.NumpadMenu
         public UndoMenuItem Undo()
         {
             var relayCommand = new RelayCommand(() => _domainFacade.Undo());
-            var command = new UndoMenuItem(_gridHistoryManager, relayCommand);
+            var menuOptionSettings = new MenuOptionSettings {Command = relayCommand};
+            var command = new UndoMenuItem(menuOptionSettings, _gridHistoryManager);
             _hotkeyProvider.Register(new Hotkey {Command = command, Key = "z", Ctrl = true});
             return command;
         }
@@ -67,15 +74,27 @@ namespace Weboku.UserInterface.Component.NumpadMenu
         {
             var pairFilter = new PairFilter();
             var relayCommand = new RelayCommand(() => _domainFacade.SetFilter(pairFilter));
-            var command = new PairsFilterMenuItem(_numpadMenuProvider, relayCommand, _domainFacade);
+            var menuOptionSettings = new MenuOptionSettings
+            {
+                Command = relayCommand,
+                SelectableMenuItemContainer = _numpadMenuProvider.FilterContainer
+            };
+            var command = new PairsFilterMenuItem(menuOptionSettings, _domainFacade);
             _hotkeyProvider.Register(new Hotkey {Command = command, Key = "x"});
             return _pairsNumpadMenuItem ??= command;
         }
 
-        public ClearColorsMenuItem ClearColors()
+        public NumpadMenuLabel ClearColors()
         {
             var relayCommand = new RelayCommand(() => _domainFacade.ClearAllColors());
-            var command = new ClearColorsMenuItem(relayCommand);
+            var menuOptionSettings = new MenuOptionSettings
+            {
+                Command = relayCommand,
+                IsSelectable = false,
+                Label = "numpad-clear-colors__label",
+                Tooltip = "numpad-clear-colors__tooltip"
+            };
+            var command = new NumpadMenuLabel(menuOptionSettings);
             _hotkeyProvider.Register(new Hotkey {Command = command, Key = "r"});
             return command;
         }
@@ -88,7 +107,8 @@ namespace Weboku.UserInterface.Component.NumpadMenu
 
         public PlaceHolderMenuItem PlaceHolder()
         {
-            return new PlaceHolderMenuItem();
+            var menuOptionSettings = new MenuOptionSettings();
+            return new PlaceHolderMenuItem(menuOptionSettings);
         }
 
         private SelectActionEraserMenuItem _eraseMenuItem;
@@ -103,25 +123,29 @@ namespace Weboku.UserInterface.Component.NumpadMenu
         public SelectActionEraserMenuItem SelectCleanerAction()
         {
             var relayCommand = MakeSelectToolRelayCommand(Tool.Eraser);
-            return _eraseMenuItem ??= new SelectActionEraserMenuItem(_numpadMenuProvider, relayCommand);
+            var menuOptionSettings = new MenuOptionSettings {Command = relayCommand, SelectableMenuItemContainer = _numpadMenuProvider.ActionContainer};
+            return _eraseMenuItem ??= new SelectActionEraserMenuItem(menuOptionSettings);
         }
 
         public SelectActionMarkerMenuItem SelectStandardAction()
         {
             var relayCommand = MakeSelectToolRelayCommand(Tool.Marker);
-            return new SelectActionMarkerMenuItem(_numpadMenuProvider, relayCommand);
+            var menuOptionSettings = new MenuOptionSettings {Command = relayCommand, SelectableMenuItemContainer = _numpadMenuProvider.ActionContainer};
+            return new SelectActionMarkerMenuItem(menuOptionSettings);
         }
 
         public SelectActionPencilMenuItem SelectEraserAction()
         {
             var relayCommand = MakeSelectToolRelayCommand(Tool.Pencil);
-            return new SelectActionPencilMenuItem(_numpadMenuProvider, relayCommand);
+            var menuOptionSettings = new MenuOptionSettings {Command = relayCommand, SelectableMenuItemContainer = _numpadMenuProvider.ActionContainer};
+            return new SelectActionPencilMenuItem(menuOptionSettings);
         }
 
         public SelectActionBrushMenuItem SelectColorAction()
         {
             var relayCommand = MakeSelectToolRelayCommand(Tool.Brush);
-            return new SelectActionBrushMenuItem(_numpadMenuProvider, relayCommand);
+            var menuOptionSettings = new MenuOptionSettings {Command = relayCommand, SelectableMenuItemContainer = _numpadMenuProvider.ActionContainer};
+            return new SelectActionBrushMenuItem(menuOptionSettings);
         }
     }
 }

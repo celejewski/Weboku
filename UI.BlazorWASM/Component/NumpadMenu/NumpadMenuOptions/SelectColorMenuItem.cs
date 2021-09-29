@@ -36,5 +36,10 @@ namespace Weboku.UserInterface.Component.NumpadMenu.NumpadMenuOptions
             _domainFacade.SelectSecondaryColor(Color2);
             return Task.CompletedTask;
         }
+
+        public bool CanExecute()
+        {
+            return true;
+        }
     }
 }

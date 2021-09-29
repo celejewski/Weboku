@@ -1,14 +1,13 @@
 ﻿using Weboku.Application;
-using Weboku.UserInterface.Commands;
 
 namespace Weboku.UserInterface.Component.NumpadMenu.NumpadMenuOptions
 {
-    public class UndoMenuItem : BaseMenuOption, INumpadMenuLabel
+    public class UndoMenuItem : NumpadMenuLabel
     {
         private readonly DomainFacade _gridHistoryManager;
 
-        public UndoMenuItem(DomainFacade gridHistoryManager, ICommand command)
-            : base(command)
+        public UndoMenuItem(MenuOptionSettings menuOptionSettings, DomainFacade gridHistoryManager)
+            : base(menuOptionSettings)
         {
             _gridHistoryManager = gridHistoryManager;
         }

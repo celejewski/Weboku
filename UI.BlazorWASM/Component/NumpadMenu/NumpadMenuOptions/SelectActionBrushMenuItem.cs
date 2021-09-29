@@ -1,19 +1,14 @@
-﻿using Weboku.UserInterface.Commands;
-using Weboku.UserInterface.Providers;
-
-namespace Weboku.UserInterface.Component.NumpadMenu.NumpadMenuOptions
+﻿namespace Weboku.UserInterface.Component.NumpadMenu.NumpadMenuOptions
 {
-    public class SelectActionBrushMenuItem : BaseMenuOption, INumpadMenuLabel
+    public class SelectActionBrushMenuItem : NumpadMenuLabel
     {
-        public SelectActionBrushMenuItem(NumpadMenuProvider numpadMenuProvider, ICommand command)
-            : base(command, numpadMenuProvider.ActionContainer)
+        public SelectActionBrushMenuItem(MenuOptionSettings menuOptionSettings)
+            : base(menuOptionSettings)
         {
         }
 
         public string Label => "fas fa-paint-roller";
         public override string Tooltip => "select-action-brush__tooltip";
-
-        public override bool IsDimmed => false;
 
         public override bool IsSelectable => true;
     }

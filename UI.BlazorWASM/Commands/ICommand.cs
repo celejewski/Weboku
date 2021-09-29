@@ -5,5 +5,6 @@ namespace Weboku.UserInterface.Commands
     public interface ICommand
     {
         Task Execute();
+        bool CanExecute();
     }
 }

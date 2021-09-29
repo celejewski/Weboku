@@ -2,14 +2,12 @@
 
 namespace Weboku.UserInterface.Component.NumpadMenu.NumpadMenuOptions
 {
-    public class ClearColorsMenuItem : BaseMenuOption, INumpadMenuLabel
+    public class ClearColorsMenuItem : NumpadMenuLabel
     {
-        public ClearColorsMenuItem(ICommand command)
-            : base(command)
+        public ClearColorsMenuItem(MenuOptionSettings menuOptionSettings)
+            : base(menuOptionSettings)
         {
         }
-
-        public override bool IsDimmed => false;
 
         public override bool IsSelectable => false;
 

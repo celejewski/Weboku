@@ -1,12 +1,9 @@
-﻿using Weboku.UserInterface.Commands;
-using Weboku.UserInterface.Providers;
-
-namespace Weboku.UserInterface.Component.NumpadMenu.NumpadMenuOptions
+﻿namespace Weboku.UserInterface.Component.NumpadMenu.NumpadMenuOptions
 {
-    public class SelectActionPencilMenuItem : BaseMenuOption, INumpadMenuLabel
+    public class SelectActionPencilMenuItem : NumpadMenuLabel
     {
-        public SelectActionPencilMenuItem(NumpadMenuProvider numpadMenuProvider, ICommand command)
-            : base(command, numpadMenuProvider.ActionContainer)
+        public SelectActionPencilMenuItem(MenuOptionSettings menuOptionSettings)
+            : base(menuOptionSettings)
         {
         }
 

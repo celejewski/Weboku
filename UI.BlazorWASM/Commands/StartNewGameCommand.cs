@@ -25,5 +25,10 @@ namespace Weboku.UserInterface.Commands
             await _domainFacade.StartNewGame(_difficulty);
             await _startGameCommand.Execute();
         }
+
+        public bool CanExecute()
+        {
+            return true;
+        }
     }
 }

@@ -5,13 +5,13 @@ using Weboku.UserInterface.Providers;
 
 namespace Weboku.UserInterface.Component.NumpadMenu.NumpadMenuOptions
 {
-    public class SelectValueMenuItem : BaseMenuOption, INumpadMenuLabel
+    public class SelectValueMenuItem : NumpadMenuLabel
     {
         private readonly Value _value;
         private readonly DomainFacade _gridProvider;
 
-        public SelectValueMenuItem(Value value, DomainFacade gridProvider, NumpadMenuProvider numpadMenuProvider, CommandProvider commandProvider)
-            : base(commandProvider.SelectValue(value), numpadMenuProvider.FilterContainer)
+        public SelectValueMenuItem(Value value, DomainFacade gridProvider, MenuOptionSettings menuOptionSettings)
+            : base(menuOptionSettings)
         {
             _value = value;
             _gridProvider = gridProvider;

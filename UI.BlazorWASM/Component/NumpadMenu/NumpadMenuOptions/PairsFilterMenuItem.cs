@@ -1,16 +1,14 @@
 ﻿using Weboku.Application;
 using Weboku.Core.Data;
-using Weboku.UserInterface.Commands;
-using Weboku.UserInterface.Providers;
 
 namespace Weboku.UserInterface.Component.NumpadMenu.NumpadMenuOptions
 {
-    public class PairsFilterMenuItem : BaseMenuOption, INumpadMenuLabel
+    public class PairsFilterMenuItem : NumpadMenuLabel
     {
         private readonly DomainFacade _gridProvider;
 
-        public PairsFilterMenuItem(NumpadMenuProvider numpadMenuProvider, ICommand command, DomainFacade gridProvider)
-            : base(command, numpadMenuProvider.FilterContainer)
+        public PairsFilterMenuItem(MenuOptionSettings menuOptionSettings, DomainFacade gridProvider)
+            : base(menuOptionSettings)
         {
             _gridProvider = gridProvider;
         }

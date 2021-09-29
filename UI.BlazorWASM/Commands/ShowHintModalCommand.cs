@@ -20,5 +20,10 @@ namespace Weboku.UserInterface.Commands
             _hintsProvider.SetState(Hints.HintsState.ShowEmpty);
             return Task.CompletedTask;
         }
+
+        public bool CanExecute()
+        {
+            return true;
+        }
     }
 }

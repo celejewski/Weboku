@@ -5,16 +5,23 @@ namespace Weboku.UserInterface.Commands
 {
     public class RelayCommand : ICommand
     {
-        private readonly Action _action;
+        private readonly Action _execute;
+        private readonly Func<bool> _canExecute;
 
-        public RelayCommand(Action action)
+        public RelayCommand(Action execute, Func<bool> canExecute = null)
         {
-            _action = action;
+            _execute = execute;
+            _canExecute = canExecute;
+        }
+
+        public bool CanExecute()
+        {
+            return _canExecute?.Invoke() ?? true;
         }
 
         public Task Execute()
         {
-            _action?.Invoke();
+            _execute?.Invoke();
 
             return Task.CompletedTask;
         }
