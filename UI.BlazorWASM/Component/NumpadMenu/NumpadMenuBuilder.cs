@@ -105,13 +105,19 @@ namespace Weboku.UserInterface.Component.NumpadMenu
             return command;
         }
 
-        public PlaceHolderMenuItem PlaceHolder()
+        public NumpadMenuLabel PlaceHolder()
         {
-            var menuOptionSettings = new MenuOptionSettings();
-            return new PlaceHolderMenuItem(menuOptionSettings);
+            var menuOptionSettings = new MenuOptionSettings
+            {
+                Command = new RelayCommand(() => { }),
+                Tooltip = "",
+                IsSelectable = false,
+                Label = string.Empty,
+            };
+            return new NumpadMenuLabel(menuOptionSettings);
         }
 
-        private SelectActionEraserMenuItem _eraseMenuItem;
+        private NumpadMenuLabel _eraseMenuItem;
 
 
         private RelayCommand MakeSelectToolRelayCommand(Tool tool)
@@ -120,32 +126,61 @@ namespace Weboku.UserInterface.Component.NumpadMenu
             return relayCommand;
         }
 
-        public SelectActionEraserMenuItem SelectCleanerAction()
+        public NumpadMenuLabel SelectCleanerAction()
         {
             var relayCommand = MakeSelectToolRelayCommand(Tool.Eraser);
-            var menuOptionSettings = new MenuOptionSettings {Command = relayCommand, SelectableMenuItemContainer = _numpadMenuProvider.ActionContainer};
-            return _eraseMenuItem ??= new SelectActionEraserMenuItem(menuOptionSettings);
+            var menuOptionSettings = new MenuOptionSettings
+            {
+                Command = relayCommand,
+                SelectableMenuItemContainer = _numpadMenuProvider.ActionContainer,
+                Label = "fas fa-eraser",
+                Tooltip = "select-action-eraser__tooltip",
+                IsSelectable = true
+            };
+            return new NumpadMenuLabel(menuOptionSettings);
         }
 
-        public SelectActionMarkerMenuItem SelectStandardAction()
+        public NumpadMenuLabel SelectStandardAction()
         {
             var relayCommand = MakeSelectToolRelayCommand(Tool.Marker);
-            var menuOptionSettings = new MenuOptionSettings {Command = relayCommand, SelectableMenuItemContainer = _numpadMenuProvider.ActionContainer};
-            return new SelectActionMarkerMenuItem(menuOptionSettings);
+
+            var menuOptionSettings = new MenuOptionSettings
+            {
+                Command = relayCommand,
+                SelectableMenuItemContainer = _numpadMenuProvider.ActionContainer,
+                Label = "fas fa-marker",
+                Tooltip = "select-action-marker__tooltip",
+                IsSelectable = true
+            };
+            return new NumpadMenuLabel(menuOptionSettings);
         }
 
-        public SelectActionPencilMenuItem SelectEraserAction()
+        public NumpadMenuLabel SelectEraserAction()
         {
             var relayCommand = MakeSelectToolRelayCommand(Tool.Pencil);
-            var menuOptionSettings = new MenuOptionSettings {Command = relayCommand, SelectableMenuItemContainer = _numpadMenuProvider.ActionContainer};
-            return new SelectActionPencilMenuItem(menuOptionSettings);
+            var menuOptionSettings = new MenuOptionSettings
+            {
+                Command = relayCommand,
+                SelectableMenuItemContainer = _numpadMenuProvider.ActionContainer,
+                Label = "fas fa-pencil-alt",
+                Tooltip = "select-action-pencil__tooltip",
+                IsSelectable = true
+            };
+            return new NumpadMenuLabel(menuOptionSettings);
         }
 
-        public SelectActionBrushMenuItem SelectColorAction()
+        public NumpadMenuLabel SelectColorAction()
         {
             var relayCommand = MakeSelectToolRelayCommand(Tool.Brush);
-            var menuOptionSettings = new MenuOptionSettings {Command = relayCommand, SelectableMenuItemContainer = _numpadMenuProvider.ActionContainer};
-            return new SelectActionBrushMenuItem(menuOptionSettings);
+            var menuOptionSettings = new MenuOptionSettings
+            {
+                Command = relayCommand,
+                SelectableMenuItemContainer = _numpadMenuProvider.ActionContainer,
+                Label = "fas fa-paint-roller",
+                Tooltip = "select-action-brush__tooltip",
+                IsSelectable = true
+            };
+            return new NumpadMenuLabel(menuOptionSettings);
         }
     }
 }
