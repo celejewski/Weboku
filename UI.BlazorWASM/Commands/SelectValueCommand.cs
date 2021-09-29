@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Weboku.Application;
 using Weboku.Application.Filters;
-using Weboku.UserInterface.Providers;
 
 namespace Weboku.UserInterface.Commands
 {

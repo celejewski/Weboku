@@ -13,10 +13,7 @@ namespace Weboku.UserInterface.Component.NumpadMenu
         private readonly NumpadMenuProvider _numpadMenuProvider;
         private readonly CommandProvider _commandProvider;
         private readonly DomainFacade _domainFacade;
-        private readonly RedoCommand _redoCommand;
         private readonly SelectPairsFilterCommand _selectPairsFilterCommand;
-        private readonly ClearColorsCommand _clearColorsCommand;
-        private readonly UndoCommand _undoCommand;
         private readonly HotkeyProvider _hotkeyProvider;
 
         public NumpadMenuBuilder(
@@ -24,10 +21,7 @@ namespace Weboku.UserInterface.Component.NumpadMenu
             NumpadMenuProvider numpadMenuProvider,
             CommandProvider commandProvider,
             DomainFacade domainFacade,
-            RedoCommand redoCommand,
             SelectPairsFilterCommand selectPairsFilterCommand,
-            ClearColorsCommand clearColorsCommand,
-            UndoCommand undoCommand,
             HotkeyProvider hotkeyProvider
         )
         {
@@ -35,10 +29,7 @@ namespace Weboku.UserInterface.Component.NumpadMenu
             _numpadMenuProvider = numpadMenuProvider;
             _commandProvider = commandProvider;
             _domainFacade = domainFacade;
-            _redoCommand = redoCommand;
             _selectPairsFilterCommand = selectPairsFilterCommand;
-            _clearColorsCommand = clearColorsCommand;
-            _undoCommand = undoCommand;
             _hotkeyProvider = hotkeyProvider;
         }
 
@@ -58,14 +49,16 @@ namespace Weboku.UserInterface.Component.NumpadMenu
 
         public RedoNumpadMenuItem Redo()
         {
-            var command = new RedoNumpadMenuItem(_redoCommand, _gridHistoryManager);
+            var relayCommand = new RelayCommand(() => _domainFacade.Redo());
+            var command = new RedoNumpadMenuItem(relayCommand, _gridHistoryManager);
             _hotkeyProvider.Register(new Hotkey {Command = command, Key = "y", Ctrl = true});
             return command;
         }
 
         public UndoMenuItem Undo()
         {
-            var command = new UndoMenuItem(_gridHistoryManager, _undoCommand);
+            var relayCommand = new RelayCommand(() => _domainFacade.Undo());
+            var command = new UndoMenuItem(_gridHistoryManager, relayCommand);
             _hotkeyProvider.Register(new Hotkey {Command = command, Key = "z", Ctrl = true});
             return command;
         }
@@ -81,7 +74,8 @@ namespace Weboku.UserInterface.Component.NumpadMenu
 
         public ClearColorsMenuItem ClearColors()
         {
-            var command = new ClearColorsMenuItem(_clearColorsCommand);
+            var relayCommand = new RelayCommand(() => _domainFacade.ClearAllColors());
+            var command = new ClearColorsMenuItem(relayCommand);
             _hotkeyProvider.Register(new Hotkey {Command = command, Key = "r"});
             return command;
         }

@@ -1,11 +1,10 @@
 ﻿@using Weboku.UserInterface.Providers
-@using Weboku.UserInterface.Commands
 @using Weboku.UserInterface.Hints
+@using Weboku.Application.Enums
 @inject HintsProvider HintsProvider
-@inject CloseModalCommand CloseModalCommand
 @inject Displayer Displayer
 @inject ILanguageContainerService LanguageContainer
-
+@inject ModalProvider  ModalProvider
 <ModalWithGridTemplateComponent>
     <Content>
         <div class="hints-modal__container">
@@ -107,7 +106,7 @@
     private void Close()
     {
         HintsProvider.Close();
-        _ = CloseModalCommand.Execute();
+        ModalProvider.SetModalState(ModalState.None);
     }
 
     protected override void OnInitialized()

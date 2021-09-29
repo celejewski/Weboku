@@ -7,7 +7,7 @@ namespace Weboku.UserInterface.Component.NumpadMenu.NumpadMenuOptions
     {
         private readonly DomainFacade _gridHistoryManager;
 
-        public UndoMenuItem(DomainFacade gridHistoryManager, UndoCommand command)
+        public UndoMenuItem(DomainFacade gridHistoryManager, ICommand command)
             : base(command)
         {
             _gridHistoryManager = gridHistoryManager;

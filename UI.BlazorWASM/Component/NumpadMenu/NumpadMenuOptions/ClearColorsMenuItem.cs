@@ -4,7 +4,7 @@ namespace Weboku.UserInterface.Component.NumpadMenu.NumpadMenuOptions
 {
     public class ClearColorsMenuItem : BaseMenuOption, INumpadMenuLabel
     {
-        public ClearColorsMenuItem(ClearColorsCommand command)
+        public ClearColorsMenuItem(ICommand command)
             : base(command)
         {
         }
