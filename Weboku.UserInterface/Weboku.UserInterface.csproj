@@ -38,8 +38,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Application\Weboku.Application.csproj" />
-    <ProjectReference Include="..\Core\Weboku.Core.csproj" />
+    <ProjectReference Include="..\Weboku.Application\Weboku.Application.csproj" />
   </ItemGroup>
 
 </Project>
