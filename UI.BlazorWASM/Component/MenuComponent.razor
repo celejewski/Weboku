@@ -6,7 +6,6 @@
 @inject DomainFacade DomainFacade
 @inject ModalProvider ModalProvider
 @inject SettingsProvider SettingsProvider
-@inject RestartGameCommand RestartGameCommand
 @inject ShowHintModalCommand ShowHintModalCommand
 @inject StartNewCustomSudokuCommand StartNewCustomSudokuCommand
 
@@ -25,7 +24,7 @@
                 <Content>
                     <MenuLinkComponent Action="() => ModalProvider.SetModalState(ModalState.MainMenu)">@Loc.Keys["menu__main-menu"]</MenuLinkComponent>
                     <MenuLinkComponent Action="() => ModalProvider.SetModalState(ModalState.Share)">@Loc.Keys["menu__share"]</MenuLinkComponent>
-                    <MenuLinkComponent Command="RestartGameCommand">@Loc.Keys["menu__restart-game"]</MenuLinkComponent>
+                    <MenuLinkComponent Action="DomainFacade.RestartGame">@Loc.Keys["menu__restart-game"]</MenuLinkComponent>
                     <MenuLinkComponent Action="() => ModalProvider.SetModalState(ModalState.HowToPlay)">@Loc.Keys["menu__how-to-play"]</MenuLinkComponent>
                     <MenuLinkComponent Command="ShowHintModalCommand">@Loc.Keys["menu__show-hint"]</MenuLinkComponent>
                 </Content>

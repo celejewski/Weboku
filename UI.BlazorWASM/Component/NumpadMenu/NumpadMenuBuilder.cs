@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Weboku.Application;
 using Weboku.Application.Enums;
+using Weboku.Application.Filters;
 using Weboku.UserInterface.Commands;
 using Weboku.UserInterface.Component.NumpadMenu.NumpadMenuOptions;
 using Weboku.UserInterface.Providers;
@@ -13,7 +14,6 @@ namespace Weboku.UserInterface.Component.NumpadMenu
         private readonly NumpadMenuProvider _numpadMenuProvider;
         private readonly CommandProvider _commandProvider;
         private readonly DomainFacade _domainFacade;
-        private readonly SelectPairsFilterCommand _selectPairsFilterCommand;
         private readonly HotkeyProvider _hotkeyProvider;
 
         public NumpadMenuBuilder(
@@ -21,7 +21,6 @@ namespace Weboku.UserInterface.Component.NumpadMenu
             NumpadMenuProvider numpadMenuProvider,
             CommandProvider commandProvider,
             DomainFacade domainFacade,
-            SelectPairsFilterCommand selectPairsFilterCommand,
             HotkeyProvider hotkeyProvider
         )
         {
@@ -29,7 +28,6 @@ namespace Weboku.UserInterface.Component.NumpadMenu
             _numpadMenuProvider = numpadMenuProvider;
             _commandProvider = commandProvider;
             _domainFacade = domainFacade;
-            _selectPairsFilterCommand = selectPairsFilterCommand;
             _hotkeyProvider = hotkeyProvider;
         }
 
@@ -67,7 +65,9 @@ namespace Weboku.UserInterface.Component.NumpadMenu
 
         public PairsFilterMenuItem Pairs()
         {
-            var command = new PairsFilterMenuItem(_numpadMenuProvider, _selectPairsFilterCommand, _domainFacade);
+            var pairFilter = new PairFilter();
+            var relayCommand = new RelayCommand(() => _domainFacade.SetFilter(pairFilter));
+            var command = new PairsFilterMenuItem(_numpadMenuProvider, relayCommand, _domainFacade);
             _hotkeyProvider.Register(new Hotkey {Command = command, Key = "x"});
             return _pairsNumpadMenuItem ??= command;
         }

@@ -86,6 +86,13 @@ namespace Weboku.Application
             GridChanged();
         }
 
+        public void RestartGame()
+        {
+            RestartGrid();
+            ClearAllColors();
+            StartTimer();
+        }
+
         public bool IsCustomGridValid => ValidatorGrid.AreAllValueslegal(_customGrid);
     }
 }

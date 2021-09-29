@@ -1,4 +1,6 @@
-﻿using Weboku.Application;
+﻿using System;
+using Weboku.Application;
+using Weboku.Application.Filters;
 using Weboku.Core.Data;
 using Weboku.UserInterface.Commands;
 
@@ -23,7 +25,14 @@ namespace Weboku.UserInterface.Providers
 
         public ICommand SelectValue(int value)
         {
-            return new SelectValueCommand(value, _domainFacade);
+            void Action()
+            {
+                _domainFacade.SelectValue(value);
+                var selectedValueFilter = new SelectedValueFilter(value);
+                _domainFacade.SetFilter(selectedValueFilter);
+            }
+
+            return new RelayCommand(Action);
         }
 
         public ICommand StartNewGameV2(Difficulty difficulty)

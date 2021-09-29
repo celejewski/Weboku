@@ -26,8 +26,6 @@ namespace Weboku.UserInterface.Helpers
 
         public static void RegisterCommands(this IServiceCollection services)
         {
-            services.AddScoped<RestartGameCommand>();
-            services.AddScoped<SelectPairsFilterCommand>();
             services.AddScoped<StartNewGameFromPastedCommand>();
             services.AddScoped<ShowPreviousModalCommand>();
             services.AddScoped<StartNewCustomSudokuCommand>();

@@ -9,7 +9,7 @@ namespace Weboku.UserInterface.Component.NumpadMenu.NumpadMenuOptions
     {
         private readonly DomainFacade _gridProvider;
 
-        public PairsFilterMenuItem(NumpadMenuProvider numpadMenuProvider, SelectPairsFilterCommand command, DomainFacade gridProvider)
+        public PairsFilterMenuItem(NumpadMenuProvider numpadMenuProvider, ICommand command, DomainFacade gridProvider)
             : base(command, numpadMenuProvider.FilterContainer)
         {
             _gridProvider = gridProvider;
