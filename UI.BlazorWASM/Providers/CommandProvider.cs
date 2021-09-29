@@ -25,14 +25,18 @@ namespace Weboku.UserInterface.Providers
 
         public ICommand SelectValue(int value)
         {
-            void Action()
+            void execute()
             {
                 _domainFacade.SelectValue(value);
                 var selectedValueFilter = new SelectedValueFilter(value);
                 _domainFacade.SetFilter(selectedValueFilter);
             }
 
-            return new RelayCommand(Action);
+            return new RelayCommand
+            (
+                execute,
+                () => _domainFacade.CanUseValueFilter(value)
+            );
         }
 
         public ICommand StartNewGameV2(Difficulty difficulty)
