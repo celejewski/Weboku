@@ -1,10 +1,10 @@
-﻿using Core.Serializers;
-using Core.Solvers;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
+using Weboku.Core.Serializers;
+using Weboku.Core.Solvers;
 
-namespace API.Solver.Controllers
+namespace Weboku.Solver.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
@@ -34,7 +34,7 @@ namespace API.Solver.Controllers
         [Produces("text/plain")]
         public ActionResult<string> Get(string serializedGrid)
         {
-            if( !IsValidFormat(serializedGrid) ) return BadRequest();
+            if (!IsValidFormat(serializedGrid)) return BadRequest();
 
             var serializer = SelectSerializer(serializedGrid);
             var grid = serializer.Deserialize(serializedGrid);

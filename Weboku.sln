@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Weboku.Application", "Webok
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Weboku.Generator.Api", "Weboku.Generator.Api\Weboku.Generator.Api.csproj", "{F0E4CB6A-EF7A-4D48-9155-BE329825F934}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Weboku.Solver.Api", "Weboku.Solver.Api\Weboku.Solver.Api.csproj", "{F05C71DD-60A1-462E-B1DC-0FE28333F9C8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{F0E4CB6A-EF7A-4D48-9155-BE329825F934}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F0E4CB6A-EF7A-4D48-9155-BE329825F934}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F0E4CB6A-EF7A-4D48-9155-BE329825F934}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F05C71DD-60A1-462E-B1DC-0FE28333F9C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F05C71DD-60A1-462E-B1DC-0FE28333F9C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F05C71DD-60A1-462E-B1DC-0FE28333F9C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F05C71DD-60A1-462E-B1DC-0FE28333F9C8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
