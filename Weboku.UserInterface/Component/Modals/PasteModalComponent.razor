@@ -2,7 +2,6 @@
 @using Weboku.Application
 @inject IJSRuntime JSRuntime
 @inject StartNewGameFromPastedCommand StartNewGameFromPastedCommand
-@inject ShowPreviousModalCommand ShowPreviousModalCommand
 @inject ILanguageContainerService LanguageContainer
 @inject DomainFacade DomainFacade
 
@@ -19,7 +18,7 @@
 
         <div class="paste__row">
             <div class="paste__close"
-                 @onclick="ShowPreviousModalCommand.Execute">@LanguageContainer.Keys["modal__close"]</div>
+                 @onclick="() => DomainFacade.GoToPreviousState()">@LanguageContainer.Keys["modal__close"]</div>
         </div>
     </Content>
 </ModalWithGridTemplateComponent>

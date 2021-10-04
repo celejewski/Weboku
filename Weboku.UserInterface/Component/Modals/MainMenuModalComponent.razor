@@ -1,6 +1,7 @@
 ﻿@using Weboku.UserInterface.Providers
 @using Weboku.Application.Enums
-@inject ModalProvider ModalProvider
+@using Weboku.Application
+@inject DomainFacade ModalProvider
 @inject ILanguageContainerService LanguageContainer
 <ModalTemplateComponent>
     <h1 class="modal__title with-hr">@LanguageContainer.Keys["main-menu__header"]</h1>

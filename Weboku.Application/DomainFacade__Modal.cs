@@ -1,27 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using Weboku.Application;
 using Weboku.Application.Enums;
 
-namespace Weboku.UserInterface.Providers
+namespace Weboku.Application
 {
-    public class ModalProvider : IProvider
+    public sealed partial class DomainFacade
     {
-        private readonly Stack<ModalState> _previousStates = new Stack<ModalState>();
-        private readonly DomainFacade _domainFacade;
+        private readonly Stack<ModalState> _previousStates;
 
         public ModalState CurrentState
         {
-            get => _domainFacade.ModalState;
-            private set => _domainFacade.ModalState = value;
+            get => ModalState;
+            private set => ModalState = value;
         }
 
-        public ModalProvider(DomainFacade domainFacade)
-        {
-            _previousStates.Push(ModalState.None);
-            _domainFacade = domainFacade;
-            _domainFacade.ModalState = ModalState.Loading;
-        }
 
         public void SetModalState(ModalState state)
         {
@@ -34,8 +26,8 @@ namespace Weboku.UserInterface.Providers
         {
             OnChanged?.Invoke();
 
-            if (CurrentState == ModalState.None) _domainFacade.Unpause();
-            else _domainFacade.Pause();
+            if (CurrentState == ModalState.None) Unpause();
+            else Pause();
         }
 
         public void GoToPreviousState()

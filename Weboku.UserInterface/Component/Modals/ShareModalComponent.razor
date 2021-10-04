@@ -1,5 +1,4 @@
 ﻿@inject IJSRuntime JSRuntime
-@inject ShowPreviousModalCommand ShowPreviousModalCommand
 @inject DomainFacade DomainFacade
 @inject NavigationManager NavigationManager
 @inject ILanguageContainerService Loc
@@ -36,7 +35,7 @@
                class="share__output" />
         <div class="share__row">
             <div class="share__close"
-                 @onclick="ShowPreviousModalCommand.Execute">@Loc.Keys["modal__close"]</div>
+                 @onclick="() => DomainFacade.GoToPreviousState()">@Loc.Keys["modal__close"]</div>
         </div>
     </Content>
 </ModalWithGridTemplateComponent>

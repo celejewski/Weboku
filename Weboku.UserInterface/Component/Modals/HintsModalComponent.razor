@@ -1,10 +1,11 @@
 ﻿@using Weboku.UserInterface.Providers
 @using Weboku.UserInterface.Hints
 @using Weboku.Application.Enums
+@using Weboku.Application
 @inject HintsProvider HintsProvider
 @inject Displayer Displayer
 @inject ILanguageContainerService LanguageContainer
-@inject ModalProvider  ModalProvider
+@inject DomainFacade ModalProvider
 <ModalWithGridTemplateComponent>
     <Content>
         <div class="hints-modal__container">

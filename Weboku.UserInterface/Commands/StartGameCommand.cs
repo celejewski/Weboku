@@ -1,17 +1,16 @@
 ﻿using System.Threading.Tasks;
 using Weboku.Application;
 using Weboku.Application.Enums;
-using Weboku.UserInterface.Providers;
 
 namespace Weboku.UserInterface.Commands
 {
     public class StartGameCommand
     {
-        private readonly ModalProvider _modalProvider;
+        private readonly DomainFacade _modalProvider;
         private readonly DomainFacade _domainFacade;
 
         public StartGameCommand(
-            ModalProvider modalProvider,
+            DomainFacade modalProvider,
             DomainFacade domainFacade)
         {
             _modalProvider = modalProvider;

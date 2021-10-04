@@ -25,10 +25,9 @@ namespace Weboku.UserInterface
             builder.Services.AddScoped(serviceProvider =>
             {
                 var navigationManager = serviceProvider.GetRequiredService<NavigationManager>();
-                return new DomainFacade(
-                    serviceProvider.GetRequiredService<IStorageProvider>(),
-                    navigationManager.BaseUri
-                );
+                var storageProvider = serviceProvider.GetRequiredService<IStorageProvider>();
+                var domainFacade = new DomainFacade(storageProvider, navigationManager.BaseUri);
+                return domainFacade;
             });
             builder.Services.RegisterProviders();
             builder.Services.RegisterCommands();

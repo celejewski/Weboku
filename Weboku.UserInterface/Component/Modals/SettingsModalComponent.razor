@@ -1,9 +1,10 @@
 ﻿@using Weboku.UserInterface.Commands
 @using Weboku.UserInterface.Providers
-@inject ShowPreviousModalCommand ShowPreviousModalCommand
+@using Weboku.Application
 @inject ILanguageContainerService Loc
 @inject CommandProvider CommandProvider
 @inject SettingsProvider SettingsProvider
+@inject DomainFacade DomainFacade
 
 <ModalTemplateComponent>
     <h1 class="modal__title with-hr">@Loc.Keys["settings__header"]</h1>
@@ -19,7 +20,7 @@
     </div>
 
     <div class="modal__footer with-hr">
-        <ModalButtonComponent Command="ShowPreviousModalCommand"IsSecondary="true">
+        <ModalButtonComponent Action="() => DomainFacade.GoToPreviousState()"IsSecondary="true">
             @Loc.Keys["modal__close"]
         </ModalButtonComponent>
     </div>

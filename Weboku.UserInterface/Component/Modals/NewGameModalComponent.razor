@@ -2,9 +2,9 @@
 @using Weboku.UserInterface.Providers
 @using Weboku.Core.Data
 @using Weboku.Application.Enums
-@inject ShowPreviousModalCommand ShowPreviousModalCommand
+@using Weboku.Application
 @inject CommandProvider CommandProvider
-@inject ModalProvider ModalProvider
+@inject DomainFacade ModalProvider
 @inject ILanguageContainerService Loc
 @inject SettingsProvider SettingsProvider
 
@@ -46,7 +46,7 @@
     </div>
 
     <div class="modal__footer with-hr">
-        <ModalButtonComponent Command="ShowPreviousModalCommand" IsSecondary="true">@Loc.Keys["modal__close"]</ModalButtonComponent>
+        <ModalButtonComponent Action="() => ModalProvider.GoToPreviousState()" IsSecondary="true">@Loc.Keys["modal__close"]</ModalButtonComponent>
     </div>
 </ModalTemplateComponent>
 

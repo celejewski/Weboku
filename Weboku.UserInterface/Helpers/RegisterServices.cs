@@ -27,7 +27,6 @@ namespace Weboku.UserInterface.Helpers
         public static void RegisterCommands(this IServiceCollection services)
         {
             services.AddScoped<StartNewGameFromPastedCommand>();
-            services.AddScoped<ShowPreviousModalCommand>();
             services.AddScoped<StartNewCustomSudokuCommand>();
             services.AddScoped<StartGameCommand>();
         }
@@ -37,7 +36,6 @@ namespace Weboku.UserInterface.Helpers
             services.AddScoped<CandidateColorProvider>();
             services.AddScoped<InputMarkProvider>();
             services.AddScoped<TooltipProvider>();
-            services.AddScoped<ModalProvider>();
             services.AddScoped<CommandProvider>();
             services.AddScoped<NumpadMenuProvider>();
             services.AddScoped<NumpadMenuBuilder>();

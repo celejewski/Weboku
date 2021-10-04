@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Threading.Tasks;
 using Weboku.Application.Enums;
 using Weboku.Application.Interfaces;
@@ -46,6 +45,10 @@ namespace Weboku.Application
             _colorManager = new ColorManager();
             _colorManager.OnChanged += () => OnColorChanged?.Invoke();
             _timer = MakeTimer();
+
+            _previousStates = new();
+            _previousStates.Push(ModalState.None);
+            ModalState = ModalState.Loading;
         }
 
         public void StartNewGame(Grid grid, Difficulty difficulty = Difficulty.Unknown)
