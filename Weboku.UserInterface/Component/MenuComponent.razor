@@ -9,7 +9,7 @@
 @inject ShowHintModalCommand ShowHintModalCommand
 <div class="menu">
     <div class="menu__item">
-        @if (ModalProvider.CurrentState == ModalState.CustomSudoku)
+        @if (ModalProvider.CurrentModalState == ModalState.CustomSudoku)
         {
             <MenuLinkComponent Action="() => DomainFacade.StartNewCustomGame()">Start game</MenuLinkComponent>
         }
@@ -33,7 +33,7 @@
         <TooltipTogglerComponent/>
     </div>
     <div class="menu__item">
-        @if (ModalProvider.CurrentState == ModalState.CustomSudoku)
+        @if (ModalProvider.CurrentModalState == ModalState.CustomSudoku)
         {
             <MenuLinkComponent Action="() => ModalProvider.SetModalState(ModalState.None)">Close</MenuLinkComponent>
         }
@@ -57,7 +57,7 @@
     protected override void OnInitialized()
     {
         SettingsProvider.OnChanged += StateHasChanged;
-        ModalProvider.OnChanged += StateHasChanged;
+        ModalProvider.OnModalStateChanged += StateHasChanged;
         base.OnInitialized();
     }
 

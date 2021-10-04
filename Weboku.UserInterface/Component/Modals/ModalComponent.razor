@@ -5,39 +5,39 @@
 
     <div class="modal-container"
          style="@_style">
-        @if( ModalProvider.CurrentState == ModalState.NewGame )
+        @if( ModalProvider.CurrentModalState == ModalState.NewGame )
         {
             <NewGameModalComponent />
         }
-        else if( ModalProvider.CurrentState == ModalState.EndGame )
+        else if( ModalProvider.CurrentModalState == ModalState.EndGame )
         {
             <EndGameModalComponent />
         }
-        else if( ModalProvider.CurrentState == ModalState.HowToPlay )
+        else if( ModalProvider.CurrentModalState == ModalState.HowToPlay )
         {
             <HowToPlayModalComponent />
         }
-        else if( ModalProvider.CurrentState == ModalState.MainMenu )
+        else if( ModalProvider.CurrentModalState == ModalState.MainMenu )
         {
             <MainMenuModalComponent />
         }
-        else if( ModalProvider.CurrentState == ModalState.Share )
+        else if( ModalProvider.CurrentModalState == ModalState.Share )
         {
             <ShareModalComponent />
         }
-        else if( ModalProvider.CurrentState == ModalState.Paste )
+        else if( ModalProvider.CurrentModalState == ModalState.Paste )
         {
             <PasteModalComponent />
         }
-        else if (ModalProvider.CurrentState == ModalState.Hints)
+        else if (ModalProvider.CurrentModalState == ModalState.Hints)
         {
             <HintsModalComponent />
         }
-        else if (ModalProvider.CurrentState == ModalState.Settings)
+        else if (ModalProvider.CurrentModalState == ModalState.Settings)
         {
             <SettingsModalComponent />
         }
-        else if (ModalProvider.CurrentState == ModalState.Loading)
+        else if (ModalProvider.CurrentModalState == ModalState.Loading)
         {
             <LoadingModalComponent />
         }
@@ -48,8 +48,8 @@
     {
         get
         {
-            return ModalProvider.CurrentState == ModalState.None
-                || ModalProvider.CurrentState == ModalState.CustomSudoku
+            return ModalProvider.CurrentModalState == ModalState.None
+                || ModalProvider.CurrentModalState == ModalState.CustomSudoku
                 ? "display: none;"
                 : string.Empty;
         }
@@ -57,6 +57,6 @@
 
     protected override void OnInitialized()
     {
-        ModalProvider.OnChanged += StateHasChanged;
+        ModalProvider.OnModalStateChanged += StateHasChanged;
     }
 }

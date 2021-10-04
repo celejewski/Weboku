@@ -1,49 +1,44 @@
 ﻿using System;
-using System.Collections.Generic;
 using Weboku.Application.Enums;
+using Weboku.Application.Managers;
 
 namespace Weboku.Application
 {
     public sealed partial class DomainFacade
     {
-        private readonly Stack<ModalState> _previousStates;
+        private readonly ModalStateManager _modalStateManager;
 
-        public ModalState CurrentState
+        public ModalState CurrentModalState => _modalStateManager.CurrentModalState;
+
+        public void SetModalState(ModalState modalState)
         {
-            get => ModalState;
-            private set => ModalState = value;
+            _modalStateManager.SetModalState(modalState);
         }
 
 
-        public void SetModalState(ModalState state)
+        public void GoToPreviousModalState() => _modalStateManager.GoToPreviousModalState();
+
+        public bool HasPreviousModalState => _modalStateManager.HasPreviousModalState;
+
+        public event Action OnModalStateChanged
         {
-            _previousStates.Push(CurrentState);
-            CurrentState = state;
-            ModalStateChanged();
+            add => _modalStateManager.OnModalStateChanged += value;
+            remove => _modalStateManager.OnModalStateChanged -= value;
         }
 
-        private void ModalStateChanged()
-        {
-            OnChanged?.Invoke();
 
-            if (CurrentState == ModalState.None) _gameTimerManager.Unpause();
+        private void HandleModalStateChanged()
+        {
+            var modalState = _modalStateManager.CurrentModalState;
+            if (modalState == ModalState.Share)
+            {
+                _shareManager.UpdateGrid(_grid);
+            }
+
+            GridChanged();
+
+            if (modalState == ModalState.None) _gameTimerManager.Unpause();
             else _gameTimerManager.Pause();
         }
-
-        public void GoToPreviousState()
-        {
-            if (HasPreviousState)
-            {
-                CurrentState = _previousStates.Pop();
-                ModalStateChanged();
-            }
-        }
-
-        public bool HasPreviousState
-        {
-            get => _previousStates.Count > 0;
-        }
-
-        public event Action OnChanged;
     }
 }

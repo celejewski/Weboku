@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using Weboku.Application.Enums;
-using Weboku.Application.Filters;
 using Weboku.Core.Data;
 using Weboku.Core.Serializers;
 
@@ -18,6 +17,8 @@ namespace Weboku.Application.Managers
         public ShareManager(string baseUri)
         {
             _baseUri = baseUri;
+            _sourceGrid = new Grid();
+            _transformedGrid = new Grid();
         }
 
         public Grid Grid

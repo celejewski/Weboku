@@ -14,7 +14,7 @@ namespace Weboku.Application
         {
             get
             {
-                return ModalState switch
+                return _modalStateManager.CurrentModalState switch
                 {
                     ModalState.Share => _shareManager.Grid,
                     ModalState.Paste => _pasteManager.Grid,

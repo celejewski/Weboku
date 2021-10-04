@@ -28,8 +28,6 @@ namespace Weboku.Application
 
         public Difficulty Difficulty;
         public event Action OnGridChanged;
-        public event Action OnSolved;
-
 
         public DomainFacade(IStorageProvider storageProvider, string baseUri)
         {
@@ -46,9 +44,9 @@ namespace Weboku.Application
             _colorManager.OnChanged += () => OnColorChanged?.Invoke();
             _gameTimerManager = new GameTimerManager();
 
-            _previousStates = new();
-            _previousStates.Push(ModalState.None);
-            ModalState = ModalState.Loading;
+            _modalStateManager = new();
+            _modalStateManager.OnModalStateChanged += HandleModalStateChanged;
+            SetModalState(ModalState.Loading);
         }
 
         public void StartNewGame(Grid grid, Difficulty difficulty = Difficulty.Unknown)
@@ -104,24 +102,6 @@ namespace Weboku.Application
             _customGrid = new Grid();
         }
 
-        private ModalState _modalState;
-
-        public ModalState ModalState
-        {
-            get => _modalState;
-            set
-            {
-                if (_modalState == value) return;
-                _modalState = value;
-                if (_modalState == ModalState.Share)
-                {
-                    _shareManager.UpdateGrid(_grid);
-                }
-
-                GridChanged();
-            }
-        }
-
         public ISolvingTechnique GetNextHint()
         {
             return _hintsProvider.GetNextHint(Grid);
@@ -142,7 +122,7 @@ namespace Weboku.Application
             if (_grid is not null && _grid.IsSudokuSolved())
             {
                 _gameTimerManager.StopTimer();
-                if (CurrentState == ModalState.None)
+                if (CurrentModalState == ModalState.None)
                 {
                     SetModalState(ModalState.EndGame);
                 }

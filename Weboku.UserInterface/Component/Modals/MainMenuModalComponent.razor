@@ -15,7 +15,7 @@
     </div>
 
     <div class="modal__footer with-hr">
-        @if( ModalProvider.HasPreviousState )
+        @if( ModalProvider.HasPreviousModalState )
         {
             <ModalButtonComponent Action="() => ModalProvider.SetModalState(ModalState.None)" IsSecondary="true">@LanguageContainer.Keys["modal__close"]</ModalButtonComponent>
         }

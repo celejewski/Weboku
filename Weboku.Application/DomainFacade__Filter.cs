@@ -14,7 +14,7 @@ namespace Weboku.Application
         {
             get
             {
-                if (ModalState == ModalState.Share) return new SharedFilter(SharedFields);
+                if (_modalStateManager.CurrentModalState == ModalState.Share) return new SharedFilter(SharedFields);
                 return _filter;
             }
             private set
