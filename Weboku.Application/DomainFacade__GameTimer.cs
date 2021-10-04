@@ -1,55 +1,18 @@
 ﻿using System;
-using System.Timers;
+using Weboku.Application.Managers;
 
 namespace Weboku.Application
 {
     public sealed partial class DomainFacade
     {
-        private readonly Timer _timer;
+        private readonly GameTimerManager _gameTimerManager;
 
-        private Timer MakeTimer()
+        public TimeSpan Elapsed => _gameTimerManager.Elapsed;
+
+        public event Action OnTimerChanged
         {
-            var timer = new Timer(1000);
-            timer.Elapsed += (o, e) =>
-            {
-                if (!_isPaused)
-                {
-                    Elapsed += TimeSpan.FromSeconds(1);
-                    OnTimerChanged?.Invoke();
-                }
-            };
-            timer.Start();
-            _isPaused = true;
-            return timer;
-        }
-
-        public TimeSpan Elapsed { get; private set; }
-
-        public event Action OnTimerChanged;
-
-        public void StartTimer()
-        {
-            _timer.Stop();
-            Elapsed = TimeSpan.Zero;
-            OnTimerChanged?.Invoke();
-            _timer.Start();
-        }
-
-        private bool _isPaused;
-
-        public void Pause()
-        {
-            _isPaused = true;
-        }
-
-        public void Unpause()
-        {
-            _isPaused = false;
-        }
-
-        public void StopTimer()
-        {
-            _timer.Stop();
+            add => _gameTimerManager.OnTimerChanged += value;
+            remove => _gameTimerManager.OnTimerChanged -= value;
         }
     }
 }

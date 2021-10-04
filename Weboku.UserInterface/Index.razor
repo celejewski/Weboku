@@ -57,10 +57,6 @@
     private bool _afterFirstRender = false;
     private bool _afterSecondRender = false;
 
-    protected override async Task OnInitializedAsync()
-    {
-        DomainFacade.OnSolved += OnGameEnd;
-    }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -94,15 +90,6 @@
                 _afterFirstRender = true;
                 StateHasChanged();
             });
-        }
-    }
-
-    private void OnGameEnd()
-    {
-        DomainFacade.StopTimer();
-        if (ModalProvider.CurrentState == ModalState.None)
-        {
-            ModalProvider.SetModalState(ModalState.EndGame);
         }
     }
 

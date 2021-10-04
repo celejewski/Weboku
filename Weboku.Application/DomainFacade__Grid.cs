@@ -90,7 +90,7 @@ namespace Weboku.Application
         {
             RestartGrid();
             ClearAllColors();
-            StartTimer();
+            _gameTimerManager.StartTimer();
         }
 
         public bool IsCustomGridValid => ValidatorGrid.AreAllValueslegal(_customGrid);

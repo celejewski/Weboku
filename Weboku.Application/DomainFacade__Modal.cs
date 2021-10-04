@@ -26,8 +26,8 @@ namespace Weboku.Application
         {
             OnChanged?.Invoke();
 
-            if (CurrentState == ModalState.None) Unpause();
-            else Pause();
+            if (CurrentState == ModalState.None) _gameTimerManager.Unpause();
+            else _gameTimerManager.Pause();
         }
 
         public void GoToPreviousState()

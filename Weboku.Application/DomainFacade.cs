@@ -44,7 +44,7 @@ namespace Weboku.Application
             _gridGenerator = new PredefinedGridGenerator();
             _colorManager = new ColorManager();
             _colorManager.OnChanged += () => OnColorChanged?.Invoke();
-            _timer = MakeTimer();
+            _gameTimerManager = new GameTimerManager();
 
             _previousStates = new();
             _previousStates.Push(ModalState.None);
@@ -62,7 +62,7 @@ namespace Weboku.Application
             _historyManager.ClearUndo();
             SetModalState(ModalState.None);
             ClearAllColors();
-            StartTimer();
+            _gameTimerManager.StartTimer();
         }
 
         public void StartNewGame(string givens)
@@ -141,7 +141,11 @@ namespace Weboku.Application
 
             if (_grid is not null && _grid.IsSudokuSolved())
             {
-                OnSolved?.Invoke();
+                _gameTimerManager.StopTimer();
+                if (CurrentState == ModalState.None)
+                {
+                    SetModalState(ModalState.EndGame);
+                }
             }
         }
     }
