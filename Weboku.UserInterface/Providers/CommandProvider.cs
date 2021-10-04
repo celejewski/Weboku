@@ -10,17 +10,14 @@ namespace Weboku.UserInterface.Providers
     {
         private readonly SettingsProvider _settingsProvider;
         private readonly DomainFacade _domainFacade;
-        private readonly StartGameCommand _startGameCommand;
 
         public CommandProvider(
             SettingsProvider settingsProvider,
-            DomainFacade domainFacade,
-            StartGameCommand startGameCommand
+            DomainFacade domainFacade
         )
         {
             _settingsProvider = settingsProvider;
             _domainFacade = domainFacade;
-            _startGameCommand = startGameCommand;
         }
 
         public ICommand SelectValue(int value)
@@ -39,10 +36,6 @@ namespace Weboku.UserInterface.Providers
             );
         }
 
-        public ICommand StartNewGameV2(Difficulty difficulty)
-        {
-            return new StartNewGameCommand(difficulty, _domainFacade, _startGameCommand);
-        }
 
         public ICommand SetLanguage(string name)
         {

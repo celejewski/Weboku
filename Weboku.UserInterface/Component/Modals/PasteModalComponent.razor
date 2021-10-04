@@ -1,7 +1,6 @@
 ﻿@using Weboku.UserInterface.Commands
 @using Weboku.Application
 @inject IJSRuntime JSRuntime
-@inject StartNewGameFromPastedCommand StartNewGameFromPastedCommand
 @inject ILanguageContainerService LanguageContainer
 @inject DomainFacade DomainFacade
 
@@ -13,7 +12,7 @@
 
         <div class="paste__row">
             <div class="paste__close @_canStart"
-                 @onclick="StartNewGameFromPastedCommand.Execute">@LanguageContainer.Keys["paste__start-game"]</div>
+                 @onclick="() => DomainFacade.StartNewGameFromPasted()">@LanguageContainer.Keys["paste__start-game"]</div>
         </div>
 
         <div class="paste__row">

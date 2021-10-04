@@ -1,10 +1,10 @@
-﻿@using Weboku.UserInterface.Commands
-@using Weboku.UserInterface.Providers
+﻿@using Weboku.UserInterface.Providers
 @using Weboku.Core.Data
 @using Weboku.Application.Enums
 @using Weboku.Application
 @inject CommandProvider CommandProvider
 @inject DomainFacade ModalProvider
+@inject DomainFacade DomainFacade
 @inject ILanguageContainerService Loc
 @inject SettingsProvider SettingsProvider
 
@@ -16,7 +16,7 @@
         <div class="modal-new-game__select-diffculty-container">
             <div class="modal-new-game__select-difficulty-header">@Loc.Keys["new-game__choose-difficulty"]</div>
             <div class="modal-new-game__select-difficulty">
-                @if (IsEasierAvailable)
+                @if( IsEasierAvailable )
                 {
                     <i class="fas fa-chevron-left" @onclick="SelectEasier"></i>
                 }
@@ -25,7 +25,7 @@
                     <i></i>
                 }
                 <span class="modal-new-game__selected-difficulty">@(Loc.Keys[$"difficulty__{SelectedDifficulty}"])</span>
-                @if (IsHarderAvailable)
+                @if( IsHarderAvailable )
                 {
                     <i class="fas fa-chevron-right" @onclick="SelectHarder"></i>
                 }
@@ -36,7 +36,7 @@
 
             </div>
 
-            <ModalButtonComponent Command="CommandProvider.StartNewGameV2((Difficulty) Enum.Parse(typeof(Difficulty), SelectedDifficulty))">
+            <ModalButtonComponent AsyncAction="StartNewGame">
                 @Loc.Keys["new-game__new-game"]
             </ModalButtonComponent>
 
@@ -52,7 +52,7 @@
 
 @code {
 
-    private string[] _difficulties = new[] {"Easy", "Medium", "Hard", "Extreme", "Unfair"};
+    private string[] _difficulties = new[] { "Easy", "Medium", "Hard", "Extreme", "Unfair" };
 
     protected override void OnInitialized()
     {
@@ -69,5 +69,11 @@
     private void SelectEasier() => _index -= 1;
 
     private string SelectedDifficulty => _difficulties[_index];
+
+    private Task StartNewGame()
+    {
+        var difficulty = (Difficulty) Enum.Parse(typeof(Difficulty), SelectedDifficulty);
+        return DomainFacade.StartNewGame(difficulty);
+    }
 
 }

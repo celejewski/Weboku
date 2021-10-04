@@ -30,7 +30,6 @@ namespace Weboku.UserInterface
                 return domainFacade;
             });
             builder.Services.RegisterProviders();
-            builder.Services.RegisterCommands();
             builder.Services.RegisterHints();
             builder.Services.AddCors();
             builder.Services.RegisterLocalization();

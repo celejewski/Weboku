@@ -60,6 +60,9 @@ namespace Weboku.Application
             GridChanged();
             _historyManager.ClearRedo();
             _historyManager.ClearUndo();
+            SetModalState(ModalState.None);
+            ClearAllColors();
+            StartTimer();
         }
 
         public void StartNewGame(string givens)

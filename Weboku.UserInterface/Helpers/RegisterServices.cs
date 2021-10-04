@@ -24,13 +24,6 @@ namespace Weboku.UserInterface.Helpers
             services.AddScoped<ShowHintModalCommand>();
         }
 
-        public static void RegisterCommands(this IServiceCollection services)
-        {
-            services.AddScoped<StartNewGameFromPastedCommand>();
-            services.AddScoped<StartNewCustomSudokuCommand>();
-            services.AddScoped<StartGameCommand>();
-        }
-
         public static void RegisterProviders(this IServiceCollection services)
         {
             services.AddScoped<CandidateColorProvider>();

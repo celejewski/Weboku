@@ -3,15 +3,18 @@
 
 @code {
 
-    public Task OnClick()
+    public async Task OnClick()
     {
         if (Command is not null)
         {
-            return Command.Execute();
+            Command.Execute();
         }
 
         Action?.Invoke();
-        return Task.CompletedTask;
+        if (AsyncAction is not null)
+        {
+            await AsyncAction();
+        }
     }
 
     [Parameter]
@@ -25,6 +28,9 @@
 
     [Parameter]
     public Action Action { get; set; }
+
+    [Parameter]
+    public Func<Task> AsyncAction { get; set; }
 
     private string _modalClass { get => IsSecondary ? "modal__button--secondary" : "modal__button--primary"; }
 }
