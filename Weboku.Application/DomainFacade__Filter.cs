@@ -14,7 +14,7 @@ namespace Weboku.Application
         {
             get
             {
-                if (ModalState == ModalState.Share) return _shareManager.Filter;
+                if (ModalState == ModalState.Share) return new SharedFilter(SharedFields);
                 return _filter;
             }
             private set
@@ -23,6 +23,8 @@ namespace Weboku.Application
                 OnFilterChanged?.Invoke();
             }
         }
+
+        public FilterOption IsFiltered(Position position) => Filter.IsFiltered(Grid, position);
 
         public void SetFilter(IFilter filter) => Filter = filter;
         public event Action OnFilterChanged;

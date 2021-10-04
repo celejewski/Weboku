@@ -5,12 +5,19 @@ namespace Weboku.Application.Filters
 {
     public class SharedFilter : IFilter
     {
-        public FilterOption IsFiltered(DomainFacade domainProvider, Position pos)
+        private readonly SharedFields _sharedFields;
+
+        public SharedFilter(SharedFields sharedFields)
         {
-            return domainProvider.SharedFields switch
+            _sharedFields = sharedFields;
+        }
+
+        public FilterOption IsFiltered(Grid grid, Position position)
+        {
+            return _sharedFields switch
             {
-                SharedFields.Givens => domainProvider.IsGiven(pos) ? FilterOption.Primary : FilterOption.None,
-                SharedFields.GivensAndInputs => domainProvider.HasValue(pos) ? FilterOption.Primary : FilterOption.None,
+                SharedFields.Givens => grid.GetIsGiven(position) ? FilterOption.Primary : FilterOption.None,
+                SharedFields.GivensAndInputs => grid.HasValue(position) ? FilterOption.Primary : FilterOption.None,
                 SharedFields.Everything => FilterOption.Primary,
                 _ => FilterOption.None,
             };

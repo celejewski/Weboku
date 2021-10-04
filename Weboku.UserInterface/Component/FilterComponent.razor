@@ -10,7 +10,7 @@
 @code {
     private string _currentClass => FilterOptionToCssConverter.ToCssClass(_currentFilterOption);
     private FilterOption _previousFilterOption;
-    private FilterOption _currentFilterOption => DomainFacade.Filter.IsFiltered(DomainFacade, Pos);
+    private FilterOption _currentFilterOption => DomainFacade.IsFiltered(Pos);
 
     [Parameter]
     public Position Pos { get; set; }

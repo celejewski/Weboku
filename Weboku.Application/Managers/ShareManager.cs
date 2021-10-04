@@ -40,8 +40,6 @@ namespace Weboku.Application.Managers
             _isDirty = true;
         }
 
-        public readonly IFilter Filter = new SharedFilter();
-
         public SharedConverter SharedConverter { get; set; } = SharedConverter.MyLink;
 
         public SharedFields SharedFields

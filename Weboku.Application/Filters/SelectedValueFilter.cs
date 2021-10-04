@@ -11,19 +11,19 @@ namespace Weboku.Application.Filters
             _value = value;
         }
 
-        public FilterOption IsFiltered(DomainFacade domainFacade, Position pos)
+        public FilterOption IsFiltered(Grid grid, Position position)
         {
             if (_value == Value.None)
             {
                 return FilterOption.None;
             }
 
-            if (domainFacade.GetValue(pos) == _value)
+            if (grid.GetValue(position) == _value)
             {
                 return FilterOption.Primary;
             }
 
-            if (domainFacade.HasCandidate(pos, _value))
+            if (grid.HasCandidate(position, _value))
             {
                 return FilterOption.Secondary;
             }

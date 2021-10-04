@@ -71,6 +71,12 @@ namespace Weboku.Core.Data
             _candidates[position.x, position.y] = Candidates.None;
         }
 
+        public int GetCandidatesCount(Position position)
+        {
+            var candidates = GetCandidates(position);
+            return candidates.Count();
+        }
+
         public void FillAllLegalCandidates()
         {
             var cols = new Candidates[9];

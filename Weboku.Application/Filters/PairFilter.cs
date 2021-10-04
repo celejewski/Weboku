@@ -4,9 +4,11 @@ namespace Weboku.Application.Filters
 {
     public class PairFilter : IFilter
     {
-        public FilterOption IsFiltered(DomainFacade domainFacade, Position pos)
+        public FilterOption IsFiltered(Grid grid, Position position)
         {
-            return domainFacade.GetCandidatesCount(pos) == 2 ? FilterOption.Secondary : FilterOption.None;
+            return grid.GetCandidatesCount(position) == 2
+                ? FilterOption.Secondary
+                : FilterOption.None;
         }
     }
 }

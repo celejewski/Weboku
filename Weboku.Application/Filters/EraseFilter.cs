@@ -4,7 +4,7 @@ namespace Weboku.Application.Filters
 {
     public class EraseFilter : IFilter
     {
-        public FilterOption IsFiltered(DomainFacade domainFacade, Position pos)
+        public FilterOption IsFiltered(Grid grid, Position position)
         {
             return FilterOption.None;
         }
