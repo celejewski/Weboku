@@ -16,10 +16,8 @@ namespace Weboku.UserInterface.Hints
     public class Displayer : IProvider
     {
         private readonly DomainFacade _domainFacade;
-        private readonly CandidateColorProvider _candidatesMarkProvider;
         private readonly NumpadMenuBuilder _numpadMenuBuilder;
         private readonly Informer _informer;
-        private readonly InputMarkProvider _markInputProvider;
 
         public bool IsVisible { get; set; }
         public string Title { get; set; }
@@ -34,17 +32,13 @@ namespace Weboku.UserInterface.Hints
 
         public Displayer(
             DomainFacade domainFacade,
-            CandidateColorProvider candidatesMarkProvider,
             NumpadMenuBuilder numpadMenuBuilder,
             Informer informer,
-            InputMarkProvider markInputProvider,
             ILanguageContainerService loc)
         {
             _domainFacade = domainFacade;
-            _candidatesMarkProvider = candidatesMarkProvider;
             _numpadMenuBuilder = numpadMenuBuilder;
             _informer = informer;
-            _markInputProvider = markInputProvider;
             Loc = loc;
         }
 
@@ -59,9 +53,9 @@ namespace Weboku.UserInterface.Hints
                 IsBlockHighlighted[i] = false;
             }
 
-            _markInputProvider.ClearColors();
+            _domainFacade.ClearInputColors();
             _domainFacade.ClearAllColors();
-            _candidatesMarkProvider.ClearColors();
+            _domainFacade.ClearCandidatesColors();
             OnChanged?.Invoke();
         }
 
@@ -129,7 +123,7 @@ namespace Weboku.UserInterface.Hints
 
         public void MarkCandidate(Color color, Position position, Value value)
         {
-            _candidatesMarkProvider.SetColor(position, value, color);
+            _domainFacade.SetColor(position, value, color);
         }
 
         public void MarkCandidates(Color color, IEnumerable<Position> positions, Value value)
@@ -140,7 +134,7 @@ namespace Weboku.UserInterface.Hints
             }
         }
 
-        public void MarkInput(Color color, Position position) => _markInputProvider.SetColor(position, color);
+        public void MarkInput(Color color, Position position) => _domainFacade.SetInputColor(position, color);
 
 
         public void Mark(Color color, Position position, Value value)

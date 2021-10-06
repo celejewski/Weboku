@@ -4,7 +4,6 @@
 @using Weboku.Application.Enums
 @using Weboku.Core.Data
 @inject DomainFacade DomainFacade
-@inject CandidateColorProvider CandidateColorProvider
 
 <div class="mark__candidate @_currentClass"
         style="grid-column: @_gridColumn; grid-row: @_gridRow;">
@@ -36,7 +35,7 @@
 
         _text = Value.ToString();
         DomainFacade.OnGridChanged += StateHasChanged;
-        CandidateColorProvider.OnChanged += StateHasChanged;
+        DomainFacade.OnCandidateColorChanged += StateHasChanged;
     }
 
     protected override bool ShouldRender()
@@ -55,5 +54,5 @@
     private string _currentClass => CellColorConverter.ToCssClass(_currentColor);
 
     private Color _previousColor;
-    private Color _currentColor => CandidateColorProvider.GetColor(Pos, Value);
+    private Color _currentColor => DomainFacade.GetCandidateColor(Pos, Value);
 }

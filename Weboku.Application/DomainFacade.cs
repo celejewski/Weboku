@@ -47,6 +47,10 @@ namespace Weboku.Application
             _modalStateManager = new();
             _modalStateManager.OnModalStateChanged += HandleModalStateChanged;
             SetModalState(ModalState.Loading);
+
+
+            _candidateColors = new Color[Position.Cols.Count, Position.Rows.Count, Value.All.Count];
+            _inputColors = new Color[Position.Cols.Count, Position.Rows.Count];
         }
 
         public void StartNewGame(Grid grid, Difficulty difficulty = Difficulty.Unknown)

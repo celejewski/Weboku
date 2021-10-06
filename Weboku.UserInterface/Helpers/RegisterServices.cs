@@ -26,8 +26,6 @@ namespace Weboku.UserInterface.Helpers
 
         public static void RegisterProviders(this IServiceCollection services)
         {
-            services.AddScoped<CandidateColorProvider>();
-            services.AddScoped<InputMarkProvider>();
             services.AddScoped<TooltipProvider>();
             services.AddScoped<CommandProvider>();
             services.AddScoped<NumpadMenuProvider>();
