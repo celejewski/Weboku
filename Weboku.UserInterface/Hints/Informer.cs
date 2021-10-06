@@ -2,6 +2,7 @@
 using System.Linq;
 using Weboku.Application;
 using Weboku.Core.Data;
+using Weboku.Core.Hints;
 
 namespace Weboku.UserInterface.Hints
 {
@@ -20,13 +21,11 @@ namespace Weboku.UserInterface.Hints
         public Value GetValue(Position position) => _domainFacade.GetValue(position);
         public bool HasValue(Position position) => _domainFacade.HasValue(position);
         public bool HasCandidate(Position position, Value value) => _domainFacade.HasCandidate(position, value);
-        public Value GetSolution(Position position) => Value.None;
-
-        public int GetCandidatesCount(Position position) => _domainFacade.GetCandidatesCount(position);
 
         public IEnumerable<Position> GetPositionsWithCandidate(House house, Position housePosition, Value value)
         {
-            return HintsHelper.GetPositionsInHouse(housePosition, house)
+            return HintsHelper
+                .GetPositionsInHouse(housePosition, house)
                 .Where(pos => HasCandidate(pos, value));
         }
 

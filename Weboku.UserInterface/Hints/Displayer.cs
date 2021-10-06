@@ -78,9 +78,7 @@ namespace Weboku.UserInterface.Hints
         }
 
         public void HighlightRow(Position position) => IsRowHighlighted[position.y] = true;
-        public void HighlightRow(int y) => IsRowHighlighted[y] = true;
         public void HighlightCol(Position position) => IsColHighlighted[position.x] = true;
-        public void HighlightCol(int x) => IsColHighlighted[x] = true;
         public void HighlightBlock(Position position) => HighlightBlock(position.block);
 
         public void HighlightBlock(int block) => IsBlockHighlighted[block] = true;
@@ -170,17 +168,6 @@ namespace Weboku.UserInterface.Hints
             }
         }
 
-        public void MarkIfInputEquals(Color color, IEnumerable<Position> positions, Value value)
-        {
-            foreach (var position in positions)
-            {
-                if (_informer.GetValue(position) == value)
-                {
-                    MarkInput(color, position);
-                }
-            }
-        }
-
         public void MarkInputOrCandidate(Color color, IEnumerable<Position> positions, Value candidate)
         {
             foreach (var pos in positions)
@@ -199,18 +186,6 @@ namespace Weboku.UserInterface.Hints
         public void SetValueFilter(Value input)
         {
             _ = _numpadMenuBuilder.SelectValue(input).Execute();
-        }
-
-        public string Format(House house)
-        {
-            return house switch
-            {
-                House.None => Loc.Keys["hints__house--none"],
-                House.Row => Loc.Keys["hints__house--row"],
-                House.Col => Loc.Keys["hints__house--column"],
-                House.Block => Loc.Keys["hints__house--block"],
-                _ => throw new ArgumentException("House not supported by HintHelper.Format")
-            };
         }
 
         public string Format(House house, Position position)
