@@ -16,8 +16,8 @@ namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
         private readonly IEnumerable<Position> _positionsToRemove;
         private readonly Value _value;
 
-        public XYWingDisplayer(Informer informer, DomainFacade displayer, XYWing xyWing)
-            : base(informer, displayer, xyWing, "xywing")
+        public XYWingDisplayer(DomainFacade displayer, XYWing xyWing)
+            : base(displayer, xyWing, "xywing")
         {
             _pivot = xyWing.Pivot;
             _pos1 = xyWing.Pos1;

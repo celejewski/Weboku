@@ -13,8 +13,8 @@ namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
         private readonly Position _pos2;
         private readonly Value _value;
 
-        public SkyscrapperDisplayer(Informer informer, DomainFacade displayer, Skyscrapper skyscrapper)
-            : base(informer, displayer, skyscrapper, "skyscrapper")
+        public SkyscrapperDisplayer(DomainFacade displayer, Skyscrapper skyscrapper)
+            : base(displayer, skyscrapper, "skyscrapper")
         {
             _base1 = skyscrapper.Base1;
             _base2 = skyscrapper.Base2;

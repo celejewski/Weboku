@@ -19,8 +19,8 @@ namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
         private readonly IEnumerable<House> _houses;
         private readonly List<Position> _positionsInHouses;
 
-        public NakedPairDisplayer(Informer informer, DomainFacade displayer, NakedPair nakedPair)
-            : base(informer, displayer, nakedPair)
+        public NakedPairDisplayer(DomainFacade displayer, NakedPair nakedPair)
+            : base(displayer, nakedPair)
         {
             _locKey = "naked-pair";
             _pos1 = nakedPair.Positions.ElementAt(0);

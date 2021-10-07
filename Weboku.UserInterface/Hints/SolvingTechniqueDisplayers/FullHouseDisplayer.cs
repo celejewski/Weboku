@@ -17,8 +17,8 @@ namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
         private readonly House _house;
         private readonly IEnumerable<Position> _positionsInHouse;
 
-        public FullHouseDisplayer(Informer informer, DomainFacade displayer, FullHouse fullHouse)
-            : base(informer, displayer, fullHouse, "full-house")
+        public FullHouseDisplayer(DomainFacade displayer, FullHouse fullHouse)
+            : base(displayer, fullHouse, "full-house")
         {
             _position = fullHouse.Position;
             _value = fullHouse.Value;

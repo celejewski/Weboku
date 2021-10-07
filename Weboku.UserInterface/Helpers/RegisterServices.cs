@@ -18,7 +18,6 @@ namespace Weboku.UserInterface.Helpers
 
         public static void RegisterHints(this IServiceCollection services)
         {
-            services.AddScoped<Informer>();
             services.AddScoped<HintsProvider, HintsProvider>();
             services.AddScoped<ShowHintModalCommand>();
         }

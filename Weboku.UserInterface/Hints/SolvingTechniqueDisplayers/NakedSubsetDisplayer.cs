@@ -14,8 +14,8 @@ namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
         protected readonly IEnumerable<Position> _positions;
         protected readonly IEnumerable<Value> _values;
 
-        public NakedSubsetDisplayer(Informer informer, DomainFacade displayer, NakedSubset nakedSubset)
-            : base(informer, displayer, nakedSubset, "naked-subset")
+        public NakedSubsetDisplayer(DomainFacade displayer, NakedSubset nakedSubset)
+            : base(displayer, nakedSubset, "naked-subset")
         {
             _positions = nakedSubset.Positions;
             _values = nakedSubset.Values;
@@ -43,7 +43,7 @@ namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
             return HintsHelper.GetHouses(_positions);
         }
 
-        private IEnumerable<Position> GetPositionsToRemove(Informer informer)
+        private IEnumerable<Position> GetPositionsToRemove(DomainFacade informer)
         {
             var positionsInHouses = GetHouses()
                 .SelectMany(house => HintsHelper.GetPositionsInHouse(Pos, house));

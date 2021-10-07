@@ -10,8 +10,8 @@ namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
         private readonly Position _position;
         private readonly Value _value;
 
-        public NakedSingleDisplayer(Informer informer, DomainFacade displayer, NakedSingle nakedSingle)
-            : base(informer, displayer, nakedSingle, "naked-single")
+        public NakedSingleDisplayer(DomainFacade displayer, NakedSingle nakedSingle)
+            : base(displayer, nakedSingle, "naked-single")
         {
             _position = nakedSingle.Position;
             _value = nakedSingle.Value;

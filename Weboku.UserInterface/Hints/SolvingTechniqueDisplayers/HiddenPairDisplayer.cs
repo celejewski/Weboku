@@ -7,8 +7,8 @@ namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
 {
     public class HiddenPairDisplayer : HiddenSubsetDisplayer
     {
-        public HiddenPairDisplayer(Informer informer, DomainFacade displayer, HiddenPair hiddenSubset)
-            : base(informer, displayer, hiddenSubset)
+        public HiddenPairDisplayer(DomainFacade displayer, HiddenPair hiddenSubset)
+            : base(displayer, hiddenSubset)
         {
             _locKey = "hidden-pair";
 

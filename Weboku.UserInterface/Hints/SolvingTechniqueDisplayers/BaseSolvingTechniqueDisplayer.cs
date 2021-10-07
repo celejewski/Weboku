@@ -8,23 +8,23 @@ namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
 {
     public abstract class BaseSolvingTechniqueDisplayer : ISolvingTechniqueDisplayer
     {
-        protected BaseSolvingTechniqueDisplayer(Informer informer, DomainFacade displayer, string locKey)
+        protected BaseSolvingTechniqueDisplayer(DomainFacade displayer, string locKey)
         {
-            _informer = informer;
+            _informer = displayer;
             _displayer = displayer;
             _locKey = locKey;
         }
 
-        protected BaseSolvingTechniqueDisplayer(Informer informer, DomainFacade displayer, ISolvingTechnique solvingTechnique, string locKey)
+        protected BaseSolvingTechniqueDisplayer(DomainFacade displayer, ISolvingTechnique solvingTechnique, string locKey)
         {
-            _informer = informer;
+            _informer = displayer;
             _displayer = displayer;
             _solvingTechnique = solvingTechnique;
             _locKey = locKey;
         }
 
         private readonly ISolvingTechnique _solvingTechnique;
-        protected readonly Informer _informer;
+        protected readonly DomainFacade _informer;
         protected readonly DomainFacade _displayer;
         protected string _locKey;
         protected string TitleKey => $"{_locKey}__title";

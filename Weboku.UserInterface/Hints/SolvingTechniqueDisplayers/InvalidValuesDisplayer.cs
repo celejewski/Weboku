@@ -5,8 +5,8 @@ namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
 {
     public class InvalidValuesDisplayer : BaseSolvingTechniqueDisplayer
     {
-        public InvalidValuesDisplayer(Informer informer, DomainFacade displayer, InvalidValue invalidValue)
-            : base(informer, displayer, invalidValue, "invalid-solution")
+        public InvalidValuesDisplayer(DomainFacade displayer, InvalidValue invalidValue)
+            : base(displayer, invalidValue, "invalid-solution")
         {
         }
     }

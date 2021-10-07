@@ -6,14 +6,12 @@ namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
 {
     public class TwoStringKiteDisplayer : BaseSolvingTechniqueDisplayer
     {
-        private readonly Informer _informer;
         private readonly DomainFacade _displayer;
         private readonly TwoStringKite _twoStringKite;
 
-        public TwoStringKiteDisplayer(Informer informer, DomainFacade displayer, TwoStringKite twoStringKite)
-            : base(informer, displayer, twoStringKite, "two-string-kite")
+        public TwoStringKiteDisplayer(DomainFacade displayer, TwoStringKite twoStringKite)
+            : base(displayer, twoStringKite, "two-string-kite")
         {
-            _informer = informer;
             _displayer = displayer;
             _twoStringKite = twoStringKite;
         }

@@ -15,8 +15,8 @@ namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
         private readonly Value _value;
         private readonly IEnumerable<Position> _positionsToRemoveFrom;
 
-        public LockedCandidatesPointingDisplayer(Informer informer, DomainFacade displayer, LockedCandidatesPointing lockedCandidatesPointing)
-            : base(informer, displayer, lockedCandidatesPointing, "locked-candiates-pointing")
+        public LockedCandidatesPointingDisplayer(DomainFacade displayer, LockedCandidatesPointing lockedCandidatesPointing)
+            : base(displayer, lockedCandidatesPointing, "locked-candiates-pointing")
         {
             _block = lockedCandidatesPointing.Block;
             _value = lockedCandidatesPointing.Value;
@@ -103,17 +103,17 @@ namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
             _displayer.SetDescription(ExplanationKey(5), _value, _rowOrColFormated);
         }
 
-        public IEnumerable<Position> PositionsWithCandidate(Informer _informer)
+        public IEnumerable<Position> PositionsWithCandidate(DomainFacade _informer)
         {
             return _informer.GetPositionsWithCandidate(RowOrCol(_informer), _positionsToRemoveFrom.First(), _value);
         }
 
-        public IEnumerable<Position> PositionWithLegalCandidates(Informer _informer)
+        public IEnumerable<Position> PositionWithLegalCandidates(DomainFacade _informer)
         {
             return PositionsWithCandidate(_informer).Except(_positionsToRemoveFrom);
         }
 
-        private House RowOrCol(Informer _informer)
+        private House RowOrCol(DomainFacade _informer)
         {
             var positionsInBlock = Position.Blocks[_block];
             var positionsWithCandidate = positionsInBlock.Where(pos => _informer.HasCandidate(pos, _value));

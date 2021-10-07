@@ -15,8 +15,8 @@ namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
         protected readonly House _house;
         private readonly HiddenSubset _hiddenSubset;
 
-        public HiddenSubsetDisplayer(Informer informer, DomainFacade displayer, HiddenSubset hiddenSubset)
-            : base(informer, displayer, hiddenSubset, "hidden-subset")
+        public HiddenSubsetDisplayer(DomainFacade displayer, HiddenSubset hiddenSubset)
+            : base(displayer, hiddenSubset, "hidden-subset")
         {
             _positions = hiddenSubset.Positions;
             _values = hiddenSubset.Values;

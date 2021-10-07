@@ -19,8 +19,8 @@ namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
         private string _houseFormatted;
         private string _blockFormatted;
 
-        public LockedCandidatesClaimingDisplayer(Informer informer, DomainFacade displayer, LockedCandidatesClaiming lockedCandidatesClaiming)
-            : base(informer, displayer, lockedCandidatesClaiming, "locked-candiates-claiming")
+        public LockedCandidatesClaimingDisplayer(DomainFacade displayer, LockedCandidatesClaiming lockedCandidatesClaiming)
+            : base(displayer, lockedCandidatesClaiming, "locked-candiates-claiming")
         {
             _value = lockedCandidatesClaiming.Value;
             _positionsToRemoveCandidate = lockedCandidatesClaiming.PositionsToRemoveCandidate;
@@ -111,7 +111,7 @@ namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
             _displayer.SetDescription(ExplanationKey(5), _value, _blockFormatted);
         }
 
-        public IEnumerable<Position> GetPositiosnWithIllegalCandidate(Informer _informer)
+        public IEnumerable<Position> GetPositiosnWithIllegalCandidate(DomainFacade _informer)
         {
             return _informer.WithCandidate(_positionsToRemoveCandidate, _value);
         }

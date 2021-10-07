@@ -15,8 +15,8 @@ namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
         private readonly House _house;
         private string _houseFormated;
 
-        public HiddenSingleDisplayer(Informer informer, DomainFacade displayer, HiddenSingle hiddenSingle)
-            : base(informer, displayer, hiddenSingle, "hidden-single")
+        public HiddenSingleDisplayer(DomainFacade displayer, HiddenSingle hiddenSingle)
+            : base(displayer, hiddenSingle, "hidden-single")
         {
             _position = hiddenSingle.Position;
             _value = hiddenSingle.Value;

@@ -5,8 +5,8 @@ namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
 {
     public class CandidateMissingDisplayer : BaseSolvingTechniqueDisplayer
     {
-        public CandidateMissingDisplayer(Informer informer, DomainFacade displayer, CandidateMissing candidateMissing)
-            : base(informer, displayer, candidateMissing, "candidates-missing")
+        public CandidateMissingDisplayer(DomainFacade displayer, CandidateMissing candidateMissing)
+            : base(displayer, candidateMissing, "candidates-missing")
         {
         }
     }
