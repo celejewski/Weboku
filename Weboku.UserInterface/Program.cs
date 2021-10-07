@@ -1,3 +1,4 @@
+using AKSoftware.Localization.MultiLanguages;
 using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -22,17 +23,18 @@ namespace Weboku.UserInterface
             builder.Services.AddSingleton(new HttpClient {BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)});
             builder.Services.AddBlazoredLocalStorage();
             builder.Services.AddScoped<IStorageProvider, StorageProvider>();
+            builder.Services.RegisterLocalization();
             builder.Services.AddScoped(serviceProvider =>
             {
                 var navigationManager = serviceProvider.GetRequiredService<NavigationManager>();
                 var storageProvider = serviceProvider.GetRequiredService<IStorageProvider>();
-                var domainFacade = new DomainFacade(storageProvider, navigationManager.BaseUri);
+                var languageContainerService = serviceProvider.GetRequiredService<ILanguageContainerService>();
+                var domainFacade = new DomainFacade(storageProvider, navigationManager.BaseUri, languageContainerService);
                 return domainFacade;
             });
             builder.Services.RegisterProviders();
             builder.Services.RegisterHints();
             builder.Services.AddCors();
-            builder.Services.RegisterLocalization();
             var app = builder.Build();
             await app.RunAsync();
         }

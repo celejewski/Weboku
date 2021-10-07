@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Weboku.Application;
 using Weboku.Application.Enums;
 using Weboku.Core.Data;
 using Weboku.Core.Hints.SolvingTechniques;
@@ -13,7 +14,7 @@ namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
         private readonly IEnumerable<Position> _positionsToRemove;
         private readonly House _house;
 
-        public XWingDisplayer(Informer informer, Displayer displayer, XWing xWing)
+        public XWingDisplayer(Informer informer, DomainFacade displayer, XWing xWing)
             : base(informer, displayer, xWing, "xwing")
         {
             _value = xWing.Value;

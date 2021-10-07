@@ -2,45 +2,24 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Weboku.Application;
 using Weboku.Application.Enums;
 using Weboku.Core.Data;
-using Weboku.UserInterface.Component.NumpadMenu;
-using Weboku.UserInterface.Providers;
 
-namespace Weboku.UserInterface.Hints
+namespace Weboku.Application
 {
-    /// <summary>
-    /// Contains methods for displaying user information about ISolvingTechnique.
-    /// </summary>
-    public class Displayer : IProvider
+    public sealed partial class DomainFacade
     {
-        private readonly DomainFacade _domainFacade;
-        private readonly NumpadMenuBuilder _numpadMenuBuilder;
-        private readonly Informer _informer;
-
         public bool IsVisible { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public ILanguageContainerService Loc { get; }
+        public ILanguageContainerService LanguageContainerService { get; }
 
         public bool[] IsRowHighlighted = new bool[9];
         public bool[] IsColHighlighted = new bool[9];
         public bool[] IsBlockHighlighted = new bool[9];
 
-        public event Action OnChanged;
+        public event Action OnHintDisplayerChanged;
 
-        public Displayer(
-            DomainFacade domainFacade,
-            NumpadMenuBuilder numpadMenuBuilder,
-            Informer informer,
-            ILanguageContainerService loc)
-        {
-            _domainFacade = domainFacade;
-            _numpadMenuBuilder = numpadMenuBuilder;
-            _informer = informer;
-            Loc = loc;
-        }
 
         public void Clear()
         {
@@ -53,22 +32,22 @@ namespace Weboku.UserInterface.Hints
                 IsBlockHighlighted[i] = false;
             }
 
-            _domainFacade.ClearInputColors();
-            _domainFacade.ClearAllColors();
-            _domainFacade.ClearCandidatesColors();
-            OnChanged?.Invoke();
+            ClearInputColors();
+            ClearAllColors();
+            ClearCandidatesColors();
+            OnHintDisplayerChanged?.Invoke();
         }
 
         public void SetTitle(string key, params object[] args)
         {
-            Title = string.Format(Loc.Keys[key], args);
+            Title = string.Format(LanguageContainerService.Keys[key], args);
         }
 
         public void SetDescription(string key, params object[] args)
         {
             try
             {
-                Description = string.Format(Loc.Keys[key], args);
+                Description = string.Format(LanguageContainerService.Keys[key], args);
             }
             catch (Exception ex)
             {
@@ -109,7 +88,7 @@ namespace Weboku.UserInterface.Hints
             }
         }
 
-        public void MarkCell(Color color, Position position) => _domainFacade.SetColor(position, color);
+        public void MarkCell(Color color, Position position) => SetColor(position, color);
 
         public void MarkCells(Color color, IEnumerable<Position> positions)
         {
@@ -121,7 +100,7 @@ namespace Weboku.UserInterface.Hints
 
         public void MarkCandidate(Color color, Position position, Value value)
         {
-            _domainFacade.SetColor(position, value, color);
+            SetColor(position, value, color);
         }
 
         public void MarkCandidates(Color color, IEnumerable<Position> positions, Value value)
@@ -132,7 +111,7 @@ namespace Weboku.UserInterface.Hints
             }
         }
 
-        public void MarkInput(Color color, Position position) => _domainFacade.SetInputColor(position, color);
+        public void MarkInput(Color color, Position position) => SetInputColor(position, color);
 
 
         public void Mark(Color color, Position position, Value value)
@@ -157,7 +136,7 @@ namespace Weboku.UserInterface.Hints
 
         public void MarkIfHasCandidate(Color color, IEnumerable<Position> positions, Value value)
         {
-            Mark(color, positions.Where(pos => _informer.HasCandidate(pos, value)), value);
+            Mark(color, positions.Where(pos => HasCandidate(pos, value)), value);
         }
 
         public void MarkIfHasCandidates(Color color, IEnumerable<Position> positions, IEnumerable<Value> values)
@@ -172,7 +151,7 @@ namespace Weboku.UserInterface.Hints
         {
             foreach (var pos in positions)
             {
-                if (!_informer.HasValue(pos))
+                if (!HasValue(pos))
                 {
                     MarkCandidate(color, pos, candidate);
                 }
@@ -185,36 +164,36 @@ namespace Weboku.UserInterface.Hints
 
         public void SetValueFilter(Value input)
         {
-            _ = _numpadMenuBuilder.SelectValue(input).Execute();
+            SelectValue(input);
         }
 
         public string Format(House house, Position position)
         {
             return house switch
             {
-                House.Row => $"{Loc.Keys["hints__house-formatted--row"]}{position.y + 1}",
-                House.Col => $"{Loc.Keys["hints__house-formatted--col"]}{position.x + 1}",
-                House.Block => $"{Loc.Keys["hints__house-formatted--block"]}{position.block + 1}",
-                _ => $"{Loc.Keys["hints__house-formatted--none"]}"
+                House.Row => $"{LanguageContainerService.Keys["hints__house-formatted--row"]}{position.y + 1}",
+                House.Col => $"{LanguageContainerService.Keys["hints__house-formatted--col"]}{position.x + 1}",
+                House.Block => $"{LanguageContainerService.Keys["hints__house-formatted--block"]}{position.block + 1}",
+                _ => $"{LanguageContainerService.Keys["hints__house-formatted--none"]}"
             };
         }
 
         public string Format(IEnumerable<House> houses, Position pos)
         {
-            return string.Join(Loc.Keys["hints__houses-formatted--seperator"], houses.Select(house => Format(house, pos)));
+            return string.Join(LanguageContainerService.Keys["hints__houses-formatted--seperator"], houses.Select(house => Format(house, pos)));
         }
 
         public void Show()
         {
             IsVisible = true;
-            OnChanged?.Invoke();
+            OnHintDisplayerChanged?.Invoke();
         }
 
         public void Hide()
         {
             Clear();
             IsVisible = false;
-            OnChanged?.Invoke();
+            OnHintDisplayerChanged?.Invoke();
         }
     }
 }

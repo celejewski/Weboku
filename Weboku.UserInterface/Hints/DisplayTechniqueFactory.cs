@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Weboku.Application;
 using Weboku.Core.Hints.SolvingTechniques;
 using Weboku.UserInterface.Hints.SolvingTechniqueDisplayers;
 
@@ -7,9 +8,9 @@ namespace Weboku.UserInterface.Hints
 {
     public static class DisplayTechniqueFactory
     {
-        public static ISolvingTechniqueDisplayer MakeDisplayer(Informer informer, Displayer displayer, ISolvingTechnique technique)
+        public static ISolvingTechniqueDisplayer MakeDisplayer(Informer informer, DomainFacade domainFacade, ISolvingTechnique technique)
         {
-            if (technique == null) return new NotFoundDisplayer(informer, displayer);
+            if (technique == null) return new NotFoundDisplayer(informer, domainFacade);
 
             var tuples = new[]
             {
@@ -33,9 +34,9 @@ namespace Weboku.UserInterface.Hints
 
             var tuple = tuples.FirstOrDefault(tuple => technique.GetType() == tuple.Item1);
 
-            if (tuple == default) return new NotFoundDisplayer(informer, displayer);
+            if (tuple == default) return new NotFoundDisplayer(informer, domainFacade);
 
-            return (ISolvingTechniqueDisplayer) Activator.CreateInstance(tuple.Item2, informer, displayer, technique);
+            return (ISolvingTechniqueDisplayer) Activator.CreateInstance(tuple.Item2, informer, domainFacade, technique);
         }
     }
 }

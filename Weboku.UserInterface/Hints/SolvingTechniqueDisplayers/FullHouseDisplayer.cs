@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Weboku.Application;
 using Weboku.Application.Enums;
 using Weboku.Core.Data;
 using Weboku.Core.Hints;
@@ -16,7 +17,7 @@ namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
         private readonly House _house;
         private readonly IEnumerable<Position> _positionsInHouse;
 
-        public FullHouseDisplayer(Informer informer, Displayer displayer, FullHouse fullHouse)
+        public FullHouseDisplayer(Informer informer, DomainFacade displayer, FullHouse fullHouse)
             : base(informer, displayer, fullHouse, "full-house")
         {
             _position = fullHouse.Position;

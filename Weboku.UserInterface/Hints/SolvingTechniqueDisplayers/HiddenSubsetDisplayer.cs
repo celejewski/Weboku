@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Weboku.Application;
 using Weboku.Application.Enums;
 using Weboku.Core.Data;
 using Weboku.Core.Hints.SolvingTechniques;
@@ -14,7 +15,7 @@ namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
         protected readonly House _house;
         private readonly HiddenSubset _hiddenSubset;
 
-        public HiddenSubsetDisplayer(Informer informer, Displayer displayer, HiddenSubset hiddenSubset)
+        public HiddenSubsetDisplayer(Informer informer, DomainFacade displayer, HiddenSubset hiddenSubset)
             : base(informer, displayer, hiddenSubset, "hidden-subset")
         {
             _positions = hiddenSubset.Positions;

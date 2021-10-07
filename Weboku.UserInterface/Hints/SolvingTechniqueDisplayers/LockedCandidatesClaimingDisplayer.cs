@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Weboku.Application;
 using Weboku.Application.Enums;
 using Weboku.Core.Data;
 using Weboku.Core.Hints.SolvingTechniques;
@@ -18,7 +19,7 @@ namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
         private string _houseFormatted;
         private string _blockFormatted;
 
-        public LockedCandidatesClaimingDisplayer(Informer informer, Displayer displayer, LockedCandidatesClaiming lockedCandidatesClaiming)
+        public LockedCandidatesClaimingDisplayer(Informer informer, DomainFacade displayer, LockedCandidatesClaiming lockedCandidatesClaiming)
             : base(informer, displayer, lockedCandidatesClaiming, "locked-candiates-claiming")
         {
             _value = lockedCandidatesClaiming.Value;

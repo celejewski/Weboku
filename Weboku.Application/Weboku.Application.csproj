@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AKSoftware.Localization.MultiLanguages" Version="5.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Weboku.Core\Weboku.Core.csproj" />
   </ItemGroup>
 

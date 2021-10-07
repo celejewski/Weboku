@@ -1,4 +1,5 @@
-﻿using Weboku.Application.Enums;
+﻿using Weboku.Application;
+using Weboku.Application.Enums;
 using Weboku.Core.Data;
 using Weboku.Core.Hints.SolvingTechniques;
 
@@ -12,7 +13,7 @@ namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
         private readonly Position _pos2;
         private readonly Value _value;
 
-        public SkyscrapperDisplayer(Informer informer, Displayer displayer, Skyscrapper skyscrapper)
+        public SkyscrapperDisplayer(Informer informer, DomainFacade displayer, Skyscrapper skyscrapper)
             : base(informer, displayer, skyscrapper, "skyscrapper")
         {
             _base1 = skyscrapper.Base1;

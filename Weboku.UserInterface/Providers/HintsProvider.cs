@@ -8,7 +8,7 @@ namespace Weboku.UserInterface.Providers
     public class HintsProvider : IProvider
     {
         private readonly Informer _informer;
-        private readonly Displayer _displayer;
+        private readonly DomainFacade _displayer;
         private readonly DomainFacade _domainFacade;
 
         public event Action OnChanged;
@@ -32,7 +32,7 @@ namespace Weboku.UserInterface.Providers
             return DisplayTechniqueFactory.MakeDisplayer(_informer, _displayer, _domainFacade.GetNextHint());
         }
 
-        public HintsProvider(Informer informer, Displayer displayer, DomainFacade domainFacade)
+        public HintsProvider(Informer informer, DomainFacade displayer, DomainFacade domainFacade)
         {
             _informer = informer;
             _displayer = displayer;

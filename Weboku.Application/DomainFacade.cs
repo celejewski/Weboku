@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AKSoftware.Localization.MultiLanguages;
+using System;
 using System.Threading.Tasks;
 using Weboku.Application.Enums;
 using Weboku.Application.Interfaces;
@@ -29,8 +30,10 @@ namespace Weboku.Application
         public Difficulty Difficulty;
         public event Action OnGridChanged;
 
-        public DomainFacade(IStorageProvider storageProvider, string baseUri)
+        public DomainFacade(IStorageProvider storageProvider, string baseUri, ILanguageContainerService languageContainerService)
         {
+            LanguageContainerService = languageContainerService;
+
             _grid = new Grid();
             _toolManager = new ToolManager();
             _historyManager = new HistoryManager();

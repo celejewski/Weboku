@@ -1,4 +1,5 @@
-﻿using Weboku.Application.Enums;
+﻿using Weboku.Application;
+using Weboku.Application.Enums;
 using Weboku.Core.Data;
 using Weboku.Core.Hints.SolvingTechniques;
 
@@ -9,7 +10,7 @@ namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
         private readonly Position _position;
         private readonly Value _value;
 
-        public NakedSingleDisplayer(Informer informer, Displayer displayer, NakedSingle nakedSingle)
+        public NakedSingleDisplayer(Informer informer, DomainFacade displayer, NakedSingle nakedSingle)
             : base(informer, displayer, nakedSingle, "naked-single")
         {
             _position = nakedSingle.Position;

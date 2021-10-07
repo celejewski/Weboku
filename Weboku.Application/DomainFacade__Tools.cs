@@ -1,5 +1,6 @@
 ﻿using System;
 using Weboku.Application.Enums;
+using Weboku.Application.Filters;
 using Weboku.Core.Data;
 
 namespace Weboku.Application
@@ -70,6 +71,8 @@ namespace Weboku.Application
             if (value == Value.None) throw new ArgumentException(nameof(value));
 
             _selectedValue = value;
+            var selectedValueFilter = new SelectedValueFilter(value);
+            SetFilter(selectedValueFilter);
             OnValueChanged?.Invoke(this, value);
         }
 

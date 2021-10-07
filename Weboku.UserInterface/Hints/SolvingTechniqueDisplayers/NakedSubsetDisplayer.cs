@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Weboku.Application;
 using Weboku.Application.Enums;
 using Weboku.Core.Data;
 using Weboku.Core.Hints;
@@ -13,7 +14,7 @@ namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
         protected readonly IEnumerable<Position> _positions;
         protected readonly IEnumerable<Value> _values;
 
-        public NakedSubsetDisplayer(Informer informer, Displayer displayer, NakedSubset nakedSubset)
+        public NakedSubsetDisplayer(Informer informer, DomainFacade displayer, NakedSubset nakedSubset)
             : base(informer, displayer, nakedSubset, "naked-subset")
         {
             _positions = nakedSubset.Positions;

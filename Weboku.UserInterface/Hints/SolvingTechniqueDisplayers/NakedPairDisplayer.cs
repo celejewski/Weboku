@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Weboku.Application;
 using Weboku.Application.Enums;
 using Weboku.Core.Data;
 using Weboku.Core.Hints;
@@ -18,7 +19,7 @@ namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
         private readonly IEnumerable<House> _houses;
         private readonly List<Position> _positionsInHouses;
 
-        public NakedPairDisplayer(Informer informer, Displayer displayer, NakedPair nakedPair)
+        public NakedPairDisplayer(Informer informer, DomainFacade displayer, NakedPair nakedPair)
             : base(informer, displayer, nakedPair)
         {
             _locKey = "naked-pair";

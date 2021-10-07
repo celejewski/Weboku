@@ -1,4 +1,5 @@
-﻿using Weboku.Application.Enums;
+﻿using Weboku.Application;
+using Weboku.Application.Enums;
 using Weboku.Core.Hints.SolvingTechniques;
 
 namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
@@ -6,10 +7,10 @@ namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
     public class TwoStringKiteDisplayer : BaseSolvingTechniqueDisplayer
     {
         private readonly Informer _informer;
-        private readonly Displayer _displayer;
+        private readonly DomainFacade _displayer;
         private readonly TwoStringKite _twoStringKite;
 
-        public TwoStringKiteDisplayer(Informer informer, Displayer displayer, TwoStringKite twoStringKite)
+        public TwoStringKiteDisplayer(Informer informer, DomainFacade displayer, TwoStringKite twoStringKite)
             : base(informer, displayer, twoStringKite, "two-string-kite")
         {
             _informer = informer;

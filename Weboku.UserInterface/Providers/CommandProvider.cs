@@ -25,8 +25,6 @@ namespace Weboku.UserInterface.Providers
             void execute()
             {
                 _domainFacade.SelectValue(value);
-                var selectedValueFilter = new SelectedValueFilter(value);
-                _domainFacade.SetFilter(selectedValueFilter);
             }
 
             return new RelayCommand

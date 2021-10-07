@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Weboku.Application;
 using Weboku.Application.Enums;
 using Weboku.Core.Data;
 using Weboku.Core.Hints.SolvingTechniques;
@@ -15,7 +16,7 @@ namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
         private readonly IEnumerable<Position> _positionsToRemove;
         private readonly Value _value;
 
-        public XYWingDisplayer(Informer informer, Displayer displayer, XYWing xyWing)
+        public XYWingDisplayer(Informer informer, DomainFacade displayer, XYWing xyWing)
             : base(informer, displayer, xyWing, "xywing")
         {
             _pivot = xyWing.Pivot;

@@ -1,4 +1,5 @@
 ﻿using System;
+using Weboku.Application;
 using Weboku.Application.Enums;
 using Weboku.Core.Data;
 using Weboku.Core.Hints;
@@ -14,7 +15,7 @@ namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
         private readonly House _house;
         private string _houseFormated;
 
-        public HiddenSingleDisplayer(Informer informer, Displayer displayer, HiddenSingle hiddenSingle)
+        public HiddenSingleDisplayer(Informer informer, DomainFacade displayer, HiddenSingle hiddenSingle)
             : base(informer, displayer, hiddenSingle, "hidden-single")
         {
             _position = hiddenSingle.Position;

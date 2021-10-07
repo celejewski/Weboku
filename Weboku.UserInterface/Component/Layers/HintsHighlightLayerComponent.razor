@@ -1,5 +1,6 @@
 ﻿@using Weboku.UserInterface.Hints
-@inject Displayer Displayer
+@using Weboku.Application
+@inject DomainFacade Displayer
 
 <div class="layer">
     <div class="hints-highlight">
@@ -25,10 +26,10 @@
 </div>
 
 
-@code { 
+@code {
     protected override void OnInitialized()
     {
-        Displayer.OnChanged += StateHasChanged;
+        Displayer.OnHintDisplayerChanged += StateHasChanged;
     }
 
     private string HighlightedClass(bool isHighlighted)

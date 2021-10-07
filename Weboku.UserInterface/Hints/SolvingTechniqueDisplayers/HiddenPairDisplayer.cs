@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Weboku.Application;
 using Weboku.Core.Data;
 using Weboku.Core.Hints.SolvingTechniques;
 
@@ -6,7 +7,7 @@ namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
 {
     public class HiddenPairDisplayer : HiddenSubsetDisplayer
     {
-        public HiddenPairDisplayer(Informer informer, Displayer displayer, HiddenPair hiddenSubset)
+        public HiddenPairDisplayer(Informer informer, DomainFacade displayer, HiddenPair hiddenSubset)
             : base(informer, displayer, hiddenSubset)
         {
             _locKey = "hidden-pair";

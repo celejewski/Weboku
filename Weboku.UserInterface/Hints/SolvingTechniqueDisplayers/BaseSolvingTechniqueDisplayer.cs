@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Weboku.Application;
 using Weboku.Core.Data;
 using Weboku.Core.Hints.SolvingTechniques;
 
@@ -7,14 +8,14 @@ namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
 {
     public abstract class BaseSolvingTechniqueDisplayer : ISolvingTechniqueDisplayer
     {
-        protected BaseSolvingTechniqueDisplayer(Informer informer, Displayer displayer, string locKey)
+        protected BaseSolvingTechniqueDisplayer(Informer informer, DomainFacade displayer, string locKey)
         {
             _informer = informer;
             _displayer = displayer;
             _locKey = locKey;
         }
 
-        protected BaseSolvingTechniqueDisplayer(Informer informer, Displayer displayer, ISolvingTechnique solvingTechnique, string locKey)
+        protected BaseSolvingTechniqueDisplayer(Informer informer, DomainFacade displayer, ISolvingTechnique solvingTechnique, string locKey)
         {
             _informer = informer;
             _displayer = displayer;
@@ -24,7 +25,7 @@ namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
 
         private readonly ISolvingTechnique _solvingTechnique;
         protected readonly Informer _informer;
-        protected readonly Displayer _displayer;
+        protected readonly DomainFacade _displayer;
         protected string _locKey;
         protected string TitleKey => $"{_locKey}__title";
         protected string DescriptionKey => $"{_locKey}__description";

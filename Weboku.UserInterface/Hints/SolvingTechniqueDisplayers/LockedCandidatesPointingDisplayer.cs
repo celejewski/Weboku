@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Weboku.Application;
 using Weboku.Application.Enums;
 using Weboku.Core.Data;
 using Weboku.Core.Hints.SolvingTechniques;
@@ -14,7 +15,7 @@ namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
         private readonly Value _value;
         private readonly IEnumerable<Position> _positionsToRemoveFrom;
 
-        public LockedCandidatesPointingDisplayer(Informer informer, Displayer displayer, LockedCandidatesPointing lockedCandidatesPointing)
+        public LockedCandidatesPointingDisplayer(Informer informer, DomainFacade displayer, LockedCandidatesPointing lockedCandidatesPointing)
             : base(informer, displayer, lockedCandidatesPointing, "locked-candiates-pointing")
         {
             _block = lockedCandidatesPointing.Block;

@@ -1,8 +1,10 @@
-﻿namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
+﻿using Weboku.Application;
+
+namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
 {
     public class NotFoundDisplayer : BaseSolvingTechniqueDisplayer
     {
-        public NotFoundDisplayer(Informer informer, Displayer displayer) : base(informer, displayer, "no-hint")
+        public NotFoundDisplayer(Informer informer, DomainFacade displayer) : base(informer, displayer, "no-hint")
         {
         }
     }
