@@ -32,9 +32,7 @@ namespace Weboku.Application
                 IsBlockHighlighted[i] = false;
             }
 
-            ClearInputColors();
-            ClearAllCellColors();
-            ClearCandidatesColors();
+            _colorManager.Clear();
             OnHintDisplayerChanged?.Invoke();
         }
 
@@ -88,7 +86,7 @@ namespace Weboku.Application
             }
         }
 
-        public void MarkCell(Color color, Position position) => SetCellColor(position, color);
+        public void MarkCell(Color color, Position position) => _colorManager.SetCellColor(position, color);
 
         public void MarkCells(Color color, IEnumerable<Position> positions)
         {
@@ -100,7 +98,7 @@ namespace Weboku.Application
 
         public void MarkCandidate(Color color, Position position, Value value)
         {
-            SetCandidateColor(position, value, color);
+            _colorManager.SetCandidateColor(position, value, color);
         }
 
         public void MarkCandidates(Color color, IEnumerable<Position> positions, Value value)
@@ -111,7 +109,7 @@ namespace Weboku.Application
             }
         }
 
-        public void MarkInput(Color color, Position position) => SetInputColor(position, color);
+        public void MarkInput(Color color, Position position) => _colorManager.SetInputColor(position, color);
 
 
         public void Mark(Color color, Position position, Value value)

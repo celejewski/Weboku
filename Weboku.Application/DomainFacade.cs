@@ -47,16 +47,11 @@ namespace Weboku.Application
             _solver = new BruteForceSolver();
             _gridGenerator = new PredefinedGridGenerator();
             _colorManager = new ColorManager();
-            _colorManager.OnCellColorChanged += () => OnCellColorChanged?.Invoke();
             _gameTimerManager = new GameTimerManager();
 
             _modalStateManager = new();
             _modalStateManager.OnModalStateChanged += HandleModalStateChanged;
             SetModalState(ModalState.Loading);
-
-
-            _candidateColors = new Color[Position.Cols.Count, Position.Rows.Count, Value.All.Count];
-            _inputColors = new Color[Position.Cols.Count, Position.Rows.Count];
 
             Load();
             StartAutoSave(TimeSpan.FromSeconds(2));
@@ -72,7 +67,7 @@ namespace Weboku.Application
             _historyManager.ClearRedo();
             _historyManager.ClearUndo();
             SetModalState(ModalState.None);
-            ClearAllCellColors();
+            _colorManager.Clear();
             _gameTimerManager.StartTimer();
         }
 

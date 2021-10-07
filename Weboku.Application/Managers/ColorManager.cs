@@ -18,6 +18,13 @@ namespace Weboku.Application.Managers
             OnCellColorChanged?.Invoke();
         }
 
+        public void Clear()
+        {
+            ClearInputColors();
+            ClearCandidatesColors();
+            ClearAllCellColors();
+        }
+
         public void ClearAllCellColors()
         {
             foreach (var position in Position.Positions)
@@ -55,7 +62,7 @@ namespace Weboku.Application.Managers
 
         public event Action OnInputColorChanged;
 
-        private readonly Color[,,] _candidateColors;
+        private readonly Color[,,] _candidateColors = new Color[9, 9, 10];
 
         public void SetCandidateColor(Position position, Value value, Color color)
         {

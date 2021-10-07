@@ -7,7 +7,6 @@ namespace Weboku.Application
     public sealed partial class DomainFacade
     {
         public Color GetCellColor(Position position) => _colorManager.GetCellColor(position);
-        public void SetCellColor(Position position, Color color) => _colorManager.SetCellColor(position, color);
         public void ClearAllCellColors() => _colorManager.ClearAllCellColors();
 
 
@@ -18,16 +17,13 @@ namespace Weboku.Application
         }
 
 
-        public void SetInputColor(Position position, Color color) => _colorManager.SetInputColor(position, color);
-
         public Color GetInputColor(Position position)
         {
-            if (!IsValueLegal(position)) return Color.Illegal;
-
-            return _colorManager.GetInputColor(position);
+            return IsValueLegal(position)
+                ? _colorManager.GetInputColor(position)
+                : Color.Illegal;
         }
 
-        public void ClearInputColors() => _colorManager.ClearInputColors();
 
         public event Action OnInputColorChanged
         {
@@ -35,17 +31,14 @@ namespace Weboku.Application
             remove => _colorManager.OnInputColorChanged -= value;
         }
 
-        public void SetCandidateColor(Position position, Value value, Color color) => _colorManager.SetCandidateColor(position, value, color);
-
-        public void ClearCandidatesColors() => _colorManager.ClearCandidatesColors();
 
         public Color GetCandidateColor(Position position, Value value)
         {
             var isCandidateLegal = !HasCandidate(position, value) || IsCandidateLegal(position, value);
 
-            if (!isCandidateLegal) return Color.Illegal;
-
-            return _colorManager.GetCandidateColor(position, value);
+            return isCandidateLegal
+                ? _colorManager.GetCandidateColor(position, value)
+                : Color.Illegal;
         }
 
         public event Action OnCandidateColorChanged
