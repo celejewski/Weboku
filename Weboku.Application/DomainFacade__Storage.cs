@@ -6,13 +6,13 @@ namespace Weboku.Application
 {
     public sealed partial class DomainFacade
     {
-        private bool _isDirty;
+        private bool _isSaveDirty;
         private Timer _timer;
 
 
         public void Save()
         {
-            if (_isDirty)
+            if (_isSaveDirty)
             {
                 var storageDto = new StorageDto(_grid, Difficulty);
                 _storageManager.Save(storageDto);
@@ -35,7 +35,7 @@ namespace Weboku.Application
         public void StartAutoSave(TimeSpan timeSpan)
         {
             _timer = new Timer();
-            _timer.Elapsed += (o, e) => Save();
+            _timer.Elapsed += (_, _) => Save();
             _timer.Interval = timeSpan.TotalMilliseconds;
             _timer.Start();
         }

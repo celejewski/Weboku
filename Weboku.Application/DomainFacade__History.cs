@@ -15,20 +15,18 @@ namespace Weboku.Application
 
         public void Undo()
         {
-            if (_historyManager.CanUndo)
-            {
-                _grid = _historyManager.Undo(Grid);
-                GridChanged();
-            }
+            if (!_historyManager.CanUndo) return;
+
+            _grid = _historyManager.Undo(Grid);
+            GridChanged();
         }
 
         public void Redo()
         {
-            if (_historyManager.CanRedo)
-            {
-                _grid = _historyManager.Redo(Grid);
-                GridChanged();
-            }
+            if (!_historyManager.CanRedo) return;
+
+            _grid = _historyManager.Redo(Grid);
+            GridChanged();
         }
     }
 }

@@ -30,10 +30,7 @@ namespace Weboku.Application
         private void HandleModalStateChanged()
         {
             var modalState = _modalStateManager.CurrentModalState;
-            if (modalState == ModalState.Share)
-            {
-                _shareManager.UpdateGrid(_grid);
-            }
+            if (modalState == ModalState.Share) _shareManager.UpdateGrid(_grid);
 
             GridChanged();
 

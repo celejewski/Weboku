@@ -180,7 +180,9 @@ namespace Weboku.Application
 
         public string Format(IEnumerable<House> houses, Position pos)
         {
-            return string.Join(LanguageContainerService.Keys["hints__houses-formatted--seperator"], houses.Select(house => Format(house, pos)));
+            var separator = LanguageContainerService.Keys["hints__houses-formatted--seperator"];
+            var housesAsString = houses.Select(house => Format(house, pos));
+            return string.Join(separator, housesAsString);
         }
 
         public void Show()

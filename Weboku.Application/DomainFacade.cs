@@ -130,7 +130,7 @@ namespace Weboku.Application
 
         private void GridChanged()
         {
-            _isDirty = true;
+            _isSaveDirty = true;
             OnGridChanged?.Invoke();
 
             if (_grid is not null && _grid.IsSudokuSolved())

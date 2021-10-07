@@ -25,13 +25,15 @@ namespace Weboku.Application
         private ISolvingTechniqueDisplayer GetNextTechnique()
         {
             var solvingTechnique = GetNextHint();
-            return DisplayTechniqueFactory.MakeDisplayer(this, solvingTechnique);
+            var solvingTechniqueDisplayer = DisplayTechniqueFactory.MakeDisplayer(this, solvingTechnique);
+            return solvingTechniqueDisplayer;
         }
 
         public void ShowHint()
         {
             Clear();
-            GetNextTechnique().DisplayHint();
+            var solvingTechniqueDisplayer = GetNextTechnique();
+            solvingTechniqueDisplayer.DisplayHint();
             Show();
             SetState(HintsState.ShowHint);
         }
