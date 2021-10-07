@@ -89,7 +89,7 @@ namespace Weboku.Application
         public void RestartGame()
         {
             RestartGrid();
-            ClearAllColors();
+            ClearAllCellColors();
             _gameTimerManager.StartTimer();
         }
 

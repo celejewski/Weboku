@@ -26,7 +26,7 @@ namespace Weboku.Application
         private readonly PasteManager _pasteManager;
         private readonly ISolver _solver;
         private readonly IGridGenerator _gridGenerator;
-        private readonly ColorManager _colorManager;
+        private readonly ColorManager _cellColorManager;
 
         public Difficulty Difficulty;
         public event Action OnGridChanged;
@@ -46,8 +46,8 @@ namespace Weboku.Application
             _pasteManager = new PasteManager();
             _solver = new BruteForceSolver();
             _gridGenerator = new PredefinedGridGenerator();
-            _colorManager = new ColorManager();
-            _colorManager.OnChanged += () => OnColorChanged?.Invoke();
+            _cellColorManager = new ColorManager();
+            _cellColorManager.OnChanged += () => OnCellColorChanged?.Invoke();
             _gameTimerManager = new GameTimerManager();
 
             _modalStateManager = new();
@@ -72,7 +72,7 @@ namespace Weboku.Application
             _historyManager.ClearRedo();
             _historyManager.ClearUndo();
             SetModalState(ModalState.None);
-            ClearAllColors();
+            ClearAllCellColors();
             _gameTimerManager.StartTimer();
         }
 

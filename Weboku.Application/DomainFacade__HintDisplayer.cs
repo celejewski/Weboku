@@ -33,7 +33,7 @@ namespace Weboku.Application
             }
 
             ClearInputColors();
-            ClearAllColors();
+            ClearAllCellColors();
             ClearCandidatesColors();
             OnHintDisplayerChanged?.Invoke();
         }
@@ -88,7 +88,7 @@ namespace Weboku.Application
             }
         }
 
-        public void MarkCell(Color color, Position position) => SetColor(position, color);
+        public void MarkCell(Color color, Position position) => SetCellColor(position, color);
 
         public void MarkCells(Color color, IEnumerable<Position> positions)
         {

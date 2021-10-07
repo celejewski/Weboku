@@ -11,12 +11,12 @@
 @code {
     protected override void OnInitialized()
     {
-        DomainFacade.OnColorChanged += StateHasChanged;
+        DomainFacade.OnCellColorChanged += StateHasChanged;
     }
 
     private string GetCssClass(Position position)
     {
-        var cellColor = DomainFacade.GetColor(position);
+        var cellColor = DomainFacade.GetCellColor(position);
         var cssClass = CellColorConverter.ToCssClass(cellColor);
         return cssClass;
     }

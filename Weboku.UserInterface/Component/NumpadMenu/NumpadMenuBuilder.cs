@@ -118,7 +118,7 @@ namespace Weboku.UserInterface.Component.NumpadMenu
 
         public NumpadMenuLabel ClearColors()
         {
-            var relayCommand = new RelayCommand(() => _domainFacade.ClearAllColors());
+            var relayCommand = new RelayCommand(() => _domainFacade.ClearAllCellColors());
             var menuOptionSettings = new MenuOptionSettings
             {
                 Command = relayCommand,
