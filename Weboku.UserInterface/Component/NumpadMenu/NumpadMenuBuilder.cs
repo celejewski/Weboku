@@ -10,23 +10,17 @@ namespace Weboku.UserInterface.Component.NumpadMenu
 {
     public class NumpadMenuBuilder
     {
-        private readonly DomainFacade _gridHistoryManager;
         private readonly NumpadMenuProvider _numpadMenuProvider;
-        private readonly CommandProvider _commandProvider;
         private readonly DomainFacade _domainFacade;
         private readonly HotkeyProvider _hotkeyProvider;
 
         public NumpadMenuBuilder(
-            DomainFacade gridHistoryManager,
             NumpadMenuProvider numpadMenuProvider,
-            CommandProvider commandProvider,
             DomainFacade domainFacade,
             HotkeyProvider hotkeyProvider
         )
         {
-            _gridHistoryManager = gridHistoryManager;
             _numpadMenuProvider = numpadMenuProvider;
-            _commandProvider = commandProvider;
             _domainFacade = domainFacade;
             _hotkeyProvider = hotkeyProvider;
         }
@@ -37,7 +31,12 @@ namespace Weboku.UserInterface.Component.NumpadMenu
         {
             if (!_dict.ContainsKey(value))
             {
-                var selectValue = _commandProvider.SelectValue(value);
+                var selectValue = new RelayCommand
+                (
+                    () => _domainFacade.SelectValue(value),
+                    () => _domainFacade.CanUseValueFilter(value)
+                );
+
                 var menuOptionSettings = new MenuOptionSettings
                 {
                     Command = selectValue,
