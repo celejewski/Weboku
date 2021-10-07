@@ -4,13 +4,13 @@ using Weboku.UserInterface.Component.NumpadMenu.NumpadMenuOptions;
 
 namespace Weboku.UserInterface.Providers
 {
-    public class NumpadMenuProvider : IProvider
+    public class NumpadMenuProvider
     {
         public SelectableMenuItemContainer ActionContainer { get; } = new();
         public SelectableMenuItemContainer FilterContainer { get; } = new();
         public SelectableMenuItemContainer ColorContainer { get; } = new();
 
-        public event Action OnLanguageChanged;
+        public event Action OnChanged;
 
         public bool IsSelected(INumpadMenuItem selectableMenuItemContainer)
         {
@@ -21,9 +21,9 @@ namespace Weboku.UserInterface.Providers
 
         public NumpadMenuProvider()
         {
-            ActionContainer.OnChanged += OnLanguageChanged;
-            FilterContainer.OnChanged += OnLanguageChanged;
-            ColorContainer.OnChanged += OnLanguageChanged;
+            ActionContainer.OnChanged += OnChanged;
+            FilterContainer.OnChanged += OnChanged;
+            ColorContainer.OnChanged += OnChanged;
         }
     }
 }

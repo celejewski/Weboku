@@ -1,21 +1,22 @@
 ﻿@using Weboku.UserInterface.Providers
-@inject TooltipProvider TooltipProvider
+@using Weboku.Application
+@inject DomainFacade TooltipProvider
 @inject ILanguageContainerService Loc
 
 <div @onclick="OnClick"
      class="tooltip
-     @(TooltipProvider.IsVisible ? "tooltip--visible" : String.Empty)">
-    @Loc.Keys[TooltipProvider.Text]
+     @(TooltipProvider.IsTooltipVisible ? "tooltip--visible" : String.Empty)">
+    @Loc.Keys[TooltipProvider.TooltipText]
 </div>
 
 @code {
     protected override void OnInitialized()
     {
-        TooltipProvider.OnLanguageChanged += StateHasChanged;
+        TooltipProvider.OnTooltipChanged += StateHasChanged;
     }
 
     private void OnClick()
     {
-        TooltipProvider.IsVisible = false;
+        TooltipProvider.IsTooltipVisible = false;
     }
 }

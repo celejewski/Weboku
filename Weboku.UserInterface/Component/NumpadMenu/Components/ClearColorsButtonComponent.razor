@@ -4,7 +4,7 @@
 @inject NumpadMenuBuilder NumpadMenuBuilder
 @inject ILanguageContainerService Loc
 @inject DomainFacade SettingsProvider
-@inject TooltipProvider TooltipProvider
+@inject DomainFacade TooltipProvider
 
 <div @onclick="OnClick"
      class="numpad__button numpad__label numpad__clear-colors">
@@ -23,9 +23,9 @@
 
     private Task OnClick()
     {
-        if (TooltipProvider.IsVisible)
+        if (TooltipProvider.IsTooltipVisible)
         {
-            TooltipProvider.Text = _clearColors.Tooltip;
+            TooltipProvider.TooltipText = _clearColors.Tooltip;
         }
 
         return _clearColors.Execute();

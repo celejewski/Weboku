@@ -1,8 +1,9 @@
 ﻿@using Weboku.UserInterface.Providers
 @using Weboku.UserInterface.Component.NumpadMenu.NumpadMenuOptions
 @using Weboku.UserInterface.Converters
+@using Weboku.Application
 @inject NumpadMenuProvider NumpadMenuProvider
-@inject TooltipProvider TooltipProvider
+@inject DomainFacade TooltipProvider
 
 <div @onclick="OnClick"
      class="numpad__button">
@@ -26,9 +27,9 @@
 
     private Task OnClick()
     {
-        if( TooltipProvider.IsVisible )
+        if( TooltipProvider.IsTooltipVisible )
         {
-            TooltipProvider.Text = SelectColorMenuItem.Tooltip;
+            TooltipProvider.TooltipText = SelectColorMenuItem.Tooltip;
         }
 
         return SelectColorMenuItem.Execute();

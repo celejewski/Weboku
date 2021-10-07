@@ -4,7 +4,7 @@
 @inject NumpadMenuProvider NumpadMenuProvider
 @inject ILanguageContainerService Loc
 @inject DomainFacade SettingsProvider
-@inject TooltipProvider TooltipProvider
+@inject DomainFacade TooltipProvider
 
         <div @onclick="OnClick"
              class="numpad__button numpad__label
@@ -20,15 +20,15 @@
 
     protected override void OnInitialized()
     {
-        NumpadMenuProvider.OnLanguageChanged += StateHasChanged;
+        NumpadMenuProvider.OnChanged += StateHasChanged;
         SettingsProvider.OnLanguageChanged += StateHasChanged;
     }
 
     private Task OnClick()
     {
-        if (TooltipProvider.IsVisible)
+        if (TooltipProvider.IsTooltipVisible)
         {
-            TooltipProvider.Text = NumpadMenuLabel.Tooltip;
+            TooltipProvider.TooltipText = NumpadMenuLabel.Tooltip;
         }
 
         return NumpadMenuLabel.Execute();

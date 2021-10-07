@@ -1,19 +1,20 @@
 ﻿@using Weboku.UserInterface.Providers
-@inject TooltipProvider TooltipProvider
+@using Weboku.Application
+@inject DomainFacade TooltipProvider
 
 <div class="tooltip-toggler
-     @(TooltipProvider.IsVisible ? "tooltip-toggler--tooltip-visible" : String.Empty)"
+     @(TooltipProvider.IsTooltipVisible ? "tooltip-toggler--tooltip-visible" : String.Empty)"
      @onclick=OnClick>?</div>
 
 @code {
     private void OnClick()
     {
-        TooltipProvider.IsVisible = !TooltipProvider.IsVisible;
-        TooltipProvider.Text = "tooltip-toggler__tooltip";
+        TooltipProvider.IsTooltipVisible = !TooltipProvider.IsTooltipVisible;
+        TooltipProvider.TooltipText = "tooltip-toggler__tooltip";
     }
 
         protected override void OnInitialized()
         {
-        TooltipProvider.OnLanguageChanged += StateHasChanged;
+        TooltipProvider.OnTooltipChanged += StateHasChanged;
         }
 }
