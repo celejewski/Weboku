@@ -11,7 +11,7 @@
 @code {
     protected override void OnInitialized()
     {
-        TooltipProvider.OnHintsChanged += StateHasChanged;
+        TooltipProvider.OnChanged += StateHasChanged;
     }
 
     private void OnClick()

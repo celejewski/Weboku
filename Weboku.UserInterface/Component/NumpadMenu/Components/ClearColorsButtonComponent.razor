@@ -17,7 +17,7 @@
     protected override void OnInitialized()
     {
         _clearColors = NumpadMenuBuilder.ClearColors();
-        SettingsProvider.OnHintsChanged += StateHasChanged;
+        SettingsProvider.OnChanged += StateHasChanged;
     }
 
     private Task OnClick()

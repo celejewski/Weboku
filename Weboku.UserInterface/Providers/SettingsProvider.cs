@@ -28,14 +28,14 @@ namespace Weboku.UserInterface.Providers
 
         public CultureInfo CultureInfo { get; private set; }
 
-        public event Action OnHintsChanged;
+        public event Action OnChanged;
 
         public void SetLanguage(string name)
         {
             CultureInfo = new CultureInfo(name);
             _localStorageService.SetItem("LanguageName", name);
             _languageContainerService.SetLanguage(CultureInfo);
-            OnHintsChanged?.Invoke();
+            OnChanged?.Invoke();
         }
     }
 }

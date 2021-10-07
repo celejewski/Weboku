@@ -6,13 +6,11 @@ namespace Weboku.UserInterface.Providers
 {
     public class NumpadMenuProvider : IProvider
     {
-        public SelectableMenuItemContainer ActionContainer { get; } = new SelectableMenuItemContainer();
-        public SelectableMenuItemContainer FilterContainer { get; } = new SelectableMenuItemContainer();
-        public SelectableMenuItemContainer ColorContainer { get; } = new SelectableMenuItemContainer();
+        public SelectableMenuItemContainer ActionContainer { get; } = new();
+        public SelectableMenuItemContainer FilterContainer { get; } = new();
+        public SelectableMenuItemContainer ColorContainer { get; } = new();
 
-        public event Action OnHintsChanged;
-
-        public INumpadMenuItem SelectedItem { get; private set; }
+        public event Action OnChanged;
 
         public bool IsSelected(INumpadMenuItem selectableMenuItemContainer)
         {
@@ -21,17 +19,11 @@ namespace Weboku.UserInterface.Providers
                    || ColorContainer.SelectedItem == selectableMenuItemContainer;
         }
 
-        public void SelectItem(INumpadMenuItem selected)
-        {
-            SelectedItem = selected;
-            OnHintsChanged?.Invoke();
-        }
-
         public NumpadMenuProvider()
         {
-            ActionContainer.OnChanged += () => OnHintsChanged();
-            FilterContainer.OnChanged += () => OnHintsChanged();
-            ColorContainer.OnChanged += () => OnHintsChanged();
+            ActionContainer.OnChanged += OnChanged;
+            FilterContainer.OnChanged += OnChanged;
+            ColorContainer.OnChanged += OnChanged;
         }
     }
 }

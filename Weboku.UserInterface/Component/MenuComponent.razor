@@ -55,7 +55,7 @@
 
     protected override void OnInitialized()
     {
-        SettingsProvider.OnHintsChanged += StateHasChanged;
+        SettingsProvider.OnChanged += StateHasChanged;
         ModalProvider.OnModalStateChanged += StateHasChanged;
         base.OnInitialized();
     }

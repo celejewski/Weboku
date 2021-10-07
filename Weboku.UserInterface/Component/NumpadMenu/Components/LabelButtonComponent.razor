@@ -19,8 +19,8 @@
 
     protected override void OnInitialized()
     {
-        NumpadMenuProvider.OnHintsChanged += StateHasChanged;
-        SettingsProvider.OnHintsChanged += StateHasChanged;
+        NumpadMenuProvider.OnChanged += StateHasChanged;
+        SettingsProvider.OnChanged += StateHasChanged;
     }
 
     private Task OnClick()

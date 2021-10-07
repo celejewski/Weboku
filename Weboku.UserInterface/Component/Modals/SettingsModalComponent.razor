@@ -29,6 +29,6 @@
 @code {
     protected override void OnInitialized()
     {
-        SettingsProvider.OnHintsChanged += StateHasChanged;
+        SettingsProvider.OnChanged += StateHasChanged;
     }
 }

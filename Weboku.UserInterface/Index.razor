@@ -6,7 +6,7 @@
 @using Weboku.Application.Enums
 @inject IJSRuntime JSRuntime
 @inject DomainFacade ModalProvider
-@inject PreserveStateProvider PreserveStateProvider
+@inject DomainFacade PreserveStateProvider
 @inject DomainFacade DomainFacade
 
 <div id="wrapper"
@@ -66,10 +66,6 @@
             _afterSecondRender = true;
             await Task.Run(async () =>
             {
-                PreserveStateProvider.Load();
-                PreserveStateProvider.AutoSave(TimeSpan.FromSeconds(2));
-
-
                 if (!string.IsNullOrEmpty(SharedSudoku))
                 {
                     DomainFacade.Pasted = SharedSudoku;

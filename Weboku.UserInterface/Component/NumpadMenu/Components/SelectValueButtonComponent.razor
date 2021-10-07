@@ -13,6 +13,6 @@
     protected override void OnInitialized()
     {
         GridProvider.OnGridChanged += StateHasChanged;
-        NumpadMenuProvider.OnHintsChanged += StateHasChanged;
+        NumpadMenuProvider.OnChanged += StateHasChanged;
     }
 }

@@ -56,7 +56,7 @@
 
     protected override void OnInitialized()
     {
-        SettingsProvider.OnHintsChanged += StateHasChanged;
+        SettingsProvider.OnChanged += StateHasChanged;
         _index = 0;
     }
 

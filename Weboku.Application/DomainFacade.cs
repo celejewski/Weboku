@@ -54,6 +54,9 @@ namespace Weboku.Application
 
             _candidateColors = new Color[Position.Cols.Count, Position.Rows.Count, Value.All.Count];
             _inputColors = new Color[Position.Cols.Count, Position.Rows.Count];
+
+            Load();
+            StartAutoSave(TimeSpan.FromSeconds(2));
         }
 
         public void StartNewGame(Grid grid, Difficulty difficulty = Difficulty.Unknown)
@@ -124,6 +127,7 @@ namespace Weboku.Application
 
         private void GridChanged()
         {
+            _isDirty = true;
             OnGridChanged?.Invoke();
 
             if (_grid is not null && _grid.IsSudokuSolved())
