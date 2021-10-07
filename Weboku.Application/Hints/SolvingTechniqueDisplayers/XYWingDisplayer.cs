@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
-using Weboku.Application;
 using Weboku.Application.Enums;
 using Weboku.Core.Data;
 using Weboku.Core.Hints.SolvingTechniques;
 
-namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
+namespace Weboku.Application.Hints.SolvingTechniqueDisplayers
 {
     public class XYWingDisplayer : BaseSolvingTechniqueDisplayer
     {

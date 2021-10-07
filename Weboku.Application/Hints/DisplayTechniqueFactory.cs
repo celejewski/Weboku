@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Linq;
-using Weboku.Application;
+using Weboku.Application.Hints.SolvingTechniqueDisplayers;
 using Weboku.Core.Hints.SolvingTechniques;
-using Weboku.UserInterface.Hints.SolvingTechniqueDisplayers;
 
-namespace Weboku.UserInterface.Hints
+namespace Weboku.Application.Hints
 {
     public static class DisplayTechniqueFactory
     {

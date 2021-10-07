@@ -1,7 +1,7 @@
 ﻿using System;
 using Weboku.Application;
-using Weboku.UserInterface.Hints;
-using Weboku.UserInterface.Hints.SolvingTechniqueDisplayers;
+using Weboku.Application.Hints;
+using Weboku.Application.Hints.SolvingTechniqueDisplayers;
 
 namespace Weboku.UserInterface.Providers
 {

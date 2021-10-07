@@ -1,6 +1,4 @@
-﻿using Weboku.Application;
-
-namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
+﻿namespace Weboku.Application.Hints.SolvingTechniqueDisplayers
 {
     public class NotFoundDisplayer : BaseSolvingTechniqueDisplayer
     {

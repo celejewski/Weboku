@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Weboku.Application;
 using Weboku.Application.Enums;
 using Weboku.Core.Data;
 using Weboku.Core.Hints;
 using Weboku.Core.Hints.SolvingTechniques;
 
-namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
+namespace Weboku.Application.Hints.SolvingTechniqueDisplayers
 {
     public class NakedSubsetDisplayer : BaseSolvingTechniqueDisplayer
     {

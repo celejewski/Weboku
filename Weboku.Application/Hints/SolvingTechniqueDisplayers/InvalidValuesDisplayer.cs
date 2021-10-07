@@ -1,7 +1,6 @@
-﻿using Weboku.Application;
-using Weboku.Core.Hints.SolvingTechniques;
+﻿using Weboku.Core.Hints.SolvingTechniques;
 
-namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
+namespace Weboku.Application.Hints.SolvingTechniqueDisplayers
 {
     public class InvalidValuesDisplayer : BaseSolvingTechniqueDisplayer
     {

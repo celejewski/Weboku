@@ -1,8 +1,7 @@
-﻿using Weboku.Application;
-using Weboku.Application.Enums;
+﻿using Weboku.Application.Enums;
 using Weboku.Core.Hints.SolvingTechniques;
 
-namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
+namespace Weboku.Application.Hints.SolvingTechniqueDisplayers
 {
     public class TwoStringKiteDisplayer : BaseSolvingTechniqueDisplayer
     {

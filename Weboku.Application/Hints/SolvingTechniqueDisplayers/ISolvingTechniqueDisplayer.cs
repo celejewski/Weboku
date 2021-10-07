@@ -1,6 +1,6 @@
 ﻿using Weboku.Core.Data;
 
-namespace Weboku.UserInterface.Hints.SolvingTechniqueDisplayers
+namespace Weboku.Application.Hints.SolvingTechniqueDisplayers
 {
     public interface ISolvingTechniqueDisplayer
     {

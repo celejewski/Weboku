@@ -1,4 +1,4 @@
-﻿namespace Weboku.UserInterface.Hints
+﻿namespace Weboku.Application.Hints
 {
     public enum HintsState
     {

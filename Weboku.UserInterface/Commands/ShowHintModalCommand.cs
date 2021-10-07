@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Weboku.Application;
+using Weboku.Application.Hints;
 using Weboku.UserInterface.Providers;
 
 namespace Weboku.UserInterface.Commands
@@ -18,7 +19,7 @@ namespace Weboku.UserInterface.Commands
         public Task Execute()
         {
             _modalProvider.SetModalState(Application.Enums.ModalState.Hints);
-            _hintsProvider.SetState(Hints.HintsState.ShowEmpty);
+            _hintsProvider.SetState(HintsState.ShowEmpty);
             return Task.CompletedTask;
         }
 
