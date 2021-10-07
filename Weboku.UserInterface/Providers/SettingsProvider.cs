@@ -1,7 +1,7 @@
-﻿using System;
-using System.Globalization;
-using AKSoftware.Localization.MultiLanguages;
+﻿using AKSoftware.Localization.MultiLanguages;
 using Blazored.LocalStorage;
+using System;
+using System.Globalization;
 
 namespace Weboku.UserInterface.Providers
 {
@@ -28,14 +28,14 @@ namespace Weboku.UserInterface.Providers
 
         public CultureInfo CultureInfo { get; private set; }
 
-        public event Action OnChanged;
+        public event Action OnHintsChanged;
 
         public void SetLanguage(string name)
         {
             CultureInfo = new CultureInfo(name);
             _localStorageService.SetItem("LanguageName", name);
             _languageContainerService.SetLanguage(CultureInfo);
-            OnChanged?.Invoke();
+            OnHintsChanged?.Invoke();
         }
     }
 }

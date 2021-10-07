@@ -2,7 +2,7 @@
 @using Weboku.Application.Enums
 @using Weboku.Application
 @using Weboku.Application.Hints
-@inject HintsProvider HintsProvider
+@inject DomainFacade HintsProvider
 @inject DomainFacade Displayer
 @inject ILanguageContainerService LanguageContainer
 @inject DomainFacade ModalProvider
@@ -112,6 +112,6 @@
 
     protected override void OnInitialized()
     {
-        HintsProvider.OnChanged += StateHasChanged;
+        HintsProvider.OnHintsChanged += StateHasChanged;
     }
 }

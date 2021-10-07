@@ -1,24 +1,19 @@
 ﻿using System;
-using Weboku.Application;
 using Weboku.Application.Hints;
 using Weboku.Application.Hints.SolvingTechniqueDisplayers;
 
-namespace Weboku.UserInterface.Providers
+namespace Weboku.Application
 {
-    public class HintsProvider : IProvider
+    public sealed partial class DomainFacade
     {
-        private readonly DomainFacade _informer;
-        private readonly DomainFacade _displayer;
-        private readonly DomainFacade _domainFacade;
-
-        public event Action OnChanged;
+        public event Action OnHintsChanged;
 
         public HintsState State { get; private set; }
 
         public void SetState(HintsState value)
         {
             State = value;
-            OnChanged?.Invoke();
+            OnHintsChanged?.Invoke();
         }
 
         public bool HasExplanation => _currentTechnique.HasExplanation;
@@ -29,31 +24,24 @@ namespace Weboku.UserInterface.Providers
 
         private ISolvingTechniqueDisplayer GetNextTechnique()
         {
-            return DisplayTechniqueFactory.MakeDisplayer(_displayer, _domainFacade.GetNextHint());
+            var solvingTechnique = GetNextHint();
+            return DisplayTechniqueFactory.MakeDisplayer(this, solvingTechnique);
         }
-
-        public HintsProvider(DomainFacade informer, DomainFacade displayer, DomainFacade domainFacade)
-        {
-            _informer = informer;
-            _displayer = displayer;
-            _domainFacade = domainFacade;
-        }
-
 
         public void ShowHint()
         {
-            _displayer.Clear();
+            Clear();
             GetNextTechnique().DisplayHint();
-            _displayer.Show();
+            Show();
             SetState(HintsState.ShowHint);
         }
 
         public void ShowNextStep()
         {
             _currentTechnique = GetNextTechnique();
-            _displayer.Clear();
+            Clear();
             _currentTechnique.DisplaySolution();
-            _displayer.Show();
+            Show();
             SetState(HintsState.ShowNextStep);
         }
 
@@ -77,16 +65,22 @@ namespace Weboku.UserInterface.Providers
 
         public void Execute()
         {
-            _domainFacade.ExecuteNextHint();
-            _displayer.Hide();
+            ExecuteNextHint();
+            Hide();
             SetState(HintsState.ShowEmpty);
         }
 
         public void Close()
         {
-            _displayer.Clear();
-            _displayer.Hide();
+            Clear();
+            Hide();
             SetState(HintsState.Hide);
+        }
+
+        public void ShowHintModal()
+        {
+            SetModalState(Application.Enums.ModalState.Hints);
+            SetState(HintsState.ShowEmpty);
         }
     }
 }

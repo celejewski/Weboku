@@ -33,7 +33,6 @@ namespace Weboku.UserInterface
                 return domainFacade;
             });
             builder.Services.RegisterProviders();
-            builder.Services.RegisterHints();
             builder.Services.AddCors();
             var app = builder.Build();
             await app.RunAsync();

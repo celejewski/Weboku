@@ -6,7 +6,6 @@
 @inject DomainFacade DomainFacade
 @inject DomainFacade ModalProvider
 @inject SettingsProvider SettingsProvider
-@inject ShowHintModalCommand ShowHintModalCommand
 <div class="menu">
     <div class="menu__item">
         @if (ModalProvider.CurrentModalState == ModalState.CustomSudoku)
@@ -24,7 +23,7 @@
                     <MenuLinkComponent Action="() => ModalProvider.SetModalState(ModalState.Share)">@Loc.Keys["menu__share"]</MenuLinkComponent>
                     <MenuLinkComponent Action="DomainFacade.RestartGame">@Loc.Keys["menu__restart-game"]</MenuLinkComponent>
                     <MenuLinkComponent Action="() => ModalProvider.SetModalState(ModalState.HowToPlay)">@Loc.Keys["menu__how-to-play"]</MenuLinkComponent>
-                    <MenuLinkComponent Command="ShowHintModalCommand">@Loc.Keys["menu__show-hint"]</MenuLinkComponent>
+                    <MenuLinkComponent Action="DomainFacade.ShowHintModal">@Loc.Keys["menu__show-hint"]</MenuLinkComponent>
                 </Content>
             </DropdownMenuComponent>
         }
@@ -56,7 +55,7 @@
 
     protected override void OnInitialized()
     {
-        SettingsProvider.OnChanged += StateHasChanged;
+        SettingsProvider.OnHintsChanged += StateHasChanged;
         ModalProvider.OnModalStateChanged += StateHasChanged;
         base.OnInitialized();
     }
