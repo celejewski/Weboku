@@ -32,7 +32,7 @@ namespace Weboku.Application
                     _toolManager.UseEraser(Grid, position);
                     break;
                 case Tool.Brush:
-                    _toolManager.UseBrush(_cellColorManager, position, PrimaryColor);
+                    _toolManager.UseBrush(_colorManager, position, PrimaryColor);
                     break;
                 default:
                     throw new InvalidOperationException();
@@ -57,7 +57,7 @@ namespace Weboku.Application
                     _toolManager.UseEraser(Grid, position);
                     break;
                 case Tool.Brush:
-                    _toolManager.UseBrush(_cellColorManager, position, SecondaryColor);
+                    _toolManager.UseBrush(_colorManager, position, SecondaryColor);
                     break;
                 default:
                     throw new InvalidOperationException();

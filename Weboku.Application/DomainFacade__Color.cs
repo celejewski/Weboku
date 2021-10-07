@@ -6,82 +6,52 @@ namespace Weboku.Application
 {
     public sealed partial class DomainFacade
     {
-        public Color GetCellColor(Position position)
+        public Color GetCellColor(Position position) => _colorManager.GetCellColor(position);
+        public void SetCellColor(Position position, Color color) => _colorManager.SetCellColor(position, color);
+        public void ClearAllCellColors() => _colorManager.ClearAllCellColors();
+
+
+        public event Action OnCellColorChanged
         {
-            return _cellColorManager.GetColor(position);
+            add => _colorManager.OnCellColorChanged += value;
+            remove => _colorManager.OnCellColorChanged -= value;
         }
 
-        public void SetCellColor(Position position, Color color)
-        {
-            _cellColorManager.SetColor(position, color);
-        }
 
-        public void ClearAllCellColors()
-        {
-            _cellColorManager.ClearAll();
-        }
-
-        public event Action OnCellColorChanged;
-
-
-        private readonly Color[,] _inputColors = new Color[9, 9];
-
-        public void SetInputColor(Position position, Color color)
-        {
-            _inputColors[position.x, position.y] = color;
-            OnInputColorChanged?.Invoke();
-        }
-
+        public void SetInputColor(Position position, Color color) => _colorManager.SetInputColor(position, color);
 
         public Color GetInputColor(Position position)
         {
-            return IsValueLegal(position)
-                ? _inputColors[position.x, position.y]
-                : Color.Illegal;
+            if (!IsValueLegal(position)) return Color.Illegal;
+
+            return _colorManager.GetInputColor(position);
         }
 
-        public void ClearInputColors()
+        public void ClearInputColors() => _colorManager.ClearInputColors();
+
+        public event Action OnInputColorChanged
         {
-            foreach (var position in Position.Positions)
-            {
-                _inputColors[position.x, position.y] = Color.None;
-            }
-
-            OnInputColorChanged?.Invoke();
+            add => _colorManager.OnInputColorChanged += value;
+            remove => _colorManager.OnInputColorChanged -= value;
         }
 
-        public event Action OnInputColorChanged;
+        public void SetCandidateColor(Position position, Value value, Color color) => _colorManager.SetCandidateColor(position, value, color);
 
-        private readonly Color[,,] _candidateColors;
-
-        public void SetColor(Position position, Value value, Color color)
-        {
-            _candidateColors[position.x, position.y, value] = color;
-            OnCandidateColorChanged?.Invoke();
-        }
-
-        public void ClearCandidatesColors()
-        {
-            foreach (var position in Position.Positions)
-            {
-                foreach (var value in Value.All)
-                {
-                    _candidateColors[position.x, position.y, value] = Color.None;
-                }
-            }
-
-            OnCandidateColorChanged?.Invoke();
-        }
+        public void ClearCandidatesColors() => _colorManager.ClearCandidatesColors();
 
         public Color GetCandidateColor(Position position, Value value)
         {
             var isCandidateLegal = !HasCandidate(position, value) || IsCandidateLegal(position, value);
 
-            return isCandidateLegal
-                ? _candidateColors[position.x, position.y, value]
-                : Color.Illegal;
+            if (!isCandidateLegal) return Color.Illegal;
+
+            return _colorManager.GetCandidateColor(position, value);
         }
 
-        public event Action OnCandidateColorChanged;
+        public event Action OnCandidateColorChanged
+        {
+            add => _colorManager.OnCandidateColorChanged += value;
+            remove => _colorManager.OnCandidateColorChanged -= value;
+        }
     }
 }

@@ -36,11 +36,11 @@ namespace Weboku.Application.Managers
 
         public void UseBrush(ColorManager colorManager, Position position, Color color)
         {
-            var colorToSet = colorManager.GetColor(position) == color
+            var colorToSet = colorManager.GetCellColor(position) == color
                 ? Color.None
                 : color;
 
-            colorManager.SetColor(position, colorToSet);
+            colorManager.SetCellColor(position, colorToSet);
         }
     }
 }

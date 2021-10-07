@@ -100,7 +100,7 @@ namespace Weboku.Application
 
         public void MarkCandidate(Color color, Position position, Value value)
         {
-            SetColor(position, value, color);
+            SetCandidateColor(position, value, color);
         }
 
         public void MarkCandidates(Color color, IEnumerable<Position> positions, Value value)
