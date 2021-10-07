@@ -14,7 +14,8 @@ namespace Weboku.Application
         {
             if (_isDirty)
             {
-                _storageManager.Save(new StorageDto(_grid, Difficulty));
+                var storageDto = new StorageDto(_grid, Difficulty);
+                _storageManager.Save(storageDto);
             }
         }
 

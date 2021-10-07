@@ -1,10 +1,11 @@
 ﻿@using Weboku.UserInterface.Providers
 @using Weboku.UserInterface.Component.NumpadMenu.NumpadMenuOptions
+@using Weboku.Application
 @inject NumpadMenuProvider NumpadMenuProvider
 @inject ILanguageContainerService Loc
-@inject SettingsProvider SettingsProvider
+@inject DomainFacade SettingsProvider
 @inject TooltipProvider TooltipProvider
- 
+
         <div @onclick="OnClick"
              class="numpad__button numpad__label
                      @(NumpadMenuProvider.IsSelected(NumpadMenuLabel) ? "numpad__label--selected" : string.Empty)
@@ -19,8 +20,8 @@
 
     protected override void OnInitialized()
     {
-        NumpadMenuProvider.OnChanged += StateHasChanged;
-        SettingsProvider.OnChanged += StateHasChanged;
+        NumpadMenuProvider.OnLanguageChanged += StateHasChanged;
+        SettingsProvider.OnLanguageChanged += StateHasChanged;
     }
 
     private Task OnClick()

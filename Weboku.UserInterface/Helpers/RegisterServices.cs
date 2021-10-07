@@ -11,7 +11,6 @@ namespace Weboku.UserInterface.Helpers
         public static void RegisterLocalization(this IServiceCollection services)
         {
             services.AddLanguageContainer(Assembly.GetExecutingAssembly());
-            services.AddScoped<SettingsProvider>();
         }
 
 

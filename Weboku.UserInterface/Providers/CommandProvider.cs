@@ -5,15 +5,10 @@ namespace Weboku.UserInterface.Providers
 {
     public class CommandProvider
     {
-        private readonly SettingsProvider _settingsProvider;
         private readonly DomainFacade _domainFacade;
 
-        public CommandProvider(
-            SettingsProvider settingsProvider,
-            DomainFacade domainFacade
-        )
+        public CommandProvider(DomainFacade domainFacade)
         {
-            _settingsProvider = settingsProvider;
             _domainFacade = domainFacade;
         }
 
@@ -29,12 +24,6 @@ namespace Weboku.UserInterface.Providers
                 execute,
                 () => _domainFacade.CanUseValueFilter(value)
             );
-        }
-
-
-        public ICommand SetLanguage(string name)
-        {
-            return new SetLanguageCommand(name, _settingsProvider);
         }
     }
 }

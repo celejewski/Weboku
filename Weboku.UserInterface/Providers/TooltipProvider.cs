@@ -13,7 +13,7 @@ namespace Weboku.UserInterface.Providers
             set
             {
                 _text = value;
-                OnChanged?.Invoke();
+                OnLanguageChanged?.Invoke();
             }
         }
 
@@ -23,10 +23,10 @@ namespace Weboku.UserInterface.Providers
             set
             {
                 _isVisible = value;
-                OnChanged?.Invoke();
+                OnLanguageChanged?.Invoke();
             }
         }
 
-        public event Action OnChanged;
+        public event Action OnLanguageChanged;
     }
 }

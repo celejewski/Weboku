@@ -1,8 +1,9 @@
 ﻿@using Weboku.UserInterface.Providers
 @using Weboku.UserInterface.Component.NumpadMenu.NumpadMenuOptions
+@using Weboku.Application
 @inject NumpadMenuBuilder NumpadMenuBuilder
 @inject ILanguageContainerService Loc
-@inject SettingsProvider SettingsProvider
+@inject DomainFacade SettingsProvider
 @inject TooltipProvider TooltipProvider
 
 <div @onclick="OnClick"
@@ -17,7 +18,7 @@
     protected override void OnInitialized()
     {
         _clearColors = NumpadMenuBuilder.ClearColors();
-        SettingsProvider.OnChanged += StateHasChanged;
+        SettingsProvider.OnLanguageChanged += StateHasChanged;
     }
 
     private Task OnClick()

@@ -4,6 +4,6 @@ namespace Weboku.UserInterface.Providers
 {
     public interface IProvider
     {
-        event Action OnChanged;
+        event Action OnLanguageChanged;
     }
 }

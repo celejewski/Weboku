@@ -3,7 +3,7 @@
 @using Weboku.Application
 @inject ILanguageContainerService Loc
 @inject CommandProvider CommandProvider
-@inject SettingsProvider SettingsProvider
+@inject DomainFacade SettingsProvider
 @inject DomainFacade DomainFacade
 
 <ModalTemplateComponent>
@@ -11,10 +11,10 @@
 
     <div class="modal__content">
         <h1 class="text-center">@Loc.Keys["settings__select-language"]</h1>
-        <ModalButtonComponent Command=@(CommandProvider.SetLanguage("en-US"))>
+        <ModalButtonComponent Action=@(() => DomainFacade.SetLanguage("en-US"))>
             English
         </ModalButtonComponent>
-        <ModalButtonComponent Command=@(CommandProvider.SetLanguage("pl-PL"))>
+        <ModalButtonComponent Action=@(() => DomainFacade.SetLanguage("pl-PL"))>
             Polski
         </ModalButtonComponent>
     </div>
@@ -29,6 +29,6 @@
 @code {
     protected override void OnInitialized()
     {
-        SettingsProvider.OnChanged += StateHasChanged;
+        SettingsProvider.OnLanguageChanged += StateHasChanged;
     }
 }

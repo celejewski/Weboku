@@ -17,6 +17,7 @@ namespace Weboku.Application
 {
     public sealed partial class DomainFacade
     {
+        private readonly IStorageProvider _storageProvider;
         private readonly ToolManager _toolManager;
         private readonly HistoryManager _historyManager;
         private readonly HintsProvider _hintsProvider;
@@ -32,7 +33,9 @@ namespace Weboku.Application
 
         public DomainFacade(IStorageProvider storageProvider, string baseUri, ILanguageContainerService languageContainerService)
         {
+            _storageProvider = storageProvider;
             LanguageContainerService = languageContainerService;
+            TryRestoreLanguageName();
 
             _grid = new Grid();
             _toolManager = new ToolManager();

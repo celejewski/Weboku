@@ -10,7 +10,7 @@ namespace Weboku.UserInterface.Providers
         public SelectableMenuItemContainer FilterContainer { get; } = new();
         public SelectableMenuItemContainer ColorContainer { get; } = new();
 
-        public event Action OnChanged;
+        public event Action OnLanguageChanged;
 
         public bool IsSelected(INumpadMenuItem selectableMenuItemContainer)
         {
@@ -21,9 +21,9 @@ namespace Weboku.UserInterface.Providers
 
         public NumpadMenuProvider()
         {
-            ActionContainer.OnChanged += OnChanged;
-            FilterContainer.OnChanged += OnChanged;
-            ColorContainer.OnChanged += OnChanged;
+            ActionContainer.OnChanged += OnLanguageChanged;
+            FilterContainer.OnChanged += OnLanguageChanged;
+            ColorContainer.OnChanged += OnLanguageChanged;
         }
     }
 }

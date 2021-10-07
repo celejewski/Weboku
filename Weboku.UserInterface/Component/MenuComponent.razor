@@ -5,7 +5,7 @@
 @inject ILanguageContainerService Loc
 @inject DomainFacade DomainFacade
 @inject DomainFacade ModalProvider
-@inject SettingsProvider SettingsProvider
+@inject DomainFacade SettingsProvider
 <div class="menu">
     <div class="menu__item">
         @if (ModalProvider.CurrentModalState == ModalState.CustomSudoku)
@@ -55,7 +55,7 @@
 
     protected override void OnInitialized()
     {
-        SettingsProvider.OnChanged += StateHasChanged;
+        SettingsProvider.OnLanguageChanged += StateHasChanged;
         ModalProvider.OnModalStateChanged += StateHasChanged;
         base.OnInitialized();
     }
