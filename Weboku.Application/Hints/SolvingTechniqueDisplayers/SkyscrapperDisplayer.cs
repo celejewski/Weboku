@@ -30,7 +30,7 @@ namespace Weboku.Application.Hints.SolvingTechniqueDisplayers
             _displayer.Mark(Color.Legal, _pos2, _value);
             _displayer.Mark(Color.Legal, _base1, _value);
             _displayer.Mark(Color.Legal, _base2, _value);
-            _displayer.MarkIfHasCandidate(Color.Illegal, Position.GetOtherPositionsSeenBy(_pos1, _pos2), _value);
+            _displayer.MarkIfHasCandidate(Color.Illegal, Position.GetPositionsSeenByAll(_pos1, _pos2), _value);
 
             _displayer.HighlightHouse(_base1, Position.GetHouseOf(_base1, _base2));
             _displayer.HighlightHouse(_pos1, Position.GetHouseOf(_pos1, _base1));

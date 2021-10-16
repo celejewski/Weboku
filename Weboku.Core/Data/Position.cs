@@ -12,7 +12,7 @@ namespace Weboku.Core.Data
         public readonly int Block;
         public readonly int Index;
 
-        private Position(int x, int y)
+        public Position(int x, int y)
         {
             this.X = x;
             this.Y = y;
@@ -36,7 +36,7 @@ namespace Weboku.Core.Data
         public static IReadOnlyList<IReadOnlyList<Position>> Blocks { get; }
         public static IReadOnlyList<IReadOnlyList<Position>> Houses { get; }
 
-        public static IEnumerable<Position> GetOtherPositionsSeenBy(IEnumerable<Position> positions)
+        public static IEnumerable<Position> GetPositionsSeenByAll(IEnumerable<Position> positions)
         {
             foreach (var position1 in Positions)
             {
@@ -47,8 +47,8 @@ namespace Weboku.Core.Data
             }
         }
 
-        public static IEnumerable<Position> GetOtherPositionsSeenBy(params Position[] positions)
-            => GetOtherPositionsSeenBy((IEnumerable<Position>) positions);
+        public static IEnumerable<Position> GetPositionsSeenByAll(params Position[] positions)
+            => GetPositionsSeenByAll((IEnumerable<Position>) positions);
 
         public bool IsSharingHouseWith(Position position)
         {
@@ -77,7 +77,7 @@ namespace Weboku.Core.Data
 
         private static readonly IReadOnlyList<Position>[,] IndexesWhichCanSeePosition = new IReadOnlyList<Position>[9, 9];
 
-        public static IReadOnlyList<Position> GetCoordsWhichCanSeePosition(Position position)
+        public static IReadOnlyList<Position> GetPositionsSeenBy(Position position)
         {
             return IndexesWhichCanSeePosition[position.X, position.Y] ??= CalculateIndexesWhichCanSeePosition(position);
         }
@@ -87,6 +87,7 @@ namespace Weboku.Core.Data
             return Cols[position.X]
                 .Concat(Rows[position.Y])
                 .Concat(Blocks[position.Block])
+                .Where(p => !p.Equals(position))
                 .Distinct()
                 .ToArray();
         }

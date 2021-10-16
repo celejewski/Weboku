@@ -13,7 +13,7 @@ namespace Weboku.Core.Hints.TechniqueFinders
 
             foreach (var pivot in pairPositions)
             {
-                var seenBy = Position.GetCoordsWhichCanSeePosition(pivot)
+                var seenBy = Position.GetPositionsSeenBy(pivot)
                     .Where(pos => grid.GetCandidates(pos).Count() == 2);
 
                 var candidate1 = grid.GetCandidates(pivot).ToValues()[0];
@@ -33,7 +33,7 @@ namespace Weboku.Core.Hints.TechniqueFinders
                         var sharedValue = candidates1.ToValues().FirstOrDefault(value => candidates2.ToValues().Contains(value));
                         if (sharedValue == Value.None) continue;
 
-                        var positionsToRemoveFrom = Position.GetOtherPositionsSeenBy(pos1, pos2)
+                        var positionsToRemoveFrom = Position.GetPositionsSeenByAll(pos1, pos2)
                             .Where(pos => grid.HasCandidate(pos, sharedValue));
 
                         if (positionsToRemoveFrom.Any())

@@ -33,8 +33,8 @@ namespace Weboku.Core.Hints.TechniqueFinders
 
                         if ((col1_1.Y, col1_2.Y) == (col2_1.Y, col2_2.Y))
                         {
-                            var positionsToRemove = Position.GetOtherPositionsSeenBy(col1_1, col2_1)
-                                .Concat(Position.GetOtherPositionsSeenBy(col1_2, col2_2))
+                            var positionsToRemove = Position.GetPositionsSeenByAll(col1_1, col2_1)
+                                .Concat(Position.GetPositionsSeenByAll(col1_2, col2_2))
                                 .Where(pos => grid.HasCandidate(pos, value))
                                 .Except(positions);
 
@@ -63,8 +63,8 @@ namespace Weboku.Core.Hints.TechniqueFinders
 
                         if ((row1_1.X, row1_2.X) == (row2_1.X, row2_2.X))
                         {
-                            var positionsToRemove = Position.GetOtherPositionsSeenBy(row1_1, row2_1)
-                                .Concat(Position.GetOtherPositionsSeenBy(row1_2, row2_2))
+                            var positionsToRemove = Position.GetPositionsSeenByAll(row1_1, row2_1)
+                                .Concat(Position.GetPositionsSeenByAll(row1_2, row2_2))
                                 .Where(pos => grid.HasCandidate(pos, value))
                                 .Except(positions);
 

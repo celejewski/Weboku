@@ -22,13 +22,13 @@ namespace Weboku.Core.Hints.SolvingTechniques
 
         public bool CanExecute(Grid grid)
         {
-            return Position.GetOtherPositionsSeenBy(Pos1, Pos2)
+            return Position.GetPositionsSeenByAll(Pos1, Pos2)
                 .Any(pos => grid.HasCandidate(pos, Value));
         }
 
         public void Execute(Grid grid)
         {
-            foreach (var pos in Position.GetOtherPositionsSeenBy(Pos1, Pos2))
+            foreach (var pos in Position.GetPositionsSeenByAll(Pos1, Pos2))
             {
                 grid.RemoveCandidate(pos, Value);
             }

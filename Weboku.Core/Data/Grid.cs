@@ -33,7 +33,7 @@ namespace Weboku.Core.Data
 
             if (value == Value.None) return;
 
-            foreach (var seenBy in Position.GetCoordsWhichCanSeePosition(position))
+            foreach (var seenBy in Position.GetPositionsSeenBy(position))
             {
                 RemoveCandidate(seenBy, value);
             }
@@ -43,7 +43,7 @@ namespace Weboku.Core.Data
         {
             if (value == Value.None) return true;
 
-            return Position.GetCoordsWhichCanSeePosition(position)
+            return Position.GetPositionsSeenBy(position)
                 .Where(otherPosition => !position.Equals(otherPosition))
                 .All(otherPosition => GetValue(otherPosition) != value);
         }

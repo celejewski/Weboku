@@ -31,7 +31,7 @@ namespace Weboku.Core.Hints.TechniqueFinders
                         var pos1 = house1.First(pos1 => house2.All(pos2 => !pos1.IsSharingHouseWith(pos2)));
                         var pos2 = house2.First(pos2 => house1.All(pos1 => !pos2.IsSharingHouseWith(pos1)));
 
-                        var positionsToRemoveFrom = Position.GetOtherPositionsSeenBy(pos1, pos2)
+                        var positionsToRemoveFrom = Position.GetPositionsSeenByAll(pos1, pos2)
                             .Where(pos => grid.HasCandidate(pos, value));
 
                         var base1 = house1.First(pos => !pos.Equals(pos1));

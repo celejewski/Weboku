@@ -34,7 +34,7 @@ namespace Weboku.Core.Hints.SolvingTechniques
 
         private IEnumerable<Position> GetPositionsToRemove(Grid grid)
         {
-            var positionsInHouses = Position.GetOtherPositionsSeenBy(Positions);
+            var positionsInHouses = Position.GetPositionsSeenByAll(Positions);
 
             return positionsInHouses
                 .Where(pos => Values.Any(value => grid.HasCandidate(pos, value)))
