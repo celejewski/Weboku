@@ -1,4 +1,5 @@
 ﻿using Weboku.Application.Enums;
+using Weboku.Core.Data;
 
 namespace Weboku.UserInterface.Component.NumpadMenu.NumpadMenuOptions
 {

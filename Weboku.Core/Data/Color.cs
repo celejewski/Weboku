@@ -1,4 +1,4 @@
-﻿namespace Weboku.Application.Enums
+﻿namespace Weboku.Core.Data
 {
     public enum Color
     {

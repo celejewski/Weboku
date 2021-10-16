@@ -57,6 +57,9 @@ namespace Weboku.Application
             StartAutoSave(TimeSpan.FromSeconds(2));
         }
 
+
+        public Candidates GetCandidates(Position position) => Grid.GetCandidates(position);
+
         public void StartNewGame(Grid grid, Difficulty difficulty = Difficulty.Unknown)
         {
             ValidatorGrid.EnsureGridIsValid(grid);

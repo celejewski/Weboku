@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Weboku.Application;
 using Weboku.Application.Enums;
+using Weboku.Core.Data;
 using Weboku.UserInterface.Providers;
 
 namespace Weboku.UserInterface.Component.NumpadMenu.NumpadMenuOptions

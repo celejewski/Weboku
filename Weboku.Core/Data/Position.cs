@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Weboku.Core.Exceptions;
 
@@ -9,12 +10,14 @@ namespace Weboku.Core.Data
         public readonly int x;
         public readonly int y;
         public readonly int block;
+        public readonly int index;
 
         private Position(int x, int y)
         {
             this.x = x;
             this.y = y;
             block = (y / 3) * 3 + (x / 3);
+            index = y * 9 + x;
         }
 
         public override string ToString() => $"r{y + 1}c{x + 1}";
@@ -95,7 +98,9 @@ namespace Weboku.Core.Data
             {
                 for (int x = 0; x < 9; x++)
                 {
-                    positions.Add(new Position(x, y));
+                    var position = new Position(x, y);
+                    positions.Add(position);
+                    Console.WriteLine(position.index);
                 }
             }
 
@@ -128,7 +133,7 @@ namespace Weboku.Core.Data
                 .ToList();
         }
 
-        public override int GetHashCode() => y * 9 + x;
+        public override int GetHashCode() => index;
 
         public override bool Equals(object obj)
         {

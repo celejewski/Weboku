@@ -1,33 +1,35 @@
-﻿using System.Linq;
+﻿using System;
+using System.Diagnostics;
+using System.Linq;
 
 namespace Weboku.Core.Data
 {
     public sealed class Grid
     {
-        private readonly Value[,] _values;
-        private readonly Candidates[,] _candidates;
-        private readonly bool[,] _isGivens;
+        private readonly Value[] _values;
+        private readonly Candidates[] _candidates;
+        private readonly bool[] _isGivens;
 
         public Grid()
         {
-            _values = new Value[9, 9];
-            _candidates = new Candidates[9, 9];
-            _isGivens = new bool[9, 9];
+            _values = new Value[81];
+            _candidates = new Candidates[81];
+            _isGivens = new bool[81];
         }
 
-        private Grid(Value[,] inputs, Candidates[,] candidates, bool[,] isGivens)
+        private Grid(Value[] inputs, Candidates[] candidates, bool[] isGivens)
         {
             _values = inputs;
             _candidates = candidates;
             _isGivens = isGivens;
         }
 
-        public Value GetValue(Position position) => _values[position.x, position.y];
+        public Value GetValue(in Position position) => _values[position.index];
 
-        public void SetValue(Position position, Value value)
+        public void SetValue(in Position position, Value value)
         {
-            _values[position.x, position.y] = value;
-            _candidates[position.x, position.y] = Candidates.None;
+            _values[position.index] = value;
+            _candidates[position.index] = Candidates.None;
 
             if (value == Value.None) return;
 
@@ -46,17 +48,17 @@ namespace Weboku.Core.Data
                 .All(otherPosition => GetValue(otherPosition) != value);
         }
 
-        public bool HasCandidate(Position position, Value value)
-            => (_candidates[position.x, position.y] & value.AsCandidates()) == value.AsCandidates();
+        public bool HasCandidate(in Position position, Value value)
+            => (_candidates[position.index] & value.AsCandidates()) == value.AsCandidates();
 
-        public void ToggleCandidate(Position position, Value value)
-            => _candidates[position.x, position.y] ^= value.AsCandidates();
+        public void ToggleCandidate(in Position position, Value value)
+            => _candidates[position.index] ^= value.AsCandidates();
 
-        public void RemoveCandidate(Position position, Value value)
-            => _candidates[position.x, position.y] &= ~value.AsCandidates();
+        public void RemoveCandidate(in Position position, Value value)
+            => _candidates[position.index] &= ~value.AsCandidates();
 
-        public void AddCandidate(Position position, Value value)
-            => _candidates[position.x, position.y] |= value.AsCandidates();
+        public void AddCandidate(in Position position, Value value)
+            => _candidates[position.index] |= value.AsCandidates();
 
         public void ClearAllCandidates()
         {
@@ -66,12 +68,12 @@ namespace Weboku.Core.Data
             }
         }
 
-        public void ClearCandidates(Position position)
+        public void ClearCandidates(in Position position)
         {
-            _candidates[position.x, position.y] = Candidates.None;
+            _candidates[position.index] = Candidates.None;
         }
 
-        public int GetCandidatesCount(Position position)
+        public int GetCandidatesCount(in Position position)
         {
             var candidates = GetCandidates(position);
             return candidates.Count();
@@ -79,55 +81,52 @@ namespace Weboku.Core.Data
 
         public void FillAllLegalCandidates()
         {
+            var stopwatch = Stopwatch.StartNew();
+
             var cols = new Candidates[9];
             var rows = new Candidates[9];
             var blocks = new Candidates[9];
-            for (int x = 0; x < 9; x++)
+            foreach (var position in Position.Positions)
             {
-                for (int y = 0; y < 9; y++)
-                {
-                    var block = (x / 3) + (y / 3) * 3;
-                    var candidates = _values[x, y].AsCandidates();
-                    cols[x] |= candidates;
-                    rows[y] |= candidates;
-                    blocks[block] |= candidates;
-                }
+                var candidates = _values[position.index].AsCandidates();
+                cols[position.x] |= candidates;
+                rows[position.y] |= candidates;
+                blocks[position.block] |= candidates;
             }
 
-            for (int x = 0; x < 9; x++)
+            foreach (var position in Position.Positions)
             {
-                for (int y = 0; y < 9; y++)
-                {
-                    var block = (x / 3) + (y / 3) * 3;
-                    _candidates[x, y] = _values[x, y] != Value.None
-                        ? Candidates.None
-                        : Candidates.All ^ (cols[x] | rows[y] | blocks[block]);
-                }
+                _candidates[position.index] = _values[position.index] != Value.None
+                    ? Candidates.None
+                    : Candidates.All ^ (cols[position.x] | rows[position.y] | blocks[position.block]);
             }
+
+            stopwatch.Stop();
+            Console.WriteLine(stopwatch.Elapsed);
         }
 
         public bool GetIsGiven(Position position)
         {
-            return _isGivens[position.x, position.y];
+            return _isGivens[position.index];
         }
 
         public void SetIsGiven(Position position, bool value)
         {
-            _isGivens[position.x, position.y] = value;
+            _isGivens[position.index] = value;
         }
 
         public Grid Clone()
         {
-            return new Grid(
-                (Value[,]) _values.Clone(),
-                (Candidates[,]) _candidates.Clone(),
-                (bool[,]) _isGivens.Clone()
+            return new(
+                (Value[]) _values.Clone(),
+                (Candidates[]) _candidates.Clone(),
+                (bool[]) _isGivens.Clone()
             );
         }
 
         public bool HasValue(Position pos) => GetValue(pos) != Value.None;
 
-        public Candidates GetCandidates(Position position) => _candidates[position.x, position.y];
+        public Candidates GetCandidates(Position position) => _candidates[position.index];
 
         public void Restart()
         {

@@ -1,58 +1,51 @@
-﻿@using Weboku.UserInterface.Providers
-@using Weboku.UserInterface.Converters
-@using Weboku.Application
-@using Weboku.Application.Enums
+﻿@using Weboku.Application
 @using Weboku.Core.Data
 @inject DomainFacade DomainFacade
 
-<div class="mark__candidate @_currentClass"
-        style="grid-column: @_gridColumn; grid-row: @_gridRow;">
-    @if (_isVisible)
-    {
-        @_text
-    }
-</div>
 
+@foreach( var value in Value.NonEmpty )
+{
+    var z = value - 1;
+    var gridColumn = z % 3 + 1;
+    var gridRow = z / 3 + 1;
+    var isVisible = DomainFacade.HasCandidate(Position, value);
+    var candidateColor = DomainFacade.GetCandidateColor(Position, value);
+
+    <div class="mark__candidate @candidateColor"
+         style="grid-column: @gridColumn; grid-row: @gridRow;">
+        @if( isVisible )
+        {
+            @value.ToString()
+        }
+    </div>
+
+}
 
 @code {
     [Parameter]
-    public Position Pos { get; set; }
-    [Parameter]
-    public Value Value { get; set; }
+    public Position Position { get; set; }
 
-    private int _gridColumn;
-    private int _gridRow;
-
-    private string _text;
-    private bool _isVisible => DomainFacade.HasCandidate(Pos, Value);
-    private bool _wasVisible;
-
-    protected override void OnInitialized()
-    {
-        var z = Value - 1;
-        _gridColumn = z % 3 + 1;
-        _gridRow = z / 3 + 1;
-
-        _text = Value.ToString();
-        DomainFacade.OnGridChanged += StateHasChanged;
-        DomainFacade.OnCandidateColorChanged += StateHasChanged;
-    }
+    private Candidates _previousCandidates = Candidates.None;
+    private bool _colorChanged = false;
 
     protected override bool ShouldRender()
     {
-        return _wasVisible != _isVisible
-            || _previousColor != _currentColor;
+        var currentCandidates = DomainFacade.GetCandidates(Position);
+        if (_previousCandidates == currentCandidates && !_colorChanged) return false;
+
+        _previousCandidates = currentCandidates;
+        _colorChanged = false;
+        return true;
     }
 
-    protected override void OnAfterRender(bool firstRender)
+    protected override void OnInitialized()
     {
-        base.OnAfterRender(firstRender);
-        _wasVisible = _isVisible;
-        _previousColor = _currentColor;
+        DomainFacade.OnGridChanged += StateHasChanged;
+        DomainFacade.OnCandidateColorChanged += () =>
+        {
+            _colorChanged = true;
+            StateHasChanged();
+        };
     }
 
-    private string _currentClass => CellColorConverter.ToCssClass(_currentColor);
-
-    private Color _previousColor;
-    private Color _currentColor => DomainFacade.GetCandidateColor(Pos, Value);
 }

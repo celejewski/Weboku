@@ -69,7 +69,7 @@ namespace Weboku.Core.Hints
                 var stopwatchFindAll = Stopwatch.StartNew();
                 techniques = techniques.ToList();
                 stopwatchFindAll.Stop();
-                global::System.Console.WriteLine($"{stopwatchFindAll.ElapsedMilliseconds}ms - {finder.GetType()} - {techniques.Count()}");
+                global::System.Console.WriteLine($"{stopwatchFindAll.ElapsedMilliseconds}ms - {finder.GetType()} - {techniques.Count()} - ticks: {stopwatchFindAll.ElapsedTicks}ticks");
                 var stopwatchCanExecute = Stopwatch.StartNew();
 #endif
 
