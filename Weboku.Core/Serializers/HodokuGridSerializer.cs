@@ -19,8 +19,8 @@ namespace Weboku.Core.Serializers
                     var value = int.Parse(givens.Substring(pos.Y * 9 + pos.X, 1));
                     if (value != 0)
                     {
-                        grid.SetIsGiven(pos, true);
                         grid.SetValue(pos, value);
+                        grid.SetIsGiven(pos, true);
                     }
                 }
 

@@ -60,7 +60,7 @@ namespace Weboku.Core.Data
         public void AddCandidate(in Position position, Value value)
             => _candidates[position.Index] |= value.AsCandidates();
 
-        public void ClearAllCandidates()
+        public void ClearCandidatesEverywhere()
         {
             foreach (var position in Position.Positions)
             {
@@ -112,6 +112,13 @@ namespace Weboku.Core.Data
 
         public void SetIsGiven(Position position, bool value)
         {
+            var shouldSetNoneValueAsGiven = value && GetValue(position) == Value.None;
+            if (shouldSetNoneValueAsGiven)
+            {
+                var message = $"Can not set {position} as given because cell has no value";
+                throw new InvalidOperationException(message);
+            }
+
             _isGivens[position.Index] = value;
         }
 
@@ -138,7 +145,7 @@ namespace Weboku.Core.Data
                 }
             }
 
-            ClearAllCandidates();
+            ClearCandidatesEverywhere();
         }
 
         public bool IsValueLegal(Position position) => IsCandidateLegal(position, GetValue(position));

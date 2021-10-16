@@ -132,8 +132,8 @@ namespace Weboku.Core.Serializers
             // IsGiven?
             if (bitArray.Get(_counter++))
             {
-                grid.SetIsGiven(pos, true);
                 grid.SetValue(pos, GetValue(bitArray));
+                grid.SetIsGiven(pos, true);
             }
             // IsInput?
             else if (bitArray.Get(_counter++))

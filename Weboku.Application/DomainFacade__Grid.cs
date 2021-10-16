@@ -75,7 +75,7 @@ namespace Weboku.Application
         public void ClearAllCandidates()
         {
             _historyManager.Save(Grid);
-            Grid.ClearAllCandidates();
+            Grid.ClearCandidatesEverywhere();
             GridChanged();
         }
 

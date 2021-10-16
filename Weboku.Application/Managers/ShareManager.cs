@@ -63,7 +63,7 @@ namespace Weboku.Application.Managers
             var output = input.Clone();
             if (sharedFields == SharedFields.Everything) return output;
 
-            output.ClearAllCandidates();
+            output.ClearCandidatesEverywhere();
             if (sharedFields == SharedFields.GivensAndInputs) return output;
 
             foreach (var position in Position.Positions.Where(position => !output.GetIsGiven(position)))
