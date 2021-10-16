@@ -24,12 +24,12 @@ namespace Weboku.Core.Data
             _isGivens = isGivens;
         }
 
-        public Value GetValue(in Position position) => _values[position.index];
+        public Value GetValue(in Position position) => _values[position.Index];
 
         public void SetValue(in Position position, Value value)
         {
-            _values[position.index] = value;
-            _candidates[position.index] = Candidates.None;
+            _values[position.Index] = value;
+            _candidates[position.Index] = Candidates.None;
 
             if (value == Value.None) return;
 
@@ -49,16 +49,16 @@ namespace Weboku.Core.Data
         }
 
         public bool HasCandidate(in Position position, Value value)
-            => (_candidates[position.index] & value.AsCandidates()) == value.AsCandidates();
+            => (_candidates[position.Index] & value.AsCandidates()) == value.AsCandidates();
 
         public void ToggleCandidate(in Position position, Value value)
-            => _candidates[position.index] ^= value.AsCandidates();
+            => _candidates[position.Index] ^= value.AsCandidates();
 
         public void RemoveCandidate(in Position position, Value value)
-            => _candidates[position.index] &= ~value.AsCandidates();
+            => _candidates[position.Index] &= ~value.AsCandidates();
 
         public void AddCandidate(in Position position, Value value)
-            => _candidates[position.index] |= value.AsCandidates();
+            => _candidates[position.Index] |= value.AsCandidates();
 
         public void ClearAllCandidates()
         {
@@ -70,7 +70,7 @@ namespace Weboku.Core.Data
 
         public void ClearCandidates(in Position position)
         {
-            _candidates[position.index] = Candidates.None;
+            _candidates[position.Index] = Candidates.None;
         }
 
         public int GetCandidatesCount(in Position position)
@@ -88,17 +88,17 @@ namespace Weboku.Core.Data
             var blocks = new Candidates[9];
             foreach (var position in Position.Positions)
             {
-                var candidates = _values[position.index].AsCandidates();
-                cols[position.x] |= candidates;
-                rows[position.y] |= candidates;
-                blocks[position.block] |= candidates;
+                var candidates = _values[position.Index].AsCandidates();
+                cols[position.X] |= candidates;
+                rows[position.Y] |= candidates;
+                blocks[position.Block] |= candidates;
             }
 
             foreach (var position in Position.Positions)
             {
-                _candidates[position.index] = _values[position.index] != Value.None
+                _candidates[position.Index] = _values[position.Index] != Value.None
                     ? Candidates.None
-                    : Candidates.All ^ (cols[position.x] | rows[position.y] | blocks[position.block]);
+                    : Candidates.All ^ (cols[position.X] | rows[position.Y] | blocks[position.Block]);
             }
 
             stopwatch.Stop();
@@ -107,12 +107,12 @@ namespace Weboku.Core.Data
 
         public bool GetIsGiven(Position position)
         {
-            return _isGivens[position.index];
+            return _isGivens[position.Index];
         }
 
         public void SetIsGiven(Position position, bool value)
         {
-            _isGivens[position.index] = value;
+            _isGivens[position.Index] = value;
         }
 
         public Grid Clone()
@@ -126,7 +126,7 @@ namespace Weboku.Core.Data
 
         public bool HasValue(Position pos) => GetValue(pos) != Value.None;
 
-        public Candidates GetCandidates(Position position) => _candidates[position.index];
+        public Candidates GetCandidates(Position position) => _candidates[position.Index];
 
         public void Restart()
         {

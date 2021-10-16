@@ -35,9 +35,9 @@ namespace Weboku.Core.Tests.TechniqueFinders
             Assert.All(expectedValues, value => result.Values.Contains(value));
 
             Assert.All(expectedPositions, expectedPos => result.Positions
-                .Any(actualPos => (expectedPos.x, expectedPos.y) == (actualPos.x, actualPos.y)));
+                .Any(actualPos => (expectedPos.x, expectedPos.y) == (actualPos.X, actualPos.Y)));
             Assert.All(result.Positions, actualPos => expectedPositions
-                .Any(expectedPos => (actualPos.x, actualPos.y) == (expectedPos.x, expectedPos.y)));
+                .Any(expectedPos => (actualPos.X, actualPos.Y) == (expectedPos.x, expectedPos.y)));
         }
     }
 }

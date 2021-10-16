@@ -21,9 +21,9 @@ namespace Weboku.Core.Hints.TechniqueFinders
 
                     var possibleSkyscrappers = housesPaired
                         .Where(houses =>
-                            houses.house1.Any(pos1 => houses.house2.Any(pos2 => pos1.x == pos2.x || pos1.y == pos2.y))
+                            houses.house1.Any(pos1 => houses.house2.Any(pos2 => pos1.X == pos2.X || pos1.Y == pos2.Y))
                             && houses.house1.Any(pos1 => houses.house2.All(pos2 => !pos1.IsSharingHouseWith(pos2)))
-                            && houses.house1.Concat(houses.house2).Select(pos => pos.block).Distinct().Count() == 4
+                            && houses.house1.Concat(houses.house2).Select(pos => pos.Block).Distinct().Count() == 4
                         );
 
                     foreach (var (house1, house2) in possibleSkyscrappers)

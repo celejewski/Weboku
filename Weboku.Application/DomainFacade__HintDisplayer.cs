@@ -53,9 +53,9 @@ namespace Weboku.Application
             }
         }
 
-        public void HighlightRow(Position position) => IsRowHighlighted[position.y] = true;
-        public void HighlightCol(Position position) => IsColHighlighted[position.x] = true;
-        public void HighlightBlock(Position position) => HighlightBlock(position.block);
+        public void HighlightRow(Position position) => IsRowHighlighted[position.Y] = true;
+        public void HighlightCol(Position position) => IsColHighlighted[position.X] = true;
+        public void HighlightBlock(Position position) => HighlightBlock(position.Block);
 
         public void HighlightBlock(int block) => IsBlockHighlighted[block] = true;
 
@@ -168,9 +168,9 @@ namespace Weboku.Application
         {
             return house switch
             {
-                House.Row => $"{LanguageContainerService.Keys["hints__house-formatted--row"]}{position.y + 1}",
-                House.Col => $"{LanguageContainerService.Keys["hints__house-formatted--col"]}{position.x + 1}",
-                House.Block => $"{LanguageContainerService.Keys["hints__house-formatted--block"]}{position.block + 1}",
+                House.Row => $"{LanguageContainerService.Keys["hints__house-formatted--row"]}{position.Y + 1}",
+                House.Col => $"{LanguageContainerService.Keys["hints__house-formatted--col"]}{position.X + 1}",
+                House.Block => $"{LanguageContainerService.Keys["hints__house-formatted--block"]}{position.Block + 1}",
                 _ => $"{LanguageContainerService.Keys["hints__house-formatted--none"]}"
             };
         }

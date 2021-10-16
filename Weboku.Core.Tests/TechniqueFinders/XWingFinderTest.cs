@@ -34,7 +34,7 @@ namespace Weboku.Core.Tests.TechniqueFinders
                 (4, 8),
             };
 
-            Assert.True(points.All(point => first.Positions.Any(pos => (pos.x, pos.y) == point)));
+            Assert.True(points.All(point => first.Positions.Any(pos => (pos.X, pos.Y) == point)));
         }
     }
 }

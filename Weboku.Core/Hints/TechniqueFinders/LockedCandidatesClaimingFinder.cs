@@ -22,7 +22,7 @@ namespace Weboku.Core.Hints.TechniqueFinders
                         if (cols[col] > 0 && blockXcols[block, col] == cols[col] && blocks[block] > cols[col])
                         {
                             var positionsToRemove = Position.Blocks[block]
-                                .Where(pos => grid.HasCandidate(pos, value) && pos.x != col);
+                                .Where(pos => grid.HasCandidate(pos, value) && pos.X != col);
                             yield return new LockedCandidatesClaiming(value, positionsToRemove, House.Col);
                         }
 
@@ -30,7 +30,7 @@ namespace Weboku.Core.Hints.TechniqueFinders
                         if (rows[row] > 0 && blockXrows[block, row] == rows[row] && blocks[block] > rows[row])
                         {
                             var positionsToRemove = Position.Blocks[block]
-                                .Where(pos => grid.HasCandidate(pos, value) && pos.y != row);
+                                .Where(pos => grid.HasCandidate(pos, value) && pos.Y != row);
                             yield return new LockedCandidatesClaiming(value, positionsToRemove, House.Row);
                         }
                     }

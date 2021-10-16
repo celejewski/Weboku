@@ -26,10 +26,10 @@ namespace Weboku.Core.Tests.TechniqueFinders
             var expectedInfoPositions = new (int x, int y)[] {(3, 6), (5, 8)};
             (int x, int y) expectedPositionToRemove = (1, 5);
             Assert.All(result.LegalPositions,
-                pos1 => expectedLegalPositions.Any(pos2 => (pos1.x, pos1.y) == (pos2.x, pos2.y)));
+                pos1 => expectedLegalPositions.Any(pos2 => (pos1.X, pos1.Y) == (pos2.x, pos2.y)));
             Assert.All(result.InfoPositions,
-                pos1 => expectedInfoPositions.Any(pos2 => (pos1.x, pos1.y) == (pos2.x, pos2.y)));
-            Assert.Equal((result.PositionToRemove.x, result.PositionToRemove.y), (expectedPositionToRemove.x, expectedPositionToRemove.y));
+                pos1 => expectedInfoPositions.Any(pos2 => (pos1.X, pos1.Y) == (pos2.x, pos2.y)));
+            Assert.Equal((result.PositionToRemove.X, result.PositionToRemove.Y), (expectedPositionToRemove.x, expectedPositionToRemove.y));
         }
     }
 }

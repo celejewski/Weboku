@@ -17,9 +17,9 @@ namespace Weboku.Core.Hints.TechniqueFinders
                 var pos = Position.Positions[i];
                 if (grid.HasValue(pos))
                 {
-                    cols[pos.x]++;
-                    rows[pos.y]++;
-                    blocks[pos.block]++;
+                    cols[pos.X]++;
+                    rows[pos.Y]++;
+                    blocks[pos.Block]++;
                 }
             }
 

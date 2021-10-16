@@ -116,7 +116,7 @@ namespace Weboku.Application.Hints.SolvingTechniqueDisplayers
         {
             var positionsInBlock = Position.Blocks[_block];
             var positionsWithCandidate = positionsInBlock.Where(pos => _informer.HasCandidate(pos, _value));
-            return positionsWithCandidate.First().x == positionsWithCandidate.Last().x ? House.Col : House.Row;
+            return positionsWithCandidate.First().X == positionsWithCandidate.Last().X ? House.Col : House.Row;
         }
     }
 }

@@ -2,7 +2,7 @@
 <div class="layer grid-9x9">
     @foreach( var pos in Position.Positions )
     {
-        string blockParity = pos.block % 2 == 1 ? "even" : "odd";
+        string blockParity = pos.Block % 2 == 1 ? "even" : "odd";
         <div class="grid-9x9__cell
                     grid-9x9__cell--@blockParity
                     @GetCornerStyle(pos)">
@@ -17,19 +17,19 @@
 
     private string GetCornerStyle(Position pos)
     {
-        if( pos.y == 0 && pos.x == 0 )
+        if( pos.Y == 0 && pos.X == 0 )
         {
             return "grid-9x9__cell--top-left-corner";
         }
-        else if( pos.y == 0 && pos.x == 8 )
+        else if( pos.Y == 0 && pos.X == 8 )
         {
             return "grid-9x9__cell--top-right-corner";
         }
-        else if( pos.y == 8 && pos.x == 0 )
+        else if( pos.Y == 8 && pos.X == 0 )
         {
             return "grid-9x9__cell--bottom-left-corner";
         }
-        else if(pos.y == 8 && pos.x == 8 )
+        else if(pos.Y == 8 && pos.X == 8 )
         {
             return "grid-9x9__cell--bottom-right-corner";
         }

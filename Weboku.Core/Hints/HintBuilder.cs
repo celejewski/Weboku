@@ -37,19 +37,19 @@ namespace Weboku.Core.Hints
 
         public HintBuilder HighlightRow(Position position)
         {
-            IsRowHighlighted[position.y] = true;
+            IsRowHighlighted[position.Y] = true;
             return this;
         }
 
         public HintBuilder HighlightCol(Position position)
         {
-            IsColHighlighted[position.x] = true;
+            IsColHighlighted[position.X] = true;
             return this;
         }
 
         public HintBuilder HighlightBlock(Position position)
         {
-            HighlightBlock(position.block);
+            HighlightBlock(position.Block);
             return this;
         }
 
@@ -91,7 +91,7 @@ namespace Weboku.Core.Hints
 
         public HintBuilder MarkCell(Color color, Position position)
         {
-            CellColors[position.x, position.y] = color;
+            CellColors[position.X, position.Y] = color;
             return this;
         }
 
@@ -107,7 +107,7 @@ namespace Weboku.Core.Hints
 
         public HintBuilder MarkCandidate(Color color, Position position, Value value)
         {
-            CandidatesColors[position.x, position.y, value] = color;
+            CandidatesColors[position.X, position.Y, value] = color;
             return this;
         }
 
@@ -123,7 +123,7 @@ namespace Weboku.Core.Hints
 
         public HintBuilder MarkInput(Color color, Position position)
         {
-            InputColors[position.x, position.y] = color;
+            InputColors[position.X, position.Y] = color;
             return this;
         }
 

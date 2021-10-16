@@ -7,20 +7,20 @@ namespace Weboku.Core.Data
 {
     public readonly struct Position
     {
-        public readonly int x;
-        public readonly int y;
-        public readonly int block;
-        public readonly int index;
+        public readonly int X;
+        public readonly int Y;
+        public readonly int Block;
+        public readonly int Index;
 
         private Position(int x, int y)
         {
-            this.x = x;
-            this.y = y;
-            block = (y / 3) * 3 + (x / 3);
-            index = y * 9 + x;
+            this.X = x;
+            this.Y = y;
+            Block = (y / 3) * 3 + (x / 3);
+            Index = y * 9 + x;
         }
 
-        public override string ToString() => $"r{y + 1}c{x + 1}";
+        public override string ToString() => $"r{Y + 1}c{X + 1}";
 
         public static Position TopLeftCornerOfBlock(int block)
         {
@@ -52,9 +52,9 @@ namespace Weboku.Core.Data
 
         public bool IsSharingHouseWith(Position position)
         {
-            return x == position.x
-                   || y == position.y
-                   || block == position.block;
+            return X == position.X
+                   || Y == position.Y
+                   || Block == position.Block;
         }
 
         public static House GetHouseOf(params Position[] positions)
@@ -69,24 +69,24 @@ namespace Weboku.Core.Data
             }
 
             var first = positions.First();
-            if (positions.All(position => position.x == first.x)) return House.Col;
-            if (positions.All(position => position.y == first.y)) return House.Row;
-            if (positions.All(position => position.block == first.block)) return House.Block;
+            if (positions.All(position => position.X == first.X)) return House.Col;
+            if (positions.All(position => position.Y == first.Y)) return House.Row;
+            if (positions.All(position => position.Block == first.Block)) return House.Block;
             return House.None;
         }
 
-        private static readonly IReadOnlyList<Position>[,] _indexesWhichCanSeePosition = new IReadOnlyList<Position>[9, 9];
+        private static readonly IReadOnlyList<Position>[,] IndexesWhichCanSeePosition = new IReadOnlyList<Position>[9, 9];
 
         public static IReadOnlyList<Position> GetCoordsWhichCanSeePosition(Position position)
         {
-            return _indexesWhichCanSeePosition[position.x, position.y] ??= CalculateIndexesWhichCanSeePosition(position);
+            return IndexesWhichCanSeePosition[position.X, position.Y] ??= CalculateIndexesWhichCanSeePosition(position);
         }
 
         private static IReadOnlyList<Position> CalculateIndexesWhichCanSeePosition(Position position)
         {
-            return Cols[position.x]
-                .Concat(Rows[position.y])
-                .Concat(Blocks[position.block])
+            return Cols[position.X]
+                .Concat(Rows[position.Y])
+                .Concat(Blocks[position.Block])
                 .Distinct()
                 .ToArray();
         }
@@ -100,7 +100,7 @@ namespace Weboku.Core.Data
                 {
                     var position = new Position(x, y);
                     positions.Add(position);
-                    Console.WriteLine(position.index);
+                    Console.WriteLine(position.Index);
                 }
             }
 
@@ -118,9 +118,9 @@ namespace Weboku.Core.Data
 
             foreach (var position in Positions)
             {
-                cols[position.x].Add(position);
-                rows[position.y].Add(position);
-                blocks[position.block].Add(position);
+                cols[position.X].Add(position);
+                rows[position.Y].Add(position);
+                blocks[position.Block].Add(position);
             }
 
             Rows = rows;
@@ -133,7 +133,7 @@ namespace Weboku.Core.Data
                 .ToList();
         }
 
-        public override int GetHashCode() => index;
+        public override int GetHashCode() => Index;
 
         public override bool Equals(object obj)
         {
@@ -143,17 +143,9 @@ namespace Weboku.Core.Data
 
         public bool Equals((int x, int y) position)
         {
-            return position == (x, y);
+            return position == (X, Y);
         }
 
-        public bool Equals(Position other) => x == other.x && y == other.y;
-
-        public static IEnumerable<House> GetHouses(IEnumerable<Position> positions)
-        {
-            var first = positions.First();
-            if (positions.All(position => position.x == first.x)) yield return House.Col;
-            if (positions.All(position => position.y == first.y)) yield return House.Row;
-            if (positions.All(position => position.block == first.block)) yield return House.Block;
-        }
+        public bool Equals(Position other) => X == other.X && Y == other.Y;
     }
 }

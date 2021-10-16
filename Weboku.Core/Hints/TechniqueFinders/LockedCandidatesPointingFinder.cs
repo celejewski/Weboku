@@ -23,7 +23,7 @@ namespace Weboku.Core.Hints.TechniqueFinders
                             && cols[col] > blockXcols[block, col]
                             && blocks[block] == blockXcols[block, col])
                         {
-                            var positionsToRemove = Position.Cols[col].Where(pos => pos.block != block).ToList();
+                            var positionsToRemove = Position.Cols[col].Where(pos => pos.Block != block).ToList();
                             yield return new LockedCandidatesPointing(block, value, positionsToRemove);
                         }
 
@@ -32,7 +32,7 @@ namespace Weboku.Core.Hints.TechniqueFinders
                             && rows[row] > blockXrows[block, row]
                             && blocks[block] == blockXrows[block, row])
                         {
-                            var positionsToRemove = Position.Rows[row].Where(pos => pos.block != block).ToList();
+                            var positionsToRemove = Position.Rows[row].Where(pos => pos.Block != block).ToList();
                             yield return new LockedCandidatesPointing(block, value, positionsToRemove);
                         }
                     }

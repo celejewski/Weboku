@@ -27,12 +27,12 @@ namespace Weboku.Core.Hints.TechniqueFinders
                 var pos = Position.Positions[i];
                 var candidates = grid.GetCandidates(pos);
 
-                colsLeft[pos.x] &= ~(colsFoundAlready[pos.x] & candidates);
-                colsFoundAlready[pos.x] |= candidates;
-                rowsLeft[pos.y] &= ~(rowsFoundAlready[pos.y] & candidates);
-                rowsFoundAlready[pos.y] |= candidates;
-                blocksLeft[pos.block] &= ~(blocksFoundAlready[pos.block] & candidates);
-                blocksFoundAlready[pos.block] |= candidates;
+                colsLeft[pos.X] &= ~(colsFoundAlready[pos.X] & candidates);
+                colsFoundAlready[pos.X] |= candidates;
+                rowsLeft[pos.Y] &= ~(rowsFoundAlready[pos.Y] & candidates);
+                rowsFoundAlready[pos.Y] |= candidates;
+                blocksLeft[pos.Block] &= ~(blocksFoundAlready[pos.Block] & candidates);
+                blocksFoundAlready[pos.Block] |= candidates;
             }
 
             var results = new List<ISolvingTechnique>(10);

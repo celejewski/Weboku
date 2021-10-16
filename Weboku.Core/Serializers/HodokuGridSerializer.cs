@@ -16,7 +16,7 @@ namespace Weboku.Core.Serializers
                 var grid = new Grid();
                 foreach (var pos in Position.Positions)
                 {
-                    var value = int.Parse(givens.Substring(pos.y * 9 + pos.x, 1));
+                    var value = int.Parse(givens.Substring(pos.Y * 9 + pos.X, 1));
                     if (value != 0)
                     {
                         grid.SetIsGiven(pos, true);

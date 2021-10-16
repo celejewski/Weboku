@@ -18,9 +18,9 @@ namespace Weboku.Core.Hints
             {
                 if (grid.HasCandidate(pos, value))
                 {
-                    cols[pos.x]++;
-                    rows[pos.y]++;
-                    blocks[pos.block]++;
+                    cols[pos.X]++;
+                    rows[pos.Y]++;
+                    blocks[pos.Block]++;
                 }
             }
 
@@ -40,12 +40,12 @@ namespace Weboku.Core.Hints
             {
                 if (grid.HasCandidate(pos, value))
                 {
-                    cols[pos.x]++;
-                    rows[pos.y]++;
-                    blocks[pos.block]++;
+                    cols[pos.X]++;
+                    rows[pos.Y]++;
+                    blocks[pos.Block]++;
 
-                    blockXcols[pos.block, pos.x]++;
-                    blockXrows[pos.block, pos.y]++;
+                    blockXcols[pos.Block, pos.X]++;
+                    blockXrows[pos.Block, pos.Y]++;
                 }
             }
 
@@ -57,9 +57,9 @@ namespace Weboku.Core.Hints
             return house switch
             {
                 House.None => Enumerable.Empty<Position>(),
-                House.Row => Position.Rows[position.y],
-                House.Col => Position.Cols[position.x],
-                House.Block => Position.Blocks[position.block],
+                House.Row => Position.Rows[position.Y],
+                House.Col => Position.Cols[position.X],
+                House.Block => Position.Blocks[position.Block],
                 _ => throw new ArgumentException("Unknown house"),
             };
         }
@@ -75,17 +75,17 @@ namespace Weboku.Core.Hints
         {
             var first = positions.First();
 
-            if (positions.All(pos => pos.x == first.x))
+            if (positions.All(pos => pos.X == first.X))
             {
                 yield return House.Col;
             }
 
-            if (positions.All(pos => pos.y == first.y))
+            if (positions.All(pos => pos.Y == first.Y))
             {
                 yield return House.Row;
             }
 
-            if (positions.All(pos => pos.block == first.block))
+            if (positions.All(pos => pos.Block == first.Block))
             {
                 yield return House.Block;
             }

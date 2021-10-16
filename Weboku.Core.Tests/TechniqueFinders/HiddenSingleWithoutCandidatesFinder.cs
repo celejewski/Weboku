@@ -33,7 +33,7 @@ namespace Weboku.Core.Tests.TechniqueFinders
             {
                 var x = col - 1;
                 var y = row - 1;
-                var found = techniques.Count(technique => technique.Position.x == x && technique.Position.y == y && technique.Value == value);
+                var found = techniques.Count(technique => technique.Position.X == x && technique.Position.Y == y && technique.Value == value);
                 Assert.True(found > 0);
                 count += found;
             }

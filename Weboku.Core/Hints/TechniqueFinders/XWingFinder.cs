@@ -31,7 +31,7 @@ namespace Weboku.Core.Hints.TechniqueFinders
 
                         var positions = col1.Concat(col2).ToList();
 
-                        if ((col1_1.y, col1_2.y) == (col2_1.y, col2_2.y))
+                        if ((col1_1.Y, col1_2.Y) == (col2_1.Y, col2_2.Y))
                         {
                             var positionsToRemove = Position.GetOtherPositionsSeenBy(col1_1, col2_1)
                                 .Concat(Position.GetOtherPositionsSeenBy(col1_2, col2_2))
@@ -61,7 +61,7 @@ namespace Weboku.Core.Hints.TechniqueFinders
 
                         var positions = row1.Concat(row2).ToList();
 
-                        if ((row1_1.x, row1_2.x) == (row2_1.x, row2_2.x))
+                        if ((row1_1.X, row1_2.X) == (row2_1.X, row2_2.X))
                         {
                             var positionsToRemove = Position.GetOtherPositionsSeenBy(row1_1, row2_1)
                                 .Concat(Position.GetOtherPositionsSeenBy(row1_2, row2_2))

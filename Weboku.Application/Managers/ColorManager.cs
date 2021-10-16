@@ -10,11 +10,11 @@ namespace Weboku.Application.Managers
 
         public event Action OnCellColorChanged;
 
-        public Color GetCellColor(Position position) => _cellColors[position.x, position.y];
+        public Color GetCellColor(Position position) => _cellColors[position.X, position.Y];
 
         public void SetCellColor(Position position, Color color)
         {
-            _cellColors[position.x, position.y] = color;
+            _cellColors[position.X, position.Y] = color;
             OnCellColorChanged?.Invoke();
         }
 
@@ -29,7 +29,7 @@ namespace Weboku.Application.Managers
         {
             foreach (var position in Position.Positions)
             {
-                _cellColors[position.x, position.y] = Color.None;
+                _cellColors[position.X, position.Y] = Color.None;
             }
 
             OnCellColorChanged?.Invoke();
@@ -40,21 +40,21 @@ namespace Weboku.Application.Managers
 
         public void SetInputColor(Position position, Color color)
         {
-            _inputColors[position.x, position.y] = color;
+            _inputColors[position.X, position.Y] = color;
             OnInputColorChanged?.Invoke();
         }
 
 
         public Color GetInputColor(Position position)
         {
-            return _inputColors[position.x, position.y];
+            return _inputColors[position.X, position.Y];
         }
 
         public void ClearInputColors()
         {
             foreach (var position in Position.Positions)
             {
-                _inputColors[position.x, position.y] = Color.None;
+                _inputColors[position.X, position.Y] = Color.None;
             }
 
             OnInputColorChanged?.Invoke();
@@ -66,7 +66,7 @@ namespace Weboku.Application.Managers
 
         public void SetCandidateColor(Position position, Value value, Color color)
         {
-            _candidateColors[position.x, position.y, value] = color;
+            _candidateColors[position.X, position.Y, value] = color;
             OnCandidateColorChanged?.Invoke();
         }
 
@@ -76,7 +76,7 @@ namespace Weboku.Application.Managers
             {
                 foreach (var value in Value.All)
                 {
-                    _candidateColors[position.x, position.y, value] = Color.None;
+                    _candidateColors[position.X, position.Y, value] = Color.None;
                 }
             }
 
@@ -85,7 +85,7 @@ namespace Weboku.Application.Managers
 
         public Color GetCandidateColor(Position position, Value value)
         {
-            return _candidateColors[position.x, position.y, value];
+            return _candidateColors[position.X, position.Y, value];
         }
 
         public event Action OnCandidateColorChanged;

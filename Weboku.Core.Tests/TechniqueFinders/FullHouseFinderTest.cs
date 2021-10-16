@@ -21,7 +21,7 @@ namespace Weboku.Core.Tests.TechniqueFinders
             Assert.Single(results);
             var result = results[0];
             Assert.Equal(Value.Nine, result.Value);
-            Assert.True((6, 4) == (result.Position.x, result.Position.y));
+            Assert.True((6, 4) == (result.Position.X, result.Position.Y));
         }
 
         [Fact]

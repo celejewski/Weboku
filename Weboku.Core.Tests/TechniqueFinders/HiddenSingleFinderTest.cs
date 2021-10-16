@@ -24,7 +24,7 @@ namespace Weboku.Core.Tests.TechniqueFinders
             var result = results[0];
             Assert.Equal(Value.Seven, result.Value);
             Assert.True(result.House == House.Block || result.House == House.Col);
-            Assert.True((1, 2) == (result.Position.x, result.Position.y));
+            Assert.True((1, 2) == (result.Position.X, result.Position.Y));
         }
 
         [Fact]

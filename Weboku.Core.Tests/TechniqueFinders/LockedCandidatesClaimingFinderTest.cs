@@ -39,7 +39,7 @@ namespace Weboku.Core.Tests.TechniqueFinders
             {
                 var x = c - 1;
                 var y = r - 1;
-                Assert.Contains(result.PositionsToRemoveCandidate, pos => (pos.x, pos.y) == (x, y));
+                Assert.Contains(result.PositionsToRemoveCandidate, pos => (pos.X, pos.Y) == (x, y));
             }
         }
     }
