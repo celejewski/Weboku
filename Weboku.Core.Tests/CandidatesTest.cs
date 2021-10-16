@@ -1,34 +1,58 @@
-﻿using Weboku.Core.Data;
+﻿using FluentAssertions;
+using Weboku.Core.Data;
 using Xunit;
 
 namespace Weboku.Core.Tests
 {
     public class CandidatesTest
     {
-        [Fact]
-        public void CountIsValid()
+        [Theory]
+        [InlineData(Candidates.None, 0)]
+        [InlineData(Candidates.One, 1)]
+        [InlineData(Candidates.One | Candidates.Two, 2)]
+        [InlineData(Candidates.One | Candidates.Three, 2)]
+        [InlineData(Candidates.One | Candidates.Nine | Candidates.Five, 3)]
+        [InlineData(Candidates.All, 9)]
+        public void Candidates_Count_should_depend_on_selected_candidates(Candidates candidates, int expected)
         {
-            Assert.Equal(0, Candidates.None.Count());
-            Assert.Equal(1, Candidates.One.Count());
-            Assert.Equal(1, Candidates.Five.Count());
-            Assert.Equal(2, (Candidates.One | Candidates.Two).Count());
-            Assert.Equal(2, (Candidates.One | Candidates.Five).Count());
-            Assert.Equal(2, (Candidates.One | Candidates.Five).Count());
-            Assert.Equal(9, (Candidates.All).Count());
+            var actual = candidates.Count();
+            actual.Should().Be(expected);
         }
 
         [Fact]
-        public void ToReadOnlyListIsValid()
+        public void ToValues_should_return_empty_list_for_none_candidates()
         {
-            Assert.Single(Candidates.One.ToValues());
-            Assert.Contains(Value.One, Candidates.One.ToValues());
+            var candidates = Candidates.None;
+            var actual = candidates.ToValues();
+            actual.Should().BeEmpty();
+        }
 
-            var oneAndTwo = (Candidates.Two | Candidates.One).ToValues();
-            Assert.Equal(2, oneAndTwo.Count);
-            Assert.Contains(Value.One, oneAndTwo);
-            Assert.Contains(Value.Two, oneAndTwo);
-            Assert.DoesNotContain(Value.Three, oneAndTwo);
-            Assert.DoesNotContain(Value.Nine, oneAndTwo);
+        [Fact]
+        public void ToValues_should_return_only_selected_candidates()
+        {
+            var candidates = Candidates.One | Candidates.Five;
+            var actual = candidates.ToValues();
+            actual.Should().HaveCount(2);
+            actual.Should().Contain(Value.One);
+            actual.Should().Contain(Value.Five);
+        }
+
+        [Fact]
+        public void ToValues_should_return_all_values_for_all_candidates()
+        {
+            var candidates = Candidates.All;
+            var actual = candidates.ToValues();
+
+            actual.Should().Contain(Value.One);
+            actual.Should().Contain(Value.Two);
+            actual.Should().Contain(Value.Three);
+            actual.Should().Contain(Value.Four);
+            actual.Should().Contain(Value.Five);
+            actual.Should().Contain(Value.Six);
+            actual.Should().Contain(Value.Seven);
+            actual.Should().Contain(Value.Eight);
+            actual.Should().Contain(Value.Nine);
+            actual.Should().HaveCount(9);
         }
     }
 }
