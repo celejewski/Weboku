@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using System;
 using System.Linq;
 using Weboku.Core.Data;
 using Xunit;
@@ -25,31 +26,40 @@ namespace Weboku.Core.Tests
         }
 
         [Fact]
-        public void Positions_with_same_x_share_row_house()
+        public void GetHouseOf_positions_with_same_x_share_row_house()
         {
             var actual = Position.GetHouseOf(new Position(0, 0), new Position(8, 0));
             actual.Should().Be(House.Row);
         }
 
         [Fact]
-        public void Positions_with_same_y_share_col_house()
+        public void GetHouseOf_positions_with_same_y_share_col_house()
         {
             var actual = Position.GetHouseOf(new Position(0, 8), new Position(0, 8));
             actual.Should().Be(House.Col);
         }
 
         [Fact]
-        public void Positions_with_same_block_share_block_house()
+        public void GetHouseOf_positions_with_same_block_share_block_house()
         {
             var actual = Position.GetHouseOf(new Position(0, 0), new Position(2, 2));
             actual.Should().Be(House.Block);
         }
 
         [Fact]
-        public void Positions_with_different_x_y_and_block_have_none_house()
+        public void GetHouseOf_positions_with_different_x_y_and_block_have_none_house()
         {
             var actual = Position.GetHouseOf(new Position(0, 0), new Position(8, 8));
             actual.Should().Be(House.None);
+        }
+
+        [Fact]
+        public void GetHouseOf_should_throw_exception_for_empty_collection()
+        {
+            var positions = new Position[0];
+            Action action = () => Position.GetHouseOf(positions);
+
+            action.Should().Throw<Exception>();
         }
 
         [Fact]
@@ -135,6 +145,59 @@ namespace Weboku.Core.Tests
             actual.Should().Contain(new Position(2, 0));
             actual.Should().Contain(new Position(2, 1));
             actual.Should().Contain(new Position(2, 2));
+        }
+
+        [Fact]
+        public void Equals_should_return_true_when_positions_have_same_x_and_y()
+        {
+            var sut = new Position(0, 0);
+
+            sut.Equals(new Position(0, 0)).Should().BeTrue();
+        }
+
+        [Theory]
+        [InlineData(0, 1)]
+        [InlineData(1, 0)]
+        [InlineData(1, 1)]
+        public void Equals_should_return_false_when_positions_have_different_x_or_y(int x, int y)
+        {
+            var sut = new Position(0, 0);
+            sut.Equals(new Position(x, y)).Should().BeFalse();
+        }
+
+        [Fact]
+        public void Equals_is_false_when_argumnet_is_not_position_or_ValueTuple()
+        {
+            var sut = new Position(0, 0);
+            sut.Equals(new object()).Should().BeFalse();
+        }
+
+        [Fact]
+        public void Equals_using_ValueTuple_should_return_true_when_positions_have_same_x_and_y()
+        {
+            var sut = new Position(0, 0);
+
+            sut.Equals(new Position(0, 0)).Should().BeTrue();
+        }
+
+        [Theory]
+        [InlineData(0, 1)]
+        [InlineData(1, 0)]
+        [InlineData(1, 1)]
+        public void Equals_using_ValueTuple_should_return_false_when_positions_have_different_x_or_y(int x, int y)
+        {
+            var sut = new Position(0, 0);
+            sut.Equals((x, y)).Should().BeFalse();
+        }
+
+        [Theory]
+        [InlineData(0, 0, "r1c1")]
+        [InlineData(8, 8, "r9c9")]
+        public void ToString_should_return_formated_x_y(int x, int y, string expected)
+        {
+            var sut = new Position(x, y);
+
+            sut.ToString().Should().Be(expected);
         }
     }
 }
